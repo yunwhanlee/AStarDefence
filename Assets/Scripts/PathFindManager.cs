@@ -25,7 +25,7 @@ public class PathFindManager : MonoBehaviour
     public GameObject targetPosObj;
     public GameObject pathIconPf;
     public Vector2Int topLeft, bottomRight, startPos, targetPos;
-    public List<Node> FinalNodeList;
+    [field: SerializeField] public List<Node> FinalNodeList {get; private set;}
 
     int sizeX, sizeY;
     Node[,] NodeArray;
@@ -46,8 +46,10 @@ public class PathFindManager : MonoBehaviour
         //* 以前にルート表示のアイコン 生成
         for(int i = 0; i < PATH_ICON_CREATE_CNT; i ++)
             Instantiate(pathIconPf, pathIconObjGroup);
+
         //* 以前にルート表示のアイコン 初期化
         initPathIconsPos();
+        PathFinding();
     }
 
     #region EVENT BUTTON
@@ -99,6 +101,8 @@ public class PathFindManager : MonoBehaviour
             // 마지막
             if (CurNode == TargetNode) {
                 Node TargetCurNode = TargetNode;
+                var goal = new Node(false, Config.GOAL_POS.x, Config.GOAL_POS.y);
+                FinalNodeList.Add(goal);
                 while (TargetCurNode != StartNode)
                 {
                     FinalNodeList.Add(TargetCurNode);

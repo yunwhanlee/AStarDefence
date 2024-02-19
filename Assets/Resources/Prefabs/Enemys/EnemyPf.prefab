@@ -143,3 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 113e370794aeeb84582db3d075265b69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Name>k__BackingField: 
+  <Lv>k__BackingField: 1
+  <Hp>k__BackingField: 10
+  <Speed>k__BackingField: 2
+  <NodeIdx>k__BackingField: 1

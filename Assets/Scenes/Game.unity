@@ -713,7 +713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyObjGroup: {fileID: 105093715}
-  enemyPf: {fileID: 4337249620204798548, guid: ab8e332f6a93a564da9e3f933371885e, type: 3}
+  enemyPf: {fileID: 1618780097217028791, guid: ab8e332f6a93a564da9e3f933371885e, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3752,7 +3752,7 @@ MonoBehaviour:
   bottomRight: {x: 0, y: 0}
   startPos: {x: 0, y: 0}
   targetPos: {x: 0, y: 0}
-  FinalNodeList: []
+  <FinalNodeList>k__BackingField: []
 --- !u!1 &2114048010
 GameObject:
   m_ObjectHideFlags: 0

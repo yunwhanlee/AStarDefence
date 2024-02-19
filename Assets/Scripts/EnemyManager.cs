@@ -5,10 +5,10 @@ using UnityEngine.Pool;
 
 public class EnemyManager : MonoBehaviour {
     public Transform enemyObjGroup;
-    public GameObject enemyPf;
-    IObjectPool<GameObject> pool;    public IObjectPool<GameObject> Pool {get => pool;}
+    public Enemy enemyPf;
+    IObjectPool<Enemy> pool;    public IObjectPool<Enemy> Pool {get => pool;}
 
-    void Awake() => pool = new ObjectPool<GameObject>(
+    void Awake() => pool = new ObjectPool<Enemy>(
         create, onGet, onRelease, onDestroyBlock, maxSize: 20
     );
 
@@ -17,32 +17,32 @@ public class EnemyManager : MonoBehaviour {
     }
 
 #region OBJECT POOL
-    private GameObject create() {
-        GameObject enemy = Instantiate(enemyPf, enemyObjGroup);
+    private Enemy create() {
+        Enemy enemy = Instantiate(enemyPf, enemyObjGroup);
         return enemy;
     }
-    private void onGet(GameObject obj) { //* 使う
-        obj.SetActive(true);
+    private void onGet(Enemy obj) { //* 使う
+        obj.gameObject.SetActive(true);
     }
-    private void onRelease(GameObject obj) { //* 戻す
-        obj.SetActive(false);
+    private void onRelease(Enemy obj) { //* 戻す
+        obj.gameObject.SetActive(false);
     }
-    private void onDestroyBlock(GameObject obj) => Destroy(obj);
+    private void onDestroyBlock(Enemy obj) => Destroy(obj);
 #endregion
 
 #region FUNC
     public IEnumerator coCreateEnemy() {
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < Config.CREATE_ENEMY_CNT; i++) {
             init();
             yield return new WaitForSeconds(0.5f);
         }
     }
     private void init() {
         //* 呼出
-        GameObject obj = pool.Get();
-        obj.name = "enemy";
-        var startPos = GM._.pfm.startPos;
-        obj.transform.localPosition = new Vector2(startPos.x, startPos.y);
+        Enemy enemy = pool.Get();
+        enemy.regist(pool);
+        enemy.name = "enemy";
+        enemy.transform.position = new Vector2(Config.START_POS.x, Config.START_POS.y);
     }
 #endregion
 }
