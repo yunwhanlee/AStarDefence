@@ -12,10 +12,6 @@ public class EnemyManager : MonoBehaviour {
         create, onGet, onRelease, onDestroyBlock, maxSize: 20
     );
 
-    void Start() {
-        StartCoroutine(coCreateEnemy());
-    }
-
 #region OBJECT POOL
     private Enemy create() {
         Enemy enemy = Instantiate(enemyPf, enemyObjGroup);
@@ -28,6 +24,13 @@ public class EnemyManager : MonoBehaviour {
         obj.gameObject.SetActive(false);
     }
     private void onDestroyBlock(Enemy obj) => Destroy(obj);
+#endregion
+
+#region EVENT
+    public void onClickStartBtn() {
+        GM._.pfm.pathFinding();
+        StartCoroutine(coCreateEnemy());
+    }
 #endregion
 
 #region FUNC

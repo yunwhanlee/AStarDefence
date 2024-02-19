@@ -32,9 +32,7 @@ public class PathFindManager : MonoBehaviour
     Node StartNode, TargetNode, CurNode;
     List<Node> OpenList, ClosedList;
 
-
-    void Start()
-    {
+    void Start() {
         //* Set Position
         Vector2Int start = new Vector2Int((int)Mathf.Round(startPosObj.transform.position.x), (int)Mathf.Round(startPosObj.transform.position.y));
         Vector2Int goal = new Vector2Int((int)Mathf.Round(targetPosObj.transform.position.x), (int)Mathf.Round(targetPosObj.transform.position.y));
@@ -49,17 +47,16 @@ public class PathFindManager : MonoBehaviour
 
         //* 以前にルート表示のアイコン 初期化
         initPathIconsPos();
-        PathFinding();
     }
 
-    #region EVENT BUTTON
+    #region EVENT
         public void onClickPathFindBtn() {
-            PathFinding();
+            pathFinding();
         }
     #endregion
 
     #region A* ACLGOLISM
-    private void PathFinding() {
+    public void pathFinding() {
         // NodeArray의 크기 정해주고, isWall, x, y 대입
         sizeX = bottomRight.x - topLeft.x + 1;
         sizeY = topLeft.y - bottomRight.y + 1;
