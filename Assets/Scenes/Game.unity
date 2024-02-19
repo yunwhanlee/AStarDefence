@@ -630,7 +630,7 @@ Transform:
   m_GameObject: {fileID: 485148242}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 4, z: 0}
+  m_LocalPosition: {x: 8, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1473,7 +1473,7 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: -2, y: 8, z: 0}
+  - first: {x: 2, y: 8, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 0
@@ -1572,7 +1572,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -764, y: -429}
+  m_AnchoredPosition: {x: 0, y: -429}
   m_SizeDelta: {x: 300, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1079178022
@@ -3516,7 +3516,7 @@ Transform:
   m_GameObject: {fileID: 1693734225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: -4, z: 0}
+  m_LocalPosition: {x: -8, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3636,8 +3636,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPosObj: {fileID: 1693734225}
   targetPosObj: {fileID: 485148242}
-  bottomLeft: {x: 0, y: 0}
-  topRight: {x: 0, y: 0}
+  topLeft: {x: 0, y: 0}
+  bottomRight: {x: 0, y: 0}
   startPos: {x: 0, y: 0}
   targetPos: {x: 0, y: 0}
   FinalNodeList:
