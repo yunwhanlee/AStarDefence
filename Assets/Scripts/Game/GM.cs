@@ -11,6 +11,7 @@ public class GM : MonoBehaviour {
     public PathFindManager pfm;
     public EnemyManager emm;
     public TileMapController tmc;
+    public ActionBarUIManager actBar;
 
     void Awake() {
         _ = this; //* Global化 値 代入
