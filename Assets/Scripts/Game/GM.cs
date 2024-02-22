@@ -12,11 +12,16 @@ public class GM : MonoBehaviour {
     public EnemyManager emm;
     public TileMapController tmc;
     public ActionBarUIManager actBar;
+    public TowerManager tm;
 
     void Awake() {
-        _ = this; //* Global化 値 代入
-    }
-
-    void Start() {
+        //* Global化 値 代入
+        _ = this; 
+        //* 外部のスクリプト 初期化
+        pfm = GameObject.Find("PathFindManager").GetComponent<PathFindManager>();
+        emm = GameObject.Find("EnemyManager").GetComponent<EnemyManager>();
+        tmc = GameObject.Find("TileMapController").GetComponent<TileMapController>();
+        actBar = GameObject.Find("ActionBarUIManager").GetComponent<ActionBarUIManager>();
+        tm = GameObject.Find("TowerManager").GetComponent<TowerManager>();
     }
 }

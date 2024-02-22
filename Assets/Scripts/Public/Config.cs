@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CollectionScripts;
 using UnityEngine;
 
 public class Config : MonoBehaviour
