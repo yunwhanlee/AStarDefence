@@ -16,6 +16,10 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
 #region EVENT BUTTON
+    public void onClickBoardIconBtn() {
+        GM._.tmc.InstallBoard();
+        ActiveIconsByLayer(Enum.Layer.Board);
+    }
     public void onClickRandomTowerIconBtn() {
         GM._.tm.CreateTower(TowerType.Random);
     }
@@ -37,7 +41,7 @@ public class ActionBarUIManager : MonoBehaviour {
             IconBtns[i].gameObject.SetActive(false);
     }
 
-    public void activeIconsByLayer(int layer) {
+    public void ActiveIconsByLayer(int layer) {
         //* リセット
         clearIcons();
 
@@ -48,7 +52,7 @@ public class ActionBarUIManager : MonoBehaviour {
                 break;
             case Enum.Layer.Board:
                 IconBtns[(int)ICON.Tower].gameObject.SetActive(true);
-                IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
+                IconBtns[(int)ICON.Delete].gameObject.SetActive(true);                
                 break;
             case Enum.Layer.CCTower:
                 IconBtns[(int)ICON.Upgrade].gameObject.SetActive(true);

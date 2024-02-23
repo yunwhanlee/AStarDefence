@@ -20,9 +20,13 @@ public class TileMapController : MonoBehaviour {
     [field: SerializeField] public TileBase SelectArea {get; set;}
     [field: SerializeField] public Vector2Int CurSelectPos {get; set;}
 
+    [Header("Board Tile Map")]
+    public Tilemap BoardTileMap;
+    [field: SerializeField] public TileBase[] Boards {get; set;}
+
     void Start() {
         WallSpawnCnt = 0;
-        spawnWall();
+        SpawnWall();
     }
 
     void Update() {
@@ -75,22 +79,22 @@ public class TileMapController : MonoBehaviour {
 
             Debug.Log("hit.collider= " + (hit.collider == null));
             if(hit.collider == null) {
-                actBar.activeIconsByLayer(Enum.Layer.Default);
+                actBar.ActiveIconsByLayer(Enum.Layer.Default);
             }
             else {
                 int layer = hit.collider.gameObject.layer;
                 switch(layer) {
                     case Enum.Layer.Wall:
-                        actBar.activeIconsByLayer(layer);
+                        actBar.ActiveIconsByLayer(layer);
                         break;
                     case Enum.Layer.Board:
-                        actBar.activeIconsByLayer(layer);
+                        actBar.ActiveIconsByLayer(layer);
                         break;
                     case Enum.Layer.CCTower:
-                        actBar.activeIconsByLayer(layer);
+                        actBar.ActiveIconsByLayer(layer);
                         break;
                     default:
-                        actBar.activeIconsByLayer(Enum.Layer.Default);
+                        actBar.ActiveIconsByLayer(Enum.Layer.Default);
                         break;
                 }
             }
@@ -98,7 +102,7 @@ public class TileMapController : MonoBehaviour {
 #endregion
 
 #region FUNC
-    public void spawnWall() {
+    private void SpawnWall() {
         var sp = Config.START_POS;
         var gp = Config.GOAL_POS;
         const int ofs = 1;
@@ -120,8 +124,13 @@ public class TileMapController : MonoBehaviour {
 
         //* 生成数が足りなかったら、再起呼び出す
         if(WallSpawnCnt < WallSpawnMax) {
-            spawnWall();
+            SpawnWall();
         }
+    }
+    public void InstallBoard() {
+        Debug.Log("InstallBoard()::");
+        var pos = new Vector3Int(CurSelectPos.y, CurSelectPos.x, 0);
+        BoardTileMap.SetTile(pos, Boards[Random.Range(0, Boards.Length)]);
     }
 #endregion
 }

@@ -63,16 +63,18 @@ public class PathFindManager : MonoBehaviour
         Debug.Log("sizeX= " + sizeX + ", sizeY= " + sizeY);
         NodeArray = new Node[sizeX, sizeY];
 
+        //* 壁
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
                 bool isWall = false;
                 foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + topLeft.x, topLeft.y - j), 0.4f))
-                    if (col.gameObject.layer == LayerMask.NameToLayer("Wall")) isWall = true;
+                    if (col.gameObject.layer == Enum.Layer.Wall
+                    ||  col.gameObject.layer == Enum.Layer.Board)
+                        isWall = true;
 
                 NodeArray[i, j] = new Node(isWall, i + topLeft.x, topLeft.y - j);
             }
         }
-        
 
         // 시작과 끝 노드, 열린리스트와 닫힌리스트, 마지막리스트 초기화
         StartNode = NodeArray[startPos.x - topLeft.x, startPos.y - topLeft.y];
