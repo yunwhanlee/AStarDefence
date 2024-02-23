@@ -28,7 +28,7 @@ public class EnemyManager : MonoBehaviour {
 
 #region EVENT
     public void onClickStartBtn() {
-        GM._.pfm.pathFinding();
+        GM._.pfm.PathFinding();
         StartCoroutine(coCreateEnemy());
     }
 #endregion

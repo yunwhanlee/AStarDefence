@@ -377,7 +377,7 @@ MonoBehaviour:
     Key: Assets/Scripts/Public
     Ordinal: 30
     Priority: 0
-    IconType: 2130
+    IconType: 2660
     SmallIcon: {fileID: 0}
     LargeIcon: {fileID: 0}
     IsIconRecursive: 0

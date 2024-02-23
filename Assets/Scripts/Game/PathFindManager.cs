@@ -50,13 +50,13 @@ public class PathFindManager : MonoBehaviour
     }
 
     #region EVENT
-        public void onClickPathFindBtn() {
-            pathFinding();
+        public void OnClickPathFindBtn() {
+            PathFinding(isShowPath: true);
         }
     #endregion
 
     #region A* ACLGOLISM
-    public void pathFinding() {
+    public bool PathFinding(bool isShowPath = false) {
         // NodeArray의 크기 정해주고, isWall, x, y 대입
         sizeX = bottomRight.x - topLeft.x + 1;
         sizeY = topLeft.y - bottomRight.y + 1;
@@ -79,14 +79,12 @@ public class PathFindManager : MonoBehaviour
         // 시작과 끝 노드, 열린리스트와 닫힌리스트, 마지막리스트 초기화
         StartNode = NodeArray[startPos.x - topLeft.x, startPos.y - topLeft.y];
         TargetNode = NodeArray[targetPos.x - topLeft.x, topLeft.y - targetPos.y];
-        Debug.Log("StartNode= " + (StartNode.x) + "," + (StartNode.y) + ", TargetNode= " + (TargetNode.x) + "," + (TargetNode.y));
-
+        Debug.Log("StartNode= " + StartNode.x + "," + StartNode.y + ", TargetNode= " + TargetNode.x + "," + TargetNode.y);
 
         OpenList = new List<Node>() { StartNode };
         ClosedList = new List<Node>();
         FinalNodeList = new List<Node>();
 
-        
         while (OpenList.Count > 0) {
             // 열린리스트 중 가장 F가 작고 F가 같다면 H가 작은 걸 현재노드로 하고 열린리스트에서 닫힌리스트로 옮기기
             CurNode = OpenList[0];
@@ -95,7 +93,6 @@ public class PathFindManager : MonoBehaviour
 
             OpenList.Remove(CurNode);
             ClosedList.Add(CurNode);
-
 
             // 마지막
             if (CurNode == TargetNode) {
@@ -111,9 +108,8 @@ public class PathFindManager : MonoBehaviour
                 FinalNodeList.Reverse();
 
                 for (int i = 0; i < FinalNodeList.Count; i++) print(i + "번째는 " + FinalNodeList[i].x + ", " + FinalNodeList[i].y);
-
-                showPathIcons();
-                return;
+                if(isShowPath) showPathIcons();
+                return true;
             }
 
             // ↑ → ↓ ←
@@ -122,8 +118,15 @@ public class PathFindManager : MonoBehaviour
             OpenListAdd(CurNode.x, CurNode.y - 1);
             OpenListAdd(CurNode.x - 1, CurNode.y);
         }
-    }
 
+        //* 道が塞がる(ふさがる)確認
+        if(FinalNodeList.Count == 0) {
+            Debug.Log("FinalNodeList.Count= " + FinalNodeList.Count);
+            return false;
+        }
+
+        return true;
+    }
     void OpenListAdd(int checkX, int checkY) {
         // 인덱스가 배열 범위를 벗어나는지 확인
         if (checkX >= topLeft.x && checkX <= bottomRight.x && checkY >= bottomRight.y && checkY <= topLeft.y) {
