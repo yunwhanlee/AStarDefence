@@ -27,7 +27,7 @@ public class PathFindManager : MonoBehaviour
     public GameObject startPosObj;
     public GameObject targetPosObj;
     public GameObject pathIconPf;
-    public Vector2Int topLeft, bottomRight, startPos, targetPos;
+    public Vector2Int bottomLeft, topRight, startPos, targetPos;
     [field: SerializeField] public List<Node> FinalNodeList {get; private set;}
 
     int sizeX, sizeY;
@@ -41,9 +41,9 @@ public class PathFindManager : MonoBehaviour
         //* Set Position
         Vector2Int start = new Vector2Int((int)Mathf.Round(startPosObj.transform.position.x), (int)Mathf.Round(startPosObj.transform.position.y));
         Vector2Int goal = new Vector2Int((int)Mathf.Round(targetPosObj.transform.position.x), (int)Mathf.Round(targetPosObj.transform.position.y));
-        topLeft = start;
+        bottomLeft = start;
         startPos = start;
-        bottomRight = goal;
+        topRight = goal;
         targetPos = goal;
 
         //* 以前にルート表示のアイコン 生成
@@ -63,8 +63,8 @@ public class PathFindManager : MonoBehaviour
     #region A* ACLGOLISM
     public bool PathFinding(bool isShowPath = false) {
         // NodeArray의 크기 정해주고, isWall, x, y 대입
-        sizeX = bottomRight.x - topLeft.x + 1;
-        sizeY = topLeft.y - bottomRight.y + 1;
+        sizeX = topRight.x - bottomLeft.x + 1;
+        sizeY = topRight.y - bottomLeft.y + 1;
         Debug.Log("sizeX= " + sizeX + ", sizeY= " + sizeY);
         NodeArray = new Node[sizeX, sizeY];
 
@@ -72,20 +72,20 @@ public class PathFindManager : MonoBehaviour
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
                 bool isWall = false;
-                foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + topLeft.x, topLeft.y - j), 0.4f))
+                foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + bottomLeft.x, j + bottomLeft.y), 0.4f))
                     //* 壁タイプのタイル登録
                     if (col.gameObject.layer == Enum.Layer.Wall
                     ||  col.gameObject.layer == Enum.Layer.Board
                     ||  col.gameObject.layer == Enum.Layer.CCTower)
                         isWall = true;
 
-                NodeArray[i, j] = new Node(isWall, i + topLeft.x, topLeft.y - j);
+                NodeArray[i, j] = new Node(isWall, i + bottomLeft.x, j + bottomLeft.y);
             }
         }
 
         // 시작과 끝 노드, 열린리스트와 닫힌리스트, 마지막리스트 초기화
-        StartNode = NodeArray[startPos.x - topLeft.x, startPos.y - topLeft.y];
-        TargetNode = NodeArray[targetPos.x - topLeft.x, topLeft.y - targetPos.y];
+        StartNode = NodeArray[startPos.x - bottomLeft.x, startPos.y - bottomLeft.y];
+        TargetNode = NodeArray[targetPos.x - bottomLeft.x, targetPos.y - bottomLeft.y];
         Debug.Log("StartNode= " + StartNode.x + "," + StartNode.y + ", TargetNode= " + TargetNode.x + "," + TargetNode.y);
 
         OpenList = new List<Node>() { StartNode };
@@ -136,23 +136,21 @@ public class PathFindManager : MonoBehaviour
     }
     void OpenListAdd(int checkX, int checkY) {
         // 인덱스가 배열 범위를 벗어나는지 확인
-        if (checkX >= topLeft.x && checkX <= bottomRight.x && checkY >= bottomRight.y && checkY <= topLeft.y) {
-            // 배열 내의 실제 인덱스 계산
-            int arrayX = checkX - topLeft.x;
-            int arrayY = topLeft.y - checkY;
+        if (checkX >= bottomLeft.x && checkX < topRight.x + 1 && checkY >= bottomLeft.y && checkY < topRight.y + 1 && !NodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y].isWall && !ClosedList.Contains(NodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y]))
+        {
+            // 이웃노드에 넣고, 직선은 10, 대각선은 14비용
+            Node NeighborNode = NodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y];
+            int MoveCost = CurNode.G + (CurNode.x - checkX == 0 || CurNode.y - checkY == 0 ? 10 : 14);
 
-            // 벽이 아니고 닫힌 리스트에 포함되어 있지 않은 경우에만 처리
-            if (!NodeArray[arrayX, arrayY].isWall && !ClosedList.Contains(NodeArray[arrayX, arrayY])) {
-                Node NeighborNode = NodeArray[arrayX, arrayY];
-                int MoveCost = CurNode.G + ((CurNode.x - checkX == 0 || checkY - CurNode.y == 0) ? 10 : 14);
 
-                if (MoveCost < NeighborNode.G || !OpenList.Contains(NeighborNode)) {
-                    NeighborNode.G = MoveCost;
-                    NeighborNode.H = (Mathf.Abs(NeighborNode.x - TargetNode.x) + Mathf.Abs(TargetNode.y - NeighborNode.y)) * 10;
-                    NeighborNode.ParentNode = CurNode;
+            // 이동비용이 이웃노드G보다 작거나 또는 열린리스트에 이웃노드가 없다면 G, H, ParentNode를 설정 후 열린리스트에 추가
+            if (MoveCost < NeighborNode.G || !OpenList.Contains(NeighborNode))
+            {
+                NeighborNode.G = MoveCost;
+                NeighborNode.H = (Mathf.Abs(NeighborNode.x - TargetNode.x) + Mathf.Abs(NeighborNode.y - TargetNode.y)) * 10;
+                NeighborNode.ParentNode = CurNode;
 
-                    OpenList.Add(NeighborNode);
-                }
+                OpenList.Add(NeighborNode);
             }
         }
     }

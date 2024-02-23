@@ -18,7 +18,7 @@ public class TowerManager : MonoBehaviour {
     SettingTowerData settingTowerData;
 
     void Start() {
-        settingTowerData = new SettingTowerData();
+        // settingTowerData = new SettingTowerData();
     }
 
 #region FUNC

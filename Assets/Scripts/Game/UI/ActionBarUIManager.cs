@@ -29,6 +29,9 @@ public class ActionBarUIManager : MonoBehaviour {
     public void onClickStunTowerIconBtn() {
         GM._.tm.CreateTower(TowerType.CC_StunTower);
     }
+    public void onClickDeleteIconBtn() {
+        
+    }
     public void onClickExitIconBtn() {
         GM._.tmc.SelectedTileMap.ClearAllTiles();
         PanelObj.SetActive(false);
