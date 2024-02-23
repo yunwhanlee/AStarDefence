@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Node
@@ -21,6 +23,7 @@ public class PathFindManager : MonoBehaviour
 
     Coroutine corShowPathIconID;
     public Transform pathIconObjGroup;
+    public GameObject pathCntUI;
     public GameObject startPosObj;
     public GameObject targetPosObj;
     public GameObject pathIconPf;
@@ -33,6 +36,8 @@ public class PathFindManager : MonoBehaviour
     List<Node> OpenList, ClosedList;
 
     void Start() {
+        pathCntUI.SetActive(false);
+
         //* Set Position
         Vector2Int start = new Vector2Int((int)Mathf.Round(startPosObj.transform.position.x), (int)Mathf.Round(startPosObj.transform.position.y));
         Vector2Int goal = new Vector2Int((int)Mathf.Round(targetPosObj.transform.position.x), (int)Mathf.Round(targetPosObj.transform.position.y));
@@ -63,13 +68,15 @@ public class PathFindManager : MonoBehaviour
         Debug.Log("sizeX= " + sizeX + ", sizeY= " + sizeY);
         NodeArray = new Node[sizeX, sizeY];
 
-        //* 壁
+        //* 壁検索
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
                 bool isWall = false;
                 foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + topLeft.x, topLeft.y - j), 0.4f))
+                    //* 壁タイプのタイル登録
                     if (col.gameObject.layer == Enum.Layer.Wall
-                    ||  col.gameObject.layer == Enum.Layer.Board)
+                    ||  col.gameObject.layer == Enum.Layer.Board
+                    ||  col.gameObject.layer == Enum.Layer.CCTower)
                         isWall = true;
 
                 NodeArray[i, j] = new Node(isWall, i + topLeft.x, topLeft.y - j);
@@ -164,6 +171,8 @@ public class PathFindManager : MonoBehaviour
         iconTf.gameObject.SetActive(true);
     }
     private IEnumerator coShowPathIconsPos() {
+        pathCntUI.SetActive(true);
+        pathCntUI.GetComponentInChildren<TextMeshProUGUI>().text = FinalNodeList.Count.ToString();
         for (int i = 1; i < FinalNodeList.Count; i++) { // i를 1부터 시작하도록 수정
             // i가 0보다 큰지 검사하여 유효한 인덱스인지 확인
             if (i > 0 && i < FinalNodeList.Count) {
@@ -174,6 +183,7 @@ public class PathFindManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1);
+        pathCntUI.SetActive(false);
         initPathIconsPos();
     }
 

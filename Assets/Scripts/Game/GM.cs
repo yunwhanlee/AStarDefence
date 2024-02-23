@@ -4,8 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+
+
 public class GM : MonoBehaviour {
+    public enum State {Ready, Play, Pause};
     public static GM _; //* Global
+    public State state;
 
     //* Outside
     public GameUIManager gui;
@@ -25,5 +29,9 @@ public class GM : MonoBehaviour {
         tmc = GameObject.Find("TileMapController").GetComponent<TileMapController>();
         actBar = GameObject.Find("ActionBarUIManager").GetComponent<ActionBarUIManager>();
         tm = GameObject.Find("TowerManager").GetComponent<TowerManager>();
+    }
+
+    void Start() {
+        state = State.Ready;
     }
 }

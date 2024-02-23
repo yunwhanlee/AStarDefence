@@ -27,31 +27,34 @@ public class TowerManager : MonoBehaviour {
         GameObject obj = null;
         switch(type) {
             case TowerType.Random:
+                const int WARRIOR = 0, ARCHOR = 1, MAGICIAN = 2;
                 //* 種類の選択
                 int randKind = Random.Range(0, 1); //TODO max = 3
                 switch(randKind) {
-                    case 0: 
+                    case WARRIOR: 
                         obj = Instantiate(warriors[0], new Vector2(pos.x, pos.y), quaternion.identity);
                         obj.GetComponent<WarriorTower>().StateUpdate(settingTowerData);
                         WarriorList.Add(obj);
                         break;
-                    case 1:
+                    case ARCHOR:
                         //TODO ArchorTower
                         break;
-                    case 2:
+                    case MAGICIAN:
                         //TODO MagicianTower
                         break;
                 }
                 break;
             case TowerType.CC_IceTower:
-                obj = Instantiate(iceTower, new Vector2(pos.x, pos.y), quaternion.identity);
-                obj.GetComponent<IceTower>().StateUpdate(settingTowerData);
-                CCTowerList.Add(obj);
+                // obj = Instantiate(iceTower, new Vector2(pos.x, pos.y), quaternion.identity);
+                // obj.GetComponent<IceTower>().StateUpdate(settingTowerData);
+                // CCTowerList.Add(obj);
+                GM._.tmc.InstallIceTowerTile();
                 break;
             case TowerType.CC_StunTower:
-                obj = Instantiate(stunTower, new Vector2(pos.x, pos.y), quaternion.identity);
-                obj.GetComponent<StunTower>().StateUpdate(settingTowerData);
-                CCTowerList.Add(obj);
+                // obj = Instantiate(stunTower, new Vector2(pos.x, pos.y), quaternion.identity);
+                // obj.GetComponent<StunTower>().StateUpdate(settingTowerData);
+                // CCTowerList.Add(obj);
+                GM._.tmc.InstallStunTowerTile();
                 break;
         }
     }

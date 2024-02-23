@@ -24,6 +24,11 @@ public class TileMapController : MonoBehaviour {
     public Tilemap BoardTileMap;
     [field: SerializeField] public TileBase[] Boards {get; set;}
 
+    [Header("CC Tile Map")]
+    public Tilemap CCTowerTileMap;
+    [field: SerializeField] public TileBase IceTower {get; set;}
+    [field: SerializeField] public TileBase StunTower {get; set;}
+
     void Start() {
         WallSpawnCnt = 0;
         SpawnWall();
@@ -127,10 +132,19 @@ public class TileMapController : MonoBehaviour {
             SpawnWall();
         }
     }
-    public void InstallBoard() {
+    private Vector3Int getCurSelectedPos() => new(CurSelectPos.y, CurSelectPos.x, 0);
+    public void InstallBoardTile() {
         Debug.Log("InstallBoard()::");
-        var pos = new Vector3Int(CurSelectPos.y, CurSelectPos.x, 0);
-        BoardTileMap.SetTile(pos, Boards[Random.Range(0, Boards.Length)]);
+        BoardTileMap.SetTile(getCurSelectedPos(), Boards[Random.Range(0, Boards.Length)]);
     }
+    public void InstallIceTowerTile() {
+        Debug.Log("InstallIceTower()::");
+        CCTowerTileMap.SetTile(getCurSelectedPos(), IceTower);
+    }
+    public void InstallStunTowerTile() {
+        Debug.Log("InstallStunTowerTile()::");
+        CCTowerTileMap.SetTile(getCurSelectedPos(), StunTower);
+    }
+
 #endregion
 }

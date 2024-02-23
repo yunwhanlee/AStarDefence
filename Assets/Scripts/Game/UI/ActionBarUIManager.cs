@@ -17,7 +17,7 @@ public class ActionBarUIManager : MonoBehaviour {
 
 #region EVENT BUTTON
     public void onClickBoardIconBtn() {
-        GM._.tmc.InstallBoard();
+        GM._.tmc.InstallBoardTile();
         StartCoroutine(CoCheckPathFind());
     }
     public void onClickRandomTowerIconBtn() {
