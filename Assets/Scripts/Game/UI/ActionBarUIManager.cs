@@ -24,6 +24,11 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
 #region EVENT BUTTON
+    public void OnClickBreakIconBtn() {
+        GM._.tmc.BreakWallTile();
+        GM._.tmc.SelectedTileMap.ClearAllTiles();
+        PanelObj.SetActive(false);
+    }
     public void onClickBoardIconBtn() {
         GM._.tmc.InstallBoardTile();
         StartCoroutine(CoCheckPathFind(Enum.Layer.Board));
@@ -57,6 +62,7 @@ public class ActionBarUIManager : MonoBehaviour {
     public void onClickExitIconBtn() {
         GM._.tmc.SelectedTileMap.ClearAllTiles();
         PanelObj.SetActive(false);
+        GM._.tmc.Reset();
     }
 #endregion
 
@@ -90,7 +96,6 @@ public class ActionBarUIManager : MonoBehaviour {
         CCTowerCnt += val;
         CCTowerCntTxt.text = $"CC : {CCTowerCnt}/{CCTowerMax}";
     }
-
     /// <summary>
     /// アクションバーのアイコン表示
     /// </summary>

@@ -33,6 +33,7 @@ public abstract class Tower : MonoBehaviour {
 
     #region Func
         public virtual string[] InfoState() {
+            Debug.Log("Tower:: InfoState()::");
             string[] states = new string[9];
             int i = 0;
             states[i++] = Lv.ToString(); //* Gradeラベルとして表示

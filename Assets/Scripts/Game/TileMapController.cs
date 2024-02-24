@@ -109,12 +109,13 @@ public class TileMapController : MonoBehaviour {
 #endregion
 
 #region FUNC
-    private Vector3Int getCurSelectedPos() => new(CurSelectPos.x, CurSelectPos.y, 0);
-    private void Reset() {
-        CurSelectPos = new Vector2Int(-999, -999);
-        HitObject = null;
-    }
-
+    private Vector3Int getCurSelectedPos(bool isTile = false) {
+        if(isTile) //* タイルなら、YとXが反転されている
+            return new(CurSelectPos.y, CurSelectPos.x, 0);
+        else
+            return new(CurSelectPos.x, CurSelectPos.y, 0);
+    } 
+    
     /// <summary>
     /// 壁をランダムで設置
     /// </summary>
@@ -147,7 +148,16 @@ public class TileMapController : MonoBehaviour {
         }
     }
 
+    public void Reset() {
+        CurSelectPos = new Vector2Int(-999, -999);
+        HitObject = null;
+    }
 
+    public void BreakWallTile() {
+        Debug.Log($"BreakWallTile():: curSelectedPos= {getCurSelectedPos()}");
+        WallTileMap.SetTile(getCurSelectedPos(isTile: true), null);
+        Reset();
+    }
 
     public void InstallBoardTile() {
         Debug.Log("InstallBoard()::");
