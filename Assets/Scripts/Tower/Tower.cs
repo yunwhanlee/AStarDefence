@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TowerType {Random, Board, CC_IceTower, CC_StunTower}
+public enum TowerType {
+    Random, Board, CC_IceTower, CC_StunTower
+}
 public enum TowerKind {
+    None,
     //* Random
     Warrior, Archor, Magician,
 }
 
 public abstract class Tower : MonoBehaviour {
+    public SettingTowerData TowerData;
     public TowerType Type;
     public TowerKind Kind;
     public string Name;
@@ -23,8 +27,12 @@ public abstract class Tower : MonoBehaviour {
     [Range(0.00f, 1.00f)] public float SlowPer;
     [Range(0.0f, 5.0f)] public int StunSec;
 
+    void Start() {
+        StateUpdate(); //* Init
+    }
+
     #region Func
         public abstract string[] InfoState();
-        public abstract void StateUpdate(SettingTowerData towerData);
+        public abstract void StateUpdate();
     #endregion
 }

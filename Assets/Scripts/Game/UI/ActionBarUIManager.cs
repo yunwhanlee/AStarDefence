@@ -98,6 +98,7 @@ public class ActionBarUIManager : MonoBehaviour {
     public void ActiveIconsByLayer(int layer) {
         //* リセット
         clearIcons();
+        GM._.tsm.WindowObj.SetActive(false);
 
         //* 表示
         switch(layer) {
@@ -106,9 +107,10 @@ public class ActionBarUIManager : MonoBehaviour {
                 break;
             case Enum.Layer.Board:
                 IconBtns[(int)ICON.Tower].gameObject.SetActive(true);
-                IconBtns[(int)ICON.Delete].gameObject.SetActive(true);                
+                IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
                 break;
             case Enum.Layer.CCTower:
+                GM._.tsm.WindowObj.SetActive(true);
                 IconBtns[(int)ICON.Upgrade].gameObject.SetActive(true);
                 IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
                 break;

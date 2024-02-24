@@ -4,26 +4,28 @@ using UnityEngine;
 
 public class WarriorTower : Tower {
     public override string[] InfoState() {
-        string[] state = new string[8];
-        state[0] = Name;
-        state[1] = Lv.ToString();
-        state[2] = Dmg.ToString();
-        state[3] = AtkSpeed.ToString();
-        state[4] = AtkRange.ToString();
-        state[5] = SplashRange.ToString();
-        state[6] = SlowPer.ToString();
-        state[7] = StunSec.ToString();
+        string[] states = new string[9];
+        int i = 0;
+        states[i++] = Lv.ToString(); //* Gradeラベルとして表示
+        states[i++] = Dmg.ToString();
+        states[i++] = AtkSpeed.ToString();
+        states[i++] = AtkRange.ToString();
+        states[i++] = SplashRange.ToString();
+        states[i++] = CritPer.ToString();
+        states[i++] = CritDmgPer.ToString();
+        states[i++] = SlowPer.ToString();
+        states[i++] = StunSec.ToString();
 
-        return state;
+        return states;
     }
 
-    public override void StateUpdate(SettingTowerData towerData) {
-        Lv = towerData.Lv;
-        Dmg = towerData.Dmg;
-        AtkSpeed = towerData.AtkSpeed;
-        AtkRange = towerData.AtkRange;
-        SplashRange = towerData.SplashRange;
-        SlowPer = towerData.SlowPer;
-        StunSec = towerData.StunSec;
+    public override void StateUpdate() {
+        Lv = TowerData.Lv;
+        Dmg = TowerData.Dmg;
+        AtkSpeed = TowerData.AtkSpeed;
+        AtkRange = TowerData.AtkRange;
+        SplashRange = TowerData.SplashRange;
+        SlowPer = TowerData.SlowPer;
+        StunSec = TowerData.StunSec;
     }
 }

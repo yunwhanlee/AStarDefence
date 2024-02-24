@@ -33,7 +33,7 @@ public class TowerManager : MonoBehaviour {
                 switch(randKind) {
                     case WARRIOR: 
                         obj = Instantiate(warriors[0], new Vector2(pos.x, pos.y), quaternion.identity);
-                        obj.GetComponent<WarriorTower>().StateUpdate(settingTowerData);
+                        obj.GetComponent<WarriorTower>().StateUpdate();
                         WarriorList.Add(obj);
                         break;
                     case ARCHOR:

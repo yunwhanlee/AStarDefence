@@ -4,28 +4,27 @@ using UnityEngine;
 
 public class IceTower : Tower {
     public override string[] InfoState() {
-        string[] state = new string[9];
+        string[] states = new string[9];
         int i = 0;
-        state[i++] = Lv.ToString(); //* Gradeラベルとして表示
-        state[i++] = Dmg.ToString();
-        state[i++] = AtkSpeed.ToString();
-        state[i++] = AtkRange.ToString();
-        state[i++] = SplashRange.ToString();
-        state[i++] = SlowPer.ToString();
-        state[i++] = StunSec.ToString();
-        state[i++] = CritPer.ToString();
-        state[i++] = CritDmgPer.ToString();
+        states[i++] = Lv.ToString(); //* Gradeラベルとして表示
+        states[i++] = Dmg.ToString();
+        states[i++] = AtkSpeed.ToString();
+        states[i++] = AtkRange.ToString();
+        states[i++] = SplashRange.ToString();
+        states[i++] = CritPer.ToString();
+        states[i++] = CritDmgPer.ToString();
+        states[i++] = SlowPer.ToString();
+        states[i++] = StunSec.ToString();
 
-        return state;
+        return states;
     }
-
-    public override void StateUpdate(SettingTowerData towerData) {
-        Lv = towerData.Lv;
-        Dmg = towerData.Dmg;
-        AtkSpeed = towerData.AtkSpeed;
-        AtkRange = towerData.AtkRange;
-        SplashRange = towerData.SplashRange;
-        SlowPer = towerData.SlowPer;
-        StunSec = towerData.StunSec;
+    public override void StateUpdate() {
+        Lv = TowerData.Lv;
+        Dmg = TowerData.Dmg;
+        AtkSpeed = TowerData.AtkSpeed;
+        AtkRange = TowerData.AtkRange;
+        SplashRange = TowerData.SplashRange;
+        SlowPer = TowerData.SlowPer;
+        StunSec = TowerData.StunSec;
     }
 }

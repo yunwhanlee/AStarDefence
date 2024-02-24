@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6233560123952599681}
+  - component: {fileID: -4994253645256781567}
   - component: {fileID: 5762683908191627261}
   - component: {fileID: 4806730294253475185}
   m_Layer: 8
@@ -34,6 +35,31 @@ Transform:
   - {fileID: 1227677186856720184}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4994253645256781567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6435509696272214480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 893c1a677833eef408161c7b9e33c78e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TowerData: {fileID: 11400000, guid: 6d14b27c5e6051f4fa43ec4d444251da, type: 2}
+  Type: 2
+  Kind: 0
+  Name: "\uC544\uC774\uC2A4\uD0C0\uC6CC"
+  Lv: 0
+  Dmg: 0
+  AtkSpeed: 0
+  AtkRange: 0
+  SplashRange: 0
+  CritPer: 0
+  CritDmgPer: 0
+  SlowPer: 0
+  StunSec: 0
 --- !u!212 &5762683908191627261
 SpriteRenderer:
   m_ObjectHideFlags: 0

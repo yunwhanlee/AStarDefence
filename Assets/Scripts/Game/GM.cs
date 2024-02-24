@@ -18,6 +18,7 @@ public class GM : MonoBehaviour {
     public TileMapController tmc;
     public ActionBarUIManager actBar;
     public TowerManager tm;
+    public TowerStateUIManager tsm;
 
     void Awake() {
         //* Global化 値 代入
@@ -29,6 +30,7 @@ public class GM : MonoBehaviour {
         tmc = GameObject.Find("TileMapController").GetComponent<TileMapController>();
         actBar = GameObject.Find("ActionBarUIManager").GetComponent<ActionBarUIManager>();
         tm = GameObject.Find("TowerManager").GetComponent<TowerManager>();
+        tsm = GameObject.Find("TowerStateUIManager").GetComponent<TowerStateUIManager>();
     }
 
     void Start() {

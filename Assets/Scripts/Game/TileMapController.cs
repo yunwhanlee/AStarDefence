@@ -100,6 +100,8 @@ public class TileMapController : MonoBehaviour {
                     break;
                 case Enum.Layer.CCTower:
                     actBar.ActiveIconsByLayer(layer);
+                    Tower tower = HitObject.GetComponent<Tower>();
+                    GM._.tsm.ShowTowerStateUI(tower.InfoState());
                     break;
                 default:
                     actBar.ActiveIconsByLayer(Enum.Layer.Default);
