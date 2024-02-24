@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e4bbea7e01e96449b96d3bdeedcc19, type: 3}
   m_Name: IceTowerDataSO
   m_EditorClassIdentifier: 
-  Type: 0
+  Type: 2
   Name: Ice Tower
   Lv: 1
-  dmg: 0
+  Dmg: 0
   AtkRange: 1
-  AtkSpan: 2
+  AtkSpeed: 0
   SplashRange: 1
+  CritPer: 0
+  CritDmgPer: 0
   SlowPer: 0.3
-  StunPer: 0
+  StunSec: 0

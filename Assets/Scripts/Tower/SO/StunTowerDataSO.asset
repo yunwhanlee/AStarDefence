@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e4bbea7e01e96449b96d3bdeedcc19, type: 3}
   m_Name: StunTowerDataSO
   m_EditorClassIdentifier: 
-  Type: 0
+  Type: 3
   Name: Stun Tower
   Lv: 1
   Dmg: 0

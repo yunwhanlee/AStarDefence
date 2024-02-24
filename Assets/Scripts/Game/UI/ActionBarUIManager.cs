@@ -110,9 +110,11 @@ public class ActionBarUIManager : MonoBehaviour {
                 IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
                 break;
             case Enum.Layer.CCTower:
-                GM._.tsm.WindowObj.SetActive(true);
                 IconBtns[(int)ICON.Upgrade].gameObject.SetActive(true);
                 IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
+                //* タワー情報UI 表示
+                Tower tower = GM._.tmc.HitObject.GetComponent<Tower>();
+                GM._.tsm.ShowTowerStateUI(tower.InfoState());
                 break;
             default:
                 IconBtns[(int)ICON.Board].gameObject.SetActive(true);
