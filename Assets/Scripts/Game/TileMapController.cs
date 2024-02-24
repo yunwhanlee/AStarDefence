@@ -65,8 +65,7 @@ public class TileMapController : MonoBehaviour {
 
         //* 同じ場所のまたクリック、そのまま終了
         if(CurSelectPos == new Vector2Int(x, y)) {
-            CurSelectPos = new Vector2Int(-999, -999);
-            HitObject = null;
+            Reset();
             return;
         }
 
@@ -112,6 +111,12 @@ public class TileMapController : MonoBehaviour {
 #endregion
 
 #region FUNC
+    private Vector3Int getCurSelectedPos() => new(CurSelectPos.x, CurSelectPos.y, 0);
+    private void Reset() {
+        CurSelectPos = new Vector2Int(-999, -999);
+        HitObject = null;
+    }
+
     /// <summary>
     /// 壁をランダムで設置
     /// </summary>
@@ -144,7 +149,7 @@ public class TileMapController : MonoBehaviour {
         }
     }
 
-    private Vector3Int getCurSelectedPos() => new(CurSelectPos.x, CurSelectPos.y, 0);
+
 
     public void InstallBoardTile() {
         Debug.Log("InstallBoard()::");
@@ -169,6 +174,7 @@ public class TileMapController : MonoBehaviour {
         if(HitObject.layer == Enum.Layer.CCTower)
             GM._.actBar.SetCCTowerCntTxt(-1);
         Destroy(HitObject);
+        Reset();
     }
 
 #endregion
