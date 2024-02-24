@@ -46,6 +46,8 @@ public class TowerManager : MonoBehaviour {
                         InstantiateTower(magicians[0], MagicianList);
                         break;
                 }
+                //* タワー設置 トリガー ON
+                GM._.tmc.HitObject.GetComponent<Board>().IsTowerOn = true;
                 break;
             case TowerType.CC_IceTower:
                 GM._.tmc.InstallIceTowerTile();

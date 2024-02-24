@@ -95,7 +95,10 @@ public class TileMapController : MonoBehaviour {
                     actBar.ActiveIconsByLayer(SelectLayer);
                     break;
                 case Enum.Layer.Board:
-                    actBar.ActiveIconsByLayer(SelectLayer);
+                    if(HitObject.GetComponent<Board>().IsTowerOn)
+                        actBar.ActiveIconsByLayer(Enum.Layer.Tower);
+                    else
+                        actBar.ActiveIconsByLayer(Enum.Layer.Board);
                     break;
                 case Enum.Layer.CCTower:
                     actBar.ActiveIconsByLayer(SelectLayer);
