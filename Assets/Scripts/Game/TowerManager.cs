@@ -7,13 +7,13 @@ using Random = UnityEngine.Random;
 public class TowerManager : MonoBehaviour {
     [Header("WARRIOR")]
     [SerializeField] GameObject[] warriors; public GameObject[] Warriors {get => warriors;}
-    [field: SerializeField] public List<GameObject> WarriorList {get; private set;} = new List<GameObject>();
+    [field: SerializeField] public Transform WarriorGroup {get; private set;}
     [Header("ARCHER")]
     [SerializeField] GameObject[] archers; public GameObject[] Archers {get => archers;}
-    [field: SerializeField] public List<GameObject> ArchersList {get; private set;} = new List<GameObject>();
+    [field: SerializeField] public Transform ArcherGroup {get; private set;}
     [Header("MAGICIAN")]
     [SerializeField] GameObject[] magicians; public GameObject[] Magicians {get => magicians;}
-    [field: SerializeField] public List<GameObject> MagicianList {get; private set;} = new List<GameObject>();
+    [field: SerializeField] public Transform MagicianGroup {get; private set;}
     [Header("CC")]
     [SerializeField] GameObject[] iceTowers; public GameObject[] IceTowers {get => iceTowers;}
     [SerializeField] GameObject[] stunTowers; public GameObject[] StunTowers {get => stunTowers;}
@@ -23,10 +23,13 @@ public class TowerManager : MonoBehaviour {
     }
 
 #region FUNC
-    private void InstantiateTower(GameObject towerObj, List<GameObject> listGroup) {
+    private void InstantiateTower(GameObject towerObj, Transform objGroup) {
+        //* タワー → Board子に入れる
         GameObject obj = Instantiate(towerObj, GM._.tmc.HitObject.transform);
         obj.transform.localPosition = new Vector2(0, 0.15f); //* 少し上で、Board上にのせるように
-        listGroup.Add(obj); //TODO Delete処理
+        //* そのBoard → Group子に入れる
+        GM._.tmc.HitObject.transform.SetParent(objGroup);
+        //TODO Delete処理
     }
 
     public void CreateTower(TowerType type) {
@@ -37,13 +40,13 @@ public class TowerManager : MonoBehaviour {
                 int randKind = Random.Range(0, 3);
                 switch(randKind) {
                     case WARRIOR: 
-                        InstantiateTower(warriors[0], WarriorList);
+                        InstantiateTower(warriors[0], WarriorGroup);
                         break;
                     case ARCHER:
-                        InstantiateTower(archers[0], ArchersList);
+                        InstantiateTower(archers[0], ArcherGroup);
                         break;
                     case MAGICIAN:
-                        InstantiateTower(magicians[0], MagicianList);
+                        InstantiateTower(magicians[0], MagicianGroup);
                         break;
                 }
                 //* タワー設置 トリガー ON

@@ -5,12 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TowerDataSO", menuName = "Scriptable Object/Setting TowerData")]
 public class SettingTowerData : ScriptableObject {
     public TowerType Type;
+    public TowerKind Kind;
     public string Name;
-    public int Lv;
+    [Range(1, 7)] public int Lv;
     public int Dmg;
-    public int AtkRange;
     public float AtkSpeed;
-    public int SplashRange;
+    [Range(0, 10)] public float AtkRange;
+    [Range(0, 10)] public float SplashRange;
     [Range(0.00f, 1.00f)] public float CritPer;
     public float CritDmgPer;
     //* CC

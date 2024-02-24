@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Archer1
   m_EditorClassIdentifier: 
   Type: 0
+  Kind: 2
   Name: 
-  Lv: 0
-  Dmg: 0
-  AtkRange: 0
-  AtkSpeed: 0
+  Lv: 1
+  Dmg: 3
+  AtkSpeed: 1
+  AtkRange: 2.5
   SplashRange: 0
   CritPer: 0
   CritDmgPer: 0

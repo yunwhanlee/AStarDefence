@@ -9889,16 +9889,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TowerData: {fileID: 11400000, guid: 7e1d9cd5c2bae0b429f49379a549bf3e, type: 2}
   Type: 0
-  Kind: 0
-  Name: 
-  Lv: 0
-  Dmg: 0
-  AtkSpeed: 0
-  AtkRange: 0
+  Kind: 1
+  Name: Warrior1
+  Lv: 1
+  Dmg: 10
+  AtkSpeed: 2
+  AtkRange: 1
   SplashRange: 0
   CritPer: 0
   CritDmgPer: 0
-  SlowPer: 0
+  SlowPer: 0.828
   StunSec: 0
 --- !u!114 &1631033395140482249
 MonoBehaviour:

@@ -14775,14 +14775,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 547709514bf02f940bf93672e2f84d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TowerData: {fileID: 11400000, guid: ad06ffb2710907245868cece13da66e5, type: 2}
+  TowerData: {fileID: 11400000, guid: d537770b260d59049b72f842bfd85085, type: 2}
   Type: 0
-  Kind: 0
+  Kind: 2
   Name: 
-  Lv: 0
-  Dmg: 0
-  AtkSpeed: 0
-  AtkRange: 0
+  Lv: 2
+  Dmg: 7
+  AtkSpeed: 0.8
+  AtkRange: 3
   SplashRange: 0
   CritPer: 0
   CritDmgPer: 0

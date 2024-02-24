@@ -17,11 +17,11 @@ public abstract class Tower : MonoBehaviour {
     public TowerType Type;
     public TowerKind Kind;
     public string Name;
-    [Range(0, 7)] public int Lv;
+    [Range(1, 7)] public int Lv;
     public int Dmg;
     public float AtkSpeed;
-    [Range(0, 10)] public int AtkRange;
-    [Range(0, 10)] public int SplashRange;
+    [Range(0, 10)] public float AtkRange;
+    [Range(0, 10)] public float SplashRange;
     [Range(0.00f, 1.00f)] public float CritPer;
     public float CritDmgPer;
     //* CC

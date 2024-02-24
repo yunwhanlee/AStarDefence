@@ -5471,6 +5471,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &538722643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 538722644}
+  m_Layer: 0
+  m_Name: ArcherGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &538722644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538722643}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1938362504}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &557298254
 GameObject:
   m_ObjectHideFlags: 0
@@ -6052,15 +6083,15 @@ MonoBehaviour:
   warriors:
   - {fileID: 4991751060699320783, guid: b7ce48fcca403fa4bbb1dd558c45b826, type: 3}
   - {fileID: 4991751060699320783, guid: f060b8cea46ef6a48a9d547ae700aff4, type: 3}
-  <WarriorList>k__BackingField: []
+  <WarriorGroup>k__BackingField: {fileID: 1877334351}
   archers:
   - {fileID: 628706783900631001, guid: 3af548cb16b9d074f9c32f512edc69e8, type: 3}
   - {fileID: 8943399528514024596, guid: 035d6f51249f7af47bc7c66ecef70045, type: 3}
-  <ArchersList>k__BackingField: []
+  <ArcherGroup>k__BackingField: {fileID: 538722644}
   magicians:
   - {fileID: 9206360160737991057, guid: 6ce7f040e4e68c24e9e7b4fb5cc8b18c, type: 3}
   - {fileID: 9206360160737991057, guid: f4ba71642c12a454db54c435e514b60b, type: 3}
-  <MagicianList>k__BackingField: []
+  <MagicianGroup>k__BackingField: {fileID: 1018305007}
   iceTowers:
   - {fileID: 6435509696272214480, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
   - {fileID: 6413538365706262006, guid: cd6faebf838d13342a3ccb1f55203f86, type: 3}
@@ -9449,6 +9480,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1009074461}
   m_CullTransparentMesh: 1
+--- !u!1 &1018305006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1018305007}
+  m_Layer: 0
+  m_Name: MagicianGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1018305007
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018305006}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1938362504}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1037540510
 GameObject:
   m_ObjectHideFlags: 0
@@ -17457,6 +17519,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1866364420}
   m_CullTransparentMesh: 1
+--- !u!1 &1877334350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1877334351}
+  m_Layer: 0
+  m_Name: WarriorGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1877334351
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877334350}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1938362504}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1905662507
 GameObject:
   m_ObjectHideFlags: 0
@@ -17532,6 +17625,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1905662507}
   m_CullTransparentMesh: 1
+--- !u!1 &1938362503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1938362504}
+  m_Layer: 0
+  m_Name: TowerBundle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1938362504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938362503}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1877334351}
+  - {fileID: 538722644}
+  - {fileID: 1018305007}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1955224494
 GameObject:
   m_ObjectHideFlags: 0
@@ -21030,3 +21157,4 @@ SceneRoots:
   - {fileID: 897318101}
   - {fileID: 6964518575418780693}
   - {fileID: 371651529526005965}
+  - {fileID: 1938362504}

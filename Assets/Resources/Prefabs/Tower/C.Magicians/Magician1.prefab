@@ -14777,13 +14777,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TowerData: {fileID: 11400000, guid: 3467340dc6a46034caf5af8757b2e884, type: 2}
   Type: 0
-  Kind: 0
+  Kind: 3
   Name: 
   Lv: 0
-  Dmg: 0
-  AtkSpeed: 0
-  AtkRange: 0
-  SplashRange: 0
+  Dmg: 6
+  AtkSpeed: 1.75
+  AtkRange: 2
+  SplashRange: 1
   CritPer: 0
   CritDmgPer: 0
   SlowPer: 0

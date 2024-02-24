@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: Warrior1
   m_EditorClassIdentifier: 
   Type: 0
+  Kind: 1
   Name: Warrior
   Lv: 1
-  dmg: 1
+  Dmg: 10
+  AtkSpeed: 2
   AtkRange: 1
-  AtkSpan: 1
   SplashRange: 0
+  CritPer: 0
+  CritDmgPer: 0
   SlowPer: 0
-  StunPer: 0
+  StunSec: 0

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43e4bbea7e01e96449b96d3bdeedcc19, type: 3}
-  m_Name: Magician1
+  m_Name: Warrior2
   m_EditorClassIdentifier: 
   Type: 0
-  Kind: 3
-  Name: 
-  Lv: 0
-  Dmg: 6
-  AtkSpeed: 1.5
-  AtkRange: 1.75
+  Kind: 1
+  Name: Warrior
+  Lv: 2
+  Dmg: 25
+  AtkSpeed: 1.75
+  AtkRange: 1.5
   SplashRange: 0
   CritPer: 0
   CritDmgPer: 0
