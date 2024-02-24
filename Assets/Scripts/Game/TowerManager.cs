@@ -5,42 +5,45 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class TowerManager : MonoBehaviour {
-    [SerializeField] GameObject[] warriors;
+    [Header("WARRIOR")]
+    [SerializeField] GameObject[] warriors; public GameObject[] Warriors {get => warriors;}
     [field: SerializeField] public List<GameObject> WarriorList {get; private set;} = new List<GameObject>();
-    [SerializeField] GameObject[] archors;
-    [field: SerializeField] public List<GameObject> ArchorsList {get; private set;} = new List<GameObject>();
-    [SerializeField] GameObject[] magicians;
+    [Header("ARCHER")]
+    [SerializeField] GameObject[] archers; public GameObject[] Archers {get => archers;}
+    [field: SerializeField] public List<GameObject> ArchersList {get; private set;} = new List<GameObject>();
+    [Header("MAGICIAN")]
+    [SerializeField] GameObject[] magicians; public GameObject[] Magicians {get => magicians;}
     [field: SerializeField] public List<GameObject> MagicianList {get; private set;} = new List<GameObject>();
-    [SerializeField] GameObject iceTower;
-    [SerializeField] GameObject stunTower;
+    [Header("CC")]
+    [SerializeField] GameObject[] iceTowers; public GameObject[] IceTowers {get => iceTowers;}
+    [SerializeField] GameObject[] stunTowers; public GameObject[] StunTowers {get => stunTowers;}
     [field: SerializeField] public List<GameObject> CCTowerList {get; private set;} = new List<GameObject>();
 
-    SettingTowerData settingTowerData;
-
     void Start() {
-        // settingTowerData = new SettingTowerData();
     }
 
 #region FUNC
+    private void InstantiateTower(GameObject towerObj, List<GameObject> listGroup) {
+        GameObject obj = Instantiate(towerObj, GM._.tmc.HitObject.transform);
+        obj.transform.localPosition = new Vector2(0, 0.15f); //* 少し上で、Board上にのせるように
+        listGroup.Add(obj); //TODO Delete処理
+    }
+
     public void CreateTower(TowerType type) {
-        Vector2Int pos = GM._.tmc.CurSelectPos;
-        GameObject obj = null;
         switch(type) {
             case TowerType.Random:
-                const int WARRIOR = 0, ARCHOR = 1, MAGICIAN = 2;
+                const int WARRIOR = 0, ARCHER = 1, MAGICIAN = 2;
                 //* 種類の選択
-                int randKind = Random.Range(0, 1); //TODO max = 3
+                int randKind = Random.Range(0, 3);
                 switch(randKind) {
                     case WARRIOR: 
-                        obj = Instantiate(warriors[0], new Vector2(pos.x, pos.y), quaternion.identity);
-                        obj.GetComponent<WarriorTower>().StateUpdate();
-                        WarriorList.Add(obj);
+                        InstantiateTower(warriors[0], WarriorList);
                         break;
-                    case ARCHOR:
-                        //TODO ArchorTower
+                    case ARCHER:
+                        InstantiateTower(archers[0], ArchersList);
                         break;
                     case MAGICIAN:
-                        //TODO MagicianTower
+                        InstantiateTower(magicians[0], MagicianList);
                         break;
                 }
                 break;

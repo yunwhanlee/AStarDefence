@@ -37,3 +37,5 @@ MonoBehaviour:
     - m_Name: 6
       m_Hash: 498629140
       m_Sprite: {fileID: 1026407549584056185, guid: 30a41e8090f64cee9498f4d67f730e53, type: 3}
+  m_ModificationHash: 0
+  m_Version: 1

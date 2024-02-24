@@ -27,8 +27,6 @@ public class TileMapController : MonoBehaviour {
 
     [Header("Prefab")]
     [SerializeField] private GameObject[] BoardPfs;
-    [SerializeField] private GameObject[] IceTowerPfs;
-    [SerializeField] private GameObject[] StunTowerPfs;
 
     void Start() {
         SpawnWall();
@@ -51,7 +49,6 @@ public class TileMapController : MonoBehaviour {
         //* アクションバー上をクリックしたら、以下の処理しない
         const int ACTION_BAR_START_POS_Y = -4;
         if(y <= ACTION_BAR_START_POS_Y) return;
-
         Debug.Log("<color=white>onClickTile():: mouse.x= " + x + ", y= " + y + "</color>");
 
         RaycastHit2D hit;
@@ -65,6 +62,7 @@ public class TileMapController : MonoBehaviour {
 
         //* 同じ場所のまたクリック、そのまま終了
         if(CurSelectPos == new Vector2Int(x, y)) {
+            CurSelectPos = new Vector2Int(-999, -999);
             Reset();
             return;
         }
@@ -85,20 +83,22 @@ public class TileMapController : MonoBehaviour {
         actBar.PanelObj.SetActive(true);
 
         if(HitCollider == null) {
+            Debug.Log($"OnClickTile():: HitCollider is Null= {HitCollider == null}");
             actBar.ActiveIconsByLayer(Enum.Layer.Default);
+            Reset();
         }
         else {
             HitObject = HitCollider.gameObject;
-            int layer = HitCollider.gameObject.layer;
-            switch(layer) {
+            SelectLayer = HitCollider.gameObject.layer;
+            switch(SelectLayer) {
                 case Enum.Layer.Wall:
-                    actBar.ActiveIconsByLayer(layer);
+                    actBar.ActiveIconsByLayer(SelectLayer);
                     break;
                 case Enum.Layer.Board:
-                    actBar.ActiveIconsByLayer(layer);
+                    actBar.ActiveIconsByLayer(SelectLayer);
                     break;
                 case Enum.Layer.CCTower:
-                    actBar.ActiveIconsByLayer(layer);
+                    actBar.ActiveIconsByLayer(SelectLayer);
                     break;
                 default:
                     actBar.ActiveIconsByLayer(Enum.Layer.Default);
@@ -149,13 +149,15 @@ public class TileMapController : MonoBehaviour {
     }
 
     public void Reset() {
-        CurSelectPos = new Vector2Int(-999, -999);
+        Debug.Log("Reset():: Data");
+        SelectLayer = 0;
         HitObject = null;
     }
 
     public void BreakWallTile() {
         Debug.Log($"BreakWallTile():: curSelectedPos= {getCurSelectedPos()}");
         WallTileMap.SetTile(getCurSelectedPos(isTile: true), null);
+        CurSelectPos = new Vector2Int(-999, -999);
         Reset();
     }
 
@@ -167,13 +169,13 @@ public class TileMapController : MonoBehaviour {
 
     public void InstallIceTowerTile() {
         Debug.Log("InstallIceTower()::");
-        GameObject ins = Instantiate(IceTowerPfs[0], getCurSelectedPos(), quaternion.identity);
+        GameObject ins = Instantiate(GM._.tm.IceTowers[0], getCurSelectedPos(), quaternion.identity);
         HitObject = ins;
     }
 
     public void InstallStunTowerTile() {
         Debug.Log("InstallStunTowerTile()::");
-        GameObject ins = Instantiate(StunTowerPfs[0], getCurSelectedPos(), quaternion.identity);
+        GameObject ins = Instantiate(GM._.tm.StunTowers[0], getCurSelectedPos(), quaternion.identity);
         HitObject = ins;
     }
 
@@ -182,6 +184,7 @@ public class TileMapController : MonoBehaviour {
         if(HitObject.layer == Enum.Layer.CCTower)
             GM._.actBar.SetCCTowerCntTxt(-1);
         Destroy(HitObject);
+        CurSelectPos = new Vector2Int(-999, -999);
         Reset();
     }
 

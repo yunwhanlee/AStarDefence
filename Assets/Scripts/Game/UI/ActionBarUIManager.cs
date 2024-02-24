@@ -29,14 +29,15 @@ public class ActionBarUIManager : MonoBehaviour {
         GM._.tmc.SelectedTileMap.ClearAllTiles();
         PanelObj.SetActive(false);
     }
-    public void onClickBoardIconBtn() {
+    public void OnClickBoardIconBtn() {
         GM._.tmc.InstallBoardTile();
         StartCoroutine(CoCheckPathFind(Enum.Layer.Board));
     }
-    public void onClickRandomTowerIconBtn() {
+    public void OnClickRandomTowerIconBtn() {
         GM._.tm.CreateTower(TowerType.Random);
+        ActiveIconsByLayer(Enum.Layer.Tower);
     }
-    public void onClickIceTowerIconBtn() {
+    public void OnClickIceTowerIconBtn() {
         if(CCTowerCnt >= CCTowerMax) {
             StartCoroutine(GM._.gui.CoShowMsgError($"CC타워는 {CCTowerMax}개까지 가능합니다."));
             return;
@@ -45,7 +46,7 @@ public class ActionBarUIManager : MonoBehaviour {
         GM._.tm.CreateTower(TowerType.CC_IceTower);
         StartCoroutine(CoCheckPathFind(Enum.Layer.CCTower));
     }
-    public void onClickStunTowerIconBtn() {
+    public void OnClickStunTowerIconBtn() {
         if(CCTowerCnt >= CCTowerMax) {
             StartCoroutine(GM._.gui.CoShowMsgError($"CC타워는 {CCTowerMax}개까지 가능합니다."));
             return;
@@ -54,12 +55,12 @@ public class ActionBarUIManager : MonoBehaviour {
         GM._.tm.CreateTower(TowerType.CC_StunTower);
         StartCoroutine(CoCheckPathFind(Enum.Layer.CCTower));
     }
-    public void onClickDeleteIconBtn() {
+    public void OnClickDeleteIconBtn() {
         GM._.tmc.DeleteTile();
         GM._.tmc.SelectedTileMap.ClearAllTiles();
         PanelObj.SetActive(false);
     }
-    public void onClickExitIconBtn() {
+    public void OnClickExitIconBtn() {
         GM._.tmc.SelectedTileMap.ClearAllTiles();
         PanelObj.SetActive(false);
         GM._.tmc.Reset();
@@ -107,25 +108,37 @@ public class ActionBarUIManager : MonoBehaviour {
 
         //* 表示
         switch(layer) {
-            case Enum.Layer.Wall:
+            case Enum.Layer.Wall: {
                 IconBtns[(int)ICON.Break].gameObject.SetActive(true);
                 break;
-            case Enum.Layer.Board:
+            }
+            case Enum.Layer.Board: {
                 IconBtns[(int)ICON.Tower].gameObject.SetActive(true);
                 IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
                 break;
-            case Enum.Layer.CCTower:
+            }
+            case Enum.Layer.CCTower: {
                 IconBtns[(int)ICON.Upgrade].gameObject.SetActive(true);
                 IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
                 //* タワー情報UI 表示
                 Tower tower = GM._.tmc.HitObject.GetComponent<Tower>();
                 GM._.tsm.ShowTowerStateUI(tower.InfoState());
                 break;
-            default:
+            }
+            case Enum.Layer.Tower: {
+                IconBtns[(int)ICON.Merge].gameObject.SetActive(true);
+                IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
+                //* タワー情報UI 表示
+                Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
+                GM._.tsm.ShowTowerStateUI(tower.InfoState());
+                break;
+            }
+            default: {
                 IconBtns[(int)ICON.Board].gameObject.SetActive(true);
                 IconBtns[(int)ICON.IceTower].gameObject.SetActive(true);
                 IconBtns[(int)ICON.ThunderTower].gameObject.SetActive(true);
                 break;
+            }
         }
     }
 #endregion

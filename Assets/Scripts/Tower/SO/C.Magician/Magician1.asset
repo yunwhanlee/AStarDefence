@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43e4bbea7e01e96449b96d3bdeedcc19, type: 3}
-  m_Name: WarriorTowerDataSO
+  m_Name: Magician1
   m_EditorClassIdentifier: 
   Type: 0
-  Name: Warrior
-  Lv: 1
-  dmg: 1
-  AtkRange: 1
-  AtkSpan: 1
+  Name: 
+  Lv: 0
+  Dmg: 0
+  AtkRange: 0
+  AtkSpeed: 0
   SplashRange: 0
+  CritPer: 0
+  CritDmgPer: 0
   SlowPer: 0
-  StunPer: 0
+  StunSec: 0

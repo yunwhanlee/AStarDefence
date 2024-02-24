@@ -8,11 +8,12 @@ public enum TowerType {
 public enum TowerKind {
     None,
     //* Random
-    Warrior, Archor, Magician,
+    Warrior, Archer, Magician,
 }
 
 public abstract class Tower : MonoBehaviour {
     public SettingTowerData TowerData;
+
     public TowerType Type;
     public TowerKind Kind;
     public string Name;
