@@ -164,6 +164,8 @@ public class TileMapController : MonoBehaviour {
 
     public void DeleteTile() {
         Debug.Log($"DeleteTile():: SelectLayer= {SelectLayer}");
+        if(HitObject.layer == Enum.Layer.CCTower)
+            GM._.actBar.SetCCTowerCntTxt(-1);
         Destroy(HitObject);
     }
 

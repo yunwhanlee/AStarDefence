@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,11 +9,18 @@ public class ActionBarUIManager : MonoBehaviour {
     public enum ICON {
         Break, Board, Tower, IceTower, ThunderTower, Upgrade, Merge, Delete, Exit
     };
-    [field: SerializeField] public GameObject PanelObj {get; set;}
+
+    [field: SerializeField] public int CCTowerMax {get; private set;} = 5;
+    [field: SerializeField] public int CCTowerCnt {get; private set;}
+
+    [Header("UI")]
+    public GameObject PanelObj;
+    [field: SerializeField] public TextMeshProUGUI CCTowerCntTxt {get; set;}
     [field: SerializeField] public Button[] IconBtns {get; set;}
 
     void Start() {
         PanelObj.SetActive(false);
+        SetCCTowerCntTxt(0);
     }
 
 #region EVENT BUTTON
@@ -24,10 +32,20 @@ public class ActionBarUIManager : MonoBehaviour {
         GM._.tm.CreateTower(TowerType.Random);
     }
     public void onClickIceTowerIconBtn() {
+        if(CCTowerCnt >= CCTowerMax) {
+            StartCoroutine(GM._.gui.CoShowMsgError($"CC타워는 {CCTowerMax}개까지 가능합니다."));
+            return;
+        }
+        SetCCTowerCntTxt(+1);
         GM._.tm.CreateTower(TowerType.CC_IceTower);
         StartCoroutine(CoCheckPathFind(Enum.Layer.CCTower));
     }
     public void onClickStunTowerIconBtn() {
+        if(CCTowerCnt >= CCTowerMax) {
+            StartCoroutine(GM._.gui.CoShowMsgError($"CC타워는 {CCTowerMax}개까지 가능합니다."));
+            return;
+        }
+        SetCCTowerCntTxt(+1);
         GM._.tm.CreateTower(TowerType.CC_StunTower);
         StartCoroutine(CoCheckPathFind(Enum.Layer.CCTower));
     }
@@ -52,6 +70,7 @@ public class ActionBarUIManager : MonoBehaviour {
         if(!GM._.pfm.PathFinding()) {
             StartCoroutine(GM._.gui.CoShowMsgError("길을 막으면 안됩니다!"));
             //* タイル除去
+            SetCCTowerCntTxt(-1);
             Destroy(GM._.tmc.HitObject);
         }
         //* アクションバー切り替え
@@ -65,6 +84,11 @@ public class ActionBarUIManager : MonoBehaviour {
     private void clearIcons() {
         for(int i = 0; i < IconBtns.Length - 1; i++)
             IconBtns[i].gameObject.SetActive(false);
+    }
+
+    public void SetCCTowerCntTxt(int val) {
+        CCTowerCnt += val;
+        CCTowerCntTxt.text = $"CC : {CCTowerCnt}/{CCTowerMax}";
     }
 
     /// <summary>
