@@ -51,17 +51,8 @@ public class ActionBarUIManager : MonoBehaviour {
         //* 道が詰まるエラー
         if(!GM._.pfm.PathFinding()) {
             StartCoroutine(GM._.gui.CoShowMsgError("길을 막으면 안됩니다!"));
-            var pos = new Vector3Int(GM._.tmc.CurSelectPos.y, GM._.tmc.CurSelectPos.x, 0);
-
             //* タイル除去
-            switch(layer) {
-                case Enum.Layer.Board: 
-                    GM._.tmc.BoardTileMap.SetTile(pos, null);
-                    break;
-                case Enum.Layer.CCTower:
-                    GM._.tmc.CCTowerTileMap.SetTile(pos, null);
-                    break;
-            }
+            Destroy(GM._.tmc.HitObject);
         }
         //* アクションバー切り替え
         else {

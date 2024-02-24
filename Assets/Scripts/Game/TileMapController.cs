@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CollectionScripts;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
@@ -22,17 +23,15 @@ public class TileMapController : MonoBehaviour {
     [field: SerializeField] public Vector2Int CurSelectPos {get; set;}
     [field: SerializeField] public int SelectLayer {get; set;}
 
-    [Header("Board Tile Map")]
-    public Tilemap BoardTileMap;
-    [field: SerializeField] public TileBase[] Boards {get; set;}
+    [field: SerializeField] public GameObject HitObject {get; set;}
 
-    [Header("CC Tile Map")]
-    public Tilemap CCTowerTileMap;
-    [field: SerializeField] public TileBase IceTower {get; set;}
-    [field: SerializeField] public TileBase StunTower {get; set;}
+    [Header("Prefab")]
+    [SerializeField] private GameObject[] BoardPfs;
+    [SerializeField] private GameObject[] IceTowerPfs;
+    [SerializeField] private GameObject[] StunTowerPfs;
 
     void Start() {
-        // SpawnWall();
+        SpawnWall();
     }
 
     void Update() {
@@ -67,6 +66,7 @@ public class TileMapController : MonoBehaviour {
         //* 同じ場所のまたクリック、そのまま終了
         if(CurSelectPos == new Vector2Int(x, y)) {
             CurSelectPos = new Vector2Int(-999, -999);
+            HitObject = null;
             return;
         }
 
@@ -89,6 +89,7 @@ public class TileMapController : MonoBehaviour {
             actBar.ActiveIconsByLayer(Enum.Layer.Default);
         }
         else {
+            HitObject = HitCollider.gameObject;
             int layer = HitCollider.gameObject.layer;
             switch(layer) {
                 case Enum.Layer.Wall:
@@ -141,35 +142,29 @@ public class TileMapController : MonoBehaviour {
         }
     }
 
-    private Vector3Int getCurSelectedPos() => new(CurSelectPos.y, CurSelectPos.x, 0);
+    private Vector3Int getCurSelectedPos() => new(CurSelectPos.x, CurSelectPos.y, 0);
 
     public void InstallBoardTile() {
         Debug.Log("InstallBoard()::");
-        BoardTileMap.SetTile(getCurSelectedPos(), Boards[Random.Range(0, Boards.Length)]);
+        GameObject ins = Instantiate(BoardPfs[Random.Range(0, BoardPfs.Length)], getCurSelectedPos(), quaternion.identity);
+        HitObject = ins;
     }
 
     public void InstallIceTowerTile() {
         Debug.Log("InstallIceTower()::");
-        CCTowerTileMap.SetTile(getCurSelectedPos(), IceTower);
+        GameObject ins = Instantiate(IceTowerPfs[0], getCurSelectedPos(), quaternion.identity);
+        HitObject = ins;
     }
 
     public void InstallStunTowerTile() {
         Debug.Log("InstallStunTowerTile()::");
-        CCTowerTileMap.SetTile(getCurSelectedPos(), StunTower);
+        GameObject ins = Instantiate(StunTowerPfs[0], getCurSelectedPos(), quaternion.identity);
+        HitObject = ins;
     }
 
     public void DeleteTile() {
         Debug.Log($"DeleteTile():: SelectLayer= {SelectLayer}");
-        switch(SelectLayer) {
-            case Enum.Layer.Board:
-                Debug.Log("DeleteTile():: Board");
-                BoardTileMap.SetTile(getCurSelectedPos(), null);
-                break;
-            case Enum.Layer.CCTower:
-                Debug.Log("DeleteTile():: CCTower");
-                CCTowerTileMap.SetTile(getCurSelectedPos(), null);
-                break;
-        }
+        Destroy(HitObject);
     }
 
 #endregion
