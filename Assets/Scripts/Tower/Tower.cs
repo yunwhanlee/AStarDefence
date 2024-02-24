@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TowerType {Random, CC_IceTower, CC_StunTower}
+public enum TowerType {Random, Board, CC_IceTower, CC_StunTower}
 public enum TowerKind {
     //* Random
     Warrior, Archor, Magician,

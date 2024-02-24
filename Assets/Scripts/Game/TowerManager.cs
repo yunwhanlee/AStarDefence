@@ -45,15 +45,9 @@ public class TowerManager : MonoBehaviour {
                 }
                 break;
             case TowerType.CC_IceTower:
-                // obj = Instantiate(iceTower, new Vector2(pos.x, pos.y), quaternion.identity);
-                // obj.GetComponent<IceTower>().StateUpdate(settingTowerData);
-                // CCTowerList.Add(obj);
                 GM._.tmc.InstallIceTowerTile();
                 break;
             case TowerType.CC_StunTower:
-                // obj = Instantiate(stunTower, new Vector2(pos.x, pos.y), quaternion.identity);
-                // obj.GetComponent<StunTower>().StateUpdate(settingTowerData);
-                // CCTowerList.Add(obj);
                 GM._.tmc.InstallStunTowerTile();
                 break;
         }

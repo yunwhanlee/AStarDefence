@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CollectionScripts;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
@@ -19,7 +20,7 @@ public class TileMapController : MonoBehaviour {
     [field: SerializeField] public TileBase RedArea {get; set;}
     [field: SerializeField] public TileBase SelectArea {get; set;}
     [field: SerializeField] public Vector2Int CurSelectPos {get; set;}
-    [field: SerializeField] public Collider2D HitCollider {get; private set;}
+    [field: SerializeField] public int SelectLayer {get; set;}
 
     [Header("Board Tile Map")]
     public Tilemap BoardTileMap;
@@ -31,60 +32,59 @@ public class TileMapController : MonoBehaviour {
     [field: SerializeField] public TileBase StunTower {get; set;}
 
     void Start() {
-        SpawnWall();
+        // SpawnWall();
     }
 
     void Update() {
     #region CLICK TILE EVENT
         if(Input.GetMouseButtonDown(0)) {
-            onClickTile();
+            OnClickTile();
         }
     #endregion
     }
 
 #region EVENT
-    private void onClickTile() {
-        RaycastHit2D hit;
+    private void OnClickTile() {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // 스크린 좌표를 월드 좌표로 변환
-        Ray2D ray = new Ray2D(mousePos, Vector2.zero); // 방향은 일단 임시로 0 벡터를 사용하거나, 필요한 방향으로 설정할 수 있습니다.
+        int x = (int)Math.Round(mousePos.x);
+        int y = (int)Math.Round(mousePos.y);
+
+        //* アクションバー上をクリックしたら、以下の処理しない
+        const int ACTION_BAR_START_POS_Y = -4;
+        if(y <= ACTION_BAR_START_POS_Y) return;
+
+        Debug.Log("<color=white>onClickTile():: mouse.x= " + x + ", y= " + y + "</color>");
+
+        RaycastHit2D hit;
+        Ray2D ray = new Ray2D(new Vector2(x, y), Vector2.zero); // 방향은 일단 임시로 0 벡터를 사용하거나, 필요한 방향으로 설정할 수 있습니다.
         hit = Physics2D.Raycast(ray.origin, ray.direction);
-        HitCollider = hit.collider;
-
-        int rayX = (int)Math.Round(ray.origin.x);
-        int rayY = (int)Math.Round(ray.origin.y);
-        Debug.Log($"onClickTile():: rayX= {rayX}, rayY= {rayY}");
-
-        //* アクションバー上をクリックしたら、以下の処理しなくて終了
-        if(rayY <= -4 && GM._.actBar.PanelObj.activeSelf) 
-            return;
+        Collider2D HitCollider = hit.collider;
 
         //* 選択OFF リセット
         SelectedTileMap.ClearAllTiles();
         GM._.actBar.PanelObj.SetActive(false);
 
         //* 同じ場所のまたクリック、そのまま終了
-        if(CurSelectPos == new Vector2Int(rayX, rayY)) {
+        if(CurSelectPos == new Vector2Int(x, y)) {
             CurSelectPos = new Vector2Int(-999, -999);
-            HitCollider = null;
             return;
         }
 
         //* 選択領域の制限
-        if(rayX < Config.START_POS.x) return;
-        if(rayX > Config.GOAL_POS.x) return;
-        if(rayY > Config.START_POS.y) return;
-        if(rayY < Config.GOAL_POS.y) return;
+        if(x < Config.START_POS.x) return;
+        if(x > Config.GOAL_POS.x) return;
+        if(y > Config.START_POS.y) return;
+        if(y < Config.GOAL_POS.y) return;
 
-        CurSelectPos = new Vector2Int(rayX, rayY);
+        CurSelectPos = new Vector2Int(x, y);
 
         //* 選択タイル 表示
-        SelectedTileMap.SetTile(new Vector3Int(rayY, rayX, 0), SelectArea);
+        SelectedTileMap.SetTile(new Vector3Int(y, x, 0), SelectArea);
 
         //* アクションバーUI 表示
         var actBar = GM._.actBar;
         actBar.PanelObj.SetActive(true);
 
-        Debug.Log("HitCollider= " + (HitCollider == null));
         if(HitCollider == null) {
             actBar.ActiveIconsByLayer(Enum.Layer.Default);
         }
@@ -111,7 +111,7 @@ public class TileMapController : MonoBehaviour {
 #region FUNC
     /// <summary>
     /// 壁をランダムで設置
-    /// </summary> <summary>
+    /// </summary>
     private void SpawnWall() {
         List<Vector2Int> posList = new List<Vector2Int>();
         var sp = Config.START_POS;
@@ -140,22 +140,35 @@ public class TileMapController : MonoBehaviour {
             WallTileMap.SetTile(pos, Walls[Random.Range(0, Walls.Length)]);
         }
     }
+
     private Vector3Int getCurSelectedPos() => new(CurSelectPos.y, CurSelectPos.x, 0);
+
     public void InstallBoardTile() {
         Debug.Log("InstallBoard()::");
         BoardTileMap.SetTile(getCurSelectedPos(), Boards[Random.Range(0, Boards.Length)]);
     }
+
     public void InstallIceTowerTile() {
         Debug.Log("InstallIceTower()::");
         CCTowerTileMap.SetTile(getCurSelectedPos(), IceTower);
     }
+
     public void InstallStunTowerTile() {
         Debug.Log("InstallStunTowerTile()::");
         CCTowerTileMap.SetTile(getCurSelectedPos(), StunTower);
     }
+
     public void DeleteTile() {
-        if(HitCollider != null) {
-            Debug.Log("HitCollider.layer= " + HitCollider.gameObject.layer);
+        Debug.Log($"DeleteTile():: SelectLayer= {SelectLayer}");
+        switch(SelectLayer) {
+            case Enum.Layer.Board:
+                Debug.Log("DeleteTile():: Board");
+                BoardTileMap.SetTile(getCurSelectedPos(), null);
+                break;
+            case Enum.Layer.CCTower:
+                Debug.Log("DeleteTile():: CCTower");
+                CCTowerTileMap.SetTile(getCurSelectedPos(), null);
+                break;
         }
     }
 

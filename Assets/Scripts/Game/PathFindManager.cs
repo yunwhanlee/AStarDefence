@@ -19,7 +19,7 @@ public class Node
 
 public class PathFindManager : MonoBehaviour
 {
-    const int PATH_ICON_CREATE_CNT = 60;
+    const int PATH_ICON_CREATE_CNT = 80;
 
     Coroutine corShowPathIconID;
     public Transform pathIconObjGroup;
@@ -65,10 +65,10 @@ public class PathFindManager : MonoBehaviour
         // NodeArray의 크기 정해주고, isWall, x, y 대입
         sizeX = topRight.x - bottomLeft.x + 1;
         sizeY = topRight.y - bottomLeft.y + 1;
-        Debug.Log("sizeX= " + sizeX + ", sizeY= " + sizeY);
+        // Debug.Log("sizeX= " + sizeX + ", sizeY= " + sizeY);
         NodeArray = new Node[sizeX, sizeY];
 
-        //* 壁検索
+        //* 壁 検索
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
                 bool isWall = false;
@@ -106,8 +106,7 @@ public class PathFindManager : MonoBehaviour
                 Node TargetCurNode = TargetNode;
                 var goal = new Node(false, Config.GOAL_POS.x, Config.GOAL_POS.y);
                 FinalNodeList.Add(goal);
-                while (TargetCurNode != StartNode)
-                {
+                while (TargetCurNode != StartNode) {
                     FinalNodeList.Add(TargetCurNode);
                     TargetCurNode = TargetCurNode.ParentNode;
                 }

@@ -18,19 +18,23 @@ public class ActionBarUIManager : MonoBehaviour {
 #region EVENT BUTTON
     public void onClickBoardIconBtn() {
         GM._.tmc.InstallBoardTile();
-        StartCoroutine(CoCheckPathFind());
+        StartCoroutine(CoCheckPathFind(Enum.Layer.Board));
     }
     public void onClickRandomTowerIconBtn() {
         GM._.tm.CreateTower(TowerType.Random);
     }
     public void onClickIceTowerIconBtn() {
         GM._.tm.CreateTower(TowerType.CC_IceTower);
+        StartCoroutine(CoCheckPathFind(Enum.Layer.CCTower));
     }
     public void onClickStunTowerIconBtn() {
         GM._.tm.CreateTower(TowerType.CC_StunTower);
+        StartCoroutine(CoCheckPathFind(Enum.Layer.CCTower));
     }
     public void onClickDeleteIconBtn() {
-        
+        GM._.tmc.DeleteTile();
+        GM._.tmc.SelectedTileMap.ClearAllTiles();
+        PanelObj.SetActive(false);
     }
     public void onClickExitIconBtn() {
         GM._.tmc.SelectedTileMap.ClearAllTiles();
@@ -42,17 +46,29 @@ public class ActionBarUIManager : MonoBehaviour {
     /// <summary>
     /// タイルの設置が完了するまで待ち、次のフレームで道が詰まったことを確認
     /// </summary>
-    IEnumerator CoCheckPathFind() {
+    IEnumerator CoCheckPathFind(int layer) {
         yield return null;
-        //* 道が詰まったら
+        //* 道が詰まるエラー
         if(!GM._.pfm.PathFinding()) {
             StartCoroutine(GM._.gui.CoShowMsgError("길을 막으면 안됩니다!"));
             var pos = new Vector3Int(GM._.tmc.CurSelectPos.y, GM._.tmc.CurSelectPos.x, 0);
-            GM._.tmc.BoardTileMap.SetTile(pos, null);
+
+            //* タイル除去
+            switch(layer) {
+                case Enum.Layer.Board: 
+                    GM._.tmc.BoardTileMap.SetTile(pos, null);
+                    break;
+                case Enum.Layer.CCTower:
+                    GM._.tmc.CCTowerTileMap.SetTile(pos, null);
+                    break;
+            }
         }
-        //* Boardタイル選択後に進む
-        else
-            ActiveIconsByLayer(Enum.Layer.Board);
+        //* アクションバー切り替え
+        else {
+            //* 表示
+            ActiveIconsByLayer(layer);
+            GM._.tmc.SelectLayer = layer;
+        }
     }
 
     private void clearIcons() {
@@ -60,6 +76,10 @@ public class ActionBarUIManager : MonoBehaviour {
             IconBtns[i].gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// アクションバーのアイコン表示
+    /// </summary>
+    /// <param name="layer">選択したタイルのレイアタイプ</param>
     public void ActiveIconsByLayer(int layer) {
         //* リセット
         clearIcons();
@@ -81,7 +101,6 @@ public class ActionBarUIManager : MonoBehaviour {
                 IconBtns[(int)ICON.Board].gameObject.SetActive(true);
                 IconBtns[(int)ICON.IceTower].gameObject.SetActive(true);
                 IconBtns[(int)ICON.ThunderTower].gameObject.SetActive(true);
-                IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
                 break;
         }
     }
