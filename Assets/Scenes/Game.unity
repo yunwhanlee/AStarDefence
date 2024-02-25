@@ -6114,14 +6114,17 @@ MonoBehaviour:
   warriors:
   - {fileID: 4991751060699320783, guid: b7ce48fcca403fa4bbb1dd558c45b826, type: 3}
   - {fileID: 4991751060699320783, guid: f060b8cea46ef6a48a9d547ae700aff4, type: 3}
+  - {fileID: 4991751060699320783, guid: 027013350c13c8f40a92b5f4641727c7, type: 3}
   <WarriorGroup>k__BackingField: {fileID: 1877334351}
   archers:
   - {fileID: 628706783900631001, guid: 3af548cb16b9d074f9c32f512edc69e8, type: 3}
   - {fileID: 8943399528514024596, guid: 035d6f51249f7af47bc7c66ecef70045, type: 3}
+  - {fileID: 8943399528514024596, guid: eb9313dbe13d0a746b1f5b3658c9ff19, type: 3}
   <ArcherGroup>k__BackingField: {fileID: 538722644}
   magicians:
   - {fileID: 9206360160737991057, guid: 6ce7f040e4e68c24e9e7b4fb5cc8b18c, type: 3}
   - {fileID: 9206360160737991057, guid: f4ba71642c12a454db54c435e514b60b, type: 3}
+  - {fileID: 9206360160737991057, guid: 2f9878429763ad442b59f43eb69c104f, type: 3}
   <MagicianGroup>k__BackingField: {fileID: 1018305007}
   iceTowers:
   - {fileID: 6435509696272214480, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
