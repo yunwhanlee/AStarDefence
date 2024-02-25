@@ -166,8 +166,9 @@ public class TileMapController : MonoBehaviour {
 
     public void InstallBoardTile() {
         Debug.Log("InstallBoard()::");
-        GameObject ins = Instantiate(BoardPfs[Random.Range(0, BoardPfs.Length)], getCurSelectedPos(), quaternion.identity);
         var tm = GM._.tm;
+        GameObject ins = Instantiate(BoardPfs[Random.Range(0, BoardPfs.Length)], tm.BoardGroup);
+        ins.transform.localPosition = getCurSelectedPos();
         int boardCnt = tm.WarriorGroup.childCount + tm.ArcherGroup.childCount + tm.MagicianGroup.childCount;
         ins.name = $"Board{boardCnt}";
         HitObject = ins;

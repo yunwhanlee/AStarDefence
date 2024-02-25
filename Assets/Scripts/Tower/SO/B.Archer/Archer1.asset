@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   Kind: 2
-  Name: 
+  Name: Archer1
   Lv: 1
   Dmg: 3
   AtkSpeed: 1

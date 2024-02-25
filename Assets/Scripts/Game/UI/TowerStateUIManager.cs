@@ -21,6 +21,7 @@ public class TowerStateUIManager : MonoBehaviour {
     }
 
     public void ShowTowerStateUI(string[] states) {
+        Debug.Log($"ShowTowerStateUI():: lv= {states[0]}");
         //* GradeLabelGroup
         for(int i = 0; i < GradeLabelGroup.childCount; i++) {
             int lv = int.Parse(states[0]);

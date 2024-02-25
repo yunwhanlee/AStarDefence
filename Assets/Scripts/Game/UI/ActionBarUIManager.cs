@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class ActionBarUIManager : MonoBehaviour {
     public enum ICON {
@@ -17,6 +18,8 @@ public class ActionBarUIManager : MonoBehaviour {
     public GameObject PanelObj;
     [field: SerializeField] public TextMeshProUGUI CCTowerCntTxt {get; set;}
     [field: SerializeField] public Button[] IconBtns {get; set;}
+    [field: SerializeField] public Sprite MergeOffSpr {get; set;}
+    [field: SerializeField] public Sprite MergeOnSpr {get; set;}
 
     void Start() {
         PanelObj.SetActive(false);
@@ -54,6 +57,34 @@ public class ActionBarUIManager : MonoBehaviour {
         SetCCTowerCntTxt(+1);
         GM._.tm.CreateTower(TowerType.CC_StunTower);
         StartCoroutine(CoCheckPathFind(Enum.Layer.CCTower));
+    }
+    public void OnClickUpgradeIconBtn() {
+
+    }
+    public void OnClickMergeIconBtn() {
+        bool isMerged = false;
+        var tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
+        //* タワーのタイプによってマージ
+        switch(tower.Kind) {
+            case TowerKind.Warrior:
+                var warrior = tower as WarriorTower;
+                isMerged = warrior.Merge();
+                break;
+            case TowerKind.Archer:
+                var archer = tower as ArcherTower;
+                isMerged = archer.Merge();
+                break;
+            case TowerKind.Magician:
+                var magician = tower as MagicianTower;
+                isMerged = magician.Merge();
+                break;
+        }
+
+        ActiveIconsByLayer(Enum.Layer.Tower);
+
+        // GM._.tmc.SelectedTileMap.ClearAllTiles();
+        // PanelObj.SetActive(false);
+        // GM._.tmc.Reset();
     }
     public void OnClickDeleteIconBtn() {
         GM._.tmc.DeleteTile();
@@ -131,6 +162,23 @@ public class ActionBarUIManager : MonoBehaviour {
                 //* タワー情報UI 表示
                 Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
                 GM._.tsm.ShowTowerStateUI(tower.InfoState());
+                //* マージ可能UI 表示
+                Image iconImg = IconBtns[(int)ICON.Merge].GetComponent<Image>();
+                iconImg.sprite = MergeOffSpr;
+                switch(tower.Kind) {
+                    case TowerKind.Warrior:
+                        var warrior = tower as WarriorTower;
+                        warrior.CheckMergeUI();
+                        break;
+                    case TowerKind.Archer:
+                        var archer = tower as ArcherTower;
+                        archer.CheckMergeUI();
+                        break;
+                    case TowerKind.Magician:
+                        var magician = tower as MagicianTower;
+                        magician.CheckMergeUI();
+                        break;
+                }
                 break;
             }
             default: {

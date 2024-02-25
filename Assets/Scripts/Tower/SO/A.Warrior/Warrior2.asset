@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   Kind: 1
-  Name: Warrior
+  Name: Warrior2
   Lv: 2
   Dmg: 25
   AtkSpeed: 1.75

@@ -19,20 +19,23 @@ public class TowerManager : MonoBehaviour {
     [SerializeField] GameObject[] stunTowers; public GameObject[] StunTowers {get => stunTowers;}
     [field: SerializeField] public List<GameObject> CCTowerList {get; private set;} = new List<GameObject>();
 
+    [field: SerializeField] public Transform BoardGroup {get; private set;}
+
     void Start() {
     }
 
 #region FUNC
     private void InstantiateTower(GameObject towerObj, Transform objGroup) {
         //* タワー → Board子に入れる
-        GameObject obj = Instantiate(towerObj, GM._.tmc.HitObject.transform);
-        obj.transform.localPosition = new Vector2(0, 0.15f); //* 少し上で、Board上にのせるように
+        Tower tower = Instantiate(towerObj, GM._.tmc.HitObject.transform).GetComponent<Tower>();
+        tower.transform.localPosition = new Vector2(0, 0.15f); //* 少し上で、Board上にのせるように
         //* そのBoard → Group子に入れる
         GM._.tmc.HitObject.transform.SetParent(objGroup);
         //TODO Delete処理
     }
 
-    public void CreateTower(TowerType type) {
+    public void CreateTower(TowerType type, int lvIdx = 0) {
+        Debug.Log($"<color=white>CreateTower({type}, {lvIdx})::</color>");
         switch(type) {
             case TowerType.Random:
                 const int WARRIOR = 0, ARCHER = 1, MAGICIAN = 2;
@@ -40,13 +43,13 @@ public class TowerManager : MonoBehaviour {
                 int randKind = Random.Range(0, 3);
                 switch(randKind) {
                     case WARRIOR: 
-                        InstantiateTower(warriors[0], WarriorGroup);
+                        InstantiateTower(warriors[lvIdx], WarriorGroup);
                         break;
                     case ARCHER:
-                        InstantiateTower(archers[0], ArcherGroup);
+                        InstantiateTower(archers[lvIdx], ArcherGroup);
                         break;
                     case MAGICIAN:
-                        InstantiateTower(magicians[0], MagicianGroup);
+                        InstantiateTower(magicians[lvIdx], MagicianGroup);
                         break;
                 }
                 //* タワー設置 トリガー ON

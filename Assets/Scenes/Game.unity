@@ -3733,6 +3733,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359753361}
   m_CullTransparentMesh: 1
+--- !u!1 &362230986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 362230987}
+  m_Layer: 0
+  m_Name: BoardGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &362230987
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362230986}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1938362504}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &369886880
 GameObject:
   m_ObjectHideFlags: 0
@@ -6101,6 +6132,7 @@ MonoBehaviour:
   - {fileID: 1220650578475296766, guid: 41c6d40b5a4720043bdaf772595d0afc, type: 3}
   - {fileID: 9169812683309671524, guid: 4beb9a5626a805c438c888b8e194a830, type: 3}
   <CCTowerList>k__BackingField: []
+  <BoardGroup>k__BackingField: {fileID: 362230987}
 --- !u!4 &610890940
 Transform:
   m_ObjectHideFlags: 0
@@ -8777,6 +8809,8 @@ MonoBehaviour:
   - {fileID: 1188410784}
   - {fileID: 1091044559}
   - {fileID: 140713109}
+  <MergeOffSpr>k__BackingField: {fileID: 21300000, guid: b24f4bd4b10df44d486a526496d3215b, type: 3}
+  <MergeOnSpr>k__BackingField: {fileID: 21300000, guid: 247bad746118046cdaba744ee30953e1, type: 3}
 --- !u!1 &955166575
 GameObject:
   m_ObjectHideFlags: 0
@@ -10834,7 +10868,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1188410785}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 942321695}
+        m_TargetAssemblyTypeName: ActionBarUIManager, Assembly-CSharp
+        m_MethodName: OnClickMergeIconBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1188410785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10855,7 +10901,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b24f4bd4b10df44d486a526496d3215b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5320182b1941b45929df39aaafaf2f27, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -17654,6 +17700,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 362230987}
   - {fileID: 1877334351}
   - {fileID: 538722644}
   - {fileID: 1018305007}

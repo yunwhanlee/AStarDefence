@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   Kind: 3
-  Name: 
+  Name: Magician1
   Lv: 0
   Dmg: 6
   AtkSpeed: 1.5
