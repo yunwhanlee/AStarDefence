@@ -49,6 +49,7 @@ public abstract class Tower : MonoBehaviour {
         SplashRange = TowerData.SplashRange;
         SlowPer = TowerData.SlowPer;
         StunSec = TowerData.StunSec;
+        Debug.Log($"<color=yellow>Lv= {Lv}, Name= {Name}, Dmg= {Dmg}</color>");
     }
 
     public virtual string[] InfoState() {

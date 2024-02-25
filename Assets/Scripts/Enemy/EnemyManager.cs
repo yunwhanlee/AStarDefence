@@ -45,7 +45,7 @@ public class EnemyManager : MonoBehaviour {
         Enemy enemy = pool.Get();
         enemy.regist(pool);
         enemy.name = "enemy";
-        enemy.transform.position = new Vector2(Config.START_POS.x, Config.START_POS.y);
+        enemy.transform.position = new Vector2(GM._.pfm.startPos.x, GM._.pfm.startPos.y);
     }
 #endregion
 }
