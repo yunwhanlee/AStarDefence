@@ -24,6 +24,7 @@ public class TileMapController : MonoBehaviour {
     [field: SerializeField] public int SelectLayer {get; set;}
 
     [field: SerializeField] public GameObject HitObject {get; set;}
+    [field: SerializeField] public GameObject SwitchBefHitObject {get; set;}
 
     void Start() {
         SpawnWall();
@@ -52,6 +53,18 @@ public class TileMapController : MonoBehaviour {
         Ray2D ray = new Ray2D(new Vector2(x, y), Vector2.zero); // 방향은 일단 임시로 0 벡터를 사용하거나, 필요한 방향으로 설정할 수 있습니다.
         hit = Physics2D.Raycast(ray.origin, ray.direction);
         Collider2D HitCollider = hit.collider;
+
+        if(GM._.actBar.IsSwitchMode) {
+            if(HitCollider && SwitchBefHitObject != HitCollider) {
+                //* お互いに位置変更
+                Vector2 tempPos = HitCollider.transform.position;
+                HitCollider.transform.position = SwitchBefHitObject.transform.position;
+                SwitchBefHitObject.transform.position = tempPos;
+
+                GM._.actBar.IsSwitchMode = false;
+                GM._.gui.ShowMsgInfo(isActive: false);
+            }
+        }
 
         //* 選択OFF リセット
         SelectedTileMap.ClearAllTiles();

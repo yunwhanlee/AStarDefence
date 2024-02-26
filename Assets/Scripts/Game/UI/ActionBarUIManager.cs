@@ -8,15 +8,19 @@ using System;
 
 public class ActionBarUIManager : MonoBehaviour {
     public enum ICON {
-        Break, Board, Tower, IceTower, ThunderTower, Upgrade, Merge, Delete, Exit
+        Break, Board, Tower, IceTower, ThunderTower, Upgrade, Merge, Switch, Delete, Exit
     };
 
-    [field: SerializeField] public int CCTowerMax {get; private set;} = 5;
+    //* Value
+    [field: SerializeField] public int CCTowerMax {get; private set;}
     [field: SerializeField] public int CCTowerCnt {get; private set;}
+    [field: SerializeField] public bool IsSwitchMode {get; set;}
+    [field: SerializeField] public int SwitchCnt {get; private set;}
 
     [Header("UI")]
     public GameObject PanelObj;
     [field: SerializeField] public TextMeshProUGUI CCTowerCntTxt {get; set;}
+    [field: SerializeField] public TextMeshProUGUI SwitchCntTxt {get; set;}
     [field: SerializeField] public Button[] IconBtns {get; set;}
     [field: SerializeField] public Sprite MergeOffSpr {get; set;}
     [field: SerializeField] public Sprite MergeOnSpr {get; set;}
@@ -24,6 +28,10 @@ public class ActionBarUIManager : MonoBehaviour {
     void Start() {
         PanelObj.SetActive(false);
         SetCCTowerCntTxt(0);
+
+        IsSwitchMode = false;
+        CCTowerMax = 5;
+        SwitchCnt = 1;
     }
 
 #region EVENT BUTTON
@@ -100,6 +108,18 @@ public class ActionBarUIManager : MonoBehaviour {
 
         UpdateUI(Enum.Layer.Tower);
     }
+    public void OnClickSwitchIconBtn() {
+        if(SwitchCnt > 0) {
+            IsSwitchMode = true;
+            GM._.gui.ShowMsgInfo(isActive: true, "위치를 바꿀 타워를 선택해주세요!");
+            SwitchCntTxt.text = $"{--SwitchCnt}";
+            //* 現在の選択したObjectを保存
+            GM._.tmc.SwitchBefHitObject = GM._.tmc.HitObject;
+        }
+        else {
+            StartCoroutine(GM._.gui.CoShowMsgError("위치변경을 전부 사용했습니다."));
+        }
+    }
     public void OnClickDeleteIconBtn() {
         GM._.tmc.DeleteTile();
         GM._.tmc.SelectedTileMap.ClearAllTiles();
@@ -160,6 +180,7 @@ public class ActionBarUIManager : MonoBehaviour {
             case Enum.Layer.Board: {
                 IconBtns[(int)ICON.Tower].gameObject.SetActive(true);
                 IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
+                IconBtns[(int)ICON.Switch].gameObject.SetActive(true);
                 break;
             }
             case Enum.Layer.CCTower: {
@@ -181,6 +202,7 @@ public class ActionBarUIManager : MonoBehaviour {
                 //* アイコン表示
                 IconBtns[(int)ICON.Upgrade].gameObject.SetActive(!isMaxLv);
                 IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
+                IconBtns[(int)ICON.Switch].gameObject.SetActive(true);
                 break;
             }
             case Enum.Layer.Tower: {
@@ -224,6 +246,7 @@ public class ActionBarUIManager : MonoBehaviour {
                 //* アイコン表示
                 IconBtns[(int)ICON.Merge].gameObject.SetActive(!isMaxLv);
                 IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
+                IconBtns[(int)ICON.Switch].gameObject.SetActive(true);
                 break;
             }
             default: {
