@@ -46,15 +46,15 @@ public class TowerManager : MonoBehaviour {
         tmc.HitObject.transform.SetParent(objGroup);
         //TODO Delete処理
     }
-    private void InstallIceTower() {
+    private void InstallIceTower(int lvIdx) {
         Debug.Log("InstallIceTower()::");
-        GameObject ccTower = Instantiate(iceTowers[0], CCTowerGroup);
+        GameObject ccTower = Instantiate(iceTowers[lvIdx], CCTowerGroup);
         ccTower.transform.position = tmc.getCurSelectedPos();
         tmc.HitObject = ccTower;
     }
-    private void InstallStunTower() {
+    private void InstallStunTower(int lvIdx) {
         Debug.Log("InstallStunTower()::");
-        GameObject ccTower = Instantiate(stunTowers[0], CCTowerGroup);
+        GameObject ccTower = Instantiate(stunTowers[lvIdx], CCTowerGroup);
         ccTower.transform.position = tmc.getCurSelectedPos();
         tmc.HitObject = ccTower;
     }
@@ -81,10 +81,10 @@ public class TowerManager : MonoBehaviour {
                 tmc.HitObject.GetComponent<Board>().IsTowerOn = true;
                 break;
             case TowerType.CC_IceTower:
-                InstallStunTower();
+                InstallIceTower(lvIdx);
                 break;
             case TowerType.CC_StunTower:
-                InstallIceTower();
+                InstallStunTower(lvIdx);
                 break;
         }
     }

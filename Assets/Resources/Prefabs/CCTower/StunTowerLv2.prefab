@@ -47,11 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f6a8fb6f98e3a845850b27de6789d0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TowerData: {fileID: 0}
-  Type: 0
+  TowerData: {fileID: 11400000, guid: 37789ffb98d5196438bf13e3d3049bd8, type: 2}
+  Type: 3
   Kind: 0
-  Name: 
-  Lv: 0
+  Name: "\uC2A4\uD134\uD0C0\uC6CC2"
+  Lv: 2
   Dmg: 0
   AtkSpeed: 0
   AtkRange: 0
@@ -101,7 +101,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1685244682, guid: f2e76513b12185a4a8ca1d25ef8b456f, type: 3}
+  m_Sprite: {fileID: -1624257301, guid: f2e76513b12185a4a8ca1d25ef8b456f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

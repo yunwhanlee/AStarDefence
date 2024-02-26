@@ -16,5 +16,5 @@ public class SettingTowerData : ScriptableObject {
     public float CritDmgPer;
     //* CC
     [Range(0.00f,1.00f)] public float SlowPer;
-    [Range(0.0f, 5.0f)] public int StunSec;
+    [Range(0.0f, 5.0f)] public float StunSec;
 }

@@ -38,7 +38,7 @@ public class ActionBarUIManager : MonoBehaviour {
     }
     public void OnClickRandomTowerIconBtn() {
         GM._.tm.CreateTower(TowerType.Random);
-        ActiveIconsByLayer(Enum.Layer.Tower);
+        UpdateUI(Enum.Layer.Tower);
     }
     public void OnClickIceTowerIconBtn() {
         if(CCTowerCnt >= CCTowerMax) {
@@ -59,32 +59,39 @@ public class ActionBarUIManager : MonoBehaviour {
         StartCoroutine(CoCheckPathFind(Enum.Layer.CCTower));
     }
     public void OnClickUpgradeIconBtn() {
-
+        Debug.Log($"OnClickUpgradeIconBtn():: HitObject= {GM._.tmc.HitObject}");
+        Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
+        switch(tower.Type) {
+            case TowerType.CC_IceTower:
+                var iceTower = tower as IceTower;
+                iceTower.Upgrade();
+                break;
+            case TowerType.CC_StunTower:
+                var stunTower = tower as StunTower;
+                stunTower.Upgrade();
+                break;
+        }
+        UpdateUI(Enum.Layer.CCTower);
     }
     public void OnClickMergeIconBtn() {
-        bool isMerged = false;
-        var tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
+        // bool isMerged = false;
+        Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
         //* タワーのタイプによってマージ
         switch(tower.Kind) {
             case TowerKind.Warrior:
                 var warrior = tower as WarriorTower;
-                isMerged = warrior.Merge();
+                warrior.Merge();
                 break;
             case TowerKind.Archer:
                 var archer = tower as ArcherTower;
-                isMerged = archer.Merge();
+                archer.Merge();
                 break;
             case TowerKind.Magician:
                 var magician = tower as MagicianTower;
-                isMerged = magician.Merge();
+                magician.Merge();
                 break;
         }
-
-        ActiveIconsByLayer(Enum.Layer.Tower);
-
-        // GM._.tmc.SelectedTileMap.ClearAllTiles();
-        // PanelObj.SetActive(false);
-        // GM._.tmc.Reset();
+        UpdateUI(Enum.Layer.Tower);
     }
     public void OnClickDeleteIconBtn() {
         GM._.tmc.DeleteTile();
@@ -114,7 +121,7 @@ public class ActionBarUIManager : MonoBehaviour {
         //* アクションバー切り替え
         else {
             //* 表示
-            ActiveIconsByLayer(layer);
+            UpdateUI(layer);
             GM._.tmc.SelectLayer = layer;
         }
     }
@@ -132,7 +139,7 @@ public class ActionBarUIManager : MonoBehaviour {
     /// アクションバーのアイコン表示
     /// </summary>
     /// <param name="layer">選択したタイルのレイアタイプ</param>
-    public void ActiveIconsByLayer(int layer) {
+    public void UpdateUI(int layer) {
         //* リセット
         clearIcons();
         GM._.tsm.WindowObj.SetActive(false);
@@ -149,19 +156,45 @@ public class ActionBarUIManager : MonoBehaviour {
                 break;
             }
             case Enum.Layer.CCTower: {
-                IconBtns[(int)ICON.Upgrade].gameObject.SetActive(true);
-                IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
                 //* タワー情報UI 表示
                 Tower tower = GM._.tmc.HitObject.GetComponent<Tower>();
                 GM._.tsm.ShowTowerStateUI(tower.InfoState());
+
+                //* MaxLv チェック
+                bool isMaxLv = false;
+                switch (tower.Type) {
+                    case TowerType.CC_IceTower:
+                        isMaxLv = tower.Lv >= GM._.tm.IceTowers.Length;
+                        break;
+                    case TowerType.CC_StunTower:
+                        isMaxLv = tower.Lv >= GM._.tm.StunTowers.Length;
+                        break;
+                }
+
+                //* アイコン表示
+                IconBtns[(int)ICON.Upgrade].gameObject.SetActive(!isMaxLv);
+                IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
                 break;
             }
             case Enum.Layer.Tower: {
-                IconBtns[(int)ICON.Merge].gameObject.SetActive(true);
-                IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
                 //* タワー情報UI 表示
                 Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
                 GM._.tsm.ShowTowerStateUI(tower.InfoState());
+
+                //* MaxLv チェック
+                bool isMaxLv = false;
+                switch (tower.Kind) {
+                    case TowerKind.Warrior:
+                        isMaxLv = tower.Lv >= GM._.tm.Warriors.Length;
+                        break;
+                    case TowerKind.Archer:
+                        isMaxLv = tower.Lv >= GM._.tm.Archers.Length;
+                        break;
+                    case TowerKind.Magician:
+                        isMaxLv = tower.Lv >= GM._.tm.Magicians.Length;
+                        break;
+                }
+
                 //* マージ可能UI 表示
                 Image iconImg = IconBtns[(int)ICON.Merge].GetComponent<Image>();
                 iconImg.sprite = MergeOffSpr;
@@ -179,6 +212,10 @@ public class ActionBarUIManager : MonoBehaviour {
                         magician.CheckMergeUI();
                         break;
                 }
+
+                //* アイコン表示
+                IconBtns[(int)ICON.Merge].gameObject.SetActive(!isMaxLv);
+                IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
                 break;
             }
             default: {

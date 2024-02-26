@@ -50,7 +50,7 @@ MonoBehaviour:
   TowerData: {fileID: 11400000, guid: 6d14b27c5e6051f4fa43ec4d444251da, type: 2}
   Type: 2
   Kind: 0
-  Name: "\uC544\uC774\uC2A4\uD0C0\uC6CC"
+  Name: "\uC544\uC774\uC2A4\uD0C0\uC6CC1"
   Lv: 0
   Dmg: 0
   AtkSpeed: 0

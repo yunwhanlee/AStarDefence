@@ -44,4 +44,9 @@ public class MagicianTower : Tower
 
         return false;
     }
+
+    public override void Upgrade()
+    {
+        throw new NotImplementedException();
+    }
 }

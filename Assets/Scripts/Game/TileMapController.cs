@@ -59,7 +59,6 @@ public class TileMapController : MonoBehaviour {
 
         //* 同じ場所のまたクリック、そのまま終了
         if(CurSelectPos == new Vector2Int(x, y)) {
-            CurSelectPos = new Vector2Int(-999, -999);
             Reset();
             return;
         }
@@ -81,27 +80,27 @@ public class TileMapController : MonoBehaviour {
 
         if(HitCollider == null) {
             Debug.Log($"OnClickTile():: HitCollider is Null= {HitCollider == null}");
-            actBar.ActiveIconsByLayer(Enum.Layer.Default);
-            Reset();
+            actBar.UpdateUI(Enum.Layer.Default);
+            Reset(isClearPos: false);
         }
         else {
             HitObject = HitCollider.gameObject;
             SelectLayer = HitCollider.gameObject.layer;
             switch(SelectLayer) {
                 case Enum.Layer.Wall:
-                    actBar.ActiveIconsByLayer(SelectLayer);
+                    actBar.UpdateUI(SelectLayer);
                     break;
                 case Enum.Layer.Board:
                     if(HitObject.GetComponent<Board>().IsTowerOn)
-                        actBar.ActiveIconsByLayer(Enum.Layer.Tower);
+                        actBar.UpdateUI(Enum.Layer.Tower);
                     else
-                        actBar.ActiveIconsByLayer(Enum.Layer.Board);
+                        actBar.UpdateUI(Enum.Layer.Board);
                     break;
                 case Enum.Layer.CCTower:
-                    actBar.ActiveIconsByLayer(SelectLayer);
+                    actBar.UpdateUI(SelectLayer);
                     break;
                 default:
-                    actBar.ActiveIconsByLayer(Enum.Layer.Default);
+                    actBar.UpdateUI(Enum.Layer.Default);
                     break;
             }
         }
@@ -148,17 +147,19 @@ public class TileMapController : MonoBehaviour {
         }
     }
 
-    public void Reset() {
+    public void Reset(bool isClearPos = true) {
         Debug.Log("Reset():: Data");
         SelectLayer = 0;
         HitObject = null;
+        //* 選択した位置
+        if(isClearPos)
+            CurSelectPos = new Vector2Int(-999, -999);
     }
 
     public void BreakWallTile() {
         Debug.Log($"BreakWallTile():: curSelectedPos= {getCurSelectedPos()}");
         WallTileMap.SetTile(getCurSelectedPos(isTile: true), null);
-        CurSelectPos = new Vector2Int(-999, -999);
-        Reset();
+        Reset(isClearPos: false);
     }
 
     public void DeleteTile() {
@@ -166,7 +167,6 @@ public class TileMapController : MonoBehaviour {
         if(HitObject.layer == Enum.Layer.CCTower)
             GM._.actBar.SetCCTowerCntTxt(-1);
         Destroy(HitObject);
-        CurSelectPos = new Vector2Int(-999, -999);
         Reset();
     }
 

@@ -3260,7 +3260,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 309375506}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 942321695}
+        m_TargetAssemblyTypeName: ActionBarUIManager, Assembly-CSharp
+        m_MethodName: OnClickUpgradeIconBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &309375506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14410,10 +14422,6 @@ MonoBehaviour:
   <CurSelectPos>k__BackingField: {x: 0, y: 0}
   <SelectLayer>k__BackingField: 0
   <HitObject>k__BackingField: {fileID: 0}
-  BoardPfs:
-  - {fileID: 9152055108212847946, guid: d7e4607617f37b94095f817de60369da, type: 3}
-  - {fileID: 9152055108212847946, guid: 89119f47067145c4986683a800e02ed5, type: 3}
-  - {fileID: 9152055108212847946, guid: 2ebf49b8177f8ad4ebc0e7bb0c5a1018, type: 3}
 --- !u!1 &1305819895
 GameObject:
   m_ObjectHideFlags: 0

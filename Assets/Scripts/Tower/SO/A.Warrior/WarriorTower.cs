@@ -43,4 +43,9 @@ public class WarriorTower : Tower
         }
         return false;
     }
+
+    public override void Upgrade()
+    {
+        throw new NotImplementedException();
+    }
 }
