@@ -33,7 +33,7 @@ public class ActionBarUIManager : MonoBehaviour {
         PanelObj.SetActive(false);
     }
     public void OnClickBoardIconBtn() {
-        GM._.tmc.InstallBoardTile();
+        GM._.tm.InstallBoard();
         StartCoroutine(CoCheckPathFind(Enum.Layer.Board));
     }
     public void OnClickRandomTowerIconBtn() {

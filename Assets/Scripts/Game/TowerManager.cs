@@ -17,21 +17,46 @@ public class TowerManager : MonoBehaviour {
     [Header("CC")]
     [SerializeField] GameObject[] iceTowers; public GameObject[] IceTowers {get => iceTowers;}
     [SerializeField] GameObject[] stunTowers; public GameObject[] StunTowers {get => stunTowers;}
-    [field: SerializeField] public List<GameObject> CCTowerList {get; private set;} = new List<GameObject>();
-
+    [field: SerializeField] public Transform CCTowerGroup {get; private set;}
+    [Header("BOARD")]
+    [SerializeField] GameObject[] boards; public GameObject[] Boards {get => boards;}
     [field: SerializeField] public Transform BoardGroup {get; private set;}
 
+    TowerManager tm;
+    TileMapController tmc;
     void Start() {
+        tm = GM._.tm;
+        tmc = GM._.tmc;
     }
 
 #region FUNC
+    public void InstallBoard() {
+        Debug.Log("InstallBoard()::");
+        GameObject ins = Instantiate(boards[Random.Range(0, boards.Length)], tm.BoardGroup);
+        ins.transform.localPosition = tmc.getCurSelectedPos();
+        int boardCnt = tm.WarriorGroup.childCount + tm.ArcherGroup.childCount + tm.MagicianGroup.childCount;
+        ins.name = $"Board{boardCnt}";
+        tmc.HitObject = ins;
+    }
     private void InstantiateTower(GameObject towerObj, Transform objGroup) {
         //* タワー → Board子に入れる
-        Tower tower = Instantiate(towerObj, GM._.tmc.HitObject.transform).GetComponent<Tower>();
+        Tower tower = Instantiate(towerObj, tmc.HitObject.transform).GetComponent<Tower>();
         tower.transform.localPosition = new Vector2(0, 0.15f); //* 少し上で、Board上にのせるように
         //* そのBoard → Group子に入れる
-        GM._.tmc.HitObject.transform.SetParent(objGroup);
+        tmc.HitObject.transform.SetParent(objGroup);
         //TODO Delete処理
+    }
+    private void InstallIceTower() {
+        Debug.Log("InstallIceTower()::");
+        GameObject ccTower = Instantiate(iceTowers[0], CCTowerGroup);
+        ccTower.transform.position = tmc.getCurSelectedPos();
+        tmc.HitObject = ccTower;
+    }
+    private void InstallStunTower() {
+        Debug.Log("InstallStunTower()::");
+        GameObject ccTower = Instantiate(stunTowers[0], CCTowerGroup);
+        ccTower.transform.position = tmc.getCurSelectedPos();
+        tmc.HitObject = ccTower;
     }
 
     public void CreateTower(TowerType type, int lvIdx = 0) {
@@ -53,13 +78,13 @@ public class TowerManager : MonoBehaviour {
                         break;
                 }
                 //* タワー設置 トリガー ON
-                GM._.tmc.HitObject.GetComponent<Board>().IsTowerOn = true;
+                tmc.HitObject.GetComponent<Board>().IsTowerOn = true;
                 break;
             case TowerType.CC_IceTower:
-                GM._.tmc.InstallIceTowerTile();
+                InstallStunTower();
                 break;
             case TowerType.CC_StunTower:
-                GM._.tmc.InstallStunTowerTile();
+                InstallIceTower();
                 break;
         }
     }

@@ -25,9 +25,6 @@ public class TileMapController : MonoBehaviour {
 
     [field: SerializeField] public GameObject HitObject {get; set;}
 
-    [Header("Prefab")]
-    [SerializeField] private GameObject[] BoardPfs;
-
     void Start() {
         SpawnWall();
     }
@@ -112,7 +109,7 @@ public class TileMapController : MonoBehaviour {
 #endregion
 
 #region FUNC
-    private Vector3Int getCurSelectedPos(bool isTile = false) {
+    public Vector3Int getCurSelectedPos(bool isTile = false) {
         if(isTile) //* タイルなら、YとXが反転されている
             return new(CurSelectPos.y, CurSelectPos.x, 0);
         else
@@ -162,28 +159,6 @@ public class TileMapController : MonoBehaviour {
         WallTileMap.SetTile(getCurSelectedPos(isTile: true), null);
         CurSelectPos = new Vector2Int(-999, -999);
         Reset();
-    }
-
-    public void InstallBoardTile() {
-        Debug.Log("InstallBoard()::");
-        var tm = GM._.tm;
-        GameObject ins = Instantiate(BoardPfs[Random.Range(0, BoardPfs.Length)], tm.BoardGroup);
-        ins.transform.localPosition = getCurSelectedPos();
-        int boardCnt = tm.WarriorGroup.childCount + tm.ArcherGroup.childCount + tm.MagicianGroup.childCount;
-        ins.name = $"Board{boardCnt}";
-        HitObject = ins;
-    }
-
-    public void InstallIceTowerTile() {
-        Debug.Log("InstallIceTower()::");
-        GameObject ins = Instantiate(GM._.tm.IceTowers[0], getCurSelectedPos(), quaternion.identity);
-        HitObject = ins;
-    }
-
-    public void InstallStunTowerTile() {
-        Debug.Log("InstallStunTowerTile()::");
-        GameObject ins = Instantiate(GM._.tm.StunTowers[0], getCurSelectedPos(), quaternion.identity);
-        HitObject = ins;
     }
 
     public void DeleteTile() {

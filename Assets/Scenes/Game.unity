@@ -6134,7 +6134,11 @@ MonoBehaviour:
   - {fileID: 6571358270983219055, guid: 9e99ecd968427b842bea9294a6499e27, type: 3}
   - {fileID: 1220650578475296766, guid: 41c6d40b5a4720043bdaf772595d0afc, type: 3}
   - {fileID: 9169812683309671524, guid: 4beb9a5626a805c438c888b8e194a830, type: 3}
-  <CCTowerList>k__BackingField: []
+  <CCTowerGroup>k__BackingField: {fileID: 835566154}
+  boards:
+  - {fileID: 9152055108212847946, guid: d7e4607617f37b94095f817de60369da, type: 3}
+  - {fileID: 9152055108212847946, guid: 89119f47067145c4986683a800e02ed5, type: 3}
+  - {fileID: 9152055108212847946, guid: 2ebf49b8177f8ad4ebc0e7bb0c5a1018, type: 3}
   <BoardGroup>k__BackingField: {fileID: 362230987}
 --- !u!4 &610890940
 Transform:
@@ -7506,6 +7510,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 832801474}
   m_CullTransparentMesh: 1
+--- !u!1 &835566153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 835566154}
+  m_Layer: 0
+  m_Name: CCTowerGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &835566154
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835566153}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1938362504}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &843884393
 GameObject:
   m_ObjectHideFlags: 0
@@ -17707,6 +17742,7 @@ Transform:
   - {fileID: 1877334351}
   - {fileID: 538722644}
   - {fileID: 1018305007}
+  - {fileID: 835566154}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1955224494
