@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CollectionScripts;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
@@ -54,15 +55,38 @@ public class TileMapController : MonoBehaviour {
         hit = Physics2D.Raycast(ray.origin, ray.direction);
         Collider2D HitCollider = hit.collider;
 
+        //* お互いにタワー位置変更 (Switch-Icon)
         if(GM._.actBar.IsSwitchMode) {
-            if(HitCollider && SwitchBefHitObject != HitCollider) {
-                //* お互いに位置変更
+            //* エラー１
+            if(HitCollider == null || HitCollider.gameObject.layer == Enum.Layer.Wall) {
+                StartCoroutine(GM._.gui.CoShowMsgError("타워를 선택해주세요!"));
+                return;
+            }
+            //* エラー２
+            else if(SwitchBefHitObject == HitCollider.gameObject) {
+                StartCoroutine(GM._.gui.CoShowMsgError("자기 이외에 타워를 선택해주세요!"));
+                return;
+            }
+            //* 位置切り替え
+            else if(HitCollider && SwitchBefHitObject != HitCollider) {
+                //* カウント減る
+                GM._.actBar.SwitchCntTxt.text = $"{--GM._.actBar.SwitchCnt}";
+
+                //* 位置変更
                 Vector2 tempPos = HitCollider.transform.position;
                 HitCollider.transform.position = SwitchBefHitObject.transform.position;
                 SwitchBefHitObject.transform.position = tempPos;
 
-                GM._.actBar.IsSwitchMode = false;
-                GM._.gui.ShowMsgInfo(isActive: false);
+                //* トリガーOFF・メッセージOFF
+                GM._.actBar.PanelObj.SetActive(false);
+                GM._.actBar.SwitchModeOff();
+
+                //* 選択OFF リセット
+                SelectedTileMap.ClearAllTiles();
+                GM._.actBar.PanelObj.SetActive(false);
+
+                Reset();
+                return;
             }
         }
 

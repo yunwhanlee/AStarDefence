@@ -15,7 +15,7 @@ public class ActionBarUIManager : MonoBehaviour {
     [field: SerializeField] public int CCTowerMax {get; private set;}
     [field: SerializeField] public int CCTowerCnt {get; private set;}
     [field: SerializeField] public bool IsSwitchMode {get; set;}
-    [field: SerializeField] public int SwitchCnt {get; private set;}
+    [field: SerializeField] public int SwitchCnt {get; set;}
 
     [Header("UI")]
     public GameObject PanelObj;
@@ -31,7 +31,8 @@ public class ActionBarUIManager : MonoBehaviour {
 
         IsSwitchMode = false;
         CCTowerMax = 5;
-        SwitchCnt = 1;
+        SwitchCnt = 2;
+        SwitchCntTxt.text = SwitchCnt.ToString();
     }
 
 #region EVENT BUTTON
@@ -112,9 +113,11 @@ public class ActionBarUIManager : MonoBehaviour {
         if(SwitchCnt > 0) {
             IsSwitchMode = true;
             GM._.gui.ShowMsgInfo(isActive: true, "위치를 바꿀 타워를 선택해주세요!");
-            SwitchCntTxt.text = $"{--SwitchCnt}";
+
             //* 現在の選択したObjectを保存
             GM._.tmc.SwitchBefHitObject = GM._.tmc.HitObject;
+
+            UpdateUI(Enum.Layer.SwitchTower);
         }
         else {
             StartCoroutine(GM._.gui.CoShowMsgError("위치변경을 전부 사용했습니다."));
@@ -129,6 +132,11 @@ public class ActionBarUIManager : MonoBehaviour {
         GM._.tmc.SelectedTileMap.ClearAllTiles();
         PanelObj.SetActive(false);
         GM._.tmc.Reset();
+
+        //* 位置変更モードキャンセルなら
+        if(IsSwitchMode) {
+            SwitchModeOff();
+        }
     }
 #endregion
 
@@ -156,6 +164,12 @@ public class ActionBarUIManager : MonoBehaviour {
     private void clearIcons() {
         for(int i = 0; i < IconBtns.Length - 1; i++)
             IconBtns[i].gameObject.SetActive(false);
+    }
+
+    public void SwitchModeOff() {
+        IsSwitchMode = false;
+        GM._.tmc.SwitchBefHitObject = null;
+        GM._.gui.ShowMsgInfo(isActive: false);
     }
 
     public void SetCCTowerCntTxt(int val) {
@@ -249,6 +263,9 @@ public class ActionBarUIManager : MonoBehaviour {
                 IconBtns[(int)ICON.Switch].gameObject.SetActive(true);
                 break;
             }
+            case Enum.Layer.SwitchTower:
+
+                break;
             default: {
                 IconBtns[(int)ICON.Board].gameObject.SetActive(true);
                 IconBtns[(int)ICON.IceTower].gameObject.SetActive(true);

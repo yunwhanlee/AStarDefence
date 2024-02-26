@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public static class Enum
@@ -10,7 +11,8 @@ public static class Enum
             Wall = 6, 
             Board = 7, 
             CCTower = 8, 
-            Tower = 9;
+            Tower = 9,
+            SwitchTower = -1;
     }
     public enum Grade {
         None, 

@@ -9132,7 +9132,7 @@ MonoBehaviour:
   <CCTowerMax>k__BackingField: 5
   <CCTowerCnt>k__BackingField: 0
   <IsSwitchMode>k__BackingField: 0
-  <SwitchCnt>k__BackingField: 0
+  <SwitchCnt>k__BackingField: 2
   PanelObj: {fileID: 1772766220}
   <CCTowerCntTxt>k__BackingField: {fileID: 1629105922}
   <SwitchCntTxt>k__BackingField: {fileID: 1464082720}
@@ -18510,8 +18510,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1087997196}
   - {fileID: 1263491422}
+  - {fileID: 1087997196}
   - {fileID: 754135863}
   - {fileID: 286823164}
   - {fileID: 1815756172}
