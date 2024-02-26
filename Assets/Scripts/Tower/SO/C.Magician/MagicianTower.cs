@@ -31,13 +31,13 @@ public class MagicianTower : Tower
             anotherBoard.IsTowerOn = false;
             anotherBoard.transform.SetParent(GM._.tm.BoardGroup);
 
-            Destroy(another.gameObject);
+            DestroyImmediate(another.gameObject);
 
             //* 次のレベルタワーランダムで生成
             GM._.tm.CreateTower(Type, Lv++);
 
             //* 自分を削除
-            Destroy(gameObject);
+            DestroyImmediate(gameObject);
 
             return true;
         }

@@ -179,6 +179,7 @@ public class ActionBarUIManager : MonoBehaviour {
             case Enum.Layer.Tower: {
                 //* タワー情報UI 表示
                 Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
+                Debug.Log($"HitObject.name= {GM._.tmc.HitObject}, tower.name= {tower.name}");
                 GM._.tsm.ShowTowerStateUI(tower.InfoState());
 
                 //* MaxLv チェック
