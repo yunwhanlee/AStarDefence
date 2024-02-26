@@ -12,8 +12,14 @@ public static class Enum
             Board = 7, 
             CCTower = 8, 
             Tower = 9,
+            TowerRange = 10,
             SwitchTower = -1;
     }
+
+    public enum Tag {
+        TowerRange, 
+    }
+
     public enum Grade {
         None, 
         //* 노말, 레어, 에픽, 유니크, 레전드, 신화, 태초

@@ -50,9 +50,14 @@ public class TileMapController : MonoBehaviour {
         if(y <= ACTION_BAR_START_POS_Y) return;
         Debug.Log("<color=white>onClickTile():: mouse.x= " + x + ", y= " + y + "</color>");
 
+        // 레이케스트에서 제외할 레이어
+        int layerMask = 1 << Enum.Layer.TowerRange;
+        int exceptLayerMask = ~layerMask;
+
         RaycastHit2D hit;
-        Ray2D ray = new Ray2D(new Vector2(x, y), Vector2.zero); // 방향은 일단 임시로 0 벡터를 사용하거나, 필요한 방향으로 설정할 수 있습니다.
-        hit = Physics2D.Raycast(ray.origin, ray.direction);
+        // 방향은 일단 임시로 0 벡터를 사용하거나, 필요한 방향으로 설정할 수 있습니다.
+        Ray2D ray = new Ray2D(new Vector2(x, y), Vector2.zero); 
+        hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, exceptLayerMask);
         Collider2D HitCollider = hit.collider;
 
         //* お互いにタワー位置変更 (Switch-Icon)
