@@ -74,23 +74,30 @@ public class ActionBarUIManager : MonoBehaviour {
         UpdateUI(Enum.Layer.CCTower);
     }
     public void OnClickMergeIconBtn() {
-        // bool isMerged = false;
+        bool isSuccess = false;
         Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
         //* タワーのタイプによってマージ
         switch(tower.Kind) {
             case TowerKind.Warrior:
                 var warrior = tower as WarriorTower;
-                warrior.Merge();
+                isSuccess = warrior.Merge();
                 break;
             case TowerKind.Archer:
                 var archer = tower as ArcherTower;
-                archer.Merge();
+                isSuccess = archer.Merge();
                 break;
             case TowerKind.Magician:
                 var magician = tower as MagicianTower;
-                magician.Merge();
+                isSuccess = magician.Merge();
                 break;
         }
+
+        //* エラーメッセージ
+        if(!isSuccess) {
+            StartCoroutine(GM._.gui.CoShowMsgError("합성할 같은 타워가 없습니다."));
+            return;
+        }
+
         UpdateUI(Enum.Layer.Tower);
     }
     public void OnClickDeleteIconBtn() {
