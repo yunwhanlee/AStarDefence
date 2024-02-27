@@ -138,7 +138,7 @@ public class TileMapController : MonoBehaviour {
                     GM._.tm.ClearAllTowerRanges();
                     if(HitObject.GetComponent<Board>().IsTowerOn) { //* タワーが有る
                         actBar.UpdateUI(Enum.Layer.Tower);
-                        HitObject.GetComponentInChildren<Tower>().TowerRangeSprRdr.enabled = true;
+                        HitObject.GetComponentInChildren<Tower>().trc.SprRdr.enabled = true;
                     }
                     else { //* ボードのみ
                         actBar.UpdateUI(Enum.Layer.Board);
@@ -150,11 +150,11 @@ public class TileMapController : MonoBehaviour {
                     switch(tower.Type) {
                         case TowerType.CC_IceTower:
                             var icetower = tower as IceTower;
-                            icetower.TowerRangeSprRdr.enabled = true;
+                            icetower.trc.SprRdr.enabled = true;
                             break;
                         case TowerType.CC_StunTower:
                             var stunTower = tower as StunTower;
-                            stunTower.TowerRangeSprRdr.enabled = true;
+                            stunTower.trc.SprRdr.enabled = true;
                             break;
                     }
                     actBar.UpdateUI(SelectLayer);

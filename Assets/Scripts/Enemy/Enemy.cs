@@ -13,7 +13,6 @@ public abstract class Enemy : MonoBehaviour {
     [field: SerializeField] public int Lv {get; set;}
     [field: SerializeField] public int Hp {get; set;}
     [field: SerializeField] public int Speed {get; set;}
-
     [field: SerializeField] public int NodeIdx {get; private set;}
     IObjectPool<Enemy> enemyPool;
 
@@ -33,18 +32,22 @@ public abstract class Enemy : MonoBehaviour {
 
             transform.Translate(dir * Speed * Time.deltaTime);
             
+            //* 長さが0.01以下なら、次のノードに進む
             if(vec.SqrMagnitude() < 0.01f) {
                 Debug.Log("distance= " + vec.SqrMagnitude());
                 NodeIdx++;
             }
         }
         else {
-            release();
+            Release();
         }
     }
 
     #region FUNC
-        private void release() => enemyPool.Release(this); //* 戻す
-        public void regist(IObjectPool<Enemy> pool) => enemyPool = pool;
+        private void Release() => enemyPool.Release(this); //* 戻す
+        public void Regist(IObjectPool<Enemy> pool) => enemyPool = pool;
+        public void Die() {
+            Release();
+        }
     #endregion
 }

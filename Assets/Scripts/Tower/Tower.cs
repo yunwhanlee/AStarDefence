@@ -9,13 +9,14 @@ public enum TowerKind {None, Warrior, Archer, Magician}
 public enum AttackType {Target, Round}
 
 public abstract class Tower : MonoBehaviour {
+    //* 外部
     public SettingTowerData TowerData;
-    public GameObject TowerRangeObj;
-    public SpriteRenderer TowerRangeSprRdr;
+    public TowerRangeController trc;
 
-    [Tooltip("AttackType : Target：ターゲット型、Round：自分の原点から矩形の爆発（Splash ON）")]
+    //* Value
     public TowerType Type;
     public TowerKind Kind;
+    [Tooltip("AttackType : Target：ターゲット型、Round：自分の原点から矩形の爆発（Splash ON）")]
     public AttackType AtkType;
     public string Name;
     [Range(1, 7)] public int Lv;
@@ -30,19 +31,17 @@ public abstract class Tower : MonoBehaviour {
     [Range(0.0f, 5.0f)] public float StunSec;
 
     void Awake() {
+        trc = GetComponentInChildren<TowerRangeController>();
         StateUpdate(); //* Init
-        TowerRangeObj = transform.GetChild(0).gameObject;
-        TowerRangeObj.transform.localScale = new Vector3(AtkRange, AtkRange, AtkRange);
-        TowerRangeSprRdr = TowerRangeObj.GetComponent<SpriteRenderer>();
     }
 
-#region Abstract Func
+#region ABSTRACT FUNC
     public abstract void CheckMergeUI();
     public abstract bool Merge();
     public abstract void Upgrade();
-#endregion  
+#endregion
 
-#region Func
+#region FUNC
     public virtual void StateUpdate() {
         Debug.Log("<color=yellow>Tower:: StateUpdate()::</color>");
         Lv = TowerData.Lv;

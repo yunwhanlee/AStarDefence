@@ -36,15 +36,15 @@ public class EnemyManager : MonoBehaviour {
 #region FUNC
     public IEnumerator coCreateEnemy() {
         for(int i = 0; i < Config.CREATE_ENEMY_CNT; i++) {
-            init();
+            init(i);
             yield return new WaitForSeconds(0.5f);
         }
     }
-    private void init() {
+    private void init(int i) {
         //* 呼出
         Enemy enemy = pool.Get();
-        enemy.regist(pool);
-        enemy.name = "enemy";
+        enemy.Regist(pool);
+        enemy.name = $"enemy{i}";
         enemy.transform.position = new Vector2(GM._.pfm.startPos.x, GM._.pfm.startPos.y);
     }
 #endregion

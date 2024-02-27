@@ -17,7 +17,7 @@ public static class Enum
     }
 
     public enum Tag {
-        TowerRange, 
+        Enemy
     }
 
     public enum Grade {
