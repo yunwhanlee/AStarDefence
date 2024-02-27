@@ -17,10 +17,10 @@ MonoBehaviour:
   Name: "\uC2A4\uD134\uD0C0\uC6CC3"
   Lv: 3
   Dmg: 0
-  AtkSpeed: 2
+  AtkSpeed: 2.5
   AtkRange: 1.5
   SplashRange: 1.5
   CritPer: 0
   CritDmgPer: 0
   SlowPer: 0
-  StunSec: 2
+  StunSec: 1

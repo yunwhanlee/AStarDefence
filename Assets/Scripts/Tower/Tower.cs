@@ -69,16 +69,28 @@ public abstract class Tower : MonoBehaviour {
                 break;
             }
             else {
-                Debug.Log("アタック！");
+                
                 switch(AtkType) {
                     case AttackType.Target: {
+                        Debug.Log("アタック！ TARGET");
                         //TODO ミサイル発射
                         break;
                     }
                     case AttackType.Round: {
                         var layerMask = 1 << Enum.Layer.Enemy;
-                        Collider2D[] colliders = Physics2D.OverlapCircleAll(trc.transform.localPosition, AtkRange, layerMask);
+                        Collider2D[] colliders = Physics2D.OverlapCircleAll(trc.transform.position, AtkRange, layerMask);
+                        Debug.Log("アタック！ ROUND:: colliders= " + colliders.Length);
                         foreach(Collider2D col in colliders) {
+                            Monster enemy = col.GetComponent<Monster>();
+                            switch(Type) {
+                                case TowerType.CC_IceTower:
+                                    enemy.Slow(SlowPer);
+                                    break;
+                                case TowerType.CC_StunTower:
+                                    enemy.Stun(StunSec);
+                                    break;
+                            }
+                            enemy.DecreaseHp(2);
                             Debug.Log($"アタック！ {name}:: -> {col.name}");
                         }
                         break;
@@ -89,6 +101,12 @@ public abstract class Tower : MonoBehaviour {
             yield return new WaitForSeconds(AtkSpeed);
         }
     }
+
+    void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, AtkRange);
+    }
+
     public virtual void StateUpdate() {
         Debug.Log("<color=yellow>Tower:: StateUpdate()::</color>");
         Lv = TowerData.Lv;
