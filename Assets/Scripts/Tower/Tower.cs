@@ -4,21 +4,14 @@ using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum TowerType {
-    Random, Board, CC_IceTower, CC_StunTower
-}
-public enum TowerKind {
-    None,
-    //* Random
-    Warrior, Archer, Magician,
-}
-public enum AttackType {
-    Target, Round
-}
+public enum TowerType {Random, Board, CC_IceTower, CC_StunTower}
+public enum TowerKind {None, Warrior, Archer, Magician}
+public enum AttackType {Target, Round}
 
 public abstract class Tower : MonoBehaviour {
     public SettingTowerData TowerData;
     public GameObject TowerRangeObj;
+    public SpriteRenderer TowerRangeSprRdr;
 
     [Tooltip("AttackType : Target：ターゲット型、Round：自分の原点から矩形の爆発（Splash ON）")]
     public TowerType Type;
@@ -40,6 +33,7 @@ public abstract class Tower : MonoBehaviour {
         StateUpdate(); //* Init
         TowerRangeObj = transform.GetChild(0).gameObject;
         TowerRangeObj.transform.localScale = new Vector3(AtkRange, AtkRange, AtkRange);
+        TowerRangeSprRdr = TowerRangeObj.GetComponent<SpriteRenderer>();
     }
 
 #region Abstract Func

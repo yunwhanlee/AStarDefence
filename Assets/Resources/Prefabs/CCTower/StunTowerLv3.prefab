@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7058171812970933218
 Transform:
   m_ObjectHideFlags: 0
@@ -275,7 +275,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TowerData: {fileID: 11400000, guid: e13c434f9de0e3942b2feccb5644d56a, type: 2}
-  TowerRangeTf: {fileID: 7058171812970933218}
+  TowerRangeObj: {fileID: 0}
+  TowerRangeSprRdr: {fileID: 0}
   Type: 3
   Kind: 0
   AtkType: 0

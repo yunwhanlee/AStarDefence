@@ -9890,6 +9890,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TowerData: {fileID: 11400000, guid: 149bb735d6318794eba24d5cacba98f9, type: 2}
   TowerRangeObj: {fileID: 0}
+  TowerRangeSprRdr: {fileID: 0}
   Type: 0
   Kind: 1
   AtkType: 0
@@ -14917,7 +14918,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7573241262822627344
 Transform:
   m_ObjectHideFlags: 0

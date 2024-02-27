@@ -132,12 +132,13 @@ public class TileMapController : MonoBehaviour {
             switch(SelectLayer) {
                 case Enum.Layer.Wall:
                     actBar.UpdateUI(SelectLayer);
+                    Reset(isClearPos: false);
                     break;
                 case Enum.Layer.Board:
                     GM._.tm.ClearAllTowerRanges();
                     if(HitObject.GetComponent<Board>().IsTowerOn) { //* タワーが有る
                         actBar.UpdateUI(Enum.Layer.Tower);
-                        HitObject.GetComponentInChildren<Tower>().TowerRangeObj.SetActive(true);
+                        HitObject.GetComponentInChildren<Tower>().TowerRangeSprRdr.enabled = true;
                     }
                     else { //* ボードのみ
                         actBar.UpdateUI(Enum.Layer.Board);
@@ -149,11 +150,11 @@ public class TileMapController : MonoBehaviour {
                     switch(tower.Type) {
                         case TowerType.CC_IceTower:
                             var icetower = tower as IceTower;
-                            icetower.TowerRangeObj.SetActive(true);
+                            icetower.TowerRangeSprRdr.enabled = true;
                             break;
                         case TowerType.CC_StunTower:
                             var stunTower = tower as StunTower;
-                            stunTower.TowerRangeObj.SetActive(true);
+                            stunTower.TowerRangeSprRdr.enabled = true;
                             break;
                     }
                     actBar.UpdateUI(SelectLayer);
