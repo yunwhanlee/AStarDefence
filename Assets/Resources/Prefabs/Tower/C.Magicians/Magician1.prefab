@@ -14750,7 +14750,7 @@ Transform:
   m_GameObject: {fileID: 5942233848487935297}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14897,7 +14897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TowerData: {fileID: 11400000, guid: 3467340dc6a46034caf5af8757b2e884, type: 2}
-  TowerRangeTf: {fileID: 3058922127501117657}
+  TowerRangeObj: {fileID: 0}
   Type: 0
   Kind: 3
   AtkType: 0
