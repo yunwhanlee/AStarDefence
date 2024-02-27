@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -79,13 +80,47 @@ public class TowerManager : MonoBehaviour {
                 }
                 //* タワー設置 トリガー ON
                 tmc.HitObject.GetComponent<Board>().IsTowerOn = true;
+                tmc.HitObject.GetComponentInChildren<Tower>().TowerRangeObj.SetActive(true);
                 break;
             case TowerType.CC_IceTower:
                 InstallIceTower(lvIdx);
+                tmc.HitObject.GetComponent<Tower>().TowerRangeObj.SetActive(true);
                 break;
             case TowerType.CC_StunTower:
                 InstallStunTower(lvIdx);
+                tmc.HitObject.GetComponent<Tower>().TowerRangeObj.SetActive(true);
                 break;
+        }
+    }
+
+    public void ClearAllTowerRanges() {
+        foreach(Transform child in WarriorGroup) {
+            Board board = child.GetComponent<Board>();
+            if(board.IsTowerOn)
+                child.GetComponentInChildren<WarriorTower>().TowerRangeObj.SetActive(false);
+        }
+        foreach(Transform child in ArcherGroup) {
+            Board board = child.GetComponent<Board>();
+            if(board.IsTowerOn)
+                board.GetComponentInChildren<ArcherTower>().TowerRangeObj.SetActive(false);
+        }
+        foreach(Transform child in MagicianGroup) {
+            Board board = child.GetComponent<Board>();
+            if(board.IsTowerOn)
+                board.GetComponentInChildren<MagicianTower>().TowerRangeObj.SetActive(false);
+        }
+        foreach(Transform child in CCTowerGroup) {
+            Tower tower = child.GetComponent<Tower>();
+            switch(tower.Type) {
+                case TowerType.CC_IceTower:
+                    var icetower = tower as IceTower;
+                    icetower.TowerRangeObj.SetActive(false);
+                    break;
+                case TowerType.CC_StunTower:
+                    var stunTower = tower as StunTower;
+                    stunTower.TowerRangeObj.SetActive(false);
+                    break;
+            }            
         }
     }
 #endregion

@@ -12,11 +12,18 @@ public enum TowerKind {
     //* Random
     Warrior, Archer, Magician,
 }
+public enum AttackType {
+    Target, Round
+}
 
 public abstract class Tower : MonoBehaviour {
     public SettingTowerData TowerData;
+    public GameObject TowerRangeObj;
+
+    [Tooltip("AttackType : Target：ターゲット型、Round：自分の原点から矩形の爆発（Splash ON）")]
     public TowerType Type;
     public TowerKind Kind;
+    public AttackType AtkType;
     public string Name;
     [Range(1, 7)] public int Lv;
     public int Dmg;
@@ -31,6 +38,8 @@ public abstract class Tower : MonoBehaviour {
 
     void Awake() {
         StateUpdate(); //* Init
+        TowerRangeObj = transform.GetChild(0).gameObject;
+        TowerRangeObj.transform.localScale = new Vector3(AtkRange, AtkRange, AtkRange);
     }
 
 #region Abstract Func
@@ -68,9 +77,5 @@ public abstract class Tower : MonoBehaviour {
         states[i++] = StunSec.ToString();
         return states;
     }
-
-    
-
-
 #endregion
 }

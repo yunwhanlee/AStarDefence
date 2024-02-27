@@ -120,6 +120,7 @@ public class TileMapController : MonoBehaviour {
         var actBar = GM._.actBar;
         actBar.PanelObj.SetActive(true);
 
+        //* 選択処理
         if(HitCollider == null) {
             Debug.Log($"OnClickTile():: HitCollider is Null= {HitCollider == null}");
             actBar.UpdateUI(Enum.Layer.Default);
@@ -133,16 +134,33 @@ public class TileMapController : MonoBehaviour {
                     actBar.UpdateUI(SelectLayer);
                     break;
                 case Enum.Layer.Board:
-                    if(HitObject.GetComponent<Board>().IsTowerOn)
+                    GM._.tm.ClearAllTowerRanges();
+                    if(HitObject.GetComponent<Board>().IsTowerOn) { //* タワーが有る
                         actBar.UpdateUI(Enum.Layer.Tower);
-                    else
+                        HitObject.GetComponentInChildren<Tower>().TowerRangeObj.SetActive(true);
+                    }
+                    else { //* ボードのみ
                         actBar.UpdateUI(Enum.Layer.Board);
+                    }
                     break;
                 case Enum.Layer.CCTower:
+                    GM._.tm.ClearAllTowerRanges();
+                    var tower = HitObject.GetComponent<Tower>();
+                    switch(tower.Type) {
+                        case TowerType.CC_IceTower:
+                            var icetower = tower as IceTower;
+                            icetower.TowerRangeObj.SetActive(true);
+                            break;
+                        case TowerType.CC_StunTower:
+                            var stunTower = tower as StunTower;
+                            stunTower.TowerRangeObj.SetActive(true);
+                            break;
+                    }
                     actBar.UpdateUI(SelectLayer);
                     break;
                 default:
                     actBar.UpdateUI(Enum.Layer.Default);
+                    Reset(isClearPos: false);
                     break;
             }
         }
@@ -191,11 +209,15 @@ public class TileMapController : MonoBehaviour {
 
     public void Reset(bool isClearPos = true) {
         Debug.Log("Reset():: Data");
-        SelectLayer = 0;
-        HitObject = null;
         //* 選択した位置
         if(isClearPos)
             CurSelectPos = new Vector2Int(-999, -999);
+
+        //* タワーが有ったら、タワー範囲表示を非表示
+        GM._.tm.ClearAllTowerRanges();
+
+        SelectLayer = 0;
+        HitObject = null;
     }
 
     public void BreakWallTile() {

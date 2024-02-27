@@ -18,8 +18,8 @@ MonoBehaviour:
   Lv: 2
   Dmg: 0
   AtkSpeed: 2
-  AtkRange: 0
-  SplashRange: 1.5
+  AtkRange: 1.25
+  SplashRange: 1.25
   CritPer: 0
   CritDmgPer: 0
   SlowPer: 0.55

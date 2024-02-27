@@ -17,9 +17,9 @@ MonoBehaviour:
   Name: "\uC2A4\uD134\uD0C0\uC6CC2"
   Lv: 2
   Dmg: 0
-  AtkSpeed: 2
-  AtkRange: 0
-  SplashRange: 1.5
+  AtkSpeed: 2.5
+  AtkRange: 1.25
+  SplashRange: 1.25
   CritPer: 0
   CritDmgPer: 0
   SlowPer: 0
