@@ -5648,88 +5648,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &535007713
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -4994253645256781567, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
-      propertyPath: AtkType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -4994253645256781567, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
-      propertyPath: TowerRangeTf
-      value: 
-      objectReference: {fileID: 535007716}
-    - target: {fileID: 4532650064793158688, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6233560123952599681, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 23.99
-      objectReference: {fileID: 0}
-    - target: {fileID: 6233560123952599681, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6233560123952599681, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6233560123952599681, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6233560123952599681, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6233560123952599681, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6233560123952599681, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6233560123952599681, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6233560123952599681, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6233560123952599681, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6435509696272214480, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
-      propertyPath: m_Name
-      value: IceTowerLv1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348752816267495528, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
-      propertyPath: m_Radius
-      value: 1.205
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348752816267495528, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
---- !u!4 &535007716 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 315247049462601042, guid: d6d5f13a955b1cc4da9405c90152f9d4, type: 3}
-  m_PrefabInstance: {fileID: 535007713}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &538722643
 GameObject:
   m_ObjectHideFlags: 0
@@ -20091,10 +20009,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf0d87ad8fad9347a42f4864022a3e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 0
+  state: 1
   gui: {fileID: 0}
   pfm: {fileID: 0}
-  emm: {fileID: 0}
+  em: {fileID: 0}
   tmc: {fileID: 0}
   actBar: {fileID: 0}
   tm: {fileID: 0}
@@ -21453,9 +21371,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 504231729}
-        m_TargetAssemblyTypeName: EnemyManager, Assembly-CSharp
-        m_MethodName: onClickStartBtn
+      - m_Target: {fileID: 2114048012}
+        m_TargetAssemblyTypeName: GM, Assembly-CSharp
+        m_MethodName: OnClickStartBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22403,4 +22321,3 @@ SceneRoots:
   - {fileID: 6964518575418780693}
   - {fileID: 371651529526005965}
   - {fileID: 1938362504}
-  - {fileID: 535007713}

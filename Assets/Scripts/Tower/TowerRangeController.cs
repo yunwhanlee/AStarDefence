@@ -19,13 +19,13 @@ public class TowerRangeController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other) {
         //* 攻撃範囲内の敵をリストへ追加
-        if(other.CompareTag(Enum.Tag.Enemy.ToString()))
+        if(other.gameObject.layer == Enum.Layer.Enemy)
             TargetList.Add(other.transform);
     }
 
     void OnTriggerExit2D(Collider2D other) {
         //* 攻撃範囲内の敵をリストから消す
-        if(other.CompareTag(Enum.Tag.Enemy.ToString()))
+        if(other.gameObject.layer == Enum.Layer.Enemy)
             TargetList.Remove(other.transform);
     }
 

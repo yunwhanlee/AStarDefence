@@ -205,8 +205,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de9a7575d185e314e80b400752d74cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetList: []
-  <curTarget>k__BackingField: {fileID: 0}
+  <Tower>k__BackingField: {fileID: 0}
+  <SprRdr>k__BackingField: {fileID: 0}
+  TargetList: []
+  <CurTarget>k__BackingField: {fileID: 0}
 --- !u!58 &7729076778446676253
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -318,11 +320,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TowerData: {fileID: 11400000, guid: 95c61d12062e7d442b1790fa1ba0f3bb, type: 2}
-  TowerRangeObj: {fileID: 0}
-  TowerRangeSprRdr: {fileID: 0}
+  trc: {fileID: 0}
   Type: 2
   Kind: 0
-  AtkType: 0
+  AtkType: 1
   Name: "\uC544\uC774\uC2A4\uD0C0\uC6CC2"
   Lv: 2
   Dmg: 1

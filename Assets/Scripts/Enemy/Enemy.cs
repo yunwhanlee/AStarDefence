@@ -34,7 +34,7 @@ public abstract class Enemy : MonoBehaviour {
             
             //* 長さが0.01以下なら、次のノードに進む
             if(vec.SqrMagnitude() < 0.01f) {
-                Debug.Log("distance= " + vec.SqrMagnitude());
+                // Debug.Log("distance= " + vec.SqrMagnitude());
                 NodeIdx++;
             }
         }

@@ -13,6 +13,7 @@ public static class Enum
             CCTower = 8, 
             Tower = 9,
             TowerRange = 10,
+            Enemy = 11,
             SwitchTower = -1;
     }
 

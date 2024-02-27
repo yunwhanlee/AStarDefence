@@ -26,13 +26,6 @@ public class EnemyManager : MonoBehaviour {
     private void onDestroyBlock(Enemy obj) => Destroy(obj);
 #endregion
 
-#region EVENT
-    public void onClickStartBtn() {
-        GM._.pfm.PathFinding();
-        StartCoroutine(coCreateEnemy());
-    }
-#endregion
-
 #region FUNC
     public IEnumerator coCreateEnemy() {
         for(int i = 0; i < Config.CREATE_ENEMY_CNT; i++) {

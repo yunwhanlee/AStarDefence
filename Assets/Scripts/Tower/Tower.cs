@@ -14,6 +14,7 @@ public abstract class Tower : MonoBehaviour {
     public TowerRangeController trc;
 
     //* Value
+    private Coroutine CorAttack;
     public TowerType Type;
     public TowerKind Kind;
     [Tooltip("AttackType : Target：ターゲット型、Round：自分の原点から矩形の爆発（Splash ON）")]
@@ -35,6 +36,23 @@ public abstract class Tower : MonoBehaviour {
         StateUpdate(); //* Init
     }
 
+    void Update() {
+        if(GM._.state == GM.State.Ready) {
+
+        }
+        else if(GM._.state == GM.State.Play) {
+            if(trc.CurTarget && CorAttack == null) {
+                Debug.Log("ATTACK START!");
+                CorAttack = StartCoroutine(CoAttack());
+            }
+            // else {
+            //     StopCoroutine(CorAttack);
+            //     CorAttack = null;
+            //     Debug.Log("STOP!");
+            // }
+        }
+    }
+
 #region ABSTRACT FUNC
     public abstract void CheckMergeUI();
     public abstract bool Merge();
@@ -42,6 +60,35 @@ public abstract class Tower : MonoBehaviour {
 #endregion
 
 #region FUNC
+    private IEnumerator CoAttack() {
+        while(true) {
+            if(trc.CurTarget == null) {
+                Debug.Log("アタック終了");
+                StopCoroutine(CorAttack);
+                CorAttack = null;
+                break;
+            }
+            else {
+                Debug.Log("アタック！");
+                switch(AtkType) {
+                    case AttackType.Target: {
+                        //TODO ミサイル発射
+                        break;
+                    }
+                    case AttackType.Round: {
+                        var layerMask = 1 << Enum.Layer.Enemy;
+                        Collider2D[] colliders = Physics2D.OverlapCircleAll(trc.transform.localPosition, AtkRange, layerMask);
+                        foreach(Collider2D col in colliders) {
+                            Debug.Log($"アタック！ {name}:: -> {col.name}");
+                        }
+                        break;
+                    }
+                }
+            }
+
+            yield return new WaitForSeconds(AtkSpeed);
+        }
+    }
     public virtual void StateUpdate() {
         Debug.Log("<color=yellow>Tower:: StateUpdate()::</color>");
         Lv = TowerData.Lv;
@@ -70,5 +117,6 @@ public abstract class Tower : MonoBehaviour {
         states[i++] = StunSec.ToString();
         return states;
     }
+
 #endregion
 }

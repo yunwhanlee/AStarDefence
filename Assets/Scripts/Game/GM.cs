@@ -14,7 +14,7 @@ public class GM : MonoBehaviour {
     //* Outside
     public GameUIManager gui;
     public PathFindManager pfm;
-    public EnemyManager emm;
+    public EnemyManager em;
     public TileMapController tmc;
     public ActionBarUIManager actBar;
     public TowerManager tm;
@@ -26,7 +26,7 @@ public class GM : MonoBehaviour {
         //* 外部のスクリプト 初期化
         gui = GameObject.Find("GameUIManager").GetComponent<GameUIManager>();
         pfm = GameObject.Find("PathFindManager").GetComponent<PathFindManager>();
-        emm = GameObject.Find("EnemyManager").GetComponent<EnemyManager>();
+        em = GameObject.Find("EnemyManager").GetComponent<EnemyManager>();
         tmc = GameObject.Find("TileMapController").GetComponent<TileMapController>();
         actBar = GameObject.Find("ActionBarUIManager").GetComponent<ActionBarUIManager>();
         tm = GameObject.Find("TowerManager").GetComponent<TowerManager>();
@@ -36,4 +36,12 @@ public class GM : MonoBehaviour {
     void Start() {
         state = State.Ready;
     }
+
+#region EVENT
+    public void OnClickStartBtn() {
+        state = State.Play;
+        pfm.PathFinding();
+        StartCoroutine(em.coCreateEnemy());
+    }
+#endregion
 }
