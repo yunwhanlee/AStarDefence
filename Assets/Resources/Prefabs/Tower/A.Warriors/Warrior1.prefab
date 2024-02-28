@@ -10055,6 +10055,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TowerData: {fileID: 11400000, guid: 7e1d9cd5c2bae0b429f49379a549bf3e, type: 2}
   trc: {fileID: 0}
+  chara: {fileID: 0}
+  missile: {fileID: 0}
   Type: 0
   Kind: 1
   AtkType: 0

@@ -14943,6 +14943,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TowerData: {fileID: 11400000, guid: 5458edccffa26ed42a36a79691517b8f, type: 2}
   trc: {fileID: 0}
+  chara: {fileID: 0}
   missile: {fileID: 4294883596274237335, guid: ae615369b97f0ce4d97afafe8aaa2400, type: 3}
   Type: 0
   Kind: 3

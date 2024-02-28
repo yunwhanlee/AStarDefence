@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts;
 using Microsoft.Unity.VisualStudio.Editor;
 using Unity.Mathematics;
 using UnityEngine;
@@ -13,6 +14,7 @@ public abstract class Tower : MonoBehaviour {
     //* 外部
     public SettingTowerData TowerData;
     public TowerRangeController trc;
+    public Character chara;
     [Tooltip("弾を打つタワーのみ")]
     public Missile missile;
 
@@ -37,6 +39,7 @@ public abstract class Tower : MonoBehaviour {
 
     void Awake() {
         trc = GetComponentInChildren<TowerRangeController>();
+        chara = GetComponentInChildren<Character>();
         StateUpdate(); //* Init
     }
 
@@ -73,19 +76,20 @@ public abstract class Tower : MonoBehaviour {
                 break;
             }
             else {
-                
                 switch(AtkType) {
                     case AttackType.Target: {
-                        Debug.Log("アタック！ TARGET");
+                        Debug.Log("ATTACK TARGET!");
                         LookAtTarget(trc.CurTarget);
                         var enemy = trc.CurTarget.GetComponent<Enemy>();
                         switch(Kind) {
                             case TowerKind.Warrior:
                                 //TODO EFFECT
+                                chara.Animator.SetTrigger("Slash");
                                 enemy.DecreaseHp(Dmg);
                                 break;
                             case TowerKind.Archer:
                             case TowerKind.Magician:
+                                chara.Animator.SetTrigger(Kind == TowerKind.Archer? "Shot" : "Jab");
                                 var ins = Instantiate(missile, transform.position, quaternion.identity);
                                 Missile msl = ins.GetComponent<Missile>();
                                 msl.MyTower = this;
@@ -129,9 +133,9 @@ public abstract class Tower : MonoBehaviour {
     }
 
     void OnDrawGizmos() {
-        Gizmos.color = Color.red;
         var pos = transform.position;
-        Gizmos.DrawWireSphere(new Vector3(pos.x, pos.y - 0.15f, pos.z), AtkRange * 1.35f);
+        Gizmos.color = trc.CurTarget? Color.red : Color.yellow;
+        Gizmos.DrawWireSphere(new Vector3(pos.x, pos.y - 0.15f, pos.z), AtkRange * 1.575f);
     }
 
     public virtual void StateUpdate() {

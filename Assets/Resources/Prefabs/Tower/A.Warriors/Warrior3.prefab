@@ -9890,6 +9890,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TowerData: {fileID: 11400000, guid: 149bb735d6318794eba24d5cacba98f9, type: 2}
   trc: {fileID: 0}
+  chara: {fileID: 0}
+  missile: {fileID: 0}
   Type: 0
   Kind: 1
   AtkType: 0

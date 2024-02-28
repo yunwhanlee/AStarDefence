@@ -17,16 +17,18 @@ public class TowerRangeController : MonoBehaviour {
         SprRdr = GetComponent<SpriteRenderer>();
     }
 
-    void OnTriggerEnter2D(Collider2D other) {
+    void OnTriggerEnter2D(Collider2D col) {
         //* 攻撃範囲内の敵をリストへ追加
-        if(other.gameObject.layer == Enum.Layer.Enemy)
-            TargetList.Add(other.transform);
+        if(col.gameObject.layer == Enum.Layer.Enemy) {
+            Debug.Log("TowerRangeController:: TriggerEnter::");
+            TargetList.Add(col.transform);
+        }
     }
 
-    void OnTriggerExit2D(Collider2D other) {
+    void OnTriggerExit2D(Collider2D col) {
         //* 攻撃範囲内の敵をリストから消す
-        if(other.gameObject.layer == Enum.Layer.Enemy)
-            TargetList.Remove(other.transform);
+        if(col.gameObject.layer == Enum.Layer.Enemy)
+            TargetList.Remove(col.transform);
     }
 
     void Update() {
@@ -49,12 +51,11 @@ public class TowerRangeController : MonoBehaviour {
                 }
             }
 
-            if(closestTarget != null && closestDist <= GetComponentInParent<Tower>().AtkRange) {
+            //* 一番近いターゲットに更新
+            if(closestTarget != null)
                 CurTarget = closestTarget;
-            }
-            else {
+            else 
                 CurTarget = null;
-            }
         }
         else {
             CurTarget = null;
