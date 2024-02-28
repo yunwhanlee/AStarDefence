@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6286103295601363508}
   - component: {fileID: 4294883596274237335}
   - component: {fileID: 667658148922292048}
-  - component: {fileID: 22132962010434930}
+  - component: {fileID: 6051421490371899493}
   m_Layer: 0
   m_Name: Missile
   m_TagString: Untagged
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.89106715, g: 1, b: 0, a: 1}
+  m_Sprite: {fileID: -454968180, guid: 6cd52a3cfe6a23c449d2ea29a486a640, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MyTower>k__BackingField: {fileID: 0}
   <Target>k__BackingField: {fileID: 0}
+  <ColList>k__BackingField: []
 --- !u!50 &667658148922292048
 Rigidbody2D:
   serializedVersion: 4
@@ -128,8 +129,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &22132962010434930
-CircleCollider2D:
+--- !u!61 &6051421490371899493
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -157,9 +158,19 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.6666667, y: 0.29166666}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.45
+  m_Size: {x: 0.6666667, y: 0.29166666}
+  m_EdgeRadius: 0

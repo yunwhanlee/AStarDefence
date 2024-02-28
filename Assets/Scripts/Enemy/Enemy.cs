@@ -63,6 +63,12 @@ public abstract class Enemy : MonoBehaviour {
 
     #region FUNC
         private void Release() => GM._.em.Pool.Release(this); //* 戻す
+        public void Init() {
+            Speed = originSpd;
+            Hp = maxHp;
+            NodeIdx = 0;
+            Blink(false);
+        }
         public void DecreaseHp(int val) {
             StartCoroutine(BlinkCoroutine());
             Hp -= val;

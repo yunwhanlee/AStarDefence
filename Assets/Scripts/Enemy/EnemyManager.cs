@@ -25,7 +25,7 @@ public class EnemyManager : MonoBehaviour {
     }
     private void onRelease(Enemy enemy) { //* 戻す
         enemy.gameObject.SetActive(false);
-        enemy.Blink(false);
+        enemy.Init();
     }
     private void onDestroyBlock(Enemy enemy) => Destroy(enemy);
 #endregion
