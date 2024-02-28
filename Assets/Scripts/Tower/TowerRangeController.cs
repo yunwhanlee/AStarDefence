@@ -17,7 +17,7 @@ public class TowerRangeController : MonoBehaviour {
         SprRdr = GetComponent<SpriteRenderer>();
     }
 
-    void OnTriggerEnter2D(Collider2D col) {
+    void OnTriggerEnter2D(UnityEngine.Collider2D col) {
         //* 攻撃範囲内の敵をリストへ追加
         if(col.gameObject.layer == Enum.Layer.Enemy) {
             Debug.Log("TowerRangeController:: TriggerEnter::");
@@ -25,7 +25,7 @@ public class TowerRangeController : MonoBehaviour {
         }
     }
 
-    void OnTriggerExit2D(Collider2D col) {
+    void OnTriggerExit2D(UnityEngine.Collider2D col) {
         //* 攻撃範囲内の敵をリストから消す
         if(col.gameObject.layer == Enum.Layer.Enemy)
             TargetList.Remove(col.transform);

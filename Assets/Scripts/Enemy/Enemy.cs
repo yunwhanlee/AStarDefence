@@ -62,8 +62,7 @@ public abstract class Enemy : MonoBehaviour {
     }
 
     #region FUNC
-        private void Release() => enemyPool.Release(this); //* 戻す
-        public void Regist(IObjectPool<Enemy> pool) => enemyPool = pool;
+        private void Release() => GM._.em.Pool.Release(this); //* 戻す
         public void DecreaseHp(int val) {
             StartCoroutine(BlinkCoroutine());
             Hp -= val;
@@ -73,10 +72,13 @@ public abstract class Enemy : MonoBehaviour {
                 Die();
             }
         }
+        public void Blink(bool isActive) {
+            SprRdr.material = isActive? BlinkMt : DefaultMt;
+        }
         private IEnumerator BlinkCoroutine() {
-            SprRdr.material = BlinkMt;
+            Blink(true);
             yield return new WaitForSeconds(0.1f);
-            SprRdr.material = DefaultMt;
+            Blink(false);
         }
         public void Slow(float per) {
             if(CorSlow != null) {

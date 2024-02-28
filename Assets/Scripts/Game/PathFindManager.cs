@@ -71,7 +71,7 @@ public class PathFindManager : MonoBehaviour
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
                 bool isWall = false;
-                foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + bottomLeft.x, j + bottomLeft.y), 0.4f))
+                foreach (UnityEngine.Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + bottomLeft.x, j + bottomLeft.y), 0.4f))
                     //* 壁タイプのタイル登録
                     if (col.gameObject.layer == Enum.Layer.Wall
                     ||  col.gameObject.layer == Enum.Layer.Board

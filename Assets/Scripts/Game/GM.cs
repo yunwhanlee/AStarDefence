@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -19,6 +20,7 @@ public class GM : MonoBehaviour {
     public ActionBarUIManager actBar;
     public TowerManager tm;
     public TowerStateUIManager tsm;
+    public MissileManager mm;
 
     void Awake() {
         //* Global化 値 代入
@@ -31,6 +33,7 @@ public class GM : MonoBehaviour {
         actBar = GameObject.Find("ActionBarUIManager").GetComponent<ActionBarUIManager>();
         tm = GameObject.Find("TowerManager").GetComponent<TowerManager>();
         tsm = GameObject.Find("TowerStateUIManager").GetComponent<TowerStateUIManager>();
+        mm = GameObject.Find("MissileManager").GetComponent<MissileManager>();
     }
 
     void Start() {
@@ -41,7 +44,7 @@ public class GM : MonoBehaviour {
     public void OnClickStartBtn() {
         state = State.Play;
         pfm.PathFinding();
-        StartCoroutine(em.coCreateEnemy());
+        StartCoroutine(em.CoCreateEnemy());
     }
 #endregion
 }

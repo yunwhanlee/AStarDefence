@@ -52,6 +52,7 @@ public abstract class Tower : MonoBehaviour {
                 Debug.Log("ATTACK START!");
                 CorAttack = StartCoroutine(CoAttack());
             }
+            //TODO ステージ終わったら、STOP処理
             // else {
             //     StopCoroutine(CorAttack);
             //     CorAttack = null;
@@ -64,6 +65,7 @@ public abstract class Tower : MonoBehaviour {
     public abstract void CheckMergeUI();
     public abstract bool Merge();
     public abstract void Upgrade();
+    public abstract void ShootMissile();
 #endregion
 
 #region FUNC
@@ -90,14 +92,9 @@ public abstract class Tower : MonoBehaviour {
                             case TowerKind.Archer:
                             case TowerKind.Magician:
                                 chara.Animator.SetTrigger(Kind == TowerKind.Archer? "Shot" : "Jab");
-                                var ins = Instantiate(missile, transform.position, quaternion.identity);
-                                Missile msl = ins.GetComponent<Missile>();
-                                msl.MyTower = this;
-                                msl.Target = trc.CurTarget;
+                                Shoot();
                                 break;
                         }
-
-                        //TODO ミサイル発射
                         break;
                     }
                     case AttackType.Round: {
@@ -121,7 +118,6 @@ public abstract class Tower : MonoBehaviour {
                     }
                 }
             }
-
             yield return new WaitForSeconds(AtkSpeed);
         }
     }
@@ -132,10 +128,9 @@ public abstract class Tower : MonoBehaviour {
         BodySprRdr.flipX = dir.x < 0;
     }
 
-    void OnDrawGizmos() {
-        var pos = transform.position;
-        Gizmos.color = trc.CurTarget? Color.red : Color.yellow;
-        Gizmos.DrawWireSphere(new Vector3(pos.x, pos.y - 0.15f, pos.z), AtkRange * 1.575f);
+    private void Shoot() {
+        Missile missile = GM._.mm.CreateMissile();
+        missile.Init(this);
     }
 
     public virtual void StateUpdate() {
@@ -168,4 +163,10 @@ public abstract class Tower : MonoBehaviour {
     }
 
 #endregion
+
+    private void OnDrawGizmos() {
+        var pos = transform.position;
+        Gizmos.color = trc.CurTarget? Color.red : Color.yellow;
+        Gizmos.DrawWireSphere(new Vector3(pos.x, pos.y - 0.15f, pos.z), AtkRange * 1.575f);
+    }
 }
