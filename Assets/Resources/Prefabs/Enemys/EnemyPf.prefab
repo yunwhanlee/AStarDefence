@@ -112,8 +112,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7164141122943233779}
   - component: {fileID: 6144579120524072249}
-  - component: {fileID: 2642616897559442930}
   - component: {fileID: 1618780097217028791}
+  - component: {fileID: 2642616897559442930}
   m_Layer: 11
   m_Name: EnemyPf
   m_TagString: Untagged
@@ -157,7 +157,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -189,6 +189,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1618780097217028791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4337249620204798548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 113e370794aeeb84582db3d075265b69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 0
+  <SprRdr>k__BackingField: {fileID: 0}
+  <HpBar>k__BackingField: {fileID: 0}
+  <Name>k__BackingField: 
+  <Lv>k__BackingField: 1
+  <Hp>k__BackingField: 10
+  <Speed>k__BackingField: 1.2
+  <NodeIdx>k__BackingField: 1
+  DefaultMt: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  BlinkMt: {fileID: 7512481295523713106, guid: 1b5c9a7370e424d53a1b8a999cf54a02, type: 2}
 --- !u!61 &2642616897559442930
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -234,26 +256,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
---- !u!114 &1618780097217028791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4337249620204798548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 113e370794aeeb84582db3d075265b69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Type>k__BackingField: 0
-  <SprRdr>k__BackingField: {fileID: 0}
-  <HpBar>k__BackingField: {fileID: 0}
-  <Name>k__BackingField: 
-  <Lv>k__BackingField: 1
-  <Hp>k__BackingField: 10
-  <Speed>k__BackingField: 1.2
-  <NodeIdx>k__BackingField: 1
 --- !u!1 &5257981809899693474
 GameObject:
   m_ObjectHideFlags: 0

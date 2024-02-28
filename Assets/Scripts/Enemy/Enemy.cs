@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.UI;
@@ -25,6 +26,8 @@ public abstract class Enemy : MonoBehaviour {
     private float originSpd;
     [field: SerializeField] public int NodeIdx {get; private set;}
     IObjectPool<Enemy> enemyPool;
+    [field: SerializeField] public Material DefaultMt;
+    [field: SerializeField] public Material BlinkMt;
 
     void Start() {
         originSpd = Speed;
@@ -62,12 +65,18 @@ public abstract class Enemy : MonoBehaviour {
         private void Release() => enemyPool.Release(this); //* 戻す
         public void Regist(IObjectPool<Enemy> pool) => enemyPool = pool;
         public void DecreaseHp(int val) {
+            StartCoroutine(BlinkCoroutine());
             Hp -= val;
-            HpBar.value = (float)Hp / (float)maxHp;
+            HpBar.value = (float)Hp / maxHp;
             if(Hp <= 0) {
                 Hp = 0;
                 Die();
             }
+        }
+        private IEnumerator BlinkCoroutine() {
+            SprRdr.material = BlinkMt;
+            yield return new WaitForSeconds(0.1f);
+            SprRdr.material = DefaultMt;
         }
         public void Slow(float per) {
             if(CorSlow != null) {
