@@ -14822,8 +14822,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de9a7575d185e314e80b400752d74cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetList: []
-  <curTarget>k__BackingField: {fileID: 0}
+  <Tower>k__BackingField: {fileID: 0}
+  <SprRdr>k__BackingField: {fileID: 0}
+  TargetList: []
+  <CurTarget>k__BackingField: {fileID: 0}
 --- !u!58 &1483674938049442066
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -14858,7 +14860,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.205
+  m_Radius: 1.5
 --- !u!50 &342074679929855909
 Rigidbody2D:
   serializedVersion: 4
@@ -14940,11 +14942,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TowerData: {fileID: 11400000, guid: b1597bb60d68d91449510531c8f829a3, type: 2}
-  TowerRangeObj: {fileID: 0}
-  TowerRangeSprRdr: {fileID: 0}
+  trc: {fileID: 0}
+  missile: {fileID: 4294883596274237335, guid: ae615369b97f0ce4d97afafe8aaa2400, type: 3}
   Type: 0
   Kind: 3
   AtkType: 0
+  BodySprRdr: {fileID: 913976414953818008}
   Name: 
   Lv: 2
   Dmg: 15

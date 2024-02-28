@@ -224,7 +224,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.15}
+    pivot: {x: 0.5, y: 0.2}
     oldSize: {x: 1.6, y: 1.6}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
@@ -248,10 +248,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 0
   <SprRdr>k__BackingField: {fileID: 0}
+  <HpBar>k__BackingField: {fileID: 0}
   <Name>k__BackingField: 
   <Lv>k__BackingField: 1
   <Hp>k__BackingField: 10
-  <Speed>k__BackingField: 1
+  <Speed>k__BackingField: 1.2
   <NodeIdx>k__BackingField: 1
 --- !u!1 &5257981809899693474
 GameObject:

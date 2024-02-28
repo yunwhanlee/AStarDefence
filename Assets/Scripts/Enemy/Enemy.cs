@@ -64,7 +64,7 @@ public abstract class Enemy : MonoBehaviour {
         public void DecreaseHp(int val) {
             Hp -= val;
             HpBar.value = (float)Hp / (float)maxHp;
-            if(Hp < 0) {
+            if(Hp <= 0) {
                 Hp = 0;
                 Die();
             }

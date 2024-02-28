@@ -53,6 +53,7 @@ MonoBehaviour:
   Type: 2
   Kind: 0
   AtkType: 1
+  BodySprRdr: {fileID: 6301512677387487395}
   Name: "\uC544\uC774\uC2A4\uD0C0\uC6CC3"
   Lv: 3
   Dmg: 0
@@ -403,7 +404,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.205
+  m_Radius: 1.5
 --- !u!50 &1290877941927147247
 Rigidbody2D:
   serializedVersion: 4

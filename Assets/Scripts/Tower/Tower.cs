@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Unity.VisualStudio.Editor;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,8 @@ public abstract class Tower : MonoBehaviour {
     //* 外部
     public SettingTowerData TowerData;
     public TowerRangeController trc;
+    [Tooltip("弾を打つタワーのみ")]
+    public Missile missile;
 
     //* Value
     private Coroutine CorAttack;
@@ -19,6 +22,7 @@ public abstract class Tower : MonoBehaviour {
     public TowerKind Kind;
     [Tooltip("AttackType : Target：ターゲット型、Round：自分の原点から矩形の爆発（Splash ON）")]
     public AttackType AtkType;
+    public SpriteRenderer BodySprRdr;
     public string Name;
     [Range(1, 7)] public int Lv;
     public int Dmg;
@@ -73,6 +77,22 @@ public abstract class Tower : MonoBehaviour {
                 switch(AtkType) {
                     case AttackType.Target: {
                         Debug.Log("アタック！ TARGET");
+                        LookAtTarget(trc.CurTarget);
+                        var enemy = trc.CurTarget.GetComponent<Enemy>();
+                        switch(Kind) {
+                            case TowerKind.Warrior:
+                                //TODO EFFECT
+                                enemy.DecreaseHp(Dmg);
+                                break;
+                            case TowerKind.Archer:
+                            case TowerKind.Magician:
+                                var ins = Instantiate(missile, transform.position, quaternion.identity);
+                                Missile msl = ins.GetComponent<Missile>();
+                                msl.MyTower = this;
+                                msl.Target = trc.CurTarget;
+                                break;
+                        }
+
                         //TODO ミサイル発射
                         break;
                     }
@@ -81,7 +101,7 @@ public abstract class Tower : MonoBehaviour {
                         Collider2D[] colliders = Physics2D.OverlapCircleAll(trc.transform.position, AtkRange, layerMask);
                         Debug.Log("アタック！ ROUND:: colliders= " + colliders.Length);
                         foreach(Collider2D col in colliders) {
-                            Monster enemy = col.GetComponent<Monster>();
+                            Enemy enemy = col.GetComponent<Enemy>();
                             switch(Type) {
                                 case TowerType.CC_IceTower:
                                     enemy.Slow(SlowPer);
@@ -90,7 +110,7 @@ public abstract class Tower : MonoBehaviour {
                                     enemy.Stun(StunSec);
                                     break;
                             }
-                            enemy.DecreaseHp(2);
+                            enemy.DecreaseHp(Dmg);
                             Debug.Log($"アタック！ {name}:: -> {col.name}");
                         }
                         break;
@@ -102,9 +122,16 @@ public abstract class Tower : MonoBehaviour {
         }
     }
 
+    private void LookAtTarget(Transform target) {
+        Vector3 dir = target.position - transform.position;
+        dir = dir.normalized;
+        BodySprRdr.flipX = dir.x < 0;
+    }
+
     void OnDrawGizmos() {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, AtkRange);
+        var pos = transform.position;
+        Gizmos.DrawWireSphere(new Vector3(pos.x, pos.y - 0.15f, pos.z), AtkRange * 1.35f);
     }
 
     public virtual void StateUpdate() {

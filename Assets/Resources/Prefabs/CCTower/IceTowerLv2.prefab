@@ -243,7 +243,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.205
+  m_Radius: 1.5
 --- !u!50 &7570843951371422569
 Rigidbody2D:
   serializedVersion: 4
@@ -324,6 +324,7 @@ MonoBehaviour:
   Type: 2
   Kind: 0
   AtkType: 1
+  BodySprRdr: {fileID: 995320930213469749}
   Name: "\uC544\uC774\uC2A4\uD0C0\uC6CC2"
   Lv: 2
   Dmg: 1
