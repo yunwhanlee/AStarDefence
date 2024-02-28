@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6286103295601363508}
   - component: {fileID: 4294883596274237335}
   - component: {fileID: 667658148922292048}
-  - component: {fileID: 6051421490371899493}
+  - component: {fileID: 6927605303205305447}
   m_Layer: 0
   m_Name: Missile
   m_TagString: Untagged
@@ -129,8 +129,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &6051421490371899493
-BoxCollider2D:
+--- !u!58 &6927605303205305447
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -158,19 +158,9 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.6666667, y: 0.29166666}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6666667, y: 0.29166666}
-  m_EdgeRadius: 0
+  m_Radius: 0.3

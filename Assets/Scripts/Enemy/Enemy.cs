@@ -34,8 +34,7 @@ public abstract class Enemy : MonoBehaviour {
         maxHp = Hp;
         SprRdr = GetComponent<SpriteRenderer>();
         HpBar = GetComponentInChildren<Slider>();
-        HpBar.value = (float)Hp / maxHp;
-        NodeIdx = 0;
+        Init();
     }
 
     void Update() {
@@ -66,6 +65,7 @@ public abstract class Enemy : MonoBehaviour {
         public void Init() {
             Speed = originSpd;
             Hp = maxHp;
+            HpBar.value = (float)Hp / maxHp;
             NodeIdx = 0;
             Blink(false);
         }
