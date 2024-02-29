@@ -12,6 +12,9 @@ public class GameUIManager : MonoBehaviour {
     public EnemyStateUIManager esm;
 
     [Header("STATIC UI")]
+    public Image playSpeedBtnImg;
+    public Sprite[] playSpeedBtnSprs;
+
     [Tooltip("ゲーム状況により変わるUIグループ")]
     public Transform GameStateUIGroup;
     public TextMeshProUGUI StageTxt;
@@ -41,6 +44,16 @@ public class GameUIManager : MonoBehaviour {
             TowerUpgLvTxts[i].text = $"LV {GM._.TowerUpgLvs[i]}";
     }
 
+#region EVENT
+    public void OnClickPlaySpeedBtn() {
+        Debug.Log($"OnClickPlaySpeedBtn()::");
+        const int OFF = 0, ON = 1;
+        var time = Time.timeScale;
+        Time.timeScale = time == 1? 2 : 1;
+        playSpeedBtnImg.sprite = time == 1? playSpeedBtnSprs[ON] : playSpeedBtnSprs[OFF];
+    }
+#endregion
+
 #region FUNC
     public IEnumerator CoShowMsgError(string msg) {
         topMsgError.SetActive(true);
@@ -50,7 +63,7 @@ public class GameUIManager : MonoBehaviour {
     }
     public bool ShowErrMsgCreateTowerAtPlayState() {
         if(GM._.State == GameState.Play) {
-            StartCoroutine(GM._.gui.CoShowMsgError("레이드 진행중에는 타워생성 및 업그레이드만 가능합니다!"));
+            StartCoroutine(GM._.gui.CoShowMsgError("몬스터가 있을때는 타워생성 및 업그레이드만 가능합니다!"));
             return true;
         }
         return false;

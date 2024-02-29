@@ -60,6 +60,12 @@ public class TileMapController : MonoBehaviour {
         hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, exceptLayerMask);
         Collider2D HitCollider = hit.collider;
 
+        if(HitCollider != null && HitCollider.gameObject.layer == Enum.Layer.UI) {
+            Debug.Log("OnClickTile():: Hitcollider -> UI。 そのまま終了。");
+            Reset();
+            return;
+        }
+
         //* お互いにタワー位置変更 (Switch-Icon)
         if(GM._.actBar.IsSwitchMode) {
             //* エラー１
