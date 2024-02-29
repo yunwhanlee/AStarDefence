@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,9 +11,13 @@ public class GameUIManager : MonoBehaviour {
     public TowerStateUIManager tsm;
     public EnemyStateUIManager esm;
 
+    [Header("STATIC UI")]
     [Tooltip("ゲーム状況により変わるUIグループ")]
     public Transform GameStateUIGroup;
+    public TextMeshProUGUI StageTxt;
     public TextMeshProUGUI EnemyCntTxt;
+    public TextMeshProUGUI MoneyTxt;
+    public TextMeshProUGUI[] TowerUpgLvTxts;
 
     [Header("ERROR MSG POPUP")]
     public GameObject topMsgError;
@@ -29,7 +34,11 @@ public class GameUIManager : MonoBehaviour {
 
     void Start() {
         topMsgError.SetActive(false);
+        StageTxt.text = $"STAGE {GM._.Stage}";
         EnemyCntTxt.text = "0 / 0";
+        MoneyTxt.text = $"{GM._.Money}";
+        for(int i = 0; i < TowerUpgLvTxts.Length; i++) 
+            TowerUpgLvTxts[i].text = $"LV {GM._.TowerUpgLvs[i]}";
     }
 
 #region FUNC
