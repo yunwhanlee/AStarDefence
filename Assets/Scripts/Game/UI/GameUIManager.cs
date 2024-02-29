@@ -22,6 +22,15 @@ public class GameUIManager : MonoBehaviour {
     public TextMeshProUGUI MoneyTxt;
     public TextMeshProUGUI[] TowerUpgLvTxts;
 
+    [Header("PAUSE POPUP")]
+    public GameObject PausePopUp;
+    private GameState previousState;
+    private float previousTimeScale;
+
+    [Header("AGAIN ASK POPUP")]
+    public GameObject AgainAskPopUp;
+    public TextMeshProUGUI AgainAskMsgTxt;    
+
     [Header("ERROR MSG POPUP")]
     public GameObject topMsgError;
     public TextMeshProUGUI MsgErrorTxt;
@@ -52,6 +61,34 @@ public class GameUIManager : MonoBehaviour {
         Time.timeScale = time == 1? 2 : 1;
         playSpeedBtnImg.sprite = time == 1? playSpeedBtnSprs[ON] : playSpeedBtnSprs[OFF];
     }
+    #region PAUSE POPUP
+    public void OnClickPauseBtn() {
+        previousState = GM._.State;
+        previousTimeScale = Time.timeScale;
+        Time.timeScale = 0;
+        GM._.State = GameState.Pause;
+        PausePopUp.SetActive(true);
+    }
+    public void OnClickPausePopUp_ContinueBtn() {
+        Time.timeScale = previousTimeScale;
+        GM._.State = previousState;
+        PausePopUp.SetActive(false);
+    }
+    public void OnClickPausePopUp_ExitGameBtn() {
+        PausePopUp.SetActive(false);
+        AgainAskPopUp.SetActive(true);
+    }
+    #endregion
+    #region AGAIN ASK POPUP
+    public void OnClickAgainAskPopUp_ConfirmBtn() {
+        Debug.Log("GO TO HOME");
+    }
+    public void OnClickAgainAskPopUp_CloseBtn() {
+        Time.timeScale = previousTimeScale;
+        GM._.State = previousState;
+        AgainAskPopUp.SetActive(false);
+    }
+    #endregion
 #endregion
 
 #region FUNC
