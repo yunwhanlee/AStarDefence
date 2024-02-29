@@ -50,8 +50,6 @@ public class ActionBarUIManager : MonoBehaviour {
         StartCoroutine(CoCheckPathFind(Enum.Layer.Board));
     }
     public void OnClickRandomTowerIconBtn() {
-        if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
-            return;
         GM._.tm.CreateTower(TowerType.Random);
         UpdateUI(Enum.Layer.Tower);
     }

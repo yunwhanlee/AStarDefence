@@ -41,7 +41,7 @@ public class GameUIManager : MonoBehaviour {
     }
     public bool ShowErrMsgCreateTowerAtPlayState() {
         if(GM._.State == GameState.Play) {
-            StartCoroutine(GM._.gui.CoShowMsgError("레이드 진행중에는 업그레이드만 가능합니다!"));
+            StartCoroutine(GM._.gui.CoShowMsgError("레이드 진행중에는 타워생성 및 업그레이드만 가능합니다!"));
             return true;
         }
         return false;
