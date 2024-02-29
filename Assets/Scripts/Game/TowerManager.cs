@@ -33,7 +33,7 @@ public class TowerManager : MonoBehaviour {
     void Start() {
         tm = GM._.tm;
         tmc = GM._.tmc;
-        TowerCardUgrLvs = new int[3] {1, 1, 1};
+        TowerCardUgrLvs = new int[3] {0, 0, 0};
     }
 
 #region CREATE
@@ -49,6 +49,14 @@ public class TowerManager : MonoBehaviour {
         //* タワー → Board子に入れる
         Tower tower = Instantiate(towerObj, tmc.HitObject.transform).GetComponent<Tower>();
         tower.transform.localPosition = new Vector2(0, 0.15f); //* 少し上で、Board上にのせるように
+
+        //* カードアッグレードのデータ反映
+        TowerKind kind = tower.Kind;
+        tower.Dmg += (kind == TowerKind.Warrior)? TowerCardUgrLvs[(int)kind] * WarriorTower.CARD_UPG_DMG_UP
+            : (kind == TowerKind.Archer)? TowerCardUgrLvs[(int)kind] * ArcherTower.CARD_UPG_DMG_UP
+            : (kind == TowerKind.Magician)? TowerCardUgrLvs[(int)kind] * MagicianTower.CARD_UPG_DMG_UP
+            : 0;
+
         //* そのBoard → Group子に入れる
         tmc.HitObject.transform.SetParent(objGroup);
         //TODO Delete処理

@@ -149,14 +149,14 @@ public abstract class Tower : MonoBehaviour {
         string[] states = new string[9];
         int i = 0;
         states[i++] = Lv.ToString(); //* Gradeラベルとして表示
-        states[i++] = Dmg.ToString();
-        states[i++] = AtkSpeed.ToString();
-        states[i++] = AtkRange.ToString();
-        states[i++] = SplashRange.ToString();
-        states[i++] = CritPer.ToString();
-        states[i++] = CritDmgPer.ToString();
-        states[i++] = SlowPer.ToString();
-        states[i++] = StunSec.ToString();
+        states[i++] = $"{Dmg}";
+        states[i++] = $"{AtkSpeed}";
+        states[i++] = $"{AtkRange}";
+        states[i++] = $"{SplashRange}";
+        states[i++] = $"{CritPer}";
+        states[i++] = $"{CritDmgPer}";
+        states[i++] = $"{SlowPer}";
+        states[i++] = $"{StunSec}";
         return states;
     }
 

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System;
 
 public class WarriorTower : Tower {
-    const int CARD_UPG_DMG_UP = 5;
+    public static int CARD_UPG_DMG_UP = 5;
 
     public override void CheckMergeUI() {
         Image mergeIcon = GM._.actBar.IconBtns[(int)ActionBarUIManager.ICON.Merge].GetComponent<Image>();
@@ -46,14 +46,27 @@ public class WarriorTower : Tower {
     }
 
     public override void Upgrade() {
-        Dmg += CARD_UPG_DMG_UP;
-        UpdateTowerData(Dmg);
+        Dmg = TowerData.Dmg + Lv * CARD_UPG_DMG_UP;;
     }
 
-    private void UpdateTowerData(int Dmg) {
-        Array.ForEach(GM._.tm.Warriors, warrior => {
-            SettingTowerData towerData = warrior.GetComponent<WarriorTower>().TowerData;
-            towerData.Dmg = Dmg;
-        });
+    public override string[] InfoState() {
+        Debug.Log($"Tower:: InfoState():: Name={Name}, Lv= {Lv}");
+
+        //* カードアップグレードデータ反映
+        int cardLv = GM._.tm.TowerCardUgrLvs[(int)Kind];
+        string extraDmg = cardLv > 0? $"<color=green>(+{Lv * CARD_UPG_DMG_UP * cardLv})</color>" : "";
+
+        string[] states = new string[9];
+        int i = 0;
+        states[i++] = Lv.ToString(); //* Gradeラベルとして表示
+        states[i++] = $"{Dmg}{extraDmg}";
+        states[i++] = $"{AtkSpeed}";
+        states[i++] = $"{AtkRange}";
+        states[i++] = $"{SplashRange}";
+        states[i++] = $"{CritPer}";
+        states[i++] = $"{CritDmgPer}";
+        states[i++] = $"{SlowPer}";
+        states[i++] = $"{StunSec}";
+        return states;
     }
 }
