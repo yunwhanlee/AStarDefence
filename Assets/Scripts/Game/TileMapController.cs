@@ -239,8 +239,25 @@ public class TileMapController : MonoBehaviour {
         Debug.Log($"DeleteTile():: SelectLayer= {SelectLayer}");
         if(HitObject.layer == Enum.Layer.CCTower)
             GM._.actBar.SetCCTowerCntTxt(-1);
-        Destroy(HitObject);
-        Reset();
+
+        //* Board -> Tower順番で消す
+        Board board = HitObject.GetComponent<Board>();
+        if(board.IsTowerOn) {
+            //* ボード 削除
+            board.IsTowerOn = false;
+            GM._.actBar.UpdateUI(Enum.Layer.Board);
+            Destroy(board.GetComponentInChildren<Tower>().gameObject);
+        }
+        else {
+            //* タワー 削除
+            if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
+                return;
+
+            Destroy(board.gameObject);
+            Reset();
+            GM._.actBar.PanelObj.SetActive(false);
+            GM._.tmc.SelectedTileMap.ClearAllTiles();
+        }
     }
 
 #endregion

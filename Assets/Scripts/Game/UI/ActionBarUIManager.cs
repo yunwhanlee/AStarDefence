@@ -43,16 +43,19 @@ public class ActionBarUIManager : MonoBehaviour {
         GM._.tmc.SelectedTileMap.ClearAllTiles();
         PanelObj.SetActive(false);
     }
+
     public void OnClickBoardIconBtn() {
         if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
             return;
         GM._.tm.InstallBoard();
         StartCoroutine(CoCheckPathFind(Enum.Layer.Board));
     }
+
     public void OnClickRandomTowerIconBtn() {
         GM._.tm.CreateTower(TowerType.Random);
         UpdateUI(Enum.Layer.Tower);
     }
+
     public void OnClickIceTowerIconBtn() {
         if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
             return;
@@ -62,6 +65,7 @@ public class ActionBarUIManager : MonoBehaviour {
         GM._.tm.CreateTower(TowerType.CC_IceTower);
         StartCoroutine(CoCheckPathFind(Enum.Layer.CCTower));
     }
+
     public void OnClickStunTowerIconBtn() {
         if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
             return;
@@ -71,6 +75,7 @@ public class ActionBarUIManager : MonoBehaviour {
         GM._.tm.CreateTower(TowerType.CC_StunTower);
         StartCoroutine(CoCheckPathFind(Enum.Layer.CCTower));
     }
+
     public void OnClickUpgradeIconBtn() {
         Debug.Log($"OnClickUpgradeIconBtn():: HitObject= {GM._.tmc.HitObject}");
         Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
@@ -86,6 +91,7 @@ public class ActionBarUIManager : MonoBehaviour {
         }
         UpdateUI(Enum.Layer.CCTower);
     }
+
     public void OnClickMergeIconBtn() {
         bool isSuccess = false;
         Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
@@ -104,7 +110,6 @@ public class ActionBarUIManager : MonoBehaviour {
                 isSuccess = magician.Merge();
                 break;
         }
-
         //* エラーメッセージ
         if(!isSuccess) {
             StartCoroutine(GM._.gui.CoShowMsgError("합성할 같은 타워가 없습니다."));
@@ -113,6 +118,7 @@ public class ActionBarUIManager : MonoBehaviour {
 
         UpdateUI(Enum.Layer.Tower);
     }
+
     public void OnClickSwitchIconBtn() {
         if(SwitchCnt > 0) {
             IsSwitchMode = true;
@@ -127,11 +133,11 @@ public class ActionBarUIManager : MonoBehaviour {
             StartCoroutine(GM._.gui.CoShowMsgError("위치변경을 전부 사용했습니다."));
         }
     }
+
     public void OnClickDeleteIconBtn() {
         GM._.tmc.DeleteTile();
-        GM._.tmc.SelectedTileMap.ClearAllTiles();
-        PanelObj.SetActive(false);
     }
+
     public void OnClickExitIconBtn() {
         GM._.tmc.SelectedTileMap.ClearAllTiles();
         PanelObj.SetActive(false);
