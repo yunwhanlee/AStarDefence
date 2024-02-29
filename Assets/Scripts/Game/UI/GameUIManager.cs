@@ -21,6 +21,8 @@ public class GameUIManager : MonoBehaviour {
     public TextMeshProUGUI EnemyCntTxt;
     public TextMeshProUGUI MoneyTxt;
     public TextMeshProUGUI[] TowerUpgLvTxts;
+    public Image HeartFillImg;
+    public TextMeshProUGUI LifeTxt;
 
     [Header("PAUSE POPUP")]
     public GameObject PausePopUp;
@@ -46,10 +48,9 @@ public class GameUIManager : MonoBehaviour {
 
     void Start() {
         topMsgError.SetActive(false);
-        StageTxt.text = $"STAGE {GM._.Stage}";
+        StageTxt.text = $"STAGE {GM._.Stage} / {GM._.MaxStage}";
         EnemyCntTxt.text = "0 / 0";
         MoneyTxt.text = $"{GM._.Money}";
-
         UpdateTowerCardLvUI();
     }
 
@@ -112,7 +113,7 @@ public class GameUIManager : MonoBehaviour {
     public IEnumerator CoShowMsgError(string msg) {
         topMsgError.SetActive(true);
         MsgErrorTxt.text = msg;
-        yield return Util.time1;
+        yield return Util.Time1;
         topMsgError.SetActive(false);
     }
     public bool ShowErrMsgCreateTowerAtPlayState() {

@@ -6,14 +6,18 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-public enum GameState {Ready, Play, Pause};
+public enum GameState {Ready, Play, Pause, Gameover};
 
 public class GM : MonoBehaviour {
-    
     public static GM _; //* Global
     [SerializeField] GameState state;   public GameState State {get => state; set => state = value;}
+    [field: SerializeField] public int MaxStage {get; set;}
     [field: SerializeField] public int Stage {get; set;}
+    [field: SerializeField] public int MaxLife {get; set;}
+    [field: SerializeField] public int Life {get; set;}
     [field: SerializeField] public int Money {get; set;}
+    [field: SerializeField] public Material BlinkMt;
+    [field: SerializeField] public Material DefaultMt;
 
     //* Outside
     public GameUIManager gui;
@@ -23,6 +27,8 @@ public class GM : MonoBehaviour {
     public ActionBarUIManager actBar; //TODO Move To GameUIManager
     public TowerManager tm;
     public MissileManager mm;
+
+    
 
     void Awake() {
         //* Global化 値 代入
@@ -37,14 +43,21 @@ public class GM : MonoBehaviour {
         mm = GameObject.Find("MissileManager").GetComponent<MissileManager>();
 
         state = GameState.Ready;
-        Stage = 1;
+        MaxStage = 10;
+        Stage = 0;
+        Life = 10;
+        MaxLife = Life;
         Money = 0;
         gui.SwitchGameStateUI(state);
     }
 
 #region EVENT
+    /// <summary>
+    /// レイド開始
+    /// </summary>
     public void OnClickStartBtn() {
         state = GameState.Play;
+        gui.StageTxt.text = $"STAGE {++Stage}";
         gui.SwitchGameStateUI(state);
         gui.EnemyCntTxt.text = $"{EnemyManager.CREATE_CNT} / {EnemyManager.CREATE_CNT}";
         pfm.PathFinding();
@@ -52,12 +65,13 @@ public class GM : MonoBehaviour {
     }
 #endregion
 
-#region
-/// <summary>
-/// 現在のステージが終わったので、ゲーム状態をReadyに戻す
-/// </summary>
+#region FUNC
+    /// <summary>
+    /// レイド終了
+    /// </summary>
     public void FinishRaid() {
         state = GameState.Ready;
+        gui.StageTxt.text = $"STAGE {Stage} / {MaxStage}";
         gui.SwitchGameStateUI(state);
     }
 #endregion

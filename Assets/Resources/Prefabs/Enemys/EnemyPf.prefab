@@ -207,7 +207,7 @@ MonoBehaviour:
   <Name>k__BackingField: "\uC2AC\uB77C\uC784"
   <Lv>k__BackingField: 1
   <Hp>k__BackingField: 10
-  <Speed>k__BackingField: 1.2
+  <Speed>k__BackingField: 2
   <NodeIdx>k__BackingField: 1
   DefaultMt: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   BlinkMt: {fileID: 7512481295523713106, guid: 1b5c9a7370e424d53a1b8a999cf54a02, type: 2}

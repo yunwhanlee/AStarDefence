@@ -188,6 +188,7 @@ public class ActionBarUIManager : MonoBehaviour {
         //* Maxになったら、赤い文字にする
         CCTowerCntTxt.color = (CCTowerCnt == CCTowerMax)? Color.red : Color.white;
     }
+
     /// <summary>
     /// アクションバーのアイコン表示
     /// </summary>

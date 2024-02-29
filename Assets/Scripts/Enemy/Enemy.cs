@@ -11,6 +11,9 @@ public enum EnemyType {
 
 [System.Serializable]
 public abstract class Enemy : MonoBehaviour {
+    const int LIFE_DEC_BOSS = 5;
+    const int LIFE_DEC_MONSTER = 1;
+
     Coroutine CorSlow;
     Coroutine CorStun;
 
@@ -56,7 +59,18 @@ public abstract class Enemy : MonoBehaviour {
             }
         }
         else {
+            //* 敵がゴールまで届いた
             Release();
+            Util._.Blink(GM._.gui.HeartFillImg);
+            GM._.Life -= (Type == EnemyType.Boss)? LIFE_DEC_BOSS : LIFE_DEC_MONSTER;
+            GM._.gui.HeartFillImg.fillAmount = (float)GM._.Life / GM._.MaxLife;
+            GM._.gui.LifeTxt.text = GM._.Life.ToString();
+            //* ゲームオーバ
+            if(GM._.Life <= 0) {
+                GM._.State = GameState.Gameover;
+                GM._.Life = 0;
+                Debug.Log("GAMEOVER");
+            }
         }
     }
 
@@ -67,24 +81,16 @@ public abstract class Enemy : MonoBehaviour {
             Hp = maxHp;
             HpBar.value = (float)Hp / maxHp;
             NodeIdx = 0;
-            Blink(false);
+            Util._.SetDefMt(SprRdr);
         }
         public void DecreaseHp(int val) {
-            StartCoroutine(BlinkCoroutine());
+            Util._.Blink(SprRdr);
             Hp -= val;
             HpBar.value = (float)Hp / maxHp;
             if(Hp <= 0) {
                 Hp = 0;
                 Die();
             }
-        }
-        public void Blink(bool isActive) {
-            SprRdr.material = isActive? BlinkMt : DefaultMt;
-        }
-        private IEnumerator BlinkCoroutine() {
-            Blink(true);
-            yield return new WaitForSeconds(0.1f);
-            Blink(false);
         }
         public void Slow(float per) {
             if(CorSlow != null) {
@@ -96,7 +102,7 @@ public abstract class Enemy : MonoBehaviour {
         IEnumerator CoSlow(float per) {
             Speed = originSpd * (1 - per);
             SprRdr.color = Color.blue;
-            yield return Util.time2;
+            yield return Util.Time2;
             Speed = originSpd;
             SprRdr.color = Color.white;
         }
