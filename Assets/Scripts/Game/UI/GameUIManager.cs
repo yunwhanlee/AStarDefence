@@ -49,8 +49,9 @@ public class GameUIManager : MonoBehaviour {
         StageTxt.text = $"STAGE {GM._.Stage}";
         EnemyCntTxt.text = "0 / 0";
         MoneyTxt.text = $"{GM._.Money}";
+
         for(int i = 0; i < TowerUpgLvTxts.Length; i++) 
-            TowerUpgLvTxts[i].text = $"LV {GM._.TowerUpgLvs[i]}";
+            TowerUpgLvTxts[i].text = $"LV {GM._.tm.TowerCardUgrLvs[i]}";
     }
 
 #region EVENT
@@ -89,6 +90,23 @@ public class GameUIManager : MonoBehaviour {
         AgainAskPopUp.SetActive(false);
     }
     #endregion
+    #region UPGRADE TOWER CARDS
+    public void OnClickUpgradeTowerCard(TowerKind kind) {
+        //TODO if MONEY
+
+        Debug.Log($"OnClickUpgradeTowerCard({kind}):: UPGRADE!");
+        switch(kind) {
+            case TowerKind.Warrior:
+                break;
+            case TowerKind.Archer:
+
+                break;
+            case TowerKind.Magician:
+
+                break;
+        }
+    }
+    #endregion
 #endregion
 
 #region FUNC
@@ -112,6 +130,7 @@ public class GameUIManager : MonoBehaviour {
         }
         return false;
     }
+    
     /// <summary>
     /// 情報メッセージ表示のポップアップ（ON、OFF形式）
     /// </summary>    

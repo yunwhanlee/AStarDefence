@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using System;
 
 public class TowerManager : MonoBehaviour {
+    [field: SerializeField] public int[] TowerCardUgrLvs {get; set;}
     [Header("WARRIOR")]
     [SerializeField] GameObject[] warriors; public GameObject[] Warriors {get => warriors;}
     [field: SerializeField] public Transform WarriorGroup {get; private set;}
@@ -15,6 +17,7 @@ public class TowerManager : MonoBehaviour {
     [Header("MAGICIAN")]
     [SerializeField] GameObject[] magicians; public GameObject[] Magicians {get => magicians;}
     [field: SerializeField] public Transform MagicianGroup {get; private set;}
+
     [Header("CC")]
     [SerializeField] GameObject[] iceTowers; public GameObject[] IceTowers {get => iceTowers;}
     [SerializeField] GameObject[] stunTowers; public GameObject[] StunTowers {get => stunTowers;}
@@ -25,9 +28,11 @@ public class TowerManager : MonoBehaviour {
 
     TowerManager tm;
     TileMapController tmc;
+
     void Start() {
         tm = GM._.tm;
         tmc = GM._.tmc;
+        TowerCardUgrLvs = new int[3] {1, 1, 1};
     }
 
 #region FUNC
@@ -64,17 +69,16 @@ public class TowerManager : MonoBehaviour {
         Debug.Log($"<color=white>CreateTower({type}, {lvIdx})::</color>");
         switch(type) {
             case TowerType.Random:
-                const int WARRIOR = 0, ARCHER = 1, MAGICIAN = 2;
                 //* 種類の選択
                 int randKind = Random.Range(0, 3);
                 switch(randKind) {
-                    case WARRIOR: 
+                    case (int)TowerKind.Warrior:
                         InstantiateTower(warriors[lvIdx], WarriorGroup);
                         break;
-                    case ARCHER:
+                    case (int)TowerKind.Archer:
                         InstantiateTower(archers[lvIdx], ArcherGroup);
                         break;
-                    case MAGICIAN:
+                    case (int)TowerKind.Magician:
                         InstantiateTower(magicians[lvIdx], MagicianGroup);
                         break;
                 }

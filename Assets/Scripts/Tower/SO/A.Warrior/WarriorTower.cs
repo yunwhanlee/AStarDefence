@@ -48,8 +48,7 @@ public class WarriorTower : Tower
         // Warriorはない
     }
 
-    public override void Upgrade()
-    {
+    public override void Upgrade() {
         throw new NotImplementedException();
     }
 }

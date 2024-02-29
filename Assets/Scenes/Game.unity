@@ -8049,6 +8049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af61cd67be343a449e9f8b89fb8b9c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <TowerCardUgrLvs>k__BackingField: 000000000000000000000000
   warriors:
   - {fileID: 4991751060699320783, guid: b7ce48fcca403fa4bbb1dd558c45b826, type: 3}
   - {fileID: 4991751060699320783, guid: f060b8cea46ef6a48a9d547ae700aff4, type: 3}
@@ -22956,7 +22957,6 @@ MonoBehaviour:
   state: 1
   <Stage>k__BackingField: 0
   <Money>k__BackingField: 0
-  <TowerUpgLvs>k__BackingField: 
   gui: {fileID: 0}
   pfm: {fileID: 0}
   em: {fileID: 0}

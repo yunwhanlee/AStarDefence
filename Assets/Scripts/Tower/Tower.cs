@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum TowerType {Random, Board, CC_IceTower, CC_StunTower}
-public enum TowerKind {None, Warrior, Archer, Magician}
+public enum TowerKind {None = -1, Warrior, Archer, Magician}
 public enum AttackType {Target, Round}
 
 public abstract class Tower : MonoBehaviour {

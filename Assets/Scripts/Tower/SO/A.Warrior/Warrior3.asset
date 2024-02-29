@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Warrior3
   m_EditorClassIdentifier: 
   Type: 0
-  Kind: 1
+  Kind: 0
   Name: Warrior2
   Lv: 3
   Dmg: 40

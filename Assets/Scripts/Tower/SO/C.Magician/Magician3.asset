@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Magician3
   m_EditorClassIdentifier: 
   Type: 0
-  Kind: 3
+  Kind: 2
   Name: Magician3
   Lv: 3
   Dmg: 27

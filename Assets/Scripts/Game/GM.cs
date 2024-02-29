@@ -14,7 +14,6 @@ public class GM : MonoBehaviour {
     [SerializeField] GameState state;   public GameState State {get => state; set => state = value;}
     [field: SerializeField] public int Stage {get; set;}
     [field: SerializeField] public int Money {get; set;}
-    [field: SerializeField] public int[] TowerUpgLvs {get; set;}
 
     //* Outside
     public GameUIManager gui;
@@ -40,7 +39,6 @@ public class GM : MonoBehaviour {
         state = GameState.Ready;
         Stage = 1;
         Money = 0;
-        TowerUpgLvs = new int[3] {0, 0, 0};
         gui.SwitchGameStateUI(state);
     }
 
