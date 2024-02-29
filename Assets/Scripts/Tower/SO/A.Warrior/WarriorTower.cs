@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class WarriorTower : Tower
-{
+public class WarriorTower : Tower {
+    const int CARD_UPG_DMG_UP = 5;
+
     public override void CheckMergeUI() {
         Image mergeIcon = GM._.actBar.IconBtns[(int)ActionBarUIManager.ICON.Merge].GetComponent<Image>();
 
@@ -45,13 +46,14 @@ public class WarriorTower : Tower
     }
 
     public override void Upgrade() {
-        Dmg += 5;
+        Dmg += CARD_UPG_DMG_UP;
+        UpdateTowerData(Dmg);
     }
 
-    
-
-    public override void ShootMissile(){
-        // Warriorはない
+    private void UpdateTowerData(int Dmg) {
+        Array.ForEach(GM._.tm.Warriors, warrior => {
+            SettingTowerData towerData = warrior.GetComponent<WarriorTower>().TowerData;
+            towerData.Dmg = Dmg;
+        });
     }
-
 }

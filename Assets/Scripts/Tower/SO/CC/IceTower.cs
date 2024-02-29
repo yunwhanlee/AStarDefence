@@ -7,11 +7,6 @@ public class IceTower : Tower
     public override void CheckMergeUI() => throw new System.NotImplementedException();
     public override bool Merge() => throw new System.NotImplementedException();
 
-    public override void ShootMissile()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public override void Upgrade() {
         GM._.tm.CreateTower(TowerType.CC_IceTower, Lv++);
         //* 自分を削除

@@ -140,6 +140,7 @@ public class TowerManager : MonoBehaviour {
                     var warrior = WarriorGroup.GetChild(i).GetComponentInChildren<WarriorTower>();
                     warrior.Upgrade();
                 }
+
                 break;
             case TowerKind.Archer:
                 GM._.tm.TowerCardUgrLvs[(int)TowerKind.Archer]++;

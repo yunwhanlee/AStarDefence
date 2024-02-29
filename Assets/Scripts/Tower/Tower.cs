@@ -64,7 +64,6 @@ public abstract class Tower : MonoBehaviour {
     public abstract void CheckMergeUI();
     public abstract bool Merge();
     public abstract void Upgrade();
-    public abstract void ShootMissile();
 #endregion
 
 #region FUNC

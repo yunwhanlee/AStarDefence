@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class MagicianTower : Tower
-{
+public class MagicianTower : Tower {
+    const int CARD_UPG_DMG_UP = 3;
+
     public override void CheckMergeUI() {
         Image mergeIcon = GM._.actBar.IconBtns[(int)ActionBarUIManager.ICON.Merge].GetComponent<Image>();
 
@@ -46,11 +47,14 @@ public class MagicianTower : Tower
     }
 
     public override void Upgrade() {
-        Dmg += 3;
+        Dmg += CARD_UPG_DMG_UP;
+        UpdateTowerData(Dmg);
     }
 
-    public override void ShootMissile()
-    {
-        throw new NotImplementedException();
+    private void UpdateTowerData(int Dmg) {
+        Array.ForEach(GM._.tm.Magicians, magician => {
+            SettingTowerData towerData = magician.GetComponent<MagicianTower>().TowerData;
+            towerData.Dmg = Dmg;
+        });
     }
 }

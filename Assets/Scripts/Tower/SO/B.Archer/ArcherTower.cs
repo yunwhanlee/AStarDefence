@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class ArcherTower : Tower
-{
+public class ArcherTower : Tower {
+    const int CARD_UPG_DMG_UP = 2;
+
     public override void CheckMergeUI() {
         Image mergeIcon = GM._.actBar.IconBtns[(int)ActionBarUIManager.ICON.Merge].GetComponent<Image>();
 
@@ -45,9 +46,14 @@ public class ArcherTower : Tower
     }
 
     public override void Upgrade() {
-        Dmg += 2;
+        Dmg += CARD_UPG_DMG_UP;
+        UpdateTowerData(Dmg);
     }
 
-    public override void ShootMissile() {
+    private void UpdateTowerData(int Dmg) {
+        Array.ForEach(GM._.tm.Archers, archer => {
+            SettingTowerData towerData = archer.GetComponent<ArcherTower>().TowerData;
+            towerData.Dmg = Dmg;
+        });
     }
 }
