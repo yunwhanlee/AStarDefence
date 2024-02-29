@@ -43,10 +43,10 @@ public abstract class Tower : MonoBehaviour {
     }
 
     void Update() {
-        if(GM._.state == GM.State.Ready) {
+        if(GM._.State == GameState.Ready) {
 
         }
-        else if(GM._.state == GM.State.Play) {
+        else if(GM._.State == GameState.Play) {
             if(trc.CurTarget && CorAttack == null) {
                 Debug.Log("ATTACK START!");
                 CorAttack = StartCoroutine(CoAttack());

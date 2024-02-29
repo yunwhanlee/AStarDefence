@@ -16970,6 +16970,7 @@ MonoBehaviour:
   tsm: {fileID: 0}
   esm: {fileID: 0}
   GameStateUIGroup: {fileID: 1113147603}
+  EnemyCntTxt: {fileID: 2037818952009192173}
   topMsgError: {fileID: 1087997195}
   MsgErrorTxt: {fileID: 95262974}
   topMsgInfo: {fileID: 1263491421}
@@ -22479,7 +22480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -22566,7 +22567,7 @@ GameObject:
   - component: {fileID: 2037818952009192162}
   - component: {fileID: 2037818952009192173}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: EnemyCntTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22605,7 +22606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -22633,7 +22634,7 @@ GameObject:
   - component: {fileID: 2037818952473402730}
   - component: {fileID: 2037818952473402709}
   m_Layer: 0
-  m_Name: Icon_Skull
+  m_Name: MonsterIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

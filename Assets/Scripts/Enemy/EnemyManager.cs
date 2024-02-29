@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using System;
+using Unity.VisualScripting;
 
 public class EnemyManager : MonoBehaviour {
-    const int CREATE_MAX = 20;
-    const int CREATE_CNT = 15;
-
+    public readonly static int CREATE_CNT = 15;
     public Transform enemyObjGroup;
     public Enemy enemyPf;
     IObjectPool<Enemy> pool;    public IObjectPool<Enemy> Pool {get => pool;}
+    private int spawnCnt;
 
     void Awake() => pool = new ObjectPool<Enemy>(
-        create, onGet, onRelease, onDestroyBlock, maxSize: CREATE_MAX
+        create, onGet, onRelease, onDestroyBlock, maxSize: 20
     );
 
 #region OBJECT POOL
@@ -26,14 +27,39 @@ public class EnemyManager : MonoBehaviour {
     private void onRelease(Enemy enemy) { //* 戻す
         enemy.gameObject.SetActive(false);
         enemy.Init();
+
+        //* レイド終了をチェック
+        // 敵のスポーンが終わらないと以下の処理しない
+        if(spawnCnt > 0) 
+            return;
+
+        // 敵が存在しているのかを確認
+        bool isEnemyExist = false;
+        for(int i = 0; i < enemyObjGroup.childCount; i++) {
+            if(enemyObjGroup.GetChild(i).gameObject.activeSelf) {
+                isEnemyExist = true;
+                break;
+            }
+        }
+
+        //* 敵が存在しなかったら、
+        if(!isEnemyExist) {
+            GM._.FinishRaid(); //* レイド終了
+        }
+
+        Debug.Log("isEnemyExist= " + isEnemyExist);
     }
     private void onDestroyBlock(Enemy enemy) => Destroy(enemy);
 #endregion
 
 #region FUNC
     public IEnumerator CoCreateEnemy() {
+        //* スポーンカウント リセット
+        spawnCnt = CREATE_CNT;
+        //* 生成
         for(int i = 0; i < CREATE_CNT; i++) {
-            Init(i);
+            Init(i); //* データ初期化
+            GM._.gui.EnemyCntTxt.text = $"{--spawnCnt} / {CREATE_CNT}"; //* 敵スピーン数を表示
             yield return new WaitForSeconds(0.5f);
         }
     }

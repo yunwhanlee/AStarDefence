@@ -6,11 +6,12 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
+public enum GameState {Ready, Play, Pause};
 
 public class GM : MonoBehaviour {
-    public enum State {Ready, Play, Pause};
+    
     public static GM _; //* Global
-    public State state;
+    [SerializeField] GameState state;   public GameState State {get => state; set => state = value;}
 
     //* Outside
     public GameUIManager gui;
@@ -35,16 +36,27 @@ public class GM : MonoBehaviour {
     }
 
     void Start() {
-        state = State.Ready;
+        state = GameState.Ready;
         gui.SwitchGameStateUI(state);
     }
 
 #region EVENT
     public void OnClickStartBtn() {
-        state = State.Play;
+        state = GameState.Play;
         gui.SwitchGameStateUI(state);
+        gui.EnemyCntTxt.text = $"{EnemyManager.CREATE_CNT} / {EnemyManager.CREATE_CNT}";
         pfm.PathFinding();
         StartCoroutine(em.CoCreateEnemy());
+    }
+#endregion
+
+#region
+/// <summary>
+/// 現在のステージが終わったので、ゲーム状態をReadyに戻す
+/// </summary>
+    public void FinishRaid() {
+        state = GameState.Ready;
+        gui.SwitchGameStateUI(state);
     }
 #endregion
 }

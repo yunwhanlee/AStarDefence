@@ -10,8 +10,9 @@ public class GameUIManager : MonoBehaviour {
     public TowerStateUIManager tsm;
     public EnemyStateUIManager esm;
 
-    [Header("ゲーム状況により変わるUIグループ")]
+    [Tooltip("ゲーム状況により変わるUIグループ")]
     public Transform GameStateUIGroup;
+    public TextMeshProUGUI EnemyCntTxt;
 
     [Header("ERROR MSG POPUP")]
     public GameObject topMsgError;
@@ -28,6 +29,7 @@ public class GameUIManager : MonoBehaviour {
 
     void Start() {
         topMsgError.SetActive(false);
+        EnemyCntTxt.text = "0 / 0";
     }
 
 #region FUNC
@@ -38,7 +40,7 @@ public class GameUIManager : MonoBehaviour {
         topMsgError.SetActive(false);
     }
     public bool ShowErrMsgCreateTowerAtPlayState() {
-        if(GM._.state == GM.State.Play) {
+        if(GM._.State == GameState.Play) {
             StartCoroutine(GM._.gui.CoShowMsgError("레이드 진행중에는 업그레이드만 가능합니다!"));
             return true;
         }
@@ -59,9 +61,9 @@ public class GameUIManager : MonoBehaviour {
         topMsgInfo.SetActive(isActive);
     }
 
-    public void SwitchGameStateUI(GM.State gameState) {
-        GameStateUIGroup.GetChild((int)GM.State.Ready).gameObject.SetActive(gameState == GM.State.Ready);
-        GameStateUIGroup.GetChild((int)GM.State.Play).gameObject.SetActive(gameState == GM.State.Play);
+    public void SwitchGameStateUI(GameState gameState) {
+        GameStateUIGroup.GetChild((int)GameState.Ready).gameObject.SetActive(gameState == GameState.Ready);
+        GameStateUIGroup.GetChild((int)GameState.Play).gameObject.SetActive(gameState == GameState.Play);
     }
 #endregion
 }
