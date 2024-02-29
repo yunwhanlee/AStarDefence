@@ -45,12 +45,11 @@ public class MagicianTower : Tower
         return false;
     }
 
-    public override void ShootMissile()
-    {
-        throw new NotImplementedException();
+    public override void Upgrade() {
+        Dmg += 3;
     }
 
-    public override void Upgrade()
+    public override void ShootMissile()
     {
         throw new NotImplementedException();
     }

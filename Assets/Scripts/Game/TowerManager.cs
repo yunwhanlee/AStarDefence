@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using System;
 
 public class TowerManager : MonoBehaviour {
+    public readonly static int CARD_UPG_LV_MAX = 10;
+
     [field: SerializeField] public int[] TowerCardUgrLvs {get; set;}
     [Header("WARRIOR")]
     [SerializeField] GameObject[] warriors; public GameObject[] Warriors {get => warriors;}
@@ -35,7 +36,7 @@ public class TowerManager : MonoBehaviour {
         TowerCardUgrLvs = new int[3] {1, 1, 1};
     }
 
-#region FUNC
+#region CREATE
     public void InstallBoard() {
         Debug.Log("InstallBoard()::");
         GameObject ins = Instantiate(boards[Random.Range(0, boards.Length)], tm.BoardGroup);
@@ -96,7 +97,8 @@ public class TowerManager : MonoBehaviour {
                 break;
         }
     }
-
+#endregion
+#region TOWER RANGE 表示
     public void ClearAllTowerRanges() {
         foreach(Transform child in WarriorGroup) {
             Board board = child.GetComponent<Board>();
@@ -126,6 +128,35 @@ public class TowerManager : MonoBehaviour {
                     break;
             }            
         }
+    }
+#endregion
+#region UPGRADE CARD
+    public void UpgradeTowerCard(TowerKind kind) {
+        Debug.Log($"UpgradeTowerCard({kind}):: UPGRADE!");
+        switch(kind) {
+            case TowerKind.Warrior:
+                TowerCardUgrLvs[(int)TowerKind.Warrior]++;
+                for(int i = 0; i < WarriorGroup.childCount; i++) {
+                    var warrior = WarriorGroup.GetChild(i).GetComponentInChildren<WarriorTower>();
+                    warrior.Upgrade();
+                }
+                break;
+            case TowerKind.Archer:
+                GM._.tm.TowerCardUgrLvs[(int)TowerKind.Archer]++;
+                for(int i = 0; i < ArcherGroup.childCount; i++) {
+                    var archer = ArcherGroup.GetChild(i).GetComponentInChildren<ArcherTower>();
+                    archer.Upgrade();
+                }
+                break;
+            case TowerKind.Magician:
+                GM._.tm.TowerCardUgrLvs[(int)TowerKind.Magician]++;
+                for(int i = 0; i < MagicianGroup.childCount; i++) {
+                    var magician = MagicianGroup.GetChild(i).GetComponentInChildren<MagicianTower>();
+                    magician.Upgrade();
+                }
+                break;
+        }
+        GM._.gui.UpdateTowerCardLvUI();
     }
 #endregion
 }

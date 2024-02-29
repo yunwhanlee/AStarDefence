@@ -50,8 +50,7 @@ public class GameUIManager : MonoBehaviour {
         EnemyCntTxt.text = "0 / 0";
         MoneyTxt.text = $"{GM._.Money}";
 
-        for(int i = 0; i < TowerUpgLvTxts.Length; i++) 
-            TowerUpgLvTxts[i].text = $"LV {GM._.tm.TowerCardUgrLvs[i]}";
+        UpdateTowerCardLvUI();
     }
 
 #region EVENT
@@ -62,6 +61,7 @@ public class GameUIManager : MonoBehaviour {
         Time.timeScale = time == 1? 2 : 1;
         playSpeedBtnImg.sprite = time == 1? playSpeedBtnSprs[ON] : playSpeedBtnSprs[OFF];
     }
+
     #region PAUSE POPUP
     public void OnClickPauseBtn() {
         previousState = GM._.State;
@@ -80,6 +80,7 @@ public class GameUIManager : MonoBehaviour {
         AgainAskPopUp.SetActive(true);
     }
     #endregion
+
     #region AGAIN ASK POPUP
     public void OnClickAgainAskPopUp_ConfirmBtn() {
         Debug.Log("GO TO HOME");
@@ -90,21 +91,19 @@ public class GameUIManager : MonoBehaviour {
         AgainAskPopUp.SetActive(false);
     }
     #endregion
+
     #region UPGRADE TOWER CARDS
-    public void OnClickUpgradeTowerCard(TowerKind kind) {
+    public void OnClickUpgradeTowerCard(int kindIdx) {
         //TODO if MONEY
+        
+        //* 型変換
+        TowerKind kind = kindIdx == 0? TowerKind.Warrior
+            : kindIdx == 1? TowerKind.Archer
+            : kindIdx == 2? TowerKind.Magician
+            : TowerKind.None;
 
-        Debug.Log($"OnClickUpgradeTowerCard({kind}):: UPGRADE!");
-        switch(kind) {
-            case TowerKind.Warrior:
-                break;
-            case TowerKind.Archer:
-
-                break;
-            case TowerKind.Magician:
-
-                break;
-        }
+        //* アップグレード
+        GM._.tm.UpgradeTowerCard(kind);
     }
     #endregion
 #endregion
@@ -142,6 +141,17 @@ public class GameUIManager : MonoBehaviour {
     public void SwitchGameStateUI(GameState gameState) {
         GameStateUIGroup.GetChild((int)GameState.Ready).gameObject.SetActive(gameState == GameState.Ready);
         GameStateUIGroup.GetChild((int)GameState.Play).gameObject.SetActive(gameState == GameState.Play);
+    }
+
+    public void UpdateTowerCardLvUI() {
+        for(int i = 0; i < TowerUpgLvTxts.Length; i++) {
+            TowerUpgLvTxts[i].text = $"LV {GM._.tm.TowerCardUgrLvs[i]}";
+
+            if(GM._.tm.TowerCardUgrLvs[i] >= TowerManager.CARD_UPG_LV_MAX) {
+                TowerUpgLvTxts[i].text = "MAX";
+                TowerUpgLvTxts[i].GetComponentInParent<Button>().interactable = false;
+            }
+        }
     }
 #endregion
 }

@@ -44,11 +44,10 @@ public class ArcherTower : Tower
         return false;
     }
 
-    public override void ShootMissile() {
+    public override void Upgrade() {
+        Dmg += 2;
     }
 
-    public override void Upgrade()
-    {
-        throw new NotImplementedException();
+    public override void ShootMissile() {
     }
 }

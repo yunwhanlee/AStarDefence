@@ -44,11 +44,14 @@ public class WarriorTower : Tower
         return false;
     }
 
+    public override void Upgrade() {
+        Dmg += 5;
+    }
+
+    
+
     public override void ShootMissile(){
         // Warriorはない
     }
 
-    public override void Upgrade() {
-        throw new NotImplementedException();
-    }
 }
