@@ -146,21 +146,35 @@ public abstract class Tower : MonoBehaviour {
 
     public virtual string[] InfoState() {
         Debug.Log($"Tower:: InfoState():: Name={Name}, Lv= {Lv}");
+        const TowerKind W = TowerKind.Warrior;
+        const TowerKind A = TowerKind.Archer;
+        const TowerKind M = TowerKind.Magician;
+        int W_DMG = TowerManager.WARRIOR_CARD_DMG_UP;
+        int A_DMG = TowerManager.ARCHER_CARD_DMG_UP;
+        int M_DMG = TowerManager.MAGICIAN_CARD_DMG_UP;
+
+        //* カードアップグレードデータ反映
+        string extraDmg = ExtraTxt((Kind == W)? W_DMG : (Kind == A)? A_DMG : M_DMG);
+
         string[] states = new string[9];
         int i = 0;
         states[i++] = Lv.ToString(); //* Gradeラベルとして表示
-        states[i++] = $"{Dmg}";
-        states[i++] = $"{AtkSpeed}";
-        states[i++] = $"{AtkRange}";
-        states[i++] = $"{SplashRange}";
-        states[i++] = $"{CritPer}";
-        states[i++] = $"{CritDmgPer}";
-        states[i++] = $"{SlowPer}";
-        states[i++] = $"{StunSec}";
+        states[i++] = $"{TowerData.Dmg}{extraDmg}";
+        states[i++] = $"{TowerData.AtkSpeed}";
+        states[i++] = $"{TowerData.AtkRange}";
+        states[i++] = $"{TowerData.SplashRange}";
+        states[i++] = $"{TowerData.CritPer}";
+        states[i++] = $"{TowerData.CritDmgPer}";
+        states[i++] = $"{TowerData.SlowPer}";
+        states[i++] = $"{TowerData.StunSec}";
         return states;
     }
-
 #endregion
+    private string ExtraTxt(int unit) {
+        int cardLv = GM._.tm.TowerCardUgrLvs[(int)Kind];
+        string txt = $"<color=green>(+{Lv * unit * cardLv})</color>";
+        return Type == TowerType.Random? (cardLv > 0? txt : "") : "";
+    }
 
     private void OnDrawGizmos() {
         var pos = transform.position;

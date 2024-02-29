@@ -7,6 +7,9 @@ using Random = UnityEngine.Random;
 
 public class TowerManager : MonoBehaviour {
     public readonly static int CARD_UPG_LV_MAX = 10;
+    public readonly static int WARRIOR_CARD_DMG_UP = 3;
+    public readonly static int ARCHER_CARD_DMG_UP = 1;
+    public readonly static int MAGICIAN_CARD_DMG_UP = 2;
 
     [field: SerializeField] public int[] TowerCardUgrLvs {get; set;}
     [Header("WARRIOR")]
@@ -45,17 +48,16 @@ public class TowerManager : MonoBehaviour {
         ins.name = $"Board{boardCnt}";
         tmc.HitObject = ins;
     }
+    /// <summary>
+    /// ランダムタワー生成
+    /// </summary>
     private void InstantiateTower(GameObject towerObj, Transform objGroup) {
         //* タワー → Board子に入れる
         Tower tower = Instantiate(towerObj, tmc.HitObject.transform).GetComponent<Tower>();
         tower.transform.localPosition = new Vector2(0, 0.15f); //* 少し上で、Board上にのせるように
 
         //* カードアッグレードのデータ反映
-        TowerKind kind = tower.Kind;
-        tower.Dmg += (kind == TowerKind.Warrior)? TowerCardUgrLvs[(int)kind] * WarriorTower.CARD_UPG_DMG_UP
-            : (kind == TowerKind.Archer)? TowerCardUgrLvs[(int)kind] * ArcherTower.CARD_UPG_DMG_UP
-            : (kind == TowerKind.Magician)? TowerCardUgrLvs[(int)kind] * MagicianTower.CARD_UPG_DMG_UP
-            : 0;
+        tower.Upgrade();
 
         //* そのBoard → Group子に入れる
         tmc.HitObject.transform.SetParent(objGroup);

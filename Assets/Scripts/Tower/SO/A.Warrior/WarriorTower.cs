@@ -46,27 +46,6 @@ public class WarriorTower : Tower {
     }
 
     public override void Upgrade() {
-        Dmg = TowerData.Dmg + Lv * CARD_UPG_DMG_UP;;
-    }
-
-    public override string[] InfoState() {
-        Debug.Log($"Tower:: InfoState():: Name={Name}, Lv= {Lv}");
-
-        //* カードアップグレードデータ反映
-        int cardLv = GM._.tm.TowerCardUgrLvs[(int)Kind];
-        string extraDmg = cardLv > 0? $"<color=green>(+{Lv * CARD_UPG_DMG_UP * cardLv})</color>" : "";
-
-        string[] states = new string[9];
-        int i = 0;
-        states[i++] = Lv.ToString(); //* Gradeラベルとして表示
-        states[i++] = $"{Dmg}{extraDmg}";
-        states[i++] = $"{AtkSpeed}";
-        states[i++] = $"{AtkRange}";
-        states[i++] = $"{SplashRange}";
-        states[i++] = $"{CritPer}";
-        states[i++] = $"{CritDmgPer}";
-        states[i++] = $"{SlowPer}";
-        states[i++] = $"{StunSec}";
-        return states;
+        Dmg = TowerData.Dmg + Lv * CARD_UPG_DMG_UP;
     }
 }
