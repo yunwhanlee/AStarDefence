@@ -45,10 +45,6 @@ public class ArcherTower : Tower
     }
 
     public override void ShootMissile() {
-        var ins = Instantiate(missile);
-        Missile msl = ins.GetComponent<Missile>();
-        msl.MyTower = this;
-        msl.Target = trc.CurTarget;
     }
 
     public override void Upgrade()

@@ -9792,7 +9792,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 10
   m_Sprite: {fileID: 4723107735738678597, guid: 1a122a82263812f4bb05df69d0c2805c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -14944,11 +14944,11 @@ MonoBehaviour:
   TowerData: {fileID: 11400000, guid: 3467340dc6a46034caf5af8757b2e884, type: 2}
   trc: {fileID: 0}
   chara: {fileID: 0}
-  missile: {fileID: 4294883596274237335, guid: ae615369b97f0ce4d97afafe8aaa2400, type: 3}
   Type: 0
   Kind: 3
   AtkType: 0
   BodySprRdr: {fileID: 913976414953818008}
+  MissileSpr: {fileID: -570754180, guid: 7fa1f1b75a3d1a444a4a34264da002ef, type: 3}
   Name: 
   Lv: 0
   Dmg: 6

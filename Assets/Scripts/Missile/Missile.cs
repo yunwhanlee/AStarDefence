@@ -4,14 +4,17 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class Missile : MonoBehaviour {
+    const int LIMIT_X = 10, LIMIT_Y = 5;
     [field:SerializeField] public Tower MyTower {get; set;}
     [field:SerializeField] public Transform Target {get; set;}
+    [field:SerializeField] public SpriteRenderer SprRdr {get; set;}
 
     //* 単一なのに複数が当たることを防止
     [field:SerializeField] public List<Collider2D> ColList {get; set;}
-
     private Vector2 dir;
     private const float speed = 10;
+
+    // void Awake() => SprRdr = GetComponent<SpriteRenderer>();
 
     void Start() {
         ColList = new List<Collider2D>();
@@ -29,6 +32,11 @@ public class Missile : MonoBehaviour {
 
     void Update() {
         transform.Translate(speed * Time.deltaTime * Vector2.right);
+
+        //* 座標が領域を超えたら、消す
+        if(transform.position.x < -LIMIT_X || transform.position.x > LIMIT_X
+        || transform.position.y < -LIMIT_Y || transform.position.y > LIMIT_Y)
+            GM._.mm.Pool.Release(this);
     }
 
     void LateUpdate() {
@@ -38,13 +46,16 @@ public class Missile : MonoBehaviour {
 #region FUNC
     public void Init(Tower myTower) {
         MyTower = myTower;
-        transform.position = MyTower.transform.position;
+        transform.position = new Vector2(MyTower.transform.position.x, MyTower.transform.position.y + 0.15f);
         Target = MyTower.trc.CurTarget;
         dir = Target.position - transform.position;
         dir = dir.normalized;
         
         float degree = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, degree);
+
+        if(MyTower.MissileSpr)
+            SprRdr.sprite = MyTower.MissileSpr;
     }
 
     private void Hit() {

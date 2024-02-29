@@ -15,8 +15,6 @@ public abstract class Tower : MonoBehaviour {
     public SettingTowerData TowerData;
     public TowerRangeController trc;
     public Character chara;
-    [Tooltip("弾を打つタワーのみ")]
-    public Missile missile;
 
     //* Value
     private Coroutine CorAttack;
@@ -25,6 +23,7 @@ public abstract class Tower : MonoBehaviour {
     [Tooltip("AttackType : Target：ターゲット型、Round：自分の原点から矩形の爆発（Splash ON）")]
     public AttackType AtkType;
     public SpriteRenderer BodySprRdr;
+    public Sprite MissileSpr;
     public string Name;
     [Range(1, 7)] public int Lv;
     public int Dmg;
