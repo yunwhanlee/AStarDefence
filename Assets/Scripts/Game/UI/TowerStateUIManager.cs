@@ -27,6 +27,8 @@ public class TowerStateUIManager : MonoBehaviour {
             int lv = int.Parse(states[0]);
             GradeLabelGroup.GetChild(i).gameObject.SetActive(i == (lv - 1));
         }
+
+        //* 情報表示
         DmgTxt.text = states[1];
         AtkSpeedTxt.text = states[2];
         AtkRangeTxt.text = states[3];

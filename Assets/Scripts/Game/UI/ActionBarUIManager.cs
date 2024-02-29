@@ -37,32 +37,38 @@ public class ActionBarUIManager : MonoBehaviour {
 
 #region EVENT BUTTON
     public void OnClickBreakIconBtn() {
+        if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
+            return;
         GM._.tmc.BreakWallTile();
         GM._.tmc.SelectedTileMap.ClearAllTiles();
         PanelObj.SetActive(false);
     }
     public void OnClickBoardIconBtn() {
+        if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
+            return;
         GM._.tm.InstallBoard();
         StartCoroutine(CoCheckPathFind(Enum.Layer.Board));
     }
     public void OnClickRandomTowerIconBtn() {
+        if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
+            return;
         GM._.tm.CreateTower(TowerType.Random);
         UpdateUI(Enum.Layer.Tower);
     }
     public void OnClickIceTowerIconBtn() {
-        if(CCTowerCnt >= CCTowerMax) {
-            StartCoroutine(GM._.gui.CoShowMsgError($"CC타워는 {CCTowerMax}개까지 가능합니다."));
+        if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
             return;
-        }
+        else if(GM._.gui.ShowErrMsgCCTowerLimit())
+            return;
         SetCCTowerCntTxt(+1);
         GM._.tm.CreateTower(TowerType.CC_IceTower);
         StartCoroutine(CoCheckPathFind(Enum.Layer.CCTower));
     }
     public void OnClickStunTowerIconBtn() {
-        if(CCTowerCnt >= CCTowerMax) {
-            StartCoroutine(GM._.gui.CoShowMsgError($"CC타워는 {CCTowerMax}개까지 가능합니다."));
+        if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
             return;
-        }
+        else if(GM._.gui.ShowErrMsgCCTowerLimit())
+            return;
         SetCCTowerCntTxt(+1);
         GM._.tm.CreateTower(TowerType.CC_StunTower);
         StartCoroutine(CoCheckPathFind(Enum.Layer.CCTower));
@@ -183,7 +189,7 @@ public class ActionBarUIManager : MonoBehaviour {
     public void UpdateUI(int layer) {
         //* リセット
         clearIcons();
-        GM._.tsm.WindowObj.SetActive(false);
+        GM._.gui.tsm.WindowObj.SetActive(false);
 
         //* 表示
         switch(layer) {
@@ -200,7 +206,7 @@ public class ActionBarUIManager : MonoBehaviour {
             case Enum.Layer.CCTower: {
                 //* タワー情報UI 表示
                 Tower tower = GM._.tmc.HitObject.GetComponent<Tower>();
-                GM._.tsm.ShowTowerStateUI(tower.InfoState());
+                GM._.gui.tsm.ShowTowerStateUI(tower.InfoState());
 
                 //* MaxLv チェック
                 bool isMaxLv = false;
@@ -223,7 +229,7 @@ public class ActionBarUIManager : MonoBehaviour {
                 //* タワー情報UI 表示
                 Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
                 Debug.Log($"HitObject.name= {GM._.tmc.HitObject}, tower.name= {tower.name}");
-                GM._.tsm.ShowTowerStateUI(tower.InfoState());
+                GM._.gui.tsm.ShowTowerStateUI(tower.InfoState());
 
                 //* MaxLv チェック
                 bool isMaxLv = false;

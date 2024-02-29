@@ -40,6 +40,7 @@ public class EnemyManager : MonoBehaviour {
     private void Init(int i) {
         //* 呼出
         Enemy enemy = pool.Get();
+        if(i == 0) GM._.gui.esm.ShowEnemyStateUI(enemy);
         enemy.name = $"enemy{i}";
         enemy.transform.position = new Vector2(GM._.pfm.startPos.x, GM._.pfm.startPos.y);
     }
