@@ -5,8 +5,6 @@ using UnityEngine.UI;
 using System;
 
 public class WarriorTower : Tower {
-    public static int CARD_UPG_DMG_UP = 5;
-
     public override void CheckMergeUI() {
         Image mergeIcon = GM._.actBar.IconBtns[(int)ActionBarUIManager.ICON.Merge].GetComponent<Image>();
 
@@ -46,6 +44,9 @@ public class WarriorTower : Tower {
     }
 
     public override void Upgrade() {
-        Dmg = TowerData.Dmg + Lv * CARD_UPG_DMG_UP;
+        Dmg = TowerData.Dmg 
+            //* タワーレベル１以上なら、カードアップグレード値を掛ける
+            + (Lv > 1? Lv * TowerManager.WARRIOR_CARD_DMG_UP : 0);
+
     }
 }
