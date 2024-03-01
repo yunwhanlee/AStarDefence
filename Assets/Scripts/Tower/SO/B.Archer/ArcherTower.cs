@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using AnimationState = Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts.AnimationState;
 
 public class ArcherTower : Tower {
     public override void CheckMergeUI() {
@@ -44,6 +45,9 @@ public class ArcherTower : Tower {
     }
 
     public override void Upgrade() {
+        Debug.Log("Upgrade()::");
+        chara.SetState(AnimationState.Jumping);
+
         Dmg = TowerData.Dmg
             //* タワーレベル１以上なら、カードアップグレード値を掛ける
             + (Lv > 1? Lv * TowerManager.ARCHER_CARD_DMG_UP : 0);

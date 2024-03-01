@@ -61,7 +61,6 @@ public class TowerManager : MonoBehaviour {
 
         //* そのBoard → Group子に入れる
         tmc.HitObject.transform.SetParent(objGroup);
-        //TODO Delete処理
     }
     private void InstallIceTower(int lvIdx) {
         Debug.Log("InstallIceTower()::");

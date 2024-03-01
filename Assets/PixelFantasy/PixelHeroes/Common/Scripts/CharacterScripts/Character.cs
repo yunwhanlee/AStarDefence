@@ -32,7 +32,7 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts
                 default: throw new NotSupportedException();
             }
 
-            //Debug.Log("SetState: " + state);
+            Debug.Log("SetState: " + state);
         }
 
         public AnimationState GetState()

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SpriteLibrary
   m_EditorClassIdentifier: 
   m_Labels:
-  - m_Name: Attack
-    m_Hash: 7088141
+  - m_Name: Shot
+    m_Hash: 188032901
     m_CategoryList:
     - m_Name: 0
       m_Hash: 886824737

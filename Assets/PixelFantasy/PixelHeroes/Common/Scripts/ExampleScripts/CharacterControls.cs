@@ -1,4 +1,5 @@
-﻿using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts;
+﻿using System.Collections;
+using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts;
 using UnityEngine;
 using AnimationState = Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts.AnimationState;
 
@@ -19,9 +20,16 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
         private int _inputX, _inputY;
         private float _activityTime;
         
-        public void Start()
-        {
+        public void Awake() {
+            // Character.SetState(AnimationState.Idle);
+            StartCoroutine(CoSpawnAnim());
+        }
+
+        IEnumerator CoSpawnAnim() {
+            Character.SetState(AnimationState.Jumping);
+            yield return new WaitForSeconds(0.17f);
             Character.SetState(AnimationState.Idle);
+            JumpDust.Play(true);
         }
 
         // public void Update() {

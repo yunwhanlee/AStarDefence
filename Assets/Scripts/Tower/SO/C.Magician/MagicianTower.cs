@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using AnimationState = Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts.AnimationState;
 
 public class MagicianTower : Tower {
     public override void CheckMergeUI() {
@@ -40,11 +41,12 @@ public class MagicianTower : Tower {
 
             return true;
         }
-
         return false;
     }
 
     public override void Upgrade() {
+        Debug.Log("Upgrade()::");
+
         Dmg = TowerData.Dmg
         //* タワーレベル１以上なら、カードアップグレード値を掛ける
         + (Lv > 1? Lv * TowerManager.MAGICIAN_CARD_DMG_UP : 0);
