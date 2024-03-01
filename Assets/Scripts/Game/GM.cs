@@ -11,6 +11,7 @@ public enum GameState {Ready, Play, Pause, Gameover};
 public class GM : MonoBehaviour {
     public static GM _; //* Global
     [SerializeField] GameState state;   public GameState State {get => state; set => state = value;}
+    [field: SerializeField] public int Map {get; set;}
     [field: SerializeField] public int MaxStage {get; set;}
     [field: SerializeField] public int Stage {get; set;}
     [field: SerializeField] public int MaxLife {get; set;}
@@ -43,6 +44,7 @@ public class GM : MonoBehaviour {
         mm = GameObject.Find("MissileManager").GetComponent<MissileManager>();
 
         state = GameState.Ready;
+        Map = 0;
         MaxStage = 10;
         Stage = 0;
         Life = 10;

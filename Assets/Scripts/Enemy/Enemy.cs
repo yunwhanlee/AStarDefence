@@ -29,16 +29,17 @@ public abstract class Enemy : MonoBehaviour {
     private float originSpd;
     [field: SerializeField] public int NodeIdx {get; private set;}
     IObjectPool<Enemy> enemyPool;
-    [field: SerializeField] public Material DefaultMt;
-    [field: SerializeField] public Material BlinkMt;
 
-    void Start() {
-        originSpd = Speed;
-        maxHp = Hp;
+    void Awake() {
         SprRdr = GetComponent<SpriteRenderer>();
         HpBar = GetComponentInChildren<Slider>();
-        Init();
     }
+
+    // void Start() {
+    //     originSpd = Speed;
+    //     maxHp = Hp;
+    //     Init();
+    // }
 
     void Update() {
         var nodeList = GM._.pfm.FinalNodeList;
@@ -76,12 +77,21 @@ public abstract class Enemy : MonoBehaviour {
 
     #region FUNC
         private void Release() => GM._.em.Pool.Release(this); //* 戻す
-        public void Init() {
-            Speed = originSpd;
-            Hp = maxHp;
+        public void Init(EnemyData curEnemyDt) {
+            SetData(curEnemyDt);
             HpBar.value = (float)Hp / maxHp;
             NodeIdx = 0;
             Util._.SetDefMt(SprRdr);
+        }
+
+        private void SetData(EnemyData curEnemyDt) {
+            Name = curEnemyDt.Name;
+            Type = curEnemyDt.Type;
+            SprRdr.sprite = curEnemyDt.Img;
+            maxHp = curEnemyDt.Hp;
+            Hp = maxHp;
+            originSpd = curEnemyDt.Speed;
+            Speed = originSpd;
         }
         public void DecreaseHp(int val) {
             Util._.Blink(SprRdr);

@@ -7,6 +7,11 @@ using Unity.VisualScripting;
 
 public class EnemyManager : MonoBehaviour {
     public readonly static int CREATE_CNT = 15;
+
+    [Header("STAGE ENEMY DATA LIST")]
+    public SettingEnemyData[] StageDatas;
+
+    [Space(10)]
     public Transform enemyObjGroup;
     public Enemy enemyPf;
     IObjectPool<Enemy> pool;    public IObjectPool<Enemy> Pool {get => pool;}
@@ -26,7 +31,7 @@ public class EnemyManager : MonoBehaviour {
     }
     private void onRelease(Enemy enemy) { //* 戻す
         enemy.gameObject.SetActive(false);
-        enemy.Init();
+        enemy.Init(GetCurEnemyData());
 
         //* レイド終了をチェック
         // 敵のスポーンが終わらないと以下の処理しない
@@ -66,9 +71,15 @@ public class EnemyManager : MonoBehaviour {
     private void Init(int i) {
         //* 呼出
         Enemy enemy = pool.Get();
+
+        //* データ設定（ScriptableObject敵リストから）
+        enemy.Init(GetCurEnemyData());
+
         if(i == 0) GM._.gui.esm.ShowEnemyStateUI(enemy);
         enemy.name = $"enemy{i}";
         enemy.transform.position = new Vector2(GM._.pfm.startPos.x, GM._.pfm.startPos.y);
     }
+
+    private EnemyData GetCurEnemyData() => StageDatas[GM._.Map].EnemyDatas[GM._.Stage - 1];
 #endregion
 }

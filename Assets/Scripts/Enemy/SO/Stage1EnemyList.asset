@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e7b3a9d9a82ab4481c34b2140fe2a9, type: 3}
+  m_Name: Stage1EnemyList
+  m_EditorClassIdentifier: 
+  <EnemyDatas>k__BackingField:
+  - <Name>k__BackingField: "\uC2AC\uB77C\uC784"
+    <Type>k__BackingField: 0
+    <Img>k__BackingField: {fileID: 21300000, guid: 5b38d498c734c47a5b88ffb669f2427d, type: 3}
+    <Hp>k__BackingField: 10
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uD551\uD06C\uC2AC\uB77C\uC784"
+    <Type>k__BackingField: 0
+    <Img>k__BackingField: {fileID: 21300000, guid: fbc18dfaf35b5470aa058d2970ce39aa, type: 3}
+    <Hp>k__BackingField: 20
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uD654\uB09C\uC694\uC815"
+    <Type>k__BackingField: 0
+    <Img>k__BackingField: {fileID: 21300000, guid: 03ae9022a83b24076920516e11bd5cb8, type: 3}
+    <Hp>k__BackingField: 35
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uBBF8\uBBF9"
+    <Type>k__BackingField: 0
+    <Img>k__BackingField: {fileID: 21300000, guid: 2eca6bbc54e6d4fd184056664731bbc7, type: 3}
+    <Hp>k__BackingField: 60
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uCF04\uD0C0\uB85C\uC2A4"
+    <Type>k__BackingField: 0
+    <Img>k__BackingField: {fileID: 21300000, guid: 50e54a5be45d84ccdbc2bbebe5aac55b, type: 3}
+    <Hp>k__BackingField: 100
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uC624\uC6B0\uAC70"
+    <Type>k__BackingField: 0
+    <Img>k__BackingField: {fileID: 21300000, guid: a39a8b993ba0647a9af047ab43f6c98c, type: 3}
+    <Hp>k__BackingField: 150
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uC678\uB208\uBC15\uC950"
+    <Type>k__BackingField: 1
+    <Img>k__BackingField: {fileID: 21300000, guid: 0a1cd3dd0348345648f25d127d5c3bd1, type: 3}
+    <Hp>k__BackingField: 70
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uC800\uC8FC\uBC1B\uC740\uC804\uC0AC"
+    <Type>k__BackingField: 0
+    <Img>k__BackingField: {fileID: 21300000, guid: 104bf404f508a4d25a01073facb9376e, type: 3}
+    <Hp>k__BackingField: 190
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uB291\uB300\uC778\uAC04"
+    <Type>k__BackingField: 0
+    <Img>k__BackingField: {fileID: 21300000, guid: 7bb66e40f4b854ffcb2fa9743c60ca7e, type: 3}
+    <Hp>k__BackingField: 230
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uBBF8\uB178\uD0C0\uC2A4"
+    <Type>k__BackingField: 0
+    <Img>k__BackingField: {fileID: 21300000, guid: 7bb66e40f4b854ffcb2fa9743c60ca7e, type: 3}
+    <Hp>k__BackingField: 300
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uCF54\uBFD4\uC804\uC0AC"
+    <Type>k__BackingField: 0
+    <Img>k__BackingField: {fileID: 21300000, guid: 7bb66e40f4b854ffcb2fa9743c60ca7e, type: 3}
+    <Hp>k__BackingField: 400
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uBC14\uC704\uACE8\uB818"
+    <Type>k__BackingField: 2
+    <Img>k__BackingField: {fileID: 21300000, guid: 7bb66e40f4b854ffcb2fa9743c60ca7e, type: 3}
+    <Hp>k__BackingField: 1000
+    <Speed>k__BackingField: 1
