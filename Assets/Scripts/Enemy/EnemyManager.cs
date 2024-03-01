@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Pool;
 using System;
 using Unity.VisualScripting;
+using System.Linq;
 
 public class EnemyManager : MonoBehaviour {
     public readonly static int CREATE_CNT = 15;
@@ -15,11 +16,13 @@ public class EnemyManager : MonoBehaviour {
     public Transform enemyObjGroup;
     public Enemy enemyPf;
     IObjectPool<Enemy> pool;    public IObjectPool<Enemy> Pool {get => pool;}
-    private int spawnCnt;
+    int spawnCnt;
 
-    void Awake() => pool = new ObjectPool<Enemy>(
-        create, onGet, onRelease, onDestroyBlock, maxSize: 20
-    );
+    void Awake() {
+        pool = new ObjectPool<Enemy>(
+            create, onGet, onRelease, onDestroyBlock, maxSize: 20
+        );
+    } 
 
 #region OBJECT POOL
     private Enemy create() {
@@ -84,5 +87,6 @@ public class EnemyManager : MonoBehaviour {
     }
 
     private EnemyData GetCurEnemyData() => StageDatas[GM._.Map].EnemyDatas[GM._.Stage - 1];
+    public EnemyData GetNextEnemyData() => StageDatas[GM._.Map].EnemyDatas[GM._.Stage];
 #endregion
 }

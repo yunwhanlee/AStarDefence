@@ -26,6 +26,13 @@ public class GameUIManager : MonoBehaviour {
     public Image HeartFillImg;
     public TextMeshProUGUI LifeTxt;
 
+    [Header("NEXT ENEMY INFO FLAG")]
+    public GameObject NextEnemyInfo;
+    public Image NextEnemyImg;
+    public Image NextEnemyTypeImg;
+    public TextMeshProUGUI NextEnemyTxt;
+    public Sprite[] NextEnemyTypeIconSprs;
+
     [Header("PAUSE POPUP")]
     public GameObject PausePopUp;
     private GameState previousState;
@@ -42,6 +49,7 @@ public class GameUIManager : MonoBehaviour {
     [Header("INFO MSG POPUP")]
     public GameObject TopMsgInfo;
     public TextMeshProUGUI MsgInfoTxt;
+
     [Header("NOTICE MSG POPUP")]
     public GameObject BottomMsgNotice;
     public TextMeshProUGUI MsgNoticeTxt;
@@ -57,6 +65,7 @@ public class GameUIManager : MonoBehaviour {
         StageTxt.text = $"STAGE {GM._.Stage} / {GM._.MaxStage}";
         EnemyCntTxt.text = "0 / 0";
         MoneyTxt.text = $"{GM._.Money}";
+        LifeTxt.text = $"{GM._.Life}";
         UpdateTowerCardLvUI();
     }
 
@@ -157,6 +166,7 @@ public class GameUIManager : MonoBehaviour {
     public void SwitchGameStateUI(GameState gameState) {
         GameStateUIGroup.GetChild((int)GameState.Ready).gameObject.SetActive(gameState == GameState.Ready);
         GameStateUIGroup.GetChild((int)GameState.Play).gameObject.SetActive(gameState == GameState.Play);
+        NextEnemyInfo.SetActive(gameState == GameState.Ready);
     }
 
     public void UpdateTowerCardLvUI() {
@@ -168,6 +178,16 @@ public class GameUIManager : MonoBehaviour {
                 TowerUpgLvTxts[i].GetComponentInParent<Button>().interactable = false;
             }
         }
+    }
+
+    public void SetNextEnemyInfoFlagUI() {
+        EnemyData nextEnemyDt = GM._.em.GetNextEnemyData();
+        if(nextEnemyDt == null) return; //* もう敵がなかったら、以下処理しない
+
+        NextEnemyImg.sprite = nextEnemyDt.Spr;
+        NextEnemyTypeImg.sprite = NextEnemyTypeIconSprs[(int)nextEnemyDt.Type];
+        NextEnemyTxt.text = nextEnemyDt.Type == EnemyType.Boss? "BOSS" : "NEXT";
+        NextEnemyTxt.color = nextEnemyDt.Type == EnemyType.Boss? Color.red : Color.white;
     }
 #endregion
 }

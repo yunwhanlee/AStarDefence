@@ -44,11 +44,12 @@ public class GM : MonoBehaviour {
 
         state = GameState.Ready;
         Map = 0;
-        MaxStage = 10;
+        MaxStage = em.StageDatas[Map].EnemyDatas.Length;
         Stage = 0;
         Life = 10;
         MaxLife = Life;
         Money = 0;
+        gui.SetNextEnemyInfoFlagUI();
         gui.SwitchGameStateUI(state);
     }
 
@@ -74,19 +75,24 @@ public class GM : MonoBehaviour {
         state = GameState.Ready;
         gui.StageTxt.text = $"STAGE {Stage} / {MaxStage}";
         gui.SwitchGameStateUI(state);
+
+        //* Next Enemy Info UI
+        gui.SetNextEnemyInfoFlagUI();
     }
 
     public void DecreaseLife(EnemyType type) {
         Util._.Blink(gui.HeartFillImg);
         Life -= (type == EnemyType.Boss)? Enemy.LIFE_DEC_BOSS : Enemy.LIFE_DEC_MONSTER;
         gui.HeartFillImg.fillAmount = (float)Life / MaxLife;
-        gui.LifeTxt.text = Life.ToString();
+
         //* ゲームオーバ
         if(Life <= 0) {
             State = GameState.Gameover;
             Life = 0;
             Debug.Log("GAMEOVER");
         }
+
+        gui.LifeTxt.text = Life.ToString();
     }
 #endregion
 }
