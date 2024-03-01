@@ -11,8 +11,9 @@ public enum EnemyType {
 
 [System.Serializable]
 public abstract class Enemy : MonoBehaviour {
-    const int LIFE_DEC_BOSS = 5;
-    const int LIFE_DEC_MONSTER = 1;
+    public readonly static int LIFE_DEC_BOSS = 5;
+    public readonly static int LIFE_DEC_MONSTER = 1;
+    public readonly static int ORIGIN_SORTING_LAYER = 9;
 
     Coroutine CorSlow;
     Coroutine CorStun;
@@ -28,7 +29,6 @@ public abstract class Enemy : MonoBehaviour {
     [field: SerializeField] public float Speed {get; set;}
     private float originSpd;
     [field: SerializeField] public int NodeIdx {get; private set;}
-    IObjectPool<Enemy> enemyPool;
 
     void Awake() {
         SprRdr = GetComponent<SpriteRenderer>();
@@ -42,6 +42,20 @@ public abstract class Enemy : MonoBehaviour {
     // }
 
     void Update() {
+        //* 飛ぶタイプ
+        if(Type == EnemyType.Flight) {
+            Vector2 goalDir = GM._.pfm.targetPos;
+            transform.Translate(Speed * Time.deltaTime * goalDir.normalized);
+
+            if(transform.position.x > GM._.pfm.targetPos.x
+            && transform.position.y > GM._.pfm.targetPos.y) {
+                Release();
+                GM._.DecreaseLife(Type);
+            }
+            return;
+        }
+
+        //* 歩くタイプ
         var nodeList = GM._.pfm.FinalNodeList;
         int len = nodeList.Count - 1;
         if(NodeIdx < len) {
@@ -62,32 +76,30 @@ public abstract class Enemy : MonoBehaviour {
         else {
             //* 敵がゴールまで届いた
             Release();
-            Util._.Blink(GM._.gui.HeartFillImg);
-            GM._.Life -= (Type == EnemyType.Boss)? LIFE_DEC_BOSS : LIFE_DEC_MONSTER;
-            GM._.gui.HeartFillImg.fillAmount = (float)GM._.Life / GM._.MaxLife;
-            GM._.gui.LifeTxt.text = GM._.Life.ToString();
-            //* ゲームオーバ
-            if(GM._.Life <= 0) {
-                GM._.State = GameState.Gameover;
-                GM._.Life = 0;
-                Debug.Log("GAMEOVER");
-            }
+            GM._.DecreaseLife(Type);
         }
     }
 
     #region FUNC
         private void Release() => GM._.em.Pool.Release(this); //* 戻す
+        /// <summary>
+        /// 初期化
+        /// </summary>
         public void Init(EnemyData curEnemyDt) {
             SetData(curEnemyDt);
             HpBar.value = (float)Hp / maxHp;
             NodeIdx = 0;
             Util._.SetDefMt(SprRdr);
+            SprRdr.sortingOrder = (Type == EnemyType.Flight)? 15 : ORIGIN_SORTING_LAYER;
         }
-
+        /// <summary>
+        /// 現在ステージに合わせてデータ設定
+        /// </summary>
         private void SetData(EnemyData curEnemyDt) {
             Name = curEnemyDt.Name;
+            Lv = curEnemyDt.Lv;
             Type = curEnemyDt.Type;
-            SprRdr.sprite = curEnemyDt.Img;
+            SprRdr.sprite = curEnemyDt.Spr;
             maxHp = curEnemyDt.Hp;
             Hp = maxHp;
             originSpd = curEnemyDt.Speed;

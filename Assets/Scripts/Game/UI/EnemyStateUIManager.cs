@@ -28,7 +28,7 @@ public class EnemyStateUIManager : MonoBehaviour {
         IconImg.sprite = enemy.SprRdr.sprite;
 
         //* 情報表示
-        LvTxt.text = $"LM {enemy.Lv}";
+        LvTxt.text = $"LV {enemy.Lv}";
         NameTxt.text = $"{enemy.Name}";
         HpTxt.text = $"{enemy.Hp}";
         SpeedTxt.text = $"{enemy.Speed}";

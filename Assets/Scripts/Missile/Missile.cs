@@ -48,6 +48,9 @@ public class Missile : MonoBehaviour {
         MyTower = myTower;
         transform.position = new Vector2(MyTower.transform.position.x, MyTower.transform.position.y + 0.15f);
         Target = MyTower.trc.CurTarget;
+
+        if(Target == null) return;
+
         dir = Target.position - transform.position;
         dir = dir.normalized;
         

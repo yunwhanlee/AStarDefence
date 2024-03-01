@@ -10,6 +10,7 @@ public enum GameState {Ready, Play, Pause, Gameover};
 
 public class GM : MonoBehaviour {
     public static GM _; //* Global
+
     [SerializeField] GameState state;   public GameState State {get => state; set => state = value;}
     [field: SerializeField] public int Map {get; set;}
     [field: SerializeField] public int MaxStage {get; set;}
@@ -28,8 +29,6 @@ public class GM : MonoBehaviour {
     public ActionBarUIManager actBar; //TODO Move To GameUIManager
     public TowerManager tm;
     public MissileManager mm;
-
-    
 
     void Awake() {
         //* Global化 値 代入
@@ -75,6 +74,19 @@ public class GM : MonoBehaviour {
         state = GameState.Ready;
         gui.StageTxt.text = $"STAGE {Stage} / {MaxStage}";
         gui.SwitchGameStateUI(state);
+    }
+
+    public void DecreaseLife(EnemyType type) {
+        Util._.Blink(gui.HeartFillImg);
+        Life -= (type == EnemyType.Boss)? Enemy.LIFE_DEC_BOSS : Enemy.LIFE_DEC_MONSTER;
+        gui.HeartFillImg.fillAmount = (float)Life / MaxLife;
+        gui.LifeTxt.text = Life.ToString();
+        //* ゲームオーバ
+        if(Life <= 0) {
+            State = GameState.Gameover;
+            Life = 0;
+            Debug.Log("GAMEOVER");
+        }
     }
 #endregion
 }

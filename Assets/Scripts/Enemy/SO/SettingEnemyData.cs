@@ -6,7 +6,8 @@ using UnityEngine;
 public class EnemyData {
     [field:SerializeField] public string Name {get; private set;}
     [field:SerializeField] public EnemyType Type {get; private set;}
-    [field:SerializeField] public Sprite Img {get; private set;}
+    [field:SerializeField] public Sprite Spr {get; private set;}
+    [field:SerializeField] public int Lv {get; private set;}
     [field:SerializeField] public int Hp {get; private set;}
     [field:SerializeField] public float Speed {get; private set;}
 }
