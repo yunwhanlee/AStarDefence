@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 public class EnemyStateUIManager : MonoBehaviour {
-    const int FRAME_GRAY = 0, FRAME_RED = 1, FRAME_YELLOW = 2;
+    const int FRAME_GRAY = 0, FRAME_BLUE = 1, FRAME_RED = 2, FRAME_YELLOW = 3;
     [field: SerializeField] public GameObject WindowObj {get; set;}
     [field: SerializeField] public Sprite[] FrameSprs {get; set;}
     [field: SerializeField] public Image Frame {get; set;}
@@ -17,14 +17,14 @@ public class EnemyStateUIManager : MonoBehaviour {
     public void ShowEnemyStateUI(Enemy enemy) {
         Debug.Log($"ShowEnemyStateUI():: ");
         EnemyType type = enemy.Type;
-        bool isMonster = type == EnemyType.Land || type == EnemyType.Flight;
-        bool isBoss = type == EnemyType.Boss;
-        bool isGoblin = type == EnemyType.Goblin;
 
-        //* Frame Sprite
-        Frame.sprite = isMonster? FrameSprs[FRAME_GRAY]
-            : isBoss? FrameSprs[FRAME_RED] 
-            : isGoblin? FrameSprs[FRAME_YELLOW] : null;
+        //* フレームイメージ
+        Frame.sprite = (type == EnemyType.Land)? FrameSprs[FRAME_GRAY]
+            : (type == EnemyType.Flight)? FrameSprs[FRAME_BLUE]
+            : (type == EnemyType.Boss)? FrameSprs[FRAME_RED]
+            : (type == EnemyType.Goblin)? FrameSprs[FRAME_YELLOW] : null;
+
+        //* 敵イメージ
         IconImg.sprite = enemy.SprRdr.sprite;
 
         //* 情報表示

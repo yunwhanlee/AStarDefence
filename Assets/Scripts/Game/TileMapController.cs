@@ -47,6 +47,10 @@ public class TileMapController : MonoBehaviour {
         int x = (int)Math.Round(mousePos.x);
         int y = (int)Math.Round(mousePos.y);
 
+        //* スタートとゴール地点なら、以下処理しない
+        if(new Vector2(x,y) == GM._.pfm.startPos) return;
+        if(new Vector2(x,y) == GM._.pfm.targetPos) return;
+
         //* アクションバー上をクリックしたら、以下の処理しない
         const int ACTION_BAR_START_POS_Y = -4;
         if(y <= ACTION_BAR_START_POS_Y) return;
