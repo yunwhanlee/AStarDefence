@@ -75,7 +75,10 @@ public class EnemyManager : MonoBehaviour {
         //* データ設定（ScriptableObject敵リストから）
         enemy.Init(GetCurEnemyData());
 
-        if(i == 0) GM._.gui.esm.ShowEnemyStateUI(enemy);
+        //* 敵の情報UI表示
+        if(i == 0)
+            GM._.gui.esm.ShowEnemyStateUI(enemy);
+
         enemy.name = $"enemy{i}";
         enemy.transform.position = new Vector2(GM._.pfm.startPos.x, GM._.pfm.startPos.y);
     }

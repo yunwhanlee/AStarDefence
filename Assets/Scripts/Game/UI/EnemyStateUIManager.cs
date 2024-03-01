@@ -8,6 +8,7 @@ public class EnemyStateUIManager : MonoBehaviour {
     [field: SerializeField] public GameObject WindowObj {get; set;}
     [field: SerializeField] public Sprite[] FrameSprs {get; set;}
     [field: SerializeField] public Image Frame {get; set;}
+    [field: SerializeField] public Image IconImg {get; set;}
     [field: SerializeField] public TextMeshProUGUI LvTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI NameTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI HpTxt {get; set;}
@@ -24,6 +25,7 @@ public class EnemyStateUIManager : MonoBehaviour {
         Frame.sprite = isMonster? FrameSprs[FRAME_GRAY]
             : isBoss? FrameSprs[FRAME_RED] 
             : isGoblin? FrameSprs[FRAME_YELLOW] : null;
+        IconImg.sprite = enemy.SprRdr.sprite;
 
         //* 情報表示
         LvTxt.text = $"LM {enemy.Lv}";

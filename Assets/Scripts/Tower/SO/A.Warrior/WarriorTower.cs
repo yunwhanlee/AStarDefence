@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using AnimationState = Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts.AnimationState;
+using Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts;
 
 public class WarriorTower : Tower {
     public override void CheckMergeUI() {
@@ -46,7 +46,7 @@ public class WarriorTower : Tower {
 
     public override void Upgrade() {
         Debug.Log("Upgrade()::");
-        chara.SetState(AnimationState.Jumping);
+        StartCoroutine(GetComponent<CharacterControls>().CoSpawnAnim());
 
         Dmg = TowerData.Dmg 
             //* タワーレベル１以上なら、カードアップグレード値を掛ける

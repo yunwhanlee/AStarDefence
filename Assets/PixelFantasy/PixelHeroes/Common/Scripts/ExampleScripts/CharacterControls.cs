@@ -25,7 +25,7 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
             StartCoroutine(CoSpawnAnim());
         }
 
-        IEnumerator CoSpawnAnim() {
+        public IEnumerator CoSpawnAnim() {
             Character.SetState(AnimationState.Jumping);
             yield return new WaitForSeconds(0.17f);
             Character.SetState(AnimationState.Idle);
