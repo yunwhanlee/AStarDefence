@@ -168,6 +168,11 @@ public class TowerManager : MonoBehaviour {
                 break;
         }
         GM._.gui.UpdateTowerCardLvUI();
+
+        //*お知らせメッセージ表示
+        string kindName = (kind == TowerKind.Warrior)? "전사" : (kind == TowerKind.Archer)? "궁수" : "마법사";
+        string cardLv = GM._.tm.TowerCardUgrLvs[(int)kind].ToString();
+        GM._.gui.ShowMsgNotice($"{kindName}타워 업그레이드 성공! 레벨{cardLv}");
     }
 #endregion
 }

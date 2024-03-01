@@ -11,6 +11,8 @@ public class GameUIManager : MonoBehaviour {
     public TowerStateUIManager tsm;
     public EnemyStateUIManager esm;
 
+    Coroutine CorMsgNoticeID;
+
     [Header("STATIC UI")]
     public Image playSpeedBtnImg;
     public Sprite[] playSpeedBtnSprs;
@@ -34,12 +36,15 @@ public class GameUIManager : MonoBehaviour {
     public TextMeshProUGUI AgainAskMsgTxt;    
 
     [Header("ERROR MSG POPUP")]
-    public GameObject topMsgError;
+    public GameObject TopMsgError;
     public TextMeshProUGUI MsgErrorTxt;
 
     [Header("INFO MSG POPUP")]
-    public GameObject topMsgInfo;
+    public GameObject TopMsgInfo;
     public TextMeshProUGUI MsgInfoTxt;
+    [Header("NOTICE MSG POPUP")]
+    public GameObject BottomMsgNotice;
+    public TextMeshProUGUI MsgNoticeTxt;
 
     void Awake() {
         tsm = GameObject.Find("TowerStateUIManager").GetComponent<TowerStateUIManager>();
@@ -47,7 +52,8 @@ public class GameUIManager : MonoBehaviour {
     }
 
     void Start() {
-        topMsgError.SetActive(false);
+        CorMsgNoticeID = null;
+        TopMsgError.SetActive(false);
         StageTxt.text = $"STAGE {GM._.Stage} / {GM._.MaxStage}";
         EnemyCntTxt.text = "0 / 0";
         MoneyTxt.text = $"{GM._.Money}";
@@ -63,7 +69,8 @@ public class GameUIManager : MonoBehaviour {
         playSpeedBtnImg.sprite = time == 1? playSpeedBtnSprs[ON] : playSpeedBtnSprs[OFF];
     }
 
-    #region PAUSE POPUP
+    #region POPUP
+    //* PAUSE
     public void OnClickPauseBtn() {
         previousState = GM._.State;
         previousTimeScale = Time.timeScale;
@@ -80,9 +87,8 @@ public class GameUIManager : MonoBehaviour {
         PausePopUp.SetActive(false);
         AgainAskPopUp.SetActive(true);
     }
-    #endregion
 
-    #region AGAIN ASK POPUP
+    //* AGAIN ASK
     public void OnClickAgainAskPopUp_ConfirmBtn() {
         Debug.Log("GO TO HOME");
     }
@@ -110,11 +116,28 @@ public class GameUIManager : MonoBehaviour {
 #endregion
 
 #region FUNC
+    /// <summary> 上にへエラーメッセージバー表示（自動OFF）</summary>
     public IEnumerator CoShowMsgError(string msg) {
-        topMsgError.SetActive(true);
+        TopMsgError.SetActive(true);
         MsgErrorTxt.text = msg;
         yield return Util.Time1;
-        topMsgError.SetActive(false);
+        TopMsgError.SetActive(false);
+    }
+    /// <summary> 上にへ情報メッセージバー表示（ON、OFF形式）</summary>
+    public void ShowMsgInfo(bool isActive, string msg = "") {
+        MsgInfoTxt.text = isActive? msg : "";
+        TopMsgInfo.SetActive(isActive);
+    }
+    /// <summary> 下にお知らせメッセージ表示（自動OFF）</summary>
+    public void ShowMsgNotice(string msg) {
+        if(CorMsgNoticeID != null) StopCoroutine(CorMsgNoticeID);
+        CorMsgNoticeID = StartCoroutine(CoShowMsgNotice(msg));
+    }
+    IEnumerator CoShowMsgNotice(string msg) {
+        BottomMsgNotice.SetActive(true);
+        MsgNoticeTxt.text = msg;
+        yield return Util.Time1;
+        BottomMsgNotice.SetActive(false);
     }
     public bool ShowErrMsgCreateTowerAtPlayState() {
         if(GM._.State == GameState.Play) {
@@ -129,14 +152,6 @@ public class GameUIManager : MonoBehaviour {
             return true;
         }
         return false;
-    }
-    
-    /// <summary>
-    /// 情報メッセージ表示のポップアップ（ON、OFF形式）
-    /// </summary>    
-    public void ShowMsgInfo(bool isActive, string msg = "") {
-        MsgInfoTxt.text = isActive? msg : "";
-        topMsgInfo.SetActive(isActive);
     }
 
     public void SwitchGameStateUI(GameState gameState) {

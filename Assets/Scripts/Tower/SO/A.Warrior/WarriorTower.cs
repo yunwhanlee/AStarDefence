@@ -47,6 +47,5 @@ public class WarriorTower : Tower {
         Dmg = TowerData.Dmg 
             //* タワーレベル１以上なら、カードアップグレード値を掛ける
             + (Lv > 1? Lv * TowerManager.WARRIOR_CARD_DMG_UP : 0);
-
     }
 }
