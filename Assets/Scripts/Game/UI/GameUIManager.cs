@@ -70,6 +70,13 @@ public class GameUIManager : MonoBehaviour {
     }
 
 #region EVENT
+    //! DEBUG
+    public void Debug_StageUp() {
+        GM._.Stage++;
+        if(GM._.Stage > GM._.MaxStage) GM._.Stage = 0;
+        StageTxt.text = $"STAGE {GM._.Stage} / {GM._.MaxStage}";
+    }
+
     public void OnClickPlaySpeedBtn() {
         Debug.Log($"OnClickPlaySpeedBtn()::");
         const int OFF = 0, ON = 1;

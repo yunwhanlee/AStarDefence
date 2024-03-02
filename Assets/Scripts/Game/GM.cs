@@ -61,7 +61,7 @@ public class GM : MonoBehaviour {
         state = GameState.Play;
         gui.StageTxt.text = $"STAGE {++Stage}";
         gui.SwitchGameStateUI(state);
-        gui.EnemyCntTxt.text = $"{EnemyManager.CREATE_CNT} / {EnemyManager.CREATE_CNT}";
+        gui.EnemyCntTxt.text = $"{em.EnemyCnt} / {em.EnemyCnt}";
         pfm.PathFinding();
         StartCoroutine(em.CoCreateEnemy());
     }

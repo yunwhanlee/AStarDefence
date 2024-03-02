@@ -7,7 +7,9 @@ using Unity.VisualScripting;
 using System.Linq;
 
 public class EnemyManager : MonoBehaviour {
-    public readonly static int CREATE_CNT = 15;
+    const int MONSTER_CNT = 15;
+    const int BOSS_CNT = 1;
+    const int SEMIBOSS_CNT = 2;
 
     [Header("STAGE ENEMY DATA LIST")]
     public SettingEnemyData[] StageDatas;
@@ -16,9 +18,11 @@ public class EnemyManager : MonoBehaviour {
     public Transform enemyObjGroup;
     public Enemy enemyPf;
     IObjectPool<Enemy> pool;    public IObjectPool<Enemy> Pool {get => pool;}
+    [field:SerializeField] public int EnemyCnt {get; set;}
     int spawnCnt;
 
     void Awake() {
+        EnemyCnt = MONSTER_CNT;
         pool = new ObjectPool<Enemy>(
             create, onGet, onRelease, onDestroyBlock, maxSize: 20
         );
@@ -63,11 +67,15 @@ public class EnemyManager : MonoBehaviour {
 #region FUNC
     public IEnumerator CoCreateEnemy() {
         //* スポーンカウント リセット
-        spawnCnt = CREATE_CNT;
+        Debug.Log($"GM._.em.GetCurEnemyData().Type= {GM._.em.GetCurEnemyData().Type}");
+        bool isTypeBoss = GM._.em.GetCurEnemyData().Type == EnemyType.Boss;
+        spawnCnt = isTypeBoss? BOSS_CNT : EnemyCnt;
+        EnemyCnt = isTypeBoss? BOSS_CNT : MONSTER_CNT;
+
         //* 生成
-        for(int i = 0; i < CREATE_CNT; i++) {
+        for(int i = 0; i < EnemyCnt; i++) {
             Init(i); //* データ初期化
-            GM._.gui.EnemyCntTxt.text = $"{--spawnCnt} / {CREATE_CNT}"; //* 敵スピーン数を表示
+            GM._.gui.EnemyCntTxt.text = $"{--spawnCnt} / {EnemyCnt}"; //* 敵スピーン数を表示
             yield return new WaitForSeconds(0.5f);
         }
     }
