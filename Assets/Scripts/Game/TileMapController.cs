@@ -191,10 +191,12 @@ public class TileMapController : MonoBehaviour {
     /// <summary>
     /// 壁をランダムで設置
     /// </summary>
-    private void SpawnWall() {
+    public void SpawnWall() {
         List<Vector2Int> posList = new List<Vector2Int>();
         var sp = Config.START_POS;
         var gp = Config.GOAL_POS;
+
+        WallTileMap.ClearAllTiles();
 
         //* 全ての位置をリスト化
         const int ofs = 1;

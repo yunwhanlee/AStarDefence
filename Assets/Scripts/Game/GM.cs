@@ -9,12 +9,15 @@ using UnityEngine.Events;
 public enum GameState {Ready, Play, Pause, Gameover};
 
 public class GM : MonoBehaviour {
+    public readonly static int RESET_WALL_MAX = 5;
+
     public static GM _; //* Global
 
     [SerializeField] GameState state;   public GameState State {get => state; set => state = value;}
     [field: SerializeField] public int Map {get; set;}
     [field: SerializeField] public int MaxStage {get; set;}
     [field: SerializeField] public int Stage {get; set;}
+    [field: SerializeField] public int ResetCnt {get; set;}
     [field: SerializeField] public int MaxLife {get; set;}
     [field: SerializeField] public int Life {get; set;}
     [field: SerializeField] public int Money {get; set;}
@@ -46,6 +49,7 @@ public class GM : MonoBehaviour {
         Map = 0;
         MaxStage = em.StageDatas[Map].EnemyDatas.Length;
         Stage = 0;
+        ResetCnt = 5;
         Life = 10;
         MaxLife = Life;
         Money = 0;
@@ -60,10 +64,13 @@ public class GM : MonoBehaviour {
     public void OnClickStartBtn() {
         state = GameState.Play;
         gui.StageTxt.text = $"STAGE {++Stage}";
-        gui.SwitchGameStateUI(state);
         gui.EnemyCntTxt.text = $"{em.EnemyCnt} / {em.EnemyCnt}";
+        gui.SwitchGameStateUI(state);
         pfm.PathFinding();
         StartCoroutine(em.CoCreateEnemy());
+
+        if(gui.ResetWallBtn.gameObject.activeSelf)
+            gui.ResetWallBtn.gameObject.SetActive(false);
     }
 #endregion
 
@@ -90,6 +97,7 @@ public class GM : MonoBehaviour {
             State = GameState.Gameover;
             Life = 0;
             Debug.Log("GAMEOVER");
+            gui.GameoverPopUp.SetActive(true);
         }
 
         gui.LifeTxt.text = Life.ToString();

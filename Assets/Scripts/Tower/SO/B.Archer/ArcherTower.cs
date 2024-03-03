@@ -47,9 +47,10 @@ public class ArcherTower : Tower {
     public override void Upgrade() {
         Debug.Log("Upgrade()::");
         StartCoroutine(GetComponent<CharacterControls>().CoSpawnAnim());
+        int cardLv = GM._.tm.TowerCardUgrLvs[(int)Kind];
 
         Dmg = TowerData.Dmg
             //* タワーレベル１以上なら、カードアップグレード値を掛ける
-            + (Lv > 1? Lv * TowerManager.ARCHER_CARD_DMG_UP : 0);
+            + (cardLv >= 1? cardLv * TowerManager.ARCHER_CARD_DMG_UP : 0);
     }
 }

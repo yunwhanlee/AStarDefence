@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour {
@@ -18,6 +19,8 @@ public class GameUIManager : MonoBehaviour {
     public Sprite[] playSpeedBtnSprs;
 
     [Tooltip("ゲーム状況により変わるUIグループ")]
+    public Button ResetWallBtn;
+    public TextMeshProUGUI ResetWallCntTxt;
     public Transform GameStateUIGroup;
     public TextMeshProUGUI StageTxt;
     public TextMeshProUGUI EnemyCntTxt;
@@ -37,6 +40,15 @@ public class GameUIManager : MonoBehaviour {
     public GameObject PausePopUp;
     private GameState previousState;
     private float previousTimeScale;
+
+    [Header("GAMEOVER POPUP")]
+    public GameObject GameoverPopUp;
+    public Button Ads_ReviveBtn;
+
+    [Header("VICTORY POPUP")]
+    public GameObject VictoryPopUp;
+    public Transform RewardsGroup;
+    public Button Ads_ClaimX2Btn;
 
     [Header("AGAIN ASK POPUP")]
     public GameObject AgainAskPopUp;
@@ -63,6 +75,7 @@ public class GameUIManager : MonoBehaviour {
         CorMsgNoticeID = null;
         TopMsgError.SetActive(false);
         StageTxt.text = $"STAGE {GM._.Stage} / {GM._.MaxStage}";
+        ResetWallCntTxt.text = $"{GM._.ResetCnt}/{GM.RESET_WALL_MAX}";
         EnemyCntTxt.text = "0 / 0";
         MoneyTxt.text = $"{GM._.Money}";
         LifeTxt.text = $"{GM._.Life}";
@@ -83,6 +96,18 @@ public class GameUIManager : MonoBehaviour {
         var time = Time.timeScale;
         Time.timeScale = time == 1? 8 : 1;
         playSpeedBtnImg.sprite = time == 1? playSpeedBtnSprs[ON] : playSpeedBtnSprs[OFF];
+    }
+
+    public void OnClickResetWallBtn() {
+        Debug.Log("OnClickResetRockBtn()");
+        if(GM._.ResetCnt <= 0) {
+            StartCoroutine(GM._.gui.CoShowMsgError("벽 리셋횟수가 다 소진되었습니다."));
+            return;
+        }
+        
+        GM._.ResetCnt--;
+        ResetWallCntTxt.text = $"{GM._.ResetCnt}/{GM.RESET_WALL_MAX}";
+        GM._.tmc.SpawnWall();
     }
 
     #region POPUP
@@ -112,6 +137,28 @@ public class GameUIManager : MonoBehaviour {
         Time.timeScale = previousTimeScale;
         GM._.State = previousState;
         AgainAskPopUp.SetActive(false);
+    }
+
+    //* GAME OVER
+    public void OnClickReStartBtn() {
+        SceneManager.LoadScene("Game");
+    }
+    public void OnClickAdsReviveBtn() {
+        //TODO Request Revive Reward Ads
+        Debug.Log("REVIVE Ads");
+    }
+
+    //* VICTORY
+    public void OnClickConfirmBtn() {
+        //TODO Get Reward
+        Debug.Log("GO TO HOME");
+    }
+    public void OnClickExitGameBtn() {
+        Debug.Log("GO TO HOME");
+    }
+    public void OnClickAdsClaimX2Btn() {
+        //TODO Request ClaimX2 Reward Ads
+        Debug.Log("CLAIM X2 Ads");
     }
     #endregion
 

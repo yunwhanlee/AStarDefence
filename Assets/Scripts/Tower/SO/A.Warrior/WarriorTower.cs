@@ -47,9 +47,10 @@ public class WarriorTower : Tower {
     public override void Upgrade() {
         Debug.Log("Upgrade()::");
         StartCoroutine(GetComponent<CharacterControls>().CoSpawnAnim());
+        int cardLv = GM._.tm.TowerCardUgrLvs[(int)Kind];
 
         Dmg = TowerData.Dmg 
             //* タワーレベル１以上なら、カードアップグレード値を掛ける
-            + (Lv > 1? Lv * TowerManager.WARRIOR_CARD_DMG_UP : 0);
+            + (cardLv >= 1? cardLv * TowerManager.WARRIOR_CARD_DMG_UP : 0);
     }
 }
