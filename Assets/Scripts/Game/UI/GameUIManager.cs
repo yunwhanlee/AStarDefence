@@ -25,7 +25,7 @@ public class GameUIManager : MonoBehaviour {
     public TextMeshProUGUI StageTxt;
     public TextMeshProUGUI EnemyCntTxt;
     public TextMeshProUGUI MoneyTxt;
-    public TextMeshProUGUI[] TowerUpgLvTxts;
+    public TowerCardUI TowerCardUI;
     public Image HeartFillImg;
     public TextMeshProUGUI LifeTxt;
 
@@ -79,6 +79,7 @@ public class GameUIManager : MonoBehaviour {
         EnemyCntTxt.text = "0 / 0";
         MoneyTxt.text = $"{GM._.Money}";
         LifeTxt.text = $"{GM._.Life}";
+        Array.ForEach(TowerCardUI.PriceTxts, txt => txt.text = $"{TowerManager.CARD_UPG_PRICE_START}");
         UpdateTowerCardLvUI();
     }
 
@@ -224,12 +225,17 @@ public class GameUIManager : MonoBehaviour {
     }
 
     public void UpdateTowerCardLvUI() {
-        for(int i = 0; i < TowerUpgLvTxts.Length; i++) {
-            TowerUpgLvTxts[i].text = $"LV {GM._.tm.TowerCardUgrLvs[i]}";
+        int PRICE = TowerManager.CARD_UPG_PRICE_START;
+        int UNIT = TowerManager.CARD_UPG_PRICE_UNIT;
+        var cardLvs = GM._.tm.TowerCardUgrLvs;
 
-            if(GM._.tm.TowerCardUgrLvs[i] >= TowerManager.CARD_UPG_LV_MAX) {
-                TowerUpgLvTxts[i].text = "MAX";
-                TowerUpgLvTxts[i].GetComponentInParent<Button>().interactable = false;
+        for(int i = 0; i < TowerCardUI.Buttons.Length; i++) {
+            TowerCardUI.LvTxts[i].text = $"LV {cardLvs[i]}";
+            TowerCardUI.PriceTxts[i].text = $"{PRICE + (cardLvs[i] > 0 ? cardLvs[i] * UNIT : 0)}" ;
+
+            if(cardLvs[i] >= TowerManager.CARD_UPG_LV_MAX) {
+                TowerCardUI.PriceTxts[i].text = "MAX";
+                TowerCardUI.Buttons[i].interactable = false;
             }
         }
     }

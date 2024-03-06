@@ -6,10 +6,12 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class TowerManager : MonoBehaviour {
-    public readonly static int CARD_UPG_LV_MAX = 10;
-    public readonly static int WARRIOR_CARD_DMG_UP = 3;
-    public readonly static int ARCHER_CARD_DMG_UP = 1;
-    public readonly static int MAGICIAN_CARD_DMG_UP = 2;
+    public readonly static int CARD_UPG_LV_MAX = 20; // カードアップグレード MAXレベル
+    public readonly static int WARRIOR_CARD_DMG_UP = 3; // 戦士 カードアップグレード ダメージ単位
+    public readonly static int ARCHER_CARD_DMG_UP = 1; // アーチャー カードアップグレード ダメージ単位
+    public readonly static int MAGICIAN_CARD_DMG_UP = 2; // マジシャン カードアップグレード ダメージ単位
+    public readonly static int CARD_UPG_PRICE_START = 5; // カードアップグレード 開始値段
+    public readonly static int CARD_UPG_PRICE_UNIT = 5; // カードアップグレード単位
 
     [field: SerializeField] public int[] TowerCardUgrLvs {get; set;}
     [Header("WARRIOR")]

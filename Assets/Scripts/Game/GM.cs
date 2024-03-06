@@ -54,7 +54,7 @@ public class GM : MonoBehaviour {
         ResetCnt = 5;
         Life = 10;
         MaxLife = Life;
-        Money = 0;
+        Money = 100;
         gui.SetNextEnemyInfoFlagUI();
         gui.SwitchGameStateUI(state);
     }
