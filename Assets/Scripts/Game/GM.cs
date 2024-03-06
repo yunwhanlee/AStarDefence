@@ -88,7 +88,6 @@ public class GM : MonoBehaviour {
         //* Next Enemy Info UI
         gui.SetNextEnemyInfoFlagUI();
     }
-
     public void DecreaseLife(EnemyType type) {
         Util._.Blink(gui.HeartFillImg);
         Life -= (type == EnemyType.Boss)? Enemy.LIFE_DEC_BOSS : Enemy.LIFE_DEC_MONSTER;
@@ -103,6 +102,12 @@ public class GM : MonoBehaviour {
         }
 
         gui.LifeTxt.text = Life.ToString();
+    }
+    public void SetMoney(int value) {
+        Money += value;
+        if(Money < 0) 
+            Money = 0;
+        GM._.gui.MoneyTxt.text = Money.ToString();
     }
 #endregion
 }
