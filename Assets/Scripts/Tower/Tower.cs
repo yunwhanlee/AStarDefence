@@ -86,6 +86,7 @@ public abstract class Tower : MonoBehaviour {
                                 //TODO EFFECT
                                 chara.Animator.SetTrigger("Slash");
                                 enemy.DecreaseHp(Dmg);
+                                GM._.gef.ShowDmgTxtEF(enemy.transform.position, Dmg);
                                 break;
                             case TowerKind.Archer:
                             case TowerKind.Magician:

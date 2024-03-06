@@ -26,6 +26,7 @@ public class GM : MonoBehaviour {
 
     //* Outside
     public GameUIManager gui;
+    public GameEffectManager gef;
     public PathFindManager pfm;
     public EnemyManager em;
     public TileMapController tmc;
@@ -38,6 +39,7 @@ public class GM : MonoBehaviour {
         _ = this; 
         //* 外部のスクリプト 初期化
         gui = GameObject.Find("GameUIManager").GetComponent<GameUIManager>();
+        gef = GameObject.Find("GameEffectManager").GetComponent<GameEffectManager>();
         pfm = GameObject.Find("PathFindManager").GetComponent<PathFindManager>();
         em = GameObject.Find("EnemyManager").GetComponent<EnemyManager>();
         tmc = GameObject.Find("TileMapController").GetComponent<TileMapController>();

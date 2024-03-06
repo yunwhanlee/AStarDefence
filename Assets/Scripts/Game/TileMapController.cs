@@ -42,6 +42,7 @@ public class TileMapController : MonoBehaviour {
 #region EVENT
     private void OnClickTile() {
         if(GM._.State == GameState.Pause) return;
+        if(GM._.State == GameState.Gameover) return;
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // 스크린 좌표를 월드 좌표로 변환
         int x = (int)Math.Round(mousePos.x);
