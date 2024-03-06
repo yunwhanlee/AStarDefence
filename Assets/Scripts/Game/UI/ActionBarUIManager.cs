@@ -33,12 +33,25 @@ public class ActionBarUIManager : MonoBehaviour {
         CCTowerMax = 5;
         SwitchCnt = 2;
         SwitchCntTxt.text = SwitchCnt.ToString();
+
+        const int PRICE_IDX = 1;
+        IconBtns[(int)ICON.Break].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{Config.PRICE.BREAK}";
+        IconBtns[(int)ICON.Board].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{Config.PRICE.BOARD}";
+        IconBtns[(int)ICON.Tower].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{Config.PRICE.TOWER}";
+        IconBtns[(int)ICON.IceTower].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{Config.PRICE.CCTOWER}";
+        IconBtns[(int)ICON.ThunderTower].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{Config.PRICE.CCTOWER}";
+        IconBtns[(int)ICON.Upgrade].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{Config.PRICE.CC_UPG}";
+        IconBtns[(int)ICON.Merge].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{Config.PRICE.MERGE}";
+        IconBtns[(int)ICON.Delete].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{(1 - Config.PRICE.DELETE_REFUND_PER) * 100}%";
     }
 
 #region EVENT BUTTON
     public void OnClickBreakIconBtn() {
         if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
             return;
+        else if(!GM._.CheckMoney(Config.PRICE.BREAK))
+            return;
+
         GM._.tmc.BreakWallTile();
         GM._.tmc.SelectedTileMap.ClearAllTiles();
         PanelObj.SetActive(false);
@@ -47,11 +60,17 @@ public class ActionBarUIManager : MonoBehaviour {
     public void OnClickBoardIconBtn() {
         if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
             return;
+        else if(!GM._.CheckMoney(Config.PRICE.BOARD))
+            return;
+
         GM._.tm.InstallBoard();
         StartCoroutine(CoCheckPathFind(Enum.Layer.Board));
     }
 
     public void OnClickRandomTowerIconBtn() {
+        if(!GM._.CheckMoney(Config.PRICE.TOWER))
+            return;
+
         GM._.tm.CreateTower(TowerType.Random);
         UpdateUI(Enum.Layer.Tower);
     }
@@ -61,6 +80,9 @@ public class ActionBarUIManager : MonoBehaviour {
             return;
         else if(GM._.gui.ShowErrMsgCCTowerLimit())
             return;
+        else if(!GM._.CheckMoney(Config.PRICE.CCTOWER))
+            return;
+
         SetCCTowerCntTxt(+1);
         GM._.tm.CreateTower(TowerType.CC_IceTower);
         StartCoroutine(CoCheckPathFind(Enum.Layer.CCTower));
@@ -71,6 +93,9 @@ public class ActionBarUIManager : MonoBehaviour {
             return;
         else if(GM._.gui.ShowErrMsgCCTowerLimit())
             return;
+        else if(!GM._.CheckMoney(Config.PRICE.CCTOWER))
+            return;
+
         SetCCTowerCntTxt(+1);
         GM._.tm.CreateTower(TowerType.CC_StunTower);
         StartCoroutine(CoCheckPathFind(Enum.Layer.CCTower));
@@ -78,6 +103,10 @@ public class ActionBarUIManager : MonoBehaviour {
 
     public void OnClickUpgradeIconBtn() {
         Debug.Log($"OnClickUpgradeIconBtn():: HitObject= {GM._.tmc.HitObject}");
+
+        if(!GM._.CheckMoney(Config.PRICE.CC_UPG))
+            return;
+
         Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
         switch(tower.Type) {
             case TowerType.CC_IceTower:
@@ -93,6 +122,9 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
     public void OnClickMergeIconBtn() {
+        if(!GM._.CheckMoney(Config.PRICE.MERGE))
+            return;
+
         bool isSuccess = false;
         Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
         //* タワーのタイプによってマージ

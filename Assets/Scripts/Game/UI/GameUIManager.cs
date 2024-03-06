@@ -174,13 +174,9 @@ public class GameUIManager : MonoBehaviour {
             : TowerKind.None;
 
         int price = TowerManager.CARD_UPG_PRICE_START + GM._.tm.TowerCardUgrLvs[kindIdx] * TowerManager.CARD_UPG_PRICE_UNIT;
-        if(GM._.Money < price) {
-            StartCoroutine(GM._.gui.CoShowMsgError("비용이 부족합니다."));
-            return;
-        }
 
-        //* 購入
-        GM._.SetMoney(-price);
+        //* 費用チェック
+        if(!GM._.CheckMoney(price)) return;
 
         //* アップグレード
         GM._.tm.UpgradeTowerCard(kind);

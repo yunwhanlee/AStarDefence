@@ -244,27 +244,54 @@ public class TileMapController : MonoBehaviour {
 
     public void DeleteTile() {
         Debug.Log($"DeleteTile():: SelectLayer= {SelectLayer}");
-        if(HitObject.layer == Enum.Layer.CCTower)
+        int refund = 0;
+
+        //* CCタワー
+        if(HitObject.layer == Enum.Layer.CCTower) {
             GM._.actBar.SetCCTowerCntTxt(-1);
+            var ccTower = HitObject.GetComponent<Tower>();
+            int totalPrice = ccTower.Lv * Config.PRICE.CCTOWER;
+            refund = (int)Math.Floor(totalPrice * Config.PRICE.DELETE_REFUND_PER);
 
-        //* Board -> Tower順番で消す
-        Board board = HitObject.GetComponent<Board>();
-        if(board.IsTowerOn) {
-            //* ボード 削除
-            board.IsTowerOn = false;
-            GM._.actBar.UpdateUI(Enum.Layer.Board);
-            Destroy(board.GetComponentInChildren<Tower>().gameObject);
-        }
-        else {
-            //* タワー 削除
-            if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
-                return;
-
-            Destroy(board.gameObject);
+            //* 削除
+            Destroy(ccTower.gameObject);
             Reset();
             GM._.actBar.PanelObj.SetActive(false);
             GM._.tmc.SelectedTileMap.ClearAllTiles();
         }
+        //* Board -> Tower順番で消す
+        else { 
+            Board board = HitObject.GetComponent<Board>();
+
+            //* RANDOMタワー
+            if(board.IsTowerOn) { 
+                board.IsTowerOn = false;
+                GM._.actBar.UpdateUI(Enum.Layer.Board);
+                Tower tower = board.GetComponentInChildren<Tower>();
+
+                // 返金
+                int totalPrice = tower.Lv * Config.PRICE.TOWER;
+                refund = (int)Math.Floor(totalPrice * Config.PRICE.DELETE_REFUND_PER);
+
+                // 削除
+                Destroy(tower.gameObject);
+            }
+            //* ボード
+            else { 
+                if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
+                    return;
+
+                // 返金
+                refund = (int)Math.Floor(Config.PRICE.BOARD * Config.PRICE.DELETE_REFUND_PER);
+
+                // 削除
+                Destroy(board.gameObject);
+                Reset();
+                GM._.actBar.PanelObj.SetActive(false);
+                GM._.tmc.SelectedTileMap.ClearAllTiles();
+            }
+        }
+        GM._.SetMoney(+refund);
     }
 
 #endregion

@@ -54,7 +54,7 @@ public class GM : MonoBehaviour {
         ResetCnt = 5;
         Life = 10;
         MaxLife = Life;
-        Money = 100;
+        Money = 150;
         gui.SetNextEnemyInfoFlagUI();
         gui.SwitchGameStateUI(state);
     }
@@ -107,7 +107,20 @@ public class GM : MonoBehaviour {
         Money += value;
         if(Money < 0) 
             Money = 0;
-        GM._.gui.MoneyTxt.text = Money.ToString();
+        gui.MoneyTxt.text = Money.ToString();
+    }
+    /// <summary>
+    /// 購入できるかお金をチェックしてから、可能ならお金適用。
+    /// </summary>
+    public bool CheckMoney(int price) {
+        if(Money < price) {
+            StartCoroutine(gui.CoShowMsgError("비용이 부족합니다."));
+            return false;
+        }
+        else {
+            SetMoney(-price); //* お金減る
+        }
+        return true;
     }
 #endregion
 }
