@@ -110,27 +110,6 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: StarLv3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 05d727399ce2a50418675f6c00b7b7bc
-      internalID: -1680748492
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: StarIconAsset-sheet_1
       rect:
         serializedVersion: 2
@@ -139,7 +118,7 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -152,7 +131,28 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: StarLv5
+      name: StarIconAsset-sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 962ad6bf31b08b8439f35dc7e0620b52
+      internalID: 1150125687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StarIconAsset-sheet_2
       rect:
         serializedVersion: 2
         x: 128
@@ -160,20 +160,20 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fc3908a89f6613148ae8a05eea8e583f
-      internalID: -379048964
+      spriteID: 7c26de7a62aa9254cafa4abb28719395
+      internalID: -1075248845
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: StarLv2
+      name: StarIconAsset-sheet_3
       rect:
         serializedVersion: 2
         x: 0
@@ -181,20 +181,20 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 94aeb71c6ba240e4ebc1244b70c9fde3
-      internalID: -446171838
+      spriteID: 09ffd2b1f00b5ff4dbcabb97f9857e9e
+      internalID: 302532233
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: StarLv4
+      name: StarIconAsset-sheet_4
       rect:
         serializedVersion: 2
         x: 64
@@ -202,20 +202,20 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99f64540d64cf164abfeaa2cc353f5e8
-      internalID: -750868426
+      spriteID: 00b97b4cdb7e5d14a89642a2c2e02034
+      internalID: -1704072741
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: StarLv6
+      name: StarIconAsset-sheet_5
       rect:
         serializedVersion: 2
         x: 128
@@ -223,20 +223,20 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67ae96e4778eb9842aacf63f7667348d
-      internalID: -2039007988
+      spriteID: 9cd7be4f294450d4fb3126904802a33b
+      internalID: 192022128
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: StarLv1
+      name: StarIconAsset-sheet_6
       rect:
         serializedVersion: 2
         x: 0
@@ -244,20 +244,20 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4bf76706e6d9634893d60bd3258f03a
-      internalID: -394682047
+      spriteID: 2d088dd2be9adc94eb6df4b9b90d94da
+      internalID: 473145548
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: StarLv7
+      name: StarIconAsset-sheet_7
       rect:
         serializedVersion: 2
         x: 64
@@ -265,14 +265,35 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a6d8c160f59c8d74e9e18b0a93ad6aa9
-      internalID: 632061154
+      spriteID: 59a337f1fba63154fba5d64d5b16d9ce
+      internalID: 79620448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StarIconAsset-sheet_8
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5f24db560743c94e9a1e85f5ae168ee
+      internalID: 1579246266
       vertices: []
       indices: 
       edges: []
@@ -288,14 +309,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      StarIconAsset-sheet_0: 1150125687
       StarIconAsset-sheet_1: -738007129
-      StarLv1: -394682047
-      StarLv2: -446171838
-      StarLv3: -1680748492
-      StarLv4: -750868426
-      StarLv5: -379048964
-      StarLv6: -2039007988
-      StarLv7: 632061154
+      StarIconAsset-sheet_2: -1075248845
+      StarIconAsset-sheet_3: 302532233
+      StarIconAsset-sheet_4: -1704072741
+      StarIconAsset-sheet_5: 192022128
+      StarIconAsset-sheet_6: 473145548
+      StarIconAsset-sheet_7: 79620448
+      StarIconAsset-sheet_8: 1579246266
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -128,6 +128,12 @@ MonoBehaviour:
     m_Scale: 1
     m_Name: StarLv7
     m_HashCode: 641018937
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 15
+    m_Scale: 1
+    m_Name: Meat
+    m_HashCode: 2660477
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
@@ -257,5 +263,21 @@ MonoBehaviour:
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
     sprite: {fileID: 632061154, guid: 05e0a8cf4375d8e4a8ceb6b5a618512b, type: 3}
+  - m_Index: 15
+    m_Metrics:
+      m_Width: 64
+      m_Height: 64
+      m_HorizontalBearingX: -18
+      m_HorizontalBearingY: 48
+      m_HorizontalAdvance: 48
+    m_GlyphRect:
+      m_X: 128
+      m_Y: 0
+      m_Width: 64
+      m_Height: 64
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 1579246266, guid: 05e0a8cf4375d8e4a8ceb6b5a618512b, type: 3}
   spriteInfoList: []
   fallbackSpriteAssets: []

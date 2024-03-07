@@ -7,6 +7,7 @@ using TMPro;
 public enum GameEF {
     //* Object
     DmgTxtEF,
+    RefundTxtEF,
     //* UI
 }
 
@@ -15,11 +16,13 @@ public class GameEffectManager : MonoBehaviour {
 
     //* Pool Type
     [field:SerializeField] public GameObject DmgTxtEF;
+    [field: SerializeField] public GameObject RefundTxtEF;
 
     //* Active Type
 
     void Awake() {
         pool.Add(InitEF(DmgTxtEF, max: 10));
+        pool.Add(InitEF(RefundTxtEF, max: 3));
     }
 
 #region POOL
@@ -43,9 +46,21 @@ public class GameEffectManager : MonoBehaviour {
         int idx = (int)GameEF.DmgTxtEF;//isCritical? (int)IDX.CriticalDmgTxtEF : (int)IDX.DmgTxtEF;
         GameObject ef = pool[idx].Get();
         ef.transform.position = pos;
-        ef.GetComponentInChildren<TextMeshPro>().text = dmg.ToString();
+        ef.GetComponentInChildren<TextMeshPro>().text = $"{dmg}";
         yield return Util.Time0_75;
         pool[idx].Release(ef);
     }
-#endregion
+
+    public void ShowRefundTxtEF(Vector3 pos, int val) => StartCoroutine(CoShowRefundTxtEF(pos, val));
+    IEnumerator CoShowRefundTxtEF(Vector3 pos, int val)
+    { //bool isCritical) {
+        int idx = (int)GameEF.RefundTxtEF;
+        GameObject ef = pool[idx].Get();
+        ef.transform.position = pos;
+        ef.GetComponentInChildren<TextMeshPro>().text = $"<sprite name=Meat>+{val}";
+        yield return Util.Time0_75;
+        pool[idx].Release(ef);
+    }
+
+    #endregion
 }
