@@ -13,6 +13,15 @@ MonoBehaviour:
   m_Name: Magician1
   m_EditorClassIdentifier: 
   m_Labels:
+  - m_Name: Idle
+    m_Hash: 1008081451
+    m_CategoryList:
+    - m_Name: 0
+      m_Hash: 886824737
+      m_Sprite: {fileID: 4723107735738678597, guid: 1a122a82263812f4bb05df69d0c2805c, type: 3}
+    - m_Name: 1
+      m_Hash: 64810935
+      m_Sprite: {fileID: -7385789195546760866, guid: 1a122a82263812f4bb05df69d0c2805c, type: 3}
   - m_Name: Block
     m_Hash: 47888422
     m_CategoryList:
@@ -76,15 +85,6 @@ MonoBehaviour:
     - m_Name: 1
       m_Hash: 64810935
       m_Sprite: {fileID: 4431116628543648211, guid: 1a122a82263812f4bb05df69d0c2805c, type: 3}
-  - m_Name: Idle
-    m_Hash: 1008081451
-    m_CategoryList:
-    - m_Name: 0
-      m_Hash: 886824737
-      m_Sprite: {fileID: 4723107735738678597, guid: 1a122a82263812f4bb05df69d0c2805c, type: 3}
-    - m_Name: 1
-      m_Hash: 64810935
-      m_Sprite: {fileID: -7385789195546760866, guid: 1a122a82263812f4bb05df69d0c2805c, type: 3}
   - m_Name: Jab
     m_Hash: 488016790
     m_CategoryList:
