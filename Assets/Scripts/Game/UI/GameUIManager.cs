@@ -22,7 +22,7 @@ public class GameUIManager : MonoBehaviour {
     public Button ResetWallBtn;
     public TextMeshProUGUI ResetWallCntTxt;
     public Transform GameStateUIGroup;
-    public TextMeshProUGUI StageTxt;
+    public TextMeshProUGUI WaveTxt;
     public TextMeshProUGUI EnemyCntTxt;
     public TextMeshProUGUI MoneyTxt;
     public TowerCardUI TowerCardUI;
@@ -74,7 +74,7 @@ public class GameUIManager : MonoBehaviour {
     void Start() {
         CorMsgNoticeID = null;
         TopMsgError.SetActive(false);
-        StageTxt.text = $"STAGE {GM._.Stage} / {GM._.MaxStage}";
+        WaveTxt.text = $"WAVE {GM._.Wave} / {GM._.MaxWave}";
         ResetWallCntTxt.text = $"{GM._.ResetCnt}/{GM.RESET_WALL_MAX}";
         EnemyCntTxt.text = "0 / 0";
         MoneyTxt.text = $"{GM._.Money}";
@@ -85,10 +85,10 @@ public class GameUIManager : MonoBehaviour {
 
 #region EVENT
     //! DEBUG
-    public void Debug_StageUp() {
-        GM._.Stage++;
-        if(GM._.Stage > GM._.MaxStage) GM._.Stage = 0;
-        StageTxt.text = $"STAGE {GM._.Stage} / {GM._.MaxStage}";
+    public void Debug_WaveUp() {
+        GM._.Wave++;
+        if(GM._.Wave > GM._.MaxWave) GM._.Wave = 0;
+        WaveTxt.text = $"WAVE {GM._.Wave} / {GM._.MaxWave}";
     }
 
     public void OnClickPlaySpeedBtn() {

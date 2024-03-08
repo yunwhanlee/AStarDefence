@@ -15,8 +15,8 @@ public class GM : MonoBehaviour {
 
     [SerializeField] GameState state;   public GameState State {get => state; set => state = value;}
     [field: SerializeField] public int Map {get; set;}
-    [field: SerializeField] public int MaxStage {get; set;}
-    [field: SerializeField] public int Stage {get; set;}
+    [field: SerializeField] public int MaxWave {get; set;}
+    [field: SerializeField] public int Wave {get; set;}
     [field: SerializeField] public int ResetCnt {get; set;}
     [field: SerializeField] public int MaxLife {get; set;}
     [field: SerializeField] public int Life {get; set;}
@@ -49,8 +49,8 @@ public class GM : MonoBehaviour {
 
         state = GameState.Ready;
         Map = 0;
-        MaxStage = em.StageDatas[Map].EnemyDatas.Length;
-        Stage = 0;
+        MaxWave = em.StageDatas[Map].EnemyDatas.Length;
+        Wave = 0;
         ResetCnt = 5;
         Life = 10;
         MaxLife = Life;
@@ -65,7 +65,7 @@ public class GM : MonoBehaviour {
     /// </summary>
     public void OnClickStartBtn() {
         state = GameState.Play;
-        gui.StageTxt.text = $"STAGE {++Stage}";
+        gui.WaveTxt.text = $"WAVE {++Wave}";
         gui.EnemyCntTxt.text = $"{em.EnemyCnt} / {em.EnemyCnt}";
         gui.SwitchGameStateUI(state);
         pfm.PathFinding();
@@ -82,7 +82,7 @@ public class GM : MonoBehaviour {
     /// </summary>
     public void FinishRaid() {
         state = GameState.Ready;
-        gui.StageTxt.text = $"STAGE {Stage} / {MaxStage}";
+        gui.WaveTxt.text = $"WAVE {Wave} / {MaxWave}";
         gui.SwitchGameStateUI(state);
 
         //* Next Enemy Info UI

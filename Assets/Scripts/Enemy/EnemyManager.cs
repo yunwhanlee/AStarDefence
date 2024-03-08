@@ -94,7 +94,7 @@ public class EnemyManager : MonoBehaviour {
         enemy.transform.position = new Vector2(GM._.pfm.startPos.x, GM._.pfm.startPos.y);
     }
 
-    private EnemyData GetCurEnemyData() => StageDatas[GM._.Map].EnemyDatas[GM._.Stage - 1];
-    public EnemyData GetNextEnemyData() => StageDatas[GM._.Map].EnemyDatas[GM._.Stage];
+    private EnemyData GetCurEnemyData() => StageDatas[GM._.Map].EnemyDatas[GM._.Wave - 1];
+    public EnemyData GetNextEnemyData() => StageDatas[GM._.Map].EnemyDatas[GM._.Wave];
 #endregion
 }
