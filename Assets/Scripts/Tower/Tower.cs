@@ -48,7 +48,12 @@ public abstract class Tower : MonoBehaviour {
         }
         else if(GM._.State == GameState.Play) {
             if(trc.CurTarget && CorAttack == null) {
-                Debug.Log("ATTACK START!");
+                var enemy = trc.CurTarget.GetComponent<Enemy>();
+                Debug.Log($"ATTACK START! enemy.Hp= {enemy.Hp}");
+                if(enemy.Hp <= 0) {
+                    Debug.Log("Enemy Is Already Dead...");
+                    return;
+                }
                 CorAttack = StartCoroutine(CoAttack());
             }
             //TODO ステージ終わったら、STOP処理

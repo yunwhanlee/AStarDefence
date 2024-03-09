@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 using System.Linq;
 
 public class EnemyManager : MonoBehaviour {
-    const int MONSTER_CNT = 15;
+    const int MONSTER_CNT = 30;
     const int BOSS_CNT = 1;
     const int SEMIBOSS_CNT = 2;
 

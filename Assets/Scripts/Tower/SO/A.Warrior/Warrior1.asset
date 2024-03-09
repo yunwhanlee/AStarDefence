@@ -17,7 +17,7 @@ MonoBehaviour:
   Name: Warrior1
   Lv: 1
   Dmg: 10
-  AtkSpeed: 2
+  AtkSpeed: 1
   AtkRange: 1
   SplashRange: 0
   CritPer: 0

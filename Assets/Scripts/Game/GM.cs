@@ -49,12 +49,12 @@ public class GM : MonoBehaviour {
 
         state = GameState.Ready;
         Map = 0;
-        MaxWave = em.StageDatas[Map].EnemyDatas.Length;
+        MaxWave = em.StageDatas[Map].WaveCount;
         Wave = 0;
         ResetCnt = 5;
         Life = 10;
         MaxLife = Life;
-        Money = 150;
+        Money = 1000;
         gui.SetNextEnemyInfoFlagUI();
         gui.SwitchGameStateUI(state);
     }

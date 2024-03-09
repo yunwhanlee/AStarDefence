@@ -17,7 +17,7 @@ MonoBehaviour:
   Name: Archer1
   Lv: 1
   Dmg: 3
-  AtkSpeed: 1
+  AtkSpeed: 0.5
   AtkRange: 2.5
   SplashRange: 0
   CritPer: 0

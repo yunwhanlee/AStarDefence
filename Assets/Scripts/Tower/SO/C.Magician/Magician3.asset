@@ -17,7 +17,7 @@ MonoBehaviour:
   Name: Magician3
   Lv: 3
   Dmg: 27
-  AtkSpeed: 1
+  AtkSpeed: 0.7
   AtkRange: 2.5
   SplashRange: 0
   CritPer: 0
