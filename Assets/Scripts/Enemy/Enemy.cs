@@ -22,6 +22,7 @@ public abstract class Enemy : MonoBehaviour {
     [field: SerializeField] public SpriteRenderer SprRdr {get; set;}
     [field: SerializeField] public Slider HpBar {get; set;}
 
+    [field: SerializeField] public bool IsDie {get; set;}
     [field: SerializeField] public string Name {get; set;}
     [field: SerializeField] public int Lv {get; set;}
     [field: SerializeField] public int Hp {get; set;}
@@ -106,6 +107,9 @@ public abstract class Enemy : MonoBehaviour {
             Speed = originSpd;
         }
         public void DecreaseHp(int val) {
+            if(!gameObject.activeSelf) {
+                return;
+            }
             Util._.Blink(SprRdr);
             Hp -= val;
             HpBar.value = (float)Hp / maxHp;

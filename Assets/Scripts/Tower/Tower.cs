@@ -50,10 +50,6 @@ public abstract class Tower : MonoBehaviour {
             if(trc.CurTarget && CorAttack == null) {
                 var enemy = trc.CurTarget.GetComponent<Enemy>();
                 Debug.Log($"ATTACK START! enemy.Hp= {enemy.Hp}");
-                if(enemy.Hp <= 0) {
-                    Debug.Log("Enemy Is Already Dead...");
-                    return;
-                }
                 CorAttack = StartCoroutine(CoAttack());
             }
             //TODO ステージ終わったら、STOP処理
@@ -86,6 +82,12 @@ public abstract class Tower : MonoBehaviour {
                         Debug.Log("ATTACK TARGET!");
                         LookAtTarget(trc.CurTarget);
                         var enemy = trc.CurTarget.GetComponent<Enemy>();
+
+                        if(!enemy.gameObject.activeSelf) {
+                            Debug.Log("Stop Attack Process, because Enemy is Already Dead => enemy.activeSelf= " + enemy.gameObject.activeSelf);
+                            break;
+                        }
+
                         switch(Kind) {
                             case TowerKind.Warrior:
                                 //TODO EFFECT

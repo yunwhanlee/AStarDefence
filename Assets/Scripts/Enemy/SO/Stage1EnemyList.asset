@@ -42,7 +42,7 @@ MonoBehaviour:
     <Type>k__BackingField: 0
     <Spr>k__BackingField: {fileID: 1610329140, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
     <Lv>k__BackingField: 5
-    <Hp>k__BackingField: 130
+    <Hp>k__BackingField: 36
     <Speed>k__BackingField: 1.5
   - <Name>k__BackingField: "\uCD08\uB85D\uBC84\uC12F"
     <Type>k__BackingField: 0

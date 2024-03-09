@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   Kind: 1
-  Name: Archer2
+  Name: Archer3
   Lv: 3
-  Dmg: 10
-  AtkSpeed: 0.4
+  Dmg: 27
+  AtkSpeed: 0.5
   AtkRange: 3.5
   SplashRange: 0
   CritPer: 0

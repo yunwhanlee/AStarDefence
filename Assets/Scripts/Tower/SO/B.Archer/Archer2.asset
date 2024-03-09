@@ -16,8 +16,8 @@ MonoBehaviour:
   Kind: 1
   Name: Archer2
   Lv: 2
-  Dmg: 7
-  AtkSpeed: 0.45
+  Dmg: 9
+  AtkSpeed: 0.55
   AtkRange: 3
   SplashRange: 0
   CritPer: 0

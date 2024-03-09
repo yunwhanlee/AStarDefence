@@ -99,7 +99,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <sprite name="StarLv5">
+  m_text: <sprite name="StarLv6">
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b293129a700bddd4284b08884feab26d, type: 2}
   m_sharedMaterial: {fileID: -7503779644620482780, guid: b293129a700bddd4284b08884feab26d, type: 2}
@@ -5076,7 +5076,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 6991849013916550155, guid: 282621c7f1da33d40a7197a9d9ac7a8b, type: 3}
+  m_Sprite: {fileID: 7460046300004610927, guid: 282621c7f1da33d40a7197a9d9ac7a8b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   Kind: 0
-  Name: Warrior2
+  Name: Warrior3
   Lv: 3
-  Dmg: 40
+  Dmg: 143
   AtkSpeed: 0.9
   AtkRange: 2
   SplashRange: 0
