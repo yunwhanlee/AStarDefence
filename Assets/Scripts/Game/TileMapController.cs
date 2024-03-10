@@ -77,12 +77,12 @@ public class TileMapController : MonoBehaviour {
         if(GM._.actBar.IsSwitchMode) {
             //* エラー１
             if(HitCollider == null || HitCollider.gameObject.layer == Enum.Layer.Wall) {
-                GM._.gui.StartCoroutine("타워를 선택해주세요!");
+                GM._.gui.ShowMsgError("타워를 선택해주세요!");
                 return;
             }
             //* エラー２
             else if(SwitchBefHitObject == HitCollider.gameObject) {
-                GM._.gui.StartCoroutine("자기 이외에 타워를 선택해주세요!");
+                GM._.gui.ShowMsgError("자기 이외에 타워를 선택해주세요!");
                 return;
             }
             //* 位置切り替え
