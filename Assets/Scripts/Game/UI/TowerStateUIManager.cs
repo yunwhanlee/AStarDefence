@@ -22,7 +22,8 @@ public class TowerStateUIManager : MonoBehaviour {
 
     public void ShowTowerStateUI(string[] states) {
         Debug.Log($"ShowTowerStateUI():: lv= {states[0]}");
-        //* GradeLabelGroup
+
+        //* GradeLabelGroup 情報表示
         for(int i = 0; i < GradeLabelGroup.childCount; i++) {
             int lv = int.Parse(states[0]);
             GradeLabelGroup.GetChild(i).gameObject.SetActive(i == (lv - 1));

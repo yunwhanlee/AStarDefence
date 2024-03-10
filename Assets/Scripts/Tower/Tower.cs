@@ -140,7 +140,6 @@ public abstract class Tower : MonoBehaviour {
     }
 
     public virtual void StateUpdate() {
-        Debug.Log("<color=yellow>Tower:: StateUpdate()::</color>");
         Lv = TowerData.Lv;
         Name = TowerData.name;
         Dmg = TowerData.Dmg;
@@ -149,7 +148,7 @@ public abstract class Tower : MonoBehaviour {
         SplashRange = TowerData.SplashRange;
         SlowPer = TowerData.SlowPer;
         StunSec = TowerData.StunSec;
-        Debug.Log($"<color=yellow>Lv= {Lv}, Name= {Name}, Dmg= {Dmg}</color>");
+        Debug.Log($"<color=yellow>Tower:: StateUpdate()::Lv= {Lv}, Name= {Name}, Dmg= {Dmg}, AtkSpeed= {AtkSpeed}, AtkRange= {AtkRange}, SplashRange= {SplashRange}</color>");
     }
 
     public virtual string[] InfoState() {
