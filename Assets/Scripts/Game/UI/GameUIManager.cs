@@ -114,15 +114,11 @@ public class GameUIManager : MonoBehaviour {
     #region POPUP
     //* PAUSE
     public void OnClickPauseBtn() {
-        previousState = GM._.State;
-        previousTimeScale = Time.timeScale;
-        Time.timeScale = 0;
-        GM._.State = GameState.Pause;
+        Pause();
         PausePopUp.SetActive(true);
     }
     public void OnClickPausePopUp_ContinueBtn() {
-        Time.timeScale = previousTimeScale;
-        GM._.State = previousState;
+        BackPlay();
         PausePopUp.SetActive(false);
     }
     public void OnClickPausePopUp_ExitGameBtn() {
@@ -185,6 +181,17 @@ public class GameUIManager : MonoBehaviour {
 #endregion
 
 #region FUNC
+    public void Pause() {
+        previousState = GM._.State;
+        previousTimeScale = Time.timeScale;
+        Time.timeScale = 0;
+        GM._.State = GameState.Pause;
+    }
+    public void BackPlay() {
+        Time.timeScale = previousTimeScale;
+        GM._.State = previousState;
+    }
+
     /// <summary> 上にへエラーメッセージバー表示（自動OFF）</summary>
     public IEnumerator CoShowMsgError(string msg) {
         TopMsgError.SetActive(true);
