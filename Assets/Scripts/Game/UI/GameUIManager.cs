@@ -199,7 +199,7 @@ public class GameUIManager : MonoBehaviour {
     IEnumerator CoShowMsgError(string msg) {
         TopMsgError.SetActive(true);
         MsgErrorTxt.text = msg;
-        yield return Util.Time1;
+        yield return Util.RealTime1;
         TopMsgError.SetActive(false);
     }
     /// <summary> 上にへ情報メッセージバー表示（ON、OFF形式）</summary>
@@ -208,14 +208,15 @@ public class GameUIManager : MonoBehaviour {
         TopMsgInfo.SetActive(isActive);
     }
     /// <summary> 下にお知らせメッセージ表示（自動OFF）</summary>
-    public void ShowMsgNotice(string msg) {
+    public void ShowMsgNotice(string msg, int y = 350) {
         if(CorMsgNoticeID != null) StopCoroutine(CorMsgNoticeID);
-        CorMsgNoticeID = StartCoroutine(CoShowMsgNotice(msg));
+        CorMsgNoticeID = StartCoroutine(CoShowMsgNotice(msg, y));
     }
-    IEnumerator CoShowMsgNotice(string msg) {
+    IEnumerator CoShowMsgNotice(string msg, int y) {
         BottomMsgNotice.SetActive(true);
+        BottomMsgNotice.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, y);
         MsgNoticeTxt.text = msg;
-        yield return Util.Time1;
+        yield return Util.RealTime1;
         BottomMsgNotice.SetActive(false);
     }
     public bool ShowErrMsgCreateTowerAtPlayState() {
@@ -227,7 +228,7 @@ public class GameUIManager : MonoBehaviour {
     }
     public bool ShowErrMsgCCTowerLimit() {
         if(GM._.tm.CCTowerCnt >= GM._.tm.CCTowerMax) {
-            ShowMsgError($"CC타워는 {GM._.tm.CCTowerMax}개까지 가능합니다.");
+            ShowMsgError($"CC타워는 현재 {GM._.tm.CCTowerMax}개까지 가능합니다.");
             return true;
         }
         return false;

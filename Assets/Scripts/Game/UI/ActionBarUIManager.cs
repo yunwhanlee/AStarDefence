@@ -19,10 +19,12 @@ public class ActionBarUIManager : MonoBehaviour {
 
     [Header("UI")]
     public GameObject PanelObj;
+    //* 左
     [field: SerializeField] public TextMeshProUGUI CCTowerCntTxt {get; set;}
-    [field: SerializeField] public TextMeshProUGUI SwitchCntTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI SuccessionTicketCntTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI ChangeTypeTicketCntTxt {get; set;}
+    //* 中央
+    [field: SerializeField] public TextMeshProUGUI SwitchCntTxt {get; set;}
     [field: SerializeField] public Button[] IconBtns {get; set;}
     [field: SerializeField] public Sprite MergeOffSpr {get; set;}
     [field: SerializeField] public Sprite MergeOnSpr {get; set;}

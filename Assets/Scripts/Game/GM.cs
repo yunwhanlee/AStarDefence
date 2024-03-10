@@ -99,7 +99,7 @@ public class GM : MonoBehaviour {
 
         //* ボスリワード 表示
         if(Wave % 10 == 0) {
-            bossRwd.Active(Wave / 10);
+            bossRwd.Active(3);
         }
     }
     /// <summary>

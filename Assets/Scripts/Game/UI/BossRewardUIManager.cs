@@ -25,11 +25,14 @@ public class BossRewardUIManager : MonoBehaviour {
         WindowObj.SetActive(true);
         SelectCnt = selectCnt;
     }
-    private void UpdateData() {
+    private void UpdateData(string msg) {
         SelectCnt--;
         SelectCntTxt.text = $"선택횟수:{SelectCnt}";
-        
 
+        //* 習得メッセージ表示
+        GM._.gui.ShowMsgNotice(msg, y: 900);
+
+        //* 選択券全て消費したら、終了
         if(SelectCnt <= 0) {
             GM._.gui.Play();
             WindowObj.SetActive(false);
@@ -42,13 +45,15 @@ public class BossRewardUIManager : MonoBehaviour {
     public void OnClickTypeSuccessionTicket() {
         Debug.Log("OnClickTypeSuccessionTicket()::");
         GM._.actBar.SuccessionTicket++;
-        UpdateData();
+        GM._.actBar.SuccessionTicketCntTxt.text = $"{GM._.actBar.SuccessionTicket}";
+        UpdateData("계승권 획득");
     }
     /// <summary>タワーのタイプ変更券</summary>
     public void OnClickChangeTypeTicket() {
         Debug.Log("OnClickChangeTypeTicket()::");
         GM._.actBar.ChangeTypeTicket++;
-        UpdateData();
+        GM._.actBar.ChangeTypeTicketCntTxt.text = $"{GM._.actBar.ChangeTypeTicket}";
+        UpdateData("변경권 획득");
     }
     /// <summary>ライフの増加</summary>
     public void OnClickIncreaseLife() {
@@ -61,7 +66,8 @@ public class BossRewardUIManager : MonoBehaviour {
             return;
         }
 
-        UpdateData();
+        GM._.gui.LifeTxt.text = $"{GM._.Life}";
+        UpdateData("라이프 +1 획득");
     }
     /// <summary>CCタワー数の増加</summary>
     public void OnClickIncreaseCCTowerCnt() {
@@ -74,14 +80,15 @@ public class BossRewardUIManager : MonoBehaviour {
             return;
         }
 
-        UpdateData();
+        GM._.actBar.CCTowerCntTxt.text = $"CC : {GM._.tm.CCTowerMax}";
+        UpdateData("CC타워 설치 수 +1 획득");
     }
     /// <summary>タワーの位置変更券</summary>
     public void OnClickSwitchTowerPositionCnt() {
         Debug.Log("OnClickSwitchTowerPositionCnt()::");
         GM._.actBar.SwitchCnt++;
-
-        UpdateData();
+        GM._.actBar.SwitchCntTxt.text = $"{GM._.actBar.SwitchCnt}";
+        UpdateData("타워 위치변경 +1 획득");
     }
 #endregion
 }

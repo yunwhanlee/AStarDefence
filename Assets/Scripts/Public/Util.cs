@@ -13,6 +13,8 @@ public class Util : MonoBehaviour {
     public static WaitForSeconds Time2 = new WaitForSeconds(2);
     public static WaitForSeconds Time3 = new WaitForSeconds(3);
 
+    public static WaitForSecondsRealtime RealTime1 = new WaitForSecondsRealtime(1);
+
     [field:SerializeField] public Material BlinkMt {get; private set;}
     [field:SerializeField] public Material DefaultMt {get; private set;}
 
