@@ -33,7 +33,7 @@ public abstract class Tower : MonoBehaviour {
     [Range(0.00f, 1.00f)] public float CritPer;
     public float CritDmgPer;
     //* CC
-    [Range(0.00f, 1.00f)] public float SlowPer;
+    [Range(0.0f, 5.00f)] public float SlowSec;
     [Range(0.0f, 5.0f)] public float StunSec;
 
     void Awake() {
@@ -111,7 +111,7 @@ public abstract class Tower : MonoBehaviour {
                             Enemy enemy = col.GetComponent<Enemy>();
                             switch(Type) {
                                 case TowerType.CC_IceTower:
-                                    enemy.Slow(SlowPer);
+                                    enemy.Slow(SlowSec);
                                     break;
                                 case TowerType.CC_StunTower:
                                     enemy.Stun(StunSec);
@@ -146,7 +146,7 @@ public abstract class Tower : MonoBehaviour {
         AtkSpeed = TowerData.AtkSpeed;
         AtkRange = TowerData.AtkRange;
         SplashRange = TowerData.SplashRange;
-        SlowPer = TowerData.SlowPer;
+        SlowSec = TowerData.SlowSec;
         StunSec = TowerData.StunSec;
         Debug.Log($"<color=yellow>Tower:: StateUpdate()::Lv= {Lv}, Name= {Name}, Dmg= {Dmg}, AtkSpeed= {AtkSpeed}, AtkRange= {AtkRange}, SplashRange= {SplashRange}</color>");
     }
@@ -155,7 +155,7 @@ public abstract class Tower : MonoBehaviour {
         Debug.Log($"Tower:: InfoState():: Name={Name}, Lv= {Lv}");
         const TowerKind W = TowerKind.Warrior;
         const TowerKind A = TowerKind.Archer;
-        const TowerKind M = TowerKind.Magician;
+        // const TowerKind M = TowerKind.Magician;
         int W_DMG = TowerManager.WARRIOR_CARD_DMG_UP;
         int A_DMG = TowerManager.ARCHER_CARD_DMG_UP;
         int M_DMG = TowerManager.MAGICIAN_CARD_DMG_UP;
@@ -172,7 +172,7 @@ public abstract class Tower : MonoBehaviour {
         states[i++] = $"{TowerData.SplashRange}";
         states[i++] = $"{TowerData.CritPer}";
         states[i++] = $"{TowerData.CritDmgPer}";
-        states[i++] = $"{TowerData.SlowPer}";
+        states[i++] = $"{TowerData.SlowSec}";
         states[i++] = $"{TowerData.StunSec}";
         return states;
     }

@@ -91,6 +91,7 @@ public abstract class Enemy : MonoBehaviour {
             HpBar.value = (float)Hp / maxHp;
             NodeIdx = 0;
             Util._.SetDefMt(SprRdr);
+            SprRdr.color = Color.white;
             SprRdr.sortingOrder = (Type == EnemyType.Flight)? 15 : ORIGIN_SORTING_LAYER;
         }
         /// <summary>
@@ -106,6 +107,9 @@ public abstract class Enemy : MonoBehaviour {
             originSpd = curEnemyDt.Speed;
             Speed = originSpd;
         }
+        /// <summary>
+        /// 敵のHP減る
+        /// </summary>
         public void DecreaseHp(int val) {
             if(!gameObject.activeSelf) {
                 return;
@@ -118,25 +122,40 @@ public abstract class Enemy : MonoBehaviour {
                 Die();
             }
         }
-        public void Slow(float per) {
-            if(CorSlow != null) {
-                StopCoroutine(CorSlow);
-                CorSlow = null;
+        private void Die() {
+            Release();
+            GM._.SetMoney(+1);
+        }
+
+        /// <summary>
+        /// CCコルーチン更新：以前に適用された同じCCがあったら、終了して新しく更新
+        /// </summary>
+        /// <param name="corID">(*ref 参照) コルーチンID</param>
+        private void UpdateCorID(ref Coroutine corID) {
+            if(corID != null) {
+                StopCoroutine(corID);
+                corID = null;
             }
-            CorSlow = StartCoroutine(CoSlow(per));
-        } 
-        IEnumerator CoSlow(float per) {
-            Speed = originSpd * (1 - per);
+        }
+        /// <summary>
+        /// 敵のスロー
+        /// </summary>
+        public void Slow(float sec) {
+            UpdateCorID(ref CorSlow);
+            CorSlow = StartCoroutine(CoSlow(sec));
+        }
+        IEnumerator CoSlow(float sec) {
+            Speed = originSpd * 0.5f; //* 減速
             SprRdr.color = Color.blue;
-            yield return Util.Time2;
-            Speed = originSpd;
+            yield return new WaitForSeconds(sec);
+            Speed = originSpd; //* 戻す
             SprRdr.color = Color.white;
         }
+        /// <summary>
+        /// 敵のスタン
+        /// </summary>
         public void Stun(float sec) {
-            if(CorStun != null) {
-                StopCoroutine(CorStun);
-                CorStun = null;
-            }
+            UpdateCorID(ref CorStun);
             CorStun = StartCoroutine(CoStun(sec));
         }
         IEnumerator CoStun(float sec) {
@@ -146,8 +165,7 @@ public abstract class Enemy : MonoBehaviour {
             Speed = originSpd;
             SprRdr.color = Color.white;
         }
-        public void Die() {
-            Release();
-        }
+
+
     #endregion
 }
