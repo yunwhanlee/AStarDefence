@@ -12,15 +12,17 @@ public class ActionBarUIManager : MonoBehaviour {
     };
 
     //* Value
-    [field: SerializeField] public int CCTowerMax {get; private set;}
-    [field: SerializeField] public int CCTowerCnt {get; private set;}
     [field: SerializeField] public bool IsSwitchMode {get; set;}
     [field: SerializeField] public int SwitchCnt {get; set;}
+    [field: SerializeField] public int SuccessionTicket {get; set;}
+    [field: SerializeField] public int ChangeTypeTicket {get; set;}
 
     [Header("UI")]
     public GameObject PanelObj;
     [field: SerializeField] public TextMeshProUGUI CCTowerCntTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI SwitchCntTxt {get; set;}
+    [field: SerializeField] public TextMeshProUGUI SuccessionTicketCntTxt {get; set;}
+    [field: SerializeField] public TextMeshProUGUI ChangeTypeTicketCntTxt {get; set;}
     [field: SerializeField] public Button[] IconBtns {get; set;}
     [field: SerializeField] public Sprite MergeOffSpr {get; set;}
     [field: SerializeField] public Sprite MergeOnSpr {get; set;}
@@ -30,9 +32,12 @@ public class ActionBarUIManager : MonoBehaviour {
         SetCCTowerCntTxt(0);
 
         IsSwitchMode = false;
-        CCTowerMax = 5;
         SwitchCnt = 2;
+        SuccessionTicket = 0;
+        ChangeTypeTicket = 0;
         SwitchCntTxt.text = SwitchCnt.ToString();
+        SuccessionTicketCntTxt.text = SuccessionTicket.ToString();
+        ChangeTypeTicketCntTxt.text = ChangeTypeTicket.ToString();
 
         const int PRICE_IDX = 1;
         IconBtns[(int)ICON.Break].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{Config.PRICE.BREAK}";
@@ -144,7 +149,7 @@ public class ActionBarUIManager : MonoBehaviour {
         }
         //* エラーメッセージ
         if(!isSuccess) {
-            StartCoroutine(GM._.gui.CoShowMsgError("합성할 같은 타워가 없습니다."));
+            GM._.gui.ShowMsgError("합성할 같은 타워가 없습니다.");
             return;
         }
 
@@ -162,7 +167,7 @@ public class ActionBarUIManager : MonoBehaviour {
             UpdateUI(Enum.Layer.SwitchTower);
         }
         else {
-            StartCoroutine(GM._.gui.CoShowMsgError("위치변경을 전부 사용했습니다."));
+            GM._.gui.StartCoroutine("위치변경을 전부 사용했습니다.");
         }
     }
 
@@ -190,7 +195,7 @@ public class ActionBarUIManager : MonoBehaviour {
         yield return null;
         //* 道が詰まるエラー
         if(!GM._.pfm.PathFinding()) {
-            StartCoroutine(GM._.gui.CoShowMsgError("길을 막으면 안됩니다!"));
+            GM._.gui.StartCoroutine("길을 막으면 안됩니다!");
             //* タイル除去
             SetCCTowerCntTxt(-1);
             Destroy(GM._.tmc.HitObject);
@@ -215,10 +220,10 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
     public void SetCCTowerCntTxt(int val) {
-        CCTowerCnt += val;
-        CCTowerCntTxt.text = $"CC : {CCTowerCnt}/{CCTowerMax}";
+        GM._.tm.CCTowerCnt += val;
+        CCTowerCntTxt.text = $"CC : {GM._.tm.CCTowerCnt}/{GM._.tm.CCTowerMax}";
         //* Maxになったら、赤い文字にする
-        CCTowerCntTxt.color = (CCTowerCnt == CCTowerMax)? Color.red : Color.white;
+        CCTowerCntTxt.color = (GM._.tm.CCTowerCnt == GM._.tm.CCTowerMax)? Color.red : Color.white;
     }
 
     /// <summary>

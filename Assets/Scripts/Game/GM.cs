@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,8 +19,10 @@ public class GM : MonoBehaviour {
     [field: SerializeField] public int MaxWave {get; set;}
     [field: SerializeField] public int Wave {get; set;}
     [field: SerializeField] public int ResetCnt {get; set;}
+
     [field: SerializeField] public int MaxLife {get; set;}
     [field: SerializeField] public int Life {get; set;}
+
     [field: SerializeField] public int Money {get; set;}
     [field: SerializeField] public Material BlinkMt;
     [field: SerializeField] public Material DefaultMt;
@@ -30,13 +33,15 @@ public class GM : MonoBehaviour {
     public PathFindManager pfm;
     public EnemyManager em;
     public TileMapController tmc;
-    public ActionBarUIManager actBar; //TODO Move To GameUIManager
+    public ActionBarUIManager actBar;
+    public BossRewardUIManager bossRwd;
     public TowerManager tm;
     public MissileManager mm;
 
     void Awake() {
         //* Global化 値 代入
-        _ = this; 
+        _ = this;
+
         //* 外部のスクリプト 初期化
         gui = GameObject.Find("GameUIManager").GetComponent<GameUIManager>();
         gef = GameObject.Find("GameEffectManager").GetComponent<GameEffectManager>();
@@ -44,6 +49,7 @@ public class GM : MonoBehaviour {
         em = GameObject.Find("EnemyManager").GetComponent<EnemyManager>();
         tmc = GameObject.Find("TileMapController").GetComponent<TileMapController>();
         actBar = GameObject.Find("ActionBarUIManager").GetComponent<ActionBarUIManager>();
+        bossRwd = GameObject.Find("BossRewardUIManager").GetComponent<BossRewardUIManager>();
         tm = GameObject.Find("TowerManager").GetComponent<TowerManager>();
         mm = GameObject.Find("MissileManager").GetComponent<MissileManager>();
 
@@ -60,10 +66,14 @@ public class GM : MonoBehaviour {
     }
 
 #region EVENT
+    public void OnClickStartBtn() =>StartWave();
+#endregion
+
+#region FUNC
     /// <summary>
-    /// レイド開始
+    /// WAVE開始
     /// </summary>
-    public void OnClickStartBtn() {
+    private void StartWave() {
         state = GameState.Play;
         gui.WaveTxt.text = $"WAVE {++Wave}";
         gui.EnemyCntTxt.text = $"{em.EnemyCnt} / {em.EnemyCnt}";
@@ -74,20 +84,28 @@ public class GM : MonoBehaviour {
         if(gui.ResetWallBtn.gameObject.activeSelf)
             gui.ResetWallBtn.gameObject.SetActive(false);
     }
-#endregion
 
-#region FUNC
     /// <summary>
-    /// レイド終了
+    /// WAVE終了
     /// </summary>
-    public void FinishRaid() {
+    public void FinishWave() {
+        Debug.Log($"FinishWave():: Wave= {Wave}");
         state = GameState.Ready;
         gui.WaveTxt.text = $"WAVE {Wave} / {MaxWave}";
         gui.SwitchGameStateUI(state);
 
         //* Next Enemy Info UI
         gui.SetNextEnemyInfoFlagUI();
+
+        //* ボスリワード 表示
+        if(Wave % 10 == 0) {
+            bossRwd.Active(Wave / 10);
+        }
     }
+    /// <summary>
+    /// ライフ減る
+    /// </summary>
+    /// <param name="type">敵のタイプ（一般、空、ボス）</param>
     public void DecreaseLife(EnemyType type) {
         Util._.Blink(gui.HeartFillImg);
         Life -= (type == EnemyType.Boss)? Enemy.LIFE_DEC_BOSS : Enemy.LIFE_DEC_MONSTER;
@@ -114,7 +132,7 @@ public class GM : MonoBehaviour {
     /// </summary>
     public bool CheckMoney(int price) {
         if(Money < price) {
-            StartCoroutine(gui.CoShowMsgError("비용이 부족합니다."));
+            gui.ShowMsgError("비용이 부족합니다.");
             return false;
         }
         else {

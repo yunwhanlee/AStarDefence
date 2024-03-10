@@ -13,6 +13,8 @@ public class TowerManager : MonoBehaviour {
     public readonly static int CARD_UPG_PRICE_START = 5; // カードアップグレード 開始値段
     public readonly static int CARD_UPG_PRICE_UNIT = 5; // カードアップグレード単位
 
+    public readonly static int CC_TOWER_INC_LIMIT_MAX = 5; // カードアップグレード単位
+
     [field: SerializeField] public int[] TowerCardUgrLvs {get; set;}
     [Header("WARRIOR")]
     [SerializeField] GameObject[] warriors; public GameObject[] Warriors {get => warriors;}
@@ -28,6 +30,8 @@ public class TowerManager : MonoBehaviour {
     [SerializeField] GameObject[] iceTowers; public GameObject[] IceTowers {get => iceTowers;}
     [SerializeField] GameObject[] stunTowers; public GameObject[] StunTowers {get => stunTowers;}
     [field: SerializeField] public Transform CCTowerGroup {get; private set;}
+    [field: SerializeField] public int CCTowerMax {get; set;}
+    [field: SerializeField] public int CCTowerCnt {get; set;}
     [Header("BOARD")]
     [SerializeField] GameObject[] boards; public GameObject[] Boards {get => boards;}
     [field: SerializeField] public Transform BoardGroup {get; private set;}
@@ -39,6 +43,8 @@ public class TowerManager : MonoBehaviour {
         tm = GM._.tm;
         tmc = GM._.tmc;
         TowerCardUgrLvs = new int[3] {0, 0, 0};
+        CCTowerMax = 2;
+        CCTowerCnt = 0;
     }
 
 #region CREATE

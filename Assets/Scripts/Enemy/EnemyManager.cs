@@ -56,7 +56,7 @@ public class EnemyManager : MonoBehaviour {
 
         //* 敵が存在しなかったら、
         if(!isEnemyExist) {
-            GM._.FinishRaid(); //* レイド終了
+            GM._.FinishWave(); //* レイド終了
         }
 
         Debug.Log("isEnemyExist= " + isEnemyExist);

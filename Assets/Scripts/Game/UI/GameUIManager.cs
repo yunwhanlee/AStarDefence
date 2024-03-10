@@ -102,7 +102,7 @@ public class GameUIManager : MonoBehaviour {
     public void OnClickResetWallBtn() {
         Debug.Log("OnClickResetRockBtn()");
         if(GM._.ResetCnt <= 0) {
-            StartCoroutine(GM._.gui.CoShowMsgError("벽 리셋횟수가 다 소진되었습니다."));
+            ShowMsgError("벽 리셋횟수가 다 소진되었습니다.");
             return;
         }
         
@@ -118,7 +118,7 @@ public class GameUIManager : MonoBehaviour {
         PausePopUp.SetActive(true);
     }
     public void OnClickPausePopUp_ContinueBtn() {
-        BackPlay();
+        Play();
         PausePopUp.SetActive(false);
     }
     public void OnClickPausePopUp_ExitGameBtn() {
@@ -187,13 +187,16 @@ public class GameUIManager : MonoBehaviour {
         Time.timeScale = 0;
         GM._.State = GameState.Pause;
     }
-    public void BackPlay() {
+    public void Play() {
         Time.timeScale = previousTimeScale;
         GM._.State = previousState;
     }
 
     /// <summary> 上にへエラーメッセージバー表示（自動OFF）</summary>
-    public IEnumerator CoShowMsgError(string msg) {
+    public void ShowMsgError(string msg) {
+        StartCoroutine(CoShowMsgError(msg));
+    }
+    IEnumerator CoShowMsgError(string msg) {
         TopMsgError.SetActive(true);
         MsgErrorTxt.text = msg;
         yield return Util.Time1;
@@ -217,14 +220,14 @@ public class GameUIManager : MonoBehaviour {
     }
     public bool ShowErrMsgCreateTowerAtPlayState() {
         if(GM._.State == GameState.Play) {
-            StartCoroutine(GM._.gui.CoShowMsgError("몬스터가 있을때는 타워생성 및 업그레이드만 가능합니다!"));
+            ShowMsgError("몬스터가 있을때는 타워생성 및 업그레이드만 가능합니다!");
             return true;
         }
         return false;
     }
     public bool ShowErrMsgCCTowerLimit() {
-        if(GM._.actBar.CCTowerCnt >= GM._.actBar.CCTowerMax) {
-            StartCoroutine(GM._.gui.CoShowMsgError($"CC타워는 {GM._.actBar.CCTowerMax}개까지 가능합니다."));
+        if(GM._.tm.CCTowerCnt >= GM._.tm.CCTowerMax) {
+            ShowMsgError($"CC타워는 {GM._.tm.CCTowerMax}개까지 가능합니다.");
             return true;
         }
         return false;

@@ -29,7 +29,7 @@ public class TowerStateUIManager : MonoBehaviour {
             InfoPopUp.SetActive(true);
         }
         public void OnClickInfoPopUpCloseBtn() {
-            GM._.gui.BackPlay();
+            GM._.gui.Play();
             InfoPopUp.SetActive(false);
         }
     #endregion
