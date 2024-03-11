@@ -29,7 +29,6 @@ public abstract class Tower : MonoBehaviour {
     public int Dmg;
     public float AtkSpeed;
     [Range(0, 10)] public float AtkRange;
-    [Range(0, 10)] public float SplashRange;
     [Range(0.00f, 1.00f)] public float CritPer;
     public float CritDmgPer;
     //* CC
@@ -145,10 +144,9 @@ public abstract class Tower : MonoBehaviour {
         Dmg = TowerData.Dmg;
         AtkSpeed = TowerData.AtkSpeed;
         AtkRange = TowerData.AtkRange;
-        SplashRange = TowerData.SplashRange;
         SlowSec = TowerData.SlowSec;
         StunSec = TowerData.StunSec;
-        Debug.Log($"<color=yellow>Tower:: StateUpdate()::Lv= {Lv}, Name= {Name}, Dmg= {Dmg}, AtkSpeed= {AtkSpeed}, AtkRange= {AtkRange}, SplashRange= {SplashRange}</color>");
+        Debug.Log($"<color=yellow>Tower:: StateUpdate()::Lv= {Lv}, Name= {Name}, Dmg= {Dmg}, AtkSpeed= {AtkSpeed}, AtkRange= {AtkRange}</color>");
     }
 
     public virtual string[] InfoState() {
