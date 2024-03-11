@@ -125,6 +125,7 @@ public class GameUIManager : MonoBehaviour {
         PausePopUp.SetActive(false);
         AgainAskPopUp.SetActive(true);
     }
+    
 
     //* AGAIN ASK
     public void OnClickAgainAskPopUp_ConfirmBtn() {
