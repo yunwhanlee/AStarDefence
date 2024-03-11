@@ -181,12 +181,18 @@ public class GameUIManager : MonoBehaviour {
 #endregion
 
 #region FUNC
+    /// <summary>
+    /// ゲームを停止状態にする
+    /// </summary>
     public void Pause() {
         previousState = GM._.State;
         previousTimeScale = Time.timeScale;
         Time.timeScale = 0;
         GM._.State = GameState.Pause;
     }
+    /// <summary>
+    /// ゲームを開始状態に戻す
+    /// </summary>
     public void Play() {
         Time.timeScale = previousTimeScale;
         GM._.State = previousState;

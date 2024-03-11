@@ -19,11 +19,22 @@ public class ActionBarUIManager : MonoBehaviour {
 
     [Header("UI")]
     public GameObject PanelObj;
-    //* 左
+
+    //* タワータイプ変更POPUP
+    [field: SerializeField] public GameObject ChangeTypePopUp {get; set;}
+    [field: SerializeField] public GameObject[] ChangeTypeCards {get; set;}
+
+    //* 左 (情報 Vertical)
     [field: SerializeField] public TextMeshProUGUI CCTowerCntTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI SuccessionTicketCntTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI ChangeTypeTicketCntTxt {get; set;}
-    //* 中央
+    //* 左 (アイコン Horizontal)
+    [field: SerializeField] public Button SuccessionIconBtn {get; set;}
+    [field: SerializeField] public Button ChangeTypeIconBtn {get; set;}
+    [field: SerializeField] public TextMeshProUGUI SuccessionConsumeTxt {get; set;}
+    [field: SerializeField] public TextMeshProUGUI ChangeTypeConsumeTxt {get; set;}
+
+    //* 中央（アイコン）
     [field: SerializeField] public TextMeshProUGUI SwitchCntTxt {get; set;}
     [field: SerializeField] public Button[] IconBtns {get; set;}
     [field: SerializeField] public Sprite MergeOffSpr {get; set;}
@@ -35,12 +46,13 @@ public class ActionBarUIManager : MonoBehaviour {
 
         IsSwitchMode = false;
         SwitchCnt = 2;
-        SuccessionTicket = 0;
-        ChangeTypeTicket = 0;
+        SuccessionTicket = 8;
+        ChangeTypeTicket = 8;
         SwitchCntTxt.text = SwitchCnt.ToString();
         SuccessionTicketCntTxt.text = SuccessionTicket.ToString();
         ChangeTypeTicketCntTxt.text = ChangeTypeTicket.ToString();
 
+        //* アイコン初期化
         const int PRICE_IDX = 1;
         IconBtns[(int)ICON.Break].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{Config.PRICE.BREAK}";
         IconBtns[(int)ICON.Board].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{Config.PRICE.BOARD}";
@@ -53,6 +65,73 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
 #region EVENT BUTTON
+    public void OnClickSuccessionIconBtn() {
+        Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
+
+        //* チケット減る
+        SuccessionTicket -= tower.Lv;
+
+        //* 同じタイプのタワーにマージを固定
+        bool isSuccess = MergeTower(tower.Kind);
+
+        if(isSuccess) {
+            GM._.gui.ShowMsgNotice("타입계승 합성 완료!");
+        }
+        else {
+            GM._.gui.ShowMsgError("합성할 같은 타워가 없습니다.");
+            return;
+        }
+
+        UpdateUI(Enum.Layer.Tower);
+    }
+
+    public void OnClickChangeTypeIconBtn() {
+        GM._.gui.Pause();
+        ChangeTypePopUp.SetActive(true); //* 表示
+
+        //* 変更するタイプカード 表示 (自分と同じタイプは非表示)
+        Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
+        for(int i = 0; i < ChangeTypeCards.Length; i++)
+            ChangeTypeCards[i].SetActive((int)tower.Kind != i);
+    }
+    public void OnClickChangeTypePopUpCancelBtn() {
+        GM._.gui.Play();
+        ChangeTypePopUp.SetActive(false); //* 非表示
+    }
+    public void OnClickChangeTypeCard(int kindIdx) {
+        GM._.gui.Play();
+        Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
+
+        //* チケット減る
+        ChangeTypeTicket -= tower.Lv;
+
+        tower.Lv--;
+        Debug.Log($"OnClickChangeTypeCard():: kindIdx= {kindIdx}, tower.Lv= {tower.Lv}");
+
+        //* タワーのタイプ変更
+        switch(kindIdx) {
+            case (int)TowerKind.Warrior:
+                //* 自分を削除
+                GM._.tm.CreateTower(TowerType.Random, tower.Lv, TowerKind.Warrior);
+                DestroyImmediate(tower.gameObject);
+                break;
+            case (int)TowerKind.Archer:
+                GM._.tm.CreateTower(TowerType.Random, tower.Lv, TowerKind.Archer);
+                DestroyImmediate(tower.gameObject);
+                break;
+            case (int)TowerKind.Magician:
+                GM._.tm.CreateTower(TowerType.Random, tower.Lv, TowerKind.Magician);
+                DestroyImmediate(tower.gameObject);
+                break;
+        }
+
+        ChangeTypePopUp.SetActive(false); //* 非表示
+
+        GM._.gui.ShowMsgNotice("타입 변경 완료!");
+
+        UpdateUI(Enum.Layer.Tower);
+    }
+
     public void OnClickBreakIconBtn() {
         if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
             return;
@@ -79,6 +158,7 @@ public class ActionBarUIManager : MonoBehaviour {
             return;
 
         GM._.tm.CreateTower(TowerType.Random);
+
         UpdateUI(Enum.Layer.Tower);
     }
 
@@ -132,24 +212,9 @@ public class ActionBarUIManager : MonoBehaviour {
         if(!GM._.CheckMoney(Config.PRICE.MERGE))
             return;
 
-        bool isSuccess = false;
-        Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
-        //* タワーのタイプによってマージ
-        switch(tower.Kind) {
-            case TowerKind.Warrior:
-                var warrior = tower as WarriorTower;
-                isSuccess = warrior.Merge();
-                break;
-            case TowerKind.Archer:
-                var archer = tower as ArcherTower;
-                isSuccess = archer.Merge();
-                break;
-            case TowerKind.Magician:
-                var magician = tower as MagicianTower;
-                isSuccess = magician.Merge();
-                break;
-        }
-        //* エラーメッセージ
+        //* マージ
+        bool isSuccess = MergeTower();
+
         if(!isSuccess) {
             GM._.gui.ShowMsgError("합성할 같은 타워가 없습니다.");
             return;
@@ -228,6 +293,28 @@ public class ActionBarUIManager : MonoBehaviour {
         CCTowerCntTxt.color = (GM._.tm.CCTowerCnt == GM._.tm.CCTowerMax)? Color.red : Color.white;
     }
 
+    private bool MergeTower(TowerKind kind = TowerKind.None) {
+        bool isSuccess = false;
+        Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
+        //* タワーのタイプによってマージ
+        switch(tower.Kind) {
+            case TowerKind.Warrior:
+                var warrior = tower as WarriorTower;
+                isSuccess = warrior.Merge(kind);
+                break;
+            case TowerKind.Archer:
+                var archer = tower as ArcherTower;
+                isSuccess = archer.Merge(kind);
+                break;
+            case TowerKind.Magician:
+                var magician = tower as MagicianTower;
+                isSuccess = magician.Merge(kind);
+                break;
+        }
+
+        return isSuccess;
+    }
+
     /// <summary>
     /// アクションバーのアイコン表示
     /// </summary>
@@ -236,6 +323,8 @@ public class ActionBarUIManager : MonoBehaviour {
         //* リセット
         clearIcons();
         GM._.gui.tsm.WindowObj.SetActive(false);
+        SuccessionIconBtn.gameObject.SetActive(false);
+        ChangeTypeIconBtn.gameObject.SetActive(false);
 
         //* 表示
         switch(layer) {
@@ -310,6 +399,13 @@ public class ActionBarUIManager : MonoBehaviour {
                 }
 
                 //* アイコン表示
+                bool isTowerLvMax = tower.Lv >= TowerManager.RANDOM_TOWER_LV_MAX;
+                SuccessionIconBtn.gameObject.SetActive(SuccessionTicket >= tower.Lv && !isTowerLvMax);
+                SuccessionTicketCntTxt.text = $"{SuccessionTicket}";
+                SuccessionConsumeTxt.text = $"{tower.Lv}개 소비";
+                ChangeTypeIconBtn.gameObject.SetActive(ChangeTypeTicket >= tower.Lv && !isTowerLvMax);
+                ChangeTypeTicketCntTxt.text = $"{ChangeTypeTicket}";
+                ChangeTypeConsumeTxt.text = $"{tower.Lv}개 소비";
                 IconBtns[(int)ICON.Merge].gameObject.SetActive(!isMaxLv);
                 IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
                 IconBtns[(int)ICON.Switch].gameObject.SetActive(true);

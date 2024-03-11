@@ -18,7 +18,7 @@ public class WarriorTower : Tower {
             mergeIcon.sprite = GM._.actBar.MergeOnSpr;
     }
 
-    public override bool Merge() {
+    public override bool Merge(TowerKind kind = TowerKind.None) {
         Image mergeIcon = GM._.actBar.IconBtns[(int)ActionBarUIManager.ICON.Merge].GetComponent<Image>();
 
         //* マージが可能であれば
@@ -34,7 +34,7 @@ public class WarriorTower : Tower {
             DestroyImmediate(another.gameObject);
 
             //* 次のレベルタワーランダムで生成
-            GM._.tm.CreateTower(Type, Lv++);
+            GM._.tm.CreateTower(Type, Lv++, kind);
 
             //* 自分を削除
             DestroyImmediate(gameObject);

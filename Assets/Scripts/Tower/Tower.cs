@@ -63,7 +63,7 @@ public abstract class Tower : MonoBehaviour {
 
 #region ABSTRACT FUNC
     public abstract void CheckMergeUI();
-    public abstract bool Merge();
+    public abstract bool Merge(TowerKind kind = TowerKind.None);
     public abstract void Upgrade();
 #endregion
 

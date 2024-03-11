@@ -6,6 +6,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class TowerManager : MonoBehaviour {
+    public readonly static int RANDOM_TOWER_LV_MAX = 6; // ランダムタワーMAXレベル
     public readonly static int CARD_UPG_LV_MAX = 20; // カードアップグレード MAXレベル
     public readonly static int WARRIOR_CARD_DMG_UP = 3; // 戦士 カードアップグレード ダメージ単位
     public readonly static int ARCHER_CARD_DMG_UP = 1; // アーチャー カードアップグレード ダメージ単位
@@ -83,12 +84,12 @@ public class TowerManager : MonoBehaviour {
         tmc.HitObject = ccTower;
     }
 
-    public void CreateTower(TowerType type, int lvIdx = 0) {
+    public void CreateTower(TowerType type, int lvIdx = 0, TowerKind kind = TowerKind.None) {
         Debug.Log($"<color=white>CreateTower({type}, {lvIdx})::</color>");
         switch(type) {
             case TowerType.Random:
-                //* 種類の選択
-                int randKind = Random.Range(0, 3);
+                //* 種類の選択 (種類がパラメータで設定されたら、そのタイプに固定して生成)
+                int randKind = (kind != TowerKind.None)? (int)kind : Random.Range(0, 3);
                 switch(randKind) {
                     case (int)TowerKind.Warrior:
                         InstantiateTower(warriors[lvIdx], WarriorGroup);

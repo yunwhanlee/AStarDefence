@@ -4929,8 +4929,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <size=30><sprite name="StarLv3"></size><sprite name="StarLv7"><size=30><sprite
-    name="StarLv3"></size>
+  m_text: <sprite name="StarLv7">
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b293129a700bddd4284b08884feab26d, type: 2}
   m_sharedMaterial: {fileID: -7503779644620482780, guid: b293129a700bddd4284b08884feab26d, type: 2}
@@ -15130,7 +15129,7 @@ MonoBehaviour:
   SplashRange: 0
   CritPer: 0
   CritDmgPer: 0
-  SlowPer: 0
+  SlowSec: 0
   StunSec: 0
 --- !u!114 &6490190752053381144
 MonoBehaviour:
