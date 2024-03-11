@@ -32,57 +32,57 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
             JumpDust.Play(true);
         }
 
-        // public void Update() {
-        //     if (Input.GetKeyDown(KeyCode.A)) Character.Animator.SetTrigger("Attack");
-        //     else if (Input.GetKeyDown(KeyCode.J)) Character.Animator.SetTrigger("Jab");
-        //     else if (Input.GetKeyDown(KeyCode.P)) Character.Animator.SetTrigger("Push");
-        //     else if (Input.GetKeyDown(KeyCode.H)) Character.Animator.SetTrigger("Hit");
-        //     else if (Input.GetKeyDown(KeyCode.I)) { Character.SetState(AnimationState.Idle); _activityTime = 0; }
-        //     else if (Input.GetKeyDown(KeyCode.R)) { Character.SetState(AnimationState.Ready); _activityTime = Time.time; }
-        //     else if (Input.GetKeyDown(KeyCode.B)) Character.SetState(AnimationState.Blocking);
-        //     else if (Input.GetKeyUp(KeyCode.B)) Character.SetState(AnimationState.Ready);
-        //     else if (Input.GetKeyDown(KeyCode.D)) Character.SetState(AnimationState.Dead);
+        public void Update() {
+            if (Input.GetKeyDown(KeyCode.A)) Character.Animator.SetTrigger("Attack");
+            else if (Input.GetKeyDown(KeyCode.J)) Character.Animator.SetTrigger("Jab");
+            else if (Input.GetKeyDown(KeyCode.P)) Character.Animator.SetTrigger("Push");
+            else if (Input.GetKeyDown(KeyCode.H)) Character.Animator.SetTrigger("Hit");
+            else if (Input.GetKeyDown(KeyCode.I)) { Character.SetState(AnimationState.Idle); _activityTime = 0; }
+            else if (Input.GetKeyDown(KeyCode.R)) { Character.SetState(AnimationState.Ready); _activityTime = Time.time; }
+            else if (Input.GetKeyDown(KeyCode.B)) Character.SetState(AnimationState.Blocking);
+            else if (Input.GetKeyUp(KeyCode.B)) Character.SetState(AnimationState.Ready);
+            else if (Input.GetKeyDown(KeyCode.D)) Character.SetState(AnimationState.Dead);
 
-        //     // Builder characters only.
-        //     if (Input.GetKeyDown(KeyCode.S)) Character.Animator.SetTrigger("Slash");
-        //     else if (Input.GetKeyDown(KeyCode.O)) Character.Animator.SetTrigger("Shot");
-        //     else if (Input.GetKeyDown(KeyCode.F)) Character.Animator.SetTrigger("Fire1H");
-        //     else if (Input.GetKeyDown(KeyCode.E)) Character.Animator.SetTrigger("Fire2H");
-        //     else if (Input.GetKeyDown(KeyCode.C)) Character.SetState(AnimationState.Climbing);
-        //     else if (Input.GetKeyUp(KeyCode.C)) Character.SetState(AnimationState.Ready);
-        //     else if (Input.GetKeyUp(KeyCode.L)) Character.Blink();
+            // Builder characters only.
+            if (Input.GetKeyDown(KeyCode.S)) Character.Animator.SetTrigger("Slash");
+            else if (Input.GetKeyDown(KeyCode.O)) Character.Animator.SetTrigger("Shot");
+            else if (Input.GetKeyDown(KeyCode.F)) Character.Animator.SetTrigger("Fire1H");
+            else if (Input.GetKeyDown(KeyCode.E)) Character.Animator.SetTrigger("Fire2H");
+            else if (Input.GetKeyDown(KeyCode.C)) Character.SetState(AnimationState.Climbing);
+            else if (Input.GetKeyUp(KeyCode.C)) Character.SetState(AnimationState.Ready);
+            else if (Input.GetKeyUp(KeyCode.L)) Character.Blink();
 
-        //     // if (Controller.isGrounded)
-        //     // {
-        //     //     if (Input.GetKeyDown(KeyCode.DownArrow))
-        //     //     {
-        //     //         GetDown();
-        //     //     }
-        //     //     else if (Input.GetKeyUp(KeyCode.DownArrow))
-        //     //     {
-        //     //         GetUp();
-        //     //     }
-        //     // }
+            // if (Controller.isGrounded)
+            // {
+            //     if (Input.GetKeyDown(KeyCode.DownArrow))
+            //     {
+            //         GetDown();
+            //     }
+            //     else if (Input.GetKeyUp(KeyCode.DownArrow))
+            //     {
+            //         GetUp();
+            //     }
+            // }
 
-        //     // if (Input.GetKey(KeyCode.LeftArrow))
-        //     // {
-        //     //     _inputX = -1;
-        //     // }
-        //     // else if (Input.GetKey(KeyCode.RightArrow))
-        //     // {
-        //     //     _inputX = 1;
-        //     // }
+            // if (Input.GetKey(KeyCode.LeftArrow))
+            // {
+            //     _inputX = -1;
+            // }
+            // else if (Input.GetKey(KeyCode.RightArrow))
+            // {
+            //     _inputX = 1;
+            // }
             
-        //     // if (Input.GetKeyDown(KeyCode.UpArrow))
-        //     // {
-        //     //     _inputY = 1;
+            // if (Input.GetKeyDown(KeyCode.UpArrow))
+            // {
+            //     _inputY = 1;
                 
-        //     //     if (Controller.isGrounded)
-        //     //     {
-        //     //         JumpDust.Play(true);
-        //     //     }
-        //     // }
-        // }
+            //     if (Controller.isGrounded)
+            //     {
+            //         JumpDust.Play(true);
+            //     }
+            // }
+        }
 
         // public void FixedUpdate()
         // {
