@@ -93,6 +93,8 @@ public abstract class Tower : MonoBehaviour {
                                 chara.Animator.SetTrigger("Slash");
                                 enemy.DecreaseHp(Dmg);
                                 GM._.gef.ShowDmgTxtEF(enemy.transform.position, Dmg);
+                                var warrior = this as WarriorTower;
+                                warrior.Skill1_Rage();
                                 break;
                             case TowerKind.Archer:
                             case TowerKind.Magician:
@@ -167,7 +169,6 @@ public abstract class Tower : MonoBehaviour {
         states[i++] = $"{TowerData.Dmg}{extraDmg}";
         states[i++] = $"{TowerData.AtkSpeed}";
         states[i++] = $"{TowerData.AtkRange}";
-        states[i++] = $"{TowerData.SplashRange}";
         states[i++] = $"{TowerData.CritPer}";
         states[i++] = $"{TowerData.CritDmgPer}";
         states[i++] = $"{TowerData.SlowSec}";

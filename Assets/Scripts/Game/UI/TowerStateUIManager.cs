@@ -48,11 +48,10 @@ public class TowerStateUIManager : MonoBehaviour {
             DmgTxt.text = states[1];
             AtkSpeedTxt.text = states[2];
             AtkRangeTxt.text = states[3];
-            SplashRangeTxt.text = states[4];
-            CritPerTxt.text = states[5];
-            CritDmgPerTxt.text = states[6];
-            SlowPerTxt.text = states[7];
-            StunSecTxt.text = states[8];
+            CritPerTxt.text = states[4];
+            CritDmgPerTxt.text = states[5];
+            SlowPerTxt.text = states[6];
+            StunSecTxt.text = states[7];
 
             WindowObj.SetActive(true);
         }
