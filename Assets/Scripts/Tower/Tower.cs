@@ -180,7 +180,7 @@ public abstract class Tower : MonoBehaviour {
         string extraDmgStr = extraDmgVal == 0? "" : $"<color=green>+{extraDmgVal}";
         //* 追加スピード
         float extraSpdVal = AtkSpeed - TowerData.AtkSpeed;
-        string extraSpdStr = extraSpdVal == 0? "" : $"<color=green>{extraSpdVal}";
+        string extraSpdStr = extraSpdVal == 0? "" : $"<color=green>{extraSpdVal})";
 
         string[] states = new string[8];
         int i = 0;
