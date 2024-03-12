@@ -110,13 +110,17 @@ public abstract class Enemy : MonoBehaviour {
         /// <summary>
         /// 敵のHP減る
         /// </summary>
-        public void DecreaseHp(int val) {
+        public void DecreaseHp(int val, bool isCritical) {
             if(!gameObject.activeSelf) {
                 return;
             }
+
+            GM._.gef.ShowDmgTxtEF(transform.position, val, isCritical);
+
             Util._.Blink(SprRdr);
             Hp -= val;
             HpBar.value = (float)Hp / maxHp;
+
             if(Hp <= 0) {
                 Hp = 0;
                 Die();

@@ -7,6 +7,7 @@ using TMPro;
 public enum GameEF {
     //* Object
     DmgTxtEF,
+    CritDmgTxtEF,
     RefundTxtEF,
     //* UI
 }
@@ -16,12 +17,14 @@ public class GameEffectManager : MonoBehaviour {
 
     //* Pool Type
     [field:SerializeField] public GameObject DmgTxtEF;
+    [field:SerializeField] public GameObject CritDmgTxtEF;
     [field: SerializeField] public GameObject RefundTxtEF;
 
     //* Active Type
 
     void Awake() {
-        pool.Add(InitEF(DmgTxtEF, max: 10));
+        pool.Add(InitEF(DmgTxtEF, max: 50));
+        pool.Add(InitEF(CritDmgTxtEF, max: 25));
         pool.Add(InitEF(RefundTxtEF, max: 3));
     }
 
@@ -41,9 +44,9 @@ public class GameEffectManager : MonoBehaviour {
 #endregion
 
 #region SHOW EFFECT
-    public void ShowDmgTxtEF(Vector3 pos, int dmg) => StartCoroutine(CoShowDmgTxtEF(pos, dmg));
-    IEnumerator CoShowDmgTxtEF(Vector3 pos, int dmg) { //bool isCritical) {
-        int idx = (int)GameEF.DmgTxtEF;//isCritical? (int)IDX.CriticalDmgTxtEF : (int)IDX.DmgTxtEF;
+    public void ShowDmgTxtEF(Vector3 pos, int dmg, bool isCritical = false) => StartCoroutine(CoShowDmgTxtEF(pos, dmg, isCritical));
+    IEnumerator CoShowDmgTxtEF(Vector3 pos, int dmg, bool isCritical) {
+        int idx = isCritical? (int)GameEF.CritDmgTxtEF : (int)GameEF.DmgTxtEF;
         GameObject ef = pool[idx].Get();
         ef.transform.position = pos;
         ef.GetComponentInChildren<TextMeshPro>().text = $"{dmg}";

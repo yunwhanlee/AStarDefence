@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts;
-using Microsoft.Unity.VisualStudio.Editor;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,9 +32,11 @@ public abstract class Tower : MonoBehaviour {
     public Dictionary<string, int> ExtraDmgDic = new Dictionary<string, int>();
     public int Dmg {
         get {
+            //* 追加ダメージ
             int extraDmg = 0;
             foreach(var dic in ExtraDmgDic)
                 extraDmg += dic.Value;
+
             return TowerData.Dmg + extraDmg;
         }
     }
@@ -112,8 +113,11 @@ public abstract class Tower : MonoBehaviour {
                             case TowerKind.Warrior:
                                 //TODO EFFECT
                                 chara.Animator.SetTrigger("Slash");
-                                enemy.DecreaseHp(Dmg);
-                                GM._.gef.ShowDmgTxtEF(enemy.transform.position, Dmg);
+
+                                //* クリティカル
+                                bool isCritical = Util.CheckCriticalDmg(this);
+                                int totalDmg = Dmg * (isCritical? 2 : 1);
+                                enemy.DecreaseHp(totalDmg, isCritical);
                                 var warrior = this as WarriorTower;
                                 warrior.Skill1_Rage();
                                 break;
@@ -139,7 +143,7 @@ public abstract class Tower : MonoBehaviour {
                                     enemy.Stun(StunSec);
                                     break;
                             }
-                            enemy.DecreaseHp(Dmg);
+                            // enemy.DecreaseHp(Dmg);
                             Debug.Log($"アタック！ {name}:: -> {col.name}");
                         }
                         break;
@@ -167,6 +171,8 @@ public abstract class Tower : MonoBehaviour {
         // Dmg = TowerData.Dmg;
         // AtkSpeed = TowerData.AtkSpeed;
         AtkRange = TowerData.AtkRange;
+        CritPer = TowerData.CritPer;
+        CritDmgPer = TowerData.CritDmgPer;
         SlowSec = TowerData.SlowSec;
         StunSec = TowerData.StunSec;
         Debug.Log($"<color=yellow>Tower:: StateUpdate()::Lv= {Lv}, Name= {Name}, Dmg= {Dmg}, AtkSpeed= {AtkSpeed}, AtkRange= {AtkRange}</color>");
@@ -189,8 +195,8 @@ public abstract class Tower : MonoBehaviour {
         states[3] = $"{TowerData.Dmg}{extraDmgStr}";
         states[4] = $"{TowerData.AtkSpeed}{extraSpdStr}";
         states[5] = $"{TowerData.AtkRange}";
-        states[6] = $"{TowerData.CritPer}";
-        states[7] = $"{TowerData.CritDmgPer}";
+        states[6] = $"{TowerData.CritPer * 100}%";
+        states[7] = $"{TowerData.CritDmgPer * 100}%";
         states[8] = $"{TowerData.SlowSec}";
         states[9] = $"{TowerData.StunSec}";
         return states;

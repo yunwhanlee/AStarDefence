@@ -69,7 +69,7 @@ public class WarriorTower : Tower {
         if(CorSkill1ID != null)
             return;
 
-        int[] lvActivePers = new int[6] {0, 0, 60, 10, 15, 20};
+        int[] lvActivePers = new int[6] {0, 0, 5, 10, 15, 20};
         int rand = Random.Range(0, 100);
         if(rand < lvActivePers[Lv - 1]) {
             CorSkill1ID = StartCoroutine(CoSkill1_Rage());

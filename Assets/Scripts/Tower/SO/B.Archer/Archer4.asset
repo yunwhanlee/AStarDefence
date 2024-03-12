@@ -20,7 +20,7 @@ MonoBehaviour:
   AtkSpeed: 0.45
   AtkRange: 4
   SplashRange: 0
-  CritPer: 0
-  CritDmgPer: 0
-  SlowPer: 0
+  CritPer: 0.15
+  CritDmgPer: 1
+  SlowSec: 0
   StunSec: 0

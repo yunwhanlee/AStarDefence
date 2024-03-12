@@ -68,8 +68,11 @@ public class Missile : MonoBehaviour {
             for(int i = 0; i < ColList.Count; i++) {
                 if(i == 0) { //* ０番インデックスのみ処理してバグ対応
                     Enemy enemy = ColList[0].GetComponent<Enemy>();
-                    enemy.DecreaseHp(MyTower.Dmg);
-                    GM._.gef.ShowDmgTxtEF(enemy.transform.position, MyTower.Dmg);
+                    
+                    //* クリティカル
+                    bool isCritical = Util.CheckCriticalDmg(MyTower);
+                    int totalDmg = MyTower.Dmg * (isCritical? 2 : 1);
+                    enemy.DecreaseHp(totalDmg, isCritical);
                     GM._.mm.Pool.Release(this); //* 戻すは一つのみなのに、複数衝突して１回以上読みこむとエラー
                     ColList.Clear();
                     break;

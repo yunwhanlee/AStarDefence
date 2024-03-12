@@ -22,9 +22,18 @@ public class Util : MonoBehaviour {
 
     public void SetDefMt(SpriteRenderer sprRdr) => sprRdr.material = DefaultMt;
 
+    public static bool CheckCriticalDmg(Tower myTower) {
+        bool isCritical = false;
+        int randPer = Random.Range(0, 100);
+        if(randPer < myTower.CritPer * 100) {
+            Debug.Log("Critical HIT");
+            isCritical = true;
+        }
+        return isCritical;
+    }
+
     public void Blink(SpriteRenderer sprRdr) => StartCoroutine(CoBlink(sprRdr));
     public void Blink(Image img) => StartCoroutine(CoBlink(img));
-
     private IEnumerator CoBlink(SpriteRenderer sprRdr) {
         sprRdr.material = BlinkMt;
         yield return new WaitForSeconds(0.1f);
