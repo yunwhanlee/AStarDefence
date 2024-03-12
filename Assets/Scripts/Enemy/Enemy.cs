@@ -110,7 +110,7 @@ public abstract class Enemy : MonoBehaviour {
         /// <summary>
         /// 敵のHP減る
         /// </summary>
-        public void DecreaseHp(int val, bool isCritical) {
+        public void DecreaseHp(int val, bool isCritical = false) {
             if(!gameObject.activeSelf) {
                 return;
             }

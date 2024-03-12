@@ -68,7 +68,18 @@ public class Missile : MonoBehaviour {
             for(int i = 0; i < ColList.Count; i++) {
                 if(i == 0) { //* ０番インデックスのみ処理してバグ対応
                     Enemy enemy = ColList[0].GetComponent<Enemy>();
-                    
+
+                    //* Migician爆発 Skill
+                    if(MyTower.Kind == TowerKind.Magician) {
+                        var layerMask = 1 << Enum.Layer.Enemy;
+                        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 1, layerMask);
+                        Debug.Log("アタック！ ROUND:: colliders= " + colliders.Length);
+                        foreach(Collider2D col in colliders) {
+                            Enemy splashedEnemy = col.GetComponent<Enemy>();
+                            splashedEnemy.DecreaseHp(MyTower.Dmg);
+                        }
+                    }
+
                     //* クリティカル
                     bool isCritical = Util.CheckCriticalDmg(MyTower);
                     int totalDmg = MyTower.Dmg * (isCritical? 2 : 1);
