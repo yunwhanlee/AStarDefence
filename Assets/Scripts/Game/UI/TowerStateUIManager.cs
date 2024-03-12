@@ -23,13 +23,13 @@ public class TowerSkill {
     [field: SerializeField] public TextMeshProUGUI DetailPopUpNameTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI DetailPopUpInfoTxt {get; set;}
 
-    public void UpdateUI(Tower tower) {
+    public void UpdateUI(TowerKind kind) {
         IconObj.SetActive(true);
-        IconImg.sprite = SkillSprs[(int)tower.Kind];
+        IconImg.sprite = SkillSprs[(int)kind];
 
-        DetailPopUpIconImg.sprite = SkillSprs[(int)tower.Kind];
-        DetailPopUpNameTxt.text = TitleArr[(int)tower.Kind];
-        DetailPopUpInfoTxt.text = InfoArr[(int)tower.Kind];
+        DetailPopUpIconImg.sprite = SkillSprs[(int)kind];
+        DetailPopUpNameTxt.text = TitleArr[(int)kind];
+        DetailPopUpInfoTxt.text = InfoArr[(int)kind];
     }
 }
 
@@ -61,7 +61,8 @@ public class TowerStateUIManager : MonoBehaviour {
             Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
 
             //* レベル３から、一つずつ増やしてスキル表示
-            for (int i = 0; i < TowerSkills.Length && i < tower.Lv - 2; i++) {
+            int maxSkillsToUpdate = Mathf.Min(tower.Lv - 2, TowerSkills.Length);
+            for (int i = 0; i < maxSkillsToUpdate; i++) {
                 TowerSkills[i].DetailPopUpFrame.SetActive(true);
             }
         }
@@ -73,9 +74,10 @@ public class TowerStateUIManager : MonoBehaviour {
 
     #region FUNC
         public void ShowTowerStateUI(string[] states) {
-            Debug.Log($"ShowTowerStateUI():: lv= {states[0]}");
-
-            Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
+            int lv = int.Parse(states[0]);
+            string type = states[1];
+            TowerKind kind = (states[2] == "Warrior")? TowerKind.Warrior : (states[2] == "Archer")? TowerKind.Archer : (states[2] == "Magician")? TowerKind.Magician : TowerKind.None;
+            Debug.Log($"ShowTowerStateUI():: lv= {lv}, type= {type}, kind= {kind}");
 
             //* 非表示 初期化
             Array.ForEach(TowerSkills, Icon => {
@@ -83,26 +85,11 @@ public class TowerStateUIManager : MonoBehaviour {
                 Icon.DetailPopUpFrame.SetActive(false);
             });
 
-            //* Skill Icons 表示
-            int lv = int.Parse(states[0]);
-            if(tower.Type == TowerType.Random) {
-                if(lv == 3) {
-                    TowerSkills[0].UpdateUI(tower);
-                }
-                if(lv == 4) {
-                    TowerSkills[0].UpdateUI(tower);
-                    TowerSkills[1].UpdateUI(tower);
-                }
-                if(lv == 5) {
-                    TowerSkills[0].UpdateUI(tower);
-                    TowerSkills[1].UpdateUI(tower);
-                    TowerSkills[2].UpdateUI(tower);                    
-                }
-                if(lv == 6) {
-                    TowerSkills[0].UpdateUI(tower);
-                    TowerSkills[1].UpdateUI(tower);
-                    TowerSkills[2].UpdateUI(tower);
-                    TowerSkills[3].UpdateUI(tower);
+            //* Skill Icons 表示 (レベル３から表示を開始)
+            if(type == TowerType.Random.ToString()) {
+                int maxSkillsToUpdate = Mathf.Min(lv - 2, TowerSkills.Length);
+                for (int i = 0; i < maxSkillsToUpdate; i++) {
+                    TowerSkills[i].UpdateUI(kind);
                 }
             }
 
@@ -112,13 +99,13 @@ public class TowerStateUIManager : MonoBehaviour {
             }
 
             //* 情報表示
-            DmgTxt.text = states[1];
-            AtkSpeedTxt.text = states[2];
-            AtkRangeTxt.text = states[3];
-            CritPerTxt.text = states[4];
-            CritDmgPerTxt.text = states[5];
-            SlowPerTxt.text = states[6];
-            StunSecTxt.text = states[7];
+            DmgTxt.text = states[3];
+            AtkSpeedTxt.text = states[4];
+            AtkRangeTxt.text = states[5];
+            CritPerTxt.text = states[6];
+            CritDmgPerTxt.text = states[7];
+            SlowPerTxt.text = states[8];
+            StunSecTxt.text = states[9];
 
             WindowObj.SetActive(true);
         }

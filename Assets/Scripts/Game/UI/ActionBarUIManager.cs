@@ -233,7 +233,7 @@ public class ActionBarUIManager : MonoBehaviour {
             UpdateUI(Enum.Layer.SwitchTower);
         }
         else {
-            GM._.gui.StartCoroutine("위치변경을 전부 사용했습니다.");
+            GM._.gui.ShowMsgError("위치변경을 전부 사용했습니다.");
         }
     }
 
@@ -261,7 +261,7 @@ public class ActionBarUIManager : MonoBehaviour {
         yield return null;
         //* 道が詰まるエラー
         if(!GM._.pfm.PathFinding()) {
-            GM._.gui.StartCoroutine("길을 막으면 안됩니다!");
+            GM._.gui.ShowMsgError("길을 막으면 안됩니다!");
             //* タイル除去
             SetCCTowerCntTxt(-1);
             Destroy(GM._.tmc.HitObject);

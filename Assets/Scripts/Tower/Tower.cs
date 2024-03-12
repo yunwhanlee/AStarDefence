@@ -182,16 +182,17 @@ public abstract class Tower : MonoBehaviour {
         float extraSpdVal = AtkSpeed - TowerData.AtkSpeed;
         string extraSpdStr = extraSpdVal == 0? "" : $"<color=green>{extraSpdVal})";
 
-        string[] states = new string[8];
-        int i = 0;
-        states[i++] = Lv.ToString(); //* Gradeラベルとして表示
-        states[i++] = $"{TowerData.Dmg}{extraDmgStr}";
-        states[i++] = $"{TowerData.AtkSpeed}{extraSpdStr}";
-        states[i++] = $"{TowerData.AtkRange}";
-        states[i++] = $"{TowerData.CritPer}";
-        states[i++] = $"{TowerData.CritDmgPer}";
-        states[i++] = $"{TowerData.SlowSec}";
-        states[i++] = $"{TowerData.StunSec}";
+        string[] states = new string[10];
+        states[0] = Lv.ToString(); //* Gradeラベルとして表示
+        states[1] = Type.ToString(); //* タイプ
+        states[2] = Kind.ToString(); //* 種類
+        states[3] = $"{TowerData.Dmg}{extraDmgStr}";
+        states[4] = $"{TowerData.AtkSpeed}{extraSpdStr}";
+        states[5] = $"{TowerData.AtkRange}";
+        states[6] = $"{TowerData.CritPer}";
+        states[7] = $"{TowerData.CritDmgPer}";
+        states[8] = $"{TowerData.SlowSec}";
+        states[9] = $"{TowerData.StunSec}";
         return states;
     }
 #endregion
