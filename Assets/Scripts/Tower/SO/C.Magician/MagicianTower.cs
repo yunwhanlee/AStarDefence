@@ -49,8 +49,14 @@ public class MagicianTower : Tower {
         StartCoroutine(GetComponent<CharacterControls>().CoSpawnAnim());
         int cardLv = GM._.tm.TowerCardUgrLvs[(int)Kind];
 
-        Dmg = TowerData.Dmg
-        //* タワーレベル１以上なら、カードアップグレード値を掛ける
-        + (cardLv >= 1? cardLv * TowerManager.MAGICIAN_CARD_DMG_UP : 0);
+        //* 追加タメージDictionaryへ追加
+        if(ExtraDmgDic.ContainsKey(DIC_UPGRADE))
+            ExtraDmgDic.Remove(DIC_UPGRADE);
+        ExtraDmgDic.Add(DIC_UPGRADE, ExtraCardDmg(cardLv));
+    }
+
+    private int ExtraCardDmg(int cardLv) {
+        //* タワーLV * カードLV * タイプのダメージアップ単位
+        return cardLv >= 1? Lv * cardLv * TowerManager.MAGICIAN_CARD_DMG_UP : 0;
     }
 }

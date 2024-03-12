@@ -55,48 +55,49 @@ public class WarriorTower : Tower {
         StartCoroutine(GetComponent<CharacterControls>().CoSpawnAnim());
         int cardLv = GM._.tm.TowerCardUgrLvs[(int)Kind];
 
-        Dmg = TowerData.Dmg 
-            //* タワーレベル１以上なら、カードアップグレード値を掛ける
-            + (cardLv >= 1? cardLv * TowerManager.WARRIOR_CARD_DMG_UP : 0);
+        //* 追加タメージDictionaryへ追加
+        if(ExtraDmgDic.ContainsKey(DIC_UPGRADE))
+            ExtraDmgDic.Remove(DIC_UPGRADE);
+        ExtraDmgDic.Add(DIC_UPGRADE, ExtraCardDmg(cardLv));
+    }
+
+    private int ExtraCardDmg(int cardLv) {
+        //* タワーLV * カードLV * タイプのダメージアップ単位
+        return cardLv >= 1? Lv * cardLv * TowerManager.WARRIOR_CARD_DMG_UP : 0;
     }
 
     public void Skill1_Rage() {
         if(CorSkill1ID != null)
             return;
 
-        int[] lvPercents = new int[6] {0, 0, 80, 10, 15, 20};
+        int[] lvActivePers = new int[6] {0, 0, 80, 10, 15, 20};
         int rand = Random.Range(0, 100);
-        if(rand < lvPercents[Lv - 1]) {
+        if(rand < lvActivePers[Lv - 1]) {
             CorSkill1ID = StartCoroutine(CoSkill1_Rage());
         }
     }
 
     IEnumerator CoSkill1_Rage() {
         Debug.Log("CoSkill1_Rage()::");
+        const string RAGE = "RAGE";
+
+        float[] lvAbilityPers = new float[6] {0, 0, 0.1f, 0.2f, 0.3f, 0.4f};
+
+        RageIncDmg = (int)(TowerData.Dmg * lvAbilityPers[Lv]);
+        RageDecSpd = (int)(TowerData.AtkSpeed * lvAbilityPers[Lv]);
+
+        //* 追加タメージDictionaryへ追加
+        if(ExtraDmgDic.ContainsKey(RAGE))
+            ExtraDmgDic.Remove(RAGE);
+        ExtraDmgDic.Add(RAGE, RageIncDmg);
+
         RageAuraEF.SetActive(true);
-        switch(Lv) {
-            case 3:
-                RageIncDmg = (int)(TowerData.Dmg * 0.1f);
-                RageDecSpd = (int)(TowerData.AtkSpeed * 0.1f);
-                break;
-            case 4:
-                RageIncDmg = (int)(TowerData.Dmg * 0.2f);
-                RageDecSpd = (int)(TowerData.AtkSpeed * 0.2f);
-                break;
-            case 5:
-                RageIncDmg = (int)(TowerData.Dmg * 0.3f);
-                RageDecSpd = (int)(TowerData.AtkSpeed * 0.3f);
-                break;
-            case 6:
-                RageIncDmg = (int)(TowerData.Dmg * 0.4f);
-                RageDecSpd = (int)(TowerData.AtkSpeed * 0.4f);
-                break;
-        }
-        // GM._.gui.tsm.ShowTowerStateUI(InfoState());
+        GM._.gui.tsm.ShowTowerStateUI(InfoState());
 
         yield return new WaitForSeconds(3);
         RageAuraEF.SetActive(false);
         CorSkill1ID = null;
-        // GM._.gui.tsm.ShowTowerStateUI(InfoState());
+        ExtraDmgDic.Remove(RAGE);
+        GM._.gui.tsm.ShowTowerStateUI(InfoState());
     }
 }

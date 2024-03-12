@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts;
@@ -11,6 +12,8 @@ public enum TowerKind {None = -1, Warrior, Archer, Magician}
 public enum AttackType {Target, Round}
 
 public abstract class Tower : MonoBehaviour {
+    public const string DIC_UPGRADE = "Upgrade";
+
     //* 外部
     public SettingTowerData TowerData;
     public TowerRangeController trc;
@@ -26,7 +29,19 @@ public abstract class Tower : MonoBehaviour {
     public Sprite MissileSpr;
     public string Name;
     [Range(1, 7)] public int Lv;
-    public int Dmg;
+
+    public Dictionary<string , int> ExtraDmgDic = new Dictionary<string, int>();
+    public int Dmg {
+        get {
+            int extraDmg = 0;
+            foreach(var dic in ExtraDmgDic)
+                extraDmg += dic.Value;
+            return TowerData.Dmg + extraDmg;
+        }
+    }
+
+    
+
     public float AtkSpeed;
     [Range(0, 10)] public float AtkRange;
     [Range(0.00f, 1.00f)] public float CritPer;
@@ -143,7 +158,7 @@ public abstract class Tower : MonoBehaviour {
     public virtual void StateUpdate() {
         Lv = TowerData.Lv;
         Name = TowerData.name;
-        Dmg = TowerData.Dmg;
+        // Dmg = TowerData.Dmg;
         AtkSpeed = TowerData.AtkSpeed;
         AtkRange = TowerData.AtkRange;
         SlowSec = TowerData.SlowSec;
@@ -153,20 +168,15 @@ public abstract class Tower : MonoBehaviour {
 
     public virtual string[] InfoState() {
         Debug.Log($"Tower:: InfoState():: Name={Name}, Lv= {Lv}");
-        const TowerKind W = TowerKind.Warrior;
-        const TowerKind A = TowerKind.Archer;
-        // const TowerKind M = TowerKind.Magician;
-        int W_DMG = TowerManager.WARRIOR_CARD_DMG_UP;
-        int A_DMG = TowerManager.ARCHER_CARD_DMG_UP;
-        int M_DMG = TowerManager.MAGICIAN_CARD_DMG_UP;
 
-        //* カードアップグレードデータ反映
-        string extraDmg = ExtraTxt((Kind == W)? W_DMG : (Kind == A)? A_DMG : M_DMG);
+        //* 追加ダメージ
+        int extraDmgVal = Dmg - TowerData.Dmg;
+        string extraDmgStr = extraDmgVal == 0? "" : $"<color=green>(+{extraDmgVal})";
 
-        string[] states = new string[9];
+        string[] states = new string[8];
         int i = 0;
         states[i++] = Lv.ToString(); //* Gradeラベルとして表示
-        states[i++] = $"{TowerData.Dmg}{extraDmg}";
+        states[i++] = $"{TowerData.Dmg}{extraDmgStr}";
         states[i++] = $"{TowerData.AtkSpeed}";
         states[i++] = $"{TowerData.AtkRange}";
         states[i++] = $"{TowerData.CritPer}";
@@ -176,11 +186,6 @@ public abstract class Tower : MonoBehaviour {
         return states;
     }
 #endregion
-    private string ExtraTxt(int unit) {
-        int cardLv = GM._.tm.TowerCardUgrLvs[(int)Kind];
-        string txt = $"<color=green>(+{Lv * unit * cardLv})</color>";
-        return Type == TowerType.Random? (cardLv > 0? txt : "") : "";
-    }
 
     private void OnDrawGizmos() {
         var pos = transform.position;
