@@ -50,8 +50,7 @@ public class ArcherTower : Tower {
         int cardLv = GM._.tm.TowerCardUgrLvs[(int)Kind];
 
         //* 追加タメージDictionaryへ追加
-        if(ExtraDmgDic.ContainsKey(DIC_UPGRADE))
-            ExtraDmgDic.Remove(DIC_UPGRADE);
+        if(ExtraDmgDic.ContainsKey(DIC_UPGRADE)) ExtraDmgDic.Remove(DIC_UPGRADE);
         ExtraDmgDic.Add(DIC_UPGRADE, ExtraCardDmg(cardLv));
     }
 

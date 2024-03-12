@@ -30,7 +30,7 @@ public abstract class Tower : MonoBehaviour {
     public string Name;
     [Range(1, 7)] public int Lv;
 
-    public Dictionary<string , int> ExtraDmgDic = new Dictionary<string, int>();
+    public Dictionary<string, int> ExtraDmgDic = new Dictionary<string, int>();
     public int Dmg {
         get {
             int extraDmg = 0;
@@ -40,9 +40,15 @@ public abstract class Tower : MonoBehaviour {
         }
     }
 
-    
-
-    public float AtkSpeed;
+    public Dictionary<string, float> ExtraSpdDic = new Dictionary<string, float>();
+    public float AtkSpeed {
+        get {
+            float extraSpd = 0;
+            foreach(var dic in ExtraSpdDic)
+                extraSpd += dic.Value;
+            return TowerData.AtkSpeed - extraSpd;
+        }
+    }
     [Range(0, 10)] public float AtkRange;
     [Range(0.00f, 1.00f)] public float CritPer;
     public float CritDmgPer;
@@ -159,7 +165,7 @@ public abstract class Tower : MonoBehaviour {
         Lv = TowerData.Lv;
         Name = TowerData.name;
         // Dmg = TowerData.Dmg;
-        AtkSpeed = TowerData.AtkSpeed;
+        // AtkSpeed = TowerData.AtkSpeed;
         AtkRange = TowerData.AtkRange;
         SlowSec = TowerData.SlowSec;
         StunSec = TowerData.StunSec;
@@ -171,13 +177,16 @@ public abstract class Tower : MonoBehaviour {
 
         //* 追加ダメージ
         int extraDmgVal = Dmg - TowerData.Dmg;
-        string extraDmgStr = extraDmgVal == 0? "" : $"<color=green>(+{extraDmgVal})";
+        string extraDmgStr = extraDmgVal == 0? "" : $"<color=green>+{extraDmgVal}";
+        //* 追加スピード
+        float extraSpdVal = AtkSpeed - TowerData.AtkSpeed;
+        string extraSpdStr = extraSpdVal == 0? "" : $"<color=green>{extraSpdVal}";
 
         string[] states = new string[8];
         int i = 0;
         states[i++] = Lv.ToString(); //* Gradeラベルとして表示
         states[i++] = $"{TowerData.Dmg}{extraDmgStr}";
-        states[i++] = $"{TowerData.AtkSpeed}";
+        states[i++] = $"{TowerData.AtkSpeed}{extraSpdStr}";
         states[i++] = $"{TowerData.AtkRange}";
         states[i++] = $"{TowerData.CritPer}";
         states[i++] = $"{TowerData.CritDmgPer}";

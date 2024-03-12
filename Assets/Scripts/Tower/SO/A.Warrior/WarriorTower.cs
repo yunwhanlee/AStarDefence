@@ -9,8 +9,8 @@ using Random = UnityEngine.Random;
 public class WarriorTower : Tower {
     public Coroutine CorSkill1ID;
     public GameObject RageAuraEF;
-    [field:SerializeField] public int RageIncDmg {get; private set;}
-    [field:SerializeField] public float RageDecSpd {get; private set;}
+    [field:SerializeField] public int RageDmgUp {get; private set;}
+    [field:SerializeField] public float RageSpdUp {get; private set;}
 
     public override void CheckMergeUI() {
         Image mergeIcon = GM._.actBar.IconBtns[(int)ActionBarUIManager.ICON.Merge].GetComponent<Image>();
@@ -56,8 +56,7 @@ public class WarriorTower : Tower {
         int cardLv = GM._.tm.TowerCardUgrLvs[(int)Kind];
 
         //* 追加タメージDictionaryへ追加
-        if(ExtraDmgDic.ContainsKey(DIC_UPGRADE))
-            ExtraDmgDic.Remove(DIC_UPGRADE);
+        if(ExtraDmgDic.ContainsKey(DIC_UPGRADE)) ExtraDmgDic.Remove(DIC_UPGRADE);
         ExtraDmgDic.Add(DIC_UPGRADE, ExtraCardDmg(cardLv));
     }
 
@@ -70,7 +69,7 @@ public class WarriorTower : Tower {
         if(CorSkill1ID != null)
             return;
 
-        int[] lvActivePers = new int[6] {0, 0, 80, 10, 15, 20};
+        int[] lvActivePers = new int[6] {0, 0, 5, 10, 15, 20};
         int rand = Random.Range(0, 100);
         if(rand < lvActivePers[Lv - 1]) {
             CorSkill1ID = StartCoroutine(CoSkill1_Rage());
@@ -81,23 +80,27 @@ public class WarriorTower : Tower {
         Debug.Log("CoSkill1_Rage()::");
         const string RAGE = "RAGE";
 
-        float[] lvAbilityPers = new float[6] {0, 0, 0.1f, 0.2f, 0.3f, 0.4f};
+        float[] lvDmgIncPers = new float[6] {0, 0, 0.1f, 0.2f, 0.3f, 0.4f};
+        float[] lvSpdDecPers = new float[6] {0, 0, 0.2f, 0.25f, 0.3f, 0.35f};
 
-        RageIncDmg = (int)(TowerData.Dmg * lvAbilityPers[Lv]);
-        RageDecSpd = (int)(TowerData.AtkSpeed * lvAbilityPers[Lv]);
+        RageDmgUp = (int)(TowerData.Dmg * lvDmgIncPers[Lv]);
+        RageSpdUp = (float)(TowerData.AtkSpeed * lvSpdDecPers[Lv]);
 
-        //* 追加タメージDictionaryへ追加
-        if(ExtraDmgDic.ContainsKey(RAGE))
-            ExtraDmgDic.Remove(RAGE);
-        ExtraDmgDic.Add(RAGE, RageIncDmg);
+        //* 追加タメージ
+        if(ExtraDmgDic.ContainsKey(RAGE)) ExtraDmgDic.Remove(RAGE);
+        ExtraDmgDic.Add(RAGE, RageDmgUp);
+        //* 追加スピード
+        if(ExtraSpdDic.ContainsKey(RAGE)) ExtraSpdDic.Remove(RAGE);
+        ExtraSpdDic.Add(RAGE, RageSpdUp);
 
         RageAuraEF.SetActive(true);
         GM._.gui.tsm.ShowTowerStateUI(InfoState());
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2.5f);
         RageAuraEF.SetActive(false);
         CorSkill1ID = null;
         ExtraDmgDic.Remove(RAGE);
+        ExtraSpdDic.Remove(RAGE);
         GM._.gui.tsm.ShowTowerStateUI(InfoState());
     }
 }
