@@ -10,9 +10,15 @@ public class ArcherTower : Tower {
     public static readonly float[] SK1_CritIncPers = new float[6] {0, 0, 0.1f, 0.15f, 0.2f, 0.25f};
     public static readonly float[] SK2_MultiShotActivePers = new float[6] {0, 0, 0, 15, 20, 25};
     public static readonly int[] SK2_MultiShotCnts = new int[6] {0, 0, 0, 2, 4, 6};
-    public static readonly int[] SK3_PassShotSpans = new int[6] {0, 0, 0, 0, 7, 4};
-    public static readonly float[] SK3_PassShotDmgPers = new float[6] {0, 0, 0, 0, 10.0f, 15.0f};
+    public static readonly int[] SK3_PassShotSpans = new int[6] {0, 0, 0, 0, 10, 7};
+    public static readonly float[] SK3_PassShotDmgPers = new float[6] {0, 0, 0, 0, 5.0f, 8.0f};
     public static readonly float[] SK4_PerfectAimSpans = new float[6] {0, 0, 0, 0, 0, 10.0f};
+
+    public bool IsPassArrowActive;
+
+    void Start(){
+        IsPassArrowActive = true;
+    }
 
     public override void CheckMergeUI() {
         Image mergeIcon = GM._.actBar.IconBtns[(int)ActionBarUIManager.ICON.Merge].GetComponent<Image>();
@@ -88,5 +94,18 @@ public class ArcherTower : Tower {
                 break;
             }
         }
+    }
+
+    public void Skill3_PassArrow() {
+        if(IsPassArrowActive)
+            StartCoroutine(CoSkill3_PassArrow());
+    }
+    IEnumerator CoSkill3_PassArrow() {
+        IsPassArrowActive = false;
+        var idx = Lv == 5? PassArrowIdx.Red : Lv == 6? PassArrowIdx.Blue : PassArrowIdx.None;
+        PassArrow pa = GM._.mm.CreatePassArrow(idx);
+        pa.Init(this);
+        yield return new WaitForSeconds(5);
+        IsPassArrowActive = true;
     }
 }

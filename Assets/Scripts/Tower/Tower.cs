@@ -113,7 +113,6 @@ public abstract class Tower : MonoBehaviour {
                             case TowerKind.Warrior:
                                 //TODO EFFECT
                                 chara.Animator.SetTrigger("Slash");
-
                                 //* クリティカル
                                 bool isCritical = Util.CheckCriticalDmg(this);
                                 int totalDmg = Dmg * (isCritical? 2 : 1);
@@ -121,6 +120,7 @@ public abstract class Tower : MonoBehaviour {
                                 var warrior = this as WarriorTower;
                                 warrior.Skill1_Rage();
                                 break;
+
                             case TowerKind.Archer:
                             case TowerKind.Magician:
                                 chara.Animator.SetTrigger(Kind == TowerKind.Archer? "Shot" : "Jab");
@@ -161,15 +161,18 @@ public abstract class Tower : MonoBehaviour {
     }
 
     private void Shoot() {
-        Missile m1 = GM._.mm.CreateMissile();
-        m1.Init(this);
+        Missile ms = GM._.mm.CreateMissile();
+        ms.Init(this);
 
-        if(Kind == TowerKind.Archer && Lv > 3) {
+        if(Kind == TowerKind.Archer) {
             var archer = this as ArcherTower;
-            archer.Skill2_MultiShot();
+            if(Lv > 3)
+                archer.Skill2_MultiShot();
+            if(Lv > 4)
+                archer.Skill3_PassArrow();
+
         }
     }
-
     public virtual void StateUpdate() {
         Lv = TowerData.Lv;
         Name = TowerData.name;
