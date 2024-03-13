@@ -16,15 +16,18 @@ public class Util : MonoBehaviour {
     public static WaitForSeconds Time3 = new WaitForSeconds(3);
     public static WaitForSeconds Time3_5 = new WaitForSeconds(3.5f);
     public static WaitForSeconds Time4 = new WaitForSeconds(4);
+    public static WaitForSeconds Time5 = new WaitForSeconds(5);
 
     public static WaitForSecondsRealtime RealTime1 = new WaitForSecondsRealtime(1);
 
     [field:SerializeField] public Material BlinkMt {get; private set;}
     [field:SerializeField] public Material DefaultMt {get; private set;}
+    [field:SerializeField] public Material RedMt {get; private set;}
 
     void Awake() => _ = this;
 
     public void SetDefMt(SpriteRenderer sprRdr) => sprRdr.material = DefaultMt;
+    public void SetRedMt(SpriteRenderer sprRdr) => sprRdr.material = RedMt;
 
     public static bool CheckCriticalDmg(Tower myTower) {
         bool isCritical = false;

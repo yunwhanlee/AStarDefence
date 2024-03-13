@@ -10241,8 +10241,12 @@ MonoBehaviour:
   StunSec: 0
   RageAuraEF: {fileID: 0}
   WheelwindEF: {fileID: 0}
+  CheerUpEF: {fileID: 0}
   <RageDmgUp>k__BackingField: 0
   <RageSpdUp>k__BackingField: 0
+  <IsCheerUpActive>k__BackingField: 0
+  <CheerUpDmgUp>k__BackingField: 0
+  <CheerUpSpdUp>k__BackingField: 0
 --- !u!114 &1631033395140482249
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -22,13 +22,23 @@ public class WarriorTower : Tower {
 
     public GameObject RageAuraEF;
     public GameObject WheelwindEF;
+    public GameObject CheerUpEF;
     
     public Coroutine CorSkill1ID;
     [field:SerializeField] public int RageDmgUp {get; private set;}
     [field:SerializeField] public float RageSpdUp {get; private set;}
 
+    [field:SerializeField] public bool IsCheerUpActive {get; set;}
+    [field:SerializeField] public int CheerUpDmgUp {get; private set;}
+    [field:SerializeField] public float CheerUpSpdUp {get; private set;}
+
     bool isDrawGizmos;
     Vector2 gizmosPos;
+
+    void Start() {
+        if(Lv <= 5)
+            IsCheerUpActive = true;
+    }
 
     public override void CheckMergeUI() {
         Image mergeIcon = GM._.actBar.IconBtns[(int)ActionBarUIManager.ICON.Merge].GetComponent<Image>();
@@ -83,6 +93,7 @@ public class WarriorTower : Tower {
         return cardLv >= 1? Lv * cardLv * TowerManager.WARRIOR_CARD_DMG_UP : 0;
     }
 
+#region SKILL1 RAGE
     public void Skill1_Rage() {
         if(CorSkill1ID != null)
             return;
@@ -117,7 +128,9 @@ public class WarriorTower : Tower {
         ExtraSpdDic.Remove(RAGE);
         GM._.gui.tsm.ShowTowerStateUI(InfoState());
     }
+#endregion
 
+#region SKILL2 WHEELWIND
     public void Skill2_Wheelwind() {
         int lvIdx = Lv - 1;
 
@@ -152,6 +165,71 @@ public class WarriorTower : Tower {
         yield return Util.Time1_5;
         WheelwindEF.SetActive(false);
     }
+#endregion
+
+#region SKILL3 CHEER UP
+    public void Skill3_CheerUp() {
+        if(IsCheerUpActive)
+            StartCoroutine(CoSkill3_CheerUp());
+    }
+    IEnumerator CoSkill3_CheerUp() {
+        const string CHEERUP = "CHEERUP";
+        Debug.Log("CheerUp開始");
+        IsCheerUpActive = false;
+        CheerUpEF.SetActive(true);
+
+        CheerUpDmgUp = (int)(TowerData.Dmg * SK3_CheerUpDmgSpdIncPers[Lv]);
+        CheerUpSpdUp = (float)(TowerData.AtkSpeed * SK3_CheerUpDmgSpdIncPers[Lv]);
+
+        //* 全てタワーを探す
+        List<Tower> allTowerList = new List<Tower>();
+        for(int i = 0 ; i < GM._.tm.WarriorGroup.childCount; i++)
+            allTowerList.Add(GM._.tm.WarriorGroup.GetChild(i).GetComponentInChildren<Tower>());
+        for(int i = 0 ; i < GM._.tm.ArcherGroup.childCount; i++)
+            allTowerList.Add(GM._.tm.ArcherGroup.GetChild(i).GetComponentInChildren<Tower>());
+        for(int i = 0 ; i < GM._.tm.MagicianGroup.childCount; i++)
+            allTowerList.Add(GM._.tm.MagicianGroup.GetChild(i).GetComponentInChildren<Tower>());
+
+        //* 全てタワー
+        allTowerList.ForEach(tower => {
+            //* スタイル変更
+            Util._.SetRedMt(tower.BodySprRdr);
+
+            //* 追加タメージ
+            int extraDmg = (int)(tower.TowerData.Dmg * SK3_CheerUpDmgSpdIncPers[Lv]);
+            if(tower.ExtraDmgDic.ContainsKey(CHEERUP)) tower.ExtraDmgDic.Remove(CHEERUP);
+            tower.ExtraDmgDic.Add(CHEERUP, extraDmg);
+            //* 追加スピード
+            float extraSpd = (float)(tower.TowerData.AtkSpeed * SK3_CheerUpDmgSpdIncPers[Lv]);
+            if(tower.ExtraSpdDic.ContainsKey(CHEERUP)) tower.ExtraSpdDic.Remove(CHEERUP);
+            tower.ExtraSpdDic.Add(CHEERUP, extraSpd);
+        });
+
+        GM._.gui.tsm.ShowTowerStateUI(InfoState());
+
+        yield return Util.Time5;
+        Debug.Log("CheerUp終了");
+        CheerUpEF.SetActive(false);
+
+        //* 全てタワー
+        allTowerList.ForEach(tower => {
+            //* スタイル戻す
+            Util._.SetDefMt(tower.BodySprRdr);
+            //* ダメージと速度戻す
+            tower.ExtraDmgDic.Remove(CHEERUP);
+            tower.ExtraSpdDic.Remove(CHEERUP);
+        });
+
+        GM._.gui.tsm.ShowTowerStateUI(InfoState());
+
+        yield return new WaitForSeconds(10);
+        IsCheerUpActive = true;
+    }
+#endregion
+
+#region SKILL4 ROAR
+
+#endregion
 
     IEnumerator CoActiveGizmos(Vector2 pos) {
         gizmosPos = pos;
