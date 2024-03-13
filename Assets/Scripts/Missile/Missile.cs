@@ -71,18 +71,14 @@ public class Missile : MonoBehaviour {
 
                     //* Migician爆発 Skill
                     if(MyTower.Kind == TowerKind.Magician) {
-                        var layerMask = 1 << Enum.Layer.Enemy;
-                        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 1, layerMask);
-                        Debug.Log("アタック！ ROUND:: colliders= " + colliders.Length);
-                        foreach(Collider2D col in colliders) {
-                            Enemy splashedEnemy = col.GetComponent<Enemy>();
-                            splashedEnemy.DecreaseHp(MyTower.Dmg);
-                        }
+                        MagicianTower magician = MyTower as MagicianTower;
+                        magician.Skill1_Explosion(enemy);
                     }
 
                     //* クリティカル
                     bool isCritical = Util.CheckCriticalDmg(MyTower);
                     int totalDmg = MyTower.Dmg * (isCritical? 2 : 1);
+
                     enemy.DecreaseHp(totalDmg, isCritical);
                     GM._.mm.Pool.Release(this); //* 戻すは一つのみなのに、複数衝突して１回以上読みこむとエラー
                     ColList.Clear();

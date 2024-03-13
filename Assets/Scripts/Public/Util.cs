@@ -10,6 +10,7 @@ public class Util : MonoBehaviour {
     public static WaitForSeconds Time0_75 = new WaitForSeconds(0.75f);
     public static WaitForSeconds Time0_1 = new WaitForSeconds(0.1f);
     public static WaitForSeconds Time1 = new WaitForSeconds(1);
+    public static WaitForSeconds Time1_5 = new WaitForSeconds(1.5f);
     public static WaitForSeconds Time2 = new WaitForSeconds(2);
     public static WaitForSeconds Time3 = new WaitForSeconds(3);
 

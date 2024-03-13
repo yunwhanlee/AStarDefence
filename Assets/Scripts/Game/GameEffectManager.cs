@@ -9,6 +9,7 @@ public enum GameEF {
     DmgTxtEF,
     CritDmgTxtEF,
     RefundTxtEF,
+    ExplosionFireballEF,
     //* UI
 }
 
@@ -19,6 +20,7 @@ public class GameEffectManager : MonoBehaviour {
     [field:SerializeField] public GameObject DmgTxtEF;
     [field:SerializeField] public GameObject CritDmgTxtEF;
     [field: SerializeField] public GameObject RefundTxtEF;
+    [field: SerializeField] public GameObject ExplosionFireballEF;
 
     //* Active Type
 
@@ -26,6 +28,7 @@ public class GameEffectManager : MonoBehaviour {
         pool.Add(InitEF(DmgTxtEF, max: 50));
         pool.Add(InitEF(CritDmgTxtEF, max: 25));
         pool.Add(InitEF(RefundTxtEF, max: 3));
+        pool.Add(InitEF(ExplosionFireballEF, max: 5));
     }
 
 #region POOL
@@ -44,8 +47,18 @@ public class GameEffectManager : MonoBehaviour {
 #endregion
 
 #region SHOW EFFECT
-    public void ShowDmgTxtEF(Vector3 pos, int dmg, bool isCritical = false) => StartCoroutine(CoShowDmgTxtEF(pos, dmg, isCritical));
-    IEnumerator CoShowDmgTxtEF(Vector3 pos, int dmg, bool isCritical) {
+    public void ShowEF(GameEF efIdx, Vector2 pos) {
+        StartCoroutine(CoShowEF(efIdx, pos));
+    }
+    IEnumerator CoShowEF(GameEF efIdx, Vector2 pos) {
+        GameObject ef = pool[(int)efIdx].Get();
+        ef.transform.position = pos;
+        yield return Util.Time1_5;
+        pool[(int)efIdx].Release(ef);
+    }
+
+    public void ShowDmgTxtEF(Vector2 pos, int dmg, bool isCritical = false) => StartCoroutine(CoShowDmgTxtEF(pos, dmg, isCritical));
+    IEnumerator CoShowDmgTxtEF(Vector2 pos, int dmg, bool isCritical) {
         int idx = isCritical? (int)GameEF.CritDmgTxtEF : (int)GameEF.DmgTxtEF;
         GameObject ef = pool[idx].Get();
         ef.transform.position = pos;
@@ -54,8 +67,8 @@ public class GameEffectManager : MonoBehaviour {
         pool[idx].Release(ef);
     }
 
-    public void ShowRefundTxtEF(Vector3 pos, int val) => StartCoroutine(CoShowRefundTxtEF(pos, val));
-    IEnumerator CoShowRefundTxtEF(Vector3 pos, int val)
+    public void ShowRefundTxtEF(Vector2 pos, int val) => StartCoroutine(CoShowRefundTxtEF(pos, val));
+    IEnumerator CoShowRefundTxtEF(Vector2 pos, int val)
     { //bool isCritical) {
         int idx = (int)GameEF.RefundTxtEF;
         GameObject ef = pool[idx].Get();
