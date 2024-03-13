@@ -8,16 +8,22 @@ using Random = UnityEngine.Random;
 
 public class ArcherTower : Tower {
     public static readonly float[] SK1_CritIncPers = new float[6] {0, 0, 0.1f, 0.15f, 0.2f, 0.25f};
+
     public static readonly float[] SK2_MultiShotActivePers = new float[6] {0, 0, 0, 15, 20, 25};
     public static readonly int[] SK2_MultiShotCnts = new int[6] {0, 0, 0, 2, 4, 6};
+
     public static readonly int[] SK3_PassShotSpans = new int[6] {0, 0, 0, 0, 10, 7};
     public static readonly float[] SK3_PassShotDmgPers = new float[6] {0, 0, 0, 0, 5.0f, 8.0f};
-    public static readonly float[] SK4_PerfectAimSpans = new float[6] {0, 0, 0, 0, 0, 10.0f};
 
-    public bool IsPassArrowActive;
+    public static readonly float[] SK4_PerfectAimSpans = new float[6] {0, 0, 0, 0, 0, 10};
+
+    [field:SerializeField] public GameObject PerfectAimAuraEF {get; set;}
+    [field:SerializeField] public bool IsPassArrowActive {get; set;}
+    [field:SerializeField] public bool IsPerfectAimActive {get; set;}
 
     void Start(){
         IsPassArrowActive = true;
+        IsPerfectAimActive = true;
     }
 
     public override void CheckMergeUI() {
@@ -107,5 +113,31 @@ public class ArcherTower : Tower {
         pa.Init(this);
         yield return new WaitForSeconds(5);
         IsPassArrowActive = true;
+    }
+
+    public void Skill4_PerfectAim() {
+        if(IsPerfectAimActive)
+            StartCoroutine(CoSkill4_PerfectAim());
+    }
+    IEnumerator CoSkill4_PerfectAim() {
+        Debug.Log("PERFECT AIM! 開始");
+        IsPerfectAimActive = false;
+        PerfectAimAuraEF.SetActive(true);
+
+        // 追加クリティカル
+        const string PERFECT_AIM = "PerfectAim";
+        if(ExtraCritDic.ContainsKey(PERFECT_AIM)) ExtraCritDic.Remove(PERFECT_AIM);
+        Debug.Log($"SIBAL= {1 - TowerData.CritPer}");
+        ExtraCritDic.Add(PERFECT_AIM, 1 - TowerData.CritPer);
+        GM._.gui.tsm.ShowTowerStateUI(InfoState());
+
+        yield return new WaitForSeconds(5);
+        Debug.Log("PERFECT AIM! 終了");
+        ExtraCritDic.Remove(PERFECT_AIM);
+        PerfectAimAuraEF.SetActive(false);
+        GM._.gui.tsm.ShowTowerStateUI(InfoState());
+        
+        yield return new WaitForSeconds(SK4_PerfectAimSpans[Lv - 1]);
+        IsPerfectAimActive = true;
     }
 }

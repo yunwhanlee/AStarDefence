@@ -29,6 +29,7 @@ public abstract class Tower : MonoBehaviour {
     public string Name;
     [Range(1, 7)] public int Lv;
 
+    //* ダメージ
     public Dictionary<string, int> ExtraDmgDic = new Dictionary<string, int>();
     public int Dmg {
         get {
@@ -41,6 +42,7 @@ public abstract class Tower : MonoBehaviour {
         }
     }
 
+    //* 速度
     public Dictionary<string, float> ExtraSpdDic = new Dictionary<string, float>();
     public float AtkSpeed {
         get {
@@ -50,9 +52,24 @@ public abstract class Tower : MonoBehaviour {
             return TowerData.AtkSpeed - extraSpd;
         }
     }
+
+    //* 範囲
     [Range(0, 10)] public float AtkRange;
-    [Range(0.00f, 1.00f)] public float CritPer;
+
+    //* クリティカル
+    public Dictionary<string, float> ExtraCritDic = new Dictionary<string, float>();
+    public float CritPer {
+        get {
+            float extraCrit = 0;
+            foreach(var dic in ExtraCritDic)
+                extraCrit += dic.Value;
+            return TowerData.CritPer + extraCrit;
+        }
+    }
+
+    //* クリティカルダメージ
     public float CritDmgPer;
+
     //* CC
     [Range(0.0f, 5.00f)] public float SlowSec;
     [Range(0.0f, 5.0f)] public float StunSec;
@@ -170,6 +187,8 @@ public abstract class Tower : MonoBehaviour {
                 archer.Skill2_MultiShot();
             if(Lv > 4)
                 archer.Skill3_PassArrow();
+            if(Lv > 5)
+                archer.Skill4_PerfectAim();
 
         }
     }
@@ -179,7 +198,7 @@ public abstract class Tower : MonoBehaviour {
         // Dmg = TowerData.Dmg;
         // AtkSpeed = TowerData.AtkSpeed;
         AtkRange = TowerData.AtkRange;
-        CritPer = TowerData.CritPer;
+        // CritPer = TowerData.CritPer;
         CritDmgPer = TowerData.CritDmgPer;
         SlowSec = TowerData.SlowSec;
         StunSec = TowerData.StunSec;
@@ -194,7 +213,10 @@ public abstract class Tower : MonoBehaviour {
         string extraDmgStr = extraDmgVal == 0? "" : $"<color=green>+{extraDmgVal}";
         //* 追加スピード
         float extraSpdVal = AtkSpeed - TowerData.AtkSpeed;
-        string extraSpdStr = extraSpdVal == 0? "" : $"<color=green>{extraSpdVal})";
+        string extraSpdStr = extraSpdVal == 0? "" : $"<color=green>{extraSpdVal}";
+        //* 追加クリティカル
+        float extraCirtPer = (CritPer - TowerData.CritPer) * 100;
+        string extraCritStr = extraCirtPer == 0? "" : $"<color=green>+{extraCirtPer}";
 
         string[] states = new string[10];
         states[0] = Lv.ToString(); //* Gradeラベルとして表示
@@ -203,7 +225,7 @@ public abstract class Tower : MonoBehaviour {
         states[3] = $"{TowerData.Dmg}{extraDmgStr}";
         states[4] = $"{TowerData.AtkSpeed}{extraSpdStr}";
         states[5] = $"{TowerData.AtkRange}";
-        states[6] = $"{TowerData.CritPer * 100}%";
+        states[6] = $"{TowerData.CritPer * 100}{extraCritStr}%";
         states[7] = $"{TowerData.CritDmgPer * 100}%";
         states[8] = $"{TowerData.SlowSec}";
         states[9] = $"{TowerData.StunSec}";
