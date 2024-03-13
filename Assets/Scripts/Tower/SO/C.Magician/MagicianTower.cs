@@ -5,8 +5,17 @@ using UnityEngine.UI;
 using System;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts;
 using Random = UnityEngine.Random;
+using UnityEditor.PackageManager;
 
 public class MagicianTower : Tower {
+    public static readonly int[] SK1_ExplosionLvActivePers = new int[6] {0, 0, 20, 25, 30, 35};
+    public static readonly int[] SK2_IgniteActivePers = new int[6] {0, 0, 0, 10, 15, 20};
+    public static readonly float[] SK2_IgniteDmgPers = new float[6] {0, 0, 0, 0.1f, 0.15f, 0.2f};
+    public static readonly float[] SK3_LaserSpans = new float[6] {0, 0, 0, 0, 7, 5};
+    public static readonly float[] SK3_LaserDmgPers = new float[6] {0, 0, 0, 0, 1.0f, 2.0f};
+    public static readonly float[] SK4_MeteorSpans = new float[6] {0, 0, 0, 0, 0, 12};
+    public static readonly float[] SK4_MeteorDmgs = new float[6] {0, 0, 0, 0, 0, 10.0f};
+
     bool isDrawGizmos;
     Vector2 gizmosPos;
 
@@ -65,11 +74,10 @@ public class MagicianTower : Tower {
 
     public void Skill1_Explosion(Enemy target) {
         const float RADIUS = 1;
-        int[] lvActivePers = new int[6] {0, 0, 20, 25, 30, 35};
 
         //* 発動％にならなかったら、終了
         int rand = Random.Range(0, 100);
-        if(rand >= lvActivePers[Lv - 1])
+        if(rand >= SK1_ExplosionLvActivePers[Lv - 1])
             return;
 
         StartCoroutine(CoActiveGizmos(target.transform.position));

@@ -7,6 +7,18 @@ using Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts;
 using Random = UnityEngine.Random;
 
 public class WarriorTower : Tower {
+    public static readonly int[] SK1_RageActivePers = new int[6] {0, 0, 5, 10, 15, 20};
+    public static readonly float[] SK1_RageDmgSpdIncPers = new float[6] {0, 0, 0.15f, 0.2f, 0.3f, 0.4f};
+    public static readonly float[] SK1_RageTime = new float[6] {0, 0, 2.5f, 3, 3.5f, 4};
+    public static readonly float[] SK2_SmashActivePers = new float[6] {0, 0, 0, 0.1f, 0.12f, 0.15f};
+    public static readonly int[] SK2_SmashHitCnts = new int[6] {0, 0, 0, 2, 3, 4};
+    public static readonly float[] SK2_SmashDmgPers = new float[6] {0, 0, 0, 3, 4, 5};
+    public static readonly float[] SK2_SmashStunPers = new float[6] {0, 0, 0, 0.2f, 0.3f, 0.4f};
+    public static readonly float[] SK3_CheerUpSpans = new float[6] {0, 0, 0, 0, 12, 10};
+    public static readonly float[] SK3_CheerUpDmgSpdIncPers = new float[6] {0, 0, 0, 0, 0.2f, 0.4f};
+    public static readonly float[] SK4_RoarSpans = new float[6] {0, 0, 0, 0, 0, 15};
+    public static readonly float[] SK4_RoarDmgPers = new float[6] {0, 0, 0, 0, 0, 5.0f};
+
     public Coroutine CorSkill1ID;
     public GameObject RageAuraEF;
     [field:SerializeField] public int RageDmgUp {get; private set;}
@@ -69,9 +81,8 @@ public class WarriorTower : Tower {
         if(CorSkill1ID != null)
             return;
 
-        int[] lvActivePers = new int[6] {0, 0, 5, 10, 15, 20};
         int rand = Random.Range(0, 100);
-        if(rand < lvActivePers[Lv - 1]) {
+        if(rand < SK1_RageActivePers[Lv - 1]) {
             CorSkill1ID = StartCoroutine(CoSkill1_Rage());
         }
     }
@@ -80,11 +91,8 @@ public class WarriorTower : Tower {
         Debug.Log("CoSkill1_Rage()::");
         const string RAGE = "RAGE";
 
-        float[] lvDmgIncPers = new float[6] {0, 0, 0.1f, 0.2f, 0.3f, 0.4f};
-        float[] lvSpdDecPers = new float[6] {0, 0, 0.2f, 0.25f, 0.3f, 0.35f};
-
-        RageDmgUp = (int)(TowerData.Dmg * lvDmgIncPers[Lv]);
-        RageSpdUp = (float)(TowerData.AtkSpeed * lvSpdDecPers[Lv]);
+        RageDmgUp = (int)(TowerData.Dmg * SK1_RageDmgSpdIncPers[Lv]);
+        RageSpdUp = (float)(TowerData.AtkSpeed * SK1_RageDmgSpdIncPers[Lv]);
 
         //* 追加タメージ
         if(ExtraDmgDic.ContainsKey(RAGE)) ExtraDmgDic.Remove(RAGE);

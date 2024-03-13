@@ -23,13 +23,77 @@ public class TowerSkill {
     [field: SerializeField] public TextMeshProUGUI DetailPopUpNameTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI DetailPopUpInfoTxt {get; set;}
 
-    public void UpdateUI(TowerKind kind) {
+    public void UpdateUI(TowerKind kind, int lv, int idx) {
+        Debug.Log($"UpdateUI():: TowerKind= {kind}, lv= {lv}");
+        //* Actionバー右上にアイコン表示
         IconObj.SetActive(true);
         IconImg.sprite = SkillSprs[(int)kind];
 
+        //* Detail PopUp
         DetailPopUpIconImg.sprite = SkillSprs[(int)kind];
+
         DetailPopUpNameTxt.text = TitleArr[(int)kind];
-        DetailPopUpInfoTxt.text = InfoArr[(int)kind];
+
+        int lvIdx = lv - 1;
+        string infoMsg = InfoArr[(int)kind];
+        switch(kind) {
+            case TowerKind.Warrior:
+                if(idx == 0) {
+                    infoMsg = infoMsg.Replace("N1", $"{WarriorTower.SK1_RageActivePers[lvIdx]}");
+                    infoMsg = infoMsg.Replace("N2", $"{WarriorTower.SK1_RageDmgSpdIncPers[lvIdx] * 100}");
+                    infoMsg = infoMsg.Replace("N3", $"{WarriorTower.SK1_RageTime[lvIdx]}");
+                }
+                else if(idx == 1) {
+                    infoMsg = infoMsg.Replace("N1", $"{WarriorTower.SK2_SmashActivePers[lvIdx] * 100}");
+                    infoMsg = infoMsg.Replace("N2", $"{WarriorTower.SK2_SmashHitCnts[lvIdx]}");
+                    infoMsg = infoMsg.Replace("N3", $"{WarriorTower.SK2_SmashDmgPers[lvIdx] * 100}");
+                    infoMsg = infoMsg.Replace("N4", $"{WarriorTower.SK2_SmashStunPers[lvIdx] * 100}");
+                }
+                else if(idx == 2) {
+                    infoMsg = infoMsg.Replace("N1", $"{WarriorTower.SK3_CheerUpSpans[lvIdx]}");
+                    infoMsg = infoMsg.Replace("N2", $"{WarriorTower.SK3_CheerUpDmgSpdIncPers[lvIdx] * 100}");
+                }
+                else if(idx == 3) {
+                    infoMsg = infoMsg.Replace("N1", $"{WarriorTower.SK4_RoarSpans[lvIdx]}");
+                    infoMsg = infoMsg.Replace("N2", $"{WarriorTower.SK4_RoarDmgPers[lvIdx] * 100}");
+                }
+                break;
+            case TowerKind.Archer:
+                if(idx == 0) {
+                    infoMsg = infoMsg.Replace("N", $"{ArcherTower.SK1_CritIncPers[lvIdx] * 100}");
+                }
+                else if(idx == 1) {
+                    infoMsg = infoMsg.Replace("N1", $"{ArcherTower.SK2_MultiShotActivePers[lvIdx] * 100}");
+                    infoMsg = infoMsg.Replace("N2", $"{ArcherTower.SK2_MultiShotCnts[lvIdx]}");
+                }
+                else if(idx == 2) {
+                    infoMsg = infoMsg.Replace("N1", $"{ArcherTower.SK3_PassShotSpans[lvIdx]}");
+                    infoMsg = infoMsg.Replace("N2", $"{ArcherTower.SK3_PassShotDmgPers[lvIdx] * 100}");
+                }
+                else if(idx == 3) {
+                    infoMsg = infoMsg.Replace("N", $"{ArcherTower.SK4_PerfectAimSpans[lvIdx]}");
+                }
+                break;
+            case TowerKind.Magician:
+                if(idx == 0) {
+                    infoMsg = infoMsg.Replace("N", $"{MagicianTower.SK1_ExplosionLvActivePers[lvIdx]}");
+                }
+                else if(idx == 1) {
+                    infoMsg = infoMsg.Replace("N1", $"{MagicianTower.SK2_IgniteActivePers[lvIdx]}");
+                    infoMsg = infoMsg.Replace("N2", $"{MagicianTower.SK2_IgniteDmgPers[lvIdx] * 100}");
+                }
+                else if(idx == 2) {
+                    infoMsg = infoMsg.Replace("N1", $"{MagicianTower.SK3_LaserSpans[lvIdx]}");
+                    infoMsg = infoMsg.Replace("N2", $"{MagicianTower.SK3_LaserDmgPers[lvIdx] * 100}");
+                }
+                else if(idx == 3) {
+                    infoMsg = infoMsg.Replace("N1", $"{MagicianTower.SK4_MeteorSpans[lvIdx]}");
+                    infoMsg = infoMsg.Replace("N2", $"{MagicianTower.SK4_MeteorDmgs[lvIdx] * 100}");
+                }
+                break;
+        }
+
+        DetailPopUpInfoTxt.text = infoMsg;
     }
 }
 
@@ -89,7 +153,7 @@ public class TowerStateUIManager : MonoBehaviour {
             if(type == TowerType.Random.ToString()) {
                 int maxSkillsToUpdate = Mathf.Min(lv - 2, TowerSkills.Length);
                 for (int i = 0; i < maxSkillsToUpdate; i++) {
-                    TowerSkills[i].UpdateUI(kind);
+                    TowerSkills[i].UpdateUI(kind, lv, i);
                 }
             }
 

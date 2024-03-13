@@ -6,6 +6,13 @@ using System;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts;
 
 public class ArcherTower : Tower {
+    public static readonly float[] SK1_CritIncPers = new float[6] {0, 0, 0.1f, 0.15f, 0.2f, 0.25f};
+    public static readonly float[] SK2_MultiShotActivePers = new float[6] {0, 0, 0, 0.1f, 0.12f, 0.15f};
+    public static readonly int[] SK2_MultiShotCnts = new int[6] {0, 0, 0, 2, 3, 4};
+    public static readonly int[] SK3_PassShotSpans = new int[6] {0, 0, 0, 0, 7, 4};
+    public static readonly float[] SK3_PassShotDmgPers = new float[6] {0, 0, 0, 0, 10.0f, 15.0f};
+    public static readonly float[] SK4_PerfectAimSpans = new float[6] {0, 0, 0, 0, 0, 10.0f};
+
     public override void CheckMergeUI() {
         Image mergeIcon = GM._.actBar.IconBtns[(int)ActionBarUIManager.ICON.Merge].GetComponent<Image>();
 

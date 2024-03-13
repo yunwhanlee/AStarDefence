@@ -66,6 +66,16 @@ public class GM : MonoBehaviour {
     }
 
 #region EVENT
+    //! DEBUG
+    public void OnClickNextTower() {
+        var tower = tmc.HitObject.GetComponentInChildren<Tower>();
+        //* 次のレベルタワーランダムで生成
+        tm.CreateTower(tower.Type, tower.Lv++, tower.Kind);
+        //* 自分を削除
+        DestroyImmediate(tower.gameObject);
+        actBar.UpdateUI(Enum.Layer.Tower);
+    }
+
     public void OnClickStartBtn() =>StartWave();
 #endregion
 
