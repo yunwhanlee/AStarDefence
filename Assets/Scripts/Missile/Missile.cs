@@ -11,6 +11,7 @@ public class Missile : MonoBehaviour {
 
     //* 単一なのに複数が当たることを防止
     [field:SerializeField] public List<Collider2D> ColList {get; set;}
+    [field:SerializeField] public bool IsMultiShot = false;
     private Vector2 dir;
     private const float speed = 10;
 
@@ -44,7 +45,10 @@ public class Missile : MonoBehaviour {
     }
 
 #region FUNC
-    public void Init(Tower myTower) {
+    public void Init(Tower myTower, float extraDeg = 0) {
+        //* マルチショットなのかチェック
+        IsMultiShot = (extraDeg != 0);
+
         MyTower = myTower;
         transform.position = new Vector2(MyTower.transform.position.x, MyTower.transform.position.y + 0.15f);
         Target = MyTower.trc.CurTarget;
@@ -55,7 +59,7 @@ public class Missile : MonoBehaviour {
         dir = dir.normalized;
         
         float degree = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, degree);
+        transform.rotation = Quaternion.Euler(0, 0, degree + extraDeg);
 
         if(MyTower.MissileSpr)
             SprRdr.sprite = MyTower.MissileSpr;
@@ -78,6 +82,10 @@ public class Missile : MonoBehaviour {
                     //* クリティカル
                     bool isCritical = Util.CheckCriticalDmg(MyTower);
                     int totalDmg = MyTower.Dmg * (isCritical? 2 : 1);
+
+                    //* マルチショットなら、ダメージ半分
+                    if(IsMultiShot)
+                        totalDmg /= 2;
 
                     enemy.DecreaseHp(totalDmg, isCritical);
                     GM._.mm.Pool.Release(this); //* 戻すは一つのみなのに、複数衝突して１回以上読みこむとエラー

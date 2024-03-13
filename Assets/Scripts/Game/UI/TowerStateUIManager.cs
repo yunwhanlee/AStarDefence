@@ -63,7 +63,7 @@ public class TowerSkill {
                     infoMsg = infoMsg.Replace("N", $"{ArcherTower.SK1_CritIncPers[lvIdx] * 100}");
                 }
                 else if(idx == 1) {
-                    infoMsg = infoMsg.Replace("N1", $"{ArcherTower.SK2_MultiShotActivePers[lvIdx] * 100}");
+                    infoMsg = infoMsg.Replace("N1", $"{ArcherTower.SK2_MultiShotActivePers[lvIdx]}");
                     infoMsg = infoMsg.Replace("N2", $"{ArcherTower.SK2_MultiShotCnts[lvIdx]}");
                 }
                 else if(idx == 2) {

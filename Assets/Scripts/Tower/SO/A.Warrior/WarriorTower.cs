@@ -10,7 +10,7 @@ public class WarriorTower : Tower {
     public static readonly int[] SK1_RageActivePers = new int[6] {0, 0, 5, 10, 15, 20};
     public static readonly float[] SK1_RageDmgSpdIncPers = new float[6] {0, 0, 0.15f, 0.2f, 0.3f, 0.4f};
     public static readonly float[] SK1_RageTime = new float[6] {0, 0, 2.5f, 3, 3.5f, 4};
-    public static readonly float[] SK2_SmashActivePers = new float[6] {0, 0, 0, 0.1f, 0.12f, 0.15f};
+    public static readonly float[] SK2_SmashActivePers = new float[6] {0, 0, 0, 10, 12, 15};
     public static readonly int[] SK2_SmashHitCnts = new int[6] {0, 0, 0, 2, 3, 4};
     public static readonly float[] SK2_SmashDmgPers = new float[6] {0, 0, 0, 3, 4, 5};
     public static readonly float[] SK2_SmashStunPers = new float[6] {0, 0, 0, 0.2f, 0.3f, 0.4f};

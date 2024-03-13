@@ -161,8 +161,13 @@ public abstract class Tower : MonoBehaviour {
     }
 
     private void Shoot() {
-        Missile missile = GM._.mm.CreateMissile();
-        missile.Init(this);
+        Missile m1 = GM._.mm.CreateMissile();
+        m1.Init(this);
+
+        if(Kind == TowerKind.Archer && Lv > 3) {
+            var archer = this as ArcherTower;
+            archer.Skill2_MultiShot();
+        }
     }
 
     public virtual void StateUpdate() {

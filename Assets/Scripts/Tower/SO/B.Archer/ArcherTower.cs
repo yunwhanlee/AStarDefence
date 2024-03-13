@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts;
+using Random = UnityEngine.Random;
 
 public class ArcherTower : Tower {
     public static readonly float[] SK1_CritIncPers = new float[6] {0, 0, 0.1f, 0.15f, 0.2f, 0.25f};
-    public static readonly float[] SK2_MultiShotActivePers = new float[6] {0, 0, 0, 0.1f, 0.12f, 0.15f};
-    public static readonly int[] SK2_MultiShotCnts = new int[6] {0, 0, 0, 2, 3, 4};
+    public static readonly float[] SK2_MultiShotActivePers = new float[6] {0, 0, 0, 15, 20, 25};
+    public static readonly int[] SK2_MultiShotCnts = new int[6] {0, 0, 0, 2, 4, 6};
     public static readonly int[] SK3_PassShotSpans = new int[6] {0, 0, 0, 0, 7, 4};
     public static readonly float[] SK3_PassShotDmgPers = new float[6] {0, 0, 0, 0, 10.0f, 15.0f};
     public static readonly float[] SK4_PerfectAimSpans = new float[6] {0, 0, 0, 0, 0, 10.0f};
@@ -64,5 +65,28 @@ public class ArcherTower : Tower {
     private int ExtraCardDmg(int cardLv) {
         //* タワーLV * カードLV * タイプのダメージアップ単位
         return cardLv >= 1? Lv * cardLv * TowerManager.ARCHER_CARD_DMG_UP : 0;
+    }
+
+    private void SetMultiShot(int cnt) {
+        for(int i = 0; i < cnt; i++) {
+            Missile ms = GM._.mm.CreateMissile();
+            int sign = (i % 2 == 0)? -1 : 1;
+            int degree = 10 * (1 + i / 2);
+            ms.Init(this, sign * degree);
+        }
+    }
+
+    public void Skill2_MultiShot() {
+        int rand = Random.Range(0, 100);
+        if(rand < SK2_MultiShotActivePers[Lv - 1]) {
+            switch(Lv) {
+                case 4: SetMultiShot(2);
+                break;
+                case 5: SetMultiShot(4);
+                break;
+                case 6: SetMultiShot(6);
+                break;
+            }
+        }
     }
 }
