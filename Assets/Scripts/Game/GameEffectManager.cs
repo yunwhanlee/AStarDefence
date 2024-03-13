@@ -9,7 +9,11 @@ public enum GameEF {
     DmgTxtEF,
     CritDmgTxtEF,
     RefundTxtEF,
+    // Warrior
+    SmashEF,
+    // Magician
     ExplosionFireballEF,
+    
     //* UI
 }
 
@@ -20,6 +24,7 @@ public class GameEffectManager : MonoBehaviour {
     [field:SerializeField] public GameObject DmgTxtEF;
     [field:SerializeField] public GameObject CritDmgTxtEF;
     [field: SerializeField] public GameObject RefundTxtEF;
+    [field: SerializeField] public GameObject SmashEF;
     [field: SerializeField] public GameObject ExplosionFireballEF;
 
     //* Active Type
@@ -28,6 +33,7 @@ public class GameEffectManager : MonoBehaviour {
         pool.Add(InitEF(DmgTxtEF, max: 50));
         pool.Add(InitEF(CritDmgTxtEF, max: 25));
         pool.Add(InitEF(RefundTxtEF, max: 3));
+        pool.Add(InitEF(SmashEF, max: 3));
         pool.Add(InitEF(ExplosionFireballEF, max: 5));
     }
 

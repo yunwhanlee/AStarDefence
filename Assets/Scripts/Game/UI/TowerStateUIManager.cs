@@ -44,10 +44,8 @@ public class TowerSkill {
                     infoMsg = infoMsg.Replace("N3", $"{WarriorTower.SK1_RageTime[lvIdx]}");
                 }
                 else if(idx == 1) {
-                    infoMsg = infoMsg.Replace("N1", $"{WarriorTower.SK2_SmashActivePers[lvIdx] * 100}");
-                    infoMsg = infoMsg.Replace("N2", $"{WarriorTower.SK2_SmashHitCnts[lvIdx]}");
-                    infoMsg = infoMsg.Replace("N3", $"{WarriorTower.SK2_SmashDmgPers[lvIdx] * 100}");
-                    infoMsg = infoMsg.Replace("N4", $"{WarriorTower.SK2_SmashStunPers[lvIdx] * 100}");
+                    infoMsg = infoMsg.Replace("N1", $"{WarriorTower.SK2_WheelwindActivePers[lvIdx]}");
+                    infoMsg = infoMsg.Replace("N2", $"{WarriorTower.SK2_WheelwindDmgPers[lvIdx] * 100}");
                 }
                 else if(idx == 2) {
                     infoMsg = infoMsg.Replace("N1", $"{WarriorTower.SK3_CheerUpSpans[lvIdx]}");

@@ -10,19 +10,25 @@ public class WarriorTower : Tower {
     public static readonly int[] SK1_RageActivePers = new int[6] {0, 0, 5, 10, 15, 20};
     public static readonly float[] SK1_RageDmgSpdIncPers = new float[6] {0, 0, 0.15f, 0.2f, 0.3f, 0.4f};
     public static readonly float[] SK1_RageTime = new float[6] {0, 0, 2.5f, 3, 3.5f, 4};
-    public static readonly float[] SK2_SmashActivePers = new float[6] {0, 0, 0, 10, 12, 15};
-    public static readonly int[] SK2_SmashHitCnts = new int[6] {0, 0, 0, 2, 3, 4};
-    public static readonly float[] SK2_SmashDmgPers = new float[6] {0, 0, 0, 3, 4, 5};
-    public static readonly float[] SK2_SmashStunPers = new float[6] {0, 0, 0, 0.2f, 0.3f, 0.4f};
+
+    public static readonly float[] SK2_WheelwindActivePers = new float[6] {0, 0, 0, 10, 12, 15};
+    public static readonly float[] SK2_WheelwindDmgPers = new float[6] {0, 0, 0, 0.5f, 0.7f, 0.9f};
+
     public static readonly float[] SK3_CheerUpSpans = new float[6] {0, 0, 0, 0, 12, 10};
     public static readonly float[] SK3_CheerUpDmgSpdIncPers = new float[6] {0, 0, 0, 0, 0.2f, 0.4f};
+
     public static readonly float[] SK4_RoarSpans = new float[6] {0, 0, 0, 0, 0, 15};
     public static readonly float[] SK4_RoarDmgPers = new float[6] {0, 0, 0, 0, 0, 5.0f};
 
-    public Coroutine CorSkill1ID;
     public GameObject RageAuraEF;
+    public GameObject WheelwindEF;
+    
+    public Coroutine CorSkill1ID;
     [field:SerializeField] public int RageDmgUp {get; private set;}
     [field:SerializeField] public float RageSpdUp {get; private set;}
+
+    bool isDrawGizmos;
+    Vector2 gizmosPos;
 
     public override void CheckMergeUI() {
         Image mergeIcon = GM._.actBar.IconBtns[(int)ActionBarUIManager.ICON.Merge].GetComponent<Image>();
@@ -110,5 +116,54 @@ public class WarriorTower : Tower {
         ExtraDmgDic.Remove(RAGE);
         ExtraSpdDic.Remove(RAGE);
         GM._.gui.tsm.ShowTowerStateUI(InfoState());
+    }
+
+    public void Skill2_Wheelwind() {
+        int lvIdx = Lv - 1;
+
+        //* 発動％にならなかったら、終了
+        int rand = Random.Range(0, 100);
+        if(rand >= SK2_WheelwindActivePers[Lv - 1])
+            return;
+
+        StartCoroutine(CoActiveGizmos(transform.position));
+
+        int layerMask = 1 << Enum.Layer.Enemy;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, AtkRange, layerMask);
+        Debug.Log("アタック！ ROUND:: colliders= " + colliders.Length);
+
+        StartCoroutine(CoShowWheelwindEF());
+
+        //* ホイールウィンド！
+        for(int i = 0; i < colliders.Length; i++) {
+            Enemy enemy = colliders[i].GetComponent<Enemy>();
+
+            //* ダメージ
+            enemy.DecreaseHp(Mathf.RoundToInt(Dmg * SK2_WheelwindDmgPers[lvIdx]));
+
+            //* 気絶(きぜつ)
+            if(enemy.gameObject.activeSelf)
+                enemy.Stun(0.5f);
+        }
+    }
+
+    IEnumerator CoShowWheelwindEF() {
+        WheelwindEF.SetActive(true);
+        yield return Util.Time1_5;
+        WheelwindEF.SetActive(false);
+    }
+
+    IEnumerator CoActiveGizmos(Vector2 pos) {
+        gizmosPos = pos;
+        isDrawGizmos = true;
+        yield return Util.Time1;
+        isDrawGizmos = false;
+    }
+    
+    void OnDrawGizmos() {
+        if(isDrawGizmos) {
+            Gizmos.color = Color.white;
+            Gizmos.DrawWireSphere(new Vector3(gizmosPos.x, gizmosPos.y, 0), AtkRange);
+        }
     }
 }

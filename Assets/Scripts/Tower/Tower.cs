@@ -37,7 +37,7 @@ public abstract class Tower : MonoBehaviour {
             int extraDmg = 0;
             foreach(var dic in ExtraDmgDic)
                 extraDmg += dic.Value;
-
+            //* 合計
             return TowerData.Dmg + extraDmg;
         }
     }
@@ -46,9 +46,11 @@ public abstract class Tower : MonoBehaviour {
     public Dictionary<string, float> ExtraSpdDic = new Dictionary<string, float>();
     public float AtkSpeed {
         get {
+            //* 追加速度
             float extraSpd = 0;
             foreach(var dic in ExtraSpdDic)
                 extraSpd += dic.Value;
+            //* 合計 (速度が⊖値になるのが正しい)
             return TowerData.AtkSpeed - extraSpd;
         }
     }
@@ -60,9 +62,11 @@ public abstract class Tower : MonoBehaviour {
     public Dictionary<string, float> ExtraCritDic = new Dictionary<string, float>();
     public float CritPer {
         get {
+            //* 追加クリティカル
             float extraCrit = 0;
             foreach(var dic in ExtraCritDic)
                 extraCrit += dic.Value;
+            //* 合計
             return TowerData.CritPer + extraCrit;
         }
     }
@@ -136,6 +140,7 @@ public abstract class Tower : MonoBehaviour {
                                 enemy.DecreaseHp(totalDmg, isCritical);
                                 var warrior = this as WarriorTower;
                                 warrior.Skill1_Rage();
+                                warrior.Skill2_Wheelwind();
                                 break;
 
                             case TowerKind.Archer:
