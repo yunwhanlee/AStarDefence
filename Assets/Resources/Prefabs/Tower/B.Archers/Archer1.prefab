@@ -197,7 +197,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2770475372432839109}
@@ -229,14 +229,13 @@ MonoBehaviour:
   MissileSpr: {fileID: -454968180, guid: 6cd52a3cfe6a23c449d2ea29a486a640, type: 3}
   Name: 
   Lv: 0
-  Dmg: 3
-  AtkSpeed: 1
   AtkRange: 2.5
-  SplashRange: 0
-  CritPer: 0
   CritDmgPer: 0
-  SlowPer: 0
+  SlowSec: 0
   StunSec: 0
+  <PerfectAimAuraEF>k__BackingField: {fileID: 0}
+  <IsPassArrowActive>k__BackingField: 0
+  <IsPerfectAimActive>k__BackingField: 0
 --- !u!114 &8637186213431505548
 MonoBehaviour:
   m_ObjectHideFlags: 0

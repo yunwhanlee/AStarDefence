@@ -15091,7 +15091,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1124921867942448114}
@@ -15123,11 +15123,7 @@ MonoBehaviour:
   MissileSpr: {fileID: 143908157, guid: 7fa1f1b75a3d1a444a4a34264da002ef, type: 3}
   Name: 
   Lv: 2
-  Dmg: 15
-  AtkSpeed: 2.25
   AtkRange: 2
-  SplashRange: 2
-  CritPer: 0
   CritDmgPer: 0
   SlowSec: 0
   StunSec: 0
