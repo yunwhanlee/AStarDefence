@@ -6,23 +6,28 @@ using System;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts;
 using Random = UnityEngine.Random;
 using UnityEditor.PackageManager;
+using UnityEditor;
 
 public class MagicianTower : Tower {
     public static readonly int[] SK1_ExplosionLvActivePers = new int[6] {0, 0, 20, 25, 30, 35};
     public static readonly int[] SK2_MagicCircleActivePers = new int[6] {0, 0, 0, 10, 15, 20};
     public static readonly float[] SK2_MagicCircleDmgPers = new float[6] {0, 0, 0, 0.1f, 0.2f, 0.3f};
-    public static readonly float[] SK3_LaserSpans = new float[6] {0, 0, 0, 0, 7, 5};
-    public static readonly float[] SK3_LaserDmgPers = new float[6] {0, 0, 0, 0, 1.0f, 2.0f};
+
+    public static readonly float[] SK3_LaserSpans = new float[6] {0, 0, 0, 0, 10, 7};
+    public static readonly float[] SK3_LaserDmgPers = new float[6] {0, 0, 0, 0, 0.8f, 1.0f};
+
     public static readonly float[] SK4_MeteorSpans = new float[6] {0, 0, 0, 0, 0, 12};
     public static readonly float[] SK4_MeteorDmgs = new float[6] {0, 0, 0, 0, 0, 10.0f};
 
     [field:SerializeField] public bool IsMagicCircleActive {get; set;}
+    [field:SerializeField] public bool IsLaserActive {get; set;}
 
     bool isDrawGizmos;
     Vector2 gizmosPos;
 
     void Start() {
-        IsMagicCircleActive = false;
+        IsMagicCircleActive = false; //* １回のみ生成トリガー
+        IsLaserActive = true; //* 最初ONトリガー
     }
 
     public override void CheckMergeUI() {
@@ -121,6 +126,29 @@ public class MagicianTower : Tower {
         mc.Init(this);
     }
 
+    public void Skill3_Laser() {
+        if(IsLaserActive)
+            StartCoroutine(CoSkill3_Laser());
+    }
+    IEnumerator CoSkill3_Laser() {
+        Debug.Log("LASER！");
+        const int WAIT_DESTROY_TIME = 2;
+        IsLaserActive = false;
+        int idx = Lv == 5? (int)MissileIdx.LaserBlue : Lv == 6? (int)MissileIdx.LaserRed : -1;
+
+        Laser laser = GM._.mm.CreateMissile(idx).GetComponent<Laser>();
+        laser.EffectObj.SetActive(false);
+        laser.Init(this);
+
+        yield return new WaitForSeconds(WAIT_DESTROY_TIME);
+        GM._.mm.PoolList[idx].Release(laser.gameObject);
+
+        yield return new WaitForSeconds(SK3_LaserSpans[LvIdx] - WAIT_DESTROY_TIME);
+        IsLaserActive = true;
+    }
+
+
+#region GIZMOS
     IEnumerator CoActiveGizmos(Vector2 pos) {
         gizmosPos = pos;
         isDrawGizmos = true;
@@ -134,4 +162,5 @@ public class MagicianTower : Tower {
             Gizmos.DrawWireSphere(new Vector3(gizmosPos.x, gizmosPos.y, 0), 1);
         }
     }
+#endregion
 }

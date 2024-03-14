@@ -7,9 +7,12 @@ using UnityEngine.Pool;
 public enum MissileIdx {
     PassArrowRed, // LV 5
     PassArrowBlue, // LV 6
+
     MagicCirclePurple, // LV 4
     MagicCircleBlue, // LV 5
     MagicCircleRed, // LV 6
+    LaserBlue, // LV 5
+    LaserRed, // LV 6
 }
 
 public class MissileManager : MonoBehaviour {
@@ -21,6 +24,8 @@ public class MissileManager : MonoBehaviour {
     public MagicCircle magicCirclePurplePf;
     public MagicCircle MagicCircleBluePf;
     public MagicCircle MagicCircleRedPf;
+    public Laser LaserBluePf;
+    public Laser LaserRedPf;
 
     IObjectPool<Missile> pool;    public IObjectPool<Missile> Pool {get => pool;}
     List<IObjectPool<GameObject>> poolList;     public List<IObjectPool<GameObject>> PoolList {get => poolList;}
@@ -33,7 +38,8 @@ public class MissileManager : MonoBehaviour {
         poolList.Add(InitPassArrow(magicCirclePurplePf.gameObject, 1));
         poolList.Add(InitPassArrow(MagicCircleBluePf.gameObject, 1));
         poolList.Add(InitPassArrow(MagicCircleRedPf.gameObject, 1));
-
+        poolList.Add(InitPassArrow(LaserBluePf.gameObject, 1));
+        poolList.Add(InitPassArrow(LaserRedPf.gameObject, 1));
     } 
 
 #region OBJECT POOL

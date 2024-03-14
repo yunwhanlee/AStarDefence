@@ -199,9 +199,10 @@ public abstract class Tower : MonoBehaviour {
         }
         else if(Kind == TowerKind.Magician) {
             var mg = this as MagicianTower;
-            if(Lv >= 4 && !mg.IsMagicCircleActive) {
+            if(Lv >= 4 && !mg.IsMagicCircleActive)
                 mg.Skill2_MagicCircle();
-            }
+            if(Lv >= 5)
+                mg.Skill3_Laser();
         }
     }
     public virtual void StateUpdate() {
