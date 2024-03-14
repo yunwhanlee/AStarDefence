@@ -68,7 +68,17 @@ public class GM : MonoBehaviour {
 #region EVENT
     //! DEBUG
     public void OnClickNextTower() {
+        if(tmc.HitObject == null) {
+            gui.ShowMsgError("PLEASE SELECT TOWER");
+            return;
+        }
+
         var tower = tmc.HitObject.GetComponentInChildren<Tower>();
+        if(tower.Lv > 5) {
+            gui.ShowMsgError("MAX LV");
+            return;
+        }
+
         //* 次のレベルタワーランダムで生成
         tm.CreateTower(tower.Type, tower.Lv++, tower.Kind);
         //* 自分を削除
