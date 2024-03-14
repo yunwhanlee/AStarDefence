@@ -9,15 +9,21 @@ using UnityEditor.PackageManager;
 
 public class MagicianTower : Tower {
     public static readonly int[] SK1_ExplosionLvActivePers = new int[6] {0, 0, 20, 25, 30, 35};
-    public static readonly int[] SK2_IgniteActivePers = new int[6] {0, 0, 0, 10, 15, 20};
-    public static readonly float[] SK2_IgniteDmgPers = new float[6] {0, 0, 0, 0.1f, 0.15f, 0.2f};
+    public static readonly int[] SK2_MagicCircleActivePers = new int[6] {0, 0, 0, 10, 15, 20};
+    public static readonly float[] SK2_MagicCircleDmgPers = new float[6] {0, 0, 0, 0.1f, 0.2f, 0.3f};
     public static readonly float[] SK3_LaserSpans = new float[6] {0, 0, 0, 0, 7, 5};
     public static readonly float[] SK3_LaserDmgPers = new float[6] {0, 0, 0, 0, 1.0f, 2.0f};
     public static readonly float[] SK4_MeteorSpans = new float[6] {0, 0, 0, 0, 0, 12};
     public static readonly float[] SK4_MeteorDmgs = new float[6] {0, 0, 0, 0, 0, 10.0f};
 
+    [field:SerializeField] public bool IsMagicCircleActive {get; set;}
+
     bool isDrawGizmos;
     Vector2 gizmosPos;
+
+    void Start() {
+        IsMagicCircleActive = false;
+    }
 
     public override void CheckMergeUI() {
         Image mergeIcon = GM._.actBar.IconBtns[(int)ActionBarUIManager.ICON.Merge].GetComponent<Image>();
@@ -96,6 +102,23 @@ public class MagicianTower : Tower {
             //* ダメージ５０％ (クリティカル 無し)
             enemy.DecreaseHp(Dmg / 2);
         }
+    }
+
+    public void Skill2_MagicCircle() {
+        //* 発動％にならなかったら、終了
+        int rand = Random.Range(0, 100);
+        if(rand >= SK2_MagicCircleActivePers[LvIdx])
+            return;
+
+        //* １キャラー当たり、１回のみ
+        IsMagicCircleActive = true;
+
+        int idx = Lv == 4? (int)MissileIdx.MagicCirclePurple
+            : Lv == 5? (int)MissileIdx.MagicCircleBlue
+            : Lv == 6? (int)MissileIdx.MagicCircleRed : -1;
+
+        MagicCircle mc = GM._.mm.CreateMissile(idx).GetComponent<MagicCircle>();
+        mc.Init(this);
     }
 
     IEnumerator CoActiveGizmos(Vector2 pos) {

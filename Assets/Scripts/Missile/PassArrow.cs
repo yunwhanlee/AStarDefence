@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PassArrow : MonoBehaviour {
     const int LIMIT_X = 10, LIMIT_Y = 5;
-    [field:SerializeField] public PassArrowIdx PassArrowIdx {get; set;}
+    [field:SerializeField] public MissileIdx PassArrowIdx {get; set;}
     [field:SerializeField] public Tower MyTower {get; set;}
     [field:SerializeField] public Transform Target {get; set;}
     private Vector2 dir;
@@ -30,7 +30,7 @@ public class PassArrow : MonoBehaviour {
         //* 座標が領域を超えたら、消す
         if(transform.position.x < -LIMIT_X || transform.position.x > LIMIT_X
         || transform.position.y < -LIMIT_Y || transform.position.y > LIMIT_Y)
-            GM._.mm.PassArrowPoolList[(int)PassArrowIdx].Release(this);
+            GM._.mm.PoolList[(int)PassArrowIdx].Release(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D col) {

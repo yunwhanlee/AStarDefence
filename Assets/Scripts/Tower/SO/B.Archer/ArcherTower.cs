@@ -108,8 +108,8 @@ public class ArcherTower : Tower {
     }
     IEnumerator CoSkill3_PassArrow() {
         IsPassArrowActive = false;
-        var idx = Lv == 5? PassArrowIdx.Red : Lv == 6? PassArrowIdx.Blue : PassArrowIdx.None;
-        PassArrow pa = GM._.mm.CreatePassArrow(idx);
+        int idx = Lv == 5? (int)MissileIdx.PassArrowRed : Lv == 6? (int)MissileIdx.PassArrowBlue : -1;
+        PassArrow pa = GM._.mm.CreateMissile(idx).GetComponent<PassArrow>();
         pa.Init(this);
         yield return new WaitForSeconds(5);
         IsPassArrowActive = true;

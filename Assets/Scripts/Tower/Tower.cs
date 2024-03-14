@@ -189,14 +189,19 @@ public abstract class Tower : MonoBehaviour {
         ms.Init(this);
 
         if(Kind == TowerKind.Archer) {
-            var archer = this as ArcherTower;
-            if(Lv > 3)
-                archer.Skill2_MultiShot();
-            if(Lv > 4)
-                archer.Skill3_PassArrow();
-            if(Lv > 5)
-                archer.Skill4_PerfectAim();
-
+            var ac = this as ArcherTower;
+            if(Lv >= 4)
+                ac.Skill2_MultiShot();
+            if(Lv >= 5)
+                ac.Skill3_PassArrow();
+            if(Lv >= 6)
+                ac.Skill4_PerfectAim();
+        }
+        else if(Kind == TowerKind.Magician) {
+            var mg = this as MagicianTower;
+            if(Lv >= 4 && !mg.IsMagicCircleActive) {
+                mg.Skill2_MagicCircle();
+            }
         }
     }
     public virtual void StateUpdate() {

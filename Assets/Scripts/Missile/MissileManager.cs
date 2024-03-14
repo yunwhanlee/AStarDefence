@@ -4,8 +4,12 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public enum PassArrowIdx {
-    Red, Blue, None
+public enum MissileIdx {
+    PassArrowRed, // LV 5
+    PassArrowBlue, // LV 6
+    MagicCirclePurple, // LV 4
+    MagicCircleBlue, // LV 5
+    MagicCircleRed, // LV 6
 }
 
 public class MissileManager : MonoBehaviour {
@@ -14,21 +18,28 @@ public class MissileManager : MonoBehaviour {
     public Missile missilePf;
     public PassArrow passArrowRedPf;
     public PassArrow passArrowBluePf;
+    public MagicCircle magicCirclePurplePf;
+    public MagicCircle MagicCircleBluePf;
+    public MagicCircle MagicCircleRedPf;
 
     IObjectPool<Missile> pool;    public IObjectPool<Missile> Pool {get => pool;}
-    List<IObjectPool<PassArrow>> passArrowPoolList;     public List<IObjectPool<PassArrow>> PassArrowPoolList {get => passArrowPoolList;}
+    List<IObjectPool<GameObject>> poolList;     public List<IObjectPool<GameObject>> PoolList {get => poolList;}
 
     void Awake() {
-        passArrowPoolList = new List<IObjectPool<PassArrow>>(); //* リスト 初期化
         pool = new ObjectPool<Missile>(create, onGet, onRelease, onDestroyBlock, maxSize: CREATE_MAX_CNT);
-        passArrowPoolList.Add(InitPassArrow(passArrowRedPf, 2));
-        passArrowPoolList.Add(InitPassArrow(passArrowBluePf, 2));
+        poolList = new List<IObjectPool<GameObject>>(); //* リスト 初期化
+        poolList.Add(InitPassArrow(passArrowRedPf.gameObject, 2));
+        poolList.Add(InitPassArrow(passArrowBluePf.gameObject, 1));
+        poolList.Add(InitPassArrow(magicCirclePurplePf.gameObject, 1));
+        poolList.Add(InitPassArrow(MagicCircleBluePf.gameObject, 1));
+        poolList.Add(InitPassArrow(MagicCircleRedPf.gameObject, 1));
+
     } 
 
 #region OBJECT POOL
-    private ObjectPool<PassArrow> InitPassArrow(PassArrow passArrowPf, int max) {
-        return new ObjectPool<PassArrow>(() => 
-            create2(passArrowPf), //* 生成
+    private ObjectPool<GameObject> InitPassArrow(GameObject passArrowPf, int max) {
+        return new ObjectPool<GameObject>(() => 
+            create(passArrowPf), //* 生成
             onGet, //* 呼出
             onRelease, //* 戻し
             onDestroyBlock, 
@@ -38,20 +49,20 @@ public class MissileManager : MonoBehaviour {
 
     //* 生成
     private Missile create() => Instantiate(missilePf, missileObjGroup);
-    private PassArrow create2(PassArrow passArrowPf) => Instantiate(passArrowPf, missileObjGroup);
+    private GameObject create(GameObject obj) => Instantiate(obj, missileObjGroup);
     //* 使う
     private void onGet(Missile missile) => missile.gameObject.SetActive(true);
-    private void onGet(PassArrow passArrow) => passArrow.gameObject.SetActive(true);
+    private void onGet(GameObject obj) => obj.gameObject.SetActive(true);
     //* 戻す
     private void onRelease(Missile missile) => missile.gameObject.SetActive(false);
-    private void onRelease(PassArrow passArrow) => passArrow.gameObject.SetActive(false);
+    private void onRelease(GameObject obj) => obj.gameObject.SetActive(false);
     //* 破壊
     private void onDestroyBlock(Missile missile) => Destroy(missile);
-    private void onDestroyBlock(PassArrow passArrow) => Destroy(passArrow);
+    private void onDestroyBlock(GameObject obj) => Destroy(obj);
 #endregion
 
 #region FUNC
     public Missile CreateMissile() => pool.Get();
-    public PassArrow CreatePassArrow(PassArrowIdx passArrowEnum) => passArrowPoolList[(int)passArrowEnum].Get();
+    public GameObject CreateMissile(int idx) => poolList[idx].Get();
 #endregion
 }

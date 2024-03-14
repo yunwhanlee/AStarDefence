@@ -77,8 +77,8 @@ public class TowerSkill {
                     infoMsg = infoMsg.Replace("N", $"{MagicianTower.SK1_ExplosionLvActivePers[lvIdx]}");
                 }
                 else if(idx == 1) {
-                    infoMsg = infoMsg.Replace("N1", $"{MagicianTower.SK2_IgniteActivePers[lvIdx]}");
-                    infoMsg = infoMsg.Replace("N2", $"{MagicianTower.SK2_IgniteDmgPers[lvIdx] * 100}");
+                    infoMsg = infoMsg.Replace("N1", $"{MagicianTower.SK2_MagicCircleActivePers[lvIdx]}");
+                    infoMsg = infoMsg.Replace("N2", $"{MagicianTower.SK2_MagicCircleDmgPers[lvIdx] * 100}");
                 }
                 else if(idx == 2) {
                     infoMsg = infoMsg.Replace("N1", $"{MagicianTower.SK3_LaserSpans[lvIdx]}");
