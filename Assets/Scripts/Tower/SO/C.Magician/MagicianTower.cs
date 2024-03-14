@@ -14,7 +14,7 @@ public class MagicianTower : Tower {
     public static readonly float[] SK2_MagicCircleDmgPers = new float[6] {0, 0, 0, 0.1f, 0.2f, 0.3f};
 
     public static readonly float[] SK3_LaserSpans = new float[6] {0, 0, 0, 0, 10, 7};
-    public static readonly float[] SK3_LaserDmgPers = new float[6] {0, 0, 0, 0, 0.8f, 1.0f};
+    public static readonly float[] SK3_LaserDmgPers = new float[6] {0, 0, 0, 0, 0.5f, 0.8f};
 
     public static readonly float[] SK4_MeteorSpans = new float[6] {0, 0, 0, 0, 0, 12};
     public static readonly float[] SK4_MeteorDmgs = new float[6] {0, 0, 0, 0, 0, 10.0f};
