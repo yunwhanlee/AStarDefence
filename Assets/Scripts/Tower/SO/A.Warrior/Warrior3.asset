@@ -18,7 +18,7 @@ MonoBehaviour:
   Lv: 3
   Dmg: 143
   AtkSpeed: 0.9
-  AtkRange: 2
+  AtkRange: 1.5
   SplashRange: 0
   CritPer: 0
   CritDmgPer: 1

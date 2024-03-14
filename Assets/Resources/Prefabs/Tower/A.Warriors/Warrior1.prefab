@@ -10035,7 +10035,7 @@ Transform:
   m_GameObject: {fileID: 4729951383434711196}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.15, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10241,8 +10241,12 @@ MonoBehaviour:
   StunSec: 0
   RageAuraEF: {fileID: 0}
   WheelwindEF: {fileID: 0}
+  CheerUpEF: {fileID: 0}
   <RageDmgUp>k__BackingField: 0
   <RageSpdUp>k__BackingField: 0
+  <IsCheerUpActive>k__BackingField: 0
+  <CheerUpDmgUp>k__BackingField: 0
+  <CheerUpSpdUp>k__BackingField: 0
 --- !u!114 &1631033395140482249
 MonoBehaviour:
   m_ObjectHideFlags: 0

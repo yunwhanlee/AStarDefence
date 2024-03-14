@@ -31,7 +31,7 @@ public class ArcherTower : Tower {
 
         //* 選んだタワーとTowerGroupの子リストと同じレベルの数を確認
         var towers = GM._.tm.ArcherGroup.GetComponentsInChildren<ArcherTower>();
-        var sameLvTower = Array.FindAll(towers, tower => this.Lv == tower.Lv);
+        var sameLvTower = Array.FindAll(towers, tower => Lv == tower.Lv);
 
         //* １個以上があったら、マージ可能表示
         if(sameLvTower.Length > 1)
@@ -90,7 +90,7 @@ public class ArcherTower : Tower {
 
     public void Skill2_MultiShot() {
         int rand = Random.Range(0, 100);
-        if(rand < SK2_MultiShotActivePers[Lv - 1]) {
+        if(rand < SK2_MultiShotActivePers[LvIdx]) {
             switch(Lv) {
                 case 4: SetMultiShot(2);
                 break;
@@ -137,7 +137,7 @@ public class ArcherTower : Tower {
         PerfectAimAuraEF.SetActive(false);
         GM._.gui.tsm.ShowTowerStateUI(InfoState());
         
-        yield return new WaitForSeconds(SK4_PerfectAimSpans[Lv - 1]);
+        yield return new WaitForSeconds(SK4_PerfectAimSpans[LvIdx]);
         IsPerfectAimActive = true;
     }
 }

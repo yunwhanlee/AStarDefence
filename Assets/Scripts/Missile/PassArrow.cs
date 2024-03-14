@@ -37,7 +37,7 @@ public class PassArrow : MonoBehaviour {
         if(col.gameObject.layer == Enum.Layer.Enemy) {
             Enemy enemy = col.GetComponent<Enemy>();
             
-            int dmg = (int)(MyTower.Dmg * ArcherTower.SK3_PassShotDmgPers[MyTower.Lv - 1]);
+            int dmg = (int)(MyTower.Dmg * ArcherTower.SK3_PassShotDmgPers[MyTower.LvIdx]);
             enemy.DecreaseHp(dmg);
         }
     }

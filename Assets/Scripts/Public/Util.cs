@@ -28,7 +28,6 @@ public class Util : MonoBehaviour {
 
     public void SetDefMt(SpriteRenderer sprRdr) => sprRdr.material = DefaultMt;
     public void SetRedMt(SpriteRenderer sprRdr) => sprRdr.material = RedMt;
-
     public static bool CheckCriticalDmg(Tower myTower) {
         bool isCritical = false;
         int randPer = Random.Range(0, 100);

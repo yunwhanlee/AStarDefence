@@ -36,8 +36,7 @@ public class WarriorTower : Tower {
     Vector2 gizmosPos;
 
     void Start() {
-        if(Lv <= 5)
-            IsCheerUpActive = true;
+        if(Lv >= 5) IsCheerUpActive = true; //* レベル５以上
     }
 
     public override void CheckMergeUI() {
@@ -45,7 +44,7 @@ public class WarriorTower : Tower {
 
         //* 選んだタワーとTowerGroupの子リストと同じレベルの数を確認
         var towers = GM._.tm.WarriorGroup.GetComponentsInChildren<WarriorTower>();
-        var sameLvTower = Array.FindAll(towers, tower => this.Lv == tower.Lv);
+        var sameLvTower = Array.FindAll(towers, tower => Lv == tower.Lv);
 
         //* １個以上があったら、マージ可能表示
         if(sameLvTower.Length > 1)
@@ -95,21 +94,21 @@ public class WarriorTower : Tower {
 
 #region SKILL1 RAGE
     public void Skill1_Rage() {
-        if(CorSkill1ID != null)
-            return;
+        if(CorSkill1ID != null) return;
+        Debug.Log($"Skill1_Rage():: SK1_RageActivePers[{LvIdx}]= {SK1_RageActivePers[LvIdx]}");
 
         int rand = Random.Range(0, 100);
-        if(rand < SK1_RageActivePers[Lv - 1]) {
+        if(rand < SK1_RageActivePers[LvIdx]) {
             CorSkill1ID = StartCoroutine(CoSkill1_Rage());
         }
     }
 
     IEnumerator CoSkill1_Rage() {
-        Debug.Log("CoSkill1_Rage()::");
+        Debug.Log($"CoSkill1_Rage():: DmgSpdIncPers[{LvIdx}]= {SK1_RageDmgSpdIncPers[LvIdx]}, RageDmgSpdIncPers[{LvIdx}]= {SK1_RageDmgSpdIncPers[LvIdx]}");
         const string RAGE = "RAGE";
 
-        RageDmgUp = (int)(TowerData.Dmg * SK1_RageDmgSpdIncPers[Lv]);
-        RageSpdUp = (float)(TowerData.AtkSpeed * SK1_RageDmgSpdIncPers[Lv]);
+        RageDmgUp = (int)(TowerData.Dmg * SK1_RageDmgSpdIncPers[LvIdx]);
+        RageSpdUp = (float)(TowerData.AtkSpeed * SK1_RageDmgSpdIncPers[LvIdx]);
 
         //* 追加タメージ
         if(ExtraDmgDic.ContainsKey(RAGE)) ExtraDmgDic.Remove(RAGE);
@@ -132,17 +131,15 @@ public class WarriorTower : Tower {
 
 #region SKILL2 WHEELWIND
     public void Skill2_Wheelwind() {
-        int lvIdx = Lv - 1;
-
         //* 発動％にならなかったら、終了
         int rand = Random.Range(0, 100);
-        if(rand >= SK2_WheelwindActivePers[Lv - 1])
+        if(rand >= SK2_WheelwindActivePers[LvIdx])
             return;
 
         StartCoroutine(CoActiveGizmos(transform.position));
 
         int layerMask = 1 << Enum.Layer.Enemy;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, AtkRange, layerMask);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, AtkRange * 1.425f, layerMask);
         Debug.Log("アタック！ ROUND:: colliders= " + colliders.Length);
 
         StartCoroutine(CoShowWheelwindEF());
@@ -152,7 +149,7 @@ public class WarriorTower : Tower {
             Enemy enemy = colliders[i].GetComponent<Enemy>();
 
             //* ダメージ
-            enemy.DecreaseHp(Mathf.RoundToInt(Dmg * SK2_WheelwindDmgPers[lvIdx]));
+            enemy.DecreaseHp(Mathf.RoundToInt(Dmg * SK2_WheelwindDmgPers[LvIdx]));
 
             //* 気絶(きぜつ)
             if(enemy.gameObject.activeSelf)
@@ -178,8 +175,8 @@ public class WarriorTower : Tower {
         IsCheerUpActive = false;
         CheerUpEF.SetActive(true);
 
-        CheerUpDmgUp = (int)(TowerData.Dmg * SK3_CheerUpDmgSpdIncPers[Lv]);
-        CheerUpSpdUp = (float)(TowerData.AtkSpeed * SK3_CheerUpDmgSpdIncPers[Lv]);
+        CheerUpDmgUp = (int)(TowerData.Dmg * SK3_CheerUpDmgSpdIncPers[LvIdx]);
+        CheerUpSpdUp = (float)(TowerData.AtkSpeed * SK3_CheerUpDmgSpdIncPers[LvIdx]);
 
         //* 全てタワーを探す
         List<Tower> allTowerList = new List<Tower>();
@@ -196,16 +193,17 @@ public class WarriorTower : Tower {
             Util._.SetRedMt(tower.BodySprRdr);
 
             //* 追加タメージ
-            int extraDmg = (int)(tower.TowerData.Dmg * SK3_CheerUpDmgSpdIncPers[Lv]);
+            int extraDmg = (int)(tower.TowerData.Dmg * SK3_CheerUpDmgSpdIncPers[LvIdx]);
             if(tower.ExtraDmgDic.ContainsKey(CHEERUP)) tower.ExtraDmgDic.Remove(CHEERUP);
             tower.ExtraDmgDic.Add(CHEERUP, extraDmg);
             //* 追加スピード
-            float extraSpd = (float)(tower.TowerData.AtkSpeed * SK3_CheerUpDmgSpdIncPers[Lv]);
+            float extraSpd = (float)(tower.TowerData.AtkSpeed * SK3_CheerUpDmgSpdIncPers[LvIdx]);
             if(tower.ExtraSpdDic.ContainsKey(CHEERUP)) tower.ExtraSpdDic.Remove(CHEERUP);
             tower.ExtraSpdDic.Add(CHEERUP, extraSpd);
         });
 
-        GM._.gui.tsm.ShowTowerStateUI(InfoState());
+        if(GM._.tmc.HitObject != null)
+            GM._.gui.tsm.ShowTowerStateUI(this.InfoState());
 
         yield return Util.Time5;
         Debug.Log("CheerUp終了");
@@ -220,7 +218,8 @@ public class WarriorTower : Tower {
             tower.ExtraSpdDic.Remove(CHEERUP);
         });
 
-        GM._.gui.tsm.ShowTowerStateUI(InfoState());
+        if(GM._.tmc.HitObject != null)
+            GM._.gui.tsm.ShowTowerStateUI(this.InfoState());
 
         yield return new WaitForSeconds(10);
         IsCheerUpActive = true;
@@ -241,7 +240,7 @@ public class WarriorTower : Tower {
     void OnDrawGizmos() {
         if(isDrawGizmos) {
             Gizmos.color = Color.white;
-            Gizmos.DrawWireSphere(new Vector3(gizmosPos.x, gizmosPos.y, 0), AtkRange);
+            Gizmos.DrawWireSphere(new Vector3(gizmosPos.x, gizmosPos.y, 0), AtkRange * 1.425f);
         }
     }
 }

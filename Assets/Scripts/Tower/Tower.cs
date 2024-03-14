@@ -28,6 +28,7 @@ public abstract class Tower : MonoBehaviour {
     public Sprite MissileSpr;
     public string Name;
     [Range(1, 7)] public int Lv;
+    public int LvIdx { get => Lv - 1;}
 
     //* ダメージ
     public Dictionary<string, int> ExtraDmgDic = new Dictionary<string, int>();

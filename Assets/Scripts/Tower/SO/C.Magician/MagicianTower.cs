@@ -24,7 +24,7 @@ public class MagicianTower : Tower {
 
         //* 選んだタワーとTowerGroupの子リストと同じレベルの数を確認
         var towers = GM._.tm.MagicianGroup.GetComponentsInChildren<MagicianTower>();
-        var sameLvTower = Array.FindAll(towers, tower => this.Lv == tower.Lv);
+        var sameLvTower = Array.FindAll(towers, tower => Lv == tower.Lv);
 
         //* １個以上があったら、マージ可能表示
         if(sameLvTower.Length > 1)
@@ -77,7 +77,7 @@ public class MagicianTower : Tower {
 
         //* 発動％にならなかったら、終了
         int rand = Random.Range(0, 100);
-        if(rand >= SK1_ExplosionLvActivePers[Lv - 1])
+        if(rand >= SK1_ExplosionLvActivePers[LvIdx])
             return;
 
         StartCoroutine(CoActiveGizmos(target.transform.position));
