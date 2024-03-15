@@ -155529,8 +155529,9 @@ MonoBehaviour:
   SlowSec: 0
   StunSec: 0
   BigbangEF: {fileID: 2398322078919128260}
-  <IsMagicCircleActive>k__BackingField: 0
+  <IsMagicCircleOneTime>k__BackingField: 0
   <IsLaserActive>k__BackingField: 0
+  <IsBigbangActive>k__BackingField: 0
 --- !u!114 &1775603458860905316
 MonoBehaviour:
   m_ObjectHideFlags: 0

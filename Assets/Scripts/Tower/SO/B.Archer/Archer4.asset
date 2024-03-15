@@ -17,7 +17,7 @@ MonoBehaviour:
   Name: Archer4
   Lv: 4
   Dmg: 81
-  AtkSpeed: 0.45
+  AtkSpeed: 0.35
   AtkRange: 4
   SplashRange: 0
   CritPer: 0.15

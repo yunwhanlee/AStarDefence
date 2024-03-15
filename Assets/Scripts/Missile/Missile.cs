@@ -13,7 +13,7 @@ public class Missile : MonoBehaviour {
     [field:SerializeField] public List<Collider2D> ColList {get; set;}
     [field:SerializeField] public bool IsMultiShot = false;
     private Vector2 dir;
-    private const float speed = 10;
+    private const float speed = 12;
 
     // void Awake() => SprRdr = GetComponent<SpriteRenderer>();
 

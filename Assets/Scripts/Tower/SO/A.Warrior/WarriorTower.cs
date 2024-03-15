@@ -18,11 +18,12 @@ public class WarriorTower : Tower {
     public static readonly float[] SK3_CheerUpDmgSpdIncPers = new float[6] {0, 0, 0, 0, 0.2f, 0.4f};
 
     public static readonly float[] SK4_RoarSpans = new float[6] {0, 0, 0, 0, 0, 15};
-    public static readonly float[] SK4_RoarDmgPers = new float[6] {0, 0, 0, 0, 0, 5.0f};
+    public static readonly float[] SK4_RoarDmgPers = new float[6] {0, 0, 0, 0, 0, 1.5f};
 
     public GameObject RageAuraEF;
     public GameObject WheelwindEF;
     public GameObject CheerUpEF;
+    public GameObject RoarEF;
     
     public Coroutine CorSkill1ID;
     [field:SerializeField] public int RageDmgUp {get; private set;}
@@ -32,11 +33,14 @@ public class WarriorTower : Tower {
     [field:SerializeField] public int CheerUpDmgUp {get; private set;}
     [field:SerializeField] public float CheerUpSpdUp {get; private set;}
 
+    [field:SerializeField] public bool IsRoarActive {get; set;}
+
     bool isDrawGizmos;
     Vector2 gizmosPos;
 
     void Start() {
         if(Lv >= 5) IsCheerUpActive = true; //* レベル５以上
+        if(Lv >= 6) IsRoarActive = true; //* レベル５以上
     }
 
     public override void CheckMergeUI() {
@@ -227,7 +231,40 @@ public class WarriorTower : Tower {
 #endregion
 
 #region SKILL4 ROAR
+    public void Skill4_Roar() {
+        if(IsRoarActive)
+            StartCoroutine(CoSkill4_Roar());
+    }
+    IEnumerator CoSkill4_Roar() {
+        const int WAIT_DELAY_TIME = 2;
+        const int WAIT_SPAWN_TIME = 1;
+        const int WAIT_DESTROY_TIME = 2;
 
+        yield return new WaitForSeconds(WAIT_DELAY_TIME);
+
+        //* スキルEF 表示
+        IsRoarActive = false;
+        RoarEF.SetActive(true);
+
+        //* 全ての敵にダメージ
+        yield return new WaitForSeconds(WAIT_SPAWN_TIME);
+        Transform enemyGroup = GM._.em.enemyObjGroup;
+        for(int i = 0; i < enemyGroup.childCount; i++) {
+            Enemy enemy = enemyGroup.GetChild(i).GetComponent<Enemy>();
+            int dmg = Mathf.RoundToInt(Dmg * SK4_RoarDmgPers[LvIdx]);
+            enemy.DecreaseHp(dmg);
+            if(enemy.gameObject.activeSelf)
+                enemy.Stun(1.5f);
+        }
+
+        //* スキルEF 非表示
+        yield return new WaitForSeconds(WAIT_DESTROY_TIME);
+        RoarEF.SetActive(false);
+
+        //* CoolTime
+        yield return new WaitForSeconds(SK4_RoarSpans[LvIdx] - WAIT_DELAY_TIME - WAIT_SPAWN_TIME - WAIT_DESTROY_TIME);
+        IsRoarActive = true;
+    }
 #endregion
 
     IEnumerator CoActiveGizmos(Vector2 pos) {

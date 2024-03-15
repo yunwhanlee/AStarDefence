@@ -143,6 +143,7 @@ public abstract class Tower : MonoBehaviour {
                                 warrior.Skill1_Rage();
                                 warrior.Skill2_Wheelwind();
                                 warrior.Skill3_CheerUp();
+                                warrior.Skill4_Roar();
                                 break;
 
                             case TowerKind.Archer:
