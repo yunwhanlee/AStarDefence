@@ -17,7 +17,7 @@ public class MagicianTower : Tower {
     public static readonly float[] SK3_LaserDmgPers = new float[6] {0, 0, 0, 0, 0.5f, 0.8f};
 
     public static readonly float[] SK4_BigbangSpans = new float[6] {0, 0, 0, 0, 0, 15};
-    public static readonly float[] SK4_BigbangDmgs = new float[6] {0, 0, 0, 0, 0, 0.6f};
+    public static readonly float[] SK4_BigbangDmgs = new float[6] {0, 0, 0, 0, 0, 1.0f};
 
     public GameObject BigbangEF;
     [field:SerializeField] public bool IsMagicCircleOneTime {get; set;}
@@ -174,7 +174,7 @@ public class MagicianTower : Tower {
         for(int i = 0; i < enemyGroup.childCount; i++) {
             Enemy enemy = enemyGroup.GetChild(i).GetComponent<Enemy>();
             int dmg = Mathf.RoundToInt(Dmg * SK4_BigbangDmgs[LvIdx]);
-            Util._.ComboAttack(enemy, dmg, hitCnt: 10);
+            Util._.ComboAttack(enemy, dmg, hitCnt: 5, Util.Time0_15);
         }
         
         //* スキルEF 非表示

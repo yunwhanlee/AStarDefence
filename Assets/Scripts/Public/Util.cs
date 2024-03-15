@@ -39,8 +39,9 @@ public class Util : MonoBehaviour {
         return isCritical;
     }
 
-    public void ComboAttack(Enemy enemy, int dmg, int hitCnt) => StartCoroutine(CoComboAttack(enemy, dmg, hitCnt));
-    IEnumerator CoComboAttack(Enemy enemy, int dmg, int hitCnt) {
+    public void ComboAttack(Enemy enemy, int dmg, int hitCnt, WaitForSeconds delay)
+        => StartCoroutine(CoComboAttack(enemy, dmg, hitCnt, delay));
+    IEnumerator CoComboAttack(Enemy enemy, int dmg, int hitCnt, WaitForSeconds delay) {
         for(int i = 0; i < hitCnt; i ++) {
             enemy.DecreaseHp(dmg);
 
@@ -48,7 +49,7 @@ public class Util : MonoBehaviour {
             if(enemy.Hp < 0 && !enemy.gameObject.activeSelf)
                 yield break;
 
-            yield return Time0_15;
+            yield return delay;
         }
     }
 

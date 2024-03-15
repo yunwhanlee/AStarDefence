@@ -196,7 +196,7 @@ public abstract class Tower : MonoBehaviour {
             if(Lv >= 5)
                 ac.Skill3_PassArrow();
             if(Lv >= 6)
-                ac.Skill4_PerfectAim();
+                ac.Skill4_ArrowRain();
         }
         else if(Kind == TowerKind.Magician) {
             var mg = this as MagicianTower;

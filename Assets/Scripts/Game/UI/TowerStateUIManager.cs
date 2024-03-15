@@ -69,7 +69,7 @@ public class TowerSkill {
                     infoMsg = infoMsg.Replace("N2", $"{ArcherTower.SK3_PassShotDmgPers[lvIdx] * 100}");
                 }
                 else if(idx == 3) {
-                    infoMsg = infoMsg.Replace("N", $"{ArcherTower.SK4_PerfectAimSpans[lvIdx]}");
+                    infoMsg = infoMsg.Replace("N", $"{ArcherTower.SK4_ArrowRainSpans[lvIdx]}");
                 }
                 break;
             case TowerKind.Magician:

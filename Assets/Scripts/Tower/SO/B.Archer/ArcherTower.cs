@@ -13,17 +13,17 @@ public class ArcherTower : Tower {
     public static readonly int[] SK2_MultiShotCnts = new int[6] {0, 0, 0, 2, 4, 6};
 
     public static readonly int[] SK3_PassShotSpans = new int[6] {0, 0, 0, 0, 10, 7};
-    public static readonly float[] SK3_PassShotDmgPers = new float[6] {0, 0, 0, 0, 5.0f, 8.0f};
+    public static readonly float[] SK3_PassShotDmgPers = new float[6] {0, 0, 0, 0, 2.0f, 3.0f};
 
-    public static readonly float[] SK4_PerfectAimSpans = new float[6] {0, 0, 0, 0, 0, 10};
+    public static readonly float[] SK4_ArrowRainSpans = new float[6] {0, 0, 0, 0, 0, 15};
 
     [field:SerializeField] public GameObject PerfectAimAuraEF {get; set;}
     [field:SerializeField] public bool IsPassArrowActive {get; set;}
-    [field:SerializeField] public bool IsPerfectAimActive {get; set;}
+    [field:SerializeField] public bool IsArrowRainActive {get; set;}
 
     void Start(){
         IsPassArrowActive = true;
-        IsPerfectAimActive = true;
+        IsArrowRainActive = true;
     }
 
     public override void CheckMergeUI() {
@@ -115,29 +115,32 @@ public class ArcherTower : Tower {
         IsPassArrowActive = true;
     }
 
-    public void Skill4_PerfectAim() {
-        if(IsPerfectAimActive)
-            StartCoroutine(CoSkill4_PerfectAim());
+    public void Skill4_ArrowRain() {
+        if(IsArrowRainActive)
+            StartCoroutine(CoSkill4_ArrowRain());
     }
-    IEnumerator CoSkill4_PerfectAim() {
-        Debug.Log("PERFECT AIM! 開始");
-        IsPerfectAimActive = false;
-        PerfectAimAuraEF.SetActive(true);
+    IEnumerator CoSkill4_ArrowRain() {
+        const int WAIT_DESTROY_TIME = 5;
 
-        // 追加クリティカル
-        const string PERFECT_AIM = "PerfectAim";
-        if(ExtraCritDic.ContainsKey(PERFECT_AIM)) ExtraCritDic.Remove(PERFECT_AIM);
+        Debug.Log("ArrowRain 開始!");
+        IsArrowRainActive = false;
+
+        //* 追加クリティカル
+        const string ARROWRAIN = "ArrowRain";
+        if(ExtraCritDic.ContainsKey(ARROWRAIN)) ExtraCritDic.Remove(ARROWRAIN);
         Debug.Log($"SIBAL= {1 - TowerData.CritPer}");
-        ExtraCritDic.Add(PERFECT_AIM, 1 - TowerData.CritPer);
+        ExtraCritDic.Add(ARROWRAIN, 1 - TowerData.CritPer);
         GM._.gui.tsm.ShowTowerStateUI(InfoState());
 
-        yield return new WaitForSeconds(5);
-        Debug.Log("PERFECT AIM! 終了");
-        ExtraCritDic.Remove(PERFECT_AIM);
-        PerfectAimAuraEF.SetActive(false);
+        ArrowRain ar = GM._.mm.CreateMissile((int)MissileIdx.ArrowRain).GetComponent<ArrowRain>();
+        ar.Init(this);
+
+        yield return new WaitForSeconds(WAIT_DESTROY_TIME);
+        Debug.Log("ArrowRain 終了!");
+        ExtraCritDic.Remove(ARROWRAIN);
         GM._.gui.tsm.ShowTowerStateUI(InfoState());
         
-        yield return new WaitForSeconds(SK4_PerfectAimSpans[LvIdx]);
-        IsPerfectAimActive = true;
+        yield return new WaitForSeconds(SK4_ArrowRainSpans[LvIdx] - WAIT_DESTROY_TIME);
+        IsArrowRainActive = true;
     }
 }

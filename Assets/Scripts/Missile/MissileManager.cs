@@ -7,6 +7,7 @@ using UnityEngine.Pool;
 public enum MissileIdx {
     PassArrowRed, // LV 5
     PassArrowBlue, // LV 6
+    ArrowRain,
 
     MagicCirclePurple, // LV 4
     MagicCircleBlue, // LV 5
@@ -22,6 +23,8 @@ public class MissileManager : MonoBehaviour {
     public Missile missilePf;
     public PassArrow passArrowRedPf;
     public PassArrow passArrowBluePf;
+    public ArrowRain arrowRainPf;
+
     public MagicCircle magicCirclePurplePf;
     public MagicCircle MagicCircleBluePf;
     public MagicCircle MagicCircleRedPf;
@@ -36,6 +39,7 @@ public class MissileManager : MonoBehaviour {
         poolList = new List<IObjectPool<GameObject>>(); //* リスト 初期化
         poolList.Add(InitPassArrow(passArrowRedPf.gameObject, 2));
         poolList.Add(InitPassArrow(passArrowBluePf.gameObject, 1));
+        poolList.Add(InitPassArrow(arrowRainPf.gameObject, 1));
         poolList.Add(InitPassArrow(magicCirclePurplePf.gameObject, 1));
         poolList.Add(InitPassArrow(MagicCircleBluePf.gameObject, 1));
         poolList.Add(InitPassArrow(MagicCircleRedPf.gameObject, 1));

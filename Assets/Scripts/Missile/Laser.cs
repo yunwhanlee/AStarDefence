@@ -37,7 +37,7 @@ public class Laser : MonoBehaviour {
         if(col.gameObject.layer == Enum.Layer.Enemy) {
             Enemy enemy = col.GetComponent<Enemy>(); //* 敵リスト追加
             int dmg = Mathf.RoundToInt(MyTower.Dmg * MagicianTower.SK3_LaserDmgPers[MyTower.LvIdx]);
-            Util._.ComboAttack(enemy, dmg, hitCnt: 5);
+            Util._.ComboAttack(enemy, dmg, hitCnt: 5, Util.Time0_15);
         }
     }
 #endregion
