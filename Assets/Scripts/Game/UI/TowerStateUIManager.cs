@@ -85,8 +85,8 @@ public class TowerSkill {
                     infoMsg = infoMsg.Replace("N2", $"{MagicianTower.SK3_LaserDmgPers[lvIdx] * 100}");
                 }
                 else if(idx == 3) {
-                    infoMsg = infoMsg.Replace("N1", $"{MagicianTower.SK4_MeteorSpans[lvIdx]}");
-                    infoMsg = infoMsg.Replace("N2", $"{MagicianTower.SK4_MeteorDmgs[lvIdx] * 100}");
+                    infoMsg = infoMsg.Replace("N1", $"{MagicianTower.SK4_BigbangSpans[lvIdx]}");
+                    infoMsg = infoMsg.Replace("N2", $"{MagicianTower.SK4_BigbangDmgs[lvIdx] * 100}");
                 }
                 break;
         }

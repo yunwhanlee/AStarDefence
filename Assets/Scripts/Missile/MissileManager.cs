@@ -13,6 +13,7 @@ public enum MissileIdx {
     MagicCircleRed, // LV 6
     LaserBlue, // LV 5
     LaserRed, // LV 6
+    BigBang, // LV 6
 }
 
 public class MissileManager : MonoBehaviour {

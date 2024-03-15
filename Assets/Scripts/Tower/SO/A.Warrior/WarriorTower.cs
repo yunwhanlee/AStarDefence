@@ -219,7 +219,7 @@ public class WarriorTower : Tower {
         });
 
         if(GM._.tmc.HitObject != null)
-            GM._.gui.tsm.ShowTowerStateUI(this.InfoState());
+            GM._.gui.tsm.ShowTowerStateUI(InfoState());
 
         yield return new WaitForSeconds(10);
         IsCheerUpActive = true;

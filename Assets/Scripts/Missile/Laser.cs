@@ -36,21 +36,8 @@ public class Laser : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D col) {
         if(col.gameObject.layer == Enum.Layer.Enemy) {
             Enemy enemy = col.GetComponent<Enemy>(); //* 敵リスト追加
-            StartCoroutine(CoContinuousAttack(enemy));
-        }
-    }
-
-    IEnumerator CoContinuousAttack(Enemy enemy) {
-        const int CNT = 5;
-        for(int i = 0; i < CNT; i ++) {
             int dmg = Mathf.RoundToInt(MyTower.Dmg * MagicianTower.SK3_LaserDmgPers[MyTower.LvIdx]);
-            enemy.DecreaseHp(dmg);
-
-            //* 途中で死んだら、コルーチン終了
-            if(enemy.Hp < 0 && !enemy.gameObject.activeSelf)
-                yield break;
-
-            yield return Util.Time0_15;
+            Util._.ComboAttack(enemy, dmg, hitCnt: 5);
         }
     }
 #endregion

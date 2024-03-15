@@ -13,21 +13,26 @@ public class MagicianTower : Tower {
     public static readonly int[] SK2_MagicCircleActivePers = new int[6] {0, 0, 0, 10, 15, 20};
     public static readonly float[] SK2_MagicCircleDmgPers = new float[6] {0, 0, 0, 0.1f, 0.2f, 0.3f};
 
-    public static readonly float[] SK3_LaserSpans = new float[6] {0, 0, 0, 0, 10, 7};
+    public static readonly float[] SK3_LaserSpans = new float[6] {0, 0, 0, 0, 10, 8};
     public static readonly float[] SK3_LaserDmgPers = new float[6] {0, 0, 0, 0, 0.5f, 0.8f};
 
-    public static readonly float[] SK4_MeteorSpans = new float[6] {0, 0, 0, 0, 0, 12};
-    public static readonly float[] SK4_MeteorDmgs = new float[6] {0, 0, 0, 0, 0, 10.0f};
+    public static readonly float[] SK4_BigbangSpans = new float[6] {0, 0, 0, 0, 0, 15};
+    public static readonly float[] SK4_BigbangDmgs = new float[6] {0, 0, 0, 0, 0, 0.6f};
 
-    [field:SerializeField] public bool IsMagicCircleActive {get; set;}
+    public GameObject BigbangEF;
+    [field:SerializeField] public bool IsMagicCircleOneTime {get; set;}
     [field:SerializeField] public bool IsLaserActive {get; set;}
+    [field:SerializeField] public bool IsBigbangActive {get; set;}
 
     bool isDrawGizmos;
     Vector2 gizmosPos;
 
     void Start() {
-        IsMagicCircleActive = false; //* １回のみ生成トリガー
-        IsLaserActive = true; //* 最初ONトリガー
+        //* １回のみ生成トリガー
+        IsMagicCircleOneTime = false; 
+        //* 最初ONトリガー
+        IsLaserActive = true; 
+        IsBigbangActive = true;
     }
 
     public override void CheckMergeUI() {
@@ -116,7 +121,7 @@ public class MagicianTower : Tower {
             return;
 
         //* １キャラー当たり、１回のみ
-        IsMagicCircleActive = true;
+        IsMagicCircleOneTime = true;
 
         int idx = Lv == 4? (int)MissileIdx.MagicCirclePurple
             : Lv == 5? (int)MissileIdx.MagicCircleBlue
@@ -131,8 +136,8 @@ public class MagicianTower : Tower {
             StartCoroutine(CoSkill3_Laser());
     }
     IEnumerator CoSkill3_Laser() {
-        Debug.Log("LASER！");
         const int WAIT_DESTROY_TIME = 2;
+
         IsLaserActive = false;
         int idx = Lv == 5? (int)MissileIdx.LaserBlue : Lv == 6? (int)MissileIdx.LaserRed : -1;
 
@@ -145,6 +150,40 @@ public class MagicianTower : Tower {
 
         yield return new WaitForSeconds(SK3_LaserSpans[LvIdx] - WAIT_DESTROY_TIME);
         IsLaserActive = true;
+    }
+
+    public void Skill4_Bigbang() {
+        if(IsBigbangActive)
+            StartCoroutine(CoSkill4_Bigbang());
+    }
+
+    IEnumerator CoSkill4_Bigbang() {
+        const int WAIT_DELAY_TIME = 2;
+        const int WAIT_SPAWN_TIME = 2;
+        const int WAIT_DESTROY_TIME = 2;
+
+        yield return new WaitForSeconds(WAIT_DELAY_TIME);
+
+        //* スキルEF 表示
+        IsBigbangActive = false;
+        BigbangEF.SetActive(true);
+
+        //* 全ての敵にダメージ
+        yield return new WaitForSeconds(WAIT_SPAWN_TIME);
+        Transform enemyGroup = GM._.em.enemyObjGroup;
+        for(int i = 0; i < enemyGroup.childCount; i++) {
+            Enemy enemy = enemyGroup.GetChild(i).GetComponent<Enemy>();
+            int dmg = Mathf.RoundToInt(Dmg * SK4_BigbangDmgs[LvIdx]);
+            Util._.ComboAttack(enemy, dmg, hitCnt: 10);
+        }
+        
+        //* スキルEF 非表示
+        yield return new WaitForSeconds(WAIT_DESTROY_TIME);
+        BigbangEF.SetActive(false);
+
+        //* CoolTime
+        yield return new WaitForSeconds(SK4_BigbangSpans[LvIdx] - WAIT_DELAY_TIME - WAIT_SPAWN_TIME - WAIT_DESTROY_TIME);
+        IsBigbangActive = true;
     }
 
 

@@ -80,7 +80,7 @@ public class Missile : MonoBehaviour {
                     }
 
                     //* クリティカル
-                    bool isCritical = Util.CheckCriticalDmg(MyTower);
+                    bool isCritical = Util._.CheckCriticalDmg(MyTower);
                     int totalDmg = MyTower.Dmg * (isCritical? 2 : 1);
 
                     //* マルチショットなら、ダメージ半分

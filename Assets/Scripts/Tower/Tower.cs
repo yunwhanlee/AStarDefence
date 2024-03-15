@@ -136,7 +136,7 @@ public abstract class Tower : MonoBehaviour {
                                 //TODO EFFECT
                                 chara.Animator.SetTrigger("Slash");
                                 //* クリティカル
-                                bool isCritical = Util.CheckCriticalDmg(this);
+                                bool isCritical = Util._.CheckCriticalDmg(this);
                                 int totalDmg = Dmg * (isCritical? 2 : 1);
                                 enemy.DecreaseHp(totalDmg, isCritical);
                                 var warrior = this as WarriorTower;
@@ -199,10 +199,12 @@ public abstract class Tower : MonoBehaviour {
         }
         else if(Kind == TowerKind.Magician) {
             var mg = this as MagicianTower;
-            if(Lv >= 4 && !mg.IsMagicCircleActive)
+            if(Lv >= 4 && !mg.IsMagicCircleOneTime)
                 mg.Skill2_MagicCircle();
             if(Lv >= 5)
                 mg.Skill3_Laser();
+            if(Lv >= 6)
+                mg.Skill4_Bigbang();
         }
     }
     public virtual void StateUpdate() {

@@ -29,7 +29,7 @@ public class MagicCircle : MonoBehaviour {
     IEnumerator CoDestroyMe(MagicianTower myTower) {
         yield return Util.Time5;
         GM._.mm.PoolList[(int)MissileIdx.MagicCirclePurple].Release(gameObject);
-        myTower.IsMagicCircleActive = false;
+        myTower.IsMagicCircleOneTime = false;
     }
 
     IEnumerator CoDecreaseEnemyListHp(int dmg) {

@@ -29,7 +29,7 @@ public class Util : MonoBehaviour {
 
     public void SetDefMt(SpriteRenderer sprRdr) => sprRdr.material = DefaultMt;
     public void SetRedMt(SpriteRenderer sprRdr) => sprRdr.material = RedMt;
-    public static bool CheckCriticalDmg(Tower myTower) {
+    public bool CheckCriticalDmg(Tower myTower) {
         bool isCritical = false;
         int randPer = Random.Range(0, 100);
         if(randPer < myTower.CritPer * 100) {
@@ -39,9 +39,22 @@ public class Util : MonoBehaviour {
         return isCritical;
     }
 
+    public void ComboAttack(Enemy enemy, int dmg, int hitCnt) => StartCoroutine(CoComboAttack(enemy, dmg, hitCnt));
+    IEnumerator CoComboAttack(Enemy enemy, int dmg, int hitCnt) {
+        for(int i = 0; i < hitCnt; i ++) {
+            enemy.DecreaseHp(dmg);
+
+            //* 途中で死んだら、コルーチン終了
+            if(enemy.Hp < 0 && !enemy.gameObject.activeSelf)
+                yield break;
+
+            yield return Time0_15;
+        }
+    }
+
     public void Blink(SpriteRenderer sprRdr) => StartCoroutine(CoBlink(sprRdr));
     public void Blink(Image img) => StartCoroutine(CoBlink(img));
-    private IEnumerator CoBlink(SpriteRenderer sprRdr) {
+    IEnumerator CoBlink(SpriteRenderer sprRdr) {
         sprRdr.material = BlinkMt;
         yield return new WaitForSeconds(0.1f);
         sprRdr.material = DefaultMt;
