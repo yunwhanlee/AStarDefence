@@ -15120,13 +15120,17 @@ MonoBehaviour:
   Kind: 2
   AtkType: 0
   BodySprRdr: {fileID: 913976414953818008}
-  MissileSpr: {fileID: -1724923750, guid: 7fa1f1b75a3d1a444a4a34264da002ef, type: 3}
+  MissileSpr: {fileID: 353717716, guid: 9b29567216c62fe4f98f6affd69ceb2c, type: 3}
   Name: 
   Lv: 2
   AtkRange: 2
   CritDmgPer: 0
   SlowSec: 0
   StunSec: 0
+  BigbangEF: {fileID: 0}
+  <IsMagicCircleOneTime>k__BackingField: 0
+  <IsLaserActive>k__BackingField: 0
+  <IsBigbangActive>k__BackingField: 0
 --- !u!114 &1775603458860905316
 MonoBehaviour:
   m_ObjectHideFlags: 0

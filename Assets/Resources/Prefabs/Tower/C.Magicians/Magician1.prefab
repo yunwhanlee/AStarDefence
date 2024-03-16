@@ -15120,7 +15120,7 @@ MonoBehaviour:
   Kind: 2
   AtkType: 0
   BodySprRdr: {fileID: 913976414953818008}
-  MissileSpr: {fileID: 0}
+  MissileSpr: {fileID: 1456161828, guid: 9b29567216c62fe4f98f6affd69ceb2c, type: 3}
   Name: 
   Lv: 0
   AtkRange: 2

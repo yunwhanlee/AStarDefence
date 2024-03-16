@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 53b677f5efdc8054491874f6ee8d8d28
+guid: 9b29567216c62fe4f98f6affd69ceb2c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 48
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -95,9 +95,9 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 512
+    maxTextureSize: 256
     resizeAlgorithm: 0
-    textureFormat: 47
+    textureFormat: 48
     textureCompression: 1
     compressionQuality: 100
     crunchedCompression: 0
@@ -110,70 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WhiteElectricBall_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e807d606102388248afd0ad7a67333a1
-      internalID: -1913846931
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WhiteElectricBall_1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 635a7386b81249d4a8c8998f9b3c3710
-      internalID: -327383226
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WhiteElectricBall_2
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9a62f765548f59946a1858b473e4531e
-      internalID: 254546185
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WhiteElectricBall_3
+      name: MissileSprites2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -187,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ee91672c96242248942e77d63481d78
-      internalID: 459973000
+      spriteID: 71e869098745fb2499c81da52fd99674
+      internalID: 1456161828
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WhiteElectricBall_4
+      name: MissileSprites2_1
       rect:
         serializedVersion: 2
         x: 64
@@ -208,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: deca6a723198e21459d7a60cce3f6101
-      internalID: -726610697
+      spriteID: 2446797d019e46547821dc935d763ed2
+      internalID: 353717716
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WhiteElectricBall_5
+      name: MissileSprites2_2
       rect:
         serializedVersion: 2
         x: 128
@@ -229,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 427adecbbebfff04f81e734b83794133
-      internalID: -1631322316
+      spriteID: 1143e64d99e278149b6470ac851bc842
+      internalID: 1201040689
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WhiteElectricBall_6
+      name: MissileSprites2_3
       rect:
         serializedVersion: 2
         x: 0
@@ -250,8 +187,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f4f1cb0fb8f3eb0468403fd544c3cf96
-      internalID: 757753682
+      spriteID: 36ebd55d45c8e344685e15aae87ba0ee
+      internalID: -1827723533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MissileSprites2_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c45d25926b5730649ad3df36c31fbdf9
+      internalID: -1704101389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MissileSprites2_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 720cffe4d25ebc2469ca2b1fa6f62001
+      internalID: 663194434
       vertices: []
       indices: 
       edges: []
@@ -267,13 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WhiteElectricBall_0: -1913846931
-      WhiteElectricBall_1: -327383226
-      WhiteElectricBall_2: 254546185
-      WhiteElectricBall_3: 459973000
-      WhiteElectricBall_4: -726610697
-      WhiteElectricBall_5: -1631322316
-      WhiteElectricBall_6: 757753682
+      MissileSprites2_0: 1456161828
+      MissileSprites2_1: 353717716
+      MissileSprites2_2: 1201040689
+      MissileSprites2_3: -1827723533
+      MissileSprites2_4: -1704101389
+      MissileSprites2_5: 663194434
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
