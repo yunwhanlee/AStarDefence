@@ -5,30 +5,44 @@ using UnityEngine.Pool;
 using TMPro;
 
 public enum GameEF {
+    NULL = -1,
     //* Object
     DmgTxtEF,
     CritDmgTxtEF,
     RefundTxtEF,
-    ExplosionFireballEF,
+
+    //* Magician
+    ExplosionWindEF, // Lv 3
+    ExplosionFireballPurpleEF, // Lv 4
+    ExplosionFireballBlueEF, // Lv 5
+    ExplosionFireballRedEF, // Lv 6
+
     //* UI
 }
 
 public class GameEffectManager : MonoBehaviour {
     List<ObjectPool<GameObject>> pool = new List<ObjectPool<GameObject>>();
 
-    //* Pool Type
+    /* Pool Type */
+    //* Text EF
     [field:SerializeField] public GameObject DmgTxtEF;
     [field:SerializeField] public GameObject CritDmgTxtEF;
     [field: SerializeField] public GameObject RefundTxtEF;
-    [field: SerializeField] public GameObject ExplosionFireballEF;
 
-    //* Active Type
+    //* Magician EF
+    [field: SerializeField] public GameObject ExplosionWindEF;
+    [field: SerializeField] public GameObject ExplosionFireballPurpleEF;
+    [field: SerializeField] public GameObject ExplosionFireballBlueEF;
+    [field: SerializeField] public GameObject ExplosionFireballRedEF;
 
     void Awake() {
-        pool.Add(InitEF(DmgTxtEF, max: 50));
-        pool.Add(InitEF(CritDmgTxtEF, max: 25));
+        pool.Add(InitEF(DmgTxtEF, max: 75));
+        pool.Add(InitEF(CritDmgTxtEF, max: 30));
         pool.Add(InitEF(RefundTxtEF, max: 3));
-        pool.Add(InitEF(ExplosionFireballEF, max: 5));
+        pool.Add(InitEF(ExplosionWindEF, max: 3));
+        pool.Add(InitEF(ExplosionFireballPurpleEF, max: 2));
+        pool.Add(InitEF(ExplosionFireballBlueEF, max: 1));
+        pool.Add(InitEF(ExplosionFireballRedEF, max: 1));
     }
 
 #region POOL

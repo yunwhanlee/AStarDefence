@@ -97,7 +97,11 @@ public class MagicianTower : Tower {
             return;
 
         StartCoroutine(CoActiveGizmos(target.transform.position));
-        GM._.gef.ShowEF(GameEF.ExplosionFireballEF, target.transform.position);
+        var efIdx = (Lv == 3)? GameEF.ExplosionWindEF
+            : (Lv == 4)? GameEF.ExplosionFireballPurpleEF
+            : (Lv == 5)? GameEF.ExplosionFireballBlueEF
+            : (Lv == 6)? GameEF.ExplosionFireballRedEF : GameEF.NULL;
+        GM._.gef.ShowEF(efIdx, target.transform.position);
 
         int layerMask = 1 << Enum.Layer.Enemy;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(target.transform.position, RADIUS, layerMask);

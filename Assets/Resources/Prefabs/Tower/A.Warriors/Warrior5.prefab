@@ -29378,11 +29378,13 @@ MonoBehaviour:
   RageAuraEF: {fileID: 4276388813663748850}
   WheelwindEF: {fileID: 7505256723891976545}
   CheerUpEF: {fileID: 8089092728630073993}
+  RoarEF: {fileID: 0}
   <RageDmgUp>k__BackingField: 0
   <RageSpdUp>k__BackingField: 0
   <IsCheerUpActive>k__BackingField: 0
   <CheerUpDmgUp>k__BackingField: 0
   <CheerUpSpdUp>k__BackingField: 0
+  <IsRoarActive>k__BackingField: 0
 --- !u!114 &1631033395140482249
 MonoBehaviour:
   m_ObjectHideFlags: 0
