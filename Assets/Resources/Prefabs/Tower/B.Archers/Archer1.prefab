@@ -226,7 +226,7 @@ MonoBehaviour:
   Kind: 1
   AtkType: 0
   BodySprRdr: {fileID: 2503690717856719880}
-  MissileSpr: {fileID: -454968180, guid: 6cd52a3cfe6a23c449d2ea29a486a640, type: 3}
+  MissileSpr: {fileID: 643788606, guid: 58c24ccdded125944a2253fe8954a33b, type: 3}
   Name: 
   Lv: 0
   AtkRange: 2.5
@@ -235,7 +235,7 @@ MonoBehaviour:
   StunSec: 0
   <PerfectAimAuraEF>k__BackingField: {fileID: 0}
   <IsPassArrowActive>k__BackingField: 0
-  <IsPerfectAimActive>k__BackingField: 0
+  <IsArrowRainActive>k__BackingField: 0
 --- !u!114 &8637186213431505548
 MonoBehaviour:
   m_ObjectHideFlags: 0
