@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6cd52a3cfe6a23c449d2ea29a486a640
+guid: 53b677f5efdc8054491874f6ee8d8d28
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 24
+  spritePixelsToUnits: 48
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -95,11 +95,11 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 64
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: 47
     textureCompression: 1
-    compressionQuality: 50
+    compressionQuality: 100
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 1
@@ -110,55 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bow and Arrows_0
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 37
-        width: 16
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: eeeff79ff147e7341ad427c38cbfa796
-      internalID: -454968180
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bow and Arrows_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 21
-        width: 16
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c3258145f6dff8b44860c420e32a5029
-      internalID: 1523011481
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bow and Arrows_2
+      name: WhiteElectricBall_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 5
-        width: 16
-        height: 7
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0537a0e9e0980d44386cbcb9c47c3a02
-      internalID: -747728243
+      spriteID: e807d606102388248afd0ad7a67333a1
+      internalID: -1913846931
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bow and Arrows_3
+      name: WhiteElectricBall_1
       rect:
         serializedVersion: 2
-        x: 16
-        y: 5
-        width: 16
-        height: 7
+        x: 64
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,8 +145,113 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8ae92c4abcbb6f34f8aa2839e476f319
-      internalID: -1708331002
+      spriteID: 635a7386b81249d4a8c8998f9b3c3710
+      internalID: -327383226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteElectricBall_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a62f765548f59946a1858b473e4531e
+      internalID: 254546185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteElectricBall_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ee91672c96242248942e77d63481d78
+      internalID: 459973000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteElectricBall_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: deca6a723198e21459d7a60cce3f6101
+      internalID: -726610697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteElectricBall_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 427adecbbebfff04f81e734b83794133
+      internalID: -1631322316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteElectricBall_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4f1cb0fb8f3eb0468403fd544c3cf96
+      internalID: 757753682
       vertices: []
       indices: 
       edges: []
@@ -204,10 +267,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Bow and Arrows_0: -454968180
-      Bow and Arrows_1: 1523011481
-      Bow and Arrows_2: -747728243
-      Bow and Arrows_3: -1708331002
+      WhiteElectricBall_0: -1913846931
+      WhiteElectricBall_1: -327383226
+      WhiteElectricBall_2: 254546185
+      WhiteElectricBall_3: 459973000
+      WhiteElectricBall_4: -726610697
+      WhiteElectricBall_5: -1631322316
+      WhiteElectricBall_6: 757753682
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
