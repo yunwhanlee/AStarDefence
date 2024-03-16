@@ -176,6 +176,7 @@ public class WarriorTower : Tower {
     IEnumerator CoSkill3_CheerUp() {
         const string CHEERUP = "CHEERUP";
         Debug.Log("CheerUp開始");
+        StartCoroutine(GetComponent<CharacterControls>().CoSpawnAnim());
         IsCheerUpActive = false;
         CheerUpEF.SetActive(true);
 
@@ -243,6 +244,7 @@ public class WarriorTower : Tower {
         yield return new WaitForSeconds(WAIT_DELAY_TIME);
 
         //* スキルEF 表示
+        StartCoroutine(GetComponent<CharacterControls>().CoSpawnAnim());
         IsRoarActive = false;
         RoarEF.SetActive(true);
 
