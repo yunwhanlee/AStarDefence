@@ -10,6 +10,9 @@ public enum GameEF {
     WoodDestroyEF,
     GrassDestroyEF,
     StoneDestroyEF,
+    StarlineExplosionRedEF,
+    StarlineExplosionBlueEF,
+    StarlineExplosionYellowEF,
 
     //* Text EF
     DmgTxtEF,
@@ -33,6 +36,9 @@ public class GameEffectManager : MonoBehaviour {
     [field:SerializeField] public GameObject WoodDestroyEF;
     [field:SerializeField] public GameObject GrassDestroyEF;
     [field:SerializeField] public GameObject StoneDestroyEF;
+    [field:SerializeField] public GameObject StarlineExplosionRedEF;
+    [field:SerializeField] public GameObject StarlineExplosionBlueEF;
+    [field:SerializeField] public GameObject StarlineExplosionYellowEF;
 
     //* Text EF
     [field:SerializeField] public GameObject DmgTxtEF;
@@ -50,6 +56,9 @@ public class GameEffectManager : MonoBehaviour {
         pool.Add(InitEF(WoodDestroyEF, max: 1));
         pool.Add(InitEF(GrassDestroyEF, max: 1));
         pool.Add(InitEF(StoneDestroyEF, max: 1));
+        pool.Add(InitEF(StarlineExplosionRedEF, max: 1));
+        pool.Add(InitEF(StarlineExplosionBlueEF, max: 1));
+        pool.Add(InitEF(StarlineExplosionYellowEF, max: 1));
         pool.Add(InitEF(DmgTxtEF, max: 75));
         pool.Add(InitEF(CritDmgTxtEF, max: 30));
         pool.Add(InitEF(RefundTxtEF, max: 3));

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -66,6 +67,14 @@ public class TowerManager : MonoBehaviour {
         Tower tower = Instantiate(towerObj, tmc.HitObject.transform).GetComponent<Tower>();
         tower.transform.localPosition = new Vector2(0, 0.15f); //* 少し上で、Board上にのせるように
 
+        //* マージ エフェクト
+        GameEF idx = (tower.Kind == TowerKind.Warrior)? GameEF.StarlineExplosionRedEF
+            : (tower.Kind == TowerKind.Archer)? GameEF.StarlineExplosionBlueEF
+            : (tower.Kind == TowerKind.Magician)? GameEF.StarlineExplosionYellowEF : GameEF.NULL;
+        Vector2 pos = new Vector2(tower.transform.position.x, tower.transform.position.y + 0.35f);
+        if(tower.Lv > 1)
+            GM._.gef.ShowEF(idx, pos);
+
         //* カードアッグレードのデータ反映
         tower.Upgrade();
 
@@ -92,13 +101,13 @@ public class TowerManager : MonoBehaviour {
                 //* 種類の選択 (種類がパラメータで設定されたら、そのタイプに固定して生成)
                 int randKind = (kind != TowerKind.None)? (int)kind : Random.Range(0, 3);
                 switch(randKind) {
-                    case (int)TowerKind.Warrior:
+                    case (int)TowerKind.Warrior: 
                         InstantiateTower(warriors[lvIdx], WarriorGroup);
                         break;
-                    case (int)TowerKind.Archer:
+                    case (int)TowerKind.Archer: 
                         InstantiateTower(archers[lvIdx], ArcherGroup);
                         break;
-                    case (int)TowerKind.Magician:
+                    case (int)TowerKind.Magician: 
                         InstantiateTower(magicians[lvIdx], MagicianGroup);
                         break;
                 }
