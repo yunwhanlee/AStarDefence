@@ -7,10 +7,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 
+/// <summary>
+/// ステージに関したデータ
+/// </summary>
 [System.Serializable]
 public class StageData {
     [field: SerializeField] public string Name {get; set;}
-    [field: SerializeField] public GameObject StageObj {get; set;}
+    [field: SerializeField] public GameObject TileMapObj {get; set;}
     [field: SerializeField] public TileBase[] Walls {get; set;}
     [field: SerializeField] public SettingEnemyData EnemyData {get; set;}
 }
@@ -23,7 +26,7 @@ public class GM : MonoBehaviour {
     public static GM _; //* Global
 
     [SerializeField] GameState state;   public GameState State {get => state; set => state = value;}
-    [field: SerializeField] public StageData[] StageData;
+    [field: SerializeField] public StageData[] StageDts;
     [field: SerializeField] public int Stage {get; set;}
     [field: SerializeField] public int MaxWave {get; set;}
     [field: SerializeField] public int WaveCnt {get; set;}
@@ -63,13 +66,18 @@ public class GM : MonoBehaviour {
         mm = GameObject.Find("MissileManager").GetComponent<MissileManager>();
 
         state = GameState.Ready;
-        Stage = 0;
-        MaxWave = StageData[0].EnemyData.WaveCount;//em.StageDatas[Stage].WaveCount;
+        Stage = 1;
+        Array.ForEach(StageDts, stageDt => stageDt.TileMapObj.SetActive(false)); //* 非表示 初期化
+        MaxWave = StageDts[Stage].EnemyData.Waves.Length;
         WaveCnt = 0;
         ResetCnt = 5;
         Life = 10;
         MaxLife = Life;
         Money = 1000;
+
+        //* 現在選択したステージのタイルマップ 表示
+        StageDts[Stage].TileMapObj.SetActive(true);
+
         gui.SetNextEnemyInfoFlagUI();
         gui.SwitchGameStateUI(state);
     }
@@ -99,8 +107,8 @@ public class GM : MonoBehaviour {
 #endregion
 
 #region FUNC
-    public EnemyData GetCurEnemyData() => StageData[Stage].EnemyData.Waves[WaveCnt - 1];
-    public EnemyData GetNextEnemyData() => StageData[Stage].EnemyData.Waves[WaveCnt];
+    public EnemyData GetCurEnemyData() => StageDts[Stage].EnemyData.Waves[WaveCnt - 1];
+    public EnemyData GetNextEnemyData() => StageDts[Stage].EnemyData.Waves[WaveCnt];
 
     /// <summary>
     /// WAVE開始
