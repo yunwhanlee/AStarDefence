@@ -238,6 +238,9 @@ public class TileMapController : MonoBehaviour {
 
     public void BreakWallTile() {
         Debug.Log($"BreakWallTile():: curSelectedPos= {getCurSelectedPos()}");
+        var idx = GM._.Stage == 0? GameEF.StoneDestroyEF : GameEF.GrassDestroyEF;
+        var pos = new Vector2(getCurSelectedPos().x, getCurSelectedPos().y);
+        GM._.gef.ShowEF(idx, pos, Util.Time1);
         WallTileMap.SetTile(getCurSelectedPos(isTile: true), null);
         Reset(isClearPos: false);
     }
@@ -288,6 +291,7 @@ public class TileMapController : MonoBehaviour {
 
                 // 削除
                 GM._.gef.ShowRefundTxtEF(board.transform.position, refund);
+                GM._.gef.ShowEF(GameEF.WoodDestroyEF, board.transform.position);
                 Destroy(board.gameObject);
                 Reset();
                 GM._.actBar.PanelObj.SetActive(false);

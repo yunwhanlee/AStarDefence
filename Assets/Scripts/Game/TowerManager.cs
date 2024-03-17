@@ -51,11 +51,12 @@ public class TowerManager : MonoBehaviour {
 #region CREATE
     public void InstallBoard() {
         Debug.Log("InstallBoard()::");
-        GameObject ins = Instantiate(boards[Random.Range(0, boards.Length)], tm.BoardGroup);
-        ins.transform.localPosition = tmc.getCurSelectedPos();
+        GameObject board = Instantiate(boards[Random.Range(0, boards.Length)], tm.BoardGroup);
+        board.transform.localPosition = tmc.getCurSelectedPos();
         int boardCnt = tm.WarriorGroup.childCount + tm.ArcherGroup.childCount + tm.MagicianGroup.childCount;
-        ins.name = $"Board{boardCnt}";
-        tmc.HitObject = ins;
+        board.name = $"Board{boardCnt}";
+        tmc.HitObject = board;
+        GM._.gef.ShowEF(GameEF.BuildTowerEF, board.transform.localPosition);
     }
     /// <summary>
     /// ランダムタワー生成

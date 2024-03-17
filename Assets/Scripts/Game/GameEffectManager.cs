@@ -6,12 +6,17 @@ using TMPro;
 
 public enum GameEF {
     NULL = -1,
-    //* Object
+    BuildTowerEF,
+    WoodDestroyEF,
+    GrassDestroyEF,
+    StoneDestroyEF,
+
+    //* Text EF
     DmgTxtEF,
     CritDmgTxtEF,
     RefundTxtEF,
 
-    //* Magician
+    //* Magician EF
     ExplosionWindEF, // Lv 3
     ExplosionFireballPurpleEF, // Lv 4
     ExplosionFireballBlueEF, // Lv 5
@@ -24,6 +29,11 @@ public class GameEffectManager : MonoBehaviour {
     List<ObjectPool<GameObject>> pool = new List<ObjectPool<GameObject>>();
 
     /* Pool Type */
+    [field:SerializeField] public GameObject BuildTowerEF;
+    [field:SerializeField] public GameObject WoodDestroyEF;
+    [field:SerializeField] public GameObject GrassDestroyEF;
+    [field:SerializeField] public GameObject StoneDestroyEF;
+
     //* Text EF
     [field:SerializeField] public GameObject DmgTxtEF;
     [field:SerializeField] public GameObject CritDmgTxtEF;
@@ -36,6 +46,10 @@ public class GameEffectManager : MonoBehaviour {
     [field: SerializeField] public GameObject ExplosionFireballRedEF;
 
     void Awake() {
+        pool.Add(InitEF(BuildTowerEF, max: 1));
+        pool.Add(InitEF(WoodDestroyEF, max: 1));
+        pool.Add(InitEF(GrassDestroyEF, max: 1));
+        pool.Add(InitEF(StoneDestroyEF, max: 1));
         pool.Add(InitEF(DmgTxtEF, max: 75));
         pool.Add(InitEF(CritDmgTxtEF, max: 30));
         pool.Add(InitEF(RefundTxtEF, max: 3));
