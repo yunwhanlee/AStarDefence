@@ -5029,7 +5029,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 1}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8853754254693743880
@@ -5121,8 +5121,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -10242,11 +10242,13 @@ MonoBehaviour:
   RageAuraEF: {fileID: 0}
   WheelwindEF: {fileID: 0}
   CheerUpEF: {fileID: 0}
+  RoarEF: {fileID: 0}
   <RageDmgUp>k__BackingField: 0
   <RageSpdUp>k__BackingField: 0
   <IsCheerUpActive>k__BackingField: 0
   <CheerUpDmgUp>k__BackingField: 0
   <CheerUpSpdUp>k__BackingField: 0
+  <IsRoarActive>k__BackingField: 0
 --- !u!114 &1631033395140482249
 MonoBehaviour:
   m_ObjectHideFlags: 0
