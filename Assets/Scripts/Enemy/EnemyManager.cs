@@ -38,7 +38,7 @@ public class EnemyManager : MonoBehaviour {
     }
     private void onRelease(Enemy enemy) { //* 戻す
         enemy.gameObject.SetActive(false);
-        enemy.Init(GetCurEnemyData());
+        enemy.Init(GM._.GetCurEnemyData());
 
         //* レイド終了をチェック
         // 敵のスポーンが終わらないと以下の処理しない
@@ -67,8 +67,8 @@ public class EnemyManager : MonoBehaviour {
 #region FUNC
     public IEnumerator CoCreateEnemy() {
         //* スポーンカウント リセット
-        Debug.Log($"GM._.em.GetCurEnemyData().Type= {GM._.em.GetCurEnemyData().Type}");
-        bool isTypeBoss = GM._.em.GetCurEnemyData().Type == EnemyType.Boss;
+        Debug.Log($"GM._.em.GetCurEnemyData().Type= {GM._.GetCurEnemyData().Type}");
+        bool isTypeBoss = GM._.GetCurEnemyData().Type == EnemyType.Boss;
         spawnCnt = isTypeBoss? BOSS_CNT : EnemyCnt;
         EnemyCnt = isTypeBoss? BOSS_CNT : MONSTER_CNT;
 
@@ -84,7 +84,7 @@ public class EnemyManager : MonoBehaviour {
         Enemy enemy = pool.Get();
 
         //* データ設定（ScriptableObject敵リストから）
-        enemy.Init(GetCurEnemyData());
+        enemy.Init(GM._.GetCurEnemyData());
 
         //* 敵の情報UI表示
         if(i == 0)
@@ -93,8 +93,5 @@ public class EnemyManager : MonoBehaviour {
         enemy.name = $"enemy{i}";
         enemy.transform.position = new Vector2(GM._.pfm.startPos.x, GM._.pfm.startPos.y);
     }
-
-    private EnemyData GetCurEnemyData() => StageDatas[GM._.Map].EnemyDatas[GM._.Wave - 1];
-    public EnemyData GetNextEnemyData() => StageDatas[GM._.Map].EnemyDatas[GM._.Wave];
 #endregion
 }

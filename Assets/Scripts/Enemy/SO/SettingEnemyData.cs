@@ -15,5 +15,5 @@ public class EnemyData {
 [CreateAssetMenu(fileName = "EnemyDataSO", menuName = "Scriptable Object/Setting EnemyData")]
 public class SettingEnemyData : ScriptableObject {
     [field:SerializeField] public int WaveCount {get; private set;}
-    [field:SerializeField] public EnemyData[] EnemyDatas {get; private set;}
+    [field:SerializeField] public EnemyData[] Waves {get; private set;}
 }

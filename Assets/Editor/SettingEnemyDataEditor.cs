@@ -16,7 +16,7 @@ public class SettingEnemyDataEditor : Editor {
         //* レベル昇順適用ボタン
         if(GUILayout.Button("レベル昇順適用")) {
             int i = 0;
-            foreach (var enemyDt in dt.EnemyDatas) {
+            foreach (var enemyDt in dt.Waves) {
                 enemyDt.Lv = ++i;
                 EditorUtility.SetDirty(dt); // 변경 내용을 저장
             } 

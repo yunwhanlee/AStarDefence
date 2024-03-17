@@ -5,7 +5,15 @@ using UnityEditor.SceneManagement;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Tilemaps;
 
+[System.Serializable]
+public class StageData {
+    [field: SerializeField] public string Name {get; set;}
+    [field: SerializeField] public GameObject StageObj {get; set;}
+    [field: SerializeField] public TileBase[] Walls {get; set;}
+    [field: SerializeField] public SettingEnemyData EnemyData {get; set;}
+}
 
 public enum GameState {Ready, Play, Pause, Gameover};
 
@@ -15,9 +23,10 @@ public class GM : MonoBehaviour {
     public static GM _; //* Global
 
     [SerializeField] GameState state;   public GameState State {get => state; set => state = value;}
-    [field: SerializeField] public int Map {get; set;}
+    [field: SerializeField] public StageData[] StageData;
+    [field: SerializeField] public int Stage {get; set;}
     [field: SerializeField] public int MaxWave {get; set;}
-    [field: SerializeField] public int Wave {get; set;}
+    [field: SerializeField] public int WaveCnt {get; set;}
     [field: SerializeField] public int ResetCnt {get; set;}
 
     [field: SerializeField] public int MaxLife {get; set;}
@@ -54,9 +63,9 @@ public class GM : MonoBehaviour {
         mm = GameObject.Find("MissileManager").GetComponent<MissileManager>();
 
         state = GameState.Ready;
-        Map = 0;
-        MaxWave = em.StageDatas[Map].WaveCount;
-        Wave = 0;
+        Stage = 0;
+        MaxWave = StageData[0].EnemyData.WaveCount;//em.StageDatas[Stage].WaveCount;
+        WaveCnt = 0;
         ResetCnt = 5;
         Life = 10;
         MaxLife = Life;
@@ -90,12 +99,15 @@ public class GM : MonoBehaviour {
 #endregion
 
 #region FUNC
+    public EnemyData GetCurEnemyData() => StageData[Stage].EnemyData.Waves[WaveCnt - 1];
+    public EnemyData GetNextEnemyData() => StageData[Stage].EnemyData.Waves[WaveCnt];
+
     /// <summary>
     /// WAVE開始
     /// </summary>
     private void StartWave() {
         state = GameState.Play;
-        gui.WaveTxt.text = $"WAVE {++Wave}";
+        gui.WaveTxt.text = $"WAVE {++WaveCnt}";
         gui.EnemyCntTxt.text = $"{em.EnemyCnt} / {em.EnemyCnt}";
         gui.SwitchGameStateUI(state);
         pfm.PathFinding();
@@ -109,16 +121,16 @@ public class GM : MonoBehaviour {
     /// WAVE終了
     /// </summary>
     public void FinishWave() {
-        Debug.Log($"FinishWave():: Wave= {Wave}");
+        Debug.Log($"FinishWave():: Wave= {WaveCnt}");
         state = GameState.Ready;
-        gui.WaveTxt.text = $"WAVE {Wave} / {MaxWave}";
+        gui.WaveTxt.text = $"WAVE {WaveCnt} / {MaxWave}";
         gui.SwitchGameStateUI(state);
 
         //* Next Enemy Info UI
         gui.SetNextEnemyInfoFlagUI();
 
         //* ボスリワード 表示
-        if(Wave % 10 == 0) {
+        if(WaveCnt % 10 == 0) {
             bossRwd.Active(3);
         }
     }

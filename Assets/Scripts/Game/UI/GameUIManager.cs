@@ -74,7 +74,7 @@ public class GameUIManager : MonoBehaviour {
     void Start() {
         CorMsgNoticeID = null;
         TopMsgError.SetActive(false);
-        WaveTxt.text = $"WAVE {GM._.Wave} / {GM._.MaxWave}";
+        WaveTxt.text = $"WAVE {GM._.WaveCnt} / {GM._.MaxWave}";
         ResetWallCntTxt.text = $"{GM._.ResetCnt}/{GM.RESET_WALL_MAX}";
         EnemyCntTxt.text = "0 / 0";
         MoneyTxt.text = $"{GM._.Money}";
@@ -86,9 +86,9 @@ public class GameUIManager : MonoBehaviour {
 #region EVENT
     //! DEBUG
     public void Debug_WaveUp() {
-        GM._.Wave++;
-        if(GM._.Wave > GM._.MaxWave) GM._.Wave = 0;
-        WaveTxt.text = $"WAVE {GM._.Wave} / {GM._.MaxWave}";
+        GM._.WaveCnt++;
+        if(GM._.WaveCnt > GM._.MaxWave) GM._.WaveCnt = 0;
+        WaveTxt.text = $"WAVE {GM._.WaveCnt} / {GM._.MaxWave}";
     }
 
     public void OnClickPlaySpeedBtn() {
@@ -264,7 +264,7 @@ public class GameUIManager : MonoBehaviour {
     }
 
     public void SetNextEnemyInfoFlagUI() {
-        EnemyData nextEnemyDt = GM._.em.GetNextEnemyData();
+        EnemyData nextEnemyDt = GM._.GetNextEnemyData();
         if(nextEnemyDt == null) return; //* もう敵がなかったら、以下処理しない
 
         NextEnemyImg.sprite = nextEnemyDt.Spr;

@@ -110,652 +110,799 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\uD551\uD06C\uB2EC\uD33D\uC774"
+      name: 2.DesertMonsters_0
       rect:
         serializedVersion: 2
         x: 0
         y: 160
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23732e8a5404999418f1fde00f84b1d4
-      internalID: -1486618774
+      spriteID: 586a94302c5a26a4da85ab528335f8df
+      internalID: 1941843258
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uC0AC\uB9C9\uAC1C\uAD6C\uB9AC"
+      name: 2.DesertMonsters_1
       rect:
         serializedVersion: 2
         x: 32
         y: 160
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a445fb3ae49aa0446becdcb676b71c27
-      internalID: 1758116549
+      spriteID: 561297afc1bb3dc4582b0240a2814a71
+      internalID: 1515532998
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBC29\uC6B8\uBC40"
+      name: 2.DesertMonsters_2
       rect:
         serializedVersion: 2
         x: 64
         y: 160
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca10d9c4918ef5f489a4d53ed342ec7e
-      internalID: -1210304616
+      spriteID: 6329301a5d42c4845b9fbe5ac54c3692
+      internalID: -1304639794
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBD80\uC871\uC804\uC0AC"
+      name: 2.DesertMonsters_3
       rect:
         serializedVersion: 2
         x: 96
         y: 160
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e35f6f765dc7d59408f0fd4e1ff74a81
-      internalID: -967441638
+      spriteID: da7b4da9b5f814e429c31b07ae0a2d04
+      internalID: -1944666638
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBD80\uC871\uC220\uC0AC"
+      name: 2.DesertMonsters_4
       rect:
         serializedVersion: 2
         x: 128
         y: 160
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0c7d0409b3a233341b5b02dace4c0c7c
-      internalID: 1151477466
+      spriteID: bb852fe9cdb7b1d4aaa302337163a27f
+      internalID: 1903118238
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uC2DD\uC778\uAF43"
+      name: 2.DesertMonsters_5
       rect:
         serializedVersion: 2
         x: 160
         y: 160
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b0e3ccf22556ee249bf58aaeb579d82b
-      internalID: -1635946277
+      spriteID: 720d1e2f25b39c94da6c595733a17b4d
+      internalID: -662279957
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uC624\uC544\uC2DC\uC2A4\uC815\uB839"
+      name: 2.DesertMonsters_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 363feef6cf671ca4ebaad5da2264c242
+      internalID: 1511401903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2.DesertMonsters_7
       rect:
         serializedVersion: 2
         x: 0
         y: 128
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe63625728a66f049a3d11e1a9daad9d
-      internalID: -1926150354
+      spriteID: ea6680fdf8e3b8e4984a8221f88457a3
+      internalID: 393884819
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uC0AC\uB9C9\uB291\uB300"
+      name: 2.DesertMonsters_8
       rect:
         serializedVersion: 2
         x: 32
         y: 128
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd781b481f9854c4684c6d18e7967d09
-      internalID: 669346990
+      spriteID: 216e2c2ef43cf3143a57a8e148ef7c6e
+      internalID: 736244958
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uC5B4\uB460\uB291\uB300"
+      name: 2.DesertMonsters_9
       rect:
         serializedVersion: 2
         x: 64
         y: 128
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e2bef89c382eb8444b42acbb60272d6c
-      internalID: -1714391257
+      spriteID: 73b4105156731694699bc252bd37ee4d
+      internalID: -696977637
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uC0AC\uB9C9\uAC70\uBBF8"
+      name: 2.DesertMonsters_10
       rect:
         serializedVersion: 2
         x: 96
         y: 128
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71d6cf80ddff34d4191998b7f2ff0a81
-      internalID: 628885260
+      spriteID: 5c14febecb420464e9b2e8b664928da3
+      internalID: 766050461
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uB124\uD32C\uB370\uC2A4"
+      name: 2.DesertMonsters_11
       rect:
         serializedVersion: 2
         x: 128
         y: 128
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0fdf0e40499a3e5478e4ecb672ff7d60
-      internalID: -1010299888
+      spriteID: fb61d863dec643d44b6ad8809c35166c
+      internalID: -887033725
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uC0AC\uD558\uB77C \uB124\uD39C\uB370\uC2A4"
+      name: 2.DesertMonsters_12
       rect:
         serializedVersion: 2
         x: 160
         y: 128
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 142f30e7be287764a9d46d4ebf3c3d9e
-      internalID: -2020806369
+      spriteID: f41911b250c71a043b76e0e615153275
+      internalID: -1170417784
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBC15\uC950"
+      name: 2.DesertMonsters_13
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02d0a5f25e8e85d44bbd47d776bc0195
+      internalID: -1068227114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2.DesertMonsters_14
       rect:
         serializedVersion: 2
         x: 0
         y: 96
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4e680c510395c641ac7fd3d9dc9c928
-      internalID: 422081505
+      spriteID: e4d69ae3625dbbf44a367960f1f71714
+      internalID: -51704133
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uC0AC\uB9C9\uBC15\uC950"
+      name: 2.DesertMonsters_15
       rect:
         serializedVersion: 2
         x: 32
         y: 96
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4381eb87616d4984c9cd1c4b4e93b102
-      internalID: -1195044998
+      spriteID: ca411331805ae43479b2990bfeead624
+      internalID: 1146073208
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uC0AC\uB9C9\uB450\uB354\uC9C0"
+      name: 2.DesertMonsters_16
       rect:
         serializedVersion: 2
         x: 64
         y: 96
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5707340cbef87a041bfbc5891f843861
-      internalID: -1438452618
+      spriteID: d3593631612423b499621dfd7460c965
+      internalID: -57537067
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uC0AC\uB9C9\uBE44\uBC84"
+      name: 2.DesertMonsters_17
       rect:
         serializedVersion: 2
         x: 96
         y: 96
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a00744307c8ce74abeb321af30b6d70
-      internalID: 1933867488
+      spriteID: fa0b694e91344444683209baba05474f
+      internalID: 1580738959
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uC0AC\uB9C9\uC950"
+      name: 2.DesertMonsters_18
       rect:
         serializedVersion: 2
         x: 128
         y: 96
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3cf85b974f346a043ade03d81e5bc742
-      internalID: 943273893
+      spriteID: 47bf13ef32df1e54fbad580919924535
+      internalID: 1460316485
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uCF69\uBC8C\uB798"
+      name: 2.DesertMonsters_19
       rect:
         serializedVersion: 2
         x: 160
         y: 96
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 73ffae59be099f94fa8d156480a35753
-      internalID: -557555765
+      spriteID: 16e9da95f7da9f14ab15ab4822c684c8
+      internalID: 1071832370
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uC0AC\uB9C9\uB204\uC5D0"
+      name: 2.DesertMonsters_20
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93d840e152207c044a5a4907c2d2f065
+      internalID: 351988152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2.DesertMonsters_21
       rect:
         serializedVersion: 2
         x: 0
         y: 64
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 20818a45247126145a34512c8fc7fdf4
-      internalID: -1406939839
+      spriteID: 03f28c4ad1e57e640b6f61e300cb1147
+      internalID: 1518870757
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uC0AC\uB9C9\uBC14\uD034"
+      name: 2.DesertMonsters_22
       rect:
         serializedVersion: 2
         x: 32
         y: 64
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5819924f22c705b41a9d13c193a2be43
-      internalID: 1217714647
+      spriteID: b45e7cde6c31c5348b05fbbd6b67204e
+      internalID: -1272188577
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uC0AC\uB9C9\uBA54\uB69C\uAE30"
+      name: 2.DesertMonsters_23
       rect:
         serializedVersion: 2
         x: 64
         y: 64
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7519a8f14008f0142a90a8caa2cf9103
-      internalID: 1560366503
+      spriteID: 5f3fc5ed2dbd3174aa6c6057addec5a2
+      internalID: 739087699
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uAC1C\uBBF8"
+      name: 2.DesertMonsters_24
       rect:
         serializedVersion: 2
         x: 96
         y: 64
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d2f6cd20369749a479c5d95d5a1a4c8a
-      internalID: -478311532
+      spriteID: 74c24b3cc11a6794b9d9fa9e3a9a68ff
+      internalID: 1478737635
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBD89\uC740\uAC1C\uBBF8"
+      name: 2.DesertMonsters_25
       rect:
         serializedVersion: 2
         x: 128
         y: 64
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe5c540b06fa9c143adea88b41476eea
-      internalID: 314773216
+      spriteID: 907020762ceacb84da8d32e6ae57815c
+      internalID: -97544636
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBCD1\uC815\uAC1C\uBBF8"
+      name: 2.DesertMonsters_26
       rect:
         serializedVersion: 2
         x: 160
         y: 64
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: edbb298504ec54e47962328991a8a153
-      internalID: 1366954652
+      spriteID: f20373dd177137d4a81d05c54a1af892
+      internalID: 1752399556
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uC1E0\uB625\uAD6C\uB9AC"
+      name: 2.DesertMonsters_27
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e10dae4ddce6945449e6b45f4593aa44
+      internalID: 1697287371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2.DesertMonsters_28
       rect:
         serializedVersion: 2
         x: 0
         y: 32
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 607d3014bbce4a2408b957901a2bd452
-      internalID: 1906345372
+      spriteID: 4c3a49cf63745ee46a17758224f2ab18
+      internalID: 1866831630
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uD5E4\uB77C\uD074\uB85C\uC2A4"
+      name: 2.DesertMonsters_29
       rect:
         serializedVersion: 2
         x: 32
         y: 32
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e1ceafdb8282b1b4b9807b89cfe63f80
-      internalID: -65129323
+      spriteID: 10a588eb20414dd489cc47798cf8257d
+      internalID: 1192066775
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uB300\uC9C0\uC544\uAE30\uC6A9"
+      name: 2.DesertMonsters_30
       rect:
         serializedVersion: 2
         x: 64
         y: 32
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b350235b5d3f902439a9a9444d7419bf
-      internalID: 795081769
+      spriteID: c876a447029ebfb4e8d75bab07ae2d51
+      internalID: 1638789866
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uB300\uC9C0\uB4DC\uB798\uACE4"
+      name: 2.DesertMonsters_31
       rect:
         serializedVersion: 2
         x: 96
         y: 32
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ac6d857249ed3d44a03a4ebfa62252a
-      internalID: 2010591074
+      spriteID: f61f0efa9b749194086a7b304480518c
+      internalID: -599789202
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uD669\uAE08\uC544\uAE30\uC6A9"
+      name: 2.DesertMonsters_32
       rect:
         serializedVersion: 2
         x: 128
         y: 32
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 45b1093d0bc340f4ea872c9f3d60836a
-      internalID: -162197871
+      spriteID: 9c0ffcf43ff5a0b4186f0151006bdac0
+      internalID: -1682139325
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uD669\uAE08\uB4DC\uB798\uACE4"
+      name: 2.DesertMonsters_33
       rect:
         serializedVersion: 2
         x: 160
         y: 32
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9155bc79f9169464cb4aafe4d339a55e
-      internalID: -415341717
+      spriteID: 4c9e90967b392b6408393892718ed81e
+      internalID: 697517228
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uB300\uC9C0\uACE8\uB818"
+      name: 2.DesertMonsters_34
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bc8dfa7b32ad5a43bf804dbcc421e42
+      internalID: -1123082923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2.DesertMonsters_35
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7498bff5f19921c41af0b78b698e7b36
-      internalID: 417651335
+      spriteID: 1cd33dc7339624246a9246046a879162
+      internalID: 552792678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2.DesertMonsters_36
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d25520c6d3e9df340bc62fc1148e15bd
+      internalID: -1552279931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2.DesertMonsters_37
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f847a997b17d814b92889ce1bad28c6
+      internalID: -735526540
       vertices: []
       indices: 
       edges: []
@@ -771,37 +918,44 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      "\uAC1C\uBBF8": -478311532
-      "\uB124\uD32C\uB370\uC2A4": -1010299888
-      "\uB300\uC9C0\uACE8\uB818": 417651335
-      "\uB300\uC9C0\uB4DC\uB798\uACE4": 2010591074
-      "\uB300\uC9C0\uC544\uAE30\uC6A9": 795081769
-      "\uBC15\uC950": 422081505
-      "\uBC29\uC6B8\uBC40": -1210304616
-      "\uBCD1\uC815\uAC1C\uBBF8": 1366954652
-      "\uBD80\uC871\uC220\uC0AC": 1151477466
-      "\uBD80\uC871\uC804\uC0AC": -967441638
-      "\uBD89\uC740\uAC1C\uBBF8": 314773216
-      "\uC0AC\uB9C9\uAC1C\uAD6C\uB9AC": 1758116549
-      "\uC0AC\uB9C9\uAC70\uBBF8": 628885260
-      "\uC0AC\uB9C9\uB204\uC5D0": -1406939839
-      "\uC0AC\uB9C9\uB291\uB300": 669346990
-      "\uC0AC\uB9C9\uB450\uB354\uC9C0": -1438452618
-      "\uC0AC\uB9C9\uBA54\uB69C\uAE30": 1560366503
-      "\uC0AC\uB9C9\uBC14\uD034": 1217714647
-      "\uC0AC\uB9C9\uBC15\uC950": -1195044998
-      "\uC0AC\uB9C9\uBE44\uBC84": 1933867488
-      "\uC0AC\uB9C9\uC950": 943273893
-      "\uC0AC\uD558\uB77C \uB124\uD39C\uB370\uC2A4": -2020806369
-      "\uC1E0\uB625\uAD6C\uB9AC": 1906345372
-      "\uC2DD\uC778\uAF43": -1635946277
-      "\uC5B4\uB460\uB291\uB300": -1714391257
-      "\uC624\uC544\uC2DC\uC2A4\uC815\uB839": -1926150354
-      "\uCF69\uBC8C\uB798": -557555765
-      "\uD551\uD06C\uB2EC\uD33D\uC774": -1486618774
-      "\uD5E4\uB77C\uD074\uB85C\uC2A4": -65129323
-      "\uD669\uAE08\uB4DC\uB798\uACE4": -415341717
-      "\uD669\uAE08\uC544\uAE30\uC6A9": -162197871
+      2.DesertMonsters_0: 1941843258
+      2.DesertMonsters_1: 1515532998
+      2.DesertMonsters_10: 766050461
+      2.DesertMonsters_11: -887033725
+      2.DesertMonsters_12: -1170417784
+      2.DesertMonsters_13: -1068227114
+      2.DesertMonsters_14: -51704133
+      2.DesertMonsters_15: 1146073208
+      2.DesertMonsters_16: -57537067
+      2.DesertMonsters_17: 1580738959
+      2.DesertMonsters_18: 1460316485
+      2.DesertMonsters_19: 1071832370
+      2.DesertMonsters_2: -1304639794
+      2.DesertMonsters_20: 351988152
+      2.DesertMonsters_21: 1518870757
+      2.DesertMonsters_22: -1272188577
+      2.DesertMonsters_23: 739087699
+      2.DesertMonsters_24: 1478737635
+      2.DesertMonsters_25: -97544636
+      2.DesertMonsters_26: 1752399556
+      2.DesertMonsters_27: 1697287371
+      2.DesertMonsters_28: 1866831630
+      2.DesertMonsters_29: 1192066775
+      2.DesertMonsters_3: -1944666638
+      2.DesertMonsters_30: 1638789866
+      2.DesertMonsters_31: -599789202
+      2.DesertMonsters_32: -1682139325
+      2.DesertMonsters_33: 697517228
+      2.DesertMonsters_34: -1123082923
+      2.DesertMonsters_35: 552792678
+      2.DesertMonsters_36: -1552279931
+      2.DesertMonsters_37: -735526540
+      2.DesertMonsters_4: 1903118238
+      2.DesertMonsters_5: -662279957
+      2.DesertMonsters_6: 1511401903
+      2.DesertMonsters_7: 393884819
+      2.DesertMonsters_8: 736244958
+      2.DesertMonsters_9: -696977637
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
