@@ -26,6 +26,12 @@ public enum GameEF {
     CritDmgTxtEF,
     RefundTxtEF,
 
+    //* CCTower EF
+    NovaFrostLv1EF, NovaFrostLv2EF, NovaFrostLv3EF,
+    NovaLightningLv1EF, NovaLightningLv2EF, NovaLightningLv3EF,
+    FrostExplosionEF,
+    LightningExplosionEF,
+
     //* Warrior EF
     SwordSlashWhiteEF,
     SwordSlashYellowEF,
@@ -73,6 +79,15 @@ public class GameEffectManager : MonoBehaviour {
     [field:SerializeField] public GameObject DmgTxtEF;
     [field:SerializeField] public GameObject CritDmgTxtEF;
     [field: SerializeField] public GameObject RefundTxtEF;
+    //* CCTower EF
+    [field: SerializeField] public GameObject NovaFrostLv1EF;
+    [field: SerializeField] public GameObject NovaFrostLv2EF;
+    [field: SerializeField] public GameObject NovaFrostLv3EF;
+    [field: SerializeField] public GameObject NovaLightningLv1EF;
+    [field: SerializeField] public GameObject NovaLightningLv2EF;
+    [field: SerializeField] public GameObject NovaLightningLv3EF;
+    [field: SerializeField] public GameObject FrostExplosionEF;
+    [field: SerializeField] public GameObject LightningExplosionEF;
     //* Warrior EF
     [field: SerializeField] public GameObject SwordSlashWhiteEF;
     [field: SerializeField] public GameObject SwordSlashYellowEF;
@@ -110,6 +125,16 @@ public class GameEffectManager : MonoBehaviour {
         pool.Add(InitEF(DmgTxtEF, max: 75));
         pool.Add(InitEF(CritDmgTxtEF, max: 30));
         pool.Add(InitEF(RefundTxtEF, max: 3));
+        //* CCTower EF
+        pool.Add(InitEF(NovaFrostLv1EF, max: 2));
+        pool.Add(InitEF(NovaFrostLv2EF, max: 2));
+        pool.Add(InitEF(NovaFrostLv3EF, max: 2));
+        pool.Add(InitEF(NovaLightningLv1EF, max: 2));
+        pool.Add(InitEF(NovaLightningLv2EF, max: 2));
+        pool.Add(InitEF(NovaLightningLv3EF, max: 2));
+        
+        pool.Add(InitEF(FrostExplosionEF, max: 10));
+        pool.Add(InitEF(LightningExplosionEF, max: 10));
         //* Warrior EF
         pool.Add(InitEF(SwordSlashWhiteEF, max: 20));
         pool.Add(InitEF(SwordSlashYellowEF, max: 10));
@@ -149,9 +174,9 @@ public class GameEffectManager : MonoBehaviour {
 #endregion
 
 #region SHOW EFFECT
-    public void ShowEF(GameEF efIdx, Vector2 pos, WaitForSeconds delay = null) {
-        StartCoroutine(CoShowEF(efIdx, pos, delay));
-    }
+    public void ShowEF(GameEF efIdx, Vector2 pos, WaitForSeconds delay = null)
+        => StartCoroutine(CoShowEF(efIdx, pos, delay));
+
     IEnumerator CoShowEF(GameEF efIdx, Vector2 pos, WaitForSeconds delay) {
         if(delay == null)
             delay = Util.Time1_5;
@@ -162,7 +187,9 @@ public class GameEffectManager : MonoBehaviour {
         pool[(int)efIdx].Release(ef);
     }
 
-    public void ShowDmgTxtEF(Vector2 pos, int dmg, bool isCritical = false) => StartCoroutine(CoShowDmgTxtEF(pos, dmg, isCritical));
+    public void ShowDmgTxtEF(Vector2 pos, int dmg, bool isCritical = false)
+        => StartCoroutine(CoShowDmgTxtEF(pos, dmg, isCritical));
+
     IEnumerator CoShowDmgTxtEF(Vector2 pos, int dmg, bool isCritical) {
         int idx = isCritical? (int)GameEF.CritDmgTxtEF : (int)GameEF.DmgTxtEF;
         GameObject ef = pool[idx].Get();
@@ -172,7 +199,9 @@ public class GameEffectManager : MonoBehaviour {
         pool[idx].Release(ef);
     }
 
-    public void ShowRefundTxtEF(Vector2 pos, int val) => StartCoroutine(CoShowRefundTxtEF(pos, val));
+    public void ShowRefundTxtEF(Vector2 pos, int val)
+        => StartCoroutine(CoShowRefundTxtEF(pos, val));
+
     IEnumerator CoShowRefundTxtEF(Vector2 pos, int val)
     {
         int idx = (int)GameEF.RefundTxtEF;

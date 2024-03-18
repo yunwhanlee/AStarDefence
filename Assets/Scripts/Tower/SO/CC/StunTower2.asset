@@ -22,5 +22,5 @@ MonoBehaviour:
   SplashRange: 1.25
   CritPer: 0
   CritDmgPer: 0
-  SlowPer: 0
+  SlowSec: 0
   StunSec: 0.75

@@ -148,6 +148,7 @@ public abstract class Enemy : MonoBehaviour {
         /// 敵のスロー
         /// </summary>
         public void Slow(float sec) {
+            GM._.gef.ShowEF(GameEF.FrostExplosionEF, transform.position);
             UpdateCorID(ref CorSlow);
             CorSlow = StartCoroutine(CoSlow(sec));
         }
@@ -162,12 +163,13 @@ public abstract class Enemy : MonoBehaviour {
         /// 敵のスタン
         /// </summary>
         public void Stun(float sec) {
+            GM._.gef.ShowEF(GameEF.LightningExplosionEF, transform.position);
             UpdateCorID(ref CorStun);
             CorStun = StartCoroutine(CoStun(sec));
         }
         IEnumerator CoStun(float sec) {
             Speed = 0;
-            SprRdr.color = Color.yellow;
+            SprRdr.color = Color.red;
             yield return new WaitForSeconds(sec);
             Speed = originSpd;
             SprRdr.color = Color.white;

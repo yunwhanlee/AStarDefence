@@ -12,6 +12,8 @@ public enum AttackType {Target, Round}
 
 public abstract class Tower : MonoBehaviour {
     public const string DIC_UPGRADE = "Upgrade";
+    const float CC_ATK_DELAY = 0.5f; // sec
+    const float CC_RANGE_SCALE_OFFSET = 1.575f;
 
     //* 外部
     public SettingTowerData TowerData;
@@ -156,9 +158,34 @@ public abstract class Tower : MonoBehaviour {
                         break;
                     }
                     case AttackType.Round: {
+                        //* 少し待機して攻撃（すぐやっちゃうと当たらない）
+                        yield return new WaitForSeconds(CC_ATK_DELAY);
+                        
+                        //* 丸型衝突判定
                         var layerMask = 1 << Enum.Layer.Enemy;
-                        Collider2D[] colliders = Physics2D.OverlapCircleAll(trc.transform.position, AtkRange, layerMask);
+                        Collider2D[] colliders = Physics2D.OverlapCircleAll(trc.transform.position, AtkRange * CC_RANGE_SCALE_OFFSET, layerMask);
                         Debug.Log("アタック！ ROUND:: colliders= " + colliders.Length);
+
+                        //* Nova EF
+                        GameEF idx = GameEF.NULL;
+                        if(Type == TowerType.CC_IceTower) {
+                            switch(Lv) {
+                                case 1: idx = GameEF.NovaFrostLv1EF; break;
+                                case 2: idx = GameEF.NovaFrostLv2EF; break;
+                                case 3: idx = GameEF.NovaFrostLv3EF; break;
+                            }
+                        }
+                        else if(Type == TowerType.CC_StunTower) {
+                            switch(Lv) {
+                                case 1: idx = GameEF.NovaLightningLv1EF; break;
+                                case 2: idx = GameEF.NovaLightningLv2EF; break;
+                                case 3: idx = GameEF.NovaLightningLv3EF; break;
+                            }
+                        }
+
+                        //* エフェクト
+                        GM._.gef.ShowEF(idx, transform.position, Util.Time2);
+
                         foreach(Collider2D col in colliders) {
                             Enemy enemy = col.GetComponent<Enemy>();
                             switch(Type) {
@@ -253,6 +280,6 @@ public abstract class Tower : MonoBehaviour {
     private void OnDrawGizmos() {
         var pos = transform.position;
         Gizmos.color = trc.CurTarget? Color.red : Color.yellow;
-        Gizmos.DrawWireSphere(new Vector3(pos.x, pos.y - 0.15f, pos.z), AtkRange * 1.575f);
+        Gizmos.DrawWireSphere(new Vector3(pos.x, pos.y, pos.z), AtkRange * CC_RANGE_SCALE_OFFSET);
     }
 }
