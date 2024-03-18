@@ -116,7 +116,8 @@ public abstract class Enemy : MonoBehaviour {
             if(!gameObject.activeSelf) {
                 return;
             }
-
+            
+            //* Dmg Txt EF
             GM._.gef.ShowDmgTxtEF(transform.position, val, isCritical);
 
             Util._.Blink(SprRdr);

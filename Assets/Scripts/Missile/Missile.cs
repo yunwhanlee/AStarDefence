@@ -88,6 +88,15 @@ public class Missile : MonoBehaviour {
                         totalDmg /= 2;
 
                     enemy.DecreaseHp(totalDmg, isCritical);
+
+                    //* Hit EF
+                    switch(MyTower.Kind) {
+                        case TowerKind.Archer:
+                            var arrowHitEF = isCritical? GameEF.ArrowCritExplosionEF : GameEF.ArrowExplosionFireEF;
+                            GM._.gef.ShowEF(arrowHitEF, enemy.transform.position);
+                            break;
+                    }
+
                     GM._.mm.Pool.Release(this); //* 戻すは一つのみなのに、複数衝突して１回以上読みこむとエラー
                     ColList.Clear();
                     break;

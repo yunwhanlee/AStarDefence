@@ -85,6 +85,8 @@ public class GM : MonoBehaviour {
         string difficulty = (DM._.SelectedDiff == Enum.Difficulty.Easy)? "EASY"
             : (DM._.SelectedDiff == Enum.Difficulty.Normal)? "NORMAL"
             : "HARD";
+        Debug.Log("difficulty= " + difficulty + ",gef= " + gef);
+
         gef.ActiveStageTitleAnim($"{StageDts[Stage].Name}\n<size=70%>- {difficulty} -</size>");
     }
 

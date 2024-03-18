@@ -30,6 +30,10 @@ public enum GameEF {
     SwordSlashBlueEF,
     SwordSlashPurpleBlackEF,
 
+    //* Archer EF
+    ArrowExplosionFireEF,
+    ArrowCritExplosionEF,
+
     //* Magician EF
     ExplosionWindEF, // Lv 3
     ExplosionFireballPurpleEF, // Lv 4
@@ -60,6 +64,9 @@ public class GameEffectManager : MonoBehaviour {
     [field: SerializeField] public GameObject SwordSlashRedEF;
     [field: SerializeField] public GameObject SwordSlashBlueEF;
     [field: SerializeField] public GameObject SwordSlashPurpleBlackEF;
+    //* Archer EF
+    [field: SerializeField] public GameObject ArrowExplosionFireEF;
+    [field: SerializeField] public GameObject ArrowCritExplosionEF;
     //* Magician EF
     [field: SerializeField] public GameObject ExplosionWindEF;
     [field: SerializeField] public GameObject ExplosionFireballPurpleEF;
@@ -83,6 +90,9 @@ public class GameEffectManager : MonoBehaviour {
         pool.Add(InitEF(SwordSlashRedEF, max: 10));
         pool.Add(InitEF(SwordSlashBlueEF, max: 10));
         pool.Add(InitEF(SwordSlashPurpleBlackEF, max: 10));
+        //* Magician EF
+        pool.Add(InitEF(ArrowExplosionFireEF, max: 50));
+        pool.Add(InitEF(ArrowCritExplosionEF, max: 25));
         //* Magician EF
         pool.Add(InitEF(ExplosionWindEF, max: 3));
         pool.Add(InitEF(ExplosionFireballPurpleEF, max: 2));
@@ -144,6 +154,8 @@ public class GameEffectManager : MonoBehaviour {
 #region UI EFFECT ANIM
     public void ActiveStageTitleAnim(string txt) => StartCoroutine(CoActiveStageTitleAnim(txt));
     IEnumerator CoActiveStageTitleAnim(string txt) {
+        Debug.Log("StageTitleAnim= " + StageTitleAnim);
+        Debug.Log("StageTitleAnim.GetComponentInChildren<TextMeshProUGUI>()= " + StageTitleAnim.GetComponentInChildren<TextMeshProUGUI>());
         StageTitleAnim.GetComponentInChildren<TextMeshProUGUI>().text = txt;
         StageTitleAnim.SetActive(true);
         yield return Util.Time3;
