@@ -66,7 +66,7 @@ public class GM : MonoBehaviour {
         mm = GameObject.Find("MissileManager").GetComponent<MissileManager>();
 
         state = GameState.Ready;
-        Stage = DM._? DM._.SelectedStage : 0;
+        Stage = DM._.SelectedStage;
         Array.ForEach(StageDts, stageDt => stageDt.TileMapObj.SetActive(false)); //* 非表示 初期化
         MaxWave = StageDts[Stage].EnemyData.Waves.Length;
         WaveCnt = 0;
@@ -80,6 +80,12 @@ public class GM : MonoBehaviour {
 
         gui.SetNextEnemyInfoFlagUI();
         gui.SwitchGameStateUI(state);
+
+        //* ステージタイトルと難易度 表示 アニメーション
+        string difficulty = (DM._.SelectedDiff == Enum.Difficulty.Easy)? "EASY"
+            : (DM._.SelectedDiff == Enum.Difficulty.Normal)? "NORMAL"
+            : "HARD";
+        gef.ActiveStageTitleAnim($"{StageDts[Stage].Name}\n<size=70%>- {difficulty} -</size>");
     }
 
 #region EVENT

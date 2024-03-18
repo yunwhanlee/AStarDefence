@@ -15,15 +15,12 @@ public class StageUIManager : MonoBehaviour {
     [field:SerializeField] public GameObject NormalLockedFrame;
     [field:SerializeField] public GameObject HardLockedFrame;
 
-    void Start() {
-
-    }
-
 #region EVENT
     public void OnClickStartBtn() {
         DifficultyWindow.SetActive(true);
         NormalLockedFrame.SetActive(DM._.DB.StageLockedDatas[HM._.SelectedStage].Normal);
         HardLockedFrame.SetActive(DM._.DB.StageLockedDatas[HM._.SelectedStage].Hard);
+        DM._.SelectedStage = HM._.SelectedStage;
     }
 
     public void OnClickDifficultyBtn(int diffIdx) {

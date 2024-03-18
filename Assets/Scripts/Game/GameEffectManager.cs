@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.Pool;
 using TMPro;
 
+public enum GameEF_UI {
+    StageTitleAnim,
+}
+
 public enum GameEF {
     NULL = -1,
     BuildTowerEF,
@@ -24,14 +28,14 @@ public enum GameEF {
     ExplosionFireballPurpleEF, // Lv 4
     ExplosionFireballBlueEF, // Lv 5
     ExplosionFireballRedEF, // Lv 6
-
-    //* UI
 }
 
 public class GameEffectManager : MonoBehaviour {
-    List<ObjectPool<GameObject>> pool = new List<ObjectPool<GameObject>>();
+    /* UI Active Type */
+    [field:SerializeField] public GameObject StageTitleAnim;
 
     /* Pool Type */
+    List<ObjectPool<GameObject>> pool = new List<ObjectPool<GameObject>>();
     [field:SerializeField] public GameObject BuildTowerEF;
     [field:SerializeField] public GameObject WoodDestroyEF;
     [field:SerializeField] public GameObject GrassDestroyEF;
@@ -109,7 +113,7 @@ public class GameEffectManager : MonoBehaviour {
 
     public void ShowRefundTxtEF(Vector2 pos, int val) => StartCoroutine(CoShowRefundTxtEF(pos, val));
     IEnumerator CoShowRefundTxtEF(Vector2 pos, int val)
-    { //bool isCritical) {
+    {
         int idx = (int)GameEF.RefundTxtEF;
         GameObject ef = pool[idx].Get();
         ef.transform.position = pos;
@@ -117,6 +121,15 @@ public class GameEffectManager : MonoBehaviour {
         yield return Util.Time0_75;
         pool[idx].Release(ef);
     }
-
     #endregion
+
+#region UI EFFECT ANIM
+    public void ActiveStageTitleAnim(string txt) => StartCoroutine(CoActiveStageTitleAnim(txt));
+    IEnumerator CoActiveStageTitleAnim(string txt) {
+        StageTitleAnim.GetComponentInChildren<TextMeshProUGUI>().text = txt;
+        StageTitleAnim.SetActive(true);
+        yield return Util.Time3;
+        StageTitleAnim.SetActive(false);
+    }
+#endregion
 }
