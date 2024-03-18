@@ -17,6 +17,9 @@ public enum GameEF {
     StarlineExplosionRedEF,
     StarlineExplosionBlueEF,
     StarlineExplosionYellowEF,
+    UpgradeCylinderRedEF,
+    UpgradeCylinderBlueEF,
+    UpgradeCylinderYellowEF,
 
     //* Text EF
     DmgTxtEF,
@@ -63,6 +66,9 @@ public class GameEffectManager : MonoBehaviour {
     [field:SerializeField] public GameObject StarlineExplosionRedEF;
     [field:SerializeField] public GameObject StarlineExplosionBlueEF;
     [field:SerializeField] public GameObject StarlineExplosionYellowEF;
+    [field:SerializeField] public GameObject UpgradeCylinderRedEF;
+    [field:SerializeField] public GameObject UpgradeCylinderBlueEF;
+    [field:SerializeField] public GameObject UpgradeCylinderYellowEF;
     //* Text EF
     [field:SerializeField] public GameObject DmgTxtEF;
     [field:SerializeField] public GameObject CritDmgTxtEF;
@@ -97,6 +103,10 @@ public class GameEffectManager : MonoBehaviour {
         pool.Add(InitEF(StarlineExplosionRedEF, max: 1));
         pool.Add(InitEF(StarlineExplosionBlueEF, max: 1));
         pool.Add(InitEF(StarlineExplosionYellowEF, max: 1));
+        pool.Add(InitEF(UpgradeCylinderRedEF, max: 1));
+        pool.Add(InitEF(UpgradeCylinderBlueEF, max: 1));
+        pool.Add(InitEF(UpgradeCylinderYellowEF, max: 1));
+
         pool.Add(InitEF(DmgTxtEF, max: 75));
         pool.Add(InitEF(CritDmgTxtEF, max: 30));
         pool.Add(InitEF(RefundTxtEF, max: 3));

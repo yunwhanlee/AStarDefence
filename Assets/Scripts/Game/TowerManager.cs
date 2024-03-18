@@ -166,6 +166,7 @@ public class TowerManager : MonoBehaviour {
                 TowerCardUgrLvs[(int)TowerKind.Warrior]++;
                 for(int i = 0; i < WarriorGroup.childCount; i++) {
                     var warrior = WarriorGroup.GetChild(i).GetComponentInChildren<WarriorTower>();
+                    GM._.gef.ShowEF(GameEF.UpgradeCylinderRedEF, warrior.transform.position);
                     warrior.Upgrade();
                 }
 
@@ -174,6 +175,7 @@ public class TowerManager : MonoBehaviour {
                 GM._.tm.TowerCardUgrLvs[(int)TowerKind.Archer]++;
                 for(int i = 0; i < ArcherGroup.childCount; i++) {
                     var archer = ArcherGroup.GetChild(i).GetComponentInChildren<ArcherTower>();
+                    GM._.gef.ShowEF(GameEF.UpgradeCylinderBlueEF, archer.transform.position);
                     archer.Upgrade();
                 }
                 break;
@@ -181,6 +183,7 @@ public class TowerManager : MonoBehaviour {
                 GM._.tm.TowerCardUgrLvs[(int)TowerKind.Magician]++;
                 for(int i = 0; i < MagicianGroup.childCount; i++) {
                     var magician = MagicianGroup.GetChild(i).GetComponentInChildren<MagicianTower>();
+                    GM._.gef.ShowEF(GameEF.UpgradeCylinderYellowEF, magician.transform.position);
                     magician.Upgrade();
                 }
                 break;
