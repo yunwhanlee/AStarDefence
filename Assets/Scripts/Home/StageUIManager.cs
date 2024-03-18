@@ -31,10 +31,11 @@ public class StageUIManager : MonoBehaviour {
         DM._.SelectedDiff = (diffIdx == 0)? Enum.Difficulty.Easy
             : (diffIdx == 1)? Enum.Difficulty.Normal
             : Enum.Difficulty.Hard;
+
         //* ➡ ゲームシーンロード
         SceneManager.LoadScene(Enum.Scene.Game.ToString());
     }
-    
+
     /// <summary>
     /// 矢印でステージ移動
     /// </summary>
