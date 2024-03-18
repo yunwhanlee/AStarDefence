@@ -38,6 +38,7 @@ public class GameUIManager : MonoBehaviour {
 
     [Header("PAUSE POPUP")]
     public GameObject PausePopUp;
+    public TextMeshProUGUI StageInfoTxt;
     private GameState previousState;
     private float previousTimeScale;
 
@@ -84,12 +85,34 @@ public class GameUIManager : MonoBehaviour {
     }
 
 #region EVENT
-    //! DEBUG
+    #region DEBUG
+    //! DEBUG トップのWAVEタイトルクリックすると、WAVE UP
+    Coroutine CorIntervalWaveUpID = null;
+
     public void Debug_WaveUp() {
+        WaveUp();
+    }
+    public void Debug_PointerDown_IntervalWaveUp_Off() {
+        Debug.Log("PointerDown");
+        CorIntervalWaveUpID = StartCoroutine(CoIntervalWaveUp());
+    }
+    public void Debug_PointerUp_IntervalWaveUp_On() {
+        Debug.Log("PointerUp");
+        StopCoroutine(CorIntervalWaveUpID);
+    }
+    IEnumerator CoIntervalWaveUp() { //* 日程間隔でWAVEアップ
+        yield return Util.Time1;
+        while(true) {
+            yield return new WaitForSeconds(0.25f);
+            WaveUp();
+        }
+    }
+    private void WaveUp() {
         GM._.WaveCnt++;
         if(GM._.WaveCnt > GM._.MaxWave) GM._.WaveCnt = 0;
         WaveTxt.text = $"WAVE {GM._.WaveCnt} / {GM._.MaxWave}";
     }
+    #endregion
 
     public void OnClickPlaySpeedBtn() {
         Debug.Log($"OnClickPlaySpeedBtn()::");
@@ -125,11 +148,12 @@ public class GameUIManager : MonoBehaviour {
         PausePopUp.SetActive(false);
         AgainAskPopUp.SetActive(true);
     }
-    
 
     //* AGAIN ASK
     public void OnClickAgainAskPopUp_ConfirmBtn() {
         Debug.Log("GO TO HOME");
+        Time.timeScale = 1;
+        SceneManager.LoadScene(Enum.Scene.Home.ToString());
     }
     public void OnClickAgainAskPopUp_CloseBtn() {
         Time.timeScale = previousTimeScale;
@@ -138,8 +162,8 @@ public class GameUIManager : MonoBehaviour {
     }
 
     //* GAME OVER
-    public void OnClickReStartBtn() {
-        SceneManager.LoadScene("Game");
+    public void OnClickReTryBtn() {
+        SceneManager.LoadScene(Enum.Scene.Game.ToString());
     }
     public void OnClickAdsReviveBtn() {
         //TODO Request Revive Reward Ads

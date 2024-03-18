@@ -85,22 +85,22 @@ public class GM : MonoBehaviour {
         string difficulty = (DM._.SelectedDiff == Enum.Difficulty.Easy)? "EASY"
             : (DM._.SelectedDiff == Enum.Difficulty.Normal)? "NORMAL"
             : "HARD";
-        Debug.Log("difficulty= " + difficulty + ",gef= " + gef);
-
-        gef.ActiveStageTitleAnim($"{StageDts[Stage].Name}\n<size=70%>- {difficulty} -</size>");
+        string stageInfoTxt = $"{StageDts[Stage].Name}\n<size=70%>- {difficulty} -</size>";
+        gef.ActiveStageTitleAnim(stageInfoTxt);
+        gui.StageInfoTxt.text = stageInfoTxt; // Pauseのステージ情報テキストにも代入
     }
 
 #region EVENT
     //! DEBUG
     public void OnClickNextTower() {
         if(tmc.HitObject == null) {
-            gui.ShowMsgError("PLEASE SELECT TOWER");
+            gui.ShowMsgError("(테스트용)레벨업할 타워를 선택해주세요.");
             return;
         }
 
         var tower = tmc.HitObject.GetComponentInChildren<Tower>();
         if(tower.Lv > 5) {
-            gui.ShowMsgError("MAX LV");
+            gui.ShowMsgError("(테스트용)최대레벨입니다.");
             return;
         }
 
@@ -143,7 +143,12 @@ public class GM : MonoBehaviour {
         gui.SwitchGameStateUI(state);
 
         //* Next Enemy Info UI
-        gui.SetNextEnemyInfoFlagUI();
+        if(WaveCnt < MaxWave)
+            gui.SetNextEnemyInfoFlagUI();
+        else {
+            gui.VictoryPopUp.SetActive(true);
+            return;
+        }
 
         //* ボスリワード 表示
         if(WaveCnt % 10 == 0) {

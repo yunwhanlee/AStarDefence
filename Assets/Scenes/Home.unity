@@ -865,8 +865,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6646668979484392857}
-  - {fileID: 4948720514532658897}
   - {fileID: 8779889331456621346}
+  - {fileID: 4948720514532658897}
   - {fileID: 3170307225277790360}
   - {fileID: 3523275475433444409}
   - {fileID: 6646668980215420157}
@@ -2218,8 +2218,8 @@ MonoBehaviour:
   StageGroup: {fileID: 756642557}
   StagePopUps:
   - {fileID: 6646668979484392862}
-  - {fileID: 4948720514532658898}
   - {fileID: 8779889331456621347}
+  - {fileID: 4948720514532658898}
   - {fileID: 3170307225277790361}
   - {fileID: 3523275475433444408}
   DifficultyWindow: {fileID: 1709004335}
@@ -9394,7 +9394,7 @@ GameObject:
   - component: {fileID: 4948720514532658911}
   - component: {fileID: 4948720514532658896}
   m_Layer: 0
-  m_Name: Stage2
+  m_Name: Stage3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21004,7 +21004,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 89.84003, y: 122.80005}
+  m_AnchoredPosition: {x: 89.839966, y: 122.80005}
   m_SizeDelta: {x: 179.69, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6646668978919792829
@@ -21413,7 +21413,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'WAVE 1~50 '
+  m_text: 'WAVE 1~40 '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7137805b022d44869b12d93cb388c588, type: 2}
   m_sharedMaterial: {fileID: 8527393934874279224, guid: 7137805b022d44869b12d93cb388c588, type: 2}
@@ -21705,7 +21705,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -95.29999, y: -10.1}
+  m_AnchoredPosition: {x: -95.29993, y: -10.1}
   m_SizeDelta: {x: 55, y: 107}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6646668979383189290
@@ -22197,7 +22197,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBAAC\uC2A4\uD130 \uCCB4\uB825 110%"
+  m_text: "\uBAAC\uC2A4\uD130 \uCCB4\uB825 100%"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b5c9a7370e424d53a1b8a999cf54a02, type: 2}
   m_sharedMaterial: {fileID: 7512481295523713106, guid: 1b5c9a7370e424d53a1b8a999cf54a02, type: 2}
@@ -22805,7 +22805,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 89.84003, y: -9.1}
+  m_AnchoredPosition: {x: 89.839966, y: -9.1}
   m_SizeDelta: {x: 55, y: 107}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6646668980219371327
@@ -24023,7 +24023,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Recommended level
+  m_text: "\uBAAC\uC2A4\uD130 \uCCB4\uB825 110%"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b5c9a7370e424d53a1b8a999cf54a02, type: 2}
   m_sharedMaterial: {fileID: 7512481295523713106, guid: 1b5c9a7370e424d53a1b8a999cf54a02, type: 2}
@@ -25002,7 +25002,7 @@ GameObject:
   - component: {fileID: 8779889331456621344}
   - component: {fileID: 8779889331456621345}
   m_Layer: 0
-  m_Name: Stage3
+  m_Name: Stage2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25113,7 +25113,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 6 ~ 8
+  m_text: WAVE 1 ~ 50
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7137805b022d44869b12d93cb388c588, type: 2}
   m_sharedMaterial: {fileID: 8527393934874279224, guid: 7137805b022d44869b12d93cb388c588, type: 2}
@@ -25140,7 +25140,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66
+  m_fontSize: 46.6
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -25962,7 +25962,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3. Sandstorn Desert
+  m_text: "\uC2A4\uD14C\uC774\uC9C0 2. \uC0AC\uB9C9"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5bbff4e78f2634c139739f1d90982c46, type: 2}
   m_sharedMaterial: {fileID: 7512481295523713106, guid: 5bbff4e78f2634c139739f1d90982c46, type: 2}
