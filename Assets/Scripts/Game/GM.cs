@@ -66,7 +66,7 @@ public class GM : MonoBehaviour {
         mm = GameObject.Find("MissileManager").GetComponent<MissileManager>();
 
         state = GameState.Ready;
-        Stage = DM._.SelectedStage;
+        Stage = DM._ == null? 0 : DM._.SelectedStage;
         Array.ForEach(StageDts, stageDt => stageDt.TileMapObj.SetActive(false)); //* 非表示 初期化
         MaxWave = StageDts[Stage].EnemyData.Waves.Length;
         WaveCnt = 0;

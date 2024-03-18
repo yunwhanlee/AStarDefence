@@ -23,6 +23,13 @@ public enum GameEF {
     CritDmgTxtEF,
     RefundTxtEF,
 
+    //* Warrior EF
+    SwordSlashWhiteEF,
+    SwordSlashYellowEF,
+    SwordSlashRedEF,
+    SwordSlashBlueEF,
+    SwordSlashPurpleBlackEF,
+
     //* Magician EF
     ExplosionWindEF, // Lv 3
     ExplosionFireballPurpleEF, // Lv 4
@@ -43,12 +50,16 @@ public class GameEffectManager : MonoBehaviour {
     [field:SerializeField] public GameObject StarlineExplosionRedEF;
     [field:SerializeField] public GameObject StarlineExplosionBlueEF;
     [field:SerializeField] public GameObject StarlineExplosionYellowEF;
-
     //* Text EF
     [field:SerializeField] public GameObject DmgTxtEF;
     [field:SerializeField] public GameObject CritDmgTxtEF;
     [field: SerializeField] public GameObject RefundTxtEF;
-
+    //* Warrior EF
+    [field: SerializeField] public GameObject SwordSlashWhiteEF;
+    [field: SerializeField] public GameObject SwordSlashYellowEF;
+    [field: SerializeField] public GameObject SwordSlashRedEF;
+    [field: SerializeField] public GameObject SwordSlashBlueEF;
+    [field: SerializeField] public GameObject SwordSlashPurpleBlackEF;
     //* Magician EF
     [field: SerializeField] public GameObject ExplosionWindEF;
     [field: SerializeField] public GameObject ExplosionFireballPurpleEF;
@@ -66,6 +77,13 @@ public class GameEffectManager : MonoBehaviour {
         pool.Add(InitEF(DmgTxtEF, max: 75));
         pool.Add(InitEF(CritDmgTxtEF, max: 30));
         pool.Add(InitEF(RefundTxtEF, max: 3));
+        //* Warrior EF
+        pool.Add(InitEF(SwordSlashWhiteEF, max: 20));
+        pool.Add(InitEF(SwordSlashYellowEF, max: 10));
+        pool.Add(InitEF(SwordSlashRedEF, max: 10));
+        pool.Add(InitEF(SwordSlashBlueEF, max: 10));
+        pool.Add(InitEF(SwordSlashPurpleBlackEF, max: 10));
+        //* Magician EF
         pool.Add(InitEF(ExplosionWindEF, max: 3));
         pool.Add(InitEF(ExplosionFireballPurpleEF, max: 2));
         pool.Add(InitEF(ExplosionFireballBlueEF, max: 1));

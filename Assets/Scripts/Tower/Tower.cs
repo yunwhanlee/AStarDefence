@@ -140,6 +140,7 @@ public abstract class Tower : MonoBehaviour {
                                 int totalDmg = Dmg * (isCritical? 2 : 1);
                                 enemy.DecreaseHp(totalDmg, isCritical);
                                 var warrior = this as WarriorTower;
+                                warrior.SlashEffect(enemy.transform);
                                 warrior.Skill1_Rage();
                                 warrior.Skill2_Wheelwind();
                                 warrior.Skill3_CheerUp();

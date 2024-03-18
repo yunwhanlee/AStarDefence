@@ -96,6 +96,16 @@ public class WarriorTower : Tower {
         return cardLv >= 1? Lv * cardLv * TowerManager.WARRIOR_CARD_DMG_UP : 0;
     }
 
+    public void SlashEffect(Transform tgTf) {
+        GameEF idx = (Lv == 1 || Lv == 2)? GameEF.SwordSlashWhiteEF
+            : (Lv == 3)? GameEF.SwordSlashYellowEF
+            : (Lv == 4)? GameEF.SwordSlashRedEF
+            : (Lv == 5)? GameEF.SwordSlashBlueEF
+            : GameEF.SwordSlashPurpleBlackEF;
+        //* エフェクト
+        GM._.gef.ShowEF(idx, tgTf.position);
+    }
+
 #region SKILL1 RAGE
     public void Skill1_Rage() {
         if(CorSkill1ID != null) return;
