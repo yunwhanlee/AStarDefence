@@ -24,7 +24,8 @@ public enum GameEF {
     //* Text EF
     DmgTxtEF,
     CritDmgTxtEF,
-    RefundTxtEF,
+    GreenTxtEF,
+    RedTxtEF,
 
     //* CCTower EF
     NovaFrostLv1EF, NovaFrostLv2EF, NovaFrostLv3EF,
@@ -78,7 +79,8 @@ public class GameEffectManager : MonoBehaviour {
     //* Text EF
     [field:SerializeField] public GameObject DmgTxtEF;
     [field:SerializeField] public GameObject CritDmgTxtEF;
-    [field: SerializeField] public GameObject RefundTxtEF;
+    [field: SerializeField] public GameObject GreenTxtEF;
+    [field: SerializeField] public GameObject RedTxtEF;
     //* CCTower EF
     [field: SerializeField] public GameObject NovaFrostLv1EF;
     [field: SerializeField] public GameObject NovaFrostLv2EF;
@@ -124,7 +126,8 @@ public class GameEffectManager : MonoBehaviour {
 
         pool.Add(InitEF(DmgTxtEF, max: 75));
         pool.Add(InitEF(CritDmgTxtEF, max: 30));
-        pool.Add(InitEF(RefundTxtEF, max: 3));
+        pool.Add(InitEF(GreenTxtEF, max: 3));
+        pool.Add(InitEF(RedTxtEF, max: 3));
         //* CCTower EF
         pool.Add(InitEF(NovaFrostLv1EF, max: 2));
         pool.Add(InitEF(NovaFrostLv2EF, max: 2));
@@ -199,15 +202,16 @@ public class GameEffectManager : MonoBehaviour {
         pool[idx].Release(ef);
     }
 
-    public void ShowRefundTxtEF(Vector2 pos, int val)
-        => StartCoroutine(CoShowRefundTxtEF(pos, val));
+    public void ShowIconTxtEF(Vector2 pos, int val, string spriteName)
+        => StartCoroutine(CoShowIconTxtEF(pos, val, spriteName));
 
-    IEnumerator CoShowRefundTxtEF(Vector2 pos, int val)
-    {
-        int idx = (int)GameEF.RefundTxtEF;
+    IEnumerator CoShowIconTxtEF(Vector2 pos, int val, string spriteName) {
+        bool isPlus = val >= 0;
+
+        int idx = isPlus? (int)GameEF.GreenTxtEF : (int)GameEF.RedTxtEF;
         GameObject ef = pool[idx].Get();
         ef.transform.position = pos;
-        ef.GetComponentInChildren<TextMeshPro>().text = $"<sprite name=Meat>+{val}";
+        ef.GetComponentInChildren<TextMeshPro>().text = $"<sprite name={spriteName}>{(isPlus? "+" : "")}{val}";
         yield return Util.Time0_75;
         pool[idx].Release(ef);
     }

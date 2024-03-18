@@ -257,7 +257,7 @@ public class TileMapController : MonoBehaviour {
             refund = (int)Math.Floor(totalPrice * Config.PRICE.DELETE_REFUND_PER);
 
             //* 削除
-            GM._.gef.ShowRefundTxtEF(ccTower.transform.position, refund);
+            GM._.gef.ShowIconTxtEF(ccTower.transform.position, refund, "Meat");
             Destroy(ccTower.gameObject);
             Reset();
             GM._.actBar.PanelObj.SetActive(false);
@@ -278,7 +278,7 @@ public class TileMapController : MonoBehaviour {
                 refund = (int)Math.Floor(totalPrice * Config.PRICE.DELETE_REFUND_PER);
 
                 // 削除
-                GM._.gef.ShowRefundTxtEF(tower.transform.position, refund);
+                GM._.gef.ShowIconTxtEF(tower.transform.position, refund, "Meat");
                 Destroy(tower.gameObject);
             }
             //* ボード
@@ -290,7 +290,7 @@ public class TileMapController : MonoBehaviour {
                 refund = (int)Math.Floor(Config.PRICE.BOARD * Config.PRICE.DELETE_REFUND_PER);
 
                 // 削除
-                GM._.gef.ShowRefundTxtEF(board.transform.position, refund);
+                GM._.gef.ShowIconTxtEF(board.transform.position, refund, "Meat");
                 GM._.gef.ShowEF(GameEF.WoodDestroyEF, board.transform.position);
                 Destroy(board.gameObject);
                 Reset();

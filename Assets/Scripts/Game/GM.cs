@@ -82,7 +82,8 @@ public class GM : MonoBehaviour {
         gui.SwitchGameStateUI(state);
 
         //* ステージタイトルと難易度 表示 アニメーション
-        string difficulty = (DM._.SelectedDiff == Enum.Difficulty.Easy)? "EASY"
+        string difficulty = (DM._ == null)? "TEST"
+            : (DM._.SelectedDiff == Enum.Difficulty.Easy)? "EASY"
             : (DM._.SelectedDiff == Enum.Difficulty.Normal)? "NORMAL"
             : "HARD";
         string stageInfoTxt = $"{StageDts[Stage].Name}\n<size=70%>- {difficulty} -</size>";
@@ -161,12 +162,17 @@ public class GM : MonoBehaviour {
     /// <param name="type">敵のタイプ（一般、空、ボス）</param>
     public void DecreaseLife(EnemyType type) {
         Util._.Blink(gui.HeartFillImg);
-        Life -= (type == EnemyType.Boss)? Enemy.LIFE_DEC_BOSS : Enemy.LIFE_DEC_MONSTER;
+
+        //* マイナス値
+        int val = (type == EnemyType.Boss)? -Enemy.LIFE_DEC_BOSS : -Enemy.LIFE_DEC_MONSTER;
+        gef.ShowIconTxtEF(gui.HeartFillImg.transform.position, val, "Heart");
+        Life += val; //* マイナス 計算
         gui.HeartFillImg.fillAmount = (float)Life / MaxLife;
 
         //* ゲームオーバ
         if(Life <= 0) {
             State = GameState.Gameover;
+            Time.timeScale = 0;
             Life = 0;
             Debug.Log("GAMEOVER");
             gui.GameoverPopUp.SetActive(true);

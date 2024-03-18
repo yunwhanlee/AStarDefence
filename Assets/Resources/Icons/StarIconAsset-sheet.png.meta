@@ -114,7 +114,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 128
+        y: 192
         width: 64
         height: 64
       alignment: 0
@@ -135,7 +135,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 128
+        y: 192
         width: 64
         height: 64
       alignment: 0
@@ -156,7 +156,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 128
+        y: 192
         width: 64
         height: 64
       alignment: 0
@@ -177,7 +177,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -198,7 +198,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 64
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -219,7 +219,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 64
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -240,7 +240,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 0
@@ -261,7 +261,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 0
@@ -282,7 +282,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 0
@@ -294,6 +294,27 @@ TextureImporter:
       bones: []
       spriteID: b5f24db560743c94e9a1e85f5ae168ee
       internalID: 1579246266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StarIconAsset-sheet_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f26b3028a3b52645b7cb890de2b5bdb
+      internalID: 183314884
       vertices: []
       indices: 
       edges: []
@@ -318,6 +339,7 @@ TextureImporter:
       StarIconAsset-sheet_6: 473145548
       StarIconAsset-sheet_7: 79620448
       StarIconAsset-sheet_8: 1579246266
+      StarIconAsset-sheet_9: 183314884
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

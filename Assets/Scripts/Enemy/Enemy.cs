@@ -48,6 +48,7 @@ public abstract class Enemy : MonoBehaviour {
             Vector2 goalDir = GM._.pfm.targetPos;
             transform.Translate(Speed * Time.deltaTime * goalDir.normalized);
 
+            //* 敵がゴールへ届いた
             if(transform.position.x > GM._.pfm.targetPos.x
             && transform.position.y > GM._.pfm.targetPos.y) {
                 Release();
@@ -75,8 +76,14 @@ public abstract class Enemy : MonoBehaviour {
             }
         }
         else {
-            //* 敵がゴールまで届いた
-            Release();
+            //* 敵がゴールへ届いた
+            if(Type == EnemyType.Boss) { // 戻せる(ボスは死ぬまでReleaseしない)
+                NodeIdx = 0;
+                transform.position = new Vector2(GM._.pfm.startPos.x, GM._.pfm.startPos.y);
+            }
+            else {
+                Release();
+            }
             GM._.DecreaseLife(Type);
         }
     }

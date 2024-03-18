@@ -163,11 +163,18 @@ public class GameUIManager : MonoBehaviour {
 
     //* GAME OVER
     public void OnClickReTryBtn() {
+        Time.timeScale = 1;
         SceneManager.LoadScene(Enum.Scene.Game.ToString());
     }
     public void OnClickAdsReviveBtn() {
         //TODO Request Revive Reward Ads
         Debug.Log("REVIVE Ads");
+        Time.timeScale = 1;
+        GM._.Life = GM._.MaxLife;
+        LifeTxt.text = GM._.Life.ToString();
+        HeartFillImg.fillAmount = 1;
+        GameoverPopUp.SetActive(false);
+        GM._.gef.ShowIconTxtEF(HeartFillImg.transform.position, GM._.MaxLife, "Heart");
     }
 
     //* VICTORY

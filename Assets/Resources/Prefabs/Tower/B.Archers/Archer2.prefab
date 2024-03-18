@@ -14987,7 +14987,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <sprite name="StarLv3"><sprite name="StarLv3">
+  m_text: <sprite name="BlueStar"><sprite name="BlueStar">
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b293129a700bddd4284b08884feab26d, type: 2}
   m_sharedMaterial: {fileID: -7503779644620482780, guid: b293129a700bddd4284b08884feab26d, type: 2}
