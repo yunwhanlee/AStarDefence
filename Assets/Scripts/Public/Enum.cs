@@ -5,6 +5,9 @@ using UnityEngine;
 
 public static class Enum
 {
+    public enum Scene {Home, Game}
+    public enum Difficulty {Easy, Normal, Hard}
+
     public class Layer { //* Switch文で使えるため、整数化
         public const int 
             Default = 0, 
