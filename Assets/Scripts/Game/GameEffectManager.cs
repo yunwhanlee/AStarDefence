@@ -35,6 +35,15 @@ public enum GameEF {
     ArrowCritExplosionEF,
 
     //* Magician EF
+    // Hit
+    MiniMagicExplosionBlueEF,
+    MagicExplosionYellowEF,
+    MagicExplosionWhiteEF,
+    MagicExplosionPurpleEF,
+    MagicExplosionBlueEF,
+    MagicShadowExplosionEF,
+
+    // Skill
     ExplosionWindEF, // Lv 3
     ExplosionFireballPurpleEF, // Lv 4
     ExplosionFireballBlueEF, // Lv 5
@@ -68,6 +77,13 @@ public class GameEffectManager : MonoBehaviour {
     [field: SerializeField] public GameObject ArrowExplosionFireEF;
     [field: SerializeField] public GameObject ArrowCritExplosionEF;
     //* Magician EF
+    [field: SerializeField] public GameObject MiniMagicExplosionBlueEF;
+    [field: SerializeField] public GameObject MagicExplosionYellowEF;
+    [field: SerializeField] public GameObject MagicExplosionWhiteEF;
+    [field: SerializeField] public GameObject MagicExplosionPurpleEF;
+    [field: SerializeField] public GameObject MagicExplosionBlueEF;
+    [field: SerializeField] public GameObject MagicShadowExplosionEF;
+
     [field: SerializeField] public GameObject ExplosionWindEF;
     [field: SerializeField] public GameObject ExplosionFireballPurpleEF;
     [field: SerializeField] public GameObject ExplosionFireballBlueEF;
@@ -90,10 +106,17 @@ public class GameEffectManager : MonoBehaviour {
         pool.Add(InitEF(SwordSlashRedEF, max: 10));
         pool.Add(InitEF(SwordSlashBlueEF, max: 10));
         pool.Add(InitEF(SwordSlashPurpleBlackEF, max: 10));
-        //* Magician EF
+        //* Archer EF
         pool.Add(InitEF(ArrowExplosionFireEF, max: 50));
         pool.Add(InitEF(ArrowCritExplosionEF, max: 25));
         //* Magician EF
+        pool.Add(InitEF(MiniMagicExplosionBlueEF, max: 20));
+        pool.Add(InitEF(MagicExplosionYellowEF, max: 20));
+        pool.Add(InitEF(MagicExplosionWhiteEF, max: 20));
+        pool.Add(InitEF(MagicExplosionPurpleEF, max: 10));
+        pool.Add(InitEF(MagicExplosionBlueEF, max: 10));
+        pool.Add(InitEF(MagicShadowExplosionEF, max: 10));
+        
         pool.Add(InitEF(ExplosionWindEF, max: 3));
         pool.Add(InitEF(ExplosionFireballPurpleEF, max: 2));
         pool.Add(InitEF(ExplosionFireballBlueEF, max: 1));

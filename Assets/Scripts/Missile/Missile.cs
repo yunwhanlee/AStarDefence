@@ -93,7 +93,18 @@ public class Missile : MonoBehaviour {
                     switch(MyTower.Kind) {
                         case TowerKind.Archer:
                             var arrowHitEF = isCritical? GameEF.ArrowCritExplosionEF : GameEF.ArrowExplosionFireEF;
+                            //* エフェクト
                             GM._.gef.ShowEF(arrowHitEF, enemy.transform.position);
+                            break;
+                        case TowerKind.Magician:
+                            var magicHitEF = (MyTower.Lv == 1)? GameEF.MiniMagicExplosionBlueEF
+                                : (MyTower.Lv == 2)? GameEF.MagicExplosionYellowEF
+                                : (MyTower.Lv == 3)? GameEF.MagicExplosionWhiteEF
+                                : (MyTower.Lv == 4)? GameEF.MagicExplosionPurpleEF
+                                : (MyTower.Lv == 5)? GameEF.MagicExplosionBlueEF
+                                : GameEF.MagicShadowExplosionEF;
+                            //* エフェクト
+                            GM._.gef.ShowEF(magicHitEF, enemy.transform.position);
                             break;
                     }
 
