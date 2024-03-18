@@ -20,7 +20,7 @@ public abstract class Tower : MonoBehaviour {
     public TowerRangeController trc;
     public Character chara;
 
-    //* Value
+    //* Value------------------------------
     private Coroutine CorAttack;
     public TowerType Type;
     public TowerKind Kind;
