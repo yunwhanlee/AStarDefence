@@ -57,7 +57,6 @@ public class TowerManager : MonoBehaviour {
         int boardCnt = tm.WarriorGroup.childCount + tm.ArcherGroup.childCount + tm.MagicianGroup.childCount;
         board.name = $"Board{boardCnt}";
         tmc.HitObject = board;
-        GM._.gef.ShowEF(GameEF.BuildTowerEF, board.transform.localPosition);
     }
     /// <summary>
     /// ランダムタワー生成

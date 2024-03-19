@@ -148,7 +148,7 @@ public class ActionBarUIManager : MonoBehaviour {
         else if(!GM._.CheckMoney(Config.PRICE.BOARD))
             return;
 
-        GM._.tm.InstallBoard();
+        GM._.tm.InstallBoard(); // ボード生成
         GM._.gui.InActiveResetWallBtn();
         StartCoroutine(CoCheckPathFind(Enum.Layer.Board));
     }
@@ -157,7 +157,7 @@ public class ActionBarUIManager : MonoBehaviour {
         if(!GM._.CheckMoney(Config.PRICE.TOWER))
             return;
 
-        GM._.tm.CreateTower(TowerType.Random);
+        GM._.tm.CreateTower(TowerType.Random); // CCタワー生成
 
         UpdateUI(Enum.Layer.Tower);
     }
@@ -167,7 +167,7 @@ public class ActionBarUIManager : MonoBehaviour {
             return;
         else if(GM._.gui.ShowErrMsgCCTowerLimit())
             return;
-        else if(!GM._.CheckMoney(Config.PRICE.CCTOWER))
+        else if(!GM._.CheckMoney(Config.PRICE.CCTOWER)) // CCタワー生成
             return;
 
         SetCCTowerCntTxt(+1);
@@ -261,7 +261,9 @@ public class ActionBarUIManager : MonoBehaviour {
     /// タイルの設置が完了するまで待ち、次のフレームで道が詰まったことを確認
     /// </summary>
     IEnumerator CoCheckPathFind(int layer) {
-        yield return null;
+        //* (BUG) 待機時間がないと、BoardとCCタワーが設置する前に、経路を探索する間違いになる
+        yield return Util.Time0_1;
+
         //* 道が詰まるエラー
         if(!GM._.pfm.PathFinding()) {
             GM._.gui.ShowMsgError("길을 막으면 안됩니다!");
@@ -282,6 +284,8 @@ public class ActionBarUIManager : MonoBehaviour {
             //* 表示
             UpdateUI(layer);
             GM._.tmc.SelectLayer = layer;
+            //* ビルドEF
+            GM._.gef.ShowEF(GameEF.BuildTowerEF, (Vector3)GM._.tmc.getCurSelectedPos());
         }
     }
 
