@@ -34,6 +34,10 @@ public class HomeUIManager : MonoBehaviour {
         int i = 0;
         Array.ForEach(HM._.stgm.StagePopUps, popUp => popUp.SetActive(HM._.SelectedStage == i++));
     }
+    public void OnClickMenuBtn() {
+        const string NOTION_URL = "https://www.notion.so/A-Defence-2a40adca8a77420c80a6db623a89083f?pvs=4";
+        Application.OpenURL(NOTION_URL);
+    }
 #endregion
 
 #region FUNC
