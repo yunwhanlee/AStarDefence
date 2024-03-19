@@ -281,6 +281,8 @@ public class ActionBarUIManager : MonoBehaviour {
         }
         //* アクションバー切り替え
         else {
+            //* 新しい経路表示
+            GM._.pfm.PathFinding(isShowPath: true);
             //* 表示
             UpdateUI(layer);
             GM._.tmc.SelectLayer = layer;

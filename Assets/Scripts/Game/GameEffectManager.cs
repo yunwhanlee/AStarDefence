@@ -224,7 +224,7 @@ public class GameEffectManager : MonoBehaviour {
         Debug.Log("StageTitleAnim.GetComponentInChildren<TextMeshProUGUI>()= " + StageTitleAnim.GetComponentInChildren<TextMeshProUGUI>());
         StageTitleAnim.GetComponentInChildren<TextMeshProUGUI>().text = txt;
         StageTitleAnim.SetActive(true);
-        yield return Util.Time3;
+        yield return Util.Time4;
         StageTitleAnim.SetActive(false);
     }
 #endregion

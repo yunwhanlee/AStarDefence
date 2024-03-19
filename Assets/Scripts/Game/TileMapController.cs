@@ -262,6 +262,9 @@ public class TileMapController : MonoBehaviour {
             Reset();
             GM._.actBar.PanelObj.SetActive(false);
             GM._.tmc.SelectedTileMap.ClearAllTiles();
+
+            //* 新しい経路表示
+            GM._.pfm.PathFinding(isShowPath: true);
         }
         //* Board -> Tower順番で消す
         else { 
@@ -287,17 +290,21 @@ public class TileMapController : MonoBehaviour {
                     return;
 
                 // 返金
-                refund = (int)Math.Floor(Config.PRICE.BOARD * Config.PRICE.DELETE_REFUND_PER);
+                refund = Config.PRICE.BOARD;
 
                 // 削除
-                GM._.gef.ShowIconTxtEF(board.transform.position, refund, "Meat");
+                GM._.gef.ShowIconTxtEF(board.transform.position, Config.PRICE.BOARD, "Meat");
                 GM._.gef.ShowEF(GameEF.WoodDestroyEF, board.transform.position);
                 Destroy(board.gameObject);
                 Reset();
                 GM._.actBar.PanelObj.SetActive(false);
                 GM._.tmc.SelectedTileMap.ClearAllTiles();
+
+                //* 新しい経路表示
+                GM._.pfm.PathFinding(isShowPath: true);
             }
         }
+        //* 返金適用
         GM._.SetMoney(+refund);
     }
 
