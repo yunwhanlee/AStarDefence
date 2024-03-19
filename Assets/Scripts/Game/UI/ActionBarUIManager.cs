@@ -265,8 +265,16 @@ public class ActionBarUIManager : MonoBehaviour {
         //* 道が詰まるエラー
         if(!GM._.pfm.PathFinding()) {
             GM._.gui.ShowMsgError("길을 막으면 안됩니다!");
-            //* タイル除去
-            SetCCTowerCntTxt(-1);
+
+            //* Refund Money
+            int price = (layer == Enum.Layer.Board)? Config.PRICE.BOARD
+                : (layer == Enum.Layer.CCTower)? Config.PRICE.CCTOWER : 0;
+            GM._.SetMoney(price);
+
+            //* CCTowerカウント減る
+            if(layer == Enum.Layer.CCTower)
+                SetCCTowerCntTxt(-1);
+            
             Destroy(GM._.tmc.HitObject);
         }
         //* アクションバー切り替え
