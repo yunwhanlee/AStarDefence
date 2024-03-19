@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Tilemaps;
+// using UnityEditorInternal;
+// using UnityEditor.SceneManagement;
+// using UnityEngine.Events;
 
 /// <summary>
 /// ステージに関したデータ
@@ -73,7 +73,7 @@ public class GM : MonoBehaviour {
         ResetCnt = 5;
         Life = 10;
         MaxLife = Life;
-        Money = 1000;
+        Money = 120;
 
         //* 現在選択したステージのタイルマップ 表示
         StageDts[Stage].TileMapObj.SetActive(true);

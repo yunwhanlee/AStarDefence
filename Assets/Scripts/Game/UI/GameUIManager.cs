@@ -87,19 +87,10 @@ public class GameUIManager : MonoBehaviour {
 #region EVENT
     #region DEBUG
     //! DEBUG トップのWAVEタイトルクリックすると、WAVE UP
-    Coroutine CorIntervalWaveUpID = null;
-
-    public void Debug_WaveUp() {
-        WaveUp();
-    }
-    public void Debug_PointerDown_IntervalWaveUp_Off() {
-        Debug.Log("PointerDown");
-        CorIntervalWaveUpID = StartCoroutine(CoIntervalWaveUp());
-    }
-    public void Debug_PointerUp_IntervalWaveUp_On() {
-        Debug.Log("PointerUp");
-        StopCoroutine(CorIntervalWaveUpID);
-    }
+    Coroutine CorIntervalClickID = null;
+    public void Debug_WaveUp() => WaveUp();
+    public void Debug_PointerDown_IntervalWaveUp_Off() => CorIntervalClickID = StartCoroutine(CoIntervalWaveUp());
+    public void Debug_PointerUp_IntervalWaveUp_On() => StopCoroutine(CorIntervalClickID);
     IEnumerator CoIntervalWaveUp() { //* 日程間隔でWAVEアップ
         yield return Util.Time1;
         while(true) {
@@ -111,6 +102,11 @@ public class GameUIManager : MonoBehaviour {
         GM._.WaveCnt++;
         if(GM._.WaveCnt > GM._.MaxWave) GM._.WaveCnt = 0;
         WaveTxt.text = $"WAVE {GM._.WaveCnt} / {GM._.MaxWave}";
+    }
+
+    public void Debug_MeatUp() {
+        GM._.Money += 20;
+        MoneyTxt.text = $"{GM._.Money}";
     }
     #endregion
 

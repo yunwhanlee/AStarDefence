@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.PackageManager.UI;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
+// using UnityEditor.SceneManagement;
+// using UnityEditor.PackageManager.UI;
 
 public class BossRewardUIManager : MonoBehaviour {
     [field: SerializeField] public GameObject WindowObj {get; set;}

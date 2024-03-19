@@ -1,9 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+// using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// ステージロック状態のデータ
+/// </summary>
 [System.Serializable]
 public class StageLockedData {
     [field:SerializeField] public string Name {get; private set;}
@@ -12,17 +14,23 @@ public class StageLockedData {
     [field:SerializeField] public bool Hard {get; set;}
 }
 
+/// <summary>
+/// 保存・読込のデータベース
+/// </summary>
 [System.Serializable]
-public class DataBase { //* Saveデータ
-    //* ステージクリアデータ（EASY、NORMAL、HARD、NIGHT）
+public class DataBase {
     [field:SerializeField] public StageLockedData[] StageLockedDatas {get; set;}
 }
+
+/// <summary>
+/// データマネジャー
+/// </summary>
 public class DM : MonoBehaviour {
     public static DM _ {get; private set;}
-    //* Save Data
+    //* ★データベース
     [field: SerializeField] public DataBase DB {get; set;}
 
-    //* Grobal Datas
+    //* Global Values
     [field: SerializeField] public int SelectedStage {get; set;}
     [field: SerializeField] public Enum.Difficulty SelectedDiff {get; set;}
 

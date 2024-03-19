@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using System;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts;
 using Random = UnityEngine.Random;
-using UnityEditor.PackageManager;
-using UnityEditor;
+// using UnityEditor.PackageManager;
+// using UnityEditor;
 
 public class MagicianTower : Tower {
     public static readonly int[] SK1_ExplosionLvActivePers = new int[6] {0, 0, 20, 25, 30, 35};

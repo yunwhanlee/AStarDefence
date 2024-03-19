@@ -10,9 +10,9 @@ public static class Enum
 
     public class Layer { //* Switch文で使えるため、整数化
         public const int 
-            Default = 0, 
+            Default = 0,
             UI = 5,
-            Wall = 6, 
+            Wall = 6,
             Board = 7, 
             CCTower = 8, 
             Tower = 9,
