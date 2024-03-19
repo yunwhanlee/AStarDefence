@@ -10,11 +10,11 @@ public static class Config{
 #region GAME PRICE
     public class PRICE {
         public const int BREAK = 30;
-        public const int BOARD = 15;
-        public const int TOWER = 20;
+        public const int BOARD = 10;
+        public const int TOWER = 15;
         public const int CCTOWER = 30;
         public const int CC_UPG = 20;
-        public const int MERGE = 5;
+        public const int MERGE = 10;
         public const float DELETE_REFUND_PER = 0.5f;
     }
 #endregion    
