@@ -1,0 +1,375 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e7b3a9d9a82ab4481c34b2140fe2a9, type: 3}
+  m_Name: Stage3EnemyList
+  m_EditorClassIdentifier: 
+  <Waves>k__BackingField:
+  - <Name>k__BackingField: "\uD22C\uAD6C\uAC8C"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 675198819, guid: 7052e22c1f4cfc84789c510152d5d1f7, type: 3}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: "\uBFD4\uACE0\uB798"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: -1421632872, guid: 7052e22c1f4cfc84789c510152d5d1f7, type: 3}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: "\uBC14\uB2E4\uC815\uB839"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: "\uBC14\uB2E4\uC218\uD638\uC790"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: "\uBC14\uB2E4\uC218\uD638\uAC70\uBD81"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: "\uD751\uC9C4\uC8FC\uC870\uAC1C"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: "\uC554\uBAA8\uB098\uC774\uD2B8"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
+  - <Name>k__BackingField: 
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 0
+    <Hp>k__BackingField: 0
+    <Speed>k__BackingField: 0
