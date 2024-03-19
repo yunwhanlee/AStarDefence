@@ -10,6 +10,8 @@ public class ActionBarUIManager : MonoBehaviour {
         Break, Board, Tower, IceTower, ThunderTower, Upgrade, Merge, Switch, Delete, Exit
     };
 
+    const int ICON_PRICE_IDX = 1;
+
     //* Value
     [field: SerializeField] public bool IsSwitchMode {get; set;}
     [field: SerializeField] public int SwitchCnt {get; set;}
@@ -52,15 +54,14 @@ public class ActionBarUIManager : MonoBehaviour {
         ChangeTypeTicketCntTxt.text = ChangeTypeTicket.ToString();
 
         //* アイコン初期化
-        const int PRICE_IDX = 1;
-        IconBtns[(int)ICON.Break].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{Config.PRICE.BREAK}";
-        IconBtns[(int)ICON.Board].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{Config.PRICE.BOARD}";
-        IconBtns[(int)ICON.Tower].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{Config.PRICE.TOWER}";
-        IconBtns[(int)ICON.IceTower].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{Config.PRICE.CCTOWER}";
-        IconBtns[(int)ICON.ThunderTower].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{Config.PRICE.CCTOWER}";
-        IconBtns[(int)ICON.Upgrade].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{Config.PRICE.CC_UPG}";
-        IconBtns[(int)ICON.Merge].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{Config.PRICE.MERGE}";
-        IconBtns[(int)ICON.Delete].GetComponentsInChildren<TextMeshProUGUI>()[PRICE_IDX].text = $"{(1 - Config.PRICE.DELETE_REFUND_PER) * 100}%";
+        IconBtns[(int)ICON.Break].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.BREAK}";
+        IconBtns[(int)ICON.Board].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.BOARD}";
+        IconBtns[(int)ICON.Tower].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.TOWER}";
+        IconBtns[(int)ICON.IceTower].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.CCTOWER}";
+        IconBtns[(int)ICON.ThunderTower].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.CCTOWER}";
+        IconBtns[(int)ICON.Upgrade].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.CC_UPG}";
+        IconBtns[(int)ICON.Merge].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.MERGE}";
+        IconBtns[(int)ICON.Delete].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{(1 - Config.PRICE.DELETE_REFUND_PER) * 100}%";
     }
 
 #region EVENT BUTTON
@@ -351,6 +352,7 @@ public class ActionBarUIManager : MonoBehaviour {
             case Enum.Layer.Board: {
                 IconBtns[(int)ICON.Tower].gameObject.SetActive(true);
                 IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
+                IconBtns[(int)ICON.Delete].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"100%";
                 IconBtns[(int)ICON.Switch].gameObject.SetActive(true);
                 break;
             }
@@ -373,6 +375,7 @@ public class ActionBarUIManager : MonoBehaviour {
                 //* アイコン表示
                 IconBtns[(int)ICON.Upgrade].gameObject.SetActive(!isMaxLv);
                 IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
+                IconBtns[(int)ICON.Delete].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.DELETE_REFUND_PER * 100}%";
                 IconBtns[(int)ICON.Switch].gameObject.SetActive(true);
                 break;
             }
@@ -424,6 +427,7 @@ public class ActionBarUIManager : MonoBehaviour {
                 ChangeTypeConsumeTxt.text = $"{tower.Lv}개 소비";
                 IconBtns[(int)ICON.Merge].gameObject.SetActive(!isMaxLv);
                 IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
+                IconBtns[(int)ICON.Delete].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.DELETE_REFUND_PER * 100}%";
                 IconBtns[(int)ICON.Switch].gameObject.SetActive(true);
                 break;
             }
