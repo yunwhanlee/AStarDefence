@@ -149,6 +149,7 @@ public class ActionBarUIManager : MonoBehaviour {
             return;
 
         GM._.tm.InstallBoard();
+        GM._.gui.InActiveResetWallBtn();
         StartCoroutine(CoCheckPathFind(Enum.Layer.Board));
     }
 
@@ -171,6 +172,7 @@ public class ActionBarUIManager : MonoBehaviour {
 
         SetCCTowerCntTxt(+1);
         GM._.tm.CreateTower(TowerType.CC_IceTower);
+        GM._.gui.InActiveResetWallBtn();
         StartCoroutine(CoCheckPathFind(Enum.Layer.CCTower));
     }
 
@@ -184,6 +186,7 @@ public class ActionBarUIManager : MonoBehaviour {
 
         SetCCTowerCntTxt(+1);
         GM._.tm.CreateTower(TowerType.CC_StunTower);
+        GM._.gui.InActiveResetWallBtn();
         StartCoroutine(CoCheckPathFind(Enum.Layer.CCTower));
     }
 

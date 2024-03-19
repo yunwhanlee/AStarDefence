@@ -129,9 +129,7 @@ public class GM : MonoBehaviour {
         gui.SwitchGameStateUI(state);
         pfm.PathFinding();
         StartCoroutine(em.CoCreateEnemy());
-
-        if(gui.ResetWallBtn.gameObject.activeSelf)
-            gui.ResetWallBtn.gameObject.SetActive(false);
+        gui.InActiveResetWallBtn();
     }
 
     /// <summary>

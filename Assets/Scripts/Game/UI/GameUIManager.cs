@@ -225,7 +225,10 @@ public class GameUIManager : MonoBehaviour {
         Time.timeScale = previousTimeScale;
         GM._.State = previousState;
     }
-
+    public void InActiveResetWallBtn() {
+        if(ResetWallBtn.gameObject.activeSelf)
+            ResetWallBtn.gameObject.SetActive(false);
+    }
     /// <summary> 上にへエラーメッセージバー表示（自動OFF）</summary>
     public void ShowMsgError(string msg) {
         StartCoroutine(CoShowMsgError(msg));
