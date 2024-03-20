@@ -7,7 +7,7 @@ public static class Config{
     public readonly static Vector2Int START_POS = new Vector2Int(-8, 3);
     public readonly static Vector2Int GOAL_POS = new Vector2Int(8, -3);
 
-    public const int FREE_BOARD_CNT = 5;
+    public const int FREE_BOARD_CNT = 4;
     public const int FREE_BREAKROCK_CNT = 2;
 
     public const int DEFAULT_MONEY = 100;

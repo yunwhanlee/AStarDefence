@@ -43,6 +43,9 @@ public class ActionBarUIManager : MonoBehaviour {
     [field: SerializeField] public Sprite MergeOffSpr {get; set;}
     [field: SerializeField] public Sprite MergeOnSpr {get; set;}
 
+    private TextMeshProUGUI boardPriceTxt;
+    private TextMeshProUGUI breakPriceTxt;
+
     void Start() {
         PanelObj.SetActive(false);
         SetCCTowerCntTxt(0);
@@ -58,8 +61,10 @@ public class ActionBarUIManager : MonoBehaviour {
         ChangeTypeTicketCntTxt.text = ChangeTypeTicket.ToString();
 
         //* アイコン初期化
-        IconBtns[(int)ICON.Break].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"<color=green>무료 {Config.FREE_BREAKROCK_CNT}</color>";//$"{Config.PRICE.BREAK}";
-        IconBtns[(int)ICON.Board].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"<color=green>무료 {Config.FREE_BOARD_CNT}</color>";//$"{Config.PRICE.BOARD}";
+        breakPriceTxt = IconBtns[(int)ICON.Break].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX];
+        breakPriceTxt.text = $"<color=green>무료 {Config.FREE_BREAKROCK_CNT}</color>";//$"{Config.PRICE.BREAK}";
+        boardPriceTxt = IconBtns[(int)ICON.Board].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX];
+        boardPriceTxt.text = $"<color=green>무료 {Config.FREE_BOARD_CNT}</color>";//$"{Config.PRICE.BOARD}";
         IconBtns[(int)ICON.Tower].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.TOWER}";
         IconBtns[(int)ICON.IceTower].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.CCTOWER}";
         IconBtns[(int)ICON.ThunderTower].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.CCTOWER}";
@@ -138,14 +143,16 @@ public class ActionBarUIManager : MonoBehaviour {
 
     public void OnClickBreakIconBtn() {
         //* 普通の値段に初期化（無料がある物のみ）
-        var PriceTxt = IconBtns[(int)ICON.Break].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX];
-        PriceTxt.text = $"{Config.PRICE.BREAK}";
+        breakPriceTxt.text = $"{Config.PRICE.BREAK}";
 
         if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
             return;
-        else if(FreeBreakRockCnt > 1) { //* 無料カウント
+        else if(FreeBreakRockCnt > 0) { //* 無料カウント
             FreeBreakRockCnt--;
-            PriceTxt.text = $"<color=green>무료 {FreeBreakRockCnt}</color>";
+            breakPriceTxt.text = $"<color=green>무료 {FreeBreakRockCnt}</color>";
+            //* 全部使ったら、値段表示
+            if(FreeBreakRockCnt == 0)
+                breakPriceTxt.text = $"{Config.PRICE.BREAK}";
         }
         else if(!GM._.CheckMoney(Config.PRICE.BREAK))
             return;
@@ -157,15 +164,17 @@ public class ActionBarUIManager : MonoBehaviour {
 
     public void OnClickBoardIconBtn() {
         //* 普通の値段に初期化（無料がある物のみ）
-        var PriceTxt = IconBtns[(int)ICON.Board].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX];
-        PriceTxt.text = $"{Config.PRICE.BOARD}";
+        boardPriceTxt.text = $"{Config.PRICE.BOARD}";
 
         if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
             return;
         //* 無料カウント減る
-        else if(FreeBoardCnt > 1) { 
+        else if(FreeBoardCnt > 0) { 
             FreeBoardCnt--;
-            PriceTxt.text = $"<color=green>무료 {FreeBoardCnt}</color>";
+            boardPriceTxt.text = $"<color=green>무료 {FreeBoardCnt}</color>";
+            //* 全部使ったら、値段表示
+            if(FreeBoardCnt == 0)
+                boardPriceTxt.text = $"{Config.PRICE.BOARD}";
         }
         else if(!GM._.CheckMoney(Config.PRICE.BOARD))
             return;
@@ -290,14 +299,21 @@ public class ActionBarUIManager : MonoBehaviour {
         if(!GM._.pfm.PathFinding()) {
             GM._.gui.ShowMsgError("길을 막으면 안됩니다!");
 
-            //* Refund Money
-            int price = (layer == Enum.Layer.Board)? Config.PRICE.BOARD
-                : (layer == Enum.Layer.CCTower)? Config.PRICE.CCTOWER : 0;
-            GM._.SetMoney(price);
-
-            //* CCTowerカウント減る
-            if(layer == Enum.Layer.CCTower)
-                SetCCTowerCntTxt(-1);
+            //* ボードなら
+            if(layer == Enum.Layer.Board) {
+                if(FreeBoardCnt > 0) { // 無料カウントが有ったら
+                    FreeBoardCnt++;
+                    boardPriceTxt.text = $"<color=green>무료 {FreeBoardCnt}</color>";
+                }
+                else {
+                    GM._.SetMoney(Config.PRICE.BOARD); // 返金
+                }
+            }
+            //* CCTowerなら
+            else if(layer == Enum.Layer.CCTower) {
+                GM._.SetMoney(Config.PRICE.CCTOWER); // 返金
+                SetCCTowerCntTxt(-1); 
+            }
             
             Destroy(GM._.tmc.HitObject);
         }
