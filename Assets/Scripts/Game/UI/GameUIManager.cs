@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -167,12 +168,18 @@ public class GameUIManager : MonoBehaviour {
 
     //* GAME OVER
     public void OnClickAdsReviveBtn() {
+        const int OFF = 0;
         //TODO Request Revive Reward Ads
         Debug.Log("REVIVE Ads");
+
+        //* 初期化
+        GameoverPopUp.SetActive(false);
+        GM._.State = GameState.Play;
         Time.timeScale = 1;
         GM._.Life = Config.DEFAULT_LIFE;
         HeartFillImg.fillAmount = 1;
-        GameoverPopUp.SetActive(false);
+        playSpeedBtnImg.sprite = playSpeedBtnSprs[OFF];
+        playSpeedBtnTxt.text = $"X1";
         GM._.gef.ShowIconTxtEF(HeartFillImg.transform.position, GM._.MaxLife, "Heart");
     }
 
@@ -220,6 +227,12 @@ public class GameUIManager : MonoBehaviour {
     public void Play() {
         Time.timeScale = previousTimeScale;
         GM._.State = previousState;
+    }
+    public void Gameover() {
+        GameoverPopUp.SetActive(true);
+        GM._.Life = 0;
+        Time.timeScale = 0;
+        GM._.State = GameState.Gameover;
     }
     private void GoHome() {
         Time.timeScale = 1;

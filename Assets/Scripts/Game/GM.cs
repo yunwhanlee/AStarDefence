@@ -202,11 +202,7 @@ public class GM : MonoBehaviour {
 
         //* ゲームオーバ
         if(life <= 0) {
-            State = GameState.Gameover;
-            Time.timeScale = 0;
-            Life = 0;
-            Debug.Log("GAMEOVER");
-            gui.GameoverPopUp.SetActive(true);
+            gui.Gameover();
         }
     }
     public void SetMoney(int value) {
