@@ -151,7 +151,7 @@ public class ActionBarUIManager : MonoBehaviour {
             FreeBreakRockCnt--;
             breakPriceTxt.text = $"<color=green>무료 {FreeBreakRockCnt}</color>";
             //* 全部使ったら、値段表示
-            if(FreeBreakRockCnt == 0)
+            if(FreeBreakRockCnt <= 0)
                 breakPriceTxt.text = $"{Config.PRICE.BREAK}";
         }
         else if(!GM._.CheckMoney(Config.PRICE.BREAK))
@@ -173,7 +173,7 @@ public class ActionBarUIManager : MonoBehaviour {
             FreeBoardCnt--;
             boardPriceTxt.text = $"<color=green>무료 {FreeBoardCnt}</color>";
             //* 全部使ったら、値段表示
-            if(FreeBoardCnt == 0)
+            if(FreeBoardCnt <= 0)
                 boardPriceTxt.text = $"{Config.PRICE.BOARD}";
         }
         else if(!GM._.CheckMoney(Config.PRICE.BOARD))
@@ -301,7 +301,7 @@ public class ActionBarUIManager : MonoBehaviour {
 
             //* ボードなら
             if(layer == Enum.Layer.Board) {
-                if(FreeBoardCnt > 0) { // 無料カウントが有ったら
+                if(FreeBoardCnt >= 0) { // 無料カウントが有ったら
                     FreeBoardCnt++;
                     boardPriceTxt.text = $"<color=green>무료 {FreeBoardCnt}</color>";
                 }
@@ -319,6 +319,10 @@ public class ActionBarUIManager : MonoBehaviour {
         }
         //* アクションバー切り替え
         else {
+            //! (BUG) ボードの道が詰まった場合、無料ボード回数が０なら、＋１増える
+            if(FreeBoardCnt == 0)
+                FreeBoardCnt = -1; //* 全て使ったことが確認できたら、-1にして無料カウント増えないようにする
+
             //* 新しい経路表示
             GM._.pfm.PathFinding(isShowPath: true);
             //* 表示

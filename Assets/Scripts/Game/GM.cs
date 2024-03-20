@@ -23,8 +23,6 @@ public enum GameState {Ready, Play, Pause, Gameover};
 
 public class GM : MonoBehaviour {
     Coroutine CorReadyWaveID;
-
-    public readonly static int RESET_WALL_MAX = 5;
     public static GM _; //* Global
 
     [SerializeField] GameState state;   public GameState State {get => state; set => state = value;}

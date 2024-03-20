@@ -82,7 +82,7 @@ public class GameUIManager : MonoBehaviour {
         CorMsgNoticeID = null;
         TopMsgError.SetActive(false);
         WaveTxt.text = $"WAVE {GM._.WaveCnt} / {GM._.MaxWave}";
-        ResetWallCntTxt.text = $"{GM._.ResetCnt}/{GM.RESET_WALL_MAX}";
+        ResetWallCntTxt.text = $"{GM._.ResetCnt}/{Config.DEFAULT_RESET_CNT}";
         EnemyCntTxt.text = "0 / 0";
         MoneyTxt.text = $"{GM._.Money}";
         LifeTxt.text = $"{GM._.Life}";
@@ -133,7 +133,7 @@ public class GameUIManager : MonoBehaviour {
         }
         
         GM._.ResetCnt--;
-        ResetWallCntTxt.text = $"{GM._.ResetCnt}/{GM.RESET_WALL_MAX}";
+        ResetWallCntTxt.text = $"{GM._.ResetCnt}/{Config.DEFAULT_RESET_CNT}";
         GM._.tmc.SpawnWall();
     }
 
