@@ -14,6 +14,8 @@ public static class Config{
     public const int DEFAULT_LIFE = 10;
     public const int DEFAULT_RESET_CNT = 10;
 
+    public const int INC_MAX_LIFE = 15;
+
 #region GAME PRICE
     public class PRICE {
         public const int BREAK = 20;

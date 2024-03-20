@@ -34,7 +34,14 @@ public class GM : MonoBehaviour {
     [field: SerializeField] public int ResetCnt {get; set;}
 
     [field: SerializeField] public int MaxLife {get; set;}
-    [field: SerializeField] public int Life {get; set;}
+    [SerializeField] int life; public int Life {
+        get => life;
+        set {
+            life = value;
+            gui.HeartFillImg.fillAmount = (float)life / MaxLife;
+            gui.LifeTxt.text = life.ToString();
+        }
+    }
 
     [field: SerializeField] public int Money {get; set;}
     [field: SerializeField] public Material BlinkMt;
@@ -74,8 +81,8 @@ public class GM : MonoBehaviour {
         MaxWave = StageDts[Stage].EnemyData.Waves.Length;
         WaveCnt = 0;
         ResetCnt = Config.DEFAULT_RESET_CNT;
-        Life = Config.DEFAULT_LIFE;
-        MaxLife = Life;
+        life = Config.DEFAULT_LIFE;
+        MaxLife = life;
         Money = Config.DEFAULT_MONEY;
 
         //* 現在選択したステージのタイルマップ 表示
@@ -192,18 +199,15 @@ public class GM : MonoBehaviour {
         int val = (type == EnemyType.Boss)? -Enemy.LIFE_DEC_BOSS : -Enemy.LIFE_DEC_MONSTER;
         gef.ShowIconTxtEF(gui.HeartFillImg.transform.position, val, "Heart");
         Life += val; //* マイナス 計算
-        gui.HeartFillImg.fillAmount = (float)Life / MaxLife;
 
         //* ゲームオーバ
-        if(Life <= 0) {
+        if(life <= 0) {
             State = GameState.Gameover;
             Time.timeScale = 0;
             Life = 0;
             Debug.Log("GAMEOVER");
             gui.GameoverPopUp.SetActive(true);
         }
-
-        gui.LifeTxt.text = Life.ToString();
     }
     public void SetMoney(int value) {
         Money += value;

@@ -170,8 +170,7 @@ public class GameUIManager : MonoBehaviour {
         //TODO Request Revive Reward Ads
         Debug.Log("REVIVE Ads");
         Time.timeScale = 1;
-        GM._.Life = GM._.MaxLife;
-        LifeTxt.text = GM._.Life.ToString();
+        GM._.Life = Config.DEFAULT_LIFE;
         HeartFillImg.fillAmount = 1;
         GameoverPopUp.SetActive(false);
         GM._.gef.ShowIconTxtEF(HeartFillImg.transform.position, GM._.MaxLife, "Heart");
