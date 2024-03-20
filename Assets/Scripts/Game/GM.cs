@@ -75,10 +75,10 @@ public class GM : MonoBehaviour {
         Array.ForEach(StageDts, stageDt => stageDt.TileMapObj.SetActive(false)); //* 非表示 初期化
         MaxWave = StageDts[Stage].EnemyData.Waves.Length;
         WaveCnt = 0;
-        ResetCnt = 5;
-        Life = 10;
+        ResetCnt = Config.DEFAULT_RESET_CNT;
+        Life = Config.DEFAULT_LIFE;
         MaxLife = Life;
-        Money = 120;
+        Money = Config.DEFAULT_MONEY;
 
         //* 現在選択したステージのタイルマップ 表示
         StageDts[Stage].TileMapObj.SetActive(true);

@@ -16,6 +16,7 @@ public class GameUIManager : MonoBehaviour {
 
     [Header("STATIC UI")]
     public Image playSpeedBtnImg;
+    public TextMeshProUGUI playSpeedBtnTxt;
     public Sprite[] playSpeedBtnSprs;
     public Image StartBtnImg;
     public Image StartBtnLightImg;
@@ -119,8 +120,9 @@ public class GameUIManager : MonoBehaviour {
         Debug.Log($"OnClickPlaySpeedBtn()::");
         const int OFF = 0, ON = 1;
         var time = Time.timeScale;
-        Time.timeScale = time == 1? 8 : 1;
-        playSpeedBtnImg.sprite = time == 1? playSpeedBtnSprs[ON] : playSpeedBtnSprs[OFF];
+        Time.timeScale = (time == 1)? 4 : 1;
+        playSpeedBtnImg.sprite = (time == 1)? playSpeedBtnSprs[ON] : playSpeedBtnSprs[OFF];
+        playSpeedBtnTxt.text = $"X{Time.timeScale}";
     }
 
     public void OnClickResetWallBtn() {
