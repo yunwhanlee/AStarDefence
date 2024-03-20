@@ -16,7 +16,7 @@ MonoBehaviour:
   Kind: 2
   Name: Magician1
   Lv: 1
-  Dmg: 7
+  Dmg: 5
   AtkSpeed: 0.8
   AtkRange: 2
   SplashRange: 0
