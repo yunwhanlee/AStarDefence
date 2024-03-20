@@ -178,7 +178,7 @@ public class PathFindManager : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(1);
+        yield return Util.RealTime1;
         pathCntUI.SetActive(false);
         initPathIconsPos();
     }

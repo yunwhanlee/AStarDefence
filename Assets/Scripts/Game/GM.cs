@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 // using UnityEditorInternal;
 // using UnityEditor.SceneManagement;
@@ -21,11 +22,13 @@ public class StageData {
 public enum GameState {Ready, Play, Pause, Gameover};
 
 public class GM : MonoBehaviour {
-    public readonly static int RESET_WALL_MAX = 5;
+    Coroutine CorReadyWaveID;
 
+    public readonly static int RESET_WALL_MAX = 5;
     public static GM _; //* Global
 
     [SerializeField] GameState state;   public GameState State {get => state; set => state = value;}
+    [field: SerializeField] public bool IsReady;
     [field: SerializeField] public StageData[] StageDts;
     [field: SerializeField] public int Stage {get; set;}
     [field: SerializeField] public int MaxWave {get; set;}
@@ -66,6 +69,8 @@ public class GM : MonoBehaviour {
         mm = GameObject.Find("MissileManager").GetComponent<MissileManager>();
 
         state = GameState.Ready;
+        CorReadyWaveID = null;
+        IsReady = false;
         Stage = DM._ == null? 0 : DM._.SelectedStage;
         Array.ForEach(StageDts, stageDt => stageDt.TileMapObj.SetActive(false)); //* 非表示 初期化
         MaxWave = StageDts[Stage].EnemyData.Waves.Length;
@@ -92,7 +97,7 @@ public class GM : MonoBehaviour {
     }
 
 #region EVENT
-    //! DEBUG
+    #region DEBUG
     public void OnClickNextTower() {
         if(tmc.HitObject == null) {
             gui.ShowMsgError("(테스트용)레벨업할 타워를 선택해주세요.");
@@ -111,13 +116,36 @@ public class GM : MonoBehaviour {
         DestroyImmediate(tower.gameObject);
         actBar.UpdateUI(Enum.Layer.Tower);
     }
+    #endregion
 
-    public void OnClickStartBtn() =>StartWave();
+    public void OnClickStartBtn() {
+        if(!IsReady) {
+            //* WAVE準備
+            IsReady = true;
+            gui.SetStartBtnUI(IsReady);
+            pfm.PathFinding(true);
+            CorReadyWaveID = StartCoroutine(CoReadyWave());
+        }
+        else {
+            //* WAVE開始
+            IsReady = false;
+            gui.SetStartBtnUI(IsReady);
+            StartWave();
+            StopCoroutine(CorReadyWaveID);
+        }
+    }
 #endregion
 
 #region FUNC
     public EnemyData GetCurEnemyData() => StageDts[Stage].EnemyData.Waves[WaveCnt - 1];
     public EnemyData GetNextEnemyData() => StageDts[Stage].EnemyData.Waves[WaveCnt];
+
+    IEnumerator CoReadyWave() {
+        yield return Util.RealTime1;
+        IsReady = false;
+        CorReadyWaveID = null;
+        gui.SetStartBtnUI(IsReady);
+    }
 
     /// <summary>
     /// WAVE開始

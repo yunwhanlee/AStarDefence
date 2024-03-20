@@ -17,6 +17,11 @@ public class GameUIManager : MonoBehaviour {
     [Header("STATIC UI")]
     public Image playSpeedBtnImg;
     public Sprite[] playSpeedBtnSprs;
+    public Image StartBtnImg;
+    public Image StartBtnLightImg;
+    public TextMeshProUGUI StartBtnTxt;
+    public Color[] StartBlueColors;
+    public Color[] StartRedColors;
 
     [Tooltip("ゲーム状況により変わるUIグループ")]
     public Button ResetWallBtn;
@@ -224,6 +229,12 @@ public class GameUIManager : MonoBehaviour {
     public void Play() {
         Time.timeScale = previousTimeScale;
         GM._.State = previousState;
+    }
+    public void SetStartBtnUI(bool isReady) {
+        const int FRAME = 0, FRAME_LIGHT = 1;
+        StartBtnImg.color = isReady? StartRedColors[FRAME] : StartBlueColors[FRAME];
+        StartBtnLightImg.color = isReady? StartRedColors[FRAME_LIGHT] : StartBlueColors[FRAME_LIGHT];
+        StartBtnTxt.text = isReady? "시작하기" : "웨이브 준비";
     }
     public void InActiveResetWallBtn() {
         if(ResetWallBtn.gameObject.activeSelf)
