@@ -138,7 +138,18 @@ public abstract class Enemy : MonoBehaviour {
         }
         private void Die() {
             Release();
-            GM._.SetMoney(+1);
+            
+            if(Type == EnemyType.Boss) {
+                GM._.SetMoney(Config.PRICE.BOSS_KILL_BONUS);
+                GM._.gef.ShowIconTxtEF(
+                    GM._.gui.MoneyTxt.transform.position, 
+                    Config.PRICE.BOSS_KILL_BONUS, 
+                    "Meat", 
+                    isDown: true
+                );
+            }
+            else
+                GM._.SetMoney(+1);
         }
 
         /// <summary>

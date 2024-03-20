@@ -25,6 +25,7 @@ public enum GameEF {
     DmgTxtEF,
     CritDmgTxtEF,
     GreenTxtEF,
+    GreenDownTxtEF,
     RedTxtEF,
 
     //* CCTower EF
@@ -80,6 +81,7 @@ public class GameEffectManager : MonoBehaviour {
     [field:SerializeField] public GameObject DmgTxtEF;
     [field:SerializeField] public GameObject CritDmgTxtEF;
     [field: SerializeField] public GameObject GreenTxtEF;
+    [field: SerializeField] public GameObject GreenDownTxtEF;
     [field: SerializeField] public GameObject RedTxtEF;
     //* CCTower EF
     [field: SerializeField] public GameObject NovaFrostLv1EF;
@@ -127,6 +129,7 @@ public class GameEffectManager : MonoBehaviour {
         pool.Add(InitEF(DmgTxtEF, max: 75));
         pool.Add(InitEF(CritDmgTxtEF, max: 30));
         pool.Add(InitEF(GreenTxtEF, max: 3));
+        pool.Add(InitEF(GreenDownTxtEF, max: 2));
         pool.Add(InitEF(RedTxtEF, max: 3));
         //* CCTower EF
         pool.Add(InitEF(NovaFrostLv1EF, max: 2));
@@ -202,13 +205,14 @@ public class GameEffectManager : MonoBehaviour {
         pool[idx].Release(ef);
     }
 
-    public void ShowIconTxtEF(Vector2 pos, int val, string spriteName)
-        => StartCoroutine(CoShowIconTxtEF(pos, val, spriteName));
+    public void ShowIconTxtEF(Vector2 pos, int val, string spriteName, bool isDown = false)
+        => StartCoroutine(CoShowIconTxtEF(pos, val, spriteName, isDown));
 
-    IEnumerator CoShowIconTxtEF(Vector2 pos, int val, string spriteName) {
+    IEnumerator CoShowIconTxtEF(Vector2 pos, int val, string spriteName, bool isDown) {
         bool isPlus = val >= 0;
 
         int idx = isPlus? (int)GameEF.GreenTxtEF : (int)GameEF.RedTxtEF;
+        if(isDown) idx = (int)GameEF.GreenDownTxtEF;
         GameObject ef = pool[idx].Get();
         ef.transform.position = pos;
         ef.GetComponentInChildren<TextMeshPro>().text = $"<sprite name={spriteName}>{(isPlus? "+" : "")}{val}";

@@ -15,6 +15,8 @@ public class ActionBarUIManager : MonoBehaviour {
     //* Value
     [field: SerializeField] public bool IsSwitchMode {get; set;}
     [field: SerializeField] public int SwitchCnt {get; set;}
+    [field: SerializeField] public int FreeBoardCnt {get; set;}
+    [field: SerializeField] public int FreeBreakRockCnt {get; set;}
     [field: SerializeField] public int SuccessionTicket {get; set;}
     [field: SerializeField] public int ChangeTypeTicket {get; set;}
 
@@ -47,6 +49,8 @@ public class ActionBarUIManager : MonoBehaviour {
 
         IsSwitchMode = false;
         SwitchCnt = 2;
+        FreeBoardCnt = Config.FREE_BOARD_CNT;
+        FreeBreakRockCnt = Config.FREE_BREAKROCK_CNT;
         SuccessionTicket = 8;
         ChangeTypeTicket = 8;
         SwitchCntTxt.text = SwitchCnt.ToString();
@@ -54,8 +58,8 @@ public class ActionBarUIManager : MonoBehaviour {
         ChangeTypeTicketCntTxt.text = ChangeTypeTicket.ToString();
 
         //* アイコン初期化
-        IconBtns[(int)ICON.Break].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.BREAK}";
-        IconBtns[(int)ICON.Board].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.BOARD}";
+        IconBtns[(int)ICON.Break].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"<color=green>무료 {Config.FREE_BREAKROCK_CNT}</color>";//$"{Config.PRICE.BREAK}";
+        IconBtns[(int)ICON.Board].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"<color=green>무료 {Config.FREE_BOARD_CNT}</color>";//$"{Config.PRICE.BOARD}";
         IconBtns[(int)ICON.Tower].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.TOWER}";
         IconBtns[(int)ICON.IceTower].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.CCTOWER}";
         IconBtns[(int)ICON.ThunderTower].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.CCTOWER}";
@@ -133,8 +137,16 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
     public void OnClickBreakIconBtn() {
+        //* 普通の値段に初期化（無料がある物のみ）
+        var PriceTxt = IconBtns[(int)ICON.Break].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX];
+        PriceTxt.text = $"{Config.PRICE.BREAK}";
+
         if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
             return;
+        else if(FreeBreakRockCnt > 1) { //* 無料カウント
+            FreeBreakRockCnt--;
+            PriceTxt.text = $"<color=green>무료 {FreeBreakRockCnt}</color>";
+        }
         else if(!GM._.CheckMoney(Config.PRICE.BREAK))
             return;
 
@@ -144,8 +156,17 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
     public void OnClickBoardIconBtn() {
+        //* 普通の値段に初期化（無料がある物のみ）
+        var PriceTxt = IconBtns[(int)ICON.Board].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX];
+        PriceTxt.text = $"{Config.PRICE.BOARD}";
+
         if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
             return;
+        //* 無料カウント減る
+        else if(FreeBoardCnt > 1) { 
+            FreeBoardCnt--;
+            PriceTxt.text = $"<color=green>무료 {FreeBoardCnt}</color>";
+        }
         else if(!GM._.CheckMoney(Config.PRICE.BOARD))
             return;
 

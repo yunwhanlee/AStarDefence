@@ -241,7 +241,7 @@ public class TileMapController : MonoBehaviour {
         var idx = GM._.Stage == 0? GameEF.StoneDestroyEF : GameEF.GrassDestroyEF;
         var pos = new Vector2(getCurSelectedPos().x, getCurSelectedPos().y);
         GM._.gef.ShowEF(idx, pos, Util.Time1);
-        WallTileMap.SetTile(getCurSelectedPos(isTile: true), null);
+        WallTileMap.SetTile(getCurSelectedPos(isTile: true), null); //* 壁 破壊
         Reset(isClearPos: false);
     }
 
