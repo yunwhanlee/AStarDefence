@@ -179,7 +179,7 @@ public class GM : MonoBehaviour {
 
         //* ボスリワード 表示
         if(WaveCnt % 10 == 0) {
-            bossRwd.Active(3);
+            bossRwd.Active(2 + WaveCnt / 10);
         }
     }
     /// <summary>

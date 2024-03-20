@@ -8,29 +8,28 @@ using UnityEngine.UI;
 
 public class BossRewardUIManager : MonoBehaviour {
     [field: SerializeField] public GameObject WindowObj {get; set;}
-    [field: SerializeField] public int SelectCnt {get; set;}
+
+    [SerializeField] int selectCnt; public int SelectCnt {
+        get => selectCnt;
+        set {
+            selectCnt = value;
+            SelectCntTxt.text = $"선택횟수:{selectCnt}";
+        }
+    }
 
     [field: SerializeField] public TextMeshProUGUI SelectCntTxt {get; set;}
 
-
-    void Start() {
-        // GM._.State = GameState.Pause;
-        SelectCnt = 5;
-        SelectCntTxt.text = $"선택횟수:{SelectCnt}";
-    }
-
 #region FUNC
-    public void Active(int selectCnt) {
+    public void Active(int cnt) {
         GM._.gui.Pause();
         WindowObj.SetActive(true);
-        SelectCnt = selectCnt;
+        SelectCnt = cnt;
     }
     private void UpdateData(string msg) {
         SelectCnt--;
-        SelectCntTxt.text = $"선택횟수:{SelectCnt}";
 
         //* 習得メッセージ表示
-        GM._.gui.ShowMsgNotice(msg, y: 900);
+        GM._.gui.ShowMsgNotice(msg);
 
         //* 選択券全て消費したら、終了
         if(SelectCnt <= 0) {
