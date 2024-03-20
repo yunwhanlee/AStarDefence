@@ -88,7 +88,7 @@ public class EnemyManager : MonoBehaviour {
 
         //* 敵の情報UI表示
         if(i == 0)
-            GM._.gui.esm.ShowEnemyStateUI(enemy);
+            GM._.gui.esm.ShowEnemyStateUI();
 
         enemy.name = $"enemy{i}";
         enemy.transform.position = new Vector2(GM._.pfm.startPos.x, GM._.pfm.startPos.y);
