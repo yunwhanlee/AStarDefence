@@ -32,11 +32,11 @@ public class BossRewardUIManager : MonoBehaviour {
         SelectCnt = cnt;
         
         //* 現在の数値 表示
-        CurrentCntTxts[SuccessionTicket].text = $"( {GM._.actBar.SuccessionTicket} 소지 )";
-        CurrentCntTxts[ChangeTypeTicket].text = $"( {GM._.actBar.ChangeTypeTicket} 소지 )";
-        CurrentCntTxts[IncreaseLife].text = $"( 현재 {GM._.Life} )";
-        CurrentCntTxts[IncreaseCCTowerCnt].text = $"( 현재 {GM._.tm.CCTowerMax} )";
-        CurrentCntTxts[SwitchTowerPositionCnt].text = $"( {GM._.actBar.SwitchCnt} 소지 )";
+        CurrentCntTxts[SuccessionTicket].text = $"( {GM._.actBar.SuccessionTicket}개 소지 )";
+        CurrentCntTxts[ChangeTypeTicket].text = $"( {GM._.actBar.ChangeTypeTicket}개 소지 )";
+        CurrentCntTxts[IncreaseLife].text = $"( 현재 HP{GM._.Life} )";
+        CurrentCntTxts[IncreaseCCTowerCnt].text = $"( 현재 {GM._.tm.CCTowerMax}개 )";
+        CurrentCntTxts[SwitchTowerPositionCnt].text = $"( {GM._.actBar.SwitchCnt}개 소지 )";
     }
     private void UpdateData(string msg) {
         SelectCnt--;
