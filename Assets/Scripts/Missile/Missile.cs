@@ -66,7 +66,7 @@ public class Missile : MonoBehaviour {
     }
 
     private void Hit() {
-        Debug.Log($"<color=white>Missile:: Hit():: ColList.Count= {ColList.Count}</color>");
+        // Debug.Log($"<color=white>Missile:: Hit():: ColList.Count= {ColList.Count}</color>");
         //* もし、複数の衝突が発生しても
         if(ColList.Count >= 1) {
             for(int i = 0; i < ColList.Count; i++) {
