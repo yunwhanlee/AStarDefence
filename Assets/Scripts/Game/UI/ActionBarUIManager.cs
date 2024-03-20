@@ -142,9 +142,6 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
     public void OnClickBreakIconBtn() {
-        //* 普通の値段に初期化（無料がある物のみ）
-        breakPriceTxt.text = $"{Config.PRICE.BREAK}";
-
         if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
             return;
         else if(FreeBreakRockCnt > 0) { //* 無料カウント
@@ -163,9 +160,6 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
     public void OnClickBoardIconBtn() {
-        //* 普通の値段に初期化（無料がある物のみ）
-        boardPriceTxt.text = $"{Config.PRICE.BOARD}";
-
         if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
             return;
         //* 無料カウント減る
