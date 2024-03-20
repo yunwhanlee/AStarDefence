@@ -154,9 +154,7 @@ public class GameUIManager : MonoBehaviour {
 
     //* AGAIN ASK
     public void OnClickAgainAskPopUp_ConfirmBtn() {
-        Debug.Log("GO TO HOME");
-        Time.timeScale = 1;
-        SceneManager.LoadScene(Enum.Scene.Home.ToString());
+        GoHome();
     }
     public void OnClickAgainAskPopUp_CloseBtn() {
         Time.timeScale = previousTimeScale;
@@ -164,11 +162,10 @@ public class GameUIManager : MonoBehaviour {
         AgainAskPopUp.SetActive(false);
     }
 
+    //* PUBLIC
+    public void OnClickReTryBtn() => Retry();
+
     //* GAME OVER
-    public void OnClickReTryBtn() {
-        Time.timeScale = 1;
-        SceneManager.LoadScene(Enum.Scene.Game.ToString());
-    }
     public void OnClickAdsReviveBtn() {
         //TODO Request Revive Reward Ads
         Debug.Log("REVIVE Ads");
@@ -181,13 +178,8 @@ public class GameUIManager : MonoBehaviour {
     }
 
     //* VICTORY
-    public void OnClickConfirmBtn() {
-        //TODO Get Reward
-        Debug.Log("GO TO HOME");
-    }
-    public void OnClickExitGameBtn() {
-        Debug.Log("GO TO HOME");
-    }
+    public void OnClickVictoryPopUpConfirmBtn() => GoHome();
+
     public void OnClickAdsClaimX2Btn() {
         //TODO Request ClaimX2 Reward Ads
         Debug.Log("CLAIM X2 Ads");
@@ -195,9 +187,7 @@ public class GameUIManager : MonoBehaviour {
     #endregion
 
     #region UPGRADE TOWER CARDS
-    public void OnClickUpgradeTowerCard(int kindIdx) {
-        //TODO if MONEY
-        
+    public void OnClickUpgradeTowerCard(int kindIdx) {        
         //* 型変換
         TowerKind kind = kindIdx == 0? TowerKind.Warrior
             : kindIdx == 1? TowerKind.Archer
@@ -232,6 +222,15 @@ public class GameUIManager : MonoBehaviour {
         Time.timeScale = previousTimeScale;
         GM._.State = previousState;
     }
+    private void GoHome() {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(Enum.Scene.Home.ToString());
+    }
+    private void Retry() {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(Enum.Scene.Game.ToString());
+    }
+
     public void SetStartBtnUI(bool isReady) {
         const int FRAME = 0, FRAME_LIGHT = 1;
         StartBtnImg.color = isReady? StartRedColors[FRAME] : StartBlueColors[FRAME];

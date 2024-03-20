@@ -172,6 +172,7 @@ public class GM : MonoBehaviour {
             gui.SetNextEnemyInfoFlagUI();
         else {
             gui.VictoryPopUp.SetActive(true);
+            gui.Pause();
             return;
         }
 
