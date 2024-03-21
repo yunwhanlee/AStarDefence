@@ -40,9 +40,17 @@ public class EnemyInfoUI {
 
 public class EnemyStateUIManager : MonoBehaviour {
     [field: SerializeField] public Sprite[] FrameSprs {get; set;}
-
     [field: SerializeField] public EnemyInfoUI CurEnemyInfoWindowUI;
     [field: SerializeField] public EnemyInfoUI NextEnemyInfoPopUpUI;
+
+    [Header("BOSS HP BAR UI")]
+    public Slider BossHpBarSlider;
+    [field: SerializeField] public TextMeshProUGUI BossHpBarTxt;
+    [field: SerializeField] public Image BossHpBarPortraitImg;
+
+    void Start() {
+        BossHpBarSlider.gameObject.SetActive(false);
+    }
 
 #region EVENT
     public void OnClickNextEnemyInfoFlagBtn() {
@@ -63,6 +71,15 @@ public class EnemyStateUIManager : MonoBehaviour {
     public void ShowNextEnemyStateUI() {
         EnemyData nextEnemyDt = GM._.GetNextEnemyData();
         NextEnemyInfoPopUpUI.SetUI(nextEnemyDt, FrameSprs);
+    }
+
+    public void ShowBossHpBar(EnemyData bossDt) {
+        BossHpBarSlider.gameObject.SetActive(true);
+        BossHpBarPortraitImg.sprite = bossDt.Spr;
+    }
+    public void UpdateBossHpBar(int hp, int maxHp) {
+        BossHpBarTxt.text = $"{hp} / {maxHp}";
+        BossHpBarSlider.value = (float)hp / maxHp;
     }
 #endregion
 }

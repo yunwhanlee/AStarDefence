@@ -71,6 +71,9 @@ public class EnemyManager : MonoBehaviour {
         EnemyCnt = isBoss? BOSS_CNT : MONSTER_CNT;
         spawnCnt = isBoss? BOSS_CNT : EnemyCnt;
 
+        if(isBoss)
+            GM._.esm.ShowBossHpBar(GM._.GetCurEnemyData());
+
         //* 生成
         for(int i = 0; i < EnemyCnt; i++) {
             Init(i); //* データ初期化

@@ -54,8 +54,8 @@ public class ActionBarUIManager : MonoBehaviour {
         SwitchCnt = 2;
         FreeBoardCnt = Config.FREE_BOARD_CNT;
         FreeBreakRockCnt = Config.FREE_BREAKROCK_CNT;
-        SuccessionTicket = 8;
-        ChangeTypeTicket = 8;
+        SuccessionTicket = 0;
+        ChangeTypeTicket = 0;
         SwitchCntTxt.text = SwitchCnt.ToString();
         SuccessionTicketCntTxt.text = SuccessionTicket.ToString();
         ChangeTypeTicketCntTxt.text = ChangeTypeTicket.ToString();

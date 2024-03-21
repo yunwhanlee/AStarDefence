@@ -25,7 +25,15 @@ public abstract class Enemy : MonoBehaviour {
     [field: SerializeField] public bool IsDie {get; set;}
     [field: SerializeField] public string Name {get; set;}
     [field: SerializeField] public int Lv {get; set;}
-    [field: SerializeField] public int Hp {get; set;}
+
+    [SerializeField] int hp;    public int Hp {
+        get => hp;
+        set {
+            hp = value;
+            if(Type == EnemyType.Boss)
+                GM._.esm.UpdateBossHpBar(hp, maxHp);
+        }
+    }
     private int maxHp;
     [field: SerializeField] public float Speed {get; set;}
     private float originSpd;
@@ -141,12 +149,8 @@ public abstract class Enemy : MonoBehaviour {
             
             if(Type == EnemyType.Boss) {
                 GM._.SetMoney(Config.PRICE.BOSS_KILL_BONUS);
-                GM._.gef.ShowIconTxtEF(
-                    GM._.gui.MoneyTxt.transform.position, 
-                    Config.PRICE.BOSS_KILL_BONUS, 
-                    "Meat", 
-                    isDown: true
-                );
+                GM._.gef.ShowIconTxtEF(GM._.gui.MoneyTxt.transform.position, Config.PRICE.BOSS_KILL_BONUS, "Meat", isDown: true);
+                GM._.esm.BossHpBarSlider.gameObject.SetActive(false);
             }
             else
                 GM._.SetMoney(+1);

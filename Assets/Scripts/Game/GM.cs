@@ -52,6 +52,7 @@ public class GM : MonoBehaviour {
     public GameEffectManager gef;
     public PathFindManager pfm;
     public EnemyManager em;
+    public EnemyStateUIManager esm;
     public TileMapController tmc;
     public ActionBarUIManager actBar;
     public BossRewardUIManager bossRwd;
@@ -67,6 +68,7 @@ public class GM : MonoBehaviour {
         gef = GameObject.Find("GameEffectManager").GetComponent<GameEffectManager>();
         pfm = GameObject.Find("PathFindManager").GetComponent<PathFindManager>();
         em = GameObject.Find("EnemyManager").GetComponent<EnemyManager>();
+        esm = GameObject.Find("EnemyStateUIManager").GetComponent<EnemyStateUIManager>();
         tmc = GameObject.Find("TileMapController").GetComponent<TileMapController>();
         actBar = GameObject.Find("ActionBarUIManager").GetComponent<ActionBarUIManager>();
         bossRwd = GameObject.Find("BossRewardUIManager").GetComponent<BossRewardUIManager>();
