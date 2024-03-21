@@ -242,7 +242,10 @@ public class ActionBarUIManager : MonoBehaviour {
         //* マージ
         bool isSuccess = MergeTower();
 
-        if(!isSuccess) {
+        if(isSuccess) {
+            GM._.gui.ShowMsgNotice("합성 완료!");
+        }
+        else {
             GM._.gui.ShowMsgError("합성할 같은 타워가 없습니다.");
             return;
         }

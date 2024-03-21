@@ -77,8 +77,8 @@ public class TowerRangeController : MonoBehaviour {
 
         //* 範囲にターゲットの色分け
         if(CurTarget) 
-            SprRdr.color = new Color(1, 0, 0, 0.3f); // 赤
+            SprRdr.color = new Color(1, 1, 0, 0.25f); // 赤
         else 
-            SprRdr.color = new Color(1, 1, 0, 0.1f); // 黄
+            SprRdr.color = new Color(1, 1, 0, 0.15f); // 黄
     }
 }
