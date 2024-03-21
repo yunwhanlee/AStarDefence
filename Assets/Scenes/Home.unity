@@ -1332,7 +1332,7 @@ MonoBehaviour:
       <Normal>k__BackingField: 1
       <Hard>k__BackingField: 1
     - <Name>k__BackingField: Stage4
-      <Easy>k__BackingField: 1
+      <Easy>k__BackingField: 0
       <Normal>k__BackingField: 1
       <Hard>k__BackingField: 1
     - <Name>k__BackingField: Stage5
@@ -4485,7 +4485,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 8 ~ 10
+  m_text: "70 \uC6E8\uC774\uBE0C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7137805b022d44869b12d93cb388c588, type: 2}
   m_sharedMaterial: {fileID: 8527393934874279224, guid: 7137805b022d44869b12d93cb388c588, type: 2}
@@ -4512,7 +4512,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66
+  m_fontSize: 55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4954,7 +4954,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 4. City of Shadows
+  m_text: "\uC2A4\uD14C\uC774\uC9C0 4. \uC8FD\uC740\uC790\uC758 \uC131"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5bbff4e78f2634c139739f1d90982c46, type: 2}
   m_sharedMaterial: {fileID: 7512481295523713106, guid: 5bbff4e78f2634c139739f1d90982c46, type: 2}
@@ -5714,7 +5714,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Recommended level
+  m_text: "\uBAAC\uC2A4\uD130 \uCCB4\uB825 160%"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b5c9a7370e424d53a1b8a999cf54a02, type: 2}
   m_sharedMaterial: {fileID: 7512481295523713106, guid: 1b5c9a7370e424d53a1b8a999cf54a02, type: 2}
@@ -9984,7 +9984,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
+  m_fontSize: 55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
