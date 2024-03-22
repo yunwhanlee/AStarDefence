@@ -19,7 +19,7 @@ public class ActionBarUIManager : MonoBehaviour {
         set {
             switchCnt = value;
             SwitchCntTxt.text = $"{switchCnt}";
-            GM._.bossRwd.SetCurValueTxt((int)Enum.BossRwd.SwitchTowerPositionCnt, switchCnt);
+            GM._.bossRwd.SetCurValueTxt(Enum.BossRwd.SwitchTowerPositionCnt, switchCnt);
         }
     }
     [field: SerializeField] public int FreeBoardCnt {get; set;}
@@ -30,7 +30,7 @@ public class ActionBarUIManager : MonoBehaviour {
         set {
             successionTicket = value;
             SuccessionTicketCntTxt.text = $"{value}";
-            GM._.bossRwd.SetCurValueTxt((int)Enum.BossRwd.SuccessionTicket, value);
+            GM._.bossRwd.SetCurValueTxt(Enum.BossRwd.SuccessionTicket, value);
         }
     }
     [SerializeField] int changeTypeTicket; public int ChangeTypeTicket {
@@ -38,7 +38,7 @@ public class ActionBarUIManager : MonoBehaviour {
         set {
             changeTypeTicket = value;
             ChangeTypeTicketCntTxt.text = $"{value}";
-            GM._.bossRwd.SetCurValueTxt((int)Enum.BossRwd.ChangeTypeTicket, value);
+            GM._.bossRwd.SetCurValueTxt(Enum.BossRwd.ChangeTypeTicket, value);
         }
     }
 

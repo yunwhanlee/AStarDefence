@@ -37,7 +37,7 @@ public class TowerManager : MonoBehaviour {
         set {
             ccTowerMax = value;
             GM._.actBar.CCTowerCntTxt.text = $"CC : {ccTowerMax}";
-            GM._.bossRwd.SetCurValueTxt((int)Enum.BossRwd.IncreaseCCTowerCnt, ccTowerMax);
+            GM._.bossRwd.SetCurValueTxt(Enum.BossRwd.IncreaseCCTowerCnt, ccTowerMax);
         }
     }
     [field: SerializeField] public int CCTowerCnt {get; set;}

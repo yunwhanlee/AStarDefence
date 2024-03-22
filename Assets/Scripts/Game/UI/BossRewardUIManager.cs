@@ -7,11 +7,6 @@ using UnityEngine.UI;
 // using UnityEditor.PackageManager.UI;
 
 public class BossRewardUIManager : MonoBehaviour {
-    const int SuccessionTicket = 0,
-        ChangeTypeTicket = 1,
-        IncreaseLife = 2,
-        IncreaseCCTowerCnt = 3,
-        SwitchTowerPositionCnt = 4;
 
     [field: SerializeField] public GameObject WindowObj {get; set;}
     [field: SerializeField] public TextMeshProUGUI SelectCntTxt {get; set;}
@@ -26,16 +21,16 @@ public class BossRewardUIManager : MonoBehaviour {
     [field: SerializeField] public TextMeshProUGUI[] CurrentCntTxts {get; private set;}
 
 #region FUNC
-    public void SetCurValueTxt(int idx, int val) {
+    public void SetCurValueTxt(Enum.BossRwd enumIdx, int val) {
         string infoStr = "";
-        switch(idx) {
-            case SuccessionTicket:       infoStr = $"( {val}개 소지 )"; break;
-            case ChangeTypeTicket:       infoStr = $"( {val}개 소지 )"; break;
-            case IncreaseLife:           infoStr = $"( 현재 HP{val} )"; break;
-            case IncreaseCCTowerCnt:     infoStr = $"( 최대 {val}개 )"; break;
-            case SwitchTowerPositionCnt: infoStr = $"( {val}개 소지 )"; break;
+        switch(enumIdx) {
+            case Enum.BossRwd.SuccessionTicket:       infoStr = $"( {val}개 소지 )"; break;
+            case Enum.BossRwd.ChangeTypeTicket:       infoStr = $"( {val}개 소지 )"; break;
+            case Enum.BossRwd.IncreaseLife:           infoStr = $"( 현재 HP{val} )"; break;
+            case Enum.BossRwd.IncreaseCCTowerCnt:     infoStr = $"( 최대 {val}개 )"; break;
+            case Enum.BossRwd.SwitchTowerPositionCnt: infoStr = $"( {val}개 소지 )"; break;
         }
-        CurrentCntTxts[idx].text = infoStr;
+        CurrentCntTxts[(int)enumIdx].text = infoStr;
     }
     public void Active(int cnt) {
         GM._.gui.Pause();
@@ -43,11 +38,11 @@ public class BossRewardUIManager : MonoBehaviour {
         SelectCnt = cnt;
         
         //* 現在の数値 表示
-        SetCurValueTxt(SuccessionTicket, GM._.actBar.SuccessionTicket);
-        SetCurValueTxt(ChangeTypeTicket, GM._.actBar.ChangeTypeTicket);
-        SetCurValueTxt(IncreaseLife, GM._.Life);
-        SetCurValueTxt(IncreaseCCTowerCnt, GM._.tm.CCTowerMax);
-        SetCurValueTxt(SwitchTowerPositionCnt, GM._.actBar.SwitchCnt);
+        SetCurValueTxt(Enum.BossRwd.SuccessionTicket, GM._.actBar.SuccessionTicket);
+        SetCurValueTxt(Enum.BossRwd.ChangeTypeTicket, GM._.actBar.ChangeTypeTicket);
+        SetCurValueTxt(Enum.BossRwd.IncreaseLife, GM._.Life);
+        SetCurValueTxt(Enum.BossRwd.IncreaseCCTowerCnt, GM._.tm.CCTowerMax);
+        SetCurValueTxt(Enum.BossRwd.SwitchTowerPositionCnt, GM._.actBar.SwitchCnt);
     }
 
     private void UpdateData(string msg) {
