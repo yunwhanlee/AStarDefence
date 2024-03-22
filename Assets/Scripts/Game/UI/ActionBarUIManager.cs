@@ -62,9 +62,9 @@ public class ActionBarUIManager : MonoBehaviour {
 
         //* アイコン初期化
         breakPriceTxt = IconBtns[(int)ICON.Break].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX];
-        breakPriceTxt.text = $"<color=green>무료 {Config.FREE_BREAKROCK_CNT}</color>";//$"{Config.PRICE.BREAK}";
+        breakPriceTxt.text = $"<color=green>무료 {Config.FREE_BREAKROCK_CNT}</color>";
         boardPriceTxt = IconBtns[(int)ICON.Board].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX];
-        boardPriceTxt.text = $"<color=green>무료 {Config.FREE_BOARD_CNT}</color>";//$"{Config.PRICE.BOARD}";
+        boardPriceTxt.text = $"<color=green>무료 {Config.FREE_BOARD_CNT}</color>";
         IconBtns[(int)ICON.Tower].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.TOWER}";
         IconBtns[(int)ICON.IceTower].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.CCTOWER}";
         IconBtns[(int)ICON.ThunderTower].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.CCTOWER}";
@@ -425,31 +425,24 @@ public class ActionBarUIManager : MonoBehaviour {
 
                 //* MaxLv チェック
                 bool isMaxLv = false;
-                switch (tower.Kind) {
-                    case TowerKind.Warrior:
-                        isMaxLv = tower.Lv >= GM._.tm.Warriors.Length;
-                        break;
-                    case TowerKind.Archer:
-                        isMaxLv = tower.Lv >= GM._.tm.Archers.Length;
-                        break;
-                    case TowerKind.Magician:
-                        isMaxLv = tower.Lv >= GM._.tm.Magicians.Length;
-                        break;
-                }
 
                 //* マージ可能UI 表示
                 Image iconImg = IconBtns[(int)ICON.Merge].GetComponent<Image>();
                 iconImg.sprite = MergeOffSpr;
+
                 switch(tower.Kind) {
                     case TowerKind.Warrior:
+                        isMaxLv = tower.Lv >= GM._.tm.Warriors.Length;
                         var warrior = tower as WarriorTower;
                         warrior.CheckMergeUI();
                         break;
                     case TowerKind.Archer:
+                        isMaxLv = tower.Lv >= GM._.tm.Archers.Length;
                         var archer = tower as ArcherTower;
                         archer.CheckMergeUI();
                         break;
                     case TowerKind.Magician:
+                        isMaxLv = tower.Lv >= GM._.tm.Magicians.Length;
                         var magician = tower as MagicianTower;
                         magician.CheckMergeUI();
                         break;
@@ -464,7 +457,7 @@ public class ActionBarUIManager : MonoBehaviour {
                 ChangeTypeTicketCntTxt.text = $"{ChangeTypeTicket}";
                 ChangeTypeConsumeTxt.text = $"{tower.Lv}개 소비";
                 IconBtns[(int)ICON.Merge].gameObject.SetActive(!isMaxLv);
-                IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
+                IconBtns[(int)ICON.Delete].gameObject.SetActive(tower.Lv < 5); //* レベル５以上は削除できないように
                 IconBtns[(int)ICON.Delete].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.DELETE_REFUND_PER * 100}%";
                 IconBtns[(int)ICON.Switch].gameObject.SetActive(true);
                 break;
