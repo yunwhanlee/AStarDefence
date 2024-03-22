@@ -101,8 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Tower>k__BackingField: {fileID: 0}
   <SprRdr>k__BackingField: {fileID: 0}
-  TargetList: []
   <CurTarget>k__BackingField: {fileID: 0}
+  TargetList: []
 --- !u!58 &1010085922342716954
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5241,12 +5241,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 4723107735738678597, guid: 09bcd987938141b99a2f1aeef9ce2651, type: 3}
+  m_Sprite: {fileID: 4723107735738678597, guid: 3bfe63dedff947d2aab2fb00964e7573, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.4, y: 0.32}
+  m_Size: {x: 2.2222223, y: 1.7777778}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -5264,8 +5264,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Library: []
-  m_SpriteLibraryAsset: {fileID: 11400000, guid: 4e34ca9d5db7480bb2740f7e99258ca8, type: 2}
+  m_Library:
+  - m_Name: Slash
+    m_Hash: 0
+    m_CategoryList:
+    - m_Name: 0
+      m_Hash: 0
+      m_Sprite: {fileID: -7008412969330441016, guid: 3bfe63dedff947d2aab2fb00964e7573, type: 3}
+    - m_Name: 1
+      m_Hash: 0
+      m_Sprite: {fileID: -7763475090823894447, guid: 3bfe63dedff947d2aab2fb00964e7573, type: 3}
+    - m_Name: 2
+      m_Hash: 0
+      m_Sprite: {fileID: 302641331129538988, guid: 3bfe63dedff947d2aab2fb00964e7573, type: 3}
+    - m_Name: 3
+      m_Hash: 0
+      m_Sprite: {fileID: -6329420634031446844, guid: 3bfe63dedff947d2aab2fb00964e7573, type: 3}
+  - m_Name: Idle
+    m_Hash: 0
+    m_CategoryList:
+    - m_Name: 0
+      m_Hash: 0
+      m_Sprite: {fileID: 4723107735738678597, guid: 3bfe63dedff947d2aab2fb00964e7573, type: 3}
+    - m_Name: 1
+      m_Hash: 0
+      m_Sprite: {fileID: -7385789195546760866, guid: 3bfe63dedff947d2aab2fb00964e7573, type: 3}
+  m_SpriteLibraryAsset: {fileID: 11400000, guid: 19a284392e36469da61ae6307c78ae37, type: 2}
 --- !u!114 &7666224591727533160
 MonoBehaviour:
   m_ObjectHideFlags: 0

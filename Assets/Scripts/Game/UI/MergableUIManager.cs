@@ -88,19 +88,19 @@ public class MergableUIManager : MonoBehaviour {
                     TowerImgs[i].sprite = WarriorSprs[lv];
                     BgBtnImgs[i].sprite = BtnSprs[W];
                     PlusImgs[i].sprite = PlusIconSprs[W];
-                    for(int j = 0; j < lv; j++) StarTxts[i].text += "<sprite name= RedStar>";
+                    for(int j = 0; j <= lv; j++) StarTxts[i].text += "<sprite name=RedStar>";
                     break;
                 case A:
                     TowerImgs[i].sprite = ArcherSprs[lv];
                     BgBtnImgs[i].sprite = BtnSprs[A];
                     PlusImgs[i].sprite = PlusIconSprs[A];
-                    for(int j = 0; j < lv; j++) StarTxts[i].text += "<sprite name= BlueStar>";
+                    for(int j = 0; j <= lv; j++) StarTxts[i].text += "<sprite name=BlueStar>";
                     break;
                 case M:
                     TowerImgs[i].sprite = MagicianSprs[lv];
                     BgBtnImgs[i].sprite = BtnSprs[M];
                     PlusImgs[i].sprite = PlusIconSprs[M];
-                    for(int j = 0; j < lv; j++) StarTxts[i].text += "<sprite name= YellowStar>";
+                    for(int j = 0; j <= lv; j++) StarTxts[i].text += "<sprite name=YellowStar>";
                     break;
             }
         }
