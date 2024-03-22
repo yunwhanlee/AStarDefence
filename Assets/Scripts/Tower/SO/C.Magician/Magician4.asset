@@ -16,7 +16,7 @@ MonoBehaviour:
   Kind: 2
   Name: Magician4
   Lv: 4
-  Dmg: 481
+  Dmg: 155
   AtkSpeed: 0.625
   AtkRange: 3
   SplashRange: 0

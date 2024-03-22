@@ -14,6 +14,14 @@ public abstract class Tower : MonoBehaviour {
     public const string DIC_UPGRADE = "Upgrade";
     const float CC_ATK_DELAY = 0.5f; // sec
     const float CC_RANGE_SCALE_OFFSET = 1.575f;
+    readonly float[] CARD_UPG_DMGUP_PERS = {
+        0.4f, // Tower Lv1
+        0.2f, // Tower Lv2
+        0.15f, // Tower Lv3
+        0.12f, // Tower Lv4
+        0.11f, // Tower Lv5
+        0.1f// Tower Lv6
+    };
 
     //* 外部
     public SettingTowerData TowerData;
@@ -113,6 +121,15 @@ public abstract class Tower : MonoBehaviour {
 #endregion
 
 #region FUNC
+    /// <summary>
+    /// カードでアップグレードした追加ダメージを返す
+    /// </summary>
+    protected int GetUpgradeCardDmg(int cardLv) 
+        => (cardLv >= 1)? Mathf.RoundToInt(cardLv * TowerData.Dmg * CARD_UPG_DMGUP_PERS[LvIdx]) : 0;
+
+    /// <summary>
+    /// 攻撃
+    /// </summary>
     private IEnumerator CoAttack() {
         while(true) {
             if(trc.CurTarget == null) {

@@ -82,12 +82,7 @@ public class MagicianTower : Tower {
 
         //* 追加タメージDictionaryへ追加
         if(ExtraDmgDic.ContainsKey(DIC_UPGRADE)) ExtraDmgDic.Remove(DIC_UPGRADE);
-        ExtraDmgDic.Add(DIC_UPGRADE, ExtraCardDmg(cardLv));
-    }
-
-    private int ExtraCardDmg(int cardLv) {
-        //* タワーLV * カードLV * タイプのダメージアップ単位
-        return cardLv >= 1? Lv * cardLv * TowerManager.MAGICIAN_CARD_DMG_UP : 0;
+        ExtraDmgDic.Add(DIC_UPGRADE, GetUpgradeCardDmg(cardLv));
     }
 
     public void Skill1_Explosion(Enemy target) {
