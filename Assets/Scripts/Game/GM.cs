@@ -188,7 +188,17 @@ public class GM : MonoBehaviour {
 
         //* ボスリワード 表示
         if(WaveCnt % 10 == 0) {
-            bossRwd.Active(2 + WaveCnt / 10);
+            int rwdSelectCnt = 0;
+            int bossNum = WaveCnt / 10;
+            switch(bossNum) {
+                case 1: case 2: rwdSelectCnt = 2;
+                    break;
+                case 3: case 4: case 5: rwdSelectCnt = 3;
+                    break;
+                default: rwdSelectCnt = 4;
+                    break;
+            }
+            bossRwd.Active(rwdSelectCnt);
         }
     }
     /// <summary>
