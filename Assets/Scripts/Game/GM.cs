@@ -56,6 +56,7 @@ public class GM : MonoBehaviour {
     public EnemyStateUIManager esm;
     public TileMapController tmc;
     public ActionBarUIManager actBar;
+    public MergableUIManager mgb;
     public BossRewardUIManager bossRwd;
     public TowerManager tm;
     public MissileManager mm;
@@ -72,6 +73,7 @@ public class GM : MonoBehaviour {
         esm = GameObject.Find("EnemyStateUIManager").GetComponent<EnemyStateUIManager>();
         tmc = GameObject.Find("TileMapController").GetComponent<TileMapController>();
         actBar = GameObject.Find("ActionBarUIManager").GetComponent<ActionBarUIManager>();
+        mgb = GameObject.Find("MergableUIManager").GetComponent<MergableUIManager>();
         bossRwd = GameObject.Find("BossRewardUIManager").GetComponent<BossRewardUIManager>();
         tm = GameObject.Find("TowerManager").GetComponent<TowerManager>();
         mm = GameObject.Find("MissileManager").GetComponent<MissileManager>();

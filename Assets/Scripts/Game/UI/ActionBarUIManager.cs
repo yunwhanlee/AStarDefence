@@ -441,6 +441,8 @@ public class ActionBarUIManager : MonoBehaviour {
                 break;
             }
             case Enum.Layer.Tower: {
+                GM._.mgb.Mergable();
+
                 //* タワー情報UI 表示
                 Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
                 Debug.Log($"HitObject.name= {GM._.tmc.HitObject}, tower.name= {tower.name}");

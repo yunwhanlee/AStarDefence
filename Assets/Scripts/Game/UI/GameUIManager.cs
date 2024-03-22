@@ -82,6 +82,7 @@ public class GameUIManager : MonoBehaviour {
     void Start() {
         CorMsgNoticeID = null;
         TopMsgError.SetActive(false);
+        ResetWallBtn.gameObject.SetActive(true);
         WaveTxt.text = $"WAVE {GM._.WaveCnt} / {GM._.MaxWave}";
         ResetWallCntTxt.text = $"{GM._.ResetCnt}/{Config.DEFAULT_RESET_CNT}";
         EnemyCntTxt.text = "0 / 0";
