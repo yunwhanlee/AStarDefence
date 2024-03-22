@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Threading;
 
 public class ActionBarUIManager : MonoBehaviour {
     public enum ICON {
@@ -267,6 +268,9 @@ public class ActionBarUIManager : MonoBehaviour {
 
         if(isSuccess) {
             GM._.gui.ShowMsgNotice("합성 완료!");
+
+            //* Reset MergableManager Data
+            GM._.mgb.Init();
         }
         else {
             GM._.gui.ShowMsgError("합성할 같은 타워가 없습니다.");

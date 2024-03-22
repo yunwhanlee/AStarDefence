@@ -40,20 +40,29 @@ public class TileMapController : MonoBehaviour {
     }
 
 #region EVENT
-    private void OnClickTile() {
+    /// <summary>
+    /// タイルマップのクリック処理
+    /// </summary>
+    /// <param name="_x">MergableItemのクリックイベント用としてX軸を渡す</param>
+    /// <param name="_y">MergableItemのクリックイベント用としてY軸を渡す</param>
+    /// <param name="col">MergableItemのクリックイベント用のコライダーを渡す</param>
+    public void OnClickTile(int _x = -9999, int _y = -9999, Collider2D col = null) {
         //* UIに触れているなら、以下のRayCast処理しなくて終了
-        #if UNITY_EDITOR
-            if (EventSystem.current.IsPointerOverGameObject()) return;
-        #else
-            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)) return;
-        #endif
+        // #if UNITY_EDITOR
+            if (EventSystem.current.currentSelectedGameObject && !col) {
+                Debug.Log($"OnClickTile():: Click UI Area");
+                return;
+            }
+        // #else
+        //     if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)) return;
+        // #endif
 
         if(GM._.State == GameState.Pause) return;
         if(GM._.State == GameState.Gameover) return;
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // 스크린 좌표를 월드 좌표로 변환
-        int x = (int)Math.Round(mousePos.x);
-        int y = (int)Math.Round(mousePos.y);
+        int x = (_x == -9999)? (int)Math.Round(mousePos.x) : _x;
+        int y = (_y == -9999)?  (int)Math.Round(mousePos.y) : _y;
 
         //* スタートとゴール地点なら、以下処理しない
         if(new Vector2(x,y) == GM._.pfm.startPos) return;
@@ -72,7 +81,7 @@ public class TileMapController : MonoBehaviour {
         // 방향은 일단 임시로 0 벡터를 사용하거나, 필요한 방향으로 설정할 수 있습니다.
         Ray2D ray = new Ray2D(new Vector2(x, y), Vector2.zero); 
         hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, exceptLayerMask);
-        Collider2D HitCollider = hit.collider;
+        Collider2D HitCollider = (col == null)? hit.collider : col;
 
         if(hit)
             Debug.Log("hit=" + hit.collider.name);
