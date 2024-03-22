@@ -6,6 +6,7 @@ using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CollectionScripts;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
@@ -40,6 +41,13 @@ public class TileMapController : MonoBehaviour {
 
 #region EVENT
     private void OnClickTile() {
+        //* UIに触れているなら、以下のRayCast処理しなくて終了
+        #if UNITY_EDITOR
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+        #else
+            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)) return;
+        #endif
+
         if(GM._.State == GameState.Pause) return;
         if(GM._.State == GameState.Gameover) return;
 
@@ -65,6 +73,9 @@ public class TileMapController : MonoBehaviour {
         Ray2D ray = new Ray2D(new Vector2(x, y), Vector2.zero); 
         hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, exceptLayerMask);
         Collider2D HitCollider = hit.collider;
+
+        if(hit)
+            Debug.Log("hit=" + hit.collider.name);
 
         if(HitCollider != null && HitCollider.gameObject.layer == Enum.Layer.UI) {
             Debug.Log("OnClickTile():: Hitcollider -> UI。 そのまま終了。");
