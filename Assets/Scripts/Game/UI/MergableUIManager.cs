@@ -6,6 +6,26 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class MergableItem {
+    const int W = 0, A = 1, M = 2; // Warrior, Archer, Magician
+    [field:SerializeField] public GameObject Obj {get; private set;}
+    [field:SerializeField] public Image BgBtnImg {get; private set;}
+    [field:SerializeField] public Image PlusImg {get; private set;}
+    [field:SerializeField] public Image TowerImg {get; private set;}
+    [field:SerializeField] public TextMeshProUGUI StarTxt {get; private set;}
+
+    public void SetUI(MergableUIManager mgb, int typeIdx, int lv) {
+        TowerImg.sprite = (typeIdx == W)? mgb.WarriorSprs[lv] : (typeIdx == A)? mgb.ArcherSprs[lv] : mgb.MagicianSprs[lv];
+        BgBtnImg.sprite = mgb.BtnSprs[typeIdx];
+        PlusImg.sprite = mgb.PlusIconSprs[typeIdx];
+        //* ★つける
+        string starType = (typeIdx == W)? "Red" : (typeIdx == A)? "Blue" : "Yellow";
+        for(int j = 0; j <= lv; j++)
+            StarTxt.text += $"<sprite name={starType}Star>";
+    }
+}
+
 public class MergableUIManager : MonoBehaviour {
     const int W = 0, A = 1, M = 2; // Warrior, Archer, Magician
 
@@ -17,15 +37,11 @@ public class MergableUIManager : MonoBehaviour {
     [field:SerializeField] public Sprite[] MagicianSprs {get; private set;}
 
     //* Value
-    [field:SerializeField] public GameObject[] Items {get; private set;}
-    [field:SerializeField] public Image[] BgBtnImgs {get; private set;}
-    [field:SerializeField] public Image[] PlusImgs {get; private set;}
-    [field:SerializeField] public Image[] TowerImgs {get; private set;}
-    [field:SerializeField] public TextMeshProUGUI[] StarTxts {get; private set;}
+    [field:SerializeField] public MergableItem[] MergableItems {get; set;}
 
     void Start() {
-        foreach(var item in Items) //* 初期化
-            item.SetActive(false);
+        foreach(var item in MergableItems) //* 初期化
+            item.Obj.SetActive(false);
     }
 
     private int[] SeperateLvToArr(List<Tower> towerList) {
@@ -68,41 +84,22 @@ public class MergableUIManager : MonoBehaviour {
             return;
 
         //* 初期化
-        for(int i = 0; i < Items.Length; i++) {
-            Items[i].SetActive(false);
-            StarTxts[i].text = "";
+        for(int i = 0; i < MergableItems.Length; i++) {
+            MergableItems[i].Obj.SetActive(false);
+            MergableItems[i].StarTxt.text = "";
         }
 
+        //* マージできるアイコン 表示
         for(int i = 0; i < mergableList.Count; i++) {
-            if(i > Items.Length) return;
+            if(i > MergableItems.Length) return;
 
             string[] splits = mergableList[i].Split("_");
             string type = splits[0];
             int typeIdx = type == "w"? W : type == "a"? A : M;
             int lv = int.Parse(splits[1]);
 
-            Items[i].SetActive(true);
-            
-            switch(typeIdx) {
-                case W: 
-                    TowerImgs[i].sprite = WarriorSprs[lv];
-                    BgBtnImgs[i].sprite = BtnSprs[W];
-                    PlusImgs[i].sprite = PlusIconSprs[W];
-                    for(int j = 0; j <= lv; j++) StarTxts[i].text += "<sprite name=RedStar>";
-                    break;
-                case A:
-                    TowerImgs[i].sprite = ArcherSprs[lv];
-                    BgBtnImgs[i].sprite = BtnSprs[A];
-                    PlusImgs[i].sprite = PlusIconSprs[A];
-                    for(int j = 0; j <= lv; j++) StarTxts[i].text += "<sprite name=BlueStar>";
-                    break;
-                case M:
-                    TowerImgs[i].sprite = MagicianSprs[lv];
-                    BgBtnImgs[i].sprite = BtnSprs[M];
-                    PlusImgs[i].sprite = PlusIconSprs[M];
-                    for(int j = 0; j <= lv; j++) StarTxts[i].text += "<sprite name=YellowStar>";
-                    break;
-            }
+            MergableItems[i].Obj.SetActive(true);
+            MergableItems[i].SetUI(this, typeIdx, lv);
         }
     }
 
