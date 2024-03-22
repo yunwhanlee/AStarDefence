@@ -40,6 +40,7 @@ public class GM : MonoBehaviour {
             life = value;
             gui.HeartFillImg.fillAmount = (float)life / MaxLife;
             gui.LifeTxt.text = life.ToString();
+            bossRwd.SetCurValueTxt((int)Enum.BossRwd.IncreaseLife, life);
         }
     }
 

@@ -14,11 +14,33 @@ public class ActionBarUIManager : MonoBehaviour {
 
     //* Value
     [field: SerializeField] public bool IsSwitchMode {get; set;}
-    [field: SerializeField] public int SwitchCnt {get; set;}
+    [SerializeField] int switchCnt; public int SwitchCnt {
+        get => switchCnt;
+        set {
+            switchCnt = value;
+            SwitchCntTxt.text = $"{switchCnt}";
+            GM._.bossRwd.SetCurValueTxt((int)Enum.BossRwd.SwitchTowerPositionCnt, switchCnt);
+        }
+    }
     [field: SerializeField] public int FreeBoardCnt {get; set;}
     [field: SerializeField] public int FreeBreakRockCnt {get; set;}
-    [field: SerializeField] public int SuccessionTicket {get; set;}
-    [field: SerializeField] public int ChangeTypeTicket {get; set;}
+    
+    [SerializeField] int successionTicket; public int SuccessionTicket {
+        get => successionTicket;
+        set {
+            successionTicket = value;
+            SuccessionTicketCntTxt.text = $"{value}";
+            GM._.bossRwd.SetCurValueTxt((int)Enum.BossRwd.SuccessionTicket, value);
+        }
+    }
+    [SerializeField] int changeTypeTicket; public int ChangeTypeTicket {
+        get => changeTypeTicket;
+        set {
+            changeTypeTicket = value;
+            ChangeTypeTicketCntTxt.text = $"{value}";
+            GM._.bossRwd.SetCurValueTxt((int)Enum.BossRwd.ChangeTypeTicket, value);
+        }
+    }
 
     [Header("UI")]
     public GameObject PanelObj;
@@ -40,6 +62,7 @@ public class ActionBarUIManager : MonoBehaviour {
     //* 中央（アイコン）
     [field: SerializeField] public TextMeshProUGUI SwitchCntTxt {get; set;}
     [field: SerializeField] public Button[] IconBtns {get; set;}
+    [field: SerializeField] public GameObject MergePossibleMark;
     [field: SerializeField] public Sprite MergeOffSpr {get; set;}
     [field: SerializeField] public Sprite MergeOnSpr {get; set;}
 
@@ -426,9 +449,10 @@ public class ActionBarUIManager : MonoBehaviour {
                 //* MaxLv チェック
                 bool isMaxLv = false;
 
-                //* マージ可能UI 表示
+                //* マージUIアイコン 初期化
                 Image iconImg = IconBtns[(int)ICON.Merge].GetComponent<Image>();
                 iconImg.sprite = MergeOffSpr;
+                MergePossibleMark.SetActive(false);
 
                 switch(tower.Kind) {
                     case TowerKind.Warrior:

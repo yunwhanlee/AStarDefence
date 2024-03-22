@@ -30,4 +30,12 @@ public static class Enum
         //* 노말, 레어, 에픽, 유니크, 레전드, 신화, 태초
         Common, Rare, Epic, Unique, Legend, Myth, Prime
     }
+
+    public enum BossRwd {
+        SuccessionTicket, 
+        ChangeTypeTicket, 
+        IncreaseLife, 
+        IncreaseCCTowerCnt, 
+        SwitchTowerPositionCnt
+    }
 }

@@ -145,11 +145,13 @@ public abstract class Enemy : MonoBehaviour {
             }
         }
         private void Die() {
+            //* 戻す
             Release();
             
+            //* ボース倒した
             if(Type == EnemyType.Boss) {
-                GM._.SetMoney(Config.PRICE.BOSS_KILL_BONUS);
-                GM._.gef.ShowIconTxtEF(GM._.gui.MoneyTxt.transform.position, Config.PRICE.BOSS_KILL_BONUS, "Meat", isDown: true);
+                GM._.SetMoney(Config.PRICE.BOSS_KILL_MONEY_BONUS);
+                GM._.gef.ShowIconTxtEF(GM._.gui.MoneyTxt.transform.position, Config.PRICE.BOSS_KILL_MONEY_BONUS, "Meat", isDown: true);
                 GM._.esm.BossHpBarSlider.gameObject.SetActive(false);
             }
             else

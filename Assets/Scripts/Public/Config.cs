@@ -25,7 +25,7 @@ public static class Config{
         public const int CC_UPG = 30;
         public const int MERGE = 5;
         public const float DELETE_REFUND_PER = 0.5f;
-        public const int BOSS_KILL_BONUS = 65;
+        public const int BOSS_KILL_MONEY_BONUS = 65;
     }
 #endregion    
 }

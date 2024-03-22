@@ -23,21 +23,33 @@ public class BossRewardUIManager : MonoBehaviour {
         }
     }
 
-    [field: SerializeField] public TextMeshProUGUI[] CurrentCntTxts {get; set;}
+    [field: SerializeField] public TextMeshProUGUI[] CurrentCntTxts {get; private set;}
 
 #region FUNC
+    public void SetCurValueTxt(int idx, int val) {
+        string infoStr = "";
+        switch(idx) {
+            case SuccessionTicket:       infoStr = $"( {val}개 소지 )"; break;
+            case ChangeTypeTicket:       infoStr = $"( {val}개 소지 )"; break;
+            case IncreaseLife:           infoStr = $"( 현재 HP{val} )"; break;
+            case IncreaseCCTowerCnt:     infoStr = $"( 최대 {val}개 )"; break;
+            case SwitchTowerPositionCnt: infoStr = $"( {val}개 소지 )"; break;
+        }
+        CurrentCntTxts[idx].text = infoStr;
+    }
     public void Active(int cnt) {
         GM._.gui.Pause();
         WindowObj.SetActive(true);
         SelectCnt = cnt;
         
         //* 現在の数値 表示
-        CurrentCntTxts[SuccessionTicket].text = $"( {GM._.actBar.SuccessionTicket}개 소지 )";
-        CurrentCntTxts[ChangeTypeTicket].text = $"( {GM._.actBar.ChangeTypeTicket}개 소지 )";
-        CurrentCntTxts[IncreaseLife].text = $"( 현재 HP{GM._.Life} )";
-        CurrentCntTxts[IncreaseCCTowerCnt].text = $"( 최대 {GM._.tm.CCTowerMax}개 )";
-        CurrentCntTxts[SwitchTowerPositionCnt].text = $"( {GM._.actBar.SwitchCnt}개 소지 )";
+        SetCurValueTxt(SuccessionTicket, GM._.actBar.SuccessionTicket);
+        SetCurValueTxt(ChangeTypeTicket, GM._.actBar.ChangeTypeTicket);
+        SetCurValueTxt(IncreaseLife, GM._.Life);
+        SetCurValueTxt(IncreaseCCTowerCnt, GM._.tm.CCTowerMax);
+        SetCurValueTxt(SwitchTowerPositionCnt, GM._.actBar.SwitchCnt);
     }
+
     private void UpdateData(string msg) {
         SelectCnt--;
 
@@ -57,16 +69,12 @@ public class BossRewardUIManager : MonoBehaviour {
     public void OnClickTypeSuccessionTicket() {
         Debug.Log("OnClickTypeSuccessionTicket()::");
         GM._.actBar.SuccessionTicket++;
-        GM._.actBar.SuccessionTicketCntTxt.text = $"{GM._.actBar.SuccessionTicket}";
-        CurrentCntTxts[SuccessionTicket].text = $"( {GM._.actBar.SuccessionTicket}개 소지 )";
         UpdateData("계승권 획득");
     }
     /// <summary>タワーのタイプ変更券</summary>
     public void OnClickChangeTypeTicket() {
         Debug.Log("OnClickChangeTypeTicket()::");
         GM._.actBar.ChangeTypeTicket++;
-        GM._.actBar.ChangeTypeTicketCntTxt.text = $"{GM._.actBar.ChangeTypeTicket}";
-        CurrentCntTxts[ChangeTypeTicket].text = $"( {GM._.actBar.ChangeTypeTicket}개 소지 )";
         UpdateData("변경권 획득");
     }
     /// <summary>ライフの増加</summary>
@@ -79,8 +87,6 @@ public class BossRewardUIManager : MonoBehaviour {
             GM._.gui.ShowMsgError("라이프가 최대입니다.");
             return;
         }
-
-        CurrentCntTxts[IncreaseLife].text = $"( 현재 HP{GM._.Life} )";
         UpdateData("라이프 +1 획득");
     }
     /// <summary>CCタワー数の増加</summary>
@@ -93,17 +99,12 @@ public class BossRewardUIManager : MonoBehaviour {
             GM._.gui.ShowMsgError("CC타워 설치개수가 최대입니다.");
             return;
         }
-
-        GM._.actBar.CCTowerCntTxt.text = $"CC : {GM._.tm.CCTowerMax}";
-        CurrentCntTxts[IncreaseCCTowerCnt].text = $"( 최대 {GM._.tm.CCTowerMax}개 )";
         UpdateData("CC타워 설치 수 +1 획득");
     }
     /// <summary>タワーの位置変更券</summary>
     public void OnClickSwitchTowerPositionCnt() {
         Debug.Log("OnClickSwitchTowerPositionCnt()::");
         GM._.actBar.SwitchCnt++;
-        GM._.actBar.SwitchCntTxt.text = $"{GM._.actBar.SwitchCnt}";
-        CurrentCntTxts[SwitchTowerPositionCnt].text = $"( {GM._.actBar.SwitchCnt}개 소지 )";
         UpdateData("타워 위치변경 +1 획득");
     }
 #endregion

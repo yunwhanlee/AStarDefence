@@ -34,8 +34,10 @@ public class ArcherTower : Tower {
         var sameLvTower = Array.FindAll(towers, tower => Lv == tower.Lv);
 
         //* １個以上があったら、マージ可能表示
-        if(sameLvTower.Length > 1)
+        if(sameLvTower.Length > 1) {
             mergeIcon.sprite = GM._.actBar.MergeOnSpr;
+            GM._.actBar.MergePossibleMark.SetActive(true);
+        }
     }
 
     public override bool Merge(TowerKind kind = TowerKind.None) {

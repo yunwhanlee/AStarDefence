@@ -32,7 +32,14 @@ public class TowerManager : MonoBehaviour {
     [SerializeField] GameObject[] iceTowers; public GameObject[] IceTowers {get => iceTowers;}
     [SerializeField] GameObject[] stunTowers; public GameObject[] StunTowers {get => stunTowers;}
     [field: SerializeField] public Transform CCTowerGroup {get; private set;}
-    [field: SerializeField] public int CCTowerMax {get; set;}
+    [SerializeField] int ccTowerMax; public int CCTowerMax {
+        get => ccTowerMax;
+        set {
+            ccTowerMax = value;
+            GM._.actBar.CCTowerCntTxt.text = $"CC : {ccTowerMax}";
+            GM._.bossRwd.SetCurValueTxt((int)Enum.BossRwd.IncreaseCCTowerCnt, ccTowerMax);
+        }
+    }
     [field: SerializeField] public int CCTowerCnt {get; set;}
     [Header("BOARD")]
     [SerializeField] GameObject[] boards; public GameObject[] Boards {get => boards;}
