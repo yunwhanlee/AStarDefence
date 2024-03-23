@@ -1392,6 +1392,8 @@ MonoBehaviour:
   <Magic4SFX>k__BackingField: {fileID: 8300000, guid: 67f22963ed3ef1a40b93a232eaf8d614, type: 3}
   <Magic5SFX>k__BackingField: {fileID: 8300000, guid: 6bd855eca92716b44944c01435e63503, type: 3}
   <Magic6SFX>k__BackingField: {fileID: 8300000, guid: 9a58a22b34e99b447832c4dd1a3acfb2, type: 3}
+  <CCFrostSFX>k__BackingField: {fileID: 8300000, guid: 07532e25ab2bf0e4e9520610dfe2e0ce, type: 3}
+  <CCLightningSFX>k__BackingField: {fileID: 8300000, guid: 715780c44280b5a478739a8d5c7221ce, type: 3}
   <HitSFXs>k__BackingField:
   - {fileID: 8300000, guid: c4793ec14ca5d044fa574630d1af86b0, type: 3}
   - {fileID: 8300000, guid: 0c559c3fcb4d6ea42ac57b6af5448f57, type: 3}

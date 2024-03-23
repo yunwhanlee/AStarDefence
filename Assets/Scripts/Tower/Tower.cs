@@ -187,6 +187,7 @@ public abstract class Tower : MonoBehaviour {
                         //* Nova EF
                         GameEF idx = GameEF.NULL;
                         if(Type == TowerType.CC_IceTower) {
+                            SM._.SfxPlay(SM.SFX.CCFrostSFX);
                             switch(Lv) {
                                 case 1: idx = GameEF.NovaFrostLv1EF; break;
                                 case 2: idx = GameEF.NovaFrostLv2EF; break;
@@ -194,6 +195,7 @@ public abstract class Tower : MonoBehaviour {
                             }
                         }
                         else if(Type == TowerType.CC_StunTower) {
+                            SM._.SfxPlay(SM.SFX.CCLightningSFX);
                             switch(Lv) {
                                 case 1: idx = GameEF.NovaLightningLv1EF; break;
                                 case 2: idx = GameEF.NovaLightningLv2EF; break;

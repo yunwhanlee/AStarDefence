@@ -11,7 +11,7 @@ AudioImporter:
     compressionFormat: 1
     quality: 0.5
     conversionMode: 0
-    preloadAudioData: 1
+    preloadAudioData: 0
   platformSettingOverrides:
     1:
       serializedVersion: 2
