@@ -107,6 +107,7 @@ public class ArcherTower : Tower {
         IsPassArrowActive = false;
         int idx = Lv == 5? (int)MissileIdx.PassArrowRed : Lv == 6? (int)MissileIdx.PassArrowBlue : -1;
         PassArrow pa = GM._.mm.CreateMissile(idx).GetComponent<PassArrow>();
+        SM._.SfxPlay(SM.SFX.PassArrowSFX);
         pa.Init(this);
         yield return new WaitForSeconds(5);
         IsPassArrowActive = true;
@@ -121,6 +122,7 @@ public class ArcherTower : Tower {
 
         Debug.Log("ArrowRain 開始!");
         IsArrowRainActive = false;
+        SM._.SfxPlay(SM.SFX.ArrowRainSFX);
 
         //* 追加クリティカル
         const string ARROWRAIN = "ArrowRain";
@@ -134,6 +136,7 @@ public class ArcherTower : Tower {
 
         yield return new WaitForSeconds(WAIT_DESTROY_TIME);
         Debug.Log("ArrowRain 終了!");
+        
         ExtraCritDic.Remove(ARROWRAIN);
         GM._.gui.tsm.ShowTowerStateUI(InfoState());
         

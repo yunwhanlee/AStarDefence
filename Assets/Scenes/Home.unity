@@ -1406,6 +1406,8 @@ MonoBehaviour:
   <MagicCircle3SFX>k__BackingField: {fileID: 8300000, guid: 8ff65674c00d61e4aa57f91a446b7f28, type: 3}
   <LaserSFX>k__BackingField: {fileID: 8300000, guid: eb34b4250134fcc48996b9dcb0ee27c3, type: 3}
   <BigbangSFX>k__BackingField: {fileID: 8300000, guid: 379861d1be890dc43b0fca641f1a7591, type: 3}
+  <PassArrowSFX>k__BackingField: {fileID: 8300000, guid: 32b14b5436ff02440b2a637423931572, type: 3}
+  <ArrowRainSFX>k__BackingField: {fileID: 8300000, guid: 2fcc46a6735f9ce49bfe9d1e56a38862, type: 3}
   <ClickSFX>k__BackingField: {fileID: 8300000, guid: 968dd0cbd62ecb24c9fe7eaf9820b706, type: 3}
   <UpgradeSFX>k__BackingField: {fileID: 8300000, guid: a3273488368a49247a06567df36a9a43, type: 3}
   <CompleteSFX>k__BackingField: {fileID: 8300000, guid: a6040499e7a98f046a4620058d5d5ed8, type: 3}

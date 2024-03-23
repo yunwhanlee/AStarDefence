@@ -39,6 +39,8 @@ public class SM : MonoBehaviour {
         MagicCircle3SFX,
         LaserSFX,
         BigbangSFX,
+        PassArrowSFX,
+        ArrowRainSFX,
 
         //* UI
         ClickSFX,
@@ -83,6 +85,8 @@ public class SM : MonoBehaviour {
     [field: SerializeField] AudioClip MagicCircle3SFX {get; set;}
     [field: SerializeField] AudioClip LaserSFX {get; set;}
     [field: SerializeField] AudioClip BigbangSFX {get; set;}
+    [field: SerializeField] AudioClip PassArrowSFX {get; set;}
+    [field: SerializeField] AudioClip ArrowRainSFX {get; set;}
 
     //* UI
     [field: SerializeField] AudioClip ClickSFX {get; set;}
@@ -138,6 +142,8 @@ public class SM : MonoBehaviour {
         if(sfx == SFX.MagicCircle3SFX) SfxPlayer.PlayOneShot(MagicCircle3SFX);
         if(sfx == SFX.LaserSFX) SfxPlayer.PlayOneShot(LaserSFX);
         if(sfx == SFX.BigbangSFX) SfxPlayer.PlayOneShot(BigbangSFX);
+        if(sfx == SFX.PassArrowSFX) SfxPlayer.PlayOneShot(PassArrowSFX);
+        if(sfx == SFX.ArrowRainSFX) SfxPlayer.PlayOneShot(ArrowRainSFX);
 
         //* UI
         if(sfx == SFX.ClickSFX) SfxPlayer.PlayOneShot(ClickSFX);
