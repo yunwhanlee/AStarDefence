@@ -256,6 +256,7 @@ public class GameUIManager : MonoBehaviour {
     }
     /// <summary> 上にへエラーメッセージバー表示（自動OFF）</summary>
     public void ShowMsgError(string msg) {
+        SM._.SfxPlay(SM.SFX.ErrorSFX);
         StartCoroutine(CoShowMsgError(msg));
     }
     IEnumerator CoShowMsgError(string msg) {
@@ -306,6 +307,8 @@ public class GameUIManager : MonoBehaviour {
         int PRICE = TowerManager.CARD_UPG_PRICE_START;
         int UNIT = TowerManager.CARD_UPG_PRICE_UNIT;
         var cardLvs = GM._.tm.TowerCardUgrLvs;
+
+        SM._.SfxPlay(SM.SFX.UpgradeSFX);
 
         for(int i = 0; i < TowerCardUI.Buttons.Length; i++) {
             TowerCardUI.LvTxts[i].text = $"LV {cardLvs[i]}";

@@ -19718,12 +19718,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 4723107735738678597, guid: 6d3daa66bbfadf74faac59eacfc5fc42, type: 3}
+  m_Sprite: {fileID: 4723107735738678597, guid: e9362da2371c9cb42a0179a954910984, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4, y: 4}
+  m_Size: {x: 3.5555556, y: 3.5555556}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -19742,7 +19742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library: []
-  m_SpriteLibraryAsset: {fileID: 11400000, guid: f5dc4c897cd5aa14f9636fae7b0f175d, type: 2}
+  m_SpriteLibraryAsset: {fileID: 11400000, guid: bc5140e78804e51458da8f10d60b29e3, type: 2}
 --- !u!114 &8975663416805615310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19860,8 +19860,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Tower>k__BackingField: {fileID: 0}
   <SprRdr>k__BackingField: {fileID: 0}
-  TargetList: []
   <CurTarget>k__BackingField: {fileID: 0}
+  TargetList: []
 --- !u!58 &1417441894091411568
 CircleCollider2D:
   m_ObjectHideFlags: 0

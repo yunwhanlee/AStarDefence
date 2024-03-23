@@ -46,6 +46,7 @@ public class BossRewardUIManager : MonoBehaviour {
     }
 
     private void UpdateData(string msg) {
+        SM._.SfxPlay(SM.SFX.ItemPickSFX);
         SelectCnt--;
 
         //* 習得メッセージ表示

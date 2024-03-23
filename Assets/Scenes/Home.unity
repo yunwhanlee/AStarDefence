@@ -882,6 +882,134 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &765392917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 765392918}
+  - component: {fileID: 765392919}
+  m_Layer: 0
+  m_Name: SfxPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &765392918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765392917}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 927795954}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &765392919
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765392917}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.7
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &809997714
 GameObject:
   m_ObjectHideFlags: 0
@@ -1198,6 +1326,92 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &927795953
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 927795954}
+  - component: {fileID: 927795955}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &927795954
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927795953}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 765392918}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &927795955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927795953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a499125f5040aba45a59b596cf554859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <SfxPlayer>k__BackingField: {fileID: 765392919}
+  <GameStartSFX>k__BackingField: {fileID: 8300000, guid: 3925ec6fcb5f1ce4e9974eb10a2604ff, type: 3}
+  <WaveStartSFX>k__BackingField: {fileID: 8300000, guid: 6a2fbfb4607c33442a30cf493a357085, type: 3}
+  <GameoverSFX>k__BackingField: {fileID: 8300000, guid: 3b83ff51e7a160649adf5e8d332cc5f5, type: 3}
+  <CreateTowerSFX>k__BackingField: {fileID: 8300000, guid: 4bfa3ce284b79014499c39e4b2066407, type: 3}
+  <DeleteTowerSFX>k__BackingField: {fileID: 8300000, guid: 27063c879d380394fbe00e04bcdfd50e, type: 3}
+  <BuildSFX>k__BackingField: {fileID: 8300000, guid: ab7f421ad803a894fb4f2fae8fa250a4, type: 3}
+  <BreakSFX>k__BackingField: {fileID: 8300000, guid: 2cf18a71ca9f83946a3d1424acc65030, type: 3}
+  <Merge1SFX>k__BackingField: {fileID: 8300000, guid: 4998b8273f6f80a419f27e0c5d4167a7, type: 3}
+  <Merge2SFX>k__BackingField: {fileID: 8300000, guid: bbc58bc599659754cbcbca797a99a92a, type: 3}
+  <Merge3SFX>k__BackingField: {fileID: 8300000, guid: 15fb913483bca044398fb0301d5936f3, type: 3}
+  <Merge4SFX>k__BackingField: {fileID: 8300000, guid: 652fab86b968a854c87c9bde1a4b6140, type: 3}
+  <Merge5SFX>k__BackingField: {fileID: 8300000, guid: 83d7d63e3d3c2ff4c8c4b0d8dd384f87, type: 3}
+  <SwordSFX>k__BackingField: {fileID: 8300000, guid: 24d9a7e5a770e2e48a24459d31d4d22a, type: 3}
+  <ArrowSFX>k__BackingField: {fileID: 8300000, guid: 8cd77d8e525a27946b8126846b32757b, type: 3}
+  <Magic1SFX>k__BackingField: {fileID: 8300000, guid: b6f9552f1f68cb04a93e77823905d455, type: 3}
+  <Magic2SFX>k__BackingField: {fileID: 8300000, guid: 8203d8e5d6020754b8847ac80bb4efec, type: 3}
+  <Magic3SFX>k__BackingField: {fileID: 8300000, guid: 57d4bb6fe5b1a17429cc5b4ac913940c, type: 3}
+  <Magic4SFX>k__BackingField: {fileID: 8300000, guid: 67f22963ed3ef1a40b93a232eaf8d614, type: 3}
+  <Magic5SFX>k__BackingField: {fileID: 8300000, guid: 6bd855eca92716b44944c01435e63503, type: 3}
+  <Magic6SFX>k__BackingField: {fileID: 8300000, guid: 9a58a22b34e99b447832c4dd1a3acfb2, type: 3}
+  <HitSFXs>k__BackingField:
+  - {fileID: 8300000, guid: c4793ec14ca5d044fa574630d1af86b0, type: 3}
+  - {fileID: 8300000, guid: 0c559c3fcb4d6ea42ac57b6af5448f57, type: 3}
+  - {fileID: 8300000, guid: 84f8d228c2121854a97cb4aa41864ad9, type: 3}
+  <EnemyDeadSFXs>k__BackingField:
+  - {fileID: 8300000, guid: 764369ada9f74b845aebe53774cdf3ce, type: 3}
+  - {fileID: 8300000, guid: 7550ff5edf44c274295c039374fc01c3, type: 3}
+  <BossKilledSFX>k__BackingField: {fileID: 8300000, guid: dd17585bc206eb941b1cb4f995a1ae67, type: 3}
+  <FireExplosionSFX>k__BackingField: {fileID: 8300000, guid: 64fb9477894fa2e4a997518fbb1c2f15, type: 3}
+  <MagicCircle1SFX>k__BackingField: {fileID: 8300000, guid: 30875f1aa34165045904950674d47609, type: 3}
+  <MagicCircle2SFX>k__BackingField: {fileID: 8300000, guid: 31a4dce9ed0b26742b76f4643953bd88, type: 3}
+  <MagicCircle3SFX>k__BackingField: {fileID: 8300000, guid: 8ff65674c00d61e4aa57f91a446b7f28, type: 3}
+  <LaserSFX>k__BackingField: {fileID: 8300000, guid: eb34b4250134fcc48996b9dcb0ee27c3, type: 3}
+  <BigbangSFX>k__BackingField: {fileID: 8300000, guid: 379861d1be890dc43b0fca641f1a7591, type: 3}
+  <ClickSFX>k__BackingField: {fileID: 8300000, guid: 968dd0cbd62ecb24c9fe7eaf9820b706, type: 3}
+  <UpgradeSFX>k__BackingField: {fileID: 8300000, guid: a3273488368a49247a06567df36a9a43, type: 3}
+  <CompleteSFX>k__BackingField: {fileID: 8300000, guid: a6040499e7a98f046a4620058d5d5ed8, type: 3}
+  <ErrorSFX>k__BackingField: {fileID: 8300000, guid: 542bdd1c49caa004e8bb348c7a51ff6d, type: 3}
+  <StageSelectSFX>k__BackingField: {fileID: 8300000, guid: 9130d65150e73db43bcdc9a7d4d4c991, type: 3}
+  <ItemPickSFX>k__BackingField: {fileID: 8300000, guid: 13ea75dd90d3d744d9ec395a31b54521, type: 3}
 --- !u!1 &1037047690
 GameObject:
   m_ObjectHideFlags: 0
@@ -26610,12 +26824,13 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1537404895}
+  - {fileID: 856516909}
+  - {fileID: 1055846980}
+  - {fileID: 927795954}
   - {fileID: 279721989}
   - {fileID: 470526626}
   - {fileID: 891016554}
   - {fileID: 1683360467}
-  - {fileID: 856516909}
-  - {fileID: 1055846980}
   - {fileID: 1941944522}
   - {fileID: 1474143640}
   - {fileID: 583994670}

@@ -99,6 +99,7 @@ public class MagicianTower : Tower {
             : (Lv == 5)? GameEF.ExplosionFireballBlueEF
             : (Lv == 6)? GameEF.ExplosionFireballRedEF : GameEF.NULL;
         GM._.gef.ShowEF(efIdx, target.transform.position);
+        SM._.SfxPlay(SM.SFX.FireExplosionSFX);
 
         int layerMask = 1 << Enum.Layer.Enemy;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(target.transform.position, RADIUS, layerMask);
@@ -127,8 +128,12 @@ public class MagicianTower : Tower {
         int idx = Lv == 4? (int)MissileIdx.MagicCirclePurple
             : Lv == 5? (int)MissileIdx.MagicCircleBlue
             : Lv == 6? (int)MissileIdx.MagicCircleRed : -1;
-
         MagicCircle mc = GM._.mm.CreateMissile(idx).GetComponent<MagicCircle>();
+
+        if(Lv == 4) SM._.SfxPlay(SM.SFX.MagicCircle1SFX);
+        else if(Lv == 5) SM._.SfxPlay(SM.SFX.MagicCircle2SFX);
+        else if(Lv == 6) SM._.SfxPlay(SM.SFX.MagicCircle3SFX);
+
         mc.Init(this);
     }
 
@@ -145,6 +150,7 @@ public class MagicianTower : Tower {
         Laser laser = GM._.mm.CreateMissile(idx).GetComponent<Laser>();
         laser.EffectObj.SetActive(false);
         laser.Init(this);
+        SM._.SfxPlay(SM.SFX.LaserSFX);
 
         yield return new WaitForSeconds(WAIT_DESTROY_TIME);
         GM._.mm.PoolList[idx].Release(laser.gameObject);
@@ -162,11 +168,12 @@ public class MagicianTower : Tower {
         const int WAIT_DELAY_TIME = 2;
         const int WAIT_SPAWN_TIME = 2;
         const int WAIT_DESTROY_TIME = 2;
+        IsBigbangActive = false;
 
         yield return new WaitForSeconds(WAIT_DELAY_TIME);
 
         //* スキルEF 表示
-        IsBigbangActive = false;
+        SM._.SfxPlay(SM.SFX.BigbangSFX);
         BigbangEF.SetActive(true);
 
         //* 全ての敵にダメージ

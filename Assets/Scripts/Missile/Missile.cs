@@ -90,6 +90,7 @@ public class Missile : MonoBehaviour {
                     enemy.DecreaseHp(totalDmg, isCritical);
 
                     //* Hit EF
+                    SM._.SfxPlay(SM.SFX.HitSFX);
                     switch(MyTower.Kind) {
                         case TowerKind.Archer:
                             var arrowHitEF = isCritical? GameEF.ArrowCritExplosionEF : GameEF.ArrowExplosionFireEF;
@@ -104,6 +105,7 @@ public class Missile : MonoBehaviour {
                                 : (MyTower.Lv == 5)? GameEF.MagicExplosionBlueEF
                                 : GameEF.MagicShadowExplosionEF;
                             //* エフェクト
+                            // SM._.SfxPlay(SM.SFX.MagicHitSFX);
                             GM._.gef.ShowEF(magicHitEF, enemy.transform.position);
                             break;
                     }

@@ -47,6 +47,8 @@ public class TileMapController : MonoBehaviour {
     /// <param name="_y">MergableItemのクリックイベント用としてY軸を渡す</param>
     /// <param name="col">MergableItemのクリックイベント用のコライダーを渡す</param>
     public void OnClickTile(int _x = -9999, int _y = -9999, Collider2D col = null) {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+
         //* UIに触れているなら、以下のRayCast処理しなくて終了
         // #if UNITY_EDITOR
             if (EventSystem.current.currentSelectedGameObject && !col) {

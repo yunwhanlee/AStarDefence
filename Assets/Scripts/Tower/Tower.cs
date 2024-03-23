@@ -153,6 +153,7 @@ public abstract class Tower : MonoBehaviour {
                         switch(Kind) {
                             case TowerKind.Warrior:
                                 //TODO EFFECT
+                                SM._.SfxPlay(SM.SFX.SwordSFX);
                                 chara.Animator.SetTrigger("Slash");
                                 //* クリティカル
                                 bool isCritical = Util._.CheckCriticalDmg(this);
@@ -235,6 +236,7 @@ public abstract class Tower : MonoBehaviour {
         ms.Init(this);
 
         if(Kind == TowerKind.Archer) {
+            SM._.SfxPlay(SM.SFX.ArrowSFX);
             var ac = this as ArcherTower;
             if(Lv >= 4)
                 ac.Skill2_MultiShot();
@@ -244,6 +246,14 @@ public abstract class Tower : MonoBehaviour {
                 ac.Skill4_ArrowRain();
         }
         else if(Kind == TowerKind.Magician) {
+            Debug.Log("MAGICIAN LV= " + Lv);
+            if(Lv == 1) SM._.SfxPlay(SM.SFX.Magic1SFX);
+            else if(Lv == 2) SM._.SfxPlay(SM.SFX.Magic2SFX);
+            else if(Lv == 3) SM._.SfxPlay(SM.SFX.Magic3SFX);
+            else if(Lv == 4) SM._.SfxPlay(SM.SFX.Magic4SFX);
+            else if(Lv == 5) SM._.SfxPlay(SM.SFX.Magic5SFX);
+            else SM._.SfxPlay(SM.SFX.Magic6SFX);
+            
             var mg = this as MagicianTower;
             if(Lv >= 4 && !mg.IsMagicCircleOneTime)
                 mg.Skill2_MagicCircle();

@@ -17,6 +17,7 @@ public class StageUIManager : MonoBehaviour {
 
 #region EVENT
     public void OnClickStartBtn() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
         DifficultyWindow.SetActive(true);
         NormalLockedFrame.SetActive(DM._.DB.StageLockedDatas[HM._.SelectedStage].Normal);
         HardLockedFrame.SetActive(DM._.DB.StageLockedDatas[HM._.SelectedStage].Hard);
@@ -24,6 +25,7 @@ public class StageUIManager : MonoBehaviour {
     }
 
     public void OnClickDifficultyBtn(int diffIdx) {
+        SM._.SfxPlay(SM.SFX.StageSelectSFX);
         //* 難易度 データ設定
         DM._.SelectedDiff = (diffIdx == 0)? Enum.Difficulty.Easy
             : (diffIdx == 1)? Enum.Difficulty.Normal
@@ -38,6 +40,7 @@ public class StageUIManager : MonoBehaviour {
     /// </summary>
     /// <param name="dir">方向(-1：左、1：右)</param>
     public void OnClickArrowBtn(int dir) {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
         var hm = HM._;
         hm.SelectedStage += dir;
 

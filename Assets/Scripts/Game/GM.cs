@@ -78,6 +78,7 @@ public class GM : MonoBehaviour {
         tm = GameObject.Find("TowerManager").GetComponent<TowerManager>();
         mm = GameObject.Find("MissileManager").GetComponent<MissileManager>();
 
+        //* 初期化
         state = GameState.Ready;
         CorReadyWaveID = null;
         IsReady = false;
@@ -89,6 +90,8 @@ public class GM : MonoBehaviour {
         life = Config.DEFAULT_LIFE;
         MaxLife = life;
         Money = Config.DEFAULT_MONEY;
+
+        SM._.SfxPlay(SM.SFX.GameStartSFX);
 
         //* 現在選択したステージのタイルマップ 表示
         StageDts[Stage].TileMapObj.SetActive(true);
@@ -138,6 +141,7 @@ public class GM : MonoBehaviour {
         }
         else {
             //* WAVE開始
+            SM._.SfxPlay(SM.SFX.WaveStartSFX);
             IsReady = false;
             gui.SetStartBtnUI(IsReady);
             StartWave();
@@ -183,6 +187,7 @@ public class GM : MonoBehaviour {
         if(WaveCnt < MaxWave)
             gui.SetNextEnemyInfoFlagUI();
         else {
+            SM._.SfxPlay(SM.SFX.CompleteSFX);
             gui.VictoryPopUp.SetActive(true);
             gui.Pause();
             return;

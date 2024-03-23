@@ -178,6 +178,7 @@ public class ActionBarUIManager : MonoBehaviour {
         else if(!GM._.CheckMoney(Config.PRICE.BREAK))
             return;
 
+        SM._.SfxPlay(SM.SFX.BreakSFX);
         GM._.tmc.BreakWallTile();
         GM._.tmc.SelectedTileMap.ClearAllTiles();
         PanelObj.SetActive(false);
@@ -197,6 +198,7 @@ public class ActionBarUIManager : MonoBehaviour {
         else if(!GM._.CheckMoney(Config.PRICE.BOARD))
             return;
 
+        SM._.SfxPlay(SM.SFX.BuildSFX);
         GM._.tm.InstallBoard(); // ボード生成
         GM._.gui.InActiveResetWallBtn();
         StartCoroutine(CoCheckPathFind(Enum.Layer.Board));
@@ -206,6 +208,7 @@ public class ActionBarUIManager : MonoBehaviour {
         if(!GM._.CheckMoney(Config.PRICE.TOWER))
             return;
 
+        SM._.SfxPlay(SM.SFX.CreateTowerSFX);
         GM._.tm.CreateTower(TowerType.Random); // CCタワー生成
 
         UpdateUI(Enum.Layer.Tower);
@@ -220,6 +223,7 @@ public class ActionBarUIManager : MonoBehaviour {
             return;
 
         SetCCTowerCntTxt(+1);
+        SM._.SfxPlay(SM.SFX.BuildSFX);
         GM._.tm.CreateTower(TowerType.CC_IceTower);
         GM._.gui.InActiveResetWallBtn();
         StartCoroutine(CoCheckPathFind(Enum.Layer.CCTower));
@@ -234,6 +238,7 @@ public class ActionBarUIManager : MonoBehaviour {
             return;
 
         SetCCTowerCntTxt(+1);
+        SM._.SfxPlay(SM.SFX.BuildSFX);
         GM._.tm.CreateTower(TowerType.CC_StunTower);
         GM._.gui.InActiveResetWallBtn();
         StartCoroutine(CoCheckPathFind(Enum.Layer.CCTower));
@@ -245,6 +250,7 @@ public class ActionBarUIManager : MonoBehaviour {
         if(!GM._.CheckMoney(Config.PRICE.CC_UPG))
             return;
 
+        SM._.SfxPlay(SM.SFX.UpgradeSFX);
         Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
         switch(tower.Type) {
             case TowerType.CC_IceTower:
@@ -267,6 +273,7 @@ public class ActionBarUIManager : MonoBehaviour {
         bool isSuccess = MergeTower();
 
         if(isSuccess) {
+            
             GM._.gui.ShowMsgNotice("합성 완료!");
 
             //* Reset MergableManager Data
@@ -274,6 +281,7 @@ public class ActionBarUIManager : MonoBehaviour {
         }
         else {
             GM._.gui.ShowMsgError("합성할 같은 타워가 없습니다.");
+            GM._.SetMoney(Config.PRICE.MERGE);
             return;
         }
 
@@ -296,6 +304,7 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
     public void OnClickDeleteIconBtn() {
+        SM._.SfxPlay(SM.SFX.DeleteTowerSFX);
         GM._.tmc.DeleteTile();
     }
 
@@ -392,6 +401,16 @@ public class ActionBarUIManager : MonoBehaviour {
                 var magician = tower as MagicianTower;
                 isSuccess = magician.Merge(kind);
                 break;
+        }
+        //* サウンド
+        if(isSuccess) {
+            switch(tower.Lv) {
+                case 1: SM._.SfxPlay(SM.SFX.Merge1SFX); break;
+                case 2: SM._.SfxPlay(SM.SFX.Merge2SFX); break;
+                case 3: SM._.SfxPlay(SM.SFX.Merge3SFX); break;
+                case 4: SM._.SfxPlay(SM.SFX.Merge4SFX); break;
+                case 5: SM._.SfxPlay(SM.SFX.Merge5SFX); break;
+            }
         }
 
         return isSuccess;

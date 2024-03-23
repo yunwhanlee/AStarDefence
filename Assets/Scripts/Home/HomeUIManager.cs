@@ -30,6 +30,7 @@ public class HomeUIManager : MonoBehaviour {
 
 #region EVENT
     public void OnClickPlayBtn() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
         HM._.stgm.StageGroup.SetActive(true);
         int i = 0;
         Array.ForEach(HM._.stgm.StagePopUps, popUp => popUp.SetActive(HM._.SelectedStage == i++));
@@ -43,6 +44,7 @@ public class HomeUIManager : MonoBehaviour {
 #region FUNC
     /// <summary> 上にへエラーメッセージバー表示（自動OFF）</summary>
     public void ShowMsgError(string msg) {
+        SM._.SfxPlay(SM.SFX.ErrorSFX);
         StartCoroutine(CoShowMsgError(msg));
     }
     IEnumerator CoShowMsgError(string msg) {
