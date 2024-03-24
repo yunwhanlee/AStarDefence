@@ -230,6 +230,7 @@ public class GameUIManager : MonoBehaviour {
         GM._.State = previousState;
     }
     public void Gameover() {
+        SM._.SfxPlay(SM.SFX.GameoverSFX);
         GameoverPopUp.SetActive(true);
         GM._.Life = 0;
         Time.timeScale = 0;
