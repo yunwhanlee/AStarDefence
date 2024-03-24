@@ -214,6 +214,7 @@ public class GM : MonoBehaviour {
     /// <param name="type">敵のタイプ（一般、空、ボス）</param>
     public void DecreaseLife(EnemyType type) {
         Util._.Blink(gui.HeartFillImg);
+        SM._.SfxPlay(SM.SFX.DecreaseLife);
 
         //* マイナス値
         int val = (type == EnemyType.Boss)? -Enemy.LIFE_DEC_BOSS : -Enemy.LIFE_DEC_MONSTER;

@@ -19,6 +19,7 @@ public class SM : MonoBehaviour {
         Merge3SFX,
         Merge4SFX,
         Merge5SFX,
+        DecreaseLife,
         // Attack
         SwordSFX,
         ArrowSFX,
@@ -72,6 +73,7 @@ public class SM : MonoBehaviour {
     [field: SerializeField] AudioClip Merge3SFX {get; set;}
     [field: SerializeField] AudioClip Merge4SFX {get; set;}
     [field: SerializeField] AudioClip Merge5SFX {get; set;}
+    [field: SerializeField] AudioClip DecreaseLife {get; set;}
     // Attack
     [field: SerializeField] AudioClip SwordSFX {get; set;}
     [field: SerializeField] AudioClip ArrowSFX {get; set;}
@@ -136,6 +138,7 @@ public class SM : MonoBehaviour {
         if(sfx == SFX.Merge3SFX) SfxPlayer.PlayOneShot(Merge3SFX);
         if(sfx == SFX.Merge4SFX) SfxPlayer.PlayOneShot(Merge4SFX);
         if(sfx == SFX.Merge5SFX) SfxPlayer.PlayOneShot(Merge5SFX);
+        if(sfx == SFX.DecreaseLife) SfxPlayer.PlayOneShot(DecreaseLife);
         // Attack
         if(sfx == SFX.SwordSFX) SfxPlayer.PlayOneShot(SwordSFX);
         if(sfx == SFX.ArrowSFX) SfxPlayer.PlayOneShot(ArrowSFX);

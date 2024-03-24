@@ -1384,6 +1384,7 @@ MonoBehaviour:
   <Merge3SFX>k__BackingField: {fileID: 8300000, guid: 15fb913483bca044398fb0301d5936f3, type: 3}
   <Merge4SFX>k__BackingField: {fileID: 8300000, guid: 652fab86b968a854c87c9bde1a4b6140, type: 3}
   <Merge5SFX>k__BackingField: {fileID: 8300000, guid: 83d7d63e3d3c2ff4c8c4b0d8dd384f87, type: 3}
+  <DecreaseLife>k__BackingField: {fileID: 8300000, guid: 080c3010256d3b148be6387f4c915b2e, type: 3}
   <SwordSFX>k__BackingField: {fileID: 8300000, guid: 24d9a7e5a770e2e48a24459d31d4d22a, type: 3}
   <ArrowSFX>k__BackingField: {fileID: 8300000, guid: 8cd77d8e525a27946b8126846b32757b, type: 3}
   <Magic1SFX>k__BackingField: {fileID: 8300000, guid: b6f9552f1f68cb04a93e77823905d455, type: 3}
@@ -1559,7 +1560,7 @@ MonoBehaviour:
       <Normal>k__BackingField: 1
       <Hard>k__BackingField: 1
     - <Name>k__BackingField: Stage5
-      <Easy>k__BackingField: 1
+      <Easy>k__BackingField: 0
       <Normal>k__BackingField: 1
       <Hard>k__BackingField: 1
   <SelectedStage>k__BackingField: 0
@@ -6751,7 +6752,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10 ~ 12
+  m_text: "80 \uC6E8\uC774\uBE0C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7137805b022d44869b12d93cb388c588, type: 2}
   m_sharedMaterial: {fileID: 8527393934874279224, guid: 7137805b022d44869b12d93cb388c588, type: 2}
@@ -6778,7 +6779,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66
+  m_fontSize: 55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7073,7 +7074,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Recommended level
+  m_text: "\uBAAC\uC2A4\uD130 \uCCB4\uB825 240%"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b5c9a7370e424d53a1b8a999cf54a02, type: 2}
   m_sharedMaterial: {fileID: 7512481295523713106, guid: 1b5c9a7370e424d53a1b8a999cf54a02, type: 2}
@@ -8007,7 +8008,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5. Citadel of Fire
+  m_text: "\uC2A4\uD14C\uC774\uC9C0 5. \uBD88\uD0C0\uB294 \uC9C0\uC625"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5bbff4e78f2634c139739f1d90982c46, type: 2}
   m_sharedMaterial: {fileID: 7512481295523713106, guid: 5bbff4e78f2634c139739f1d90982c46, type: 2}

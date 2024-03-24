@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 20
+  spritePixelsToUnits: 18
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,9 +69,9 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 256
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -95,7 +95,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 512
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: 4
     textureCompression: 1
@@ -110,7 +110,343 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HellMonsters_0
+      name: 5.HellMonsters_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 224
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85c0b0df5e2cd3a4a9b964d1e10c6bf7
+      internalID: -1019768295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 224
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6232626b9f32c84488134744a41f8735
+      internalID: -1026931955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 224
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6246fdb7c8c3c9844b516f7a2462dda2
+      internalID: -2130675020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 224
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22ea3384e3a6b7644a7e440c61c8fdc4
+      internalID: -2074547258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 224
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d24644efd5ea43342a9f89a0265c671a
+      internalID: -2109019508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 224
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fc2492d34e3dd74f992ec0c4db07135
+      internalID: -693546342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 224
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b02b6b05bade4a43abecbbcda4eec5a
+      internalID: 625085474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 224
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7397f4c62bdb0ec4d99211fb4d94c568
+      internalID: 1093666956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75ea477bcad35154397c80ce038d8429
+      internalID: -419830056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_9
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 192
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d737b7049f2f4e04ebcad8e93743b675
+      internalID: -1548265995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_10
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea6171af2360d7c43887772f80b46154
+      internalID: -880671069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_11
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 192
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca57b7871b67f8b42875f42a5c61a04e
+      internalID: 1511030250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_12
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 842b18d14fd9d6d428068d4d25889e0b
+      internalID: -872601340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_13
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 192
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16dea02c26e810a4da6fb2f1c7dcf7de
+      internalID: 1385121386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_14
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 867990c83e3549548b70041c1558053c
+      internalID: -865088390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_15
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 192
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c676c458619e4004f8acabca986d4216
+      internalID: 677462528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_16
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +460,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3893fd1aa45bd6843847505f069dc97a
-      internalID: 1231488354
+      spriteID: 988406b6707077c469f1aed7af023fb5
+      internalID: 550313558
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_1
+      name: 5.HellMonsters_17
       rect:
         serializedVersion: 2
         x: 32
@@ -145,14 +481,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 878022c6773f26a4ea87291bff1cc435
-      internalID: 1704105558
+      spriteID: b187d9d0a6706674e8a37b7ac982e09e
+      internalID: -1150720721
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_2
+      name: 5.HellMonsters_18
       rect:
         serializedVersion: 2
         x: 64
@@ -166,14 +502,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fcad6796af1ef254fb98fdcd786edbc9
-      internalID: -220116651
+      spriteID: 8d0f8c3a623f0f54ea475778f7814301
+      internalID: -751648585
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_3
+      name: 5.HellMonsters_19
       rect:
         serializedVersion: 2
         x: 96
@@ -187,14 +523,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd44b1791443f9a44a1b9b4bff8c7cc5
-      internalID: 2099555461
+      spriteID: e9489bcf92b558342adfe893bd6e2043
+      internalID: -2054528746
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_4
+      name: 5.HellMonsters_20
       rect:
         serializedVersion: 2
         x: 128
@@ -208,14 +544,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e3807dc3ab5414f4e9c66a5a8baf22b7
-      internalID: -1256991630
+      spriteID: 8619524b889eeb74396a19059755db29
+      internalID: 987275214
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_5
+      name: 5.HellMonsters_21
       rect:
         serializedVersion: 2
         x: 160
@@ -229,14 +565,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 84e3f51191c5cd94ca5c616a2889df59
-      internalID: -1903114593
+      spriteID: 9cb1c4084b44da64f9a870b4e74a4414
+      internalID: -1818006380
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_6
+      name: 5.HellMonsters_22
       rect:
         serializedVersion: 2
         x: 192
@@ -250,14 +586,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2452bd3b46b1d524c97b2f641ef62f84
-      internalID: -1333596013
+      spriteID: 62fe93e2a72d4de4a93517561b873d81
+      internalID: -588802761
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_7
+      name: 5.HellMonsters_23
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 160
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78dba47cdff017d42b42829e4a7621b1
+      internalID: 37667976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_24
       rect:
         serializedVersion: 2
         x: 0
@@ -271,14 +628,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 560ee7dcfa6dfe345b5b7773a4478998
-      internalID: 934406893
+      spriteID: a1c64d921668c714d93a15e1cb8570e0
+      internalID: -1786634050
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_8
+      name: 5.HellMonsters_25
       rect:
         serializedVersion: 2
         x: 32
@@ -292,14 +649,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d5dfd6569f248b41adac5b51558519e
-      internalID: -55586909
+      spriteID: 3743a01f5d9afaa408f368ec19d41dd9
+      internalID: -1021607229
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_9
+      name: 5.HellMonsters_26
       rect:
         serializedVersion: 2
         x: 64
@@ -313,14 +670,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6a05f7a03c0b12346beb35765ae33951
-      internalID: -1802282794
+      spriteID: 24bccda1449367f4eaf09d8848570aca
+      internalID: 2026883724
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_10
+      name: 5.HellMonsters_27
       rect:
         serializedVersion: 2
         x: 96
@@ -334,14 +691,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d29d9752381b324e997fa80135ee7bd
-      internalID: 1550782493
+      spriteID: c87d114a8a70db246a6c9c329e210b86
+      internalID: -898976909
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_11
+      name: 5.HellMonsters_28
       rect:
         serializedVersion: 2
         x: 128
@@ -355,14 +712,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3edc93019351a5b408690996d860333d
-      internalID: 1042535907
+      spriteID: 681b166bdf6ad6a4e80a13ca09d75be7
+      internalID: -338184235
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_12
+      name: 5.HellMonsters_29
       rect:
         serializedVersion: 2
         x: 160
@@ -376,14 +733,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f37934f61b81e1848910340f0517edf4
-      internalID: -836639030
+      spriteID: 01d01d9428a1f364ab049244d9e630f8
+      internalID: -1044886579
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_13
+      name: 5.HellMonsters_30
       rect:
         serializedVersion: 2
         x: 192
@@ -397,14 +754,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1bdde3e717938f042bdf476bf32a23d7
-      internalID: 1416058473
+      spriteID: bdbe39fea0b324c4e8a16f2c36723c69
+      internalID: -1916980240
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_14
+      name: 5.HellMonsters_31
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 128
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c20bec2233fb7864c87b5793bec48215
+      internalID: -42085656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_32
       rect:
         serializedVersion: 2
         x: 0
@@ -418,14 +796,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3212c2a42dfa9ce40b1af53dc6ecdddd
-      internalID: -48316991
+      spriteID: 475535f072dc05f428266d58aa767b86
+      internalID: 1668978571
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_15
+      name: 5.HellMonsters_33
       rect:
         serializedVersion: 2
         x: 32
@@ -439,14 +817,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f3ac2d5c850a1824bb5ba055dc0a97ca
-      internalID: -2130897399
+      spriteID: b6a3b20aa67dc1d4f8c74cdfa78d5c0a
+      internalID: 2070597900
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_16
+      name: 5.HellMonsters_34
       rect:
         serializedVersion: 2
         x: 64
@@ -460,14 +838,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 30f951af4b1fd5748abe1c668e915127
-      internalID: -769433541
+      spriteID: 82cb79b1c7f84cc428ba6876a0776586
+      internalID: -1144404444
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_17
+      name: 5.HellMonsters_35
       rect:
         serializedVersion: 2
         x: 96
@@ -481,14 +859,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71f367373c9ea434b88a540908137c91
-      internalID: -117257241
+      spriteID: 882eee4c91a0e54448f0198234c8e4b6
+      internalID: 1096841254
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_18
+      name: 5.HellMonsters_36
       rect:
         serializedVersion: 2
         x: 128
@@ -502,14 +880,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 51606cd26abde204285bd5d6e499c78d
-      internalID: -954116101
+      spriteID: 0fc5c43d016ea004281e71dccf6e5926
+      internalID: -1144808378
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_19
+      name: 5.HellMonsters_37
       rect:
         serializedVersion: 2
         x: 160
@@ -523,14 +901,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f491d91596f65ac4fac989d6ef0a0ea4
-      internalID: 1295222167
+      spriteID: 503be08f89eab3b49ac3609311afc665
+      internalID: 736944813
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_20
+      name: 5.HellMonsters_38
       rect:
         serializedVersion: 2
         x: 192
@@ -544,14 +922,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ec9fc467ebfc644d9c5c5f9aa47b8d4
-      internalID: 91259368
+      spriteID: 3abc182e88c4311438f9a75b57eef9c0
+      internalID: -857002891
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_21
+      name: 5.HellMonsters_39
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 96
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfa5c1c907a49834e8192e7aee958d89
+      internalID: -1995033039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_40
       rect:
         serializedVersion: 2
         x: 0
@@ -565,14 +964,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5beaf7d6843d2f540800be7f804751f8
-      internalID: -29119767
+      spriteID: 31166eef51aa85e49a082276fa5a144c
+      internalID: 2011819544
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_22
+      name: 5.HellMonsters_41
       rect:
         serializedVersion: 2
         x: 32
@@ -586,14 +985,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2aac0803c95e1942a255b9ded5a60c8
-      internalID: 1068745565
+      spriteID: 9640927c1a633144c916ea9aa412082e
+      internalID: 538158418
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_23
+      name: 5.HellMonsters_42
       rect:
         serializedVersion: 2
         x: 64
@@ -607,14 +1006,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef94c8d19f257ff4e8056b027139805b
-      internalID: -1414878098
+      spriteID: b79002cd5589c4c40bfc9f7401e13bda
+      internalID: -1764474054
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_24
+      name: 5.HellMonsters_43
       rect:
         serializedVersion: 2
         x: 96
@@ -628,14 +1027,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f61237d77c34b4540a49d39a8f0978df
-      internalID: -310060196
+      spriteID: 71d66b98e79a3e04b89312221a3a5c6c
+      internalID: -83165261
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_25
+      name: 5.HellMonsters_44
       rect:
         serializedVersion: 2
         x: 128
@@ -649,14 +1048,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc1af093315f5b24ea93f8c51f905471
-      internalID: 302190904
+      spriteID: af4460807f5313a41ac507337721819c
+      internalID: -909529257
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_26
+      name: 5.HellMonsters_45
       rect:
         serializedVersion: 2
         x: 160
@@ -670,14 +1069,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 45a825347c429c942ada1c08ac150518
-      internalID: -591852149
+      spriteID: 8d32f2eee478dfe4ea9adecb8578ce6f
+      internalID: -95244536
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_27
+      name: 5.HellMonsters_46
       rect:
         serializedVersion: 2
         x: 192
@@ -691,14 +1090,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df385a4dc15db02439c026a009d32bac
-      internalID: 1319404282
+      spriteID: 03db97fc8e0d3f742813522286eefe51
+      internalID: -600564070
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_28
+      name: 5.HellMonsters_47
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 64
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ceeaf68f085824f44a9434feb79f205e
+      internalID: 787495859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_48
       rect:
         serializedVersion: 2
         x: 0
@@ -712,14 +1132,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c326ef32c8e0f8840b4144bc155ad1f2
-      internalID: -1726171103
+      spriteID: c24a2cf1f9e7df0499d4c023e527e213
+      internalID: -1819885928
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_29
+      name: 5.HellMonsters_49
       rect:
         serializedVersion: 2
         x: 32
@@ -733,14 +1153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ec1e099dae424b40818f10bec909dee
-      internalID: 745928264
+      spriteID: 23dcf8e249e44f843bd93148f380c399
+      internalID: -1567098610
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_30
+      name: 5.HellMonsters_50
       rect:
         serializedVersion: 2
         x: 64
@@ -754,14 +1174,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea068d8824e6d594eae7e953c1010d0d
-      internalID: -916776130
+      spriteID: d40bf05ae7bf5a944b6415004b493baa
+      internalID: 316993959
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_31
+      name: 5.HellMonsters_51
       rect:
         serializedVersion: 2
         x: 96
@@ -775,14 +1195,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 50623c1ed4e5b63408024b97a5a889c8
-      internalID: -1018268746
+      spriteID: 061302c110109784fa3c04ccd0284227
+      internalID: 84740951
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_32
+      name: 5.HellMonsters_52
       rect:
         serializedVersion: 2
         x: 128
@@ -796,14 +1216,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bcd1b5408baf5fc4abfbc6742f91acac
-      internalID: -1025774577
+      spriteID: 3114c9513d8007e4e8e690158a31d42c
+      internalID: -34839622
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_33
+      name: 5.HellMonsters_53
       rect:
         serializedVersion: 2
         x: 160
@@ -817,14 +1237,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54fdeea5fc81bf548b1675989ad689f4
-      internalID: -184846625
+      spriteID: 55b1b24c5034422429db84d5b603ec2e
+      internalID: -847667915
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_34
+      name: 5.HellMonsters_54
       rect:
         serializedVersion: 2
         x: 192
@@ -838,14 +1258,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb21629e35a1f124f9d6addd0a274a03
-      internalID: 87345895
+      spriteID: 2e931069d7b8293409e0e68d08bc2c39
+      internalID: -1535128625
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_35
+      name: 5.HellMonsters_55
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 32
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b12602623ffdbd40a1f002e10f986db
+      internalID: 148686144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_56
       rect:
         serializedVersion: 2
         x: 0
@@ -859,14 +1300,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2db6ea65b7d95aa47aeaa2313f601bb6
-      internalID: -899666559
+      spriteID: 1f1f7e7c8732c4a4dbe17c91210dae59
+      internalID: 1996979486
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_36
+      name: 5.HellMonsters_57
       rect:
         serializedVersion: 2
         x: 32
@@ -880,14 +1321,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af6954c686877c643897b5eca08ab6ee
-      internalID: 1264557783
+      spriteID: a83104432a1943c40aae21a8c73f85d3
+      internalID: 1404751868
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HellMonsters_37
+      name: 5.HellMonsters_58
       rect:
         serializedVersion: 2
         x: 64
@@ -901,8 +1342,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 804e09ffd3223e147aa59d9ae1b8047e
-      internalID: -512271648
+      spriteID: be412db5718734a4c87fea54ce0c7026
+      internalID: 176223848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_59
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 058b8bff74e70fc42928a599c7f51f25
+      internalID: 697172697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5.HellMonsters_60
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11157fb5feaf3ca40b72b46aef4330d9
+      internalID: 1118537356
       vertices: []
       indices: 
       edges: []
@@ -918,44 +1401,67 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      HellMonsters_0: 1231488354
-      HellMonsters_1: 1704105558
-      HellMonsters_10: 1550782493
-      HellMonsters_11: 1042535907
-      HellMonsters_12: -836639030
-      HellMonsters_13: 1416058473
-      HellMonsters_14: -48316991
-      HellMonsters_15: -2130897399
-      HellMonsters_16: -769433541
-      HellMonsters_17: -117257241
-      HellMonsters_18: -954116101
-      HellMonsters_19: 1295222167
-      HellMonsters_2: -220116651
-      HellMonsters_20: 91259368
-      HellMonsters_21: -29119767
-      HellMonsters_22: 1068745565
-      HellMonsters_23: -1414878098
-      HellMonsters_24: -310060196
-      HellMonsters_25: 302190904
-      HellMonsters_26: -591852149
-      HellMonsters_27: 1319404282
-      HellMonsters_28: -1726171103
-      HellMonsters_29: 745928264
-      HellMonsters_3: 2099555461
-      HellMonsters_30: -916776130
-      HellMonsters_31: -1018268746
-      HellMonsters_32: -1025774577
-      HellMonsters_33: -184846625
-      HellMonsters_34: 87345895
-      HellMonsters_35: -899666559
-      HellMonsters_36: 1264557783
-      HellMonsters_37: -512271648
-      HellMonsters_4: -1256991630
-      HellMonsters_5: -1903114593
-      HellMonsters_6: -1333596013
-      HellMonsters_7: 934406893
-      HellMonsters_8: -55586909
-      HellMonsters_9: -1802282794
+      5.HellMonsters_0: -1019768295
+      5.HellMonsters_1: -1026931955
+      5.HellMonsters_10: -880671069
+      5.HellMonsters_11: 1511030250
+      5.HellMonsters_12: -872601340
+      5.HellMonsters_13: 1385121386
+      5.HellMonsters_14: -865088390
+      5.HellMonsters_15: 677462528
+      5.HellMonsters_16: 550313558
+      5.HellMonsters_17: -1150720721
+      5.HellMonsters_18: -751648585
+      5.HellMonsters_19: -2054528746
+      5.HellMonsters_2: -2130675020
+      5.HellMonsters_20: 987275214
+      5.HellMonsters_21: -1818006380
+      5.HellMonsters_22: -588802761
+      5.HellMonsters_23: 37667976
+      5.HellMonsters_24: -1786634050
+      5.HellMonsters_25: -1021607229
+      5.HellMonsters_26: 2026883724
+      5.HellMonsters_27: -898976909
+      5.HellMonsters_28: -338184235
+      5.HellMonsters_29: -1044886579
+      5.HellMonsters_3: -2074547258
+      5.HellMonsters_30: -1916980240
+      5.HellMonsters_31: -42085656
+      5.HellMonsters_32: 1668978571
+      5.HellMonsters_33: 2070597900
+      5.HellMonsters_34: -1144404444
+      5.HellMonsters_35: 1096841254
+      5.HellMonsters_36: -1144808378
+      5.HellMonsters_37: 736944813
+      5.HellMonsters_38: -857002891
+      5.HellMonsters_39: -1995033039
+      5.HellMonsters_4: -2109019508
+      5.HellMonsters_40: 2011819544
+      5.HellMonsters_41: 538158418
+      5.HellMonsters_42: -1764474054
+      5.HellMonsters_43: -83165261
+      5.HellMonsters_44: -909529257
+      5.HellMonsters_45: -95244536
+      5.HellMonsters_46: -600564070
+      5.HellMonsters_47: 787495859
+      5.HellMonsters_48: -1819885928
+      5.HellMonsters_49: -1567098610
+      5.HellMonsters_5: -693546342
+      5.HellMonsters_50: 316993959
+      5.HellMonsters_51: 84740951
+      5.HellMonsters_52: -34839622
+      5.HellMonsters_53: -847667915
+      5.HellMonsters_54: -1535128625
+      5.HellMonsters_55: 148686144
+      5.HellMonsters_56: 1996979486
+      5.HellMonsters_57: 1404751868
+      5.HellMonsters_58: 176223848
+      5.HellMonsters_59: 697172697
+      5.HellMonsters_6: 625085474
+      5.HellMonsters_60: 1118537356
+      5.HellMonsters_7: 1093666956
+      5.HellMonsters_8: -419830056
+      5.HellMonsters_9: -1548265995
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
