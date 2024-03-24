@@ -24723,8 +24723,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Tower>k__BackingField: {fileID: 0}
   <SprRdr>k__BackingField: {fileID: 0}
-  TargetList: []
   <CurTarget>k__BackingField: {fileID: 0}
+  TargetList: []
 --- !u!58 &219873314043732724
 CircleCollider2D:
   m_ObjectHideFlags: 0

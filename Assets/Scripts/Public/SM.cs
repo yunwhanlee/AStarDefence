@@ -35,6 +35,11 @@ public class SM : MonoBehaviour {
         EnemyDeadSFX,
         BossKilledSFX,
         // Skill
+        RageSFX,
+        CheerUpSFX,
+        WheelWindSFX,
+        RoarASFX,
+        RoarBSFX,
         FireExplosionSFX,
         MagicCircle1SFX,
         MagicCircle2SFX,
@@ -83,6 +88,11 @@ public class SM : MonoBehaviour {
     [field: SerializeField] AudioClip[] EnemyDeadSFXs {get; set;}
     [field: SerializeField] AudioClip BossKilledSFX {get; set;}
     // Skill
+    [field: SerializeField] AudioClip RageSFX {get; set;}
+    [field: SerializeField] AudioClip CheerUpSFX {get; set;}
+    [field: SerializeField] AudioClip WheelWindSFX {get; set;}
+    [field: SerializeField] AudioClip RoarASFX {get; set;}
+    [field: SerializeField] AudioClip RoarBSFX {get; set;}
     [field: SerializeField] AudioClip FireExplosionSFX {get; set;}
     [field: SerializeField] AudioClip MagicCircle1SFX {get; set;}
     [field: SerializeField] AudioClip MagicCircle2SFX {get; set;}
@@ -142,6 +152,11 @@ public class SM : MonoBehaviour {
         if(sfx == SFX.EnemyDeadSFX) SfxPlayer.PlayOneShot(EnemyDeadSFXs[Random.Range(0, EnemyDeadSFXs.Length)]);
         if(sfx == SFX.BossKilledSFX) SfxPlayer.PlayOneShot(BossKilledSFX);
         // Skill
+        if(sfx == SFX.RageSFX) SfxPlayer.PlayOneShot(RageSFX);
+        if(sfx == SFX.CheerUpSFX) SfxPlayer.PlayOneShot(CheerUpSFX);
+        if(sfx == SFX.WheelWindSFX) SfxPlayer.PlayOneShot(WheelWindSFX);
+        if(sfx == SFX.RoarASFX) SfxPlayer.PlayOneShot(RoarASFX);
+        if(sfx == SFX.RoarBSFX) SfxPlayer.PlayOneShot(RoarBSFX);
         if(sfx == SFX.FireExplosionSFX) SfxPlayer.PlayOneShot(FireExplosionSFX);
         if(sfx == SFX.MagicCircle1SFX) SfxPlayer.PlayOneShot(MagicCircle1SFX);
         if(sfx == SFX.MagicCircle2SFX) SfxPlayer.PlayOneShot(MagicCircle2SFX);

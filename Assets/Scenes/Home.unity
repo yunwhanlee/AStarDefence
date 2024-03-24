@@ -1402,6 +1402,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 764369ada9f74b845aebe53774cdf3ce, type: 3}
   - {fileID: 8300000, guid: 7550ff5edf44c274295c039374fc01c3, type: 3}
   <BossKilledSFX>k__BackingField: {fileID: 8300000, guid: dd17585bc206eb941b1cb4f995a1ae67, type: 3}
+  <RageSFX>k__BackingField: {fileID: 8300000, guid: ef489d2eb46d5864aa2cb41bae35276e, type: 3}
+  <CheerUpSFX>k__BackingField: {fileID: 8300000, guid: 96a5dc5c68e4af14881b28e84d12b1d8, type: 3}
+  <WheelWindSFX>k__BackingField: {fileID: 8300000, guid: 9fb2085538d1bfe41abcb2b5c317517f, type: 3}
+  <RoarASFX>k__BackingField: {fileID: 8300000, guid: cc4276563efef074e8096e0cd31b842c, type: 3}
+  <RoarBSFX>k__BackingField: {fileID: 8300000, guid: cb695a3a42a4430418e77889ece35922, type: 3}
   <FireExplosionSFX>k__BackingField: {fileID: 8300000, guid: 64fb9477894fa2e4a997518fbb1c2f15, type: 3}
   <MagicCircle1SFX>k__BackingField: {fileID: 8300000, guid: 30875f1aa34165045904950674d47609, type: 3}
   <MagicCircle2SFX>k__BackingField: {fileID: 8300000, guid: 31a4dce9ed0b26742b76f4643953bd88, type: 3}

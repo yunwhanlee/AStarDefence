@@ -129,6 +129,7 @@ public class WarriorTower : Tower {
         ExtraSpdDic.Add(RAGE, RageSpdUp);
 
         RageAuraEF.SetActive(true);
+        SM._.SfxPlay(SM.SFX.RageSFX);
         GM._.gui.tsm.ShowTowerStateUI(InfoState());
 
         yield return new WaitForSeconds(2.5f);
@@ -152,8 +153,9 @@ public class WarriorTower : Tower {
         int layerMask = 1 << Enum.Layer.Enemy;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, AtkRange * 1.425f, layerMask);
         Debug.Log("アタック！ ROUND:: colliders= " + colliders.Length);
-
+        
         StartCoroutine(CoShowWheelwindEF());
+        SM._.SfxPlay(SM.SFX.WheelWindSFX);
 
         //* ホイールウィンド！
         for(int i = 0; i < colliders.Length; i++) {
@@ -185,6 +187,7 @@ public class WarriorTower : Tower {
         Debug.Log("CheerUp開始");
         StartCoroutine(GetComponent<CharacterControls>().CoSpawnAnim());
         IsCheerUpActive = false;
+        SM._.SfxPlay(SM.SFX.CheerUpSFX);
         CheerUpEF.SetActive(true);
 
         CheerUpDmgUp = (int)(TowerData.Dmg * SK3_CheerUpDmgSpdIncPers[LvIdx]);
@@ -247,16 +250,18 @@ public class WarriorTower : Tower {
         const int WAIT_DELAY_TIME = 2;
         const int WAIT_SPAWN_TIME = 1;
         const int WAIT_DESTROY_TIME = 2;
+        IsRoarActive = false;
 
         yield return new WaitForSeconds(WAIT_DELAY_TIME);
 
         //* スキルEF 表示
         StartCoroutine(GetComponent<CharacterControls>().CoSpawnAnim());
-        IsRoarActive = false;
         RoarEF.SetActive(true);
+        SM._.SfxPlay(SM.SFX.RoarASFX);
 
         //* 全ての敵にダメージ
         yield return new WaitForSeconds(WAIT_SPAWN_TIME);
+        SM._.SfxPlay(SM.SFX.RoarBSFX);
         Transform enemyGroup = GM._.em.enemyObjGroup;
         for(int i = 0; i < enemyGroup.childCount; i++) {
             Enemy enemy = enemyGroup.GetChild(i).GetComponent<Enemy>();
