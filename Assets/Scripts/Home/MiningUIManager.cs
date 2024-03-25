@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using TMPro;
 using UnityEngine.U2D.Animation;
+using UnityEditor.PackageManager.UI;
 
 [Serializable]
 public struct SpotData {
@@ -48,6 +49,7 @@ public class MiningCard {
 
 public class MiningUIManager : MonoBehaviour {
     const int ON = 0, OFF = 1;
+    const int MERGE_CNT = 5;
     public enum Category {Goblin, Ore};
 
     [field: SerializeField] public Category CurCategory {get; set;}
@@ -85,6 +87,9 @@ public class MiningUIManager : MonoBehaviour {
 
         OreCards[0].Cnt = 11;
         OreCards[1].Cnt = 4;
+
+        if(WindowObj.activeSelf)
+            WindowObj.SetActive(false);
     }
 
     #region EVENT
@@ -153,7 +158,10 @@ public class MiningUIManager : MonoBehaviour {
         /// </summary>
         public void OnClickArrangeBtn() {
             if(CurCategory == Category.Goblin) {
-                //TODO カードが無かったら、エラーメッセージして、そのまま終了
+                if(!Array.Exists(GoblinCards, card => card.Outline.color == Color.red)) {
+                    HM._.hui.ShowMsgError("배치할 고블린을 골라주세요!");
+                    return;
+                }
 
                 //* UIチェック
                 Array.ForEach(GoblinCards, card => card.InitCheck()); // 初期化
@@ -172,7 +180,10 @@ public class MiningUIManager : MonoBehaviour {
                 WindowObj.SetActive(false);
             }
             else {
-                //TODO カードが無かったら、エラーメッセージして、そのまま終了
+                if(!Array.Exists(OreCards, card => card.Outline.color == Color.red)) {
+                    HM._.hui.ShowMsgError("배치할 광석을 골라주세요!");
+                    return;
+                }
 
                 //* UIチェック
                 Array.ForEach(OreCards, card => card.InitCheck()); // 初期化
@@ -189,6 +200,49 @@ public class MiningUIManager : MonoBehaviour {
                 OreImg.sprite = OreSprs[lvIdx];
 
                 WindowObj.SetActive(false);
+            }
+        }
+
+        public void OnClickMergeBtn() {
+            if(CurCategory == Category.Goblin) {
+                if(!Array.Exists(GoblinCards, card => card.Outline.color == Color.red)) {
+                    HM._.hui.ShowMsgError("합성할 고블린을 골라주세요!");
+                    return;
+                }
+
+                int lvIdx = Array.FindIndex(GoblinCards, card => card.Outline.color == Color.red);
+                if(GoblinCards[lvIdx].Cnt >= 5) {
+                    int nextIdx = lvIdx + 1;
+                    GoblinCards[lvIdx].Cnt -= MERGE_CNT;
+                    GoblinCards[nextIdx].Cnt++;
+                    GoblinCards[lvIdx].Update();
+                    GoblinCards[nextIdx].Update();
+                    HM._.hui.ShowMsgNotice("합성 완료!");
+                }
+                else {
+                    HM._.hui.ShowMsgError("합성할 개수가 부족합니다!");
+                    return;
+                }
+            }
+            else {
+                if(!Array.Exists(OreCards, card => card.Outline.color == Color.red)) {
+                    HM._.hui.ShowMsgError("합성할 광석을 골라주세요!");
+                    return;
+                }
+
+                int lvIdx = Array.FindIndex(OreCards, card => card.Outline.color == Color.red);
+                if(OreCards[lvIdx].Cnt >= 5) {
+                    int nextIdx = lvIdx + 1;
+                    OreCards[lvIdx].Cnt -= MERGE_CNT;
+                    OreCards[nextIdx].Cnt++;
+                    OreCards[lvIdx].Update();
+                    OreCards[nextIdx].Update();
+                    HM._.hui.ShowMsgNotice("합성 완료!");
+                }
+                else {
+                    HM._.hui.ShowMsgError("합성할 개수가 부족합니다!");
+                    return;
+                }
             }
         }
     #endregion
