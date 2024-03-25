@@ -5,11 +5,10 @@ using AnimationState = Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterS
 
 namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
 {
-    public class CharacterControls : MonoBehaviour
-    {
+    public class CharacterControls : MonoBehaviour {
         public Character Character;
         public CharacterController Controller; // https://docs.unity3d.com/ScriptReference/CharacterController.html
-        public bool isGoblinMining;
+        public bool isGoblinMining = false;
         public float RunSpeed = 1f;
         public float JumpSpeed = 3f;
         public float CrawlSpeed = 0.25f;
@@ -24,7 +23,7 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
         public void Awake() {
             // Character.SetState(AnimationState.Idle);
             StartCoroutine(CoSpawnAnim());
-            StartCoroutine(CoGoblinMiningAnim());
+            if(isGoblinMining) StartCoroutine(CoGoblinMiningAnim());
         }
 
         public IEnumerator CoSpawnAnim() {
