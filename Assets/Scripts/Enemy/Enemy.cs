@@ -151,8 +151,8 @@ public abstract class Enemy : MonoBehaviour {
             //* ボース倒した
             if(Type == EnemyType.Boss) {
                 SM._.SfxPlay(SM.SFX.BossKilledSFX);
-                GM._.SetMoney(Config.PRICE.BOSS_KILL_MONEY_BONUS);
-                GM._.gef.ShowIconTxtEF(GM._.gui.MoneyTxt.transform.position, Config.PRICE.BOSS_KILL_MONEY_BONUS, "Meat", isDown: true);
+                GM._.SetMoney(Config.G_PRICE.BOSS_KILL_MONEY_BONUS);
+                GM._.gef.ShowIconTxtEF(GM._.gui.MoneyTxt.transform.position, Config.G_PRICE.BOSS_KILL_MONEY_BONUS, "Meat", isDown: true);
                 GM._.esm.BossHpBarSlider.gameObject.SetActive(false);
             }
             else {

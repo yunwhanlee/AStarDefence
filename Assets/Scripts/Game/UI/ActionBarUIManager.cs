@@ -89,12 +89,12 @@ public class ActionBarUIManager : MonoBehaviour {
         breakPriceTxt.text = $"<color=green>무료 {Config.FREE_BREAKROCK_CNT}</color>";
         boardPriceTxt = IconBtns[(int)ICON.Board].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX];
         boardPriceTxt.text = $"<color=green>무료 {Config.FREE_BOARD_CNT}</color>";
-        IconBtns[(int)ICON.Tower].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.TOWER}";
-        IconBtns[(int)ICON.IceTower].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.CCTOWER}";
-        IconBtns[(int)ICON.ThunderTower].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.CCTOWER}";
-        IconBtns[(int)ICON.Upgrade].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.CC_UPG}";
-        IconBtns[(int)ICON.Merge].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.MERGE}";
-        IconBtns[(int)ICON.Delete].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{(1 - Config.PRICE.DELETE_REFUND_PER) * 100}%";
+        IconBtns[(int)ICON.Tower].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.G_PRICE.TOWER}";
+        IconBtns[(int)ICON.IceTower].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.G_PRICE.CCTOWER}";
+        IconBtns[(int)ICON.ThunderTower].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.G_PRICE.CCTOWER}";
+        IconBtns[(int)ICON.Upgrade].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.G_PRICE.CC_UPG}";
+        IconBtns[(int)ICON.Merge].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.G_PRICE.MERGE}";
+        IconBtns[(int)ICON.Delete].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{(1 - Config.G_PRICE.DELETE_REFUND_PER) * 100}%";
     }
 
 #region EVENT BUTTON
@@ -173,9 +173,9 @@ public class ActionBarUIManager : MonoBehaviour {
             breakPriceTxt.text = $"<color=green>무료 {FreeBreakRockCnt}</color>";
             //* 全部使ったら、値段表示
             if(FreeBreakRockCnt <= 0)
-                breakPriceTxt.text = $"{Config.PRICE.BREAK}";
+                breakPriceTxt.text = $"{Config.G_PRICE.BREAK}";
         }
-        else if(!GM._.CheckMoney(Config.PRICE.BREAK))
+        else if(!GM._.CheckMoney(Config.G_PRICE.BREAK))
             return;
 
         SM._.SfxPlay(SM.SFX.BreakSFX);
@@ -193,9 +193,9 @@ public class ActionBarUIManager : MonoBehaviour {
             boardPriceTxt.text = $"<color=green>무료 {FreeBoardCnt}</color>";
             //* 全部使ったら、値段表示
             if(FreeBoardCnt <= 0)
-                boardPriceTxt.text = $"{Config.PRICE.BOARD}";
+                boardPriceTxt.text = $"{Config.G_PRICE.BOARD}";
         }
-        else if(!GM._.CheckMoney(Config.PRICE.BOARD))
+        else if(!GM._.CheckMoney(Config.G_PRICE.BOARD))
             return;
 
         SM._.SfxPlay(SM.SFX.BuildSFX);
@@ -205,7 +205,7 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
     public void OnClickRandomTowerIconBtn() {
-        if(!GM._.CheckMoney(Config.PRICE.TOWER))
+        if(!GM._.CheckMoney(Config.G_PRICE.TOWER))
             return;
 
         SM._.SfxPlay(SM.SFX.CreateTowerSFX);
@@ -219,7 +219,7 @@ public class ActionBarUIManager : MonoBehaviour {
             return;
         else if(GM._.gui.ShowErrMsgCCTowerLimit())
             return;
-        else if(!GM._.CheckMoney(Config.PRICE.CCTOWER)) // CCタワー生成
+        else if(!GM._.CheckMoney(Config.G_PRICE.CCTOWER)) // CCタワー生成
             return;
 
         SetCCTowerCntTxt(+1);
@@ -234,7 +234,7 @@ public class ActionBarUIManager : MonoBehaviour {
             return;
         else if(GM._.gui.ShowErrMsgCCTowerLimit())
             return;
-        else if(!GM._.CheckMoney(Config.PRICE.CCTOWER))
+        else if(!GM._.CheckMoney(Config.G_PRICE.CCTOWER))
             return;
 
         SetCCTowerCntTxt(+1);
@@ -247,7 +247,7 @@ public class ActionBarUIManager : MonoBehaviour {
     public void OnClickUpgradeIconBtn() {
         Debug.Log($"OnClickUpgradeIconBtn():: HitObject= {GM._.tmc.HitObject}");
 
-        if(!GM._.CheckMoney(Config.PRICE.CC_UPG))
+        if(!GM._.CheckMoney(Config.G_PRICE.CC_UPG))
             return;
 
         SM._.SfxPlay(SM.SFX.UpgradeSFX);
@@ -266,7 +266,7 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
     public void OnClickMergeIconBtn() {
-        if(!GM._.CheckMoney(Config.PRICE.MERGE))
+        if(!GM._.CheckMoney(Config.G_PRICE.MERGE))
             return;
 
         //* マージ
@@ -281,7 +281,7 @@ public class ActionBarUIManager : MonoBehaviour {
         }
         else {
             GM._.gui.ShowMsgError("합성할 같은 타워가 없습니다.");
-            GM._.SetMoney(Config.PRICE.MERGE);
+            GM._.SetMoney(Config.G_PRICE.MERGE);
             return;
         }
 
@@ -339,12 +339,12 @@ public class ActionBarUIManager : MonoBehaviour {
                     boardPriceTxt.text = $"<color=green>무료 {FreeBoardCnt}</color>";
                 }
                 else {
-                    GM._.SetMoney(Config.PRICE.BOARD); // 返金
+                    GM._.SetMoney(Config.G_PRICE.BOARD); // 返金
                 }
             }
             //* CCTowerなら
             else if(layer == Enum.Layer.CCTower) {
-                GM._.SetMoney(Config.PRICE.CCTOWER); // 返金
+                GM._.SetMoney(Config.G_PRICE.CCTOWER); // 返金
                 SetCCTowerCntTxt(-1); 
             }
             
@@ -459,7 +459,7 @@ public class ActionBarUIManager : MonoBehaviour {
                 //* アイコン表示
                 IconBtns[(int)ICON.Upgrade].gameObject.SetActive(!isMaxLv);
                 IconBtns[(int)ICON.Delete].gameObject.SetActive(true);
-                IconBtns[(int)ICON.Delete].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.DELETE_REFUND_PER * 100}%";
+                IconBtns[(int)ICON.Delete].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.G_PRICE.DELETE_REFUND_PER * 100}%";
                 IconBtns[(int)ICON.Switch].gameObject.SetActive(true);
                 break;
             }
@@ -507,7 +507,7 @@ public class ActionBarUIManager : MonoBehaviour {
                 ChangeTypeConsumeTxt.text = $"{tower.Lv}개 소비";
                 IconBtns[(int)ICON.Merge].gameObject.SetActive(!isMaxLv);
                 IconBtns[(int)ICON.Delete].gameObject.SetActive(tower.Lv < 5); //* レベル５以上は削除できないように
-                IconBtns[(int)ICON.Delete].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.PRICE.DELETE_REFUND_PER * 100}%";
+                IconBtns[(int)ICON.Delete].GetComponentsInChildren<TextMeshProUGUI>()[ICON_PRICE_IDX].text = $"{Config.G_PRICE.DELETE_REFUND_PER * 100}%";
                 IconBtns[(int)ICON.Switch].gameObject.SetActive(true);
                 break;
             }

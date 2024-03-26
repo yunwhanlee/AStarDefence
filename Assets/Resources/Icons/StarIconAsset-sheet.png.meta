@@ -319,6 +319,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: StarIconAsset-sheet_10
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd384377942e61d49b69f9098ec7acc3
+      internalID: -179188653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StarIconAsset-sheet_11
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c54c29c1bbc9d54e9909bf72eef5541
+      internalID: -457678348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -332,6 +374,8 @@ TextureImporter:
     nameFileIdTable:
       StarIconAsset-sheet_0: 1150125687
       StarIconAsset-sheet_1: -738007129
+      StarIconAsset-sheet_10: -179188653
+      StarIconAsset-sheet_11: -457678348
       StarIconAsset-sheet_2: -1075248845
       StarIconAsset-sheet_3: 302532233
       StarIconAsset-sheet_4: -1704072741

@@ -16,8 +16,8 @@ public static class Config{
 
     public const int INC_MAX_LIFE = 15;
 
-#region GAME PRICE
-    public class PRICE {
+#region PRICE
+    public class G_PRICE {
         public const int BREAK = 20;
         public const int BOARD = 10;
         public const int TOWER = 15;
@@ -26,6 +26,9 @@ public static class Config{
         public const int MERGE = 5;
         public const float DELETE_REFUND_PER = 0.5f;
         public const int BOSS_KILL_MONEY_BONUS = 65;
+    }
+    public class H_PRICE {
+        public static readonly int[] WORKSPACE_PRICES = {0, 1000, 5000, 12500, 30000};
     }
 #endregion    
 }

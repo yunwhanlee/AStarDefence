@@ -11,6 +11,19 @@ public class WorkSpace {
     public bool IsLock;
     public SpotData GoblinSpotDt;
     public SpotData OreSpotDt;
+
+    public void UpdateUI(Transform workAreaTf, int price = -1) {
+        //* 作業場（アンロック Or Not）
+        const int WORK_SPOT = 0, PURCHASE_BTN = 1;
+        var workSpotGroupObj = workAreaTf.GetChild(WORK_SPOT).gameObject;
+        var purchaseBtnObj = workAreaTf.GetChild(PURCHASE_BTN).gameObject;
+        workSpotGroupObj.SetActive(!IsLock);
+        purchaseBtnObj.SetActive(IsLock);
+
+        //* アンロックされたら、値段表示
+        if(IsLock && price != -1)
+        purchaseBtnObj.GetComponentInChildren<TextMeshProUGUI>().text = $"{price}";
+    }
 }
 
 [Serializable]
@@ -65,7 +78,9 @@ public class MiningUIManager : MonoBehaviour {
     [field: SerializeField] public Sprite[] OreSprs {get; set;}
 
     [field: Header("Home")]
+    [field: SerializeField] public Transform WorkAreaTf {get; set;}
     [field: SerializeField] public Slider WorkTimeSlider {get; set;}
+
     [field: SerializeField] public TextMeshProUGUI TitleTxt {get; set;}
     [field: SerializeField] public Button OreSpotBtn {get; set;}
     [field: SerializeField] public Button GoblinLeftSpotBtn {get; set;}
@@ -95,6 +110,14 @@ public class MiningUIManager : MonoBehaviour {
     }
 
     #region EVENT
+        public void OnClickPurchaseWorkSpaceBtn() {
+            HM._.hui.ShowAgainAskMsg($"<sprite name=Coin>{GetPrice()}을 사용하여\n작업장{CurWorkSpaceIdx + 1} 구매하시겠습니까?");
+            HM._.hui.OnClickConfirmAction = () => {
+                WorkSpaces[CurWorkSpaceIdx].IsLock = false;
+                WorkSpaces[CurWorkSpaceIdx].UpdateUI(WorkAreaTf);
+            };
+        }
+
         /// <summary>
         /// ワークスペース移動
         /// </summary>
@@ -109,8 +132,13 @@ public class MiningUIManager : MonoBehaviour {
                 CurWorkSpaceIdx = WorkSpaces.Length - 1;
             
             TitleTxt.text = $"작업장 {CurWorkSpaceIdx + 1}";
-
+            
             var curWorkSpace = WorkSpaces[CurWorkSpaceIdx];
+
+            //* 作業場（アンロック Or Not）
+            curWorkSpace.UpdateUI(WorkAreaTf, GetPrice());
+
+            //* 配置状態 表示
             ActiveSpot(Cate.Goblin, curWorkSpace.GoblinSpotDt);
             ActiveSpot(Cate.Ore, curWorkSpace.OreSpotDt);
         }
@@ -186,6 +214,7 @@ public class MiningUIManager : MonoBehaviour {
     #endregion
 
     #region FUNC
+        private int GetPrice() => Config.H_PRICE.WORKSPACE_PRICES[CurWorkSpaceIdx];
         private void ActiveSpot(Cate cate, SpotData spotDt) {
             const int OFF = 0, ON = 1;
             if(cate == Cate.Goblin) {

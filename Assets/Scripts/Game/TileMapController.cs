@@ -275,8 +275,8 @@ public class TileMapController : MonoBehaviour {
         if(HitObject.layer == Enum.Layer.CCTower) {
             GM._.actBar.SetCCTowerCntTxt(-1);
             var ccTower = HitObject.GetComponent<Tower>();
-            int totalPrice = ccTower.Lv * Config.PRICE.CCTOWER;
-            refund = (int)Math.Floor(totalPrice * Config.PRICE.DELETE_REFUND_PER);
+            int totalPrice = ccTower.Lv * Config.G_PRICE.CCTOWER;
+            refund = (int)Math.Floor(totalPrice * Config.G_PRICE.DELETE_REFUND_PER);
 
             //* 削除
             GM._.gef.ShowIconTxtEF(ccTower.transform.position, refund, "Meat");
@@ -299,8 +299,8 @@ public class TileMapController : MonoBehaviour {
                 Tower tower = board.GetComponentInChildren<Tower>();
 
                 // 返金
-                int totalPrice = tower.Lv * Config.PRICE.TOWER;
-                refund = (int)Math.Floor(totalPrice * Config.PRICE.DELETE_REFUND_PER);
+                int totalPrice = tower.Lv * Config.G_PRICE.TOWER;
+                refund = (int)Math.Floor(totalPrice * Config.G_PRICE.DELETE_REFUND_PER);
 
                 // 削除
                 GM._.gef.ShowIconTxtEF(tower.transform.position, refund, "Meat");
@@ -312,10 +312,10 @@ public class TileMapController : MonoBehaviour {
                     return;
 
                 // 返金
-                refund = Config.PRICE.BOARD;
+                refund = Config.G_PRICE.BOARD;
 
                 // 削除
-                GM._.gef.ShowIconTxtEF(board.transform.position, Config.PRICE.BOARD, "Meat");
+                GM._.gef.ShowIconTxtEF(board.transform.position, Config.G_PRICE.BOARD, "Meat");
                 GM._.gef.ShowEF(GameEF.WoodDestroyEF, board.transform.position);
                 Destroy(board.gameObject);
                 Reset();
