@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using TMPro;
 using UnityEngine.U2D.Animation;
+using Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts;
 
 [Serializable]
 public class WorkSpace {
@@ -24,6 +25,40 @@ public class WorkSpace {
         if(IsLock && price != -1)
         purchaseBtnObj.GetComponentInChildren<TextMeshProUGUI>().text = $"{price}";
     }
+
+    /// <summary>
+    /// 採掘開始(Mining)
+    /// </summary>
+    /// <param name="idx">現在表示しているWorkSpaceIdx</param>
+    /// <returns>OREのレベルによって、掛かる時間を返す(-1なら、Falseという意味)</returns>
+    public int StartMining(int idx) {
+        if(!GoblinSpotDt.IsActive || !OreSpotDt.IsActive) {
+            HM._.mnm.GoblinChrCtrl.GoblinStopMiningAnim();
+            HM._.mnm.GoblinChrCtrl.SpawnAnim();
+            return -1;
+        }
+        
+        TimeSpan timestamp = DateTime.UtcNow - new DateTime(1970,1,1,0,0,0);
+        string key = $"WorkSpace{idx + 1}";
+        int past = PlayerPrefs.GetInt(key, (int)timestamp.TotalSeconds);
+        PlayerPrefs.SetInt(key, (int)timestamp.TotalSeconds);
+        int passedSec = (int)timestamp.TotalSeconds - past;
+        Debug.Log("passedSec=> " + passedSec);
+
+        HM._.mnm.GoblinChrCtrl.GoblinMiningAnim();
+
+        return 10; // takeTime
+    }
+
+    public IEnumerator CoTimerStart(int time) {
+        int cnt = 0;
+        while(cnt < time) {
+            yield return new WaitForSecondsRealtime(1);
+            cnt++;
+            HM._.mnm.WorkTimeSlider.value = (float)cnt / time;
+            HM._.mnm.WorkTimeSlider.GetComponentInChildren<TextMeshProUGUI>().text = $"{cnt}";
+        }
+    }
 }
 
 [Serializable]
@@ -42,6 +77,7 @@ public class MiningCard {
     public Image Outline;
     public Image CheckMark;
     public GameObject Dim;
+
     public void InitOutline() => Outline.color = Color.black;
     public void Select() => Outline.color = Color.red;
     public bool Selected() => Outline.color == Color.red;
@@ -78,9 +114,9 @@ public class MiningUIManager : MonoBehaviour {
     [field: SerializeField] public Sprite[] OreSprs {get; set;}
 
     [field: Header("Home")]
+    [field: SerializeField] public CharacterControls GoblinChrCtrl {get; set;}
     [field: SerializeField] public Transform WorkAreaTf {get; set;}
     [field: SerializeField] public Slider WorkTimeSlider {get; set;}
-
     [field: SerializeField] public TextMeshProUGUI TitleTxt {get; set;}
     [field: SerializeField] public Button OreSpotBtn {get; set;}
     [field: SerializeField] public Button GoblinLeftSpotBtn {get; set;}
@@ -183,6 +219,10 @@ public class MiningUIManager : MonoBehaviour {
                 }
             }
             Arrange(CurCategory);
+
+            //* 採掘開始
+            int takeTime = WorkSpaces[CurWorkSpaceIdx].StartMining(CurWorkSpaceIdx);
+            if(takeTime != -1) StartCoroutine(WorkSpaces[CurWorkSpaceIdx].CoTimerStart(takeTime));
         }
         public void OnClickArrangeCancelBtn() {
             if(CurCategory == Cate.Goblin) {
@@ -334,19 +374,22 @@ public class MiningUIManager : MonoBehaviour {
         }
 
         private void Remove(Cate cate) {
+            HM._.mnm.GoblinChrCtrl.GoblinStopMiningAnim();
+            HM._.mnm.GoblinChrCtrl.SpawnAnim();
+
             if(cate == Cate.Goblin) {
-                ActiveSpot(Cate.Goblin,  WorkSpaces[CurWorkSpaceIdx].GoblinSpotDt);
                 GoblinCards[WorkSpaces[CurWorkSpaceIdx].GoblinSpotDt.LvIdx].InitCheck();
                 WorkSpaces[CurWorkSpaceIdx].GoblinSpotDt.IsActive = false;
                 WorkSpaces[CurWorkSpaceIdx].GoblinSpotDt.LvIdx = -1;
                 WindowObj.SetActive(false);
+                ActiveSpot(Cate.Goblin, WorkSpaces[CurWorkSpaceIdx].GoblinSpotDt);
             }
             else {
-                ActiveSpot(Cate.Ore, WorkSpaces[CurWorkSpaceIdx].OreSpotDt);
                 OreCards[WorkSpaces[CurWorkSpaceIdx].OreSpotDt.LvIdx].InitCheck();
                 WorkSpaces[CurWorkSpaceIdx].OreSpotDt.IsActive = false;
                 WorkSpaces[CurWorkSpaceIdx].OreSpotDt.LvIdx = -1;
                 WindowObj.SetActive(false);
+                ActiveSpot(Cate.Ore, WorkSpaces[CurWorkSpaceIdx].OreSpotDt);
             }
         }
 

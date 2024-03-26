@@ -3565,38 +3565,38 @@ MonoBehaviour:
   - IsLock: 0
     GoblinSpotDt:
       IsActive: 0
-      LvIdx: -1
+      LvIdx: 0
     OreSpotDt:
       IsActive: 0
-      LvIdx: -1
+      LvIdx: 0
   - IsLock: 1
     GoblinSpotDt:
       IsActive: 0
-      LvIdx: -1
+      LvIdx: 0
     OreSpotDt:
       IsActive: 0
-      LvIdx: -1
+      LvIdx: 0
   - IsLock: 1
     GoblinSpotDt:
       IsActive: 0
-      LvIdx: -1
+      LvIdx: 0
     OreSpotDt:
       IsActive: 0
-      LvIdx: -1
+      LvIdx: 0
   - IsLock: 1
     GoblinSpotDt:
       IsActive: 0
-      LvIdx: -1
+      LvIdx: 0
     OreSpotDt:
       IsActive: 0
-      LvIdx: -1
+      LvIdx: 0
   - IsLock: 1
     GoblinSpotDt:
       IsActive: 0
-      LvIdx: -1
+      LvIdx: 0
     OreSpotDt:
       IsActive: 0
-      LvIdx: -1
+      LvIdx: 0
   <GoblinCards>k__BackingField:
   - Name: "\uB3CC\uACE1\uAD2D\uC774"
     Cnt: 0
@@ -3745,6 +3745,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 393a2e13dbcd1a44fae2fa5bbd7c7c57, type: 3}
   - {fileID: 21300000, guid: 52814d17a32036748ac6d014a8c40e70, type: 3}
   - {fileID: 21300000, guid: 18f548c0b4d765343b92f3b3c221c397, type: 3}
+  <GoblinChrCtrl>k__BackingField: {fileID: 1101117812}
   <WorkAreaTf>k__BackingField: {fileID: 649769215}
   <WorkTimeSlider>k__BackingField: {fileID: 6049785380296762120}
   <TitleTxt>k__BackingField: {fileID: 6049785380390778892}
@@ -10859,6 +10860,7 @@ MonoBehaviour:
   <SelectedStage>k__BackingField: 0
   hui: {fileID: 0}
   stgm: {fileID: 0}
+  mnm: {fileID: 0}
 --- !u!1 &480896827
 GameObject:
   m_ObjectHideFlags: 0

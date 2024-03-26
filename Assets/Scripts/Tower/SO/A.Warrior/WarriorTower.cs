@@ -85,7 +85,7 @@ public class WarriorTower : Tower {
 
     public override void Upgrade() {
         Debug.Log("Upgrade()::");
-        StartCoroutine(GetComponent<CharacterControls>().CoSpawnAnim());
+        GetComponent<CharacterControls>().SpawnAnim();
         int cardLv = GM._.tm.TowerCardUgrLvs[(int)Kind];
 
         //* 追加タメージDictionaryへ追加
@@ -185,7 +185,7 @@ public class WarriorTower : Tower {
     IEnumerator CoSkill3_CheerUp() {
         const string CHEERUP = "CHEERUP";
         Debug.Log("CheerUp開始");
-        StartCoroutine(GetComponent<CharacterControls>().CoSpawnAnim());
+        GetComponent<CharacterControls>().SpawnAnim();
         IsCheerUpActive = false;
         SM._.SfxPlay(SM.SFX.CheerUpSFX);
         CheerUpEF.SetActive(true);
@@ -255,7 +255,7 @@ public class WarriorTower : Tower {
         yield return new WaitForSeconds(WAIT_DELAY_TIME);
 
         //* スキルEF 表示
-        StartCoroutine(GetComponent<CharacterControls>().CoSpawnAnim());
+        GetComponent<CharacterControls>().SpawnAnim();
         RoarEF.SetActive(true);
         SM._.SfxPlay(SM.SFX.RoarASFX);
 

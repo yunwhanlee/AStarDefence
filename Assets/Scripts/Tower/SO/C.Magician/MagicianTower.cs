@@ -77,7 +77,7 @@ public class MagicianTower : Tower {
 
     public override void Upgrade() {
         Debug.Log("Upgrade()::");
-        StartCoroutine(GetComponent<CharacterControls>().CoSpawnAnim());
+        GetComponent<CharacterControls>().SpawnAnim();
         int cardLv = GM._.tm.TowerCardUgrLvs[(int)Kind];
 
         //* 追加タメージDictionaryへ追加

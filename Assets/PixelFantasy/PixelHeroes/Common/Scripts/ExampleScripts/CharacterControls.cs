@@ -8,7 +8,6 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
     public class CharacterControls : MonoBehaviour {
         public Character Character;
         public CharacterController Controller; // https://docs.unity3d.com/ScriptReference/CharacterController.html
-        public bool isGoblinMining = false;
         public float RunSpeed = 1f;
         public float JumpSpeed = 3f;
         public float CrawlSpeed = 0.25f;
@@ -16,27 +15,32 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
         public ParticleSystem MoveDust;
         public ParticleSystem JumpDust;
 
+        Coroutine GoblinAnimID;
         private Vector3 _motion = Vector3.zero;
         private int _inputX, _inputY;
         private float _activityTime;
         
         public void Awake() {
-            // Character.SetState(AnimationState.Idle);
-            StartCoroutine(CoSpawnAnim());
-            if(isGoblinMining) StartCoroutine(CoGoblinMiningAnim());
+            SpawnAnim();
         }
 
-        public IEnumerator CoSpawnAnim() {
+        public void SpawnAnim() => StartCoroutine(CoSpawnAnim());
+        IEnumerator CoSpawnAnim() {
             Character.SetState(AnimationState.Jumping);
             yield return new WaitForSeconds(0.17f);
             Character.SetState(AnimationState.Idle);
             JumpDust.Play(true);
         }
 
-        public IEnumerator CoGoblinMiningAnim() {
+        public void GoblinMiningAnim() => GoblinAnimID = StartCoroutine(CoGoblinMiningAnim());
+        public void GoblinStopMiningAnim() {
+            if(GoblinAnimID != null)
+                StopCoroutine(GoblinAnimID);
+        }
+        IEnumerator CoGoblinMiningAnim() {
             while(true) {
-                yield return Util.Time1;
                 Character.Animator.SetTrigger("Slash");
+                yield return Util.Time1;
             }
         }
 
