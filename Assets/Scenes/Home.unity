@@ -1217,7 +1217,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 89.839905, y: 122.80008}
+  m_AnchoredPosition: {x: 89.839966, y: 122.80008}
   m_SizeDelta: {x: 179.69, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &57151635
@@ -3746,8 +3746,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 52814d17a32036748ac6d014a8c40e70, type: 3}
   - {fileID: 21300000, guid: 18f548c0b4d765343b92f3b3c221c397, type: 3}
   <GoblinChrCtrl>k__BackingField: {fileID: 1101117812}
-  <WorkAreaTf>k__BackingField: {fileID: 649769215}
   <WorkTimeSlider>k__BackingField: {fileID: 6049785380296762120}
+  <WorkAreaTf>k__BackingField: {fileID: 649769215}
   <TitleTxt>k__BackingField: {fileID: 6049785380390778892}
   <OreSpotBtn>k__BackingField: {fileID: 680523676}
   <GoblinLeftSpotBtn>k__BackingField: {fileID: 286151802}
@@ -19072,7 +19072,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Character: {fileID: 1101117814}
   Controller: {fileID: 1101117810}
-  isGoblinMining: 1
   RunSpeed: 10
   JumpSpeed: 25
   CrawlSpeed: 2.5

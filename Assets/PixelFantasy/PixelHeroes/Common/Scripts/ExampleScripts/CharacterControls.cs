@@ -16,6 +16,7 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
         public ParticleSystem JumpDust;
 
         Coroutine GoblinAnimID;
+
         private Vector3 _motion = Vector3.zero;
         private int _inputX, _inputY;
         private float _activityTime;
@@ -24,7 +25,8 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
             SpawnAnim();
         }
 
-        public void SpawnAnim() => StartCoroutine(CoSpawnAnim());
+        public void SpawnAnim()
+            => StartCoroutine(CoSpawnAnim());
         IEnumerator CoSpawnAnim() {
             Character.SetState(AnimationState.Jumping);
             yield return new WaitForSeconds(0.17f);
@@ -32,7 +34,9 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
             JumpDust.Play(true);
         }
 
-        public void GoblinMiningAnim() => GoblinAnimID = StartCoroutine(CoGoblinMiningAnim());
+        public void GoblinMiningAnim()
+            => GoblinAnimID = StartCoroutine(CoGoblinMiningAnim());
+
         public void GoblinStopMiningAnim() {
             if(GoblinAnimID != null)
                 StopCoroutine(GoblinAnimID);

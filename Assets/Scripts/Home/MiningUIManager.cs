@@ -32,12 +32,14 @@ public class WorkSpace {
     /// <param name="idx">現在表示しているWorkSpaceIdx</param>
     /// <returns>OREのレベルによって、掛かる時間を返す(-1なら、Falseという意味)</returns>
     public int StartMining(int idx) {
+        //* 両方活性化しないと、以下処理しない
         if(!GoblinSpotDt.IsActive || !OreSpotDt.IsActive) {
             HM._.mnm.GoblinChrCtrl.GoblinStopMiningAnim();
             HM._.mnm.GoblinChrCtrl.SpawnAnim();
             return -1;
         }
         
+        //* タイマー保存
         TimeSpan timestamp = DateTime.UtcNow - new DateTime(1970,1,1,0,0,0);
         string key = $"WorkSpace{idx + 1}";
         int past = PlayerPrefs.GetInt(key, (int)timestamp.TotalSeconds);
@@ -55,8 +57,7 @@ public class WorkSpace {
         while(cnt < time) {
             yield return new WaitForSecondsRealtime(1);
             cnt++;
-            HM._.mnm.WorkTimeSlider.value = (float)cnt / time;
-            HM._.mnm.WorkTimeSlider.GetComponentInChildren<TextMeshProUGUI>().text = $"{cnt}";
+            HM._.mnm.SetTimerSlider($"{cnt}", (float)cnt / time);
         }
     }
 }
@@ -98,6 +99,7 @@ public class MiningCard {
 
 public class MiningUIManager : MonoBehaviour {
     const int MERGE_CNT = 5;
+    Coroutine CorTimerID;
     public enum Cate {Goblin, Ore};
 
     [field: SerializeField] public Cate CurCategory {get; set;}
@@ -115,8 +117,8 @@ public class MiningUIManager : MonoBehaviour {
 
     [field: Header("Home")]
     [field: SerializeField] public CharacterControls GoblinChrCtrl {get; set;}
-    [field: SerializeField] public Transform WorkAreaTf {get; set;}
     [field: SerializeField] public Slider WorkTimeSlider {get; set;}
+    [field: SerializeField] public Transform WorkAreaTf {get; set;}
     [field: SerializeField] public TextMeshProUGUI TitleTxt {get; set;}
     [field: SerializeField] public Button OreSpotBtn {get; set;}
     [field: SerializeField] public Button GoblinLeftSpotBtn {get; set;}
@@ -221,8 +223,10 @@ public class MiningUIManager : MonoBehaviour {
             Arrange(CurCategory);
 
             //* 採掘開始
-            int takeTime = WorkSpaces[CurWorkSpaceIdx].StartMining(CurWorkSpaceIdx);
-            if(takeTime != -1) StartCoroutine(WorkSpaces[CurWorkSpaceIdx].CoTimerStart(takeTime));
+            int time = WorkSpaces[CurWorkSpaceIdx].StartMining(CurWorkSpaceIdx);
+            if(time != -1) {
+                CorTimerID = StartCoroutine(WorkSpaces[CurWorkSpaceIdx].CoTimerStart(time));
+            }
         }
         public void OnClickArrangeCancelBtn() {
             if(CurCategory == Cate.Goblin) {
@@ -373,7 +377,17 @@ public class MiningUIManager : MonoBehaviour {
             WindowObj.SetActive(false);
         }
 
+        public void SetTimerSlider(string timeTxt, float value) {
+            WorkTimeSlider.GetComponentInChildren<TextMeshProUGUI>().text = $"{timeTxt}";
+            WorkTimeSlider.value = value;
+        }
+
         private void Remove(Cate cate) {
+            //* Timer Off
+            StopCoroutine(CorTimerID);
+            SetTimerSlider("0", 0);
+            
+            //* Goblin Anim Off
             HM._.mnm.GoblinChrCtrl.GoblinStopMiningAnim();
             HM._.mnm.GoblinChrCtrl.SpawnAnim();
 
