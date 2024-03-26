@@ -9,9 +9,9 @@ using UnityEngine;
 [System.Serializable]
 public class StageLockedData {
     [field:SerializeField] public string Name {get; private set;}
-    [field:SerializeField] public bool Easy {get; set;}
-    [field:SerializeField] public bool Normal {get; set;}
-    [field:SerializeField] public bool Hard {get; set;}
+    [field:SerializeField] public bool IsLockEasy {get; set;}
+    [field:SerializeField] public bool IsLockNormal {get; set;}
+    [field:SerializeField] public bool IsLockHard {get; set;}
 }
 
 /// <summary>

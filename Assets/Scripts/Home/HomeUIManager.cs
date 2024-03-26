@@ -10,6 +10,7 @@ using TMPro;
 /// </summary>
 public class HomeUIManager : MonoBehaviour {
     Coroutine CorMsgNoticeID;
+    public Action OnClickConfirmAction;
 
     public Button PlayBtn {get; set;}
     [Header("ERROR MSG POPUP")]
@@ -23,6 +24,10 @@ public class HomeUIManager : MonoBehaviour {
     [Header("NOTICE MSG POPUP")]
     public GameObject BottomMsgNotice;
     public TextMeshProUGUI MsgNoticeTxt;
+
+    [Header("AGAIN ASK POPUP")]
+    public GameObject AgainAskPopUp;
+    public TextMeshProUGUI AgainAskMsgTxt;
 
     void Start() {
         CorMsgNoticeID = null;
@@ -73,6 +78,15 @@ public class HomeUIManager : MonoBehaviour {
         MsgNoticeTxt.text = msg;
         yield return Util.RealTime1;
         BottomMsgNotice.SetActive(false);
+    }
+    /// <summary> もう一度確認するPOPUP</summary>
+    public void ShowAgainAskMsg(string msg = "") {
+        AgainAskPopUp.SetActive(true);
+        AgainAskMsgTxt.text = msg;
+    }
+    public void OnClickAgainAskPopUpConfirmBtn() {
+        AgainAskPopUp.SetActive(false);
+        OnClickConfirmAction?.Invoke();
     }
 #endregion
 }
