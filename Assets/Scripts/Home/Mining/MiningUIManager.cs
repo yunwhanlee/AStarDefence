@@ -12,7 +12,6 @@ public enum MineCate {
 
 public class MiningUIManager : MonoBehaviour {
     const int MERGE_CNT = 5;
-    Coroutine CorTimerID;
 
     [field: SerializeField] public MineCate CurCategory {get; set;}
 
@@ -150,8 +149,8 @@ public class MiningUIManager : MonoBehaviour {
         bool isSuccess = HM._.wsm.CurWorkSpace.StartMining(HM._.wsm.CurIdx);
 
         if(isSuccess) {
-            Debug.Log("OnClickArrangeBtn():: isSuccess= " + isSuccess);
-            CorTimerID = StartCoroutine(HM._.wsm.CurWorkSpace.CoTimerStart());
+            Debug.Log($"OnClickArrangeBtn():: isSuccess= {isSuccess}");
+            HM._.wsm.CurWorkSpace.CorMiningID = StartCoroutine(HM._.wsm.CurWorkSpace.CoTimerStart());
         }
     }
 
@@ -243,16 +242,16 @@ public class MiningUIManager : MonoBehaviour {
     }
 
     private void Remove(MineCate cate) {
+        Debug.Log("Remove()::");
         //* Timer Off
-        if(CorTimerID != null) StopCoroutine(CorTimerID);
-        HM._.mtm.SetTimerSlider("0", 0);
-        
+        if(HM._.wsm.CurWorkSpace.CorMiningID != null)
+            StopCoroutine(HM._.wsm.CurWorkSpace.CorMiningID);
+
         //* Goblin Anim
         HM._.wsm.GoblinChrCtrl.GoblinStopAnim();
 
         //* スライダー UI 初期化
-        HM._.mtm.SetTimer(isOn: false);
-        HM._.mtm.SetTimerSlider("광석 등록필요", 0);
+        HM._.mtm.InitSlider();
 
         if(cate == MineCate.Goblin) {
             ref SpotData goblinSpotDt = ref HM._.wsm.CurWorkSpace.GoblinSpotDt;

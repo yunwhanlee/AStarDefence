@@ -30,9 +30,7 @@ public class WorkSpaceUIManager : MonoBehaviour {
     [field: Header("VALUE")]
     [field: SerializeField] public int CurIdx {get; set;}
     [field: SerializeField] public WorkSpace[] WorkSpaces {get; private set;} = new WorkSpace[4];
-    [field: SerializeField] public WorkSpace CurWorkSpace {
-        get => WorkSpaces[CurIdx];
-    }
+    [field: SerializeField] public WorkSpace CurWorkSpace {get => WorkSpaces[CurIdx];}
 
     [field: Header("HOME UI ELEM")]
     [field: SerializeField] public CharacterControls GoblinChrCtrl {get; set;}
@@ -84,7 +82,7 @@ public class WorkSpaceUIManager : MonoBehaviour {
                 GoblinChrCtrl.MiningAnim(goblinLvIdx);
             }
 
-            //* ✓非表示
+            //* ✓非表示 初期化
             Array.ForEach(HM._.mnm.GoblinCards, card => card.InitCheck());
 
             //* ✓と画像 アップデート
@@ -96,7 +94,7 @@ public class WorkSpaceUIManager : MonoBehaviour {
         else {
             OreSpot.Show(spotDt.IsActive);
             
-            //* ✓非表示
+            //* ✓非表示 初期化
             Array.ForEach(HM._.mnm.OreCards, card => card.InitCheck());
 
             //* ✓と画像 アップデート

@@ -12,20 +12,22 @@ public class MiningTimeUIManager : MonoBehaviour {
     [field: SerializeField] public Image IconFrameImg {get; set;}
     [field: SerializeField] public GameObject RewardAuraEF {get; set;}
 
-    [field: SerializeField] public bool IsFinish; // リワード収集できる
+    void Start() {
+        //TODO データロードしてから、スライダーUI表示を最新化する必要ある
+        InitSlider();
+    }
 
 #region EVENT
     public void OnClickTimerSliderBtn() {
-        if(IsFinish) {
+        if(HM._.wsm.CurWorkSpace.IsFinishMining) {
             Debug.Log("ACCEPT MINING REWARD!!");
             //* 初期化
-            IsFinish = false;
+            HM._.wsm.CurWorkSpace.IsFinishMining = false;
             HM._.mtm.RewardAuraEF.SetActive(false);
             HM._.wsm.GoblinChrCtrl.GoblinStopAnim();
             
             // スライダー UI
-            SetTimer(isOn: false);
-            SetTimerSlider("광석 등록필요", 0);
+            InitSlider();
 
             // 鉱石スポット Off
             HM._.wsm.CurWorkSpace.OreSpotDt.Init();
@@ -44,6 +46,11 @@ public class MiningTimeUIManager : MonoBehaviour {
 #endregion
 
 #region FUNC
+    public void InitSlider() {
+        SetTimer(isOn: false);
+        SetTimerSlider("광석 등록필요", 0);
+    }
+
     public void SetTimer(bool isOn = false) {
         //* ゴブリン採掘速度％ UI 表示
         int lvIdx = HM._.wsm.CurWorkSpace.GoblinSpotDt.LvIdx;

@@ -27,9 +27,15 @@ public struct SpotData {
 
 [Serializable]
 public class WorkSpace {
+    public int Id;
     public bool IsLock;
+    public bool IsFinishMining; //* 採掘完了のトリガー
     public SpotData GoblinSpotDt;
     public SpotData OreSpotDt;
+    public int MiningMax;
+    public int MiningTime;
+    public Coroutine CorMiningID;
+
 
     public void UpdateUI(Transform workAreaTf, int price = -1) {
         //* 作業場（アンロック Or Not）
@@ -42,6 +48,14 @@ public class WorkSpace {
         //* アンロックされたら、値段表示
         if(IsLock && price != -1)
         purchaseBtnObj.GetComponentInChildren<TextMeshProUGUI>().text = $"{price}";
+
+        //* スライダーUI最新化
+        if(GoblinSpotDt.IsActive && OreSpotDt.IsActive)
+            HM._.mtm.SetTimer(isOn: true);
+        else 
+            HM._.mtm.InitSlider();
+
+        HM._.mtm.RewardAuraEF.SetActive(IsFinishMining);
     }
 
     /// <summary>
@@ -71,44 +85,58 @@ public class WorkSpace {
     }
 
     public IEnumerator CoTimerStart() {
-        int goblinLvIdx = HM._.wsm.CurWorkSpace.GoblinSpotDt.LvIdx;
-        int oreLvIdx = HM._.wsm.CurWorkSpace.OreSpotDt.LvIdx;
+        WorkSpace curWS = HM._.wsm.CurWorkSpace;
 
+        //* ゴブリンと鉱石のレベルによる、速度と時間を適用する変数用意
+        int goblinLvIdx = curWS.GoblinSpotDt.LvIdx;
+        int oreLvIdx = curWS.OreSpotDt.LvIdx;
         float spdPer = HM._.mnm.GoblinDataSO.Datas[goblinLvIdx].SpeedPer;
         int time = HM._.mnm.OreDataSO.Datas[oreLvIdx].TimeSec;
 
         //* ゴブリンのMiningSpeed％ 適用
         int decSec = Mathf.RoundToInt(time * (spdPer - 1));
         time -= decSec;
-        int max = time;
+
+        //* WorkSpace毎に時間データ 設定
+        curWS.MiningMax = time;
+        curWS.MiningTime = time;
         Debug.Log($"CoTimerStart():: goblin SpdPer= {spdPer}, time= {time}, decSec= {decSec}");
 
         Sprite[] oreSprs = HM._.mnm.OreDataSO.Datas[oreLvIdx].Sprs;
         HM._.mtm.SetTimer(isOn: true);
         HM._.wsm.GoblinChrCtrl.MiningAnim(goblinLvIdx);
 
-        while(0 < time) {
+        //* タイマー開始
+        while(0 < curWS.MiningTime) {
+            // Debug.Log($"curWS.Id= {curWS.Id}, time= {curWS.MiningTime} / {curWS.MiningMax}");
             //* 時間表示
-            time -= 1;
-            int sec = time % 60;
-            int min = time / 60;
+            curWS.MiningTime -= 1;
+            int sec = curWS.MiningTime % 60;
+            int min = curWS.MiningTime / 60;
             int hour = min / 60;
             string hourStr = (hour == 0)? "" : $"{hour:00} : ";
-            HM._.mtm.SetTimerSlider($"{hourStr} {min:00} : {sec:00}", (float)(max - time) / max);
 
-            //* ORE 壊れるイメージ変更
-            HM._.wsm.OreSpot.OreImg.sprite = oreSprs[
-                time < (max * 0.3f)? (int)ORE_SPRS.PIECE
-                : time <= (max * 0.6f)? (int)ORE_SPRS.HALF
-                : (int)ORE_SPRS.DEF
-            ];
+            //* 現在見ているWorkSpaceページだけ 最新化
+            if(Id == HM._.wsm.CurIdx) {
+                // スライダー UI
+                HM._.mtm.SetTimerSlider($"{hourStr} {min:00} : {sec:00}", (float)(curWS.MiningMax - curWS.MiningTime) / curWS.MiningMax);
 
-            yield return Util.RealTime1;
+                // ORE 壊れるイメージ変更
+                HM._.wsm.OreSpot.OreImg.sprite = oreSprs[
+                    curWS.MiningTime < (curWS.MiningMax * 0.3f)? (int)ORE_SPRS.PIECE
+                    : curWS.MiningTime <= (curWS.MiningMax * 0.6f)? (int)ORE_SPRS.HALF
+                    : (int)ORE_SPRS.DEF
+                ];
+            }
+
+
+
+            yield return Util.Time1;
         }
 
         //* リワード受け取れる
+        IsFinishMining = true;
         HM._.wsm.OreSpot.OreImg.sprite = HM._.rwm.PresentSpr;
-        HM._.mtm.IsFinish = true;
         HM._.mtm.RewardAuraEF.SetActive(true);
         HM._.mtm.SetTimerSlider("보상받기", 1);
         HM._.wsm.GoblinChrCtrl.GoblinHappyAnim();
