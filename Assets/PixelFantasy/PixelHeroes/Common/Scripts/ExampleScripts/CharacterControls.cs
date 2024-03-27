@@ -25,8 +25,10 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
             SpawnAnim();
         }
 
-        public void SpawnAnim()
-            => StartCoroutine(CoSpawnAnim());
+        /// <summary>
+        /// 登場アニメー（一発）
+        /// </summary>
+        public void SpawnAnim() => StartCoroutine(CoSpawnAnim());
         IEnumerator CoSpawnAnim() {
             Character.SetState(AnimationState.Jumping);
             yield return new WaitForSeconds(0.17f);
@@ -34,17 +36,29 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
             JumpDust.Play(true);
         }
 
-        public void GoblinMiningAnim()
-            => GoblinAnimID = StartCoroutine(CoGoblinMiningAnim());
-
-        public void GoblinStopMiningAnim() {
-            if(GoblinAnimID != null)
-                StopCoroutine(GoblinAnimID);
-        }
+        /// <summary>
+        /// ゴブリン採掘アニメー（ループ）
+        /// </summary>
+        public void GoblinMiningAnim() => GoblinAnimID = StartCoroutine(CoGoblinMiningAnim());
         IEnumerator CoGoblinMiningAnim() {
             while(true) {
                 Character.Animator.SetTrigger("Slash");
                 yield return Util.Time1;
+            }
+        }
+        public void GoblinStopMiningAnim() {
+            if(GoblinAnimID != null)
+                StopCoroutine(GoblinAnimID);
+        }
+
+        public void GoblinHappyAnim() {
+            StartCoroutine(CoGoblinHappyAnim());
+        }
+
+        IEnumerator CoGoblinHappyAnim() {
+            while(true) {
+                Character.SetState(AnimationState.Jumping);
+                yield return Util.Time0_5;
             }
         }
 

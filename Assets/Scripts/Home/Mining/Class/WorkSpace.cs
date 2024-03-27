@@ -84,7 +84,6 @@ public class WorkSpace {
             HM._.wsm.SetTimerSlider($"{hourStr} {min:00} : {sec:00}", (float)(max - time) / max);
 
             //* ORE 壊れるイメージ変更
-            
             Sprite[] oreSprs = HM._.mnm.OreDataSO.Datas[lvIdx].Sprs;
             HM._.wsm.OreSpot.OreImg.sprite = oreSprs[
                 time < (max * 0.3f)? (int)ORE_SPRS.PIECE
@@ -96,6 +95,7 @@ public class WorkSpace {
         //* リワード受け取れる
         HM._.mtm.IsFinish = true;
         HM._.wsm.SetTimerSlider("보상받기", 1);
+        HM._.wsm.GoblinChrCtrl.GoblinHappyAnim();
 
     }
 }
