@@ -15,6 +15,7 @@ public class HM : MonoBehaviour {
     //* Outside
     public HomeUIManager hui;
     public StageUIManager stgm;
+    public HomeRewardManager rwm;
 
     // Mining
     public MiningUIManager mnm;
@@ -28,6 +29,7 @@ public class HM : MonoBehaviour {
         //* 外部のスクリプト 初期化
         hui = GameObject.Find("HomeUIManager").GetComponent<HomeUIManager>();
         stgm = GameObject.Find("StageUIManager").GetComponent<StageUIManager>();
+        rwm = GameObject.Find("HomeRewardManager").GetComponent<HomeRewardManager>();
         mnm = GameObject.Find("MiningUIManager").GetComponent<MiningUIManager>();
         mtm = GameObject.Find("MiningTimeUIManager").GetComponent<MiningTimeUIManager>();
         wsm = GameObject.Find("WorkSpaceUIManager").GetComponent<WorkSpaceUIManager>();

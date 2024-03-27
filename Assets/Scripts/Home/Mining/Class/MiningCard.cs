@@ -12,6 +12,7 @@ public class MiningCard {
     public bool IsChecked;
     public Button Button;
     public TextMeshProUGUI CntTxt;
+    public TextMeshProUGUI ValTxt;
     public Image Outline;
     public Image CheckMark;
     public GameObject Dim;

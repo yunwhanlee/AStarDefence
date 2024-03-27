@@ -74,10 +74,6 @@ public class WorkSpaceUIManager : MonoBehaviour {
             CurIdx = WorkSpaces.Length - 1;
     }
 
-    public void SetTimerSlider(string timeTxt, float value) {
-        HM._.mtm.SliderTxt.text = $"{timeTxt}";
-        HM._.mtm.Slider.value = value;
-    }
     public void ActiveSpot(MineCate cate, SpotData spotDt) {
         if(cate == MineCate.Goblin) {
             GoblinSpot.Show(spotDt.IsActive);
@@ -102,7 +98,6 @@ public class WorkSpaceUIManager : MonoBehaviour {
                 HM._.mnm.OreCards[spotDt.LvIdx].Check();
                 OreSpot.OreImg.sprite = HM._.mnm.OreDataSO.Datas[spotDt.LvIdx].Sprs[(int)ORE_SPRS.DEF];
             }
-
         }
     }
 

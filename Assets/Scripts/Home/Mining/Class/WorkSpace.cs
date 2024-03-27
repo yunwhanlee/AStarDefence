@@ -12,6 +12,17 @@ using TMPro;
 public struct SpotData {
     public bool IsActive; // 活性化
     public int LvIdx; // 配置したGoblinとかOreのレベル
+
+#region FUNC
+    public void Init() {
+        IsActive = false;
+        LvIdx = -1;
+    }
+    public void SetData(bool isActive , int lvIdx) {
+        IsActive = isActive;
+        LvIdx = lvIdx;
+    }
+#endregion
 }
 
 [Serializable]
@@ -39,13 +50,6 @@ public class WorkSpace {
     /// <param name="idx">現在表示しているWorkSpaceIdx</param>
     /// <returns>OREのレベルによって、掛かる時間を返す(-1なら、Falseという意味)</returns>
     public bool StartMining(int idx) {
-        //* 両方活性化しないと、以下処理しない
-        // if(!GoblinSpotDt.IsActive || !OreSpotDt.IsActive) {
-        //     HM._.wsm.GoblinChrCtrl.GoblinStopMiningAnim();
-        //     HM._.wsm.GoblinChrCtrl.SpawnAnim();
-        //     return false;
-        // }
-
         if(!GoblinSpotDt.IsActive) return false;
         if(!OreSpotDt.IsActive) return false;
         
@@ -66,39 +70,47 @@ public class WorkSpace {
         return true;
     }
 
-    public IEnumerator CoTimerStart(int time) {
-        int decSec = 1;
+    public IEnumerator CoTimerStart() {
+        int goblinLvIdx = HM._.wsm.CurWorkSpace.GoblinSpotDt.LvIdx;
+        int oreLvIdx = HM._.wsm.CurWorkSpace.OreSpotDt.LvIdx;
+
+        float spdPer = HM._.mnm.GoblinDataSO.Datas[goblinLvIdx].SpeedPer;
+        int time = HM._.mnm.OreDataSO.Datas[oreLvIdx].TimeSec;
+
+        //* ゴブリンのMiningSpeed％ 適用
+        int decSec = Mathf.RoundToInt(time * (spdPer - 1));
+        time -= decSec;
         int max = time;
+        Debug.Log($"CoTimerStart():: goblin SpdPer= {spdPer}, time= {time}, decSec= {decSec}");
 
-        int lvIdx = HM._.wsm.CurWorkSpace.OreSpotDt.LvIdx;
+        Sprite[] oreSprs = HM._.mnm.OreDataSO.Datas[oreLvIdx].Sprs;
         HM._.mtm.SetTimer(isOn: true);
-
         HM._.wsm.GoblinChrCtrl.GoblinMiningAnim();
 
-        while(decSec <= time) {
-            yield return new WaitForSecondsRealtime(1);
+        while(0 < time) {
             //* 時間表示
-            time -= decSec;
+            time -= 1;
             int sec = time % 60;
             int min = time / 60;
             int hour = min / 60;
             string hourStr = (hour == 0)? "" : $"{hour:00} : ";
-            HM._.wsm.SetTimerSlider($"{hourStr} {min:00} : {sec:00}", (float)(max - time) / max);
+            HM._.mtm.SetTimerSlider($"{hourStr} {min:00} : {sec:00}", (float)(max - time) / max);
 
             //* ORE 壊れるイメージ変更
-            Sprite[] oreSprs = HM._.mnm.OreDataSO.Datas[lvIdx].Sprs;
             HM._.wsm.OreSpot.OreImg.sprite = oreSprs[
                 time < (max * 0.3f)? (int)ORE_SPRS.PIECE
                 : time <= (max * 0.6f)? (int)ORE_SPRS.HALF
                 : (int)ORE_SPRS.DEF
             ];
+
+            yield return Util.RealTime1;
         }
 
         //* リワード受け取れる
-        HM._.wsm.OreSpot.OreImg.sprite = null;
+        HM._.wsm.OreSpot.OreImg.sprite = HM._.rwm.PresentSpr;
         HM._.mtm.IsFinish = true;
-        HM._.wsm.SetTimerSlider("보상받기", 1);
+        HM._.mtm.RewardAuraEF.SetActive(true);
+        HM._.mtm.SetTimerSlider("보상받기", 1);
         HM._.wsm.GoblinChrCtrl.GoblinHappyAnim();
-
     }
 }

@@ -69,9 +69,13 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
             }
         }
 
+        /// <summary>
+        /// アニメーション停止
+        /// </summary>
         public void GoblinStopAnim() {
             if(GoblinAnimID != null)
                 StopCoroutine(GoblinAnimID);
+            SpawnAnim();
         }
 
         // public void Update() {
