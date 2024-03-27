@@ -6,6 +6,9 @@ using UnityEngine;
 public class HM : MonoBehaviour {
     public static HM _; //* Global
 
+    public Color SkyBlueColor;
+    public Color RedOrangeColor;
+
     //* Value
     [field: SerializeField] public int SelectedStage {get; set;}
 

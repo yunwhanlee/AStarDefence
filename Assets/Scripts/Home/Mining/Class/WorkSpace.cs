@@ -52,22 +52,50 @@ public class WorkSpace {
         //* タイマー保存
         TimeSpan timestamp = DateTime.UtcNow - new DateTime(1970,1,1,0,0,0);
         string key = $"WorkSpace{idx + 1}";
-        int past = PlayerPrefs.GetInt(key, (int)timestamp.TotalSeconds);
+
+        //* 過去に保存した時間（無かったら、現在の時間に初期化）
+        int past = PlayerPrefs.GetInt(key, defaultValue: (int)timestamp.TotalSeconds);
+
+        //* WorkSpace{N}キー 時間を最新化
         PlayerPrefs.SetInt(key, (int)timestamp.TotalSeconds);
+
         int passedSec = (int)timestamp.TotalSeconds - past;
-        Debug.Log("passedSec=> " + passedSec);
+        Debug.Log("StartMining():: passedSec=> " + passedSec);
 
         // HM._.wsm.GoblinChrCtrl.GoblinMiningAnim();
-
         return true;
     }
 
     public IEnumerator CoTimerStart(int time) {
-        int cnt = 0;
-        while(cnt < time) {
+        int decSec = 1;
+        int max = time;
+
+        int lvIdx = HM._.wsm.CurWorkSpace.OreSpotDt.LvIdx;
+        HM._.mtm.SetTimer(isOn: true);
+
+        while(decSec <= time) {
             yield return new WaitForSecondsRealtime(1);
-            cnt++;
-            HM._.wsm.SetTimerSlider($"{cnt}", (float)cnt / time);
+            //* 時間表示
+            time -= decSec;
+            int sec = time % 60;
+            int min = time / 60;
+            int hour = min / 60;
+            string hourStr = (hour == 0)? "" : $"{hour:00} : ";
+            HM._.wsm.SetTimerSlider($"{hourStr} {min:00} : {sec:00}", (float)(max - time) / max);
+
+            //* ORE 壊れるイメージ変更
+            
+            Sprite[] oreSprs = HM._.mnm.OreDataSO.Datas[lvIdx].Sprs;
+            HM._.wsm.OreSpot.OreImg.sprite = oreSprs[
+                time < (max * 0.3f)? (int)ORE_SPRS.PIECE
+                : time <= (max * 0.6f)? (int)ORE_SPRS.HALF
+                : (int)ORE_SPRS.DEF
+            ];
         }
+
+        //* リワード受け取れる
+        HM._.mtm.IsFinish = true;
+        HM._.wsm.SetTimerSlider("보상받기", 1);
+
     }
 }
