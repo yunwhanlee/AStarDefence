@@ -85,7 +85,7 @@ public class MiningUIManager : MonoBehaviour {
     /// アイテム配置ボタン
     /// </summary>
     public void OnClickArrangeBtn() {
-        //* （除外）鉱石が既に有ってたら
+        //* 鉱石が既に有ったら
         if(CurCategory == MineCate.Ore) {
             if(HM._.wsm.CurWorkSpace.OreSpotDt.IsActive) {
                 HM._.hui.ShowAgainAskMsg("(주의)\n현재 배치된 광석이 사라집니다.");
@@ -96,8 +96,15 @@ public class MiningUIManager : MonoBehaviour {
                 return;
             }
         }
+        //* ゴブリンが既に有ったら
+        else if(CurCategory == MineCate.Goblin) {
+            if(HM._.wsm.CurWorkSpace.GoblinSpotDt.IsActive) {
+                HM._.hui.ShowMsgNotice("고블린을 교체완료!");
+                HM._.mnm.GoblinCards[HM._.wsm.CurWorkSpace.GoblinSpotDt.LvIdx].Cnt++;
+            }
+        }
 
-        //* 普通の配置
+        //* 空の場合
         Arrange(CurCategory);
         CanStartMining();
     }
@@ -225,6 +232,7 @@ public class MiningUIManager : MonoBehaviour {
         }
 
         WindowObj.SetActive(false);
+        HM._.hui.ShowMsgNotice($"{(cate == MineCate.Goblin? "고블린" : "광석")} 배치완료!");
     }
 
     private void Remove(MineCate cate) {
@@ -240,16 +248,23 @@ public class MiningUIManager : MonoBehaviour {
         HM._.mtm.SetTimerSlider("광석 등록필요", 0);
 
         if(cate == MineCate.Goblin) {
-            GoblinCards[HM._.wsm.CurWorkSpace.GoblinSpotDt.LvIdx].InitCheck();
-            HM._.wsm.CurWorkSpace.GoblinSpotDt.Init();
+            ref SpotData goblinSpotDt = ref HM._.wsm.CurWorkSpace.GoblinSpotDt;
+            //* 既にゴブリンが有ったら
+            if(goblinSpotDt.IsActive) {
+                HM._.hui.ShowMsgNotice("고블린 회수완료!");
+                HM._.mnm.GoblinCards[goblinSpotDt.LvIdx].Cnt++;
+            }
+            GoblinCards[goblinSpotDt.LvIdx].InitCheck();
+            goblinSpotDt.Init();
             WindowObj.SetActive(false);
-            HM._.wsm.ActiveSpot(MineCate.Goblin, HM._.wsm.CurWorkSpace.GoblinSpotDt);
+            HM._.wsm.ActiveSpot(MineCate.Goblin, goblinSpotDt);
         }
         else {
-            OreCards[HM._.wsm.CurWorkSpace.OreSpotDt.LvIdx].InitCheck();
-            HM._.wsm.CurWorkSpace.OreSpotDt.Init();
+            ref SpotData oreSpotDt = ref HM._.wsm.CurWorkSpace.OreSpotDt;
+            OreCards[oreSpotDt.LvIdx].InitCheck();
+            oreSpotDt.Init();
             WindowObj.SetActive(false);
-            HM._.wsm.ActiveSpot(MineCate.Ore, HM._.wsm.CurWorkSpace.OreSpotDt);
+            HM._.wsm.ActiveSpot(MineCate.Ore, oreSpotDt);
         }
     }
 
