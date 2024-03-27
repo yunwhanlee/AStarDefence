@@ -79,19 +79,26 @@ public class MiningUIManager : MonoBehaviour {
         /// </summary>
         public void OnClickArrangeBtn() {
             if(CurCategory == MineCate.Ore) {
-                if(HM._.wsm.GetCurWorkSpace().OreSpotDt.IsActive) {
+                if(HM._.wsm.CurWorkSpace.OreSpotDt.IsActive) {
                     HM._.hui.ShowAgainAskMsg("(주의)\n현재 배치된 광석이 사라집니다.");
                     HM._.hui.OnClickConfirmAction = () => Arrange(MineCate.Ore);
                     return;
                 }
             }
+
             Arrange(CurCategory);
 
             //* 採掘開始
-            int time = HM._.wsm.GetCurWorkSpace().StartMining(HM._.wsm.CurIdx);
-            if(time != -1 && CorTimerID != null) {
-                CorTimerID = StartCoroutine(HM._.wsm.GetCurWorkSpace().CoTimerStart(time));
+            bool isSuccess = HM._.wsm.CurWorkSpace.StartMining(HM._.wsm.CurIdx);
+
+            if(isSuccess) {
+                Debug.Log("OnClickArrangeBtn():: isSuccess= " + isSuccess);
+                int oreLvIdx = HM._.wsm.CurWorkSpace.OreSpotDt.LvIdx;
+                int timeSec = OreDataSO.Datas[oreLvIdx].TimeSec;
+
+                CorTimerID = StartCoroutine(HM._.wsm.CurWorkSpace.CoTimerStart(timeSec));
             }
+
         }
         public void OnClickArrangeCancelBtn() {
             if(CurCategory == MineCate.Goblin)
@@ -135,11 +142,11 @@ public class MiningUIManager : MonoBehaviour {
             //* 配置ボタン 表示
             if(idx == (int)MineCate.Goblin) {
                 CurCategory = MineCate.Goblin;
-                SetArrangeBtn(HM._.wsm.GetCurWorkSpace().GoblinSpotDt.IsActive);
+                SetArrangeBtn(HM._.wsm.CurWorkSpace.GoblinSpotDt.IsActive);
             }
             else {
                 CurCategory = MineCate.Ore;
-                SetArrangeBtn(HM._.wsm.GetCurWorkSpace().OreSpotDt.IsActive);
+                SetArrangeBtn(HM._.wsm.CurWorkSpace.OreSpotDt.IsActive);
             }
 
             //* データ アップデート
@@ -159,7 +166,7 @@ public class MiningUIManager : MonoBehaviour {
         /// </summary>
         private void SelectCard(MineCate cate, int idx) {
             MiningCard[] cards = (cate == MineCate.Goblin)? GoblinCards : OreCards;
-            SpotData spotData = (cate == MineCate.Goblin)? HM._.wsm.GetCurWorkSpace().GoblinSpotDt : HM._.wsm.GetCurWorkSpace().OreSpotDt;
+            SpotData spotData = (cate == MineCate.Goblin)? HM._.wsm.CurWorkSpace.GoblinSpotDt : HM._.wsm.CurWorkSpace.OreSpotDt;
             //* 初期化
             Array.ForEach(cards, card => card.InitOutline());
             //* UI
@@ -187,10 +194,10 @@ public class MiningUIManager : MonoBehaviour {
                 GoblinCards[lvIdx].Check();
                 GoblinCards[lvIdx].Cnt--;
                 //* データ 
-                HM._.wsm.GetCurWorkSpace().GoblinSpotDt.IsActive = true;
-                HM._.wsm.GetCurWorkSpace().GoblinSpotDt.LvIdx = lvIdx;
+                HM._.wsm.CurWorkSpace.GoblinSpotDt.IsActive = true;
+                HM._.wsm.CurWorkSpace.GoblinSpotDt.LvIdx = lvIdx;
                 //* 配置
-                HM._.wsm.ActiveSpot(MineCate.Goblin, HM._.wsm.GetCurWorkSpace().GoblinSpotDt);
+                HM._.wsm.ActiveSpot(MineCate.Goblin, HM._.wsm.CurWorkSpace.GoblinSpotDt);
                 HM._.wsm.GoblinSpot.BodySprLib.spriteLibraryAsset = GoblinDataSO.Datas[lvIdx].SprLibAst;
             }
             else {
@@ -198,10 +205,10 @@ public class MiningUIManager : MonoBehaviour {
                 OreCards[lvIdx].Check();
                 OreCards[lvIdx].Cnt--; // カウント減る
                 //* データ
-                HM._.wsm.GetCurWorkSpace().OreSpotDt.IsActive = true;
-                HM._.wsm.GetCurWorkSpace().OreSpotDt.LvIdx = lvIdx;
+                HM._.wsm.CurWorkSpace.OreSpotDt.IsActive = true;
+                HM._.wsm.CurWorkSpace.OreSpotDt.LvIdx = lvIdx;
                 //* 配置
-                HM._.wsm.ActiveSpot(MineCate.Ore, HM._.wsm.GetCurWorkSpace().OreSpotDt);
+                HM._.wsm.ActiveSpot(MineCate.Ore, HM._.wsm.CurWorkSpace.OreSpotDt);
                 HM._.wsm.OreSpot.OreImg.sprite = OreDataSO.Datas[lvIdx].Sprs[(int)ORE_SPRS.DEF]; // OreSprs[lvIdx];
             }
 
@@ -214,22 +221,22 @@ public class MiningUIManager : MonoBehaviour {
             HM._.wsm.SetTimerSlider("0", 0);
             
             //* Goblin Anim Off
-            HM._.wsm.GoblinChrCtrl.GoblinStopMiningAnim();
-            HM._.wsm.GoblinChrCtrl.SpawnAnim();
+            // HM._.wsm.GoblinChrCtrl.GoblinStopMiningAnim();
+            // HM._.wsm.GoblinChrCtrl.SpawnAnim();
 
             if(cate == MineCate.Goblin) {
-                GoblinCards[HM._.wsm.GetCurWorkSpace().GoblinSpotDt.LvIdx].InitCheck();
-                HM._.wsm.GetCurWorkSpace().GoblinSpotDt.IsActive = false;
-                HM._.wsm.GetCurWorkSpace().GoblinSpotDt.LvIdx = -1;
+                GoblinCards[HM._.wsm.CurWorkSpace.GoblinSpotDt.LvIdx].InitCheck();
+                HM._.wsm.CurWorkSpace.GoblinSpotDt.IsActive = false;
+                HM._.wsm.CurWorkSpace.GoblinSpotDt.LvIdx = -1;
                 WindowObj.SetActive(false);
-                HM._.wsm.ActiveSpot(MineCate.Goblin, HM._.wsm.GetCurWorkSpace().GoblinSpotDt);
+                HM._.wsm.ActiveSpot(MineCate.Goblin, HM._.wsm.CurWorkSpace.GoblinSpotDt);
             }
             else {
-                OreCards[HM._.wsm.GetCurWorkSpace().OreSpotDt.LvIdx].InitCheck();
-                HM._.wsm.GetCurWorkSpace().OreSpotDt.IsActive = false;
-                HM._.wsm.GetCurWorkSpace().OreSpotDt.LvIdx = -1;
+                OreCards[HM._.wsm.CurWorkSpace.OreSpotDt.LvIdx].InitCheck();
+                HM._.wsm.CurWorkSpace.OreSpotDt.IsActive = false;
+                HM._.wsm.CurWorkSpace.OreSpotDt.LvIdx = -1;
                 WindowObj.SetActive(false);
-                HM._.wsm.ActiveSpot(MineCate.Ore, HM._.wsm.GetCurWorkSpace().OreSpotDt);
+                HM._.wsm.ActiveSpot(MineCate.Ore, HM._.wsm.CurWorkSpace.OreSpotDt);
             }
         }
 

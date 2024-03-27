@@ -38,13 +38,16 @@ public class WorkSpace {
     /// </summary>
     /// <param name="idx">現在表示しているWorkSpaceIdx</param>
     /// <returns>OREのレベルによって、掛かる時間を返す(-1なら、Falseという意味)</returns>
-    public int StartMining(int idx) {
+    public bool StartMining(int idx) {
         //* 両方活性化しないと、以下処理しない
-        if(!GoblinSpotDt.IsActive || !OreSpotDt.IsActive) {
-            HM._.wsm.GoblinChrCtrl.GoblinStopMiningAnim();
-            HM._.wsm.GoblinChrCtrl.SpawnAnim();
-            return -1;
-        }
+        // if(!GoblinSpotDt.IsActive || !OreSpotDt.IsActive) {
+        //     HM._.wsm.GoblinChrCtrl.GoblinStopMiningAnim();
+        //     HM._.wsm.GoblinChrCtrl.SpawnAnim();
+        //     return false;
+        // }
+
+        if(!GoblinSpotDt.IsActive) return false;
+        if(!OreSpotDt.IsActive) return false;
         
         //* タイマー保存
         TimeSpan timestamp = DateTime.UtcNow - new DateTime(1970,1,1,0,0,0);
@@ -54,9 +57,9 @@ public class WorkSpace {
         int passedSec = (int)timestamp.TotalSeconds - past;
         Debug.Log("passedSec=> " + passedSec);
 
-        HM._.wsm.GoblinChrCtrl.GoblinMiningAnim();
+        // HM._.wsm.GoblinChrCtrl.GoblinMiningAnim();
 
-        return 10; // takeTime
+        return true;
     }
 
     public IEnumerator CoTimerStart(int time) {

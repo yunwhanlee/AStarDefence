@@ -30,6 +30,9 @@ public class WorkSpaceUIManager : MonoBehaviour {
     [field: Header("VALUE")]
     [field: SerializeField] public int CurIdx {get; set;}
     [field: SerializeField] public WorkSpace[] WorkSpaces {get; private set;} = new WorkSpace[4];
+    [field: SerializeField] public WorkSpace CurWorkSpace {
+        get => WorkSpaces[CurIdx];
+    }
 
     [field: Header("HOME UI ELEM")]
     [field: SerializeField] public CharacterControls GoblinChrCtrl {get; set;}
@@ -42,8 +45,8 @@ public class WorkSpaceUIManager : MonoBehaviour {
     public void OnClickPurchaseWorkSpaceBtn() {
         HM._.hui.ShowAgainAskMsg($"<sprite name=Coin>{GetPrice()}을 사용하여\n작업장{HM._.wsm.CurIdx + 1} 구매하시겠습니까?");
         HM._.hui.OnClickConfirmAction = () => {
-            GetCurWorkSpace().IsLock = false;
-            GetCurWorkSpace().UpdateUI(HM._.wsm.WorkAreaTf);
+            CurWorkSpace.IsLock = false;
+            CurWorkSpace.UpdateUI(HM._.wsm.WorkAreaTf);
         };
     }
     /// <summary> ワークスペース移動 </summary>
@@ -51,19 +54,16 @@ public class WorkSpaceUIManager : MonoBehaviour {
     public void OnClickWorkSpacePageBtn(int dir) {
         SetCurIdx(dir);
         TitleTxt.text = $"작업장 {CurIdx + 1}";
-        var curWorkSpace = GetCurWorkSpace();
 
         //* 作業場（アンロック Or Not）
-        curWorkSpace.UpdateUI(WorkAreaTf, GetPrice());
+        CurWorkSpace.UpdateUI(WorkAreaTf, GetPrice());
 
         //* 配置状態 表示
-        ActiveSpot(MineCate.Goblin, curWorkSpace.GoblinSpotDt);
-        ActiveSpot(MineCate.Ore, curWorkSpace.OreSpotDt);
+        ActiveSpot(MineCate.Goblin, CurWorkSpace.GoblinSpotDt);
+        ActiveSpot(MineCate.Ore, CurWorkSpace.OreSpotDt);
     }
 #endregion
-
 #region FUNC
-    public WorkSpace GetCurWorkSpace() => WorkSpaces[CurIdx];
     private int GetPrice() => Config.H_PRICE.WORKSPACE_PRICES[CurIdx];
     private void SetCurIdx(int val) { //* -1 とか +1
         CurIdx += val;
