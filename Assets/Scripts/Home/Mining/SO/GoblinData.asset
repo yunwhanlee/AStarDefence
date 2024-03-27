@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9822413685abb4a4599787f0f21588b1, type: 3}
+  m_Name: GoblinData
+  m_EditorClassIdentifier: 
+  <GoblinDatas>k__BackingField:
+  - <Name>k__BackingField: "\uB3CC\uACE1\uAD2D\uC774"
+    <Lv>k__BackingField: 1
+    <SpeedPer>k__BackingField: 1
+    <SprLibAst>k__BackingField: {fileID: 11400000, guid: 25bdf70a80131fd4e83b48f316eb5c75, type: 2}
+  - <Name>k__BackingField: "\uAD6C\uB9AC\uACE1\uAD2D\uC774"
+    <Lv>k__BackingField: 2
+    <SpeedPer>k__BackingField: 1.2
+    <SprLibAst>k__BackingField: {fileID: 11400000, guid: 8fb6ea318749c9a4a911f4c480ce1728, type: 2}
+  - <Name>k__BackingField: "\uC740\uACE1\uAD2D\uC774"
+    <Lv>k__BackingField: 3
+    <SpeedPer>k__BackingField: 1.4
+    <SprLibAst>k__BackingField: {fileID: 11400000, guid: b89d69dde77e40248825496f965f6629, type: 2}
+  - <Name>k__BackingField: "\uAE08\uACE1\uAD2D\uC774"
+    <Lv>k__BackingField: 4
+    <SpeedPer>k__BackingField: 1.7
+    <SprLibAst>k__BackingField: {fileID: 11400000, guid: 51eaf80a4fa03c74b963bd31336a6d87, type: 2}
+  - <Name>k__BackingField: "\uC740\uBE5B\uACE0\uBE14\uB9B0"
+    <Lv>k__BackingField: 5
+    <SpeedPer>k__BackingField: 2
+    <SprLibAst>k__BackingField: {fileID: 11400000, guid: 71944b4f917b4a84ca46576f3d61d202, type: 2}
+  - <Name>k__BackingField: "\uAE08\uBE5B\uACE0\uBE14\uB9B0"
+    <Lv>k__BackingField: 6
+    <SpeedPer>k__BackingField: 2.5
+    <SprLibAst>k__BackingField: {fileID: 11400000, guid: d94994578a5471b4f9c48eb51e425e8b, type: 2}
+  - <Name>k__BackingField: "\uC545\uB9C8\uACE0\uBE14\uB9B0"
+    <Lv>k__BackingField: 7
+    <SpeedPer>k__BackingField: 3
+    <SprLibAst>k__BackingField: {fileID: 11400000, guid: 350bac1a78e07f646b434ea026721c4f, type: 2}

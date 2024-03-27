@@ -1468,7 +1468,7 @@ GameObject:
   - component: {fileID: 97886469}
   - component: {fileID: 97886468}
   m_Layer: 5
-  m_Name: GoblinLeftArrangeIcon
+  m_Name: GoblinPlusIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3560,43 +3560,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <CurCategory>k__BackingField: 0
-  <CurWorkSpaceIdx>k__BackingField: 0
-  WorkSpaces:
-  - IsLock: 0
-    GoblinSpotDt:
-      IsActive: 0
-      LvIdx: 0
-    OreSpotDt:
-      IsActive: 0
-      LvIdx: 0
-  - IsLock: 1
-    GoblinSpotDt:
-      IsActive: 0
-      LvIdx: 0
-    OreSpotDt:
-      IsActive: 0
-      LvIdx: 0
-  - IsLock: 1
-    GoblinSpotDt:
-      IsActive: 0
-      LvIdx: 0
-    OreSpotDt:
-      IsActive: 0
-      LvIdx: 0
-  - IsLock: 1
-    GoblinSpotDt:
-      IsActive: 0
-      LvIdx: 0
-    OreSpotDt:
-      IsActive: 0
-      LvIdx: 0
-  - IsLock: 1
-    GoblinSpotDt:
-      IsActive: 0
-      LvIdx: 0
-    OreSpotDt:
-      IsActive: 0
-      LvIdx: 0
   <GoblinCards>k__BackingField:
   - Name: "\uB3CC\uACE1\uAD2D\uC774"
     Cnt: 0
@@ -3745,14 +3708,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 393a2e13dbcd1a44fae2fa5bbd7c7c57, type: 3}
   - {fileID: 21300000, guid: 52814d17a32036748ac6d014a8c40e70, type: 3}
   - {fileID: 21300000, guid: 18f548c0b4d765343b92f3b3c221c397, type: 3}
-  <GoblinChrCtrl>k__BackingField: {fileID: 1101117812}
-  <WorkTimeSlider>k__BackingField: {fileID: 6049785380296762120}
-  <WorkAreaTf>k__BackingField: {fileID: 649769215}
-  <TitleTxt>k__BackingField: {fileID: 6049785380390778892}
-  <OreSpotBtn>k__BackingField: {fileID: 680523676}
-  <GoblinLeftSpotBtn>k__BackingField: {fileID: 286151802}
-  <OreImg>k__BackingField: {fileID: 1441091144}
-  <GoblinBodySprLib>k__BackingField: {fileID: 394299293}
   <PopUpTitleTxt>k__BackingField: {fileID: 8935455298411588335}
   <CategoryUnderLines>k__BackingField:
   - {fileID: 1296130927055252434}
@@ -3957,7 +3912,7 @@ GameObject:
   - component: {fileID: 286151802}
   - component: {fileID: 286151801}
   m_Layer: 5
-  m_Name: GoblinLeftSpotBtn
+  m_Name: GoblinSpot_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4090,7 +4045,7 @@ GameObject:
   - component: {fileID: 292429724}
   - component: {fileID: 292429723}
   m_Layer: 5
-  m_Name: OreArrangeIcon
+  m_Name: OrePlusIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4166,7 +4121,7 @@ GameObject:
   - component: {fileID: 293520914}
   - component: {fileID: 293520913}
   m_Layer: 0
-  m_Name: Ore
+  m_Name: PlusIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10351,7 +10306,7 @@ GameObject:
   - component: {fileID: 407192965}
   - component: {fileID: 407192967}
   m_Layer: 0
-  m_Name: ArrowLeftBtn
+  m_Name: ArrowLeftPageBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10458,9 +10413,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 271833746}
-        m_TargetAssemblyTypeName: MiningUIManager, Assembly-CSharp
-        m_MethodName: OnClickSwitchWorkSpace
+      - m_Target: {fileID: 781382498}
+        m_TargetAssemblyTypeName: WorkSpaceUIManager, Assembly-CSharp
+        m_MethodName: OnClickWorkSpacePageBtn
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10861,6 +10816,7 @@ MonoBehaviour:
   hui: {fileID: 0}
   stgm: {fileID: 0}
   mnm: {fileID: 0}
+  wsm: {fileID: 0}
 --- !u!1 &480896827
 GameObject:
   m_ObjectHideFlags: 0
@@ -13142,7 +13098,7 @@ GameObject:
   - component: {fileID: 680523675}
   - component: {fileID: 680523676}
   m_Layer: 5
-  m_Name: OreSpotBtn
+  m_Name: OreSpot_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14763,6 +14719,99 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &781382496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 781382497}
+  - component: {fileID: 781382498}
+  m_Layer: 0
+  m_Name: WorkSpaceUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &781382497
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781382496}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &781382498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781382496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a60438520688c944b8dfe5205b559ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CurIdx>k__BackingField: 0
+  <WorkSpaces>k__BackingField:
+  - IsLock: 0
+    GoblinSpotDt:
+      IsActive: 0
+      LvIdx: 0
+    OreSpotDt:
+      IsActive: 0
+      LvIdx: 0
+  - IsLock: 1
+    GoblinSpotDt:
+      IsActive: 0
+      LvIdx: 0
+    OreSpotDt:
+      IsActive: 0
+      LvIdx: 0
+  - IsLock: 1
+    GoblinSpotDt:
+      IsActive: 0
+      LvIdx: 0
+    OreSpotDt:
+      IsActive: 0
+      LvIdx: 0
+  - IsLock: 1
+    GoblinSpotDt:
+      IsActive: 0
+      LvIdx: 0
+    OreSpotDt:
+      IsActive: 0
+      LvIdx: 0
+  - IsLock: 1
+    GoblinSpotDt:
+      IsActive: 0
+      LvIdx: 0
+    OreSpotDt:
+      IsActive: 0
+      LvIdx: 0
+  <GoblinChrCtrl>k__BackingField: {fileID: 1101117812}
+  <WorkTimeSlider>k__BackingField: {fileID: 6049785380296762120}
+  <WorkAreaTf>k__BackingField: {fileID: 649769215}
+  <TitleTxt>k__BackingField: {fileID: 6049785380390778892}
+  GoblinSpot:
+    <PlusIconObj>k__BackingField: {fileID: 97886466}
+    <DisplayObj>k__BackingField: {fileID: 1101117808}
+    <BodySprLib>k__BackingField: {fileID: 394299293}
+  OreSpot:
+    <PlusIconObj>k__BackingField: {fileID: 292429721}
+    <DisplayObj>k__BackingField: {fileID: 1304670873}
+    <OreImg>k__BackingField: {fileID: 1441091144}
 --- !u!1 &784698356
 GameObject:
   m_ObjectHideFlags: 0
@@ -15511,8 +15560,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 680523673}
   - {fileID: 286151800}
+  - {fileID: 680523673}
   m_Father: {fileID: 649769215}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -18986,7 +19035,7 @@ GameObject:
   - component: {fileID: 1101117811}
   - component: {fileID: 1101117810}
   m_Layer: 9
-  m_Name: GoblinLeftChara
+  m_Name: GoblinDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21733,7 +21782,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1304670874}
   m_Layer: 5
-  m_Name: Ore
+  m_Name: OreDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29268,7 +29317,7 @@ GameObject:
   - component: {fileID: 1553734680}
   - component: {fileID: 1553734682}
   m_Layer: 0
-  m_Name: ArrowRightBtn
+  m_Name: ArrowRightPageBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29375,9 +29424,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 271833746}
-        m_TargetAssemblyTypeName: MiningUIManager, Assembly-CSharp
-        m_MethodName: OnClickSwitchWorkSpace
+      - m_Target: {fileID: 781382498}
+        m_TargetAssemblyTypeName: WorkSpaceUIManager, Assembly-CSharp
+        m_MethodName: OnClickWorkSpacePageBtn
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -34281,7 +34330,7 @@ GameObject:
   - component: {fileID: 1929977684}
   - component: {fileID: 1929977683}
   m_Layer: 0
-  m_Name: Ore
+  m_Name: PlusIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59829,8 +59878,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 271833746}
-        m_TargetAssemblyTypeName: MiningUIManager, Assembly-CSharp
+      - m_Target: {fileID: 781382498}
+        m_TargetAssemblyTypeName: WorkSpaceUIManager, Assembly-CSharp
         m_MethodName: OnClickPurchaseWorkSpaceBtn
         m_Mode: 1
         m_Arguments:
@@ -68550,7 +68599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8935455297643028483}
   m_Layer: 0
-  m_Name: MiningArrangePopUp
+  m_Name: MiningPopUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72667,6 +72716,7 @@ SceneRoots:
   - {fileID: 891016554}
   - {fileID: 1683360467}
   - {fileID: 271833745}
+  - {fileID: 781382497}
   - {fileID: 1941944522}
   - {fileID: 1474143640}
   - {fileID: 583994670}

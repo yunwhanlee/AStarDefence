@@ -13,6 +13,7 @@ public class HM : MonoBehaviour {
     public HomeUIManager hui;
     public StageUIManager stgm;
     public MiningUIManager mnm;
+    public WorkSpaceUIManager wsm;
 
     void Awake() {
         //* Global化 値 代入
@@ -22,6 +23,7 @@ public class HM : MonoBehaviour {
         hui = GameObject.Find("HomeUIManager").GetComponent<HomeUIManager>();
         stgm = GameObject.Find("StageUIManager").GetComponent<StageUIManager>();
         mnm = GameObject.Find("MiningUIManager").GetComponent<MiningUIManager>();
+        wsm = GameObject.Find("WorkSpaceUIManager").GetComponent<WorkSpaceUIManager>();
 
         //* 初期化
         SelectedStage = 0;
