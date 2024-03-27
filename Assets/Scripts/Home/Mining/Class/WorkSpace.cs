@@ -73,6 +73,8 @@ public class WorkSpace {
         int lvIdx = HM._.wsm.CurWorkSpace.OreSpotDt.LvIdx;
         HM._.mtm.SetTimer(isOn: true);
 
+        HM._.wsm.GoblinChrCtrl.GoblinMiningAnim();
+
         while(decSec <= time) {
             yield return new WaitForSecondsRealtime(1);
             //* 時間表示
@@ -93,6 +95,7 @@ public class WorkSpace {
         }
 
         //* リワード受け取れる
+        HM._.wsm.OreSpot.OreImg.sprite = null;
         HM._.mtm.IsFinish = true;
         HM._.wsm.SetTimerSlider("보상받기", 1);
         HM._.wsm.GoblinChrCtrl.GoblinHappyAnim();

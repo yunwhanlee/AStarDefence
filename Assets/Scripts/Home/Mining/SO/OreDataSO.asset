@@ -19,7 +19,7 @@ MonoBehaviour:
     - {fileID: -1291038021, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: 840097920, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: -1515198828, guid: 3098130d534545947b4d05f65c04033b, type: 3}
-    <TimeSec>k__BackingField: 10
+    <TimeSec>k__BackingField: 5
     Rewards:
     - Name: EXP
       Val: 10

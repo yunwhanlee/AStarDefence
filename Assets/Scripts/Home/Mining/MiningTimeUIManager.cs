@@ -17,6 +17,7 @@ public class MiningTimeUIManager : MonoBehaviour {
         if(IsFinish) {
             IsFinish = false;
             Debug.Log("ACCEPT MINING REWARD!!");
+            HM._.wsm.GoblinChrCtrl.GoblinStopAnim();
             SetTimer(isOn: false);
         }
         else {

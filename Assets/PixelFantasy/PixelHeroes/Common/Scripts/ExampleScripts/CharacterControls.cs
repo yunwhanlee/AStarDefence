@@ -25,41 +25,53 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
             SpawnAnim();
         }
 
+        private IEnumerator BounceAnim() {
+            Character.SetState(AnimationState.Jumping);
+            yield return Util.Time0_15;
+            Character.SetState(AnimationState.Idle);
+            JumpDust.Play(true);
+            yield return Util.Time0_15;
+        }
+
         /// <summary>
         /// 登場アニメー（一発）
         /// </summary>
         public void SpawnAnim() => StartCoroutine(CoSpawnAnim());
         IEnumerator CoSpawnAnim() {
-            Character.SetState(AnimationState.Jumping);
-            yield return new WaitForSeconds(0.17f);
-            Character.SetState(AnimationState.Idle);
-            JumpDust.Play(true);
+            yield return BounceAnim();
         }
 
         /// <summary>
         /// ゴブリン採掘アニメー（ループ）
         /// </summary>
-        public void GoblinMiningAnim() => GoblinAnimID = StartCoroutine(CoGoblinMiningAnim());
+        public void GoblinMiningAnim() {
+            if(GoblinAnimID != null) StopCoroutine(GoblinAnimID);
+            GoblinAnimID = StartCoroutine(CoGoblinMiningAnim());
+        }
         IEnumerator CoGoblinMiningAnim() {
             while(true) {
                 Character.Animator.SetTrigger("Slash");
                 yield return Util.Time1;
             }
         }
-        public void GoblinStopMiningAnim() {
-            if(GoblinAnimID != null)
-                StopCoroutine(GoblinAnimID);
-        }
 
+        /// <summary>
+        /// 幸せアニメー（ループ）
+        /// </summary>
         public void GoblinHappyAnim() {
-            StartCoroutine(CoGoblinHappyAnim());
+            if(GoblinAnimID != null) StopCoroutine(GoblinAnimID);
+            GoblinAnimID = StartCoroutine(CoGoblinHappyAnim());
         }
 
         IEnumerator CoGoblinHappyAnim() {
             while(true) {
-                Character.SetState(AnimationState.Jumping);
-                yield return Util.Time0_5;
+                yield return BounceAnim();
             }
+        }
+
+        public void GoblinStopAnim() {
+            if(GoblinAnimID != null)
+                StopCoroutine(GoblinAnimID);
         }
 
         // public void Update() {

@@ -6,6 +6,7 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts
     public enum AnimationState
     {
         Idle,
+        Slash,
         Ready,
         Walking,
         Running,
