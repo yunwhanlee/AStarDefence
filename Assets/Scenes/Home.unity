@@ -3544,7 +3544,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 781382497}
+  - {fileID: 1018017298}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &271833746
@@ -3690,14 +3692,8 @@ MonoBehaviour:
     Outline: {fileID: 2126246977}
     CheckMark: {fileID: 1711748248}
     Dim: {fileID: 662601263}
-  <GoblinSprLibAst>k__BackingField:
-  - {fileID: 11400000, guid: 25bdf70a80131fd4e83b48f316eb5c75, type: 2}
-  - {fileID: 11400000, guid: 8fb6ea318749c9a4a911f4c480ce1728, type: 2}
-  - {fileID: 11400000, guid: b89d69dde77e40248825496f965f6629, type: 2}
-  - {fileID: 11400000, guid: 51eaf80a4fa03c74b963bd31336a6d87, type: 2}
-  - {fileID: 11400000, guid: 71944b4f917b4a84ca46576f3d61d202, type: 2}
-  - {fileID: 11400000, guid: d94994578a5471b4f9c48eb51e425e8b, type: 2}
-  - {fileID: 11400000, guid: 350bac1a78e07f646b434ea026721c4f, type: 2}
+  <GoblinDataSO>k__BackingField: {fileID: 11400000, guid: 260971c8bc5fd574fbfeb83079e7f337, type: 2}
+  <OreDataSO>k__BackingField: {fileID: 11400000, guid: 960fda498894f584d98dd59a295ec94c, type: 2}
   <OreSprs>k__BackingField:
   - {fileID: 21300000, guid: 74ff6f393c99ebe47a384cd042c5cb68, type: 3}
   - {fileID: 21300000, guid: d5d55d61947bc914f8d881aded9b73de, type: 3}
@@ -10816,6 +10812,7 @@ MonoBehaviour:
   hui: {fileID: 0}
   stgm: {fileID: 0}
   mnm: {fileID: 0}
+  mtm: {fileID: 0}
   wsm: {fileID: 0}
 --- !u!1 &480896827
 GameObject:
@@ -14749,7 +14746,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 271833745}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &781382498
 MonoBehaviour:
@@ -14801,7 +14798,6 @@ MonoBehaviour:
       IsActive: 0
       LvIdx: 0
   <GoblinChrCtrl>k__BackingField: {fileID: 1101117812}
-  <WorkTimeSlider>k__BackingField: {fileID: 6049785380296762120}
   <WorkAreaTf>k__BackingField: {fileID: 649769215}
   <TitleTxt>k__BackingField: {fileID: 6049785380390778892}
   GoblinSpot:
@@ -17710,6 +17706,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1010029728}
   m_CullTransparentMesh: 1
+--- !u!1 &1018017297
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1018017298}
+  - component: {fileID: 1018017299}
+  m_Layer: 0
+  m_Name: MiningTimeUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1018017298
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018017297}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 271833745}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1018017299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018017297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4c55ad78efdb7e4abeb2bbc68276613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Slider>k__BackingField: {fileID: 6049785380296762120}
+  <SliderTxt>k__BackingField: {fileID: 6049785381881133433}
 --- !u!1 &1033525147
 GameObject:
   m_ObjectHideFlags: 0
@@ -48721,7 +48763,7 @@ GameObject:
   - component: {fileID: 6049785380480858975}
   - component: {fileID: 6049785380480858968}
   m_Layer: 0
-  m_Name: MiningWorkTimeSlider
+  m_Name: MiningTimeSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72716,7 +72758,6 @@ SceneRoots:
   - {fileID: 891016554}
   - {fileID: 1683360467}
   - {fileID: 271833745}
-  - {fileID: 781382497}
   - {fileID: 1941944522}
   - {fileID: 1474143640}
   - {fileID: 583994670}

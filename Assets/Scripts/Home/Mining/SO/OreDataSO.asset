@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1d15b2ec20e545418ac221344b83a8a, type: 3}
-  m_Name: OreData
+  m_Name: OreDataSO
   m_EditorClassIdentifier: 
-  <OreDatas>k__BackingField:
+  <Datas>k__BackingField:
   - <Name>k__BackingField: "\uD759\uB369\uC774"
     <Lv>k__BackingField: 1
-    <Spr>k__BackingField:
+    <Sprs>k__BackingField:
     - {fileID: -1291038021, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: 840097920, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: -1515198828, guid: 3098130d534545947b4d05f65c04033b, type: 3}
@@ -27,7 +27,7 @@ MonoBehaviour:
       Val: 100
   - <Name>k__BackingField: "\uB3CC\uB369\uC774"
     <Lv>k__BackingField: 2
-    <Spr>k__BackingField:
+    <Sprs>k__BackingField:
     - {fileID: 2027891724, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: 1389293174, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: 1284862644, guid: 3098130d534545947b4d05f65c04033b, type: 3}
@@ -39,7 +39,7 @@ MonoBehaviour:
       Val: 250
   - <Name>k__BackingField: "\uAD6C\uB9AC"
     <Lv>k__BackingField: 3
-    <Spr>k__BackingField:
+    <Sprs>k__BackingField:
     - {fileID: 1325396544, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: -2033813945, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: -1877895732, guid: 3098130d534545947b4d05f65c04033b, type: 3}
@@ -51,7 +51,7 @@ MonoBehaviour:
       Val: 500
   - <Name>k__BackingField: "\uC740"
     <Lv>k__BackingField: 4
-    <Spr>k__BackingField:
+    <Sprs>k__BackingField:
     - {fileID: 205729826, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: -132834091, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: -708182046, guid: 3098130d534545947b4d05f65c04033b, type: 3}
@@ -63,7 +63,7 @@ MonoBehaviour:
       Val: 800
   - <Name>k__BackingField: "\uAE08"
     <Lv>k__BackingField: 5
-    <Spr>k__BackingField:
+    <Sprs>k__BackingField:
     - {fileID: 1207307646, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: -189646313, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: -1349094990, guid: 3098130d534545947b4d05f65c04033b, type: 3}
@@ -75,7 +75,7 @@ MonoBehaviour:
       Val: 1250
   - <Name>k__BackingField: "\uC0AC\uD30C\uC774\uC5B4"
     <Lv>k__BackingField: 6
-    <Spr>k__BackingField:
+    <Sprs>k__BackingField:
     - {fileID: 2023439796, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: -1758501706, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: -1420811699, guid: 3098130d534545947b4d05f65c04033b, type: 3}
@@ -87,7 +87,7 @@ MonoBehaviour:
       Val: 2000
   - <Name>k__BackingField: "\uC544\uB2E4\uB9CC\uD2F0\uC6C0"
     <Lv>k__BackingField: 7
-    <Spr>k__BackingField:
+    <Sprs>k__BackingField:
     - {fileID: 492437252, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: 1015843949, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: -1946051699, guid: 3098130d534545947b4d05f65c04033b, type: 3}
@@ -99,7 +99,7 @@ MonoBehaviour:
       Val: 4000
   - <Name>k__BackingField: "\uB8E8\uBE44"
     <Lv>k__BackingField: 8
-    <Spr>k__BackingField:
+    <Sprs>k__BackingField:
     - {fileID: 573383335, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: 652791350, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: -204417573, guid: 3098130d534545947b4d05f65c04033b, type: 3}
@@ -111,7 +111,7 @@ MonoBehaviour:
       Val: 7500
   - <Name>k__BackingField: "\uD751\uC694\uC11D"
     <Lv>k__BackingField: 9
-    <Spr>k__BackingField:
+    <Sprs>k__BackingField:
     - {fileID: 2044041408, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: -1155209028, guid: 3098130d534545947b4d05f65c04033b, type: 3}
     - {fileID: 1883777256, guid: 3098130d534545947b4d05f65c04033b, type: 3}

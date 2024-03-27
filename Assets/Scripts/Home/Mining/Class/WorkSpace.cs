@@ -6,9 +6,12 @@ using System;
 using TMPro;
 
 [Serializable]
+/// <summary>
+/// GoblinとかOreのスポットの情報
+/// </summary>
 public struct SpotData {
-    public bool IsActive;
-    public int LvIdx;
+    public bool IsActive; // 活性化
+    public int LvIdx; // 配置したGoblinとかOreのレベル
 }
 
 [Serializable]

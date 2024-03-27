@@ -13,5 +13,5 @@ public class GoblinData {
 
 [CreateAssetMenu(fileName = "GoblinDataSO", menuName = "Scriptable Object/Setting GoblinData")]
 public class SettingGoblinData : ScriptableObject {
-    [field:SerializeField] public GoblinData[] GoblinDatas {get; private set;}
+    [field:SerializeField] public GoblinData[] Datas {get; private set;}
 }

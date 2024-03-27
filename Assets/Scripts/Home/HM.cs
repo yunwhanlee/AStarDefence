@@ -12,7 +12,10 @@ public class HM : MonoBehaviour {
     //* Outside
     public HomeUIManager hui;
     public StageUIManager stgm;
+
+    // Mining
     public MiningUIManager mnm;
+    public MiningTimeUIManager mtm;
     public WorkSpaceUIManager wsm;
 
     void Awake() {
@@ -23,6 +26,7 @@ public class HM : MonoBehaviour {
         hui = GameObject.Find("HomeUIManager").GetComponent<HomeUIManager>();
         stgm = GameObject.Find("StageUIManager").GetComponent<StageUIManager>();
         mnm = GameObject.Find("MiningUIManager").GetComponent<MiningUIManager>();
+        mtm = GameObject.Find("MiningTimeUIManager").GetComponent<MiningTimeUIManager>();
         wsm = GameObject.Find("WorkSpaceUIManager").GetComponent<WorkSpaceUIManager>();
 
         //* 初期化

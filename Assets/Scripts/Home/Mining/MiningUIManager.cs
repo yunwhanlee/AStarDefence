@@ -20,8 +20,8 @@ public class MiningUIManager : MonoBehaviour {
     [field: SerializeField] public MiningCard[] OreCards {get; private set;}
 
     [field: Header("Resource")]
-    [field: SerializeField] public SpriteLibraryAsset[] GoblinSprLibAst {get; set;}
-    [field: SerializeField] public Sprite[] OreSprs {get; set;}
+    [field: SerializeField] public SettingGoblinData GoblinDataSO {get; private set;}
+    [field: SerializeField] public SettingOreData OreDataSO {get; private set;}
 
     [field: Header("PopUp")]
     [field: SerializeField] public TextMeshProUGUI PopUpTitleTxt {get; set;}
@@ -94,9 +94,8 @@ public class MiningUIManager : MonoBehaviour {
             }
         }
         public void OnClickArrangeCancelBtn() {
-            if(CurCategory == MineCate.Goblin) {
+            if(CurCategory == MineCate.Goblin)
                 Remove(MineCate.Goblin);
-            }
             else {
                 HM._.hui.ShowAgainAskMsg("(주의)\n현재 배치된 광석이 사라집니다.");
                 HM._.hui.OnClickConfirmAction = () => Remove(MineCate.Ore);
@@ -104,12 +103,10 @@ public class MiningUIManager : MonoBehaviour {
         }
 
         public void OnClickMergeBtn() {
-            if(CurCategory == MineCate.Goblin) {
+            if(CurCategory == MineCate.Goblin)
                 Merge(GoblinCards);
-            }
-            else {
+            else
                 Merge(OreCards);
-            }
         }
 
         public void OnClickAutoMergeBtn() {
@@ -189,12 +186,12 @@ public class MiningUIManager : MonoBehaviour {
                 //* UIチェック
                 GoblinCards[lvIdx].Check();
                 GoblinCards[lvIdx].Cnt--;
-                //* データ
+                //* データ 
                 HM._.wsm.GetCurWorkSpace().GoblinSpotDt.IsActive = true;
                 HM._.wsm.GetCurWorkSpace().GoblinSpotDt.LvIdx = lvIdx;
                 //* 配置
                 HM._.wsm.ActiveSpot(MineCate.Goblin, HM._.wsm.GetCurWorkSpace().GoblinSpotDt);
-                HM._.wsm.GoblinSpot.BodySprLib.spriteLibraryAsset = GoblinSprLibAst[lvIdx];
+                HM._.wsm.GoblinSpot.BodySprLib.spriteLibraryAsset = GoblinDataSO.Datas[lvIdx].SprLibAst;
             }
             else {
                 //* UIチェック
@@ -205,7 +202,7 @@ public class MiningUIManager : MonoBehaviour {
                 HM._.wsm.GetCurWorkSpace().OreSpotDt.LvIdx = lvIdx;
                 //* 配置
                 HM._.wsm.ActiveSpot(MineCate.Ore, HM._.wsm.GetCurWorkSpace().OreSpotDt);
-                HM._.wsm.OreSpot.OreImg.sprite = OreSprs[lvIdx];
+                HM._.wsm.OreSpot.OreImg.sprite = OreDataSO.Datas[lvIdx].Sprs[(int)ORE_SPRS.DEF]; // OreSprs[lvIdx];
             }
 
             WindowObj.SetActive(false);

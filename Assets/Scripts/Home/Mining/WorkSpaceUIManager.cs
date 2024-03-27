@@ -11,6 +11,11 @@ using Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts;
 public class Spot {
     [field: SerializeField] public GameObject PlusIconObj {get; private set;} // 1st Child
     [field: SerializeField] public GameObject DisplayObj {get; private set;} //2nd Child
+
+    public void Show(bool isActive) {
+        PlusIconObj.SetActive(!isActive);
+        DisplayObj.SetActive(isActive);
+    }
 }
 [Serializable]
 public class GoblinSpot : Spot {
@@ -28,7 +33,6 @@ public class WorkSpaceUIManager : MonoBehaviour {
 
     [field: Header("HOME UI ELEM")]
     [field: SerializeField] public CharacterControls GoblinChrCtrl {get; set;}
-    [field: SerializeField] public Slider WorkTimeSlider {get; set;}
     [field: SerializeField] public Transform WorkAreaTf {get; set;}
     [field: SerializeField] public TextMeshProUGUI TitleTxt {get; set;}
     [field: SerializeField] public GoblinSpot GoblinSpot;
@@ -71,14 +75,12 @@ public class WorkSpaceUIManager : MonoBehaviour {
     }
 
     public void SetTimerSlider(string timeTxt, float value) {
-        WorkTimeSlider.GetComponentInChildren<TextMeshProUGUI>().text = $"{timeTxt}";
-        WorkTimeSlider.value = value;
+        HM._.mtm.SliderTxt.text = $"{timeTxt}";
+        HM._.mtm.Slider.value = value;
     }
     public void ActiveSpot(MineCate cate, SpotData spotDt) {
-        const int OFF = 0, ON = 1;
         if(cate == MineCate.Goblin) {
-            GoblinSpot.PlusIconObj.SetActive(!spotDt.IsActive);
-            GoblinSpot.DisplayObj.SetActive(spotDt.IsActive);
+            GoblinSpot.Show(spotDt.IsActive);
 
             //* ✓非表示
             Array.ForEach(HM._.mnm.GoblinCards, card => card.InitCheck());
@@ -86,12 +88,11 @@ public class WorkSpaceUIManager : MonoBehaviour {
             //* ✓と画像 アップデート
             if(spotDt.LvIdx != -1) {
                 HM._.mnm.GoblinCards[spotDt.LvIdx].Check();
-                GoblinSpot.BodySprLib.spriteLibraryAsset = HM._.mnm.GoblinSprLibAst[spotDt.LvIdx];
+                GoblinSpot.BodySprLib.spriteLibraryAsset = HM._.mnm.GoblinDataSO.Datas[spotDt.LvIdx].SprLibAst;
             }
         }
         else {
-            OreSpot.PlusIconObj.SetActive(!spotDt.IsActive);
-            OreSpot.DisplayObj.SetActive(spotDt.IsActive);
+            OreSpot.Show(spotDt.IsActive);
             
             //* ✓非表示
             Array.ForEach(HM._.mnm.OreCards, card => card.InitCheck());
@@ -99,7 +100,7 @@ public class WorkSpaceUIManager : MonoBehaviour {
             //* ✓と画像 アップデート
             if(spotDt.LvIdx != -1) {
                 HM._.mnm.OreCards[spotDt.LvIdx].Check();
-                OreSpot.OreImg.sprite = HM._.mnm.OreSprs[spotDt.LvIdx];
+                OreSpot.OreImg.sprite = HM._.mnm.OreDataSO.Datas[spotDt.LvIdx].Sprs[(int)ORE_SPRS.DEF];
             }
 
         }
