@@ -14,6 +14,6 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts
         Blocking,
         Crawling,
         Climbing,
-        Dead
+        Dead,
     }
 }

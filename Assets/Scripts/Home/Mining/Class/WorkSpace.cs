@@ -85,7 +85,7 @@ public class WorkSpace {
 
         Sprite[] oreSprs = HM._.mnm.OreDataSO.Datas[oreLvIdx].Sprs;
         HM._.mtm.SetTimer(isOn: true);
-        HM._.wsm.GoblinChrCtrl.GoblinMiningAnim();
+        HM._.wsm.GoblinChrCtrl.MiningAnim(goblinLvIdx);
 
         while(0 < time) {
             //* 時間表示

@@ -6,10 +6,19 @@ using UnityEngine.UI;
 public class Util : MonoBehaviour {
     public static Util _;
 
-    public static WaitForSeconds Time0_5 = new WaitForSeconds(0.5f);
-    public static WaitForSeconds Time0_75 = new WaitForSeconds(0.75f);
     public static WaitForSeconds Time0_1 = new WaitForSeconds(0.1f);
     public static WaitForSeconds Time0_15 = new WaitForSeconds(0.15f);
+    public static WaitForSeconds Time0_2 = new WaitForSeconds(0.2f);
+    public static WaitForSeconds Time0_3 = new WaitForSeconds(0.3f);
+    public static WaitForSeconds Time0_4 = new WaitForSeconds(0.4f);
+    public static WaitForSeconds Time0_5 = new WaitForSeconds(0.5f);
+    public static WaitForSeconds Time0_6 = new WaitForSeconds(0.6f);
+    public static WaitForSeconds Time0_65 = new WaitForSeconds(0.65f);
+    public static WaitForSeconds Time0_7 = new WaitForSeconds(0.7f);
+    public static WaitForSeconds Time0_75 = new WaitForSeconds(0.75f);
+    public static WaitForSeconds Time0_8 = new WaitForSeconds(0.8f);
+    public static WaitForSeconds Time0_85 = new WaitForSeconds(0.85f);
+    public static WaitForSeconds Time0_9 = new WaitForSeconds(0.9f);
     public static WaitForSeconds Time1 = new WaitForSeconds(1);
     public static WaitForSeconds Time1_5 = new WaitForSeconds(1.5f);
     public static WaitForSeconds Time2 = new WaitForSeconds(2);

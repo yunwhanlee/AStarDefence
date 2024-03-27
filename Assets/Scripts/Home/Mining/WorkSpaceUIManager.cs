@@ -78,6 +78,12 @@ public class WorkSpaceUIManager : MonoBehaviour {
         if(cate == MineCate.Goblin) {
             GoblinSpot.Show(spotDt.IsActive);
 
+            //* ページを移動してから退屈中なら、アニメーション再生
+            if(CurWorkSpace.GoblinSpotDt.IsActive && CurWorkSpace.OreSpotDt.IsActive) {
+                int goblinLvIdx = HM._.wsm.CurWorkSpace.GoblinSpotDt.LvIdx;
+                GoblinChrCtrl.MiningAnim(goblinLvIdx);
+            }
+
             //* ✓非表示
             Array.ForEach(HM._.mnm.GoblinCards, card => card.InitCheck());
 

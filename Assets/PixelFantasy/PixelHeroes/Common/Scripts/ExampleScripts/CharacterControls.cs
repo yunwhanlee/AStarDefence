@@ -44,14 +44,27 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
         /// <summary>
         /// ゴブリン採掘アニメー（ループ）
         /// </summary>
-        public void GoblinMiningAnim() {
+        public void MiningAnim(int goblinLv) {
+            Debug.Log("MiningAnim():: START");
             if(GoblinAnimID != null) StopCoroutine(GoblinAnimID);
-            GoblinAnimID = StartCoroutine(CoGoblinMiningAnim());
+            GoblinAnimID = StartCoroutine(CoMiningAnim(goblinLv));
         }
-        IEnumerator CoGoblinMiningAnim() {
+        IEnumerator CoMiningAnim(int lv) {
+            //* ゴブリンLVによって打つ速度早く
+            WaitForSeconds waitSec = (lv == 0)? Util.Time1 
+                : (lv == 1)? Util.Time0_8
+                : (lv == 2)? Util.Time0_65
+                : (lv == 3)? Util.Time0_5
+                : (lv == 4)? Util.Time0_4
+                : (lv == 5)? Util.Time0_3
+                : Util.Time0_2;
+
             while(true) {
-                Character.Animator.SetTrigger("Slash");
-                yield return Util.Time1;
+                Debug.Log($"MiningAnim():: SLASH:: LV= {lv}");
+                Character.SetState(AnimationState.Slash);
+                yield return waitSec;
+                Character.SetState(AnimationState.Idle);
+                yield return waitSec;
             }
         }
 

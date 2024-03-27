@@ -13,7 +13,7 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts
         
         public void SetState(AnimationState state)
         {
-            foreach (var variable in new[] { "Idle", "Ready", "Walking", "Running", "Crawling", "Jumping", "Climbing", "Blocking", "Dead" })
+            foreach (var variable in new[] { "Idle", "Ready", "Walking", "Running", "Crawling", "Jumping", "Climbing", "Blocking", "Dead", "Slash" })
             {
                 Animator.SetBool(variable, false);
             }
@@ -21,6 +21,7 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts
             switch (state)
             {
                 case AnimationState.Idle: Animator.SetBool("Idle", true); break;
+                case AnimationState.Slash: Animator.SetBool("Slash", true); break;
                 case AnimationState.Ready: Animator.SetBool("Ready", true); break;
                 case AnimationState.Walking: Animator.SetBool("Walking", true); break;
                 case AnimationState.Running: Animator.SetBool("Running", true); break;
@@ -38,6 +39,7 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts
         public AnimationState GetState()
         {
             if (Animator.GetBool("Idle")) return AnimationState.Idle;
+            if (Animator.GetBool("Slash")) return AnimationState.Slash;
             if (Animator.GetBool("Ready")) return AnimationState.Ready;
             if (Animator.GetBool("Walking")) return AnimationState.Walking;
             if (Animator.GetBool("Running")) return AnimationState.Running;

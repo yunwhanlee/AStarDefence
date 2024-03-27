@@ -44,6 +44,11 @@ public class MiningUIManager : MonoBehaviour {
 
         GoblinCards[0].Cnt = 14;
         GoblinCards[1].Cnt = 4;
+        GoblinCards[2].Cnt = 4;
+        GoblinCards[3].Cnt = 4;
+        GoblinCards[4].Cnt = 4;
+        GoblinCards[5].Cnt = 4;
+        GoblinCards[6].Cnt = 4;
 
         OreCards[0].Cnt = 11;
         OreCards[1].Cnt = 4;
@@ -69,7 +74,9 @@ public class MiningUIManager : MonoBehaviour {
     /// カテゴリボタン
     /// </summary>
     /// <param name="idx">0: Goblin, 1: Ore</param>
-    public void OnClickCategoryBtn(int idx) => SetUI(idx);
+    public void OnClickCategoryBtn(int idx) {
+        SetUI(idx);
+    }
     public void OnClickBackBtn() {
         WindowObj.SetActive(false);
     }
