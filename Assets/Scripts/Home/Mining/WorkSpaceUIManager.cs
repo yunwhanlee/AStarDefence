@@ -48,12 +48,18 @@ public class WorkSpaceUIManager : MonoBehaviour {
         //* 読みこんだデータで、退屈のWorkSpaceたちを最新化
         UpdateSpotAndUI();
 
+        //* 採掘中の作業場タイマーを開始
         for(int i = 0; i < WorkSpaces.Length; i++) {
             var ws = WorkSpaces[i];
             bool isSuccess = ws.CheckSpotActive();
             if(isSuccess)
                 HM._.mnm.CorTimerIDs[ws.Id] = StartCoroutine(ws.CoTimerStart(false, isPassedTime: true));
         }
+
+        //* ゲーム始まると見える「作業場１」のゴブリンアニメーションとUIに最新化
+        // （タイマー開始後、作業場１以外のが開始されたらアニメーションとUIが変更になり、作業場１と合わない）
+        OnClickWorkSpacePageBtn(-1);
+        OnClickWorkSpacePageBtn(1);
     }
 
 #region EVENT
@@ -80,8 +86,6 @@ public class WorkSpaceUIManager : MonoBehaviour {
 
         SetCurIdx(dir);
         TitleTxt.text = $"작업장 {CurIdx + 1}";
-
-
         UpdateSpotAndUI();
     }
 
