@@ -50,6 +50,8 @@ public class WorkSpaceUIManager : MonoBehaviour {
     /// <summary> ワークスペース移動 </summary>
     /// <param name="dir">-1：左、1：右</param>
     public void OnClickWorkSpacePageBtn(int dir) {
+        HM._.mtm.SliderBtnAnim.SetTrigger("SlideIn");
+
         SetCurIdx(dir);
         TitleTxt.text = $"작업장 {CurIdx + 1}";
 

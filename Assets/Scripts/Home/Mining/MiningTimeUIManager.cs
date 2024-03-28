@@ -7,6 +7,7 @@ using System;
 
 public class MiningTimeUIManager : MonoBehaviour {
     [field: SerializeField] public Slider Slider {get; set;}
+    [field: SerializeField] public Animator SliderBtnAnim {get; set;}
     [field: SerializeField] public TextMeshProUGUI SliderTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI MiningSpdTxt {get; set;}
     [field: SerializeField] public Image IconFrameImg {get; set;}
