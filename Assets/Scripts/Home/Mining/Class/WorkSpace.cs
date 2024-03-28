@@ -66,6 +66,7 @@ public class WorkSpace {
         var purchaseBtnObj = workAreaTf.GetChild(PURCHASE_BTN).gameObject;
         workSpotGroupObj.SetActive(!IsLock);
         purchaseBtnObj.SetActive(IsLock);
+        HM._.mtm.SliderBtn.SetActive(!IsLock);
 
         //* アンロックされたら、値段表示
         if(IsLock && price != -1)
@@ -84,7 +85,7 @@ public class WorkSpace {
         else 
             HM._.mtm.InitSlider();
 
-        // FinishWork();
+        FinishWork();
     }
 
     /// <summary>

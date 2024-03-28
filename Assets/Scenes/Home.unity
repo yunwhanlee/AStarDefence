@@ -19426,6 +19426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4c55ad78efdb7e4abeb2bbc68276613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <SliderBtn>k__BackingField: {fileID: 6049785380480858970}
   <Slider>k__BackingField: {fileID: 6049785380296762120}
   <SliderBtnAnim>k__BackingField: {fileID: 6049785380480858977}
   <SliderTxt>k__BackingField: {fileID: 6049785381881133433}
@@ -19994,6 +19995,7 @@ MonoBehaviour:
           LvIdx: 0
         MiningMax: 0
         MiningTime: 0
+  <PassedSec>k__BackingField: 0
   <SelectedStage>k__BackingField: 0
   <SelectedDiff>k__BackingField: 0
 --- !u!1 &1056780482
