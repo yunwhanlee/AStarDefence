@@ -115,11 +115,11 @@ public class WorkSpace {
     }
 
     public IEnumerator CoTimerStart() {
-        WorkSpace curWS = HM._.wsm.CurWorkSpace;
+        // WorkSpace curWS = (Id == HM._.wsm.CurWorkSpace.Id)? HM._.wsm.CurWorkSpace : this;
 
         //* ゴブリンと鉱石のレベルによる、速度と時間を適用する変数用意
-        int goblinLvIdx = curWS.GoblinSpotDt.LvIdx;
-        int oreLvIdx = curWS.OreSpotDt.LvIdx;
+        int goblinLvIdx = GoblinSpotDt.LvIdx;
+        int oreLvIdx = OreSpotDt.LvIdx;
         float spdPer = HM._.mnm.GoblinDataSO.Datas[goblinLvIdx].SpeedPer;
         int time = HM._.mnm.OreDataSO.Datas[oreLvIdx].TimeSec;
 
@@ -128,8 +128,8 @@ public class WorkSpace {
         time -= decSec;
 
         //* WorkSpace毎に時間データ 設定
-        curWS.MiningMax = time;
-        curWS.MiningTime = time;
+        MiningMax = time;
+        MiningTime = time;
         Debug.Log($"CoTimerStart():: goblin SpdPer= {spdPer}, time= {time}, decSec= {decSec}");
 
         Sprite[] oreSprs = HM._.mnm.OreDataSO.Datas[oreLvIdx].Sprs;
@@ -137,24 +137,24 @@ public class WorkSpace {
         HM._.wsm.GoblinChrCtrl.MiningAnim(goblinLvIdx);
 
         //* タイマー開始
-        while(0 < curWS.MiningTime) {
+        while(0 < MiningTime) {
             // Debug.Log($"curWS.Id= {curWS.Id}, time= {curWS.MiningTime} / {curWS.MiningMax}");
             //* 時間表示
-            curWS.MiningTime -= 1;
-            int sec = curWS.MiningTime % 60;
-            int min = curWS.MiningTime / 60;
+            MiningTime -= 1;
+            int sec = MiningTime % 60;
+            int min = MiningTime / 60;
             int hour = min / 60;
             string hourStr = (hour == 0)? "" : $"{hour:00} : ";
 
             //* 現在見ているWorkSpaceページだけ 最新化
             if(Id == HM._.wsm.CurIdx) {
                 // スライダー UI
-                HM._.mtm.SetTimerSlider($"{hourStr} {min:00} : {sec:00}", (float)(curWS.MiningMax - curWS.MiningTime) / curWS.MiningMax);
+                HM._.mtm.SetTimerSlider($"{hourStr} {min:00} : {sec:00}", (float)(MiningMax - MiningTime) / MiningMax);
 
                 // ORE 壊れるイメージ変更
                 HM._.wsm.OreSpot.OreImg.sprite = oreSprs[
-                    curWS.MiningTime < (curWS.MiningMax * 0.3f)? (int)ORE_SPRS.PIECE
-                    : curWS.MiningTime <= (curWS.MiningMax * 0.6f)? (int)ORE_SPRS.HALF
+                    MiningTime < (MiningMax * 0.3f)? (int)ORE_SPRS.PIECE
+                    : MiningTime <= (MiningMax * 0.6f)? (int)ORE_SPRS.HALF
                     : (int)ORE_SPRS.DEF
                 ];
             }

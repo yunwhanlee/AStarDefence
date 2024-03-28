@@ -32,7 +32,7 @@ public class WorkSpaceUIManager : MonoBehaviour {
     [SerializeField] WorkSpace[] workSpaces; public WorkSpace[] WorkSpaces {
         get => DM._.DB.MiningData.WorkSpaces;
     }
-    [field: SerializeField] public WorkSpace CurWorkSpace {
+    [SerializeField] public WorkSpace CurWorkSpace {
         get => WorkSpaces[CurIdx];
     }
 
@@ -46,7 +46,16 @@ public class WorkSpaceUIManager : MonoBehaviour {
 
     void Start() {
         UpdateSpotAndUI();
-        HM._.mnm.CanStartMining();
+        // HM._.mnm.CanStartMining();
+
+        for(int i = 0; i < WorkSpaces.Length; i++) {
+            //* 採掘開始
+            bool isSuccess = WorkSpaces[i].StartMining(i++);
+            if(isSuccess) {
+                Debug.Log($"OnClickArrangeBtn():: isSuccess= {isSuccess}");
+                WorkSpaces[i].CorTimerID = StartCoroutine(WorkSpaces[i].CoTimerStart());
+            }
+        }
     }
 
 #region EVENT
