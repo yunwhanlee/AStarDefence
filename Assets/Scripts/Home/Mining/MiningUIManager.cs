@@ -148,7 +148,7 @@ public class MiningUIManager : MonoBehaviour {
         WorkSpace curWS = HM._.wsm.CurWorkSpace;
 
         //* 採掘開始
-        bool isSuccess = curWS.StartMining(HM._.wsm.CurIdx);
+        bool isSuccess = curWS.StartMining();
 
         if(isSuccess) {
             Debug.Log($"OnClickArrangeBtn():: isSuccess= {isSuccess}");

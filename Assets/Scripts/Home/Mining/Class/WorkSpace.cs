@@ -91,15 +91,13 @@ public class WorkSpace {
     /// <summary>
     /// 採掘開始(Mining)
     /// </summary>
-    /// <param name="idx">現在表示しているWorkSpaceIdx</param>
-    /// <returns>OREのレベルによって、掛かる時間を返す(-1なら、Falseという意味)</returns>
-    public bool StartMining(int idx) {
+    public bool StartMining() {
         if(!GoblinSpotDt.IsActive) return false;
         if(!OreSpotDt.IsActive) return false;
         
         //* タイマー保存
         TimeSpan timestamp = DateTime.UtcNow - new DateTime(1970,1,1,0,0,0);
-        string key = $"WorkSpace{idx + 1}";
+        string key = $"WorkSpace{Id + 1}";
 
         //* 過去に保存した時間（無かったら、現在の時間に初期化）
         int past = PlayerPrefs.GetInt(key, defaultValue: (int)timestamp.TotalSeconds);
@@ -138,7 +136,7 @@ public class WorkSpace {
 
         //* タイマー開始
         while(0 < MiningTime) {
-            // Debug.Log($"curWS.Id= {curWS.Id}, time= {curWS.MiningTime} / {curWS.MiningMax}");
+            Debug.Log($"curWS.Id= {Id}, time= {MiningTime} / {MiningMax}");
             //* 時間表示
             MiningTime -= 1;
             int sec = MiningTime % 60;
