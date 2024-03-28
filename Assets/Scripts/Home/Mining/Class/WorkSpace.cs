@@ -150,7 +150,7 @@ public class WorkSpace {
                     : (int)ORE_SPRS.DEF
                 ];
             }
-            yield return Util.RealTime1;
+            yield return Util.Time1;
         }
 
         //* 採掘完了！

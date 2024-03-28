@@ -45,7 +45,6 @@ public class WorkSpaceUIManager : MonoBehaviour {
     [field: SerializeField] public OreSpot OreSpot;
 
     void Start() {
-        
         //* 読みこんだデータで、退屈のWorkSpaceたちを最新化
         UpdateSpotAndUI();
 
