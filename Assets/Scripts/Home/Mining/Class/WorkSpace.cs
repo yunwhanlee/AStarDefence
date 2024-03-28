@@ -48,7 +48,6 @@ public class WorkSpace {
     public SpotData OreSpotDt;
     public int MiningMax;
     public int MiningTime;
-    public Coroutine CorTimerID;
 
     public WorkSpace(int id, bool isLock, int lvIdx) {
         Id = id;
@@ -85,36 +84,20 @@ public class WorkSpace {
         else 
             HM._.mtm.InitSlider();
 
-        FinishWork();
+        // FinishWork();
     }
 
     /// <summary>
-    /// 採掘開始(Mining)
+    /// 採掘準備（ゴブリンと鉱石の配置状況）を確認
     /// </summary>
-    public bool StartMining() {
+    public bool CheckSpotActive() {
         if(!GoblinSpotDt.IsActive) return false;
         if(!OreSpotDt.IsActive) return false;
         
-        //* タイマー保存
-        TimeSpan timestamp = DateTime.UtcNow - new DateTime(1970,1,1,0,0,0);
-        string key = $"WorkSpace{Id + 1}";
-
-        //* 過去に保存した時間（無かったら、現在の時間に初期化）
-        int past = PlayerPrefs.GetInt(key, defaultValue: (int)timestamp.TotalSeconds);
-
-        //* WorkSpace{N}キー 時間を最新化
-        PlayerPrefs.SetInt(key, (int)timestamp.TotalSeconds);
-
-        int passedSec = (int)timestamp.TotalSeconds - past;
-        Debug.Log("StartMining():: passedSec=> " + passedSec);
-
-        // HM._.wsm.GoblinChrCtrl.GoblinMiningAnim();
         return true;
     }
 
-    public IEnumerator CoTimerStart() {
-        // WorkSpace curWS = (Id == HM._.wsm.CurWorkSpace.Id)? HM._.wsm.CurWorkSpace : this;
-
+    public IEnumerator CoTimerStart(bool isSwitchOre = false, bool isPassedTime = false) {
         //* ゴブリンと鉱石のレベルによる、速度と時間を適用する変数用意
         int goblinLvIdx = GoblinSpotDt.LvIdx;
         int oreLvIdx = OreSpotDt.LvIdx;
@@ -125,9 +108,17 @@ public class WorkSpace {
         int decSec = Mathf.RoundToInt(time * (spdPer - 1));
         time -= decSec;
 
-        //* WorkSpace毎に時間データ 設定
-        MiningMax = time;
-        MiningTime = time;
+        //* 残る時間（保存した時間が０ではなかったら、まだ仕事が進んでいる中）
+        MiningMax = (isSwitchOre || MiningMax == 0)? time : MiningMax;
+        MiningTime = (isSwitchOre || MiningTime == 0)? time : MiningTime;
+
+        //* アプリを再起動して、経過時間を減る
+        if(isPassedTime) {
+            int passSec = DM._.PassedSec;
+            HM._.hui.ShowMsgNotice($"{Util.ConvertTimeFormat(passSec)}초가 경과했습니다.");
+            MiningTime -= passSec;
+        }
+
         Debug.Log($"CoTimerStart():: goblin SpdPer= {spdPer}, time= {time}, decSec= {decSec}");
 
         Sprite[] oreSprs = HM._.mnm.OreDataSO.Datas[oreLvIdx].Sprs;
@@ -137,17 +128,20 @@ public class WorkSpace {
         //* タイマー開始
         while(0 < MiningTime) {
             Debug.Log($"curWS.Id= {Id}, time= {MiningTime} / {MiningMax}");
+
+            //* 仕事がもう終わったら、ループをすぐ出る
+            if(IsFinishWork) {
+                break;
+            }
+
             //* 時間表示
             MiningTime -= 1;
-            int sec = MiningTime % 60;
-            int min = MiningTime / 60;
-            int hour = min / 60;
-            string hourStr = (hour == 0)? "" : $"{hour:00} : ";
+            string timeFormat = Util.ConvertTimeFormat(MiningTime);
 
             //* 現在見ているWorkSpaceページだけ 最新化
             if(Id == HM._.wsm.CurIdx) {
                 // スライダー UI
-                HM._.mtm.SetTimerSlider($"{hourStr} {min:00} : {sec:00}", (float)(MiningMax - MiningTime) / MiningMax);
+                HM._.mtm.SetTimerSlider(timeFormat, (float)(MiningMax - MiningTime) / MiningMax);
 
                 // ORE 壊れるイメージ変更
                 HM._.wsm.OreSpot.OreImg.sprite = oreSprs[
@@ -156,11 +150,10 @@ public class WorkSpace {
                     : (int)ORE_SPRS.DEF
                 ];
             }
-
-            yield return Util.Time1;
+            yield return Util.RealTime1;
         }
 
-        //* リワード受け取れる
+        //* 採掘完了！
         IsFinishWork = true;
         FinishWork();
     }
@@ -171,8 +164,12 @@ public class WorkSpace {
     public void FinishWork() {
         //* 現在見ているWorkSpaceではないと、実行しない
         if(Id != HM._.wsm.CurIdx) return;
+        Debug.Log($"FinishWork():: WorkSpace Id= {Id}");
 
         if(IsFinishWork) {
+            Debug.Log($"FinishWork():: Award Reward");
+            MiningMax = 0;
+            MiningTime = 0;
             HM._.wsm.OreSpot.OreImg.sprite = HM._.rwm.PresentSpr;
             HM._.mtm.RewardAuraEF.SetActive(true);
             HM._.mtm.SetTimerSlider("보상받기", 1);

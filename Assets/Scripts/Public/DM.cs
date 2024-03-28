@@ -48,9 +48,11 @@ public class DB {
 public class DM : MonoBehaviour {
     public static DM _ {get; private set;}
     const string DB_KEY = "DB";
+    const string PASSEDTIME_KEY = "PASSED_TIME";
     //* ★データベース
     [field: SerializeField] public bool IsReset {get; set;}
     [field: SerializeField] public DB DB {get; private set;}
+    [field: SerializeField] public int PassedSec {get; set;}
 
     //* Global Values
     [field: SerializeField] public int SelectedStage {get; set;}
@@ -99,6 +101,12 @@ public class DM : MonoBehaviour {
 #region SAVE
 /// -----------------------------------------------------------------------------------------------------------------
     public void Save() {
+        //* 経過時間 保存
+        // 현재 시간을 UTC 기준으로 가져와서 1970년 1월 1일 0시 0분 0초와의 시간 차이를 구합니다.
+        TimeSpan timestamp = DateTime.UtcNow - new DateTime(1970,1,1,0,0,0);
+        // 시간 차이를 정수형으로 변환하여 PlayerPrefs에 저장합니다.
+        PlayerPrefs.SetInt(PASSEDTIME_KEY, (int)timestamp.TotalSeconds);
+
         //* Serialize To Json
         PlayerPrefs.SetString(DB_KEY, JsonUtility.ToJson(DB, true)); 
         //* Print
@@ -110,6 +118,13 @@ public class DM : MonoBehaviour {
 #region LOAD
 /// -----------------------------------------------------------------------------------------------------------------
     public DB Load() {
+        //* 経過時間 ロード
+        // 현재 시간을 UTC 기준으로 가져와서 1970년 1월 1일 0시 0분 0초와의 시간 차이를 구합니다.
+        TimeSpan timestamp = DateTime.UtcNow - new DateTime(1970,1,1,0,0,0);
+        // 앱을 최초로 시작했을 때와의 시간 차이를 계산하여 PassedSec에 저장합니다.
+        int past = PlayerPrefs.GetInt(PASSEDTIME_KEY, defaultValue: (int)timestamp.TotalSeconds);
+        PassedSec = (int)timestamp.TotalSeconds - past;
+
         //* (BUG)最初の実行だったら、ロードデータがないから、リセットして初期化。
         if(!PlayerPrefs.HasKey(DB_KEY)){
             return null;

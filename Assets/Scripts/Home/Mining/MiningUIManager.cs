@@ -12,6 +12,8 @@ public enum MineCate {
 
 public class MiningUIManager : MonoBehaviour {
     const int MERGE_CNT = 5;
+    public Coroutine[] CorTimerIDs = new Coroutine[5];
+
     [field: SerializeField] public MineCate CurCategory {get; set;}
 
     [field: SerializeField] public MiningCard[] GoblinCards {get; private set;}
@@ -81,7 +83,7 @@ public class MiningUIManager : MonoBehaviour {
                 HM._.hui.ShowAgainAskMsg("(주의)\n현재 배치된 광석이 사라집니다.");
                 HM._.hui.OnClickAskConfirmAction = () => {
                     Arrange(CurCategory);
-                    CanStartMining();
+                    CanStartMining(isSwitchOre: true);
                 };
                 return;
             }
@@ -108,7 +110,6 @@ public class MiningUIManager : MonoBehaviour {
         }
 
         //* 空の場合
-        SM._.SfxPlay(SM.SFX.ItemPickSFX);
         Arrange(CurCategory);
         CanStartMining();
     }
@@ -144,15 +145,15 @@ public class MiningUIManager : MonoBehaviour {
     /// <summary>
     /// 採掘開始
     /// </summary>
-    public void CanStartMining() {
+    public void CanStartMining(bool isSwitchOre = false) {
         WorkSpace curWS = HM._.wsm.CurWorkSpace;
 
         //* 採掘開始
-        bool isSuccess = curWS.StartMining();
+        bool isSuccess = curWS.CheckSpotActive();
 
         if(isSuccess) {
             Debug.Log($"OnClickArrangeBtn():: isSuccess= {isSuccess}");
-            curWS.CorTimerID = StartCoroutine(curWS.CoTimerStart());
+            CorTimerIDs[curWS.Id] = StartCoroutine(curWS.CoTimerStart(isSwitchOre));
         }
     }
 
@@ -239,14 +240,15 @@ public class MiningUIManager : MonoBehaviour {
             HM._.wsm.OreSpot.OreImg.sprite = OreDataSO.Datas[lvIdx].Sprs[(int)ORE_SPRS.DEF]; // OreSprs[lvIdx];
         }
 
-        StopCorTimerID();
         WindowObj.SetActive(false);
+        SM._.SfxPlay(SM.SFX.ItemPickSFX);
+        StopCorTimerID(HM._.wsm.CurWorkSpace.Id);
         HM._.hui.ShowMsgNotice($"{(cate == MineCate.Goblin? "고블린" : "광석")} 배치완료!");
     }
 
-    private void StopCorTimerID() {
-        if(HM._.wsm.CurWorkSpace.CorTimerID != null)
-            StopCoroutine(HM._.wsm.CurWorkSpace.CorTimerID);
+    private void StopCorTimerID(int idx) {
+        if(CorTimerIDs[idx] != null)
+            StopCoroutine(CorTimerIDs[idx]);
     }
 
     private void Remove(MineCate cate) {
@@ -254,7 +256,7 @@ public class MiningUIManager : MonoBehaviour {
         SM._.SfxPlay(SM.SFX.DeleteTowerSFX);
 
         //* Timer Off
-        StopCorTimerID();
+        StopCorTimerID(HM._.wsm.CurWorkSpace.Id);
 
         //* Goblin Anim
         HM._.wsm.GoblinChrCtrl.StopGoblinAnim();

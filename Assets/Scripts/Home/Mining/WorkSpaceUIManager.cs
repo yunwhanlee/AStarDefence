@@ -45,15 +45,15 @@ public class WorkSpaceUIManager : MonoBehaviour {
     [field: SerializeField] public OreSpot OreSpot;
 
     void Start() {
+        
         //* 読みこんだデータで、退屈のWorkSpaceたちを最新化
         UpdateSpotAndUI();
+
         for(int i = 0; i < WorkSpaces.Length; i++) {
             var ws = WorkSpaces[i];
-            
-            bool isSuccess = ws.StartMining();
-
+            bool isSuccess = ws.CheckSpotActive();
             if(isSuccess)
-                ws.CorTimerID = StartCoroutine(ws.CoTimerStart());
+                HM._.mnm.CorTimerIDs[ws.Id] = StartCoroutine(ws.CoTimerStart(false, isPassedTime: true));
         }
     }
 

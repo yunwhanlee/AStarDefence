@@ -3563,10 +3563,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CurCategory>k__BackingField: 0
   <GoblinCards>k__BackingField:
-  - id: 0
+  - Cate: 0
+    Id: 0
     Name: "\uB3CC\uACE1\uAD2D\uC774"
     cnt: 0
-    Cnt: 0
     IsChecked: 0
     Button: {fileID: 8935455298302855453}
     CntTxt: {fileID: 8935455297525682937}
@@ -3574,10 +3574,10 @@ MonoBehaviour:
     Outline: {fileID: 8935455296646069794}
     CheckMark: {fileID: 283821693}
     Dim: {fileID: 1292219792}
-  - id: 1
+  - Cate: 0
+    Id: 0
     Name: "\uAD6C\uB9AC\uACE1\uAD2D\uC774"
     cnt: 0
-    Cnt: 0
     IsChecked: 0
     Button: {fileID: 8935455297123409440}
     CntTxt: {fileID: 255487705}
@@ -3585,10 +3585,10 @@ MonoBehaviour:
     Outline: {fileID: 8935455297540337257}
     CheckMark: {fileID: 1849252247}
     Dim: {fileID: 941099642}
-  - id: 2
+  - Cate: 0
+    Id: 0
     Name: "\uC740\uACE1\uAD2D\uC774"
     cnt: 0
-    Cnt: 0
     IsChecked: 0
     Button: {fileID: 8935455297074986071}
     CntTxt: {fileID: 1690847123}
@@ -3596,10 +3596,10 @@ MonoBehaviour:
     Outline: {fileID: 8935455298066360566}
     CheckMark: {fileID: 1126971477}
     Dim: {fileID: 989949440}
-  - id: 3
+  - Cate: 0
+    Id: 0
     Name: "\uD669\uAE08\uACE1\uAD2D\uC774"
     cnt: 0
-    Cnt: 0
     IsChecked: 0
     Button: {fileID: 8935455297963174960}
     CntTxt: {fileID: 1478335821}
@@ -3607,10 +3607,10 @@ MonoBehaviour:
     Outline: {fileID: 8935455296705564121}
     CheckMark: {fileID: 42721299}
     Dim: {fileID: 1267091036}
-  - id: 4
+  - Cate: 0
+    Id: 0
     Name: "\uC740\uBE5B\uACE0\uBE14\uB9B0"
     cnt: 0
-    Cnt: 0
     IsChecked: 0
     Button: {fileID: 8935455298318041295}
     CntTxt: {fileID: 225458960}
@@ -3618,10 +3618,10 @@ MonoBehaviour:
     Outline: {fileID: 8935455296806233360}
     CheckMark: {fileID: 1110840898}
     Dim: {fileID: 1308394029}
-  - id: 5
+  - Cate: 0
+    Id: 0
     Name: "\uAE08\uBE5B\uACE0\uBE14\uB9B0"
     cnt: 0
-    Cnt: 0
     IsChecked: 0
     Button: {fileID: 8935455296797629747}
     CntTxt: {fileID: 1301431274}
@@ -3629,10 +3629,10 @@ MonoBehaviour:
     Outline: {fileID: 8935455296921143200}
     CheckMark: {fileID: 26589684}
     Dim: {fileID: 672494067}
-  - id: 6
+  - Cate: 0
+    Id: 0
     Name: "\uC545\uB9C8\uACE0\uBE14\uB9B0"
     cnt: 0
-    Cnt: 0
     IsChecked: 0
     Button: {fileID: 8935455297893239680}
     CntTxt: {fileID: 1465628949}
@@ -3641,10 +3641,10 @@ MonoBehaviour:
     CheckMark: {fileID: 917087865}
     Dim: {fileID: 1413777018}
   <OreCards>k__BackingField:
-  - id: 0
+  - Cate: 0
+    Id: 0
     Name: "\uD759\uB369\uC774"
     cnt: 0
-    Cnt: 0
     IsChecked: 0
     Button: {fileID: 1769145518}
     CntTxt: {fileID: 162791121}
@@ -3652,10 +3652,10 @@ MonoBehaviour:
     Outline: {fileID: 541901926}
     CheckMark: {fileID: 293815416}
     Dim: {fileID: 1506365823}
-  - id: 1
+  - Cate: 0
+    Id: 0
     Name: "\uB3CC\uB369\uC774"
     cnt: 0
-    Cnt: 0
     IsChecked: 0
     Button: {fileID: 19929990}
     CntTxt: {fileID: 1601442490}
@@ -3663,10 +3663,10 @@ MonoBehaviour:
     Outline: {fileID: 403731229}
     CheckMark: {fileID: 638442093}
     Dim: {fileID: 1549396221}
-  - id: 2
+  - Cate: 0
+    Id: 0
     Name: "\uAD6C\uB9AC\uAD11\uC11D"
     cnt: 0
-    Cnt: 0
     IsChecked: 0
     Button: {fileID: 780620490}
     CntTxt: {fileID: 635817154}
@@ -3674,10 +3674,10 @@ MonoBehaviour:
     Outline: {fileID: 1848753768}
     CheckMark: {fileID: 229535187}
     Dim: {fileID: 1575416122}
-  - id: 3
+  - Cate: 0
+    Id: 0
     Name: "\uC740\uAD11\uC11D"
     cnt: 0
-    Cnt: 0
     IsChecked: 0
     Button: {fileID: 612251543}
     CntTxt: {fileID: 1593105831}
@@ -3685,10 +3685,10 @@ MonoBehaviour:
     Outline: {fileID: 1361088744}
     CheckMark: {fileID: 408778077}
     Dim: {fileID: 1934986738}
-  - id: 4
+  - Cate: 0
+    Id: 0
     Name: "\uAE08\uAD11\uC11D"
     cnt: 0
-    Cnt: 0
     IsChecked: 0
     Button: {fileID: 1072702783}
     CntTxt: {fileID: 205272129}
@@ -3696,10 +3696,10 @@ MonoBehaviour:
     Outline: {fileID: 1588841843}
     CheckMark: {fileID: 1599831212}
     Dim: {fileID: 1240863374}
-  - id: 5
+  - Cate: 0
+    Id: 0
     Name: "\uC0AC\uD30C\uC774\uC5B4"
     cnt: 0
-    Cnt: 0
     IsChecked: 0
     Button: {fileID: 1374076616}
     CntTxt: {fileID: 634991106}
@@ -3707,10 +3707,10 @@ MonoBehaviour:
     Outline: {fileID: 1833609933}
     CheckMark: {fileID: 704091451}
     Dim: {fileID: 1690508270}
-  - id: 6
+  - Cate: 0
+    Id: 0
     Name: "\uC544\uB2E4\uB9CC\uD2F0\uC6C0"
     cnt: 0
-    Cnt: 0
     IsChecked: 0
     Button: {fileID: 1560578067}
     CntTxt: {fileID: 1617683759}
@@ -3718,10 +3718,10 @@ MonoBehaviour:
     Outline: {fileID: 721410765}
     CheckMark: {fileID: 883122227}
     Dim: {fileID: 137763137}
-  - id: 7
+  - Cate: 0
+    Id: 0
     Name: "\uB8E8\uBE44"
     cnt: 0
-    Cnt: 0
     IsChecked: 0
     Button: {fileID: 1145968300}
     CntTxt: {fileID: 1125951655}
@@ -3729,10 +3729,10 @@ MonoBehaviour:
     Outline: {fileID: 175107777}
     CheckMark: {fileID: 2065665667}
     Dim: {fileID: 1926302715}
-  - id: 8
+  - Cate: 0
+    Id: 0
     Name: "\uD751\uC694\uC11D"
     cnt: 0
-    Cnt: 0
     IsChecked: 0
     Button: {fileID: 691288768}
     CntTxt: {fileID: 155452625}
@@ -13643,6 +13643,53 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &703724384
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 703724386}
+  - component: {fileID: 703724385}
+  m_Layer: 0
+  m_Name: Utility
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &703724385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703724384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c05015e2828418340910f5ff36375296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <BlinkMt>k__BackingField: {fileID: 2100000, guid: eb05d75cf559b2846b3b85072f964f55, type: 3}
+  <DefaultMt>k__BackingField: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  <RedMt>k__BackingField: {fileID: 2100000, guid: 2c695789525206142a73bd4822947814, type: 2}
+--- !u!4 &703724386
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703724384}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &704091449
 GameObject:
   m_ObjectHideFlags: 0
@@ -107607,6 +107654,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1537404895}
+  - {fileID: 703724386}
   - {fileID: 856516909}
   - {fileID: 1055846980}
   - {fileID: 927795954}

@@ -36,6 +36,15 @@ public class Util : MonoBehaviour {
 
     void Awake() => _ = this;
 
+    public static string ConvertTimeFormat(int timeSec) {
+        int sec = timeSec % 60;
+        int min = timeSec / 60;
+        int hour = min / 60;
+        string hourStr = (hour == 0)? "" : $"{hour:00} : ";
+
+        return $"{hourStr} {min:00} : {sec:00}";
+    }
+
     public void SetDefMt(SpriteRenderer sprRdr) => sprRdr.material = DefaultMt;
     public void SetRedMt(SpriteRenderer sprRdr) => sprRdr.material = RedMt;
     public bool CheckCriticalDmg(Tower myTower) {

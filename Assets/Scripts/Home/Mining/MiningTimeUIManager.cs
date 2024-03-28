@@ -6,17 +6,13 @@ using UnityEngine.UI;
 using System;
 
 public class MiningTimeUIManager : MonoBehaviour {
+
     [field: SerializeField] public Slider Slider {get; set;}
     [field: SerializeField] public Animator SliderBtnAnim {get; set;}
     [field: SerializeField] public TextMeshProUGUI SliderTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI MiningSpdTxt {get; set;}
     [field: SerializeField] public Image IconFrameImg {get; set;}
     [field: SerializeField] public GameObject RewardAuraEF {get; set;}
-
-    void Start() {
-        //TODO データロードしてから、スライダーUI表示を最新化する必要ある
-        InitSlider();
-    }
 
 #region EVENT
     public void OnClickTimerSliderBtn() {
@@ -60,6 +56,7 @@ public class MiningTimeUIManager : MonoBehaviour {
     }
 
     public void SetTimerSlider(string timeTxt, float value) {
+        Debug.Log($"SetTimerSlider({timeTxt}, {value}):: ");
         SliderTxt.text = $"{timeTxt}";
         Slider.value = value;
     }
