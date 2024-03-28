@@ -35,7 +35,7 @@ public class MiningTimeUIManager : MonoBehaviour {
                 HM._.hui.ShowAgainAskMsg("광고시청하고 바로 완료하시겠습니까?");
                 HM._.hui.OnClickAskConfirmAction = () => {
                     SM._.SfxPlay(SM.SFX.CompleteSFX);
-                    curWS.MiningTime = 3;
+                    curWS.MiningTime = 0;
                 };
             }
             //* 仕事していない場合

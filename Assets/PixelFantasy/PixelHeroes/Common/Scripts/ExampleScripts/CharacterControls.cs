@@ -21,9 +21,7 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
         private int _inputX, _inputY;
         private float _activityTime;
         
-        public void Awake() {
-            SpawnAnim();
-        }
+        public void Awake() => SpawnAnim();
 
         private IEnumerator BounceAnim() {
             Character.SetState(AnimationState.Jumping);

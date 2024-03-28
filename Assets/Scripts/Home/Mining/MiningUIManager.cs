@@ -108,7 +108,6 @@ public class MiningUIManager : MonoBehaviour {
         }
 
         //* 空の場合
-        SM._.SfxPlay(SM.SFX.ItemPickSFX);
         Arrange(CurCategory);
         CanStartMining();
     }
@@ -144,7 +143,7 @@ public class MiningUIManager : MonoBehaviour {
     /// <summary>
     /// 採掘開始
     /// </summary>
-    private void CanStartMining() {
+    public void CanStartMining() {
         WorkSpace curWS = HM._.wsm.CurWorkSpace;
 
         //* 採掘開始
@@ -241,6 +240,7 @@ public class MiningUIManager : MonoBehaviour {
 
         StopCorTimerID();
         WindowObj.SetActive(false);
+        SM._.SfxPlay(SM.SFX.ItemPickSFX);
         HM._.hui.ShowMsgNotice($"{(cate == MineCate.Goblin? "고블린" : "광석")} 배치완료!");
     }
 

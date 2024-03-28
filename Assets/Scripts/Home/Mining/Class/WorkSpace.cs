@@ -57,6 +57,9 @@ public class WorkSpace {
         OreSpotDt = new SpotData(false, lvIdx);
     }
 
+    /// <summary>
+    /// UI最新化（現在状況に関して）
+    /// </summary>
     public void UpdateUI(Transform workAreaTf, int price = -1) {
         //* 作業場（アンロック Or Not）
         const int WORK_SPOT = 0, PURCHASE_BTN = 1;

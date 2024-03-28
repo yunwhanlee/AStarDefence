@@ -44,8 +44,9 @@ public class WorkSpaceUIManager : MonoBehaviour {
     [field: SerializeField] public GoblinSpot GoblinSpot;
     [field: SerializeField] public OreSpot OreSpot;
 
-    void Awake() {
-
+    void Start() {
+        UpdateSpotAndUI();
+        HM._.mnm.CanStartMining();
     }
 
 #region EVENT
@@ -55,6 +56,7 @@ public class WorkSpaceUIManager : MonoBehaviour {
         HM._.hui.OnClickAskConfirmAction = () => {
             SM._.SfxPlay(SM.SFX.CompleteSFX);
             CurWorkSpace.IsLock = false;
+            //* 最新化
             CurWorkSpace.UpdateUI(HM._.wsm.WorkAreaTf);
         };
     }
@@ -65,15 +67,15 @@ public class WorkSpaceUIManager : MonoBehaviour {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         HM._.mtm.SliderBtnAnim.SetTrigger("SlideIn");
 
+        //* ゴブリンが有ったら、以前のアニメーションを一旦停止
+        if(HM._.wsm.CurWorkSpace.GoblinSpotDt.IsActive)
+            HM._.wsm.GoblinChrCtrl.StopGoblinAnim();
+
         SetCurIdx(dir);
         TitleTxt.text = $"작업장 {CurIdx + 1}";
 
-        //* 配置状態 表示
-        ActiveSpot(MineCate.Goblin, CurWorkSpace.GoblinSpotDt);
-        ActiveSpot(MineCate.Ore, CurWorkSpace.OreSpotDt);
 
-        //* 作業場（アンロック Or Not）
-        CurWorkSpace.UpdateUI(WorkAreaTf, GetPrice());
+        UpdateSpotAndUI();
     }
 
     /// <summary> ホームの場所⊕ボタン </summary>
@@ -107,6 +109,14 @@ public class WorkSpaceUIManager : MonoBehaviour {
             CurIdx = 0;
         else if(CurIdx < 0)
             CurIdx = WorkSpaces.Length - 1;
+    }
+
+    private void UpdateSpotAndUI() {
+        //* 配置状態 表示
+        ActiveSpot(MineCate.Goblin, CurWorkSpace.GoblinSpotDt);
+        ActiveSpot(MineCate.Ore, CurWorkSpace.OreSpotDt);
+        //* 最新化
+        CurWorkSpace.UpdateUI(WorkAreaTf, GetPrice());
     }
 
     public void ActiveSpot(MineCate cate, SpotData spotDt) {

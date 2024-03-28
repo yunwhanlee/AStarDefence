@@ -157,7 +157,7 @@ public class DM : MonoBehaviour {
         };
 
         DB.MiningData.OreCardCnts = new int[9] {
-            0, 0, 0, 0, 0, 0, 0, 0, 0
+            5, 4, 3, 2, 4, 2, 0, 0, 0
         };
 
         DB.MiningData.WorkSpaces = new WorkSpace[5];
