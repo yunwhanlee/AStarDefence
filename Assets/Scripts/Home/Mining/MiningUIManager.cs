@@ -145,12 +145,14 @@ public class MiningUIManager : MonoBehaviour {
     /// 採掘開始
     /// </summary>
     private void CanStartMining() {
+        WorkSpace curWS = HM._.wsm.CurWorkSpace;
+
         //* 採掘開始
-        bool isSuccess = HM._.wsm.CurWorkSpace.StartMining(HM._.wsm.CurIdx);
+        bool isSuccess = curWS.StartMining(HM._.wsm.CurIdx);
 
         if(isSuccess) {
             Debug.Log($"OnClickArrangeBtn():: isSuccess= {isSuccess}");
-            HM._.wsm.CurWorkSpace.CorMiningID = StartCoroutine(HM._.wsm.CurWorkSpace.CoTimerStart());
+            curWS.CorMiningID = StartCoroutine(curWS.CoTimerStart());
         }
     }
 
@@ -248,7 +250,7 @@ public class MiningUIManager : MonoBehaviour {
             StopCoroutine(HM._.wsm.CurWorkSpace.CorMiningID);
 
         //* Goblin Anim
-        HM._.wsm.GoblinChrCtrl.GoblinStopAnim();
+        HM._.wsm.GoblinChrCtrl.StopGoblinAnim();
 
         //* スライダー UI 初期化
         HM._.mtm.InitSlider();

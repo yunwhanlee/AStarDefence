@@ -29,7 +29,14 @@ public struct SpotData {
 public class WorkSpace {
     public int Id;
     public bool IsLock;
-    public bool IsFinishMining; //* 採掘完了のトリガー
+    [SerializeField] bool isFinishWork; public bool IsFinishWork { //* 採掘完了のトリガー
+        get => isFinishWork;
+        set {
+            isFinishWork = value;
+            if(value == true)
+                HM._.hui.ShowMsgNotice($"작업장{Id + 1}의 채광이 완료되었습니다!");
+        }
+    } 
     public SpotData GoblinSpotDt;
     public SpotData OreSpotDt;
     public int MiningMax;
@@ -49,13 +56,20 @@ public class WorkSpace {
         if(IsLock && price != -1)
         purchaseBtnObj.GetComponentInChildren<TextMeshProUGUI>().text = $"{price}";
 
-        //* スライダーUI最新化
-        if(GoblinSpotDt.IsActive && OreSpotDt.IsActive)
+        //* 現在採掘中なら
+        if(GoblinSpotDt.IsActive && OreSpotDt.IsActive) {
+            //* ゴブリンのMiningアニメー
+            if(HM._.wsm.GoblinSpot.DisplayObj.activeSelf) {
+                int goblinLvIdx = HM._.wsm.CurWorkSpace.GoblinSpotDt.LvIdx;
+                HM._.wsm.GoblinChrCtrl.MiningAnim(goblinLvIdx);
+            }
+            //* スライダーUI最新化
             HM._.mtm.SetTimer(isOn: true);
+        }
         else 
             HM._.mtm.InitSlider();
 
-        HM._.mtm.RewardAuraEF.SetActive(IsFinishMining);
+        FinishWork();
     }
 
     /// <summary>
@@ -129,16 +143,29 @@ public class WorkSpace {
                 ];
             }
 
-
-
             yield return Util.Time1;
         }
 
         //* リワード受け取れる
-        IsFinishMining = true;
-        HM._.wsm.OreSpot.OreImg.sprite = HM._.rwm.PresentSpr;
-        HM._.mtm.RewardAuraEF.SetActive(true);
-        HM._.mtm.SetTimerSlider("보상받기", 1);
-        HM._.wsm.GoblinChrCtrl.GoblinHappyAnim();
+        IsFinishWork = true;
+        FinishWork();
+    }
+
+    /// <summary>
+    /// 採掘がおわったこと確認出来たら、完了作業を実行
+    /// </summary>
+    public void FinishWork() {
+        //* 現在見ているWorkSpaceではないと、実行しない
+        if(Id != HM._.wsm.CurIdx) return;
+
+        if(IsFinishWork) {
+            HM._.wsm.OreSpot.OreImg.sprite = HM._.rwm.PresentSpr;
+            HM._.mtm.RewardAuraEF.SetActive(true);
+            HM._.mtm.SetTimerSlider("보상받기", 1);
+            HM._.wsm.GoblinChrCtrl.HappyAnim();
+        }
+        else {
+            HM._.mtm.RewardAuraEF.SetActive(false);
+        }
     }
 }

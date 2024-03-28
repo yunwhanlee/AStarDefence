@@ -71,12 +71,12 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
         /// <summary>
         /// 幸せアニメー（ループ）
         /// </summary>
-        public void GoblinHappyAnim() {
+        public void HappyAnim() {
             if(GoblinAnimID != null) StopCoroutine(GoblinAnimID);
-            GoblinAnimID = StartCoroutine(CoGoblinHappyAnim());
+            GoblinAnimID = StartCoroutine(CoHappyAnim());
         }
 
-        IEnumerator CoGoblinHappyAnim() {
+        IEnumerator CoHappyAnim() {
             while(true) {
                 yield return BounceAnim();
             }
@@ -85,7 +85,7 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
         /// <summary>
         /// アニメーション停止
         /// </summary>
-        public void GoblinStopAnim() {
+        public void StopGoblinAnim() {
             if(GoblinAnimID != null)
                 StopCoroutine(GoblinAnimID);
             SpawnAnim();

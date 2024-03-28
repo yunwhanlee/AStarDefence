@@ -19,12 +19,12 @@ public class MiningTimeUIManager : MonoBehaviour {
 
 #region EVENT
     public void OnClickTimerSliderBtn() {
-        if(HM._.wsm.CurWorkSpace.IsFinishMining) {
+        if(HM._.wsm.CurWorkSpace.IsFinishWork) {
             Debug.Log("ACCEPT MINING REWARD!!");
             //* 初期化
-            HM._.wsm.CurWorkSpace.IsFinishMining = false;
+            HM._.wsm.CurWorkSpace.IsFinishWork = false;
             HM._.mtm.RewardAuraEF.SetActive(false);
-            HM._.wsm.GoblinChrCtrl.GoblinStopAnim();
+            HM._.wsm.GoblinChrCtrl.StopGoblinAnim();
             
             // スライダー UI
             InitSlider();

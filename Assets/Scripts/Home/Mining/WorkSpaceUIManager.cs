@@ -53,12 +53,13 @@ public class WorkSpaceUIManager : MonoBehaviour {
         SetCurIdx(dir);
         TitleTxt.text = $"작업장 {CurIdx + 1}";
 
-        //* 作業場（アンロック Or Not）
-        CurWorkSpace.UpdateUI(WorkAreaTf, GetPrice());
-
         //* 配置状態 表示
         ActiveSpot(MineCate.Goblin, CurWorkSpace.GoblinSpotDt);
         ActiveSpot(MineCate.Ore, CurWorkSpace.OreSpotDt);
+
+        //* 作業場（アンロック Or Not）
+        CurWorkSpace.UpdateUI(WorkAreaTf, GetPrice());
+
     }
 #endregion
 #region FUNC
@@ -77,10 +78,13 @@ public class WorkSpaceUIManager : MonoBehaviour {
             GoblinSpot.Show(spotDt.IsActive);
 
             //* ページを移動してから退屈中なら、アニメーション再生
-            if(CurWorkSpace.GoblinSpotDt.IsActive && CurWorkSpace.OreSpotDt.IsActive) {
-                int goblinLvIdx = HM._.wsm.CurWorkSpace.GoblinSpotDt.LvIdx;
-                GoblinChrCtrl.MiningAnim(goblinLvIdx);
-            }
+            // if(CurWorkSpace.GoblinSpotDt.IsActive && CurWorkSpace.OreSpotDt.IsActive) {
+            //     Debug.Log($"GoblinSpot.DisplayObj.activeSelf= {GoblinSpot.DisplayObj.activeSelf}");
+            //     if(GoblinSpot.DisplayObj.activeSelf) {
+            //         int goblinLvIdx = HM._.wsm.CurWorkSpace.GoblinSpotDt.LvIdx;
+            //         GoblinChrCtrl.MiningAnim(goblinLvIdx);
+            //     }
+            // }
 
             //* ✓非表示 初期化
             Array.ForEach(HM._.mnm.GoblinCards, card => card.InitCheck());
