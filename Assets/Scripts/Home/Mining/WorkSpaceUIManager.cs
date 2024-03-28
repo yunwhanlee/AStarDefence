@@ -6,7 +6,6 @@ using System;
 using TMPro;
 using UnityEngine.U2D.Animation;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts;
-using UnityEditor.Search;
 
 [Serializable]
 public class Spot {
@@ -30,8 +29,12 @@ public class OreSpot : Spot {
 public class WorkSpaceUIManager : MonoBehaviour {
     [field: Header("VALUE")]
     [field: SerializeField] public int CurIdx {get; set;}
-    [field: SerializeField] public WorkSpace[] WorkSpaces {get; private set;} = new WorkSpace[4];
-    [field: SerializeField] public WorkSpace CurWorkSpace {get => WorkSpaces[CurIdx];}
+    [SerializeField] WorkSpace[] workSpaces; public WorkSpace[] WorkSpaces {
+        get => DM._.DB.MiningData.WorkSpaces;
+    }
+    [field: SerializeField] public WorkSpace CurWorkSpace {
+        get => WorkSpaces[CurIdx];
+    }
 
     [field: Header("HOME UI ELEM")]
     [field: SerializeField] public CharacterControls GoblinChrCtrl {get; set;}
@@ -40,6 +43,10 @@ public class WorkSpaceUIManager : MonoBehaviour {
     [field: SerializeField] public TextMeshProUGUI TitleTxt {get; set;}
     [field: SerializeField] public GoblinSpot GoblinSpot;
     [field: SerializeField] public OreSpot OreSpot;
+
+    void Awake() {
+
+    }
 
 #region EVENT
     public void OnClickPurchaseWorkSpaceBtn() {

@@ -7,8 +7,19 @@ using TMPro;
 
 [Serializable]
 public class MiningCard {
+    public MineCate Cate;
+    public int Id;
     public string Name;
-    public int Cnt;
+    [SerializeField] int cnt; public int Cnt {
+        get => (Cate == MineCate.Goblin)? DM._.DB.MiningData.GoblinCardCnts[Id]
+            : DM._.DB.MiningData.OreCardCnts[Id];
+        set {
+            if(Cate == MineCate.Goblin)
+                DM._.DB.MiningData.GoblinCardCnts[Id] = value;
+            else
+                DM._.DB.MiningData.OreCardCnts[Id] = value;
+        } 
+    }
     public bool IsChecked;
     public Button Button;
     public TextMeshProUGUI CntTxt;
@@ -16,6 +27,12 @@ public class MiningCard {
     public Image Outline;
     public Image CheckMark;
     public GameObject Dim;
+
+    public void InitData(MineCate cate, int id, string valStr) {
+        Cate = cate;
+        Id = id;
+        ValTxt.text = valStr;
+    }
 
     public void InitOutline() => Outline.color = Color.black;
     public void Select() => Outline.color = Color.red;

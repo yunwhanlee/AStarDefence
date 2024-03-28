@@ -13,6 +13,11 @@ public struct SpotData {
     public bool IsActive; // 活性化
     public int LvIdx; // 配置したGoblinとかOreのレベル
 
+    public SpotData(bool isActive, int lvIdx) {
+        IsActive = isActive;
+        LvIdx = lvIdx;
+    }
+
 #region FUNC
     public void Init() {
         IsActive = false;
@@ -44,6 +49,13 @@ public class WorkSpace {
     public int MiningMax;
     public int MiningTime;
     public Coroutine CorTimerID;
+
+    public WorkSpace(int id, bool isLock, int lvIdx) {
+        Id = id;
+        IsLock = isLock;
+        GoblinSpotDt = new SpotData(false, lvIdx);
+        OreSpotDt = new SpotData(false, lvIdx);
+    }
 
     public void UpdateUI(Transform workAreaTf, int price = -1) {
         //* 作業場（アンロック Or Not）

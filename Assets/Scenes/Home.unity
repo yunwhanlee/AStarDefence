@@ -3563,7 +3563,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CurCategory>k__BackingField: 0
   <GoblinCards>k__BackingField:
-  - Name: "\uB3CC\uACE1\uAD2D\uC774"
+  - id: 0
+    Name: "\uB3CC\uACE1\uAD2D\uC774"
+    cnt: 0
     Cnt: 0
     IsChecked: 0
     Button: {fileID: 8935455298302855453}
@@ -3572,7 +3574,9 @@ MonoBehaviour:
     Outline: {fileID: 8935455296646069794}
     CheckMark: {fileID: 283821693}
     Dim: {fileID: 1292219792}
-  - Name: "\uAD6C\uB9AC\uACE1\uAD2D\uC774"
+  - id: 1
+    Name: "\uAD6C\uB9AC\uACE1\uAD2D\uC774"
+    cnt: 0
     Cnt: 0
     IsChecked: 0
     Button: {fileID: 8935455297123409440}
@@ -3581,7 +3585,9 @@ MonoBehaviour:
     Outline: {fileID: 8935455297540337257}
     CheckMark: {fileID: 1849252247}
     Dim: {fileID: 941099642}
-  - Name: "\uC740\uACE1\uAD2D\uC774"
+  - id: 2
+    Name: "\uC740\uACE1\uAD2D\uC774"
+    cnt: 0
     Cnt: 0
     IsChecked: 0
     Button: {fileID: 8935455297074986071}
@@ -3590,7 +3596,9 @@ MonoBehaviour:
     Outline: {fileID: 8935455298066360566}
     CheckMark: {fileID: 1126971477}
     Dim: {fileID: 989949440}
-  - Name: "\uD669\uAE08\uACE1\uAD2D\uC774"
+  - id: 3
+    Name: "\uD669\uAE08\uACE1\uAD2D\uC774"
+    cnt: 0
     Cnt: 0
     IsChecked: 0
     Button: {fileID: 8935455297963174960}
@@ -3599,7 +3607,9 @@ MonoBehaviour:
     Outline: {fileID: 8935455296705564121}
     CheckMark: {fileID: 42721299}
     Dim: {fileID: 1267091036}
-  - Name: "\uC740\uBE5B\uACE0\uBE14\uB9B0"
+  - id: 4
+    Name: "\uC740\uBE5B\uACE0\uBE14\uB9B0"
+    cnt: 0
     Cnt: 0
     IsChecked: 0
     Button: {fileID: 8935455298318041295}
@@ -3608,7 +3618,9 @@ MonoBehaviour:
     Outline: {fileID: 8935455296806233360}
     CheckMark: {fileID: 1110840898}
     Dim: {fileID: 1308394029}
-  - Name: "\uAE08\uBE5B\uACE0\uBE14\uB9B0"
+  - id: 5
+    Name: "\uAE08\uBE5B\uACE0\uBE14\uB9B0"
+    cnt: 0
     Cnt: 0
     IsChecked: 0
     Button: {fileID: 8935455296797629747}
@@ -3617,7 +3629,9 @@ MonoBehaviour:
     Outline: {fileID: 8935455296921143200}
     CheckMark: {fileID: 26589684}
     Dim: {fileID: 672494067}
-  - Name: "\uC545\uB9C8\uACE0\uBE14\uB9B0"
+  - id: 6
+    Name: "\uC545\uB9C8\uACE0\uBE14\uB9B0"
+    cnt: 0
     Cnt: 0
     IsChecked: 0
     Button: {fileID: 8935455297893239680}
@@ -3627,7 +3641,9 @@ MonoBehaviour:
     CheckMark: {fileID: 917087865}
     Dim: {fileID: 1413777018}
   <OreCards>k__BackingField:
-  - Name: "\uD759\uB369\uC774"
+  - id: 0
+    Name: "\uD759\uB369\uC774"
+    cnt: 0
     Cnt: 0
     IsChecked: 0
     Button: {fileID: 1769145518}
@@ -3636,7 +3652,9 @@ MonoBehaviour:
     Outline: {fileID: 541901926}
     CheckMark: {fileID: 293815416}
     Dim: {fileID: 1506365823}
-  - Name: "\uB3CC\uB369\uC774"
+  - id: 1
+    Name: "\uB3CC\uB369\uC774"
+    cnt: 0
     Cnt: 0
     IsChecked: 0
     Button: {fileID: 19929990}
@@ -3645,7 +3663,9 @@ MonoBehaviour:
     Outline: {fileID: 403731229}
     CheckMark: {fileID: 638442093}
     Dim: {fileID: 1549396221}
-  - Name: "\uAD6C\uB9AC\uAD11\uC11D"
+  - id: 2
+    Name: "\uAD6C\uB9AC\uAD11\uC11D"
+    cnt: 0
     Cnt: 0
     IsChecked: 0
     Button: {fileID: 780620490}
@@ -3654,7 +3674,9 @@ MonoBehaviour:
     Outline: {fileID: 1848753768}
     CheckMark: {fileID: 229535187}
     Dim: {fileID: 1575416122}
-  - Name: "\uC740\uAD11\uC11D"
+  - id: 3
+    Name: "\uC740\uAD11\uC11D"
+    cnt: 0
     Cnt: 0
     IsChecked: 0
     Button: {fileID: 612251543}
@@ -3663,7 +3685,9 @@ MonoBehaviour:
     Outline: {fileID: 1361088744}
     CheckMark: {fileID: 408778077}
     Dim: {fileID: 1934986738}
-  - Name: "\uAE08\uAD11\uC11D"
+  - id: 4
+    Name: "\uAE08\uAD11\uC11D"
+    cnt: 0
     Cnt: 0
     IsChecked: 0
     Button: {fileID: 1072702783}
@@ -3672,7 +3696,9 @@ MonoBehaviour:
     Outline: {fileID: 1588841843}
     CheckMark: {fileID: 1599831212}
     Dim: {fileID: 1240863374}
-  - Name: "\uC0AC\uD30C\uC774\uC5B4"
+  - id: 5
+    Name: "\uC0AC\uD30C\uC774\uC5B4"
+    cnt: 0
     Cnt: 0
     IsChecked: 0
     Button: {fileID: 1374076616}
@@ -3681,7 +3707,9 @@ MonoBehaviour:
     Outline: {fileID: 1833609933}
     CheckMark: {fileID: 704091451}
     Dim: {fileID: 1690508270}
-  - Name: "\uC544\uB2E4\uB9CC\uD2F0\uC6C0"
+  - id: 6
+    Name: "\uC544\uB2E4\uB9CC\uD2F0\uC6C0"
+    cnt: 0
     Cnt: 0
     IsChecked: 0
     Button: {fileID: 1560578067}
@@ -3690,7 +3718,9 @@ MonoBehaviour:
     Outline: {fileID: 721410765}
     CheckMark: {fileID: 883122227}
     Dim: {fileID: 137763137}
-  - Name: "\uB8E8\uBE44"
+  - id: 7
+    Name: "\uB8E8\uBE44"
+    cnt: 0
     Cnt: 0
     IsChecked: 0
     Button: {fileID: 1145968300}
@@ -3699,7 +3729,9 @@ MonoBehaviour:
     Outline: {fileID: 175107777}
     CheckMark: {fileID: 2065665667}
     Dim: {fileID: 1926302715}
-  - Name: "\uD751\uC694\uC11D"
+  - id: 8
+    Name: "\uD751\uC694\uC11D"
+    cnt: 0
     Cnt: 0
     IsChecked: 0
     Button: {fileID: 691288768}
@@ -13911,6 +13943,139 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 721410763}
   m_CullTransparentMesh: 1
+--- !u!1 &722996334
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 722996335}
+  - component: {fileID: 722996338}
+  - component: {fileID: 722996337}
+  - component: {fileID: 722996336}
+  m_Layer: 0
+  m_Name: ResetTestBtn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &722996335
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722996334}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1673927623}
+  m_Father: {fileID: 6049785380211234809}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 377, y: 493}
+  m_SizeDelta: {x: 160, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &722996336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722996334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 722996337}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1055846981}
+        m_TargetAssemblyTypeName: DM, Assembly-CSharp
+        m_MethodName: OnClickResetBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &722996337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722996334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &722996338
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722996334}
+  m_CullTransparentMesh: 1
 --- !u!1 &745563867
 GameObject:
   m_ObjectHideFlags: 0
@@ -14872,62 +15037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <CurIdx>k__BackingField: 0
-  <WorkSpaces>k__BackingField:
-  - Id: 0
-    IsLock: 0
-    isFinishWork: 0
-    GoblinSpotDt:
-      IsActive: 0
-      LvIdx: -1
-    OreSpotDt:
-      IsActive: 0
-      LvIdx: -1
-    MiningMax: 0
-    MiningTime: 0
-  - Id: 1
-    IsLock: 1
-    isFinishWork: 0
-    GoblinSpotDt:
-      IsActive: 0
-      LvIdx: -1
-    OreSpotDt:
-      IsActive: 0
-      LvIdx: -1
-    MiningMax: 0
-    MiningTime: 0
-  - Id: 2
-    IsLock: 1
-    isFinishWork: 0
-    GoblinSpotDt:
-      IsActive: 0
-      LvIdx: -1
-    OreSpotDt:
-      IsActive: 0
-      LvIdx: -1
-    MiningMax: 0
-    MiningTime: 0
-  - Id: 3
-    IsLock: 1
-    isFinishWork: 0
-    GoblinSpotDt:
-      IsActive: 0
-      LvIdx: -1
-    OreSpotDt:
-      IsActive: 0
-      LvIdx: -1
-    MiningMax: 0
-    MiningTime: 0
-  - Id: 4
-    IsLock: 1
-    isFinishWork: 0
-    GoblinSpotDt:
-      IsActive: 0
-      LvIdx: -1
-    OreSpotDt:
-      IsActive: 0
-      LvIdx: -1
-    MiningMax: 0
-    MiningTime: 0
+  workSpaces: []
   <GoblinChrCtrl>k__BackingField: {fileID: 1101117812}
   <MetalHitEF>k__BackingField: {fileID: 2349653613072253234}
   <WorkAreaTf>k__BackingField: {fileID: 649769215}
@@ -19755,28 +19865,88 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ca54a27f66c8bf4593859b7f8d3b388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsReset>k__BackingField: 1
   <DB>k__BackingField:
     <StageLockedDatas>k__BackingField:
-    - <Name>k__BackingField: Stage1
+    - <Name>k__BackingField: "\uC2A4\uD14C\uC774\uC9C01. \uCD08\uC6D0"
       <IsLockEasy>k__BackingField: 0
       <IsLockNormal>k__BackingField: 1
       <IsLockHard>k__BackingField: 1
-    - <Name>k__BackingField: Stage2
+    - <Name>k__BackingField: "\uC2A4\uD14C\uC774\uC9C02. \uD669\uB7C9\uD55C \uC0AC\uB9C9"
       <IsLockEasy>k__BackingField: 0
       <IsLockNormal>k__BackingField: 1
       <IsLockHard>k__BackingField: 1
-    - <Name>k__BackingField: Stage3
+    - <Name>k__BackingField: "\uC2A4\uD14C\uC774\uC9C03. \uCE68\uBB35\uC758 \uBC14\uB2E4"
       <IsLockEasy>k__BackingField: 0
       <IsLockNormal>k__BackingField: 1
       <IsLockHard>k__BackingField: 1
-    - <Name>k__BackingField: Stage4
+    - <Name>k__BackingField: "\uC2A4\uD14C\uC774\uC9C04. \uC8FD\uC74C\uC758 \uB358\uC83C"
       <IsLockEasy>k__BackingField: 0
       <IsLockNormal>k__BackingField: 1
       <IsLockHard>k__BackingField: 1
-    - <Name>k__BackingField: Stage5
+    - <Name>k__BackingField: "\uC2A4\uD14C\uC774\uC9C05. \uBD88\uD0C0\uB294 \uC9C0\uC625"
       <IsLockEasy>k__BackingField: 0
       <IsLockNormal>k__BackingField: 1
       <IsLockHard>k__BackingField: 1
+    <MiningData>k__BackingField:
+      <GoblinCardCnts>k__BackingField: 05000000040000000400000004000000040000000400000004000000
+      <OreCardCnts>k__BackingField: 050000000400000004000000040000000400000004000000040000000400000004000000
+      <WorkSpaces>k__BackingField:
+      - Id: 0
+        IsLock: 0
+        isFinishWork: 0
+        GoblinSpotDt:
+          IsActive: 0
+          LvIdx: 0
+        OreSpotDt:
+          IsActive: 0
+          LvIdx: 0
+        MiningMax: 0
+        MiningTime: 0
+      - Id: 1
+        IsLock: 1
+        isFinishWork: 0
+        GoblinSpotDt:
+          IsActive: 0
+          LvIdx: 0
+        OreSpotDt:
+          IsActive: 0
+          LvIdx: 0
+        MiningMax: 0
+        MiningTime: 0
+      - Id: 2
+        IsLock: 1
+        isFinishWork: 0
+        GoblinSpotDt:
+          IsActive: 0
+          LvIdx: 0
+        OreSpotDt:
+          IsActive: 0
+          LvIdx: 0
+        MiningMax: 0
+        MiningTime: 0
+      - Id: 3
+        IsLock: 1
+        isFinishWork: 0
+        GoblinSpotDt:
+          IsActive: 0
+          LvIdx: 0
+        OreSpotDt:
+          IsActive: 0
+          LvIdx: 0
+        MiningMax: 0
+        MiningTime: 0
+      - Id: 4
+        IsLock: 1
+        isFinishWork: 0
+        GoblinSpotDt:
+          IsActive: 0
+          LvIdx: 0
+        OreSpotDt:
+          IsActive: 0
+          LvIdx: 0
+        MiningMax: 0
+        MiningTime: 0
   <SelectedStage>k__BackingField: 0
   <SelectedDiff>k__BackingField: 0
 --- !u!1 &1056780482
@@ -33960,6 +34130,140 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1673927622
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1673927623}
+  - component: {fileID: 1673927625}
+  - component: {fileID: 1673927624}
+  m_Layer: 0
+  m_Name: Txt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1673927623
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673927622}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 722996335}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1673927624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673927622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: RESET
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: b293129a700bddd4284b08884feab26d, type: 2}
+  m_sharedMaterial: {fileID: -7503779644620482780, guid: b293129a700bddd4284b08884feab26d, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4281479730
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 45
+  m_fontSizeBase: 45
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1673927625
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673927622}
+  m_CullTransparentMesh: 1
 --- !u!1 &1675672216
 GameObject:
   m_ObjectHideFlags: 0
@@ -72016,6 +72320,7 @@ RectTransform:
   - {fileID: 6049785380931486608}
   - {fileID: 6049785381519953536}
   - {fileID: 6049785381809471936}
+  - {fileID: 722996335}
   m_Father: {fileID: 893411683}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

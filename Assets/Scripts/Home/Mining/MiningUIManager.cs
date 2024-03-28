@@ -12,7 +12,6 @@ public enum MineCate {
 
 public class MiningUIManager : MonoBehaviour {
     const int MERGE_CNT = 5;
-
     [field: SerializeField] public MineCate CurCategory {get; set;}
 
     [field: SerializeField] public MiningCard[] GoblinCards {get; private set;}
@@ -34,23 +33,11 @@ public class MiningUIManager : MonoBehaviour {
         Array.ForEach(GoblinCards, card => card.InitOutline()); 
         Array.ForEach(OreCards, card => card.InitOutline()); 
 
-        //* 採掘速度％ UI 初期化
+         //* データ初期化
         for(int i = 0; i < GoblinCards.Length; i++)
-            GoblinCards[i].ValTxt.text = $"{GoblinDataSO.Datas[i].SpeedPer * 100}%";
-        //* 採掘時間 UI 初期化
-        for(int i = 0; i < OreCards.Length; i++)
-            OreCards[i].ValTxt.text = $"{OreDataSO.Datas[i].TimeSec}초";
-
-        GoblinCards[0].Cnt = 14;
-        GoblinCards[1].Cnt = 4;
-        GoblinCards[2].Cnt = 4;
-        GoblinCards[3].Cnt = 4;
-        GoblinCards[4].Cnt = 4;
-        GoblinCards[5].Cnt = 4;
-        GoblinCards[6].Cnt = 4;
-
-        OreCards[0].Cnt = 11;
-        OreCards[1].Cnt = 4;
+            GoblinCards[i].InitData(MineCate.Goblin, i, $"{GoblinDataSO.Datas[i].SpeedPer * 100}%");
+        for(int i = 0; i < OreCards.Length; i++) 
+            OreCards[i].InitData(MineCate.Ore, i, $"{OreDataSO.Datas[i].TimeSec}초");
 
         if(WindowObj.activeSelf)
             WindowObj.SetActive(false);
