@@ -58,25 +58,15 @@ public class MiningUIManager : MonoBehaviour {
 
 #region EVENT
     /// <summary>
-    /// ホームの場所⊕ボタン
-    /// </summary>
-    public void OnClickGoblinLeftSpotBtn() {
-        WindowObj.SetActive(true);
-        SetUI((int)MineCate.Goblin);
-    }
-    public void OnClickOreSpotBtn() {
-        WindowObj.SetActive(true);
-        SetUI((int)MineCate.Ore);
-    }
-
-    /// <summary>
     /// カテゴリボタン
     /// </summary>
     /// <param name="idx">0: Goblin, 1: Ore</param>
     public void OnClickCategoryBtn(int idx) {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
         SetUI(idx);
     }
     public void OnClickBackBtn() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(false);
     }
 
@@ -84,42 +74,65 @@ public class MiningUIManager : MonoBehaviour {
     /// カードボタン
     /// </summary>
     /// <param name="idx">0: Goblin, 1: Ore</param>
-    public void OnClickGoblinCard(int idx) => SelectCard(MineCate.Goblin, idx);
-    public void OnClickOreCard(int idx) => SelectCard(MineCate.Ore, idx);
+    public void OnClickGoblinCard(int idx) {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        SelectCard(MineCate.Goblin, idx);
+    } 
+    public void OnClickOreCard(int idx) {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        SelectCard(MineCate.Ore, idx);
+    } 
 
     /// <summary>
     /// アイテム配置ボタン
     /// </summary>
     public void OnClickArrangeBtn() {
-        //* 鉱石が既に有ったら
+        //* 鉱石カテゴリの上、鉱石が既に有ったら
         if(CurCategory == MineCate.Ore) {
             if(HM._.wsm.CurWorkSpace.OreSpotDt.IsActive) {
+                SM._.SfxPlay(SM.SFX.ClickSFX);
                 HM._.hui.ShowAgainAskMsg("(주의)\n현재 배치된 광석이 사라집니다.");
-                HM._.hui.OnClickConfirmAction = () => {
-                    Arrange(MineCate.Ore);
+                HM._.hui.OnClickAskConfirmAction = () => {
+                    Arrange(CurCategory);
                     CanStartMining();
                 };
                 return;
             }
         }
-        //* ゴブリンが既に有ったら
+        //* ゴブリンカテゴリの上、ゴブリンが既に有ったら
         else if(CurCategory == MineCate.Goblin) {
             if(HM._.wsm.CurWorkSpace.GoblinSpotDt.IsActive) {
-                HM._.hui.ShowMsgNotice("고블린을 교체완료!");
-                HM._.mnm.GoblinCards[HM._.wsm.CurWorkSpace.GoblinSpotDt.LvIdx].Cnt++;
+                //* 鉱石も既に有ったら
+                if(HM._.wsm.CurWorkSpace.OreSpotDt.IsActive) {
+                    SM._.SfxPlay(SM.SFX.ClickSFX);
+                    HM._.hui.ShowAgainAskMsg("(주의)\n채굴중 고블린 변경 시\n채굴시간이 다시 초기화됩니다.");
+                    HM._.hui.OnClickAskConfirmAction = () => {
+                        Remove(CurCategory);
+                        Arrange(CurCategory);
+                        CanStartMining();
+                    };
+                    return;
+                }
+                else {
+                    HM._.mnm.GoblinCards[HM._.wsm.CurWorkSpace.GoblinSpotDt.LvIdx].Cnt++;
+                }
+
             }
         }
 
         //* 空の場合
+        SM._.SfxPlay(SM.SFX.ItemPickSFX);
         Arrange(CurCategory);
         CanStartMining();
     }
     public void OnClickArrangeCancelBtn() {
-        if(CurCategory == MineCate.Goblin)
-            Remove(MineCate.Goblin);
+        if(CurCategory == MineCate.Goblin) {
+            HM._.hui.ShowAgainAskMsg("(주의)\n채굴 중 취소시,\n채굴시간이 다시 초기화됩니다.");
+            HM._.hui.OnClickAskConfirmAction = () => Remove(MineCate.Goblin);
+        }
         else {
             HM._.hui.ShowAgainAskMsg("(주의)\n현재 배치된 광석이 사라집니다.");
-            HM._.hui.OnClickConfirmAction = () => Remove(MineCate.Ore);
+            HM._.hui.OnClickAskConfirmAction = () => Remove(MineCate.Ore);
         }
     }
 
@@ -152,7 +165,7 @@ public class MiningUIManager : MonoBehaviour {
 
         if(isSuccess) {
             Debug.Log($"OnClickArrangeBtn():: isSuccess= {isSuccess}");
-            curWS.CorMiningID = StartCoroutine(curWS.CoTimerStart());
+            curWS.CorTimerID = StartCoroutine(curWS.CoTimerStart());
         }
     }
 
@@ -165,7 +178,7 @@ public class MiningUIManager : MonoBehaviour {
     /// カテゴリによるUI表示
     /// </summary>
     /// <param name="idx">0: Goblin, 1: Ore</param>
-    private void SetUI(int idx) {
+    public void SetUI(int idx) {
         PopUpTitleTxt.text = $"작업장 {HM._.wsm.CurIdx + 1}";
 
         //* 配置ボタン 表示
@@ -193,7 +206,7 @@ public class MiningUIManager : MonoBehaviour {
     /// <summary>
     /// カード選択
     /// </summary>
-    private void SelectCard(MineCate cate, int idx) {
+    public void SelectCard(MineCate cate, int idx) {
         MiningCard[] cards = (cate == MineCate.Goblin)? GoblinCards : OreCards;
         SpotData spotData = (cate == MineCate.Goblin)? HM._.wsm.CurWorkSpace.GoblinSpotDt : HM._.wsm.CurWorkSpace.OreSpotDt;
         //* 初期化
@@ -239,15 +252,22 @@ public class MiningUIManager : MonoBehaviour {
             HM._.wsm.OreSpot.OreImg.sprite = OreDataSO.Datas[lvIdx].Sprs[(int)ORE_SPRS.DEF]; // OreSprs[lvIdx];
         }
 
+        StopCorTimerID();
         WindowObj.SetActive(false);
         HM._.hui.ShowMsgNotice($"{(cate == MineCate.Goblin? "고블린" : "광석")} 배치완료!");
     }
 
+    private void StopCorTimerID() {
+        if(HM._.wsm.CurWorkSpace.CorTimerID != null)
+            StopCoroutine(HM._.wsm.CurWorkSpace.CorTimerID);
+    }
+
     private void Remove(MineCate cate) {
         Debug.Log("Remove()::");
+        SM._.SfxPlay(SM.SFX.DeleteTowerSFX);
+
         //* Timer Off
-        if(HM._.wsm.CurWorkSpace.CorMiningID != null)
-            StopCoroutine(HM._.wsm.CurWorkSpace.CorMiningID);
+        StopCorTimerID();
 
         //* Goblin Anim
         HM._.wsm.GoblinChrCtrl.StopGoblinAnim();
@@ -289,6 +309,8 @@ public class MiningUIManager : MonoBehaviour {
             cards[nextIdx].Cnt++;
             cards[lvIdx].Update();
             cards[nextIdx].Update();
+
+            SM._.SfxPlay(SM.SFX.Merge1SFX);
             HM._.hui.ShowMsgNotice("합성 완료!");
         }
         else {
@@ -314,6 +336,8 @@ public class MiningUIManager : MonoBehaviour {
             }
             cards[i].Update();
         }
+
+        SM._.SfxPlay(SM.SFX.Merge3SFX);
         HM._.hui.ShowMsgNotice("자동합성 완료!");
     }
 #endregion

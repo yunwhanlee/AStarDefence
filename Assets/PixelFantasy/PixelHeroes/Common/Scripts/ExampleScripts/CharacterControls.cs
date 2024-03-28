@@ -62,6 +62,8 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
             while(true) {
                 Debug.Log($"MiningAnim():: SLASH:: LV= {lv}");
                 Character.SetState(AnimationState.Slash);
+                SM._.SfxPlay(SM.SFX.MetalHitSFX);
+                HM._.wsm.MetalHitEF.Play();
                 yield return waitSec;
                 Character.SetState(AnimationState.Idle);
                 yield return waitSec;

@@ -33,16 +33,17 @@ public class WorkSpace {
         get => isFinishWork;
         set {
             isFinishWork = value;
-            if(value == true)
+            if(value == true) {
+                SM._.SfxPlay(SM.SFX.WaveStartSFX);
                 HM._.hui.ShowMsgNotice($"작업장{Id + 1}의 채광이 완료되었습니다!");
+            }
         }
     } 
     public SpotData GoblinSpotDt;
     public SpotData OreSpotDt;
     public int MiningMax;
     public int MiningTime;
-    public Coroutine CorMiningID;
-
+    public Coroutine CorTimerID;
 
     public void UpdateUI(Transform workAreaTf, int price = -1) {
         //* 作業場（アンロック Or Not）

@@ -20,28 +20,28 @@ public class MiningTimeUIManager : MonoBehaviour {
 
 #region EVENT
     public void OnClickTimerSliderBtn() {
-        if(HM._.wsm.CurWorkSpace.IsFinishWork) {
-            Debug.Log("ACCEPT MINING REWARD!!");
-            //* 初期化
-            HM._.wsm.CurWorkSpace.IsFinishWork = false;
-            HM._.mtm.RewardAuraEF.SetActive(false);
-            HM._.wsm.GoblinChrCtrl.StopGoblinAnim();
-            
-            // スライダー UI
-            InitSlider();
+        WorkSpace curWS = HM._.wsm.CurWorkSpace;
 
-            // 鉱石スポット Off
-            HM._.wsm.CurWorkSpace.OreSpotDt.Init();
-            HM._.wsm.OreSpot.Show(isActive: false);
-
-            // 鉱石カード
-            Array.ForEach(HM._.mnm.OreCards, card => card.InitCheck());
-
-            //* リワードPopUp表示
-            HM._.rwm.RewardListPopUp.SetActive(true);
+        //* 採掘(仕事)が終わったら
+        if(curWS.IsFinishWork) {
+            HM._.wsm.AcceptReward();
         }
         else {
-            // TODO) 広告 ➝ ３０分を減る
+            SM._.SfxPlay(SM.SFX.ClickSFX);
+
+            //* 採掘(仕事)中なら
+            if(curWS.GoblinSpotDt.IsActive && curWS.OreSpotDt.IsActive) {
+                // TODO) 広告 ➝ ３０分を減る
+                HM._.hui.ShowAgainAskMsg("광고시청하고 바로 완료하시겠습니까?");
+                HM._.hui.OnClickAskConfirmAction = () => {
+                    SM._.SfxPlay(SM.SFX.CompleteSFX);
+                    curWS.MiningTime = 3;
+                };
+            }
+            //* 仕事していない場合
+            else { 
+                HM._.wsm.OnClickOreSpotBtn();
+            }
         }
     }
 #endregion

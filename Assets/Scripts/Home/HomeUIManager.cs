@@ -10,7 +10,7 @@ using TMPro;
 /// </summary>
 public class HomeUIManager : MonoBehaviour {
     Coroutine CorMsgNoticeID;
-    public Action OnClickConfirmAction;
+    public Action OnClickAskConfirmAction;
 
     public Button PlayBtn {get; set;}
     [Header("ERROR MSG POPUP")]
@@ -79,14 +79,14 @@ public class HomeUIManager : MonoBehaviour {
         yield return Util.RealTime1;
         BottomMsgNotice.SetActive(false);
     }
-    /// <summary> もう一度確認するPOPUP</summary>
+    /// <summary> もう一度確認するPOPUP：★OnClickAskConfirmActionへ確認ボタン押してから、処理するメソッドを購読すること！</summary>
     public void ShowAgainAskMsg(string msg = "") {
         AgainAskPopUp.SetActive(true);
         AgainAskMsgTxt.text = msg;
     }
     public void OnClickAgainAskPopUpConfirmBtn() {
         AgainAskPopUp.SetActive(false);
-        OnClickConfirmAction?.Invoke();
+        OnClickAskConfirmAction?.Invoke();
     }
 #endregion
 }

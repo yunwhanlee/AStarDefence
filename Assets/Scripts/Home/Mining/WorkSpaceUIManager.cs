@@ -6,6 +6,7 @@ using System;
 using TMPro;
 using UnityEngine.U2D.Animation;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts;
+using UnityEditor.Search;
 
 [Serializable]
 public class Spot {
@@ -34,6 +35,7 @@ public class WorkSpaceUIManager : MonoBehaviour {
 
     [field: Header("HOME UI ELEM")]
     [field: SerializeField] public CharacterControls GoblinChrCtrl {get; set;}
+    [field: SerializeField] public ParticleSystem MetalHitEF {get; set;}
     [field: SerializeField] public Transform WorkAreaTf {get; set;}
     [field: SerializeField] public TextMeshProUGUI TitleTxt {get; set;}
     [field: SerializeField] public GoblinSpot GoblinSpot;
@@ -41,15 +43,19 @@ public class WorkSpaceUIManager : MonoBehaviour {
 
 #region EVENT
     public void OnClickPurchaseWorkSpaceBtn() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
         HM._.hui.ShowAgainAskMsg($"<sprite name=Coin>{GetPrice()}을 사용하여\n작업장{HM._.wsm.CurIdx + 1} 구매하시겠습니까?");
-        HM._.hui.OnClickConfirmAction = () => {
+        HM._.hui.OnClickAskConfirmAction = () => {
+            SM._.SfxPlay(SM.SFX.CompleteSFX);
             CurWorkSpace.IsLock = false;
             CurWorkSpace.UpdateUI(HM._.wsm.WorkAreaTf);
         };
     }
+
     /// <summary> ワークスペース移動 </summary>
     /// <param name="dir">-1：左、1：右</param>
     public void OnClickWorkSpacePageBtn(int dir) {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
         HM._.mtm.SliderBtnAnim.SetTrigger("SlideIn");
 
         SetCurIdx(dir);
@@ -61,7 +67,28 @@ public class WorkSpaceUIManager : MonoBehaviour {
 
         //* 作業場（アンロック Or Not）
         CurWorkSpace.UpdateUI(WorkAreaTf, GetPrice());
+    }
 
+    /// <summary> ホームの場所⊕ボタン </summary>
+    public void OnClickGoblinLeftSpotBtn() {
+        if(CurWorkSpace.IsFinishWork) {
+            HM._.wsm.AcceptReward();
+            return;
+        }
+
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        HM._.mnm.WindowObj.SetActive(true);
+        HM._.mnm.SetUI((int)MineCate.Goblin);
+    }
+    public void OnClickOreSpotBtn() {
+        if(CurWorkSpace.IsFinishWork) {
+            HM._.wsm.AcceptReward();
+            return;
+        }
+
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        HM._.mnm.WindowObj.SetActive(true);
+        HM._.mnm.SetUI((int)MineCate.Ore);
     }
 #endregion
 #region FUNC
@@ -78,15 +105,6 @@ public class WorkSpaceUIManager : MonoBehaviour {
     public void ActiveSpot(MineCate cate, SpotData spotDt) {
         if(cate == MineCate.Goblin) {
             GoblinSpot.Show(spotDt.IsActive);
-
-            //* ページを移動してから退屈中なら、アニメーション再生
-            // if(CurWorkSpace.GoblinSpotDt.IsActive && CurWorkSpace.OreSpotDt.IsActive) {
-            //     Debug.Log($"GoblinSpot.DisplayObj.activeSelf= {GoblinSpot.DisplayObj.activeSelf}");
-            //     if(GoblinSpot.DisplayObj.activeSelf) {
-            //         int goblinLvIdx = HM._.wsm.CurWorkSpace.GoblinSpotDt.LvIdx;
-            //         GoblinChrCtrl.MiningAnim(goblinLvIdx);
-            //     }
-            // }
 
             //* ✓非表示 初期化
             Array.ForEach(HM._.mnm.GoblinCards, card => card.InitCheck());
@@ -109,6 +127,27 @@ public class WorkSpaceUIManager : MonoBehaviour {
                 OreSpot.OreImg.sprite = HM._.mnm.OreDataSO.Datas[spotDt.LvIdx].Sprs[(int)ORE_SPRS.DEF];
             }
         }
+    }
+
+    public void AcceptReward() {
+            Debug.Log("ACCEPT MINING REWARD!!");
+            SM._.SfxPlay(SM.SFX.RewardSFX);
+
+            //* 1. 初期化
+            CurWorkSpace.IsFinishWork = false;
+            HM._.mtm.RewardAuraEF.SetActive(false);
+            // ゴブリンアニメー
+            GoblinChrCtrl.StopGoblinAnim();
+            // スライダー UI
+            HM._.mtm.InitSlider();
+            // 鉱石スポット Off
+            CurWorkSpace.OreSpotDt.Init();
+            HM._.wsm.OreSpot.Show(isActive: false);
+            // 鉱石カード
+            Array.ForEach(HM._.mnm.OreCards, card => card.InitCheck());
+
+            //* 2. リワードPopUp表示
+            HM._.rwm.RewardListPopUp.SetActive(true);
     }
 
 #endregion

@@ -33,6 +33,7 @@ public class SM : MonoBehaviour {
         CCLightningSFX,
         // Hit
         HitSFX,
+        MetalHitSFX,
         EnemyDeadSFX,
         BossKilledSFX,
         // Skill
@@ -51,6 +52,7 @@ public class SM : MonoBehaviour {
         ArrowRainSFX,
 
         //* UI
+        RewardSFX,
         ClickSFX,
         UpgradeSFX,
         CompleteSFX,
@@ -87,6 +89,7 @@ public class SM : MonoBehaviour {
     [field: SerializeField] AudioClip CCLightningSFX {get; set;}
     // Hit
     [field: SerializeField] AudioClip[] HitSFXs {get; set;}
+    [field: SerializeField] AudioClip[] MetalHitSFXs {get; set;}
     [field: SerializeField] AudioClip[] EnemyDeadSFXs {get; set;}
     [field: SerializeField] AudioClip BossKilledSFX {get; set;}
     // Skill
@@ -105,6 +108,7 @@ public class SM : MonoBehaviour {
     [field: SerializeField] AudioClip ArrowRainSFX {get; set;}
 
     //* UI
+    [field: SerializeField] AudioClip RewardSFX {get; set;}
     [field: SerializeField] AudioClip ClickSFX {get; set;}
     [field: SerializeField] AudioClip UpgradeSFX {get; set;}
     [field: SerializeField] AudioClip CompleteSFX {get; set;}
@@ -152,6 +156,7 @@ public class SM : MonoBehaviour {
         if(sfx == SFX.CCLightningSFX) SfxPlayer.PlayOneShot(CCLightningSFX);
         // Hit
         if(sfx == SFX.HitSFX) SfxPlayer.PlayOneShot(HitSFXs[Random.Range(0, HitSFXs.Length)]);
+        if(sfx == SFX.MetalHitSFX) SfxPlayer.PlayOneShot(MetalHitSFXs[Random.Range(0, MetalHitSFXs.Length)]);
         if(sfx == SFX.EnemyDeadSFX) SfxPlayer.PlayOneShot(EnemyDeadSFXs[Random.Range(0, EnemyDeadSFXs.Length)]);
         if(sfx == SFX.BossKilledSFX) SfxPlayer.PlayOneShot(BossKilledSFX);
         // Skill
@@ -169,7 +174,8 @@ public class SM : MonoBehaviour {
         if(sfx == SFX.PassArrowSFX) SfxPlayer.PlayOneShot(PassArrowSFX);
         if(sfx == SFX.ArrowRainSFX) SfxPlayer.PlayOneShot(ArrowRainSFX);
 
-        //* UI
+        //* U        
+        if(sfx == SFX.RewardSFX) SfxPlayer.PlayOneShot(RewardSFX);
         if(sfx == SFX.ClickSFX) SfxPlayer.PlayOneShot(ClickSFX);
         if(sfx == SFX.CompleteSFX) SfxPlayer.PlayOneShot(CompleteSFX);
         if(sfx == SFX.ErrorSFX) SfxPlayer.PlayOneShot(ErrorSFX);
