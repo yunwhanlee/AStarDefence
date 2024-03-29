@@ -105,7 +105,6 @@ public class MiningUIManager : MonoBehaviour {
                 else {
                     HM._.mnm.GoblinCards[HM._.wsm.CurWorkSpace.GoblinSpotDt.LvIdx].Cnt++;
                 }
-
             }
         }
 
