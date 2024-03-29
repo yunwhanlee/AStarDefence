@@ -19,6 +19,7 @@ public class Util : MonoBehaviour {
     public static WaitForSeconds Time0_8 = new WaitForSeconds(0.8f);
     public static WaitForSeconds Time0_85 = new WaitForSeconds(0.85f);
     public static WaitForSeconds Time0_9 = new WaitForSeconds(0.9f);
+    public static WaitForSeconds Time0_95 = new WaitForSeconds(0.95f);
     public static WaitForSeconds Time1 = new WaitForSeconds(1);
     public static WaitForSeconds Time1_5 = new WaitForSeconds(1.5f);
     public static WaitForSeconds Time2 = new WaitForSeconds(2);
@@ -29,6 +30,8 @@ public class Util : MonoBehaviour {
     public static WaitForSeconds Time5 = new WaitForSeconds(5);
 
     public static WaitForSecondsRealtime RealTime1 = new WaitForSecondsRealtime(1);
+    public static WaitForSecondsRealtime RealTime2 = new WaitForSecondsRealtime(2);
+    public static WaitForSecondsRealtime RealTime3 = new WaitForSecondsRealtime(3);
 
     [field:SerializeField] public Material BlinkMt {get; private set;}
     [field:SerializeField] public Material DefaultMt {get; private set;}

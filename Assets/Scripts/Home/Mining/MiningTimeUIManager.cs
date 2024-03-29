@@ -44,8 +44,10 @@ public class MiningTimeUIManager : MonoBehaviour {
 
 #region FUNC
     public void InitSlider() {
+        WorkSpace curWS = HM._.wsm.CurWorkSpace;
         SetTimer(isOn: false);
-        SetTimerSlider("광석 등록필요", 0);
+        string notice = curWS.OreSpotDt.IsActive? "고블린등록 필요" : "광석등록 필요";
+        SetTimerSlider(notice, 0);
     }
 
     public void SetTimer(bool isOn = false) {

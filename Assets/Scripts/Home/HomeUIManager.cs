@@ -70,13 +70,17 @@ public class HomeUIManager : MonoBehaviour {
     /// <summary> 下にお知らせメッセージ表示（自動OFF）</summary>
     public void ShowMsgNotice(string msg, int y = 350) {
         if(CorMsgNoticeID != null) StopCoroutine(CorMsgNoticeID);
-        CorMsgNoticeID = StartCoroutine(CoShowMsgNotice(msg, y));
+        CorMsgNoticeID = StartCoroutine(CoShowMsgNotice(msg, y, Util.RealTime2));
     }
-    IEnumerator CoShowMsgNotice(string msg, int y) {
+    public void ShowMsgNotice(string msg, WaitForSecondsRealtime time) {
+        if(CorMsgNoticeID != null) StopCoroutine(CorMsgNoticeID);
+        CorMsgNoticeID = StartCoroutine(CoShowMsgNotice(msg, 350, time));
+    }
+    IEnumerator CoShowMsgNotice(string msg, int y, WaitForSecondsRealtime waitTime) {
         BottomMsgNotice.SetActive(true);
         BottomMsgNotice.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, y);
         MsgNoticeTxt.text = msg;
-        yield return Util.RealTime1;
+        yield return waitTime;
         BottomMsgNotice.SetActive(false);
     }
     /// <summary> もう一度確認するPOPUP：★OnClickAskConfirmActionへ確認ボタン押してから、処理するメソッドを購読すること！</summary>

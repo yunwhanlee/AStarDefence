@@ -94,7 +94,7 @@ public class MiningUIManager : MonoBehaviour {
                 //* 鉱石も既に有ったら
                 if(HM._.wsm.CurWorkSpace.OreSpotDt.IsActive) {
                     SM._.SfxPlay(SM.SFX.ClickSFX);
-                    HM._.hui.ShowAgainAskMsg("(주의)\n채굴중 고블린 변경 시\n채굴시간이 다시 초기화됩니다.");
+                    HM._.hui.ShowAgainAskMsg("고블린을 교체하시겠습니까?");
                     HM._.hui.OnClickAskConfirmAction = () => {
                         Remove(CurCategory);
                         Arrange(CurCategory);
@@ -115,7 +115,7 @@ public class MiningUIManager : MonoBehaviour {
     }
     public void OnClickArrangeCancelBtn() {
         if(CurCategory == MineCate.Goblin) {
-            HM._.hui.ShowAgainAskMsg("(주의)\n채굴 중 취소시,\n채굴시간이 다시 초기화됩니다.");
+            HM._.hui.ShowAgainAskMsg("고블린을 교체하시겠습니까?");
             HM._.hui.OnClickAskConfirmAction = () => Remove(MineCate.Goblin);
         }
         else {
@@ -244,6 +244,9 @@ public class MiningUIManager : MonoBehaviour {
         SM._.SfxPlay(SM.SFX.ItemPickSFX);
         StopCorTimerID(HM._.wsm.CurWorkSpace.Id);
         HM._.hui.ShowMsgNotice($"{(cate == MineCate.Goblin? "고블린" : "광석")} 배치완료!");
+
+        //* スライダー UI 初期化
+        HM._.mtm.InitSlider();
     }
 
     private void StopCorTimerID(int idx) {
@@ -260,9 +263,6 @@ public class MiningUIManager : MonoBehaviour {
 
         //* Goblin Anim
         HM._.wsm.GoblinChrCtrl.StopGoblinAnim();
-
-        //* スライダー UI 初期化
-        HM._.mtm.InitSlider();
 
         if(cate == MineCate.Goblin) {
             ref SpotData goblinSpotDt = ref HM._.wsm.CurWorkSpace.GoblinSpotDt;
@@ -283,6 +283,9 @@ public class MiningUIManager : MonoBehaviour {
             WindowObj.SetActive(false);
             HM._.wsm.ActiveSpot(MineCate.Ore, oreSpotDt);
         }
+
+        //* スライダー UI 初期化
+        HM._.mtm.InitSlider();
     }
 
     private void Merge(MiningCard[] cards) {

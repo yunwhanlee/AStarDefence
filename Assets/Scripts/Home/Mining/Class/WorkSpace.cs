@@ -100,14 +100,14 @@ public class WorkSpace {
 
     public IEnumerator CoTimerStart(bool isSwitchOre = false, bool isPassedTime = false) {
         //* ゴブリンと鉱石のレベルによる、速度と時間を適用する変数用意
-        int goblinLvIdx = GoblinSpotDt.LvIdx;
-        int oreLvIdx = OreSpotDt.LvIdx;
-        float spdPer = HM._.mnm.GoblinDataSO.Datas[goblinLvIdx].SpeedPer;
-        int time = HM._.mnm.OreDataSO.Datas[oreLvIdx].TimeSec;
+        int gblLv = GoblinSpotDt.LvIdx;
+        int oreLv = OreSpotDt.LvIdx;
+        float spdPer = HM._.mnm.GoblinDataSO.Datas[gblLv].SpeedPer;
+        int time = HM._.mnm.OreDataSO.Datas[oreLv].TimeSec;
 
         //* ゴブリンのMiningSpeed％ 適用
-        int decSec = Mathf.RoundToInt(time * (spdPer - 1));
-        time -= decSec;
+        // int decSec = Mathf.RoundToInt(time * (spdPer - 1));
+        // time -= decSec;
 
         //* 残る時間（保存した時間が０ではなかったら、まだ仕事が進んでいる中）
         MiningMax = (isSwitchOre || MiningMax == 0)? time : MiningMax;
@@ -115,16 +115,24 @@ public class WorkSpace {
 
         //* アプリを再起動して、経過時間を減る
         if(isPassedTime) {
-            int passSec = DM._.PassedSec;
-            HM._.hui.ShowMsgNotice($"{Util.ConvertTimeFormat(passSec)}초가 경과했습니다.");
-            MiningTime -= passSec;
+            int passedSec = DM._.PassedSec;
+            string timeFormat = Util.ConvertTimeFormat(passedSec);
+            // int extraDecSec = Mathf.RoundToInt(passedSec * (spdPer - 1));
+            // string extraDecPer = $"<color=yellow>{extraDecSec}초 추가감소({(spdPer - 1) * 100}%)</color>";
+            HM._.hui.ShowMsgNotice($"{timeFormat}초가 경과했습니다. ", Util.RealTime3);
+            MiningTime -= Mathf.RoundToInt(passedSec * spdPer);
         }
 
-        Debug.Log($"CoTimerStart():: goblin SpdPer= {spdPer}, time= {time}, decSec= {decSec}");
+        Debug.Log($"CoTimerStart():: goblin SpdPer= {spdPer}, time= {time}, "); //decSec= {decSec}");
 
-        Sprite[] oreSprs = HM._.mnm.OreDataSO.Datas[oreLvIdx].Sprs;
+        Sprite[] oreSprs = HM._.mnm.OreDataSO.Datas[oreLv].Sprs;
         HM._.mtm.SetTimer(isOn: true);
-        HM._.wsm.GoblinChrCtrl.MiningAnim(goblinLvIdx);
+        HM._.wsm.GoblinChrCtrl.MiningAnim(gblLv);
+
+        WaitForSeconds waitTime = (gblLv == 0)? Util.Time1
+            : (gblLv == 1)? Util.Time0_95 : (gblLv == 2)? Util.Time0_9 : (gblLv == 3)? Util.Time0_8
+            : (gblLv == 4)? Util.Time0_7 : (gblLv == 5)? Util.Time0_6 : Util.Time0_5;
+
 
         //* タイマー開始
         while(0 < MiningTime) {
@@ -151,7 +159,7 @@ public class WorkSpace {
                     : (int)ORE_SPRS.DEF
                 ];
             }
-            yield return Util.Time1;
+            yield return waitTime;
         }
 
         //* 採掘完了！
