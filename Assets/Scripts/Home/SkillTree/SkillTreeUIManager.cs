@@ -88,7 +88,6 @@ public class SkillTreeUIManager : MonoBehaviour {
         WindowObj.SetActive(false);
     }
 
-
     public void OnClickResetSkillPointBtn() {
         int refundSkillPoint = 0;
 
@@ -113,6 +112,15 @@ public class SkillTreeUIManager : MonoBehaviour {
         SkillTree curST = GetCurSkill(Cate, CurIdx);
         SkillTreeData curSTDataSO = GetCurSkillDataSO(Cate, CurIdx);
         Debug.Log($"LEARN SKILL curST.IsLock= {curST.IsLock}");
+
+        //* 以前のスキルをアンロックしなかったら、習得できない
+        if(CurIdx > 0) {
+            SkillTree befST = GetCurSkill(Cate, CurIdx - 1);
+            if(befST.IsLock) {
+                HM._.hui.ShowMsgError("이전스킬 획득 필요!");
+                return;
+            }
+        }
 
         if(curST.IsLock) {
             if(HM._.SkillPoint >= curSTDataSO.Cost) {
