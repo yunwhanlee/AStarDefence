@@ -19,8 +19,8 @@ public class StageUIManager : MonoBehaviour {
     public void OnClickStartBtn() {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         DifficultyWindow.SetActive(true);
-        NormalLockedFrame.SetActive(DM._.DB.StageLockedDatas[HM._.SelectedStage].IsLockNormal);
-        HardLockedFrame.SetActive(DM._.DB.StageLockedDatas[HM._.SelectedStage].IsLockHard);
+        NormalLockedFrame.SetActive(DM._.DB.StageLockedDBs[HM._.SelectedStage].IsLockNormal);
+        HardLockedFrame.SetActive(DM._.DB.StageLockedDBs[HM._.SelectedStage].IsLockHard);
         DM._.SelectedStage = HM._.SelectedStage;
     }
 
@@ -54,7 +54,7 @@ public class StageUIManager : MonoBehaviour {
         // 選択したステージ 表示
         StagePopUps[hm.SelectedStage].SetActive(true);
         //　ロック状況 表示
-        WholeLockedFrame.SetActive(DM._.DB.StageLockedDatas[hm.SelectedStage].IsLockEasy);
+        WholeLockedFrame.SetActive(DM._.DB.StageLockedDBs[hm.SelectedStage].IsLockEasy);
     }
     public void OnClickBackBtn() { //* 閉じるボタン
         if(DifficultyWindow.activeSelf) {

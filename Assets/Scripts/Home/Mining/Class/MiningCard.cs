@@ -11,13 +11,13 @@ public class MiningCard {
     public int Id;
     public string Name;
     [SerializeField] int cnt; public int Cnt {
-        get => (Cate == MineCate.Goblin)? DM._.DB.MiningData.GoblinCardCnts[Id]
-            : DM._.DB.MiningData.OreCardCnts[Id];
+        get => (Cate == MineCate.Goblin)? DM._.DB.MiningDB.GoblinCardCnts[Id]
+            : DM._.DB.MiningDB.OreCardCnts[Id];
         set {
             if(Cate == MineCate.Goblin)
-                DM._.DB.MiningData.GoblinCardCnts[Id] = value;
+                DM._.DB.MiningDB.GoblinCardCnts[Id] = value;
             else
-                DM._.DB.MiningData.OreCardCnts[Id] = value;
+                DM._.DB.MiningDB.OreCardCnts[Id] = value;
         } 
     }
     public bool IsChecked;

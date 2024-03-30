@@ -6,16 +6,38 @@ using System;
 using UnityEngine.SceneManagement;
 
 /// <summary>
+/// ステータス
+/// </summary>
+[Serializable]
+public class StatusDB {
+    [field:SerializeField] public int Lv {get; set;}
+    [field:SerializeField] public int Exp {get; set;}
+    [field:SerializeField] public int GoblinKey {get; set;}
+    [field:SerializeField] public int Coin {get; set;}
+    [field:SerializeField] public int Diamond {get; set;}
+    [field:SerializeField] public int SkillPoint {get; set;}
+
+    public StatusDB() {
+        Lv = 1;
+        Exp = 8;
+        GoblinKey = 1;
+        Coin = 0;
+        Diamond = 0; 
+        SkillPoint = 0; 
+    }
+}
+
+/// <summary>
 /// ステージロック状態のデータ
 /// </summary>
 [Serializable]
-public class StageLockedData {
+public class StageLockedDB {
     [field:SerializeField] public string Name {get; private set;}
     [field:SerializeField] public bool IsLockEasy {get; set;}
     [field:SerializeField] public bool IsLockNormal {get; set;}
     [field:SerializeField] public bool IsLockHard {get; set;}
     
-    public StageLockedData(string name, bool isLockEasy) {
+    public StageLockedDB(string name, bool isLockEasy) {
         Name = name;
         IsLockEasy = isLockEasy;
         IsLockNormal = false;
@@ -27,23 +49,43 @@ public class StageLockedData {
 /// 採掘システムの保存データ
 /// </summary>
 [Serializable]
-public class MiningData {
+public class MiningDB {
     [field:SerializeField] public int[] GoblinCardCnts {get; set;} = new int[7];
     [field:SerializeField] public int[] OreCardCnts {get; set;} = new int[9];
     [field:SerializeField] public WorkSpace[] WorkSpaces {get; set;} = new WorkSpace[5];
 }
 
 /// <summary>
-/// 保存・読込のデータベース ★データはPlayerPrefsに保存するので、String、Float、Intのみ！！！★
+/// スキルツリー Lockリストデータ
 /// </summary>
 [Serializable]
-public class DB {
-    [field:SerializeField] public StageLockedData[] StageLockedDatas {get; set;}
-    [field:SerializeField] public MiningData MiningData {get; set;}
+public class SkillTreeDB {
+    [field:SerializeField] public bool[] IsLockWarriorSTs {get; set;} = new bool[5];
+    [field:SerializeField] public bool[] IsLockArcherSTs {get; set;} = new bool[5];
+    [field:SerializeField] public bool[] IsLockMagicianSTs {get; set;} = new bool[5];
+    [field:SerializeField] public bool[] IsLockUtilitySTs {get; set;} = new bool[5];
+
+    public SkillTreeDB() {
+        Array.ForEach(IsLockWarriorSTs, isLock => isLock = false);
+        Array.ForEach(IsLockArcherSTs, isLock => isLock = false);
+        Array.ForEach(IsLockMagicianSTs, isLock => isLock = false);
+        Array.ForEach(IsLockUtilitySTs, isLock => isLock = false);
+    }
 }
 
 /// <summary>
-/// データマネジャー
+///* 保存・読込のデータベース ★データはPlayerPrefsに保存するので、String、Float、Intのみ！！！★
+/// </summary>
+[Serializable]
+public class DB {
+    [field:SerializeField] public StatusDB StatusDB {get; set;}
+    [field:SerializeField] public StageLockedDB[] StageLockedDBs {get; set;}
+    [field:SerializeField] public MiningDB MiningDB {get; set;}
+    [field:SerializeField] public SkillTreeDB SkillTreeDB {get; set;}
+}
+
+/// <summary>
+///* データマネジャー
 /// </summary>
 public class DM : MonoBehaviour {
     public static DM _ {get; private set;}
@@ -156,8 +198,10 @@ public class DM : MonoBehaviour {
     public void Init() {
         DB = new DB();
 
+        DB.StatusDB = new StatusDB();
+
         //* Stages
-        DB.StageLockedDatas = new StageLockedData[5] {
+        DB.StageLockedDBs = new StageLockedDB[5] {
             new ("스테이지1. 초원", false),
             new ("스테이지2. 황량한 사막", true),
             new ("스테이지3. 침묵의 바다", true),
@@ -166,19 +210,21 @@ public class DM : MonoBehaviour {
         };
 
         //* Mining
-        DB.MiningData = new MiningData();
-        DB.MiningData.GoblinCardCnts = new int[7] {
+        DB.MiningDB = new MiningDB();
+        DB.MiningDB.GoblinCardCnts = new int[7] {
             5, 4, 3, 2, 1, 0, 0
         };
 
-        DB.MiningData.OreCardCnts = new int[9] {
+        DB.MiningDB.OreCardCnts = new int[9] {
             5, 4, 3, 2, 4, 2, 0, 0, 0
         };
 
-        DB.MiningData.WorkSpaces = new WorkSpace[5];
-        for(int i = 0; i < DB.MiningData.WorkSpaces.Length; i++) {
-            DB.MiningData.WorkSpaces[i] = new WorkSpace(i, i > 0, -1); // WorkSpace의 각 요소를 새로운 인스턴스로 만듭니다.
+        DB.MiningDB.WorkSpaces = new WorkSpace[5];
+        for(int i = 0; i < DB.MiningDB.WorkSpaces.Length; i++) {
+            DB.MiningDB.WorkSpaces[i] = new WorkSpace(i, i > 0, -1); // WorkSpace의 각 요소를 새로운 인스턴스로 만듭니다.
         }
+
+        DB.SkillTreeDB = new SkillTreeDB();
     }
 #endregion
 }

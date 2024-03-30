@@ -30,7 +30,7 @@ public class WorkSpaceUIManager : MonoBehaviour {
     [field: Header("VALUE")]
     [field: SerializeField] public int CurIdx {get; set;}
     [SerializeField] WorkSpace[] workSpaces; public WorkSpace[] WorkSpaces {
-        get => DM._.DB.MiningData.WorkSpaces;
+        get => DM._.DB.MiningDB.WorkSpaces;
     }
     [SerializeField] public WorkSpace CurWorkSpace {
         get => WorkSpaces[CurIdx];

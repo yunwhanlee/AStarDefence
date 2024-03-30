@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-// using UnityEditor.PackageManager;
 
 public class HM : MonoBehaviour {
     public static HM _; //* Global
@@ -9,18 +9,44 @@ public class HM : MonoBehaviour {
     public Color SkyBlueColor;
     public Color RedOrangeColor;
 
+    //* Outside
+    [HideInInspector] public HomeUIManager hui;
+    [HideInInspector] public StageUIManager stgm;
+    [HideInInspector] public HomeRewardManager rwm;
+    // Mining
+    [HideInInspector] public MiningUIManager mnm;
+    [HideInInspector] public MiningTimeUIManager mtm;
+    [HideInInspector] public WorkSpaceUIManager wsm;
+    // SkillTree
+    [HideInInspector] public SkillTreeUIManager stm;
+
     //* Value
     [field: SerializeField] public int SelectedStage {get; set;}
 
-    //* Outside
-    public HomeUIManager hui;
-    public StageUIManager stgm;
-    public HomeRewardManager rwm;
-
-    // Mining
-    public MiningUIManager mnm;
-    public MiningTimeUIManager mtm;
-    public WorkSpaceUIManager wsm;
+    [field: SerializeField] public int Lv {
+        get => DM._.DB.StatusDB.Lv;
+        set => DM._.DB.StatusDB.Lv = value;
+    }
+    [field: SerializeField] public int Exp {
+        get => DM._.DB.StatusDB.Exp;
+        set => DM._.DB.StatusDB.Exp = value;
+    }
+    [field: SerializeField] public int GoblinKey {
+        get => DM._.DB.StatusDB.GoblinKey;
+        set => DM._.DB.StatusDB.GoblinKey = value;
+    }
+    [field: SerializeField] public int Coin {
+        get => DM._.DB.StatusDB.Coin;
+        set => DM._.DB.StatusDB.Coin = value;
+    }
+    [field: SerializeField] public int Diamond {
+        get => DM._.DB.StatusDB.Diamond;
+        set => DM._.DB.StatusDB.Diamond = value;
+    }
+    [field: SerializeField] public int SkillPoint {
+        get => DM._.DB.StatusDB.SkillPoint;
+        set => DM._.DB.StatusDB.SkillPoint = value;
+    }
 
     void Awake() {
         //* Global化 値 代入
@@ -33,6 +59,7 @@ public class HM : MonoBehaviour {
         mnm = GameObject.Find("MiningUIManager").GetComponent<MiningUIManager>();
         mtm = GameObject.Find("MiningTimeUIManager").GetComponent<MiningTimeUIManager>();
         wsm = GameObject.Find("WorkSpaceUIManager").GetComponent<WorkSpaceUIManager>();
+        stm = GameObject.Find("SkillTreeUIManager").GetComponent<SkillTreeUIManager>();
 
         //* 初期化
         SelectedStage = 0;

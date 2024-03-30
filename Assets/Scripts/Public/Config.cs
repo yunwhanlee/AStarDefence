@@ -4,6 +4,11 @@ using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CollectionScripts;
 using UnityEngine;
 
 public static class Config{
+#region HOME
+    public const int MAX_GOBLINKEY = 5;
+#endregion
+
+#region GAME
     public readonly static Vector2Int START_POS = new Vector2Int(-8, 3);
     public readonly static Vector2Int GOAL_POS = new Vector2Int(8, -3);
 
@@ -15,6 +20,7 @@ public static class Config{
     public const int DEFAULT_RESET_CNT = 10;
 
     public const int INC_MAX_LIFE = 15;
+#endregion
 
 #region PRICE
     public class G_PRICE {

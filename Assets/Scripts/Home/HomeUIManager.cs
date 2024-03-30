@@ -12,7 +12,15 @@ public class HomeUIManager : MonoBehaviour {
     Coroutine CorMsgNoticeID;
     public Action OnClickAskConfirmAction;
 
+    [field: Header("STATUS")]
+    [field: SerializeField] public TextMeshProUGUI TopGoblinKeyTxt {get; set;}
+    [field: SerializeField] public TextMeshProUGUI TopCoinTxt {get; set;}
+    [field: SerializeField] public TextMeshProUGUI TopDiamondTxt {get; set;}
+    [field: SerializeField] public TextMeshProUGUI LvTxt {get; set;}
+    [field: SerializeField] public TextMeshProUGUI ExpTxt {get; set;}
+
     public Button PlayBtn {get; set;}
+
     [Header("ERROR MSG POPUP")]
     public GameObject TopMsgError;
     public TextMeshProUGUI MsgErrorTxt;
@@ -31,6 +39,13 @@ public class HomeUIManager : MonoBehaviour {
 
     void Start() {
         CorMsgNoticeID = null;
+
+        //* Init Status Text UI
+        TopGoblinKeyTxt.text = $"{HM._.GoblinKey}/{Config.MAX_GOBLINKEY}";
+        TopCoinTxt.text = $"{HM._.Coin}";
+        TopDiamondTxt.text = $"{HM._.Diamond}";
+        LvTxt.text = $"{HM._.Lv}";
+        ExpTxt.text = $"{HM._.Exp}";
     }
 
 #region EVENT
