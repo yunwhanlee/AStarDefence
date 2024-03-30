@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: UtilitySkillTreeDatas
+  m_EditorClassIdentifier: Assembly-CSharp::SettingSkillTreeData
+  <Datas>k__BackingField:
+  - <Name>k__BackingField: "\uC2DC\uC791\uC9C0\uC6D0"
+    <Description>k__BackingField: "\uC2DC\uC791\uC2DC 15\uACE8\uB4DC \uCD94\uAC00"
+    <Lv>k__BackingField: 1
+    <Cost>k__BackingField: 1
+    <Val>k__BackingField: 15
+  - <Name>k__BackingField: "\uCCB4\uB825\uAC15\uD654"
+    <Description>k__BackingField: "\uC0DD\uBA85\uB825 +2"
+    <Lv>k__BackingField: 2
+    <Cost>k__BackingField: 2
+    <Val>k__BackingField: 2
+  - <Name>k__BackingField: "\uD604\uC0C1\uAE08"
+    <Description>k__BackingField: "10\uD0AC\uB2F9 +1\uACE8\uB4DC"
+    <Lv>k__BackingField: 3
+    <Cost>k__BackingField: 3
+    <Val>k__BackingField: 1
+  - <Name>k__BackingField: "\uC804\uBB38\uAC00 \uBCF4\uC0C1"
+    <Description>k__BackingField: "\uACBD\uD5D8\uCE58 \uCD94\uAC00 10%"
+    <Lv>k__BackingField: 4
+    <Cost>k__BackingField: 3
+    <Val>k__BackingField: 0.1
+  - <Name>k__BackingField: "\uD604\uC0C1\uAE08\uD0AC\uB7EC"
+    <Description>k__BackingField: "10\uD0AC\uB2F9 +2\uACE8\uB4DC"
+    <Lv>k__BackingField: 5
+    <Cost>k__BackingField: 4
+    <Val>k__BackingField: 2

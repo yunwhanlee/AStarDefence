@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum SkillTreeCate {
-    Warrior, Archer, Magician, Utility
-}
+public enum SkillTreeCate { Warrior, Archer, Magician, Utility }
 
 public class SkillTreeUIManager : MonoBehaviour {
-    [field:SerializeField] public BgPatternController BgPatternCtrl {get; set;}
+    [field:SerializeField] public BgPatternController BgPatternCtrl {get; private set;}
+
+    [field:SerializeField] public SettingSkillTreeData WarriorSkillTreeSO {get; private set;}
+    [field:SerializeField] public SettingSkillTreeData ArcherSkillTreeSO {get; private set;}
+    [field:SerializeField] public SettingSkillTreeData MagicianSkillTreeSO {get; private set;}
+    [field:SerializeField] public SettingSkillTreeData UtilitySkillTreeSO {get; private set;}
 
     int i = 0;
 
