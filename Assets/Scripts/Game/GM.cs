@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
+using UnityEditor.Playables;
 // using UnityEditorInternal;
 // using UnityEditor.SceneManagement;
 // using UnityEngine.Events;
@@ -87,9 +88,9 @@ public class GM : MonoBehaviour {
         MaxWave = StageDts[Stage].EnemyData.Waves.Length;
         WaveCnt = 0;
         ResetCnt = Config.DEFAULT_RESET_CNT;
-        life = Config.DEFAULT_LIFE;
+        life = Config.DEFAULT_LIFE + (int)DM._.DB.SkillTreeDB.GetUtilityVal((int)SKT_UT.EXTRA_LIFE);
         MaxLife = life;
-        Money = Config.DEFAULT_MONEY;
+        Money = Config.DEFAULT_MONEY + (int)DM._.DB.SkillTreeDB.GetUtilityVal((int)SKT_UT.EXTRA_MONEY);
 
         SM._.SfxPlay(SM.SFX.GameStartSFX);
 
@@ -187,9 +188,7 @@ public class GM : MonoBehaviour {
         if(WaveCnt < MaxWave)
             gui.SetNextEnemyInfoFlagUI();
         else {
-            SM._.SfxPlay(SM.SFX.CompleteSFX);
-            gui.VictoryPopUp.SetActive(true);
-            gui.Pause();
+            Victory();
             return;
         }
 
@@ -208,6 +207,16 @@ public class GM : MonoBehaviour {
             bossRwd.Active(rwdSelectCnt);
         }
     }
+
+    private void Victory() {
+        gui.Pause();
+        SM._.SfxPlay(SM.SFX.CompleteSFX);
+        gui.VictoryPopUp.SetActive(true);
+
+        //TODO Reward 処理
+        //TODO SkillTree Utility Lv4 Exp 10% Up
+    }
+
     /// <summary>
     /// ライフ減る
     /// </summary>

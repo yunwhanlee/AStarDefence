@@ -18,7 +18,9 @@ public class EnemyManager : MonoBehaviour {
     public Enemy enemyPf;
     IObjectPool<Enemy> pool;    public IObjectPool<Enemy> Pool {get => pool;}
     [field:SerializeField] public int EnemyCnt {get; set;}
+    [field:SerializeField] public int KillCnt {get; set;}
     [SerializeField] int spawnCnt;
+    SkillTreeDB sktDb = DM._.DB.SkillTreeDB;
 
     void Awake() {
         EnemyCnt = MONSTER_CNT;
@@ -38,6 +40,21 @@ public class EnemyManager : MonoBehaviour {
     private void onRelease(Enemy enemy) { //* 戻す
         enemy.gameObject.SetActive(false);
         enemy.Init(GM._.GetCurEnemyData());
+
+        //* 死ぬカウント
+        KillCnt++;
+
+        //* Utilityスキル Lv３と５効果
+        if(KillCnt % 10 == 0) {
+            int extraMoney = 0;
+            if(!sktDb.IsLockUtilitySTs[(int)SKT_UT.TEN_KILL_1MONEY])
+                extraMoney += (int)sktDb.GetUtilityVal((int)SKT_UT.TEN_KILL_1MONEY);
+            if(!sktDb.IsLockUtilitySTs[(int)SKT_UT.TEN_KILL_2MONEY])
+                extraMoney += (int)sktDb.GetUtilityVal((int)SKT_UT.TEN_KILL_2MONEY);
+            GM._.SetMoney(extraMoney);
+            GM._.gef.ShowIconTxtEF(GM._.gui.MoneyTxt.transform.position, extraMoney, "Meat", isDown: true);
+        }
+        
 
         //* レイド終了をチェック
         // 敵のスポーンが終わらないと以下の処理しない

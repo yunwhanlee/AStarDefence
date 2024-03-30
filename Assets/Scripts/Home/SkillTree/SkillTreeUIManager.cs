@@ -48,12 +48,6 @@ public class SkillTreeUIManager : MonoBehaviour {
 
     [field: SerializeField] public Color[] SkillIconBgColors {get; private set;}
 
-    //* Data
-    [field:SerializeField] public SettingSkillTreeData WarriorSkillTreeSO {get; private set;}
-    [field:SerializeField] public SettingSkillTreeData ArcherSkillTreeSO {get; private set;}
-    [field:SerializeField] public SettingSkillTreeData MagicianSkillTreeSO {get; private set;}
-    [field:SerializeField] public SettingSkillTreeData UtilitySkillTreeSO {get; private set;}
-
     //* Element
     [field:SerializeField] public BgPatternController BgPatternCtrl {get; private set;}
     [field:SerializeField] public SkillTree[] WarriorSkillTrees {get; private set;}
@@ -187,13 +181,13 @@ public class SkillTreeUIManager : MonoBehaviour {
     private SkillTreeData GetCurSkillDataSO(SkillTreeCate cate, int idx) {
         switch(cate) {
             case SkillTreeCate.Warrior:
-                return WarriorSkillTreeSO.Datas[idx];
+                return DM._.WarriorSkillTreeSO.Datas[idx];
             case SkillTreeCate.Archer:
-                return ArcherSkillTreeSO.Datas[idx];
+                return DM._.ArcherSkillTreeSO.Datas[idx];
             case SkillTreeCate.Magician:
-                return MagicianSkillTreeSO.Datas[idx];
+                return DM._.MagicianSkillTreeSO.Datas[idx];
             case SkillTreeCate.Utility:
-                return UtilitySkillTreeSO.Datas[idx];
+                return DM._.UtilitySkillTreeSO.Datas[idx];
         }
         return null;
     }

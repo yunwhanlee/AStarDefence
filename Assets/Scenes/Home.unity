@@ -25738,6 +25738,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <IsReset>k__BackingField: 1
+  <WarriorSkillTreeSO>k__BackingField: {fileID: 11400000, guid: c0b3f0c2da32894469f89e6cbcaa1aff, type: 2}
+  <ArcherSkillTreeSO>k__BackingField: {fileID: 11400000, guid: ce3e3a84500ef4c4687c83ee1573a92e, type: 2}
+  <MagicianSkillTreeSO>k__BackingField: {fileID: 11400000, guid: 5bbdfbdbf7f639043a1ac0849f9f7516, type: 2}
+  <UtilitySkillTreeSO>k__BackingField: {fileID: 11400000, guid: bb6eb15f26fb4f84bae589284f435b17, type: 2}
   <DB>k__BackingField:
     <StatusDB>k__BackingField:
       <Lv>k__BackingField: 1

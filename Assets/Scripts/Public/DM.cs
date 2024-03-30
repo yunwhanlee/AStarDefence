@@ -75,6 +75,14 @@ public class SkillTreeDB {
         for(int i = 0; i < IsLockUtilitySTs.Length; i++)
             IsLockUtilitySTs[i] = true;
     }
+
+    /// <summary>
+    /// アンロックしたスキルツリーの効果を返す(float返しですが、場合によってIntに変換する必要がある)
+    /// </summary>
+    /// <param name="lvIdx">レベルIndex</param>
+    public float GetUtilityVal(int lvIdx) {
+        return !IsLockUtilitySTs[lvIdx]? DM._.UtilitySkillTreeSO.Datas[lvIdx].Val : 0;
+    }
 }
 
 /// <summary>
@@ -95,8 +103,16 @@ public class DM : MonoBehaviour {
     public static DM _ {get; private set;}
     const string DB_KEY = "DB";
     const string PASSEDTIME_KEY = "PASSED_TIME";
-    //* ★データベース
     [field: SerializeField] public bool IsReset {get; set;}
+
+    //* スキルツリーデータ
+    [field:Header("SKILL TREE DATA")]
+    [field:SerializeField] public SettingSkillTreeData WarriorSkillTreeSO {get; private set;}
+    [field:SerializeField] public SettingSkillTreeData ArcherSkillTreeSO {get; private set;}
+    [field:SerializeField] public SettingSkillTreeData MagicianSkillTreeSO {get; private set;}
+    [field:SerializeField] public SettingSkillTreeData UtilitySkillTreeSO {get; private set;}
+
+    //* ★データベース
     [field: SerializeField] public DB DB {get; private set;}
     [field: SerializeField] public int PassedSec {get; set;}
 
