@@ -84,14 +84,18 @@ public class HomeUIManager : MonoBehaviour {
 
     /// <summary> 下にお知らせメッセージ表示（自動OFF）</summary>
     public void ShowMsgNotice(string msg, int y = 350) {
-        if(CorMsgNoticeID != null) StopCoroutine(CorMsgNoticeID);
-        CorMsgNoticeID = StartCoroutine(CoShowMsgNotice(msg, y, Util.RealTime2));
+        if(CorMsgNoticeID != null) {
+            StopCoroutine(CorMsgNoticeID);
+        }
+        CorMsgNoticeID = StartCoroutine(CoShowMsgNotice(msg, y, Util.Time2));
     }
-    public void ShowMsgNotice(string msg, WaitForSecondsRealtime time) {
-        if(CorMsgNoticeID != null) StopCoroutine(CorMsgNoticeID);
+    public void ShowMsgNotice(string msg, WaitForSeconds time) {
+        if(CorMsgNoticeID != null) {
+            StopCoroutine(CorMsgNoticeID);
+        }
         CorMsgNoticeID = StartCoroutine(CoShowMsgNotice(msg, 350, time));
     }
-    IEnumerator CoShowMsgNotice(string msg, int y, WaitForSecondsRealtime waitTime) {
+    IEnumerator CoShowMsgNotice(string msg, int y, WaitForSeconds waitTime) {
         BottomMsgNotice.SetActive(true);
         BottomMsgNotice.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, y);
         MsgNoticeTxt.text = msg;

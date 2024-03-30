@@ -66,10 +66,14 @@ public class SkillTreeDB {
     [field:SerializeField] public bool[] IsLockUtilitySTs {get; set;} = new bool[5];
 
     public SkillTreeDB() {
-        Array.ForEach(IsLockWarriorSTs, isLock => isLock = false);
-        Array.ForEach(IsLockArcherSTs, isLock => isLock = false);
-        Array.ForEach(IsLockMagicianSTs, isLock => isLock = false);
-        Array.ForEach(IsLockUtilitySTs, isLock => isLock = false);
+        for(int i = 0; i < IsLockWarriorSTs.Length; i++)
+            IsLockWarriorSTs[i] = true;
+        for(int i = 0; i < IsLockArcherSTs.Length; i++)
+            IsLockArcherSTs[i] = true;
+        for(int i = 0; i < IsLockMagicianSTs.Length; i++)
+            IsLockMagicianSTs[i] = true;
+        for(int i = 0; i < IsLockUtilitySTs.Length; i++)
+            IsLockUtilitySTs[i] = true;
     }
 }
 

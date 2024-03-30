@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,7 +42,7 @@ public class SkillTree {
     }
 
     public void UpdateDimUI() {
-        Dim.SetActive(!IsLock);
+        Dim.SetActive(IsLock);
     }
 }
 
@@ -76,66 +75,126 @@ public class SkillTreeUIManager : MonoBehaviour {
     [field:SerializeField] public TextMeshProUGUI NeededSkillPointTxt {get; private set;}
 
     void Start() {
-        MySkillPointTxt.text = $"{HM._.SkillPoint}";
+        UpdateMyPointTxt();
         OnClickWarriorSkillTreeBtn(0);
         UpdateLock();
     }
 
-    #region EVENT
-        public void OnClickSkillTreeIconBtn() {
-            WindowObj.SetActive(true);
+#region EVENT
+    public void OnClickSkillTreeIconBtn() {
+        WindowObj.SetActive(true);
+    }
+    public void OnClickClosePopUpBtn() {
+        WindowObj.SetActive(false);
+    }
+    public void OnClickResetSkillPointBtn() {
+        Debug.Log("RESET SKILL POINT");
+
+    }
+    public void OnClickLearnSkillBtn() {
+        SkillTree curST = GetCurSkill(Cate, CurIdx);
+        SkillTreeData curSTDataSO = GetCurSkillDataSO(Cate, CurIdx);
+        Debug.Log($"LEARN SKILL curST.IsLock= {curST.IsLock}");
+
+        if(curST.IsLock) {
+            if(HM._.SkillPoint >= curSTDataSO.Cost) {
+                HM._.SkillPoint -= curSTDataSO.Cost;
+                curST.IsLock = false;
+                curST.Dim.SetActive(false);
+                HM._.hui.ShowMsgNotice("스킬 획득 완료!");
+            }
+            else {
+                HM._.hui.ShowMsgNotice("스킬 포인트 부족!");
+            }
         }
-        public void OnClickClosePopUpBtn() {
-            WindowObj.SetActive(false);
-        }
-        public void OnClickResetSkillPointBtn() {
-            Debug.Log("RESET SKILL POINT");
-        }
-        public void OnClickLearnSkillBtn() {
-            Debug.Log("LEARN SKILL");
+        else {
+            HM._.hui.ShowMsgNotice("스킬을 이미 획득했습니다.");
         }
 
-        public void OnClickWarriorSkillTreeBtn(int idx) {
-            SetUI(idx, SkillTreeCate.Warrior, WarriorSkillTrees, WarriorSkillTreeSO);
-        }
-        public void OnClickArcherSkillTreeBtn(int idx) {
-            SetUI(idx, SkillTreeCate.Archer, ArcherSkillTrees, ArcherSkillTreeSO);
-        }
-        public void OnClickMagicianSkillTreeBtn(int idx) {
-            SetUI(idx, SkillTreeCate.Magician, MagicianSkillTrees, MagicianSkillTreeSO);
-        }
-        public void OnClickUtilitySkillTreeBtn(int idx) {
-            SetUI(idx, SkillTreeCate.Utility, UtilitySkillTrees, UtilitySkillTreeSO);
-        }
-    #endregion
+        UpdateMyPointTxt();
+    }
 
-    #region FUNC
-        private void SetUI(int idx, SkillTreeCate cate, SkillTree[] skillTrees, SettingSkillTreeData skillTreeDataSO) {
-            InitSelect();
+    public void OnClickWarriorSkillTreeBtn(int idx) {
+        SetCurSkill(SkillTreeCate.Warrior, idx);
+        SetUI(idx, SkillTreeCate.Warrior);
+    }
+    public void OnClickArcherSkillTreeBtn(int idx) {
+        SetCurSkill(SkillTreeCate.Archer, idx);
+        SetUI(idx, SkillTreeCate.Archer);
+    }
+    public void OnClickMagicianSkillTreeBtn(int idx) {
+        SetCurSkill(SkillTreeCate.Magician, idx);
+        SetUI(idx, SkillTreeCate.Magician);
+    }
+    public void OnClickUtilitySkillTreeBtn(int idx) {
+        SetCurSkill(SkillTreeCate.Utility, idx);
+        SetUI(idx, SkillTreeCate.Utility);
+    }
+#endregion
 
-            //* 背景とアイコン背景色
-            BgPatternCtrl.BgImg.color = BgPatternCtrl.SkillCateColors[(int)cate];
-            SkillIconBgImg.color = SkillIconBgColors[(int)cate];
-            skillTrees[idx].Border.color = SkillIconBgColors[(int)cate];
-            //* スキルボックス UI
-            CurSkillIconImg.sprite = skillTrees[idx].IconImg.sprite;
-            SkillNameTxt.text = skillTreeDataSO.Datas[idx].Name;
-            SkillInfoTxt.text = skillTreeDataSO.Datas[idx].Description;
-            NeededSkillPointTxt.text = $"{WarriorSkillTreeSO.Datas[idx].Cost}";
-        }
+#region FUNC
+    private SkillTree GetCurSkill(SkillTreeCate cate, int idx) {
+        return cate switch {
+            SkillTreeCate.Warrior => WarriorSkillTrees[idx],
+            SkillTreeCate.Archer => ArcherSkillTrees[idx],
+            SkillTreeCate.Magician => MagicianSkillTrees[idx],
+            SkillTreeCate.Utility => UtilitySkillTrees[idx],
+            _ => null,
+        };
+    }
 
-        private void InitSelect() {
-            Array.ForEach(WarriorSkillTrees, skt => skt.InitBorderUI());
-            Array.ForEach(ArcherSkillTrees, skt => skt.InitBorderUI());
-            Array.ForEach(MagicianSkillTrees, skt => skt.InitBorderUI());
-            Array.ForEach(UtilitySkillTrees, skt => skt.InitBorderUI());
+    private SkillTreeData GetCurSkillDataSO(SkillTreeCate cate, int idx) {
+        switch(cate) {
+            case SkillTreeCate.Warrior:
+                return WarriorSkillTreeSO.Datas[idx];
+            case SkillTreeCate.Archer:
+                return ArcherSkillTreeSO.Datas[idx];
+            case SkillTreeCate.Magician:
+                return MagicianSkillTreeSO.Datas[idx];
+            case SkillTreeCate.Utility:
+                return UtilitySkillTreeSO.Datas[idx];
         }
+        return null;
+    }
 
-        private void UpdateLock() {
-            Array.ForEach(WarriorSkillTrees, skt => skt.UpdateDimUI());
-            Array.ForEach(ArcherSkillTrees, skt => skt.UpdateDimUI());
-            Array.ForEach(MagicianSkillTrees, skt => skt.UpdateDimUI());
-            Array.ForEach(UtilitySkillTrees, skt => skt.UpdateDimUI());
-        }
-    #endregion
+    private void SetCurSkill(SkillTreeCate cate, int idx) {
+        Cate = cate;
+        CurIdx = idx;
+    }
+
+    private void UpdateMyPointTxt(){
+        MySkillPointTxt.text = $"{HM._.SkillPoint}";
+    }
+
+    private void SetUI(int idx, SkillTreeCate cate) {
+        SkillTree curST = GetCurSkill(cate, idx);
+        SkillTreeData  curSTDataSO = GetCurSkillDataSO(cate, idx);
+
+        InitSelect();
+
+        //* 背景とアイコン背景色
+        BgPatternCtrl.BgImg.color = BgPatternCtrl.SkillCateColors[(int)cate];
+        SkillIconBgImg.color = SkillIconBgColors[(int)cate];
+        curST.Border.color = SkillIconBgColors[(int)cate];
+        //* スキルボックス UI
+        CurSkillIconImg.sprite = curST.IconImg.sprite;
+        SkillNameTxt.text = curSTDataSO.Name;
+        SkillInfoTxt.text = curSTDataSO.Description;
+        NeededSkillPointTxt.text = $"{curSTDataSO.Cost}";
+    }
+
+    private void InitSelect() {
+        Array.ForEach(WarriorSkillTrees, skt => skt.InitBorderUI());
+        Array.ForEach(ArcherSkillTrees, skt => skt.InitBorderUI());
+        Array.ForEach(MagicianSkillTrees, skt => skt.InitBorderUI());
+        Array.ForEach(UtilitySkillTrees, skt => skt.InitBorderUI());
+    }
+
+    private void UpdateLock() {
+        Array.ForEach(WarriorSkillTrees, skt => skt.UpdateDimUI());
+        Array.ForEach(ArcherSkillTrees, skt => skt.UpdateDimUI());
+        Array.ForEach(MagicianSkillTrees, skt => skt.UpdateDimUI());
+        Array.ForEach(UtilitySkillTrees, skt => skt.UpdateDimUI());
+    }
+#endregion
 }
