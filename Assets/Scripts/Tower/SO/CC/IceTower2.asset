@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IceTower2
   m_EditorClassIdentifier: 
   Type: 2
-  Kind: 0
+  Kind: -1
   Name: "\uC544\uC774\uC2A4\uD0C0\uC6CC2"
   Lv: 2
   Dmg: 0

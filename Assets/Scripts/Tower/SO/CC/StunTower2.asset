@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StunTower2
   m_EditorClassIdentifier: 
   Type: 3
-  Kind: 0
+  Kind: -1
   Name: "\uC2A4\uD134\uD0C0\uC6CC2"
   Lv: 2
   Dmg: 0

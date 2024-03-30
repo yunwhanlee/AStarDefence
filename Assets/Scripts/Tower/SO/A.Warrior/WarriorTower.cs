@@ -37,10 +37,41 @@ public class WarriorTower : Tower {
 
     bool isDrawGizmos;
     Vector2 gizmosPos;
+    SkillTreeDB sktDb = DM._.DB.SkillTreeDB;
 
     void Start() {
         if(Lv >= 5) IsCheerUpActive = true; //* レベル５以上
         if(Lv >= 6) IsRoarActive = true; //* レベル５以上
+    }
+
+    public void SetSkillTreeExtraDmg() {
+        float extraPer = 0;
+
+        //* SkillTree 追加ダメージ
+        if(!sktDb.IsLockWarriorSTs[(int)SKT_WR.EXTRA_DMG_A])
+            extraPer += sktDb.GetWarriorVal((int)SKT_WR.EXTRA_DMG_A);
+        if(!sktDb.IsLockWarriorSTs[(int)SKT_WR.EXTRA_DMG_B])
+            extraPer += sktDb.GetWarriorVal((int)SKT_WR.EXTRA_DMG_B);
+
+        //* ExtraダメージDICIONARYへ追加
+        if(extraPer > 0) {
+            int extraDmg = Mathf.RoundToInt(TowerData.Dmg * extraPer);
+            extraDmg = extraDmg == 0? 1 : extraDmg;
+            ExtraDmgDic.Add($"{SKT_KEY.SKT_EXTRA_DMG}", extraDmg);
+        }
+    }
+
+    public void SetSkillTreeExtraRange() {
+        float extraPer = 0;
+
+        //* SkillTree 追加ダメージ
+        if(!sktDb.IsLockWarriorSTs[(int)SKT_WR.EXTRA_RANGE])
+            extraPer += sktDb.GetWarriorVal((int)SKT_WR.EXTRA_RANGE);
+
+        //* ExtraダメージDICIONARYへ追加
+        if(extraPer > 0) {
+            ExtraRangeDic.Add($"{SKT_KEY.SKT_EXTRA_RANGE}", extraPer);
+        }
     }
 
     public override void CheckMergeUI() {

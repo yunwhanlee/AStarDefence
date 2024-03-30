@@ -21,9 +21,28 @@ public class ArcherTower : Tower {
     [field:SerializeField] public bool IsPassArrowActive {get; set;}
     [field:SerializeField] public bool IsArrowRainActive {get; set;}
 
+    SkillTreeDB sktDb = DM._.DB.SkillTreeDB;
+
     void Start(){
         IsPassArrowActive = true;
         IsArrowRainActive = true;
+    }
+
+    public void SetSkillTreeExtraDmg() {
+        float extraPer = 0;
+
+        //* SkillTree 追加ダメージ
+        if(!sktDb.IsLockArcherSTs[(int)SKT_AC.EXTRA_DMG_A])
+            extraPer += sktDb.GetArcherVal((int)SKT_AC.EXTRA_DMG_A);
+        if(!sktDb.IsLockArcherSTs[(int)SKT_AC.EXTRA_DMG_B])
+            extraPer += sktDb.GetArcherVal((int)SKT_AC.EXTRA_DMG_B);
+
+        //* ExtraダメージDICIONARYへ追加
+        if(extraPer > 0) {
+            int extraDmg = Mathf.RoundToInt(TowerData.Dmg * extraPer);
+            extraDmg = extraDmg == 0? 1 : extraDmg;
+            ExtraDmgDic.Add($"{SKT_KEY.SKT_EXTRA_DMG}", extraDmg);
+        }
     }
 
     public override void CheckMergeUI() {

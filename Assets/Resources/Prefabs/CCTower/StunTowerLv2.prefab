@@ -51,20 +51,14 @@ MonoBehaviour:
   TowerData: {fileID: 11400000, guid: 37789ffb98d5196438bf13e3d3049bd8, type: 2}
   trc: {fileID: 0}
   chara: {fileID: 0}
-  missile: {fileID: 0}
   Type: 3
-  Kind: 0
+  Kind: -1
   AtkType: 1
   BodySprRdr: {fileID: 8922788899071926121}
+  MissileSpr: {fileID: 0}
   Name: "\uC2A4\uD134\uD0C0\uC6CC2"
   Lv: 2
-  Dmg: 0
-  AtkSpeed: 0
-  AtkRange: 0
-  SplashRange: 0
-  CritPer: 0
-  CritDmgPer: 0
-  SlowPer: 0
+  SlowSec: 0
   StunSec: 0
 --- !u!212 &8922788899071926121
 SpriteRenderer:
@@ -370,8 +364,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Tower>k__BackingField: {fileID: 0}
   <SprRdr>k__BackingField: {fileID: 0}
-  TargetList: []
   <CurTarget>k__BackingField: {fileID: 0}
+  TargetList: []
 --- !u!58 &5501831946608974429
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -26,6 +26,7 @@ public class MagicianTower : Tower {
 
     bool isDrawGizmos;
     Vector2 gizmosPos;
+    SkillTreeDB sktDb = DM._.DB.SkillTreeDB;
 
     void Start() {
         //* １回のみ生成トリガー
@@ -33,6 +34,36 @@ public class MagicianTower : Tower {
         //* 最初ONトリガー
         IsLaserActive = true; 
         IsBigbangActive = true;
+    }
+
+    public void SetSkillTreeExtraDmg() {
+        float extraPer = 0;
+
+        //* SkillTree 追加ダメージ
+        if(!sktDb.IsLockMagicianSTs[(int)SKT_MG.EXTRA_DMG_A])
+            extraPer += sktDb.GetMagicianVal((int)SKT_MG.EXTRA_DMG_A);
+        if(!sktDb.IsLockMagicianSTs[(int)SKT_MG.EXTRA_DMG_B])
+            extraPer += sktDb.GetMagicianVal((int)SKT_MG.EXTRA_DMG_B);
+
+        //* ExtraダメージDICIONARYへ追加
+        if(extraPer > 0) {
+            int extraDmg = Mathf.RoundToInt(TowerData.Dmg * extraPer);
+            extraDmg = extraDmg == 0? 1 : extraDmg;
+            ExtraDmgDic.Add($"{SKT_KEY.SKT_EXTRA_DMG}", extraDmg);
+        }
+    }
+
+    public void SetSkillTreeExtraRange() {
+        float extraPer = 0;
+
+        //* SkillTree 追加ダメージ
+        if(!sktDb.IsLockMagicianSTs[(int)SKT_MG.EXTRA_RANGE])
+            extraPer += sktDb.GetMagicianVal((int)SKT_MG.EXTRA_RANGE);
+
+        //* ExtraダメージDICIONARYへ追加
+        if(extraPer > 0) {
+            ExtraRangeDic.Add($"{SKT_KEY.SKT_EXTRA_RANGE}", extraPer);
+        }
     }
 
     public override void CheckMergeUI() {

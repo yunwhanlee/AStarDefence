@@ -80,6 +80,15 @@ public class SkillTreeDB {
     /// アンロックしたスキルツリーの効果を返す(float返しですが、場合によってIntに変換する必要がある)
     /// </summary>
     /// <param name="lvIdx">レベルIndex</param>
+    public float GetWarriorVal(int lvIdx) {
+        return !IsLockWarriorSTs[lvIdx]? DM._.WarriorSkillTreeSO.Datas[lvIdx].Val : 0;
+    }
+    public float GetArcherVal(int lvIdx) {
+        return !IsLockArcherSTs[lvIdx]? DM._.ArcherSkillTreeSO.Datas[lvIdx].Val : 0;
+    }
+    public float GetMagicianVal(int lvIdx) {
+        return !IsLockMagicianSTs[lvIdx]? DM._.MagicianSkillTreeSO.Datas[lvIdx].Val : 0;
+    }
     public float GetUtilityVal(int lvIdx) {
         return !IsLockUtilitySTs[lvIdx]? DM._.UtilitySkillTreeSO.Datas[lvIdx].Val : 0;
     }
