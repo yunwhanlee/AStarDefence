@@ -60,8 +60,11 @@ public class SkillTreeUIManager : MonoBehaviour {
     [field:SerializeField] public SkillTree[] ArcherSkillTrees {get; private set;}
     [field:SerializeField] public SkillTree[] MagicianSkillTrees {get; private set;}
     [field:SerializeField] public SkillTree[] UtilitySkillTrees {get; private set;}
-
-    //* UI
+    
+    //* Home
+    [field:SerializeField] public GameObject AlertIcon {get; private set;}
+    [field:SerializeField] public TextMeshProUGUI AlertIconTxt {get; private set;}
+    //* PopUp UI
     [field:SerializeField] public GameObject WindowObj {get; private set;}
     [field:SerializeField] public TextMeshProUGUI MySkillPointTxt {get; private set;}
     [field:SerializeField] public Image SkillIconBgImg {get; private set;}
@@ -75,6 +78,7 @@ public class SkillTreeUIManager : MonoBehaviour {
         UpdateMyPointTxt();
         OnClickWarriorSkillTreeBtn(0);
         UpdateLock();
+        UpdateAlertIcon();
     }
 
 #region EVENT
@@ -86,6 +90,7 @@ public class SkillTreeUIManager : MonoBehaviour {
     public void OnClickClosePopUpBtn() {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(false);
+        UpdateAlertIcon();
     }
 
     public void OnClickResetSkillPointBtn() {
@@ -200,6 +205,10 @@ public class SkillTreeUIManager : MonoBehaviour {
 
     private void UpdateMyPointTxt() {
         MySkillPointTxt.text = $"{HM._.SkillPoint}";
+    }
+    private void UpdateAlertIcon() {
+        AlertIcon.SetActive(HM._.SkillPoint > 0);
+        AlertIconTxt.text = HM._.SkillPoint.ToString();
     }
 
     private int GetRefundSkillPoint(SkillTree[] skillTrees) {

@@ -10,6 +10,7 @@ using TMPro;
 /// </summary>
 public class HomeUIManager : MonoBehaviour {
     Coroutine CorMsgNoticeID;
+    Coroutine CorMsgErrorID;
     public Action OnClickAskConfirmAction;
 
     [field: Header("STATUS")]
@@ -39,6 +40,7 @@ public class HomeUIManager : MonoBehaviour {
 
     void Start() {
         CorMsgNoticeID = null;
+        CorMsgErrorID = null;
 
         //* Init Status Text UI
         TopGoblinKeyTxt.text = $"{HM._.GoblinKey}/{Config.MAX_GOBLINKEY}";
@@ -64,8 +66,10 @@ public class HomeUIManager : MonoBehaviour {
 #region FUNC
     /// <summary> 上にへエラーメッセージバー表示（自動OFF）</summary>
     public void ShowMsgError(string msg) {
+        if(CorMsgErrorID != null) 
+            StopCoroutine(CorMsgErrorID);
         SM._.SfxPlay(SM.SFX.ErrorSFX);
-        StartCoroutine(CoShowMsgError(msg));
+        CorMsgErrorID = StartCoroutine(CoShowMsgError(msg));
     }
     IEnumerator CoShowMsgError(string msg) {
         TopMsgError.SetActive(true);
@@ -84,15 +88,13 @@ public class HomeUIManager : MonoBehaviour {
 
     /// <summary> 下にお知らせメッセージ表示（自動OFF）</summary>
     public void ShowMsgNotice(string msg, int y = 350) {
-        if(CorMsgNoticeID != null) {
+        if(CorMsgNoticeID != null)
             StopCoroutine(CorMsgNoticeID);
-        }
         CorMsgNoticeID = StartCoroutine(CoShowMsgNotice(msg, y, Util.Time2));
     }
     public void ShowMsgNotice(string msg, WaitForSeconds time) {
-        if(CorMsgNoticeID != null) {
+        if(CorMsgNoticeID != null)
             StopCoroutine(CorMsgNoticeID);
-        }
         CorMsgNoticeID = StartCoroutine(CoShowMsgNotice(msg, 350, time));
     }
     IEnumerator CoShowMsgNotice(string msg, int y, WaitForSeconds waitTime) {
