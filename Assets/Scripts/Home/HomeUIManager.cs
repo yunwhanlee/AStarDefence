@@ -70,7 +70,7 @@ public class HomeUIManager : MonoBehaviour {
     IEnumerator CoShowMsgError(string msg) {
         TopMsgError.SetActive(true);
         MsgErrorTxt.text = msg;
-        yield return Util.RealTime1;
+        yield return Util.Time1;
         TopMsgError.SetActive(false);
     }
     public void ShowErrMsg_PlsClearPreviousDifficulty() 

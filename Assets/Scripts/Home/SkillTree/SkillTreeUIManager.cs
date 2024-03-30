@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AssetKits.ParticleImage;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,13 +38,8 @@ public class SkillTree {
         } 
     }
 
-    public void InitBorderUI() {
-        Border.color = Color.white;
-    }
-
-    public void UpdateDimUI() {
-        Dim.SetActive(IsLock);
-    }
+    public void InitBorderUI() => Border.color = Color.white;
+    public void UpdateDimUI() => Dim.SetActive(IsLock);
 }
 
 public class SkillTreeUIManager : MonoBehaviour {
@@ -73,6 +69,7 @@ public class SkillTreeUIManager : MonoBehaviour {
     [field:SerializeField] public TextMeshProUGUI SkillNameTxt {get; private set;}
     [field:SerializeField] public TextMeshProUGUI SkillInfoTxt {get; private set;}
     [field:SerializeField] public TextMeshProUGUI NeededSkillPointTxt {get; private set;}
+    [field:SerializeField] public GameObject BurstStarEF {get; private set;}
 
     void Start() {
         UpdateMyPointTxt();
@@ -82,13 +79,34 @@ public class SkillTreeUIManager : MonoBehaviour {
 
 #region EVENT
     public void OnClickSkillTreeIconBtn() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(true);
+        UpdateMyPointTxt();
     }
     public void OnClickClosePopUpBtn() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(false);
     }
+
+
     public void OnClickResetSkillPointBtn() {
-        Debug.Log("RESET SKILL POINT");
+        int refundSkillPoint = 0;
+
+        //* 全てのスキルを回して返金ポイント確認
+        refundSkillPoint += GetRefundSkillPoint(WarriorSkillTrees);
+        refundSkillPoint += GetRefundSkillPoint(ArcherSkillTrees);
+        refundSkillPoint += GetRefundSkillPoint(MagicianSkillTrees);
+        refundSkillPoint += GetRefundSkillPoint(UtilitySkillTrees);        
+
+        //* 実際にポイント戻す
+        HM._.SkillPoint += refundSkillPoint;
+
+        //* UI 最新化
+        UpdateMyPointTxt();
+        InitSelect();
+        UpdateLock();
+        SM._.SfxPlay(SM.SFX.WaveStartSFX);
+        HM._.hui.ShowMsgNotice($"스킬포인트 초기화 완료! {refundSkillPoint}포인트 반환");
 
     }
     public void OnClickLearnSkillBtn() {
@@ -101,38 +119,48 @@ public class SkillTreeUIManager : MonoBehaviour {
                 HM._.SkillPoint -= curSTDataSO.Cost;
                 curST.IsLock = false;
                 curST.Dim.SetActive(false);
+                SM._.SfxPlay(SM.SFX.UpgradeSFX);
+                ActiveBurstStarEF();
                 HM._.hui.ShowMsgNotice("스킬 획득 완료!");
             }
             else {
-                HM._.hui.ShowMsgNotice("스킬 포인트 부족!");
+                HM._.hui.ShowMsgError("스킬 포인트 부족!");
             }
         }
         else {
-            HM._.hui.ShowMsgNotice("스킬을 이미 획득했습니다.");
+            HM._.hui.ShowMsgError("이미 획득한 스킬.");
         }
 
         UpdateMyPointTxt();
     }
 
     public void OnClickWarriorSkillTreeBtn(int idx) {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
         SetCurSkill(SkillTreeCate.Warrior, idx);
         SetUI(idx, SkillTreeCate.Warrior);
     }
     public void OnClickArcherSkillTreeBtn(int idx) {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
         SetCurSkill(SkillTreeCate.Archer, idx);
         SetUI(idx, SkillTreeCate.Archer);
     }
     public void OnClickMagicianSkillTreeBtn(int idx) {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
         SetCurSkill(SkillTreeCate.Magician, idx);
         SetUI(idx, SkillTreeCate.Magician);
     }
     public void OnClickUtilitySkillTreeBtn(int idx) {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
         SetCurSkill(SkillTreeCate.Utility, idx);
         SetUI(idx, SkillTreeCate.Utility);
     }
 #endregion
 
 #region FUNC
+    private void ActiveBurstStarEF() {
+        BurstStarEF.GetComponent<ParticleImage>().Stop();
+        BurstStarEF.GetComponent<ParticleImage>().Play();
+    }
     private SkillTree GetCurSkill(SkillTreeCate cate, int idx) {
         return cate switch {
             SkillTreeCate.Warrior => WarriorSkillTrees[idx],
@@ -162,9 +190,21 @@ public class SkillTreeUIManager : MonoBehaviour {
         CurIdx = idx;
     }
 
-    private void UpdateMyPointTxt(){
+    private void UpdateMyPointTxt() {
         MySkillPointTxt.text = $"{HM._.SkillPoint}";
     }
+
+    private int GetRefundSkillPoint(SkillTree[] skillTrees) {
+        int refund = 0;
+        Array.ForEach(skillTrees, skt => {
+            if(!skt.IsLock) {
+                skt.IsLock = true;
+                refund += GetCurSkillDataSO(skt.Cate, skt.Id).Cost;
+            }
+        });
+        return refund;
+    }
+
 
     private void SetUI(int idx, SkillTreeCate cate) {
         SkillTree curST = GetCurSkill(cate, idx);
