@@ -39,6 +39,7 @@ public abstract class Tower : MonoBehaviour {
     public string Name;
     [Range(1, 7)] public int Lv;
     public int LvIdx { get => Lv - 1;}
+    protected SkillTreeDB sktDb;
 
     //* ダメージ
     public Dictionary<string, int> ExtraDmgDic = new Dictionary<string, int>();
@@ -98,12 +99,22 @@ public abstract class Tower : MonoBehaviour {
     }
 
     //* クリティカルダメージ
-    public Dictionary<string, float> ExtraCritDmgPerDic = new Dictionary<string, float>();
+    public Dictionary<string, float> ExtraCritDmgDic = new Dictionary<string, float>();
     public float CritDmgPer {
         get {
+            //* スキルツリーの追加クリティカルダメージ
+            if(ExtraCritDmgDic.ContainsKey($"{SKT_KEY.SKT_EXTRA_CIRTDMG}"))
+                ExtraCritDmgDic.Remove($"{SKT_KEY.SKT_EXTRA_CIRTDMG}");
+            switch(Kind) {
+                case TowerKind.Archer:
+                    var ac = this as ArcherTower;
+                    ac.SetSkillTreeExtraCritDmg();
+                    break;
+            }
+
             //* 追加クリティカルダメージ
             float extraCritDmgPer = 0;
-            foreach(var dic in ExtraCritDmgPerDic)
+            foreach(var dic in ExtraCritDmgDic)
                 extraCritDmgPer += dic.Value;
             //* 合計
             return TowerData.CritDmgPer + extraCritDmgPer;
@@ -115,6 +126,7 @@ public abstract class Tower : MonoBehaviour {
     [Range(0.0f, 5.0f)] public float StunSec;
 
     void Awake() {
+        sktDb = DM._.DB.SkillTreeDB;
         trc = GetComponentInChildren<TowerRangeController>();
         chara = GetComponentInChildren<Character>();
         StateUpdate(); //* Init
@@ -222,9 +234,13 @@ public abstract class Tower : MonoBehaviour {
                                 //TODO EFFECT
                                 SM._.SfxPlay(SM.SFX.SwordSFX);
                                 chara.Animator.SetTrigger("Slash");
+
                                 //* クリティカル
                                 bool isCritical = Util._.CheckCriticalDmg(this);
-                                int totalDmg = Dmg * (isCritical? 2 : 1);
+                                float critDmgPer = 2 + (CritDmgPer - 1);
+                                Debug.Log($"Attack:: MyTower.CritDmgPer= {CritDmgPer}, critDmgPer= {critDmgPer}");
+                                int totalDmg = Mathf.RoundToInt(Dmg * (isCritical? critDmgPer : 1));
+
                                 enemy.DecreaseHp(totalDmg, isCritical);
                                 var warrior = this as WarriorTower;
                                 warrior.SlashEffect(enemy.transform);
@@ -359,10 +375,10 @@ public abstract class Tower : MonoBehaviour {
         string extraRangeStr = extraRange == 0? "" : $"<color=green>+{extraRange}";
         //* 追加クリティカル
         float extraCirtPer = (CritPer - TowerData.CritPer) * 100;
-        string extraCritStr = extraCirtPer == 0? "" : $"<color=green>+{extraCirtPer}";
+        string extraCritStr = extraCirtPer == 0? "" : $"<color=green>+{extraCirtPer * 100}";
         //* 追加クリティカルダメージ
         float extraCritDmgPer = CritDmgPer - TowerData.CritDmgPer;
-        string extraCritDmgPerStr = extraCritDmgPer == 0? "" : $"<color=green>+{extraCritDmgPer}";
+        string extraCritDmgPerStr = extraCritDmgPer == 0? "" : $"<color=green>+{extraCritDmgPer * 100}";
 
         string[] states = new string[10];
         states[0] = Lv.ToString(); //* Gradeラベルとして表示

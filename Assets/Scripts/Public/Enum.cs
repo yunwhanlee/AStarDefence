@@ -4,7 +4,7 @@ using System.Diagnostics;
 using UnityEngine;
 
 public enum SKT_KEY {
-    SKT_EXTRA_DMG, SKT_EXTRA_RANGE,
+    SKT_EXTRA_DMG, SKT_EXTRA_RANGE, SKT_EXTRA_CIRT, SKT_EXTRA_CIRTDMG
 }
 public enum SKT_UT {
     EXTRA_MONEY, EXTRA_LIFE, TEN_KILL_1MONEY, EXTRA_EXP, TEN_KILL_2MONEY,

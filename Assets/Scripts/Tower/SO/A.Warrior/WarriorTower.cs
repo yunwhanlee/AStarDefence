@@ -37,7 +37,6 @@ public class WarriorTower : Tower {
 
     bool isDrawGizmos;
     Vector2 gizmosPos;
-    SkillTreeDB sktDb = DM._.DB.SkillTreeDB;
 
     void Start() {
         if(Lv >= 5) IsCheerUpActive = true; //* レベル５以上
@@ -69,9 +68,8 @@ public class WarriorTower : Tower {
             extraPer += sktDb.GetWarriorVal((int)SKT_WR.EXTRA_RANGE);
 
         //* ExtraダメージDICIONARYへ追加
-        if(extraPer > 0) {
+        if(extraPer > 0)
             ExtraRangeDic.Add($"{SKT_KEY.SKT_EXTRA_RANGE}", extraPer);
-        }
     }
 
     public override void CheckMergeUI() {

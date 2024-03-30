@@ -26,7 +26,6 @@ public class MagicianTower : Tower {
 
     bool isDrawGizmos;
     Vector2 gizmosPos;
-    SkillTreeDB sktDb = DM._.DB.SkillTreeDB;
 
     void Start() {
         //* １回のみ生成トリガー
@@ -61,9 +60,8 @@ public class MagicianTower : Tower {
             extraPer += sktDb.GetMagicianVal((int)SKT_MG.EXTRA_RANGE);
 
         //* ExtraダメージDICIONARYへ追加
-        if(extraPer > 0) {
+        if(extraPer > 0)
             ExtraRangeDic.Add($"{SKT_KEY.SKT_EXTRA_RANGE}", extraPer);
-        }
     }
 
     public override void CheckMergeUI() {

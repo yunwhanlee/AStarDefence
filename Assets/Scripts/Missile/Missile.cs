@@ -81,7 +81,9 @@ public class Missile : MonoBehaviour {
 
                     //* クリティカル
                     bool isCritical = Util._.CheckCriticalDmg(MyTower);
-                    int totalDmg = MyTower.Dmg * (isCritical? 2 : 1);
+                    float critDmgPer = 2 + (MyTower.CritDmgPer - 1);
+                    Debug.Log($"Attack:: MyTower.CritDmgPer= {MyTower.CritDmgPer}, critDmgPer= {critDmgPer}");
+                    int totalDmg = Mathf.RoundToInt(MyTower.Dmg * (isCritical? critDmgPer : 1));
 
                     //* マルチショットなら、ダメージ半分
                     if(IsMultiShot)
