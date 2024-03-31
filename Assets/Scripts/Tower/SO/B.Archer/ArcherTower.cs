@@ -35,7 +35,7 @@ public class ArcherTower : Tower {
         if(!sktDb.IsLockArcherSTs[(int)SKT_AC.EXTRA_DMG_B])
             extraPer += sktDb.GetArcherVal((int)SKT_AC.EXTRA_DMG_B);
 
-        //* ExtraダメージDICIONARYへ追加
+        //* DICIONARYへ追加
         if(extraPer > 0) {
             int extraDmg = Mathf.RoundToInt(TowerData.Dmg * extraPer);
             extraDmg = extraDmg == 0? 1 : extraDmg;
@@ -50,7 +50,7 @@ public class ArcherTower : Tower {
         if(!sktDb.IsLockArcherSTs[(int)SKT_AC.CRIT_PER])
             extraPer += sktDb.GetArcherVal((int)SKT_AC.CRIT_PER);
 
-        //* ExtraダメージDICIONARYへ追加
+        //* DICIONARYへ追加
         if(extraPer > 0)
             ExtraCritDic.Add($"{SKT_KEY.SKT_EXTRA_CIRT}", extraPer);
     }
@@ -64,7 +64,7 @@ public class ArcherTower : Tower {
         if(!sktDb.IsLockArcherSTs[(int)SKT_AC.CIRT_DMG_PER_B])
             extraPer += sktDb.GetArcherVal((int)SKT_AC.CIRT_DMG_PER_B);
 
-        //* ExtraダメージDICIONARYへ追加
+        //* DICIONARYへ追加
         if(extraPer > 0)
             ExtraCritDmgDic.Add($"{SKT_KEY.SKT_EXTRA_CIRTDMG}", extraPer);
     }

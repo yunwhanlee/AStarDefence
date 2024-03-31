@@ -44,7 +44,7 @@ public class MagicianTower : Tower {
         if(!sktDb.IsLockMagicianSTs[(int)SKT_MG.EXTRA_DMG_B])
             extraPer += sktDb.GetMagicianVal((int)SKT_MG.EXTRA_DMG_B);
 
-        //* ExtraダメージDICIONARYへ追加
+        //* DICIONARYへ追加
         if(extraPer > 0) {
             int extraDmg = Mathf.RoundToInt(TowerData.Dmg * extraPer);
             extraDmg = extraDmg == 0? 1 : extraDmg;
@@ -59,7 +59,7 @@ public class MagicianTower : Tower {
         if(!sktDb.IsLockMagicianSTs[(int)SKT_MG.CRIT_PER])
             extraPer += sktDb.GetMagicianVal((int)SKT_MG.CRIT_PER);
 
-        //* ExtraダメージDICIONARYへ追加
+        //* DICIONARYへ追加
         if(extraPer > 0)
             ExtraCritDic.Add($"{SKT_KEY.SKT_EXTRA_CIRT}", extraPer);
     }
@@ -71,7 +71,7 @@ public class MagicianTower : Tower {
         if(!sktDb.IsLockMagicianSTs[(int)SKT_MG.EXTRA_RANGE])
             extraPer += sktDb.GetMagicianVal((int)SKT_MG.EXTRA_RANGE);
 
-        //* ExtraダメージDICIONARYへ追加
+        //* DICIONARYへ追加
         if(extraPer > 0)
             ExtraRangeDic.Add($"{SKT_KEY.SKT_EXTRA_RANGE}", extraPer);
     }

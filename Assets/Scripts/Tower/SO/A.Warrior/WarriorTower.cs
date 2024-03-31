@@ -52,12 +52,24 @@ public class WarriorTower : Tower {
         if(!sktDb.IsLockWarriorSTs[(int)SKT_WR.EXTRA_DMG_B])
             extraPer += sktDb.GetWarriorVal((int)SKT_WR.EXTRA_DMG_B);
 
-        //* ExtraダメージDICIONARYへ追加
+        //* DICIONARYへ追加
         if(extraPer > 0) {
             int extraDmg = Mathf.RoundToInt(TowerData.Dmg * extraPer);
             extraDmg = extraDmg == 0? 1 : extraDmg;
             ExtraDmgDic.Add($"{SKT_KEY.SKT_EXTRA_DMG}", extraDmg);
         }
+    }
+
+    public void SetSkillTreeExtraSpeed() {
+        float extraPer = 0;
+
+        //* SkillTree 追加ダメージ
+        if(!sktDb.IsLockWarriorSTs[(int)SKT_WR.EXTRA_SPD])
+            extraPer += sktDb.GetWarriorVal((int)SKT_WR.EXTRA_SPD);
+
+        //* DICIONARYへ追加
+        if(extraPer > 0)
+            ExtraSpdDic.Add($"{SKT_KEY.SKT_EXTRA_SPD}", extraPer);
     }
 
     public void SetSkillTreeExtraRange() {
@@ -67,7 +79,7 @@ public class WarriorTower : Tower {
         if(!sktDb.IsLockWarriorSTs[(int)SKT_WR.EXTRA_RANGE])
             extraPer += sktDb.GetWarriorVal((int)SKT_WR.EXTRA_RANGE);
 
-        //* ExtraダメージDICIONARYへ追加
+        //* DICIONARYへ追加
         if(extraPer > 0)
             ExtraRangeDic.Add($"{SKT_KEY.SKT_EXTRA_RANGE}", extraPer);
     }

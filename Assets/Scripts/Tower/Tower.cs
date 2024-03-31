@@ -45,7 +45,7 @@ public abstract class Tower : MonoBehaviour {
     public Dictionary<string, int> ExtraDmgDic = new Dictionary<string, int>();
     public virtual int Dmg {
         get {
-            //* SkillTree 追加タメージ まとめて処理
+            //* SkillTree 追加タメージ
             SetExtraDmgDic();
 
             //* 追加ダメージ 
@@ -61,12 +61,15 @@ public abstract class Tower : MonoBehaviour {
     public Dictionary<string, float> ExtraSpdDic = new Dictionary<string, float>();
     public float AtkSpeed {
         get {
+            //* SkillTree 追加速度
+            SetExtraSpdDic();
+
             //* 追加速度
             float extraSpd = 0;
             foreach(var dic in ExtraSpdDic)
                 extraSpd += dic.Value;
-            //* 合計 (速度が⊖値になるのが正しい)
-            return TowerData.AtkSpeed - extraSpd;
+            //* 合計
+            return TowerData.AtkSpeed - extraSpd; //? (速度が⊖値になるのが正しい)
         }
     }
 
@@ -74,6 +77,7 @@ public abstract class Tower : MonoBehaviour {
     public Dictionary<string, float> ExtraRangeDic = new Dictionary<string, float>();
     [field:Range(0, 10)] public float AtkRange {
         get {
+            //* SkillTree 追加範囲
             SetExtraRangeDic();
 
             //* 追加範囲
@@ -89,6 +93,7 @@ public abstract class Tower : MonoBehaviour {
     public Dictionary<string, float> ExtraCritDic = new Dictionary<string, float>();
     public float CritPer {
         get {
+            //* SkillTree 追加クリティカル
             SetExtraCritDic();
 
             //* 追加クリティカル
@@ -104,6 +109,7 @@ public abstract class Tower : MonoBehaviour {
     public Dictionary<string, float> ExtraCritDmgDic = new Dictionary<string, float>();
     public float CritDmgPer {
         get {
+            //* SkillTree 追加クリティカルダメージ
             SetExtraCritDmgDic();
 
             //* 追加クリティカルダメージ
@@ -175,7 +181,27 @@ public abstract class Tower : MonoBehaviour {
     }
 
     /// <summary>
-    /// スキルツリーの追加ダメージ：まとめて実行
+    /// スキルツリーの追加速度：まとめて実行
+    /// </summary>
+    private void SetExtraSpdDic() {
+        if(ExtraSpdDic.ContainsKey($"{SKT_KEY.SKT_EXTRA_SPD}"))
+            ExtraSpdDic.Remove($"{SKT_KEY.SKT_EXTRA_SPD}");
+        switch(Kind) {
+            case TowerKind.Warrior:
+                WarriorTower wr = this as WarriorTower;
+                wr.SetSkillTreeExtraSpeed();
+                break;
+            case TowerKind.Archer:
+                // なし
+                break;
+            case TowerKind.Magician:
+                // なし
+                break;
+        }
+    }
+
+    /// <summary>
+    /// スキルツリーの追加クリティカル：まとめて実行
     /// </summary>
     private void SetExtraCritDic() {
         if(ExtraCritDic.ContainsKey($"{SKT_KEY.SKT_EXTRA_CIRT}"))
@@ -196,7 +222,7 @@ public abstract class Tower : MonoBehaviour {
     }
 
     /// <summary>
-    /// スキルツリーの追加ダメージ：まとめて実行
+    /// スキルツリーの追加クリティカルダメージ：まとめて実行
     /// </summary>
     private void SetExtraCritDmgDic() {
         if(ExtraCritDmgDic.ContainsKey($"{SKT_KEY.SKT_EXTRA_CIRTDMG}"))
@@ -405,7 +431,7 @@ public abstract class Tower : MonoBehaviour {
         string extraDmgStr = extraDmg == 0? "" : $"<color=green>+{extraDmg}";
         //* 追加スピード
         float extraSpd = AtkSpeed - TowerData.AtkSpeed;
-        string extraSpdStr = extraSpd == 0? "" : $"<color=green>-{extraSpd}";
+        string extraSpdStr = extraSpd == 0? "" : $"<color=green>{extraSpd}";
         //* 追加範囲
         float extraRange = AtkRange - TowerData.AtkRange;
         string extraRangeStr = extraRange == 0? "" : $"<color=green>+{extraRange}";
