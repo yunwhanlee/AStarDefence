@@ -43,6 +43,18 @@ public class ArcherTower : Tower {
         }
     }
 
+    public void SetSkillTreeExtraCrit() {
+        float extraPer = 0;
+
+        //* SkillTree 追加ダメージ
+        if(!sktDb.IsLockArcherSTs[(int)SKT_AC.CRIT_PER])
+            extraPer += sktDb.GetArcherVal((int)SKT_AC.CRIT_PER);
+
+        //* ExtraダメージDICIONARYへ追加
+        if(extraPer > 0)
+            ExtraCritDic.Add($"{SKT_KEY.SKT_EXTRA_CIRT}", extraPer);
+    }
+
     public void SetSkillTreeExtraCritDmg() {
         float extraPer = 0;
 

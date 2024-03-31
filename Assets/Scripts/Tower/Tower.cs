@@ -46,7 +46,7 @@ public abstract class Tower : MonoBehaviour {
     public virtual int Dmg {
         get {
             //* SkillTree 追加タメージ まとめて処理
-            SetExtraDmgDicFromSkillTree();
+            SetExtraDmgDic();
 
             //* 追加ダメージ 
             int extraDmg = 0;
@@ -74,7 +74,7 @@ public abstract class Tower : MonoBehaviour {
     public Dictionary<string, float> ExtraRangeDic = new Dictionary<string, float>();
     [field:Range(0, 10)] public float AtkRange {
         get {
-            SetExtraRangeDicFromSkillTree();
+            SetExtraRangeDic();
 
             //* 追加範囲
             float extraRange = 0;
@@ -89,6 +89,8 @@ public abstract class Tower : MonoBehaviour {
     public Dictionary<string, float> ExtraCritDic = new Dictionary<string, float>();
     public float CritPer {
         get {
+            SetExtraCritDic();
+
             //* 追加クリティカル
             float extraCrit = 0;
             foreach(var dic in ExtraCritDic)
@@ -102,15 +104,7 @@ public abstract class Tower : MonoBehaviour {
     public Dictionary<string, float> ExtraCritDmgDic = new Dictionary<string, float>();
     public float CritDmgPer {
         get {
-            //* スキルツリーの追加クリティカルダメージ
-            if(ExtraCritDmgDic.ContainsKey($"{SKT_KEY.SKT_EXTRA_CIRTDMG}"))
-                ExtraCritDmgDic.Remove($"{SKT_KEY.SKT_EXTRA_CIRTDMG}");
-            switch(Kind) {
-                case TowerKind.Archer:
-                    var ac = this as ArcherTower;
-                    ac.SetSkillTreeExtraCritDmg();
-                    break;
-            }
+            SetExtraCritDmgDic();
 
             //* 追加クリティカルダメージ
             float extraCritDmgPer = 0;
@@ -161,7 +155,7 @@ public abstract class Tower : MonoBehaviour {
     /// <summary>
     /// スキルツリーの追加ダメージ：まとめて実行
     /// </summary>
-    private void SetExtraDmgDicFromSkillTree() {
+    private void SetExtraDmgDic() {
         if(ExtraDmgDic.ContainsKey($"{SKT_KEY.SKT_EXTRA_DMG}"))
             ExtraDmgDic.Remove($"{SKT_KEY.SKT_EXTRA_DMG}");
         switch(Kind) {
@@ -179,10 +173,52 @@ public abstract class Tower : MonoBehaviour {
                 break;
         }
     }
+
+    /// <summary>
+    /// スキルツリーの追加ダメージ：まとめて実行
+    /// </summary>
+    private void SetExtraCritDic() {
+        if(ExtraCritDic.ContainsKey($"{SKT_KEY.SKT_EXTRA_CIRT}"))
+            ExtraCritDic.Remove($"{SKT_KEY.SKT_EXTRA_CIRT}");
+        switch(Kind) {
+            case TowerKind.Warrior:
+                // なし
+                break;
+            case TowerKind.Archer:
+                ArcherTower ac = this as ArcherTower;
+                ac.SetSkillTreeExtraCrit();
+                break;
+            case TowerKind.Magician:
+                MagicianTower mg = this as MagicianTower;
+                mg.SetSkillTreeExtraCrit();
+                break;
+        }
+    }
+
+    /// <summary>
+    /// スキルツリーの追加ダメージ：まとめて実行
+    /// </summary>
+    private void SetExtraCritDmgDic() {
+        if(ExtraCritDmgDic.ContainsKey($"{SKT_KEY.SKT_EXTRA_CIRTDMG}"))
+            ExtraCritDmgDic.Remove($"{SKT_KEY.SKT_EXTRA_CIRTDMG}");
+        switch(Kind) {
+            case TowerKind.Warrior:
+                // なし
+                break;
+            case TowerKind.Archer:
+                ArcherTower ac = this as ArcherTower;
+                ac.SetSkillTreeExtraCritDmg();
+                break;
+            case TowerKind.Magician:
+                // なし
+                break;
+        }
+    }
+
     /// <summary>
     /// スキルツリーの追加範囲：まとめて実行
     /// </summary>
-    private void SetExtraRangeDicFromSkillTree() {
+    private void SetExtraRangeDic() {
         if(ExtraRangeDic.ContainsKey($"{SKT_KEY.SKT_EXTRA_RANGE}"))
             ExtraRangeDic.Remove($"{SKT_KEY.SKT_EXTRA_RANGE}");
         switch(Kind) {
@@ -374,7 +410,7 @@ public abstract class Tower : MonoBehaviour {
         float extraRange = AtkRange - TowerData.AtkRange;
         string extraRangeStr = extraRange == 0? "" : $"<color=green>+{extraRange}";
         //* 追加クリティカル
-        float extraCirtPer = (CritPer - TowerData.CritPer) * 100;
+        float extraCirtPer = CritPer - TowerData.CritPer;
         string extraCritStr = extraCirtPer == 0? "" : $"<color=green>+{extraCirtPer * 100}";
         //* 追加クリティカルダメージ
         float extraCritDmgPer = CritDmgPer - TowerData.CritDmgPer;

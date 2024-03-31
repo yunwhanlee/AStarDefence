@@ -52,6 +52,18 @@ public class MagicianTower : Tower {
         }
     }
 
+    public void SetSkillTreeExtraCrit() {
+        float extraPer = 0;
+
+        //* SkillTree 追加ダメージ
+        if(!sktDb.IsLockMagicianSTs[(int)SKT_MG.CRIT_PER])
+            extraPer += sktDb.GetMagicianVal((int)SKT_MG.CRIT_PER);
+
+        //* ExtraダメージDICIONARYへ追加
+        if(extraPer > 0)
+            ExtraCritDic.Add($"{SKT_KEY.SKT_EXTRA_CIRT}", extraPer);
+    }
+
     public void SetSkillTreeExtraRange() {
         float extraPer = 0;
 
