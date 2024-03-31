@@ -26,6 +26,7 @@ public class ArcherTower : Tower {
         IsArrowRainActive = true;
     }
 
+#region SKILLTREE_EXTRA_VALUE
     public void SetSkillTreeExtraDmg() {
         float extraPer = 0;
 
@@ -68,6 +69,7 @@ public class ArcherTower : Tower {
         if(extraPer > 0)
             ExtraCritDmgDic.Add($"{SKT_KEY.SKT_EXTRA_CIRTDMG}", extraPer);
     }
+#endregion
 
     public override void CheckMergeUI() {
         Image mergeIcon = GM._.actBar.IconBtns[(int)ActionBarUIManager.ICON.Merge].GetComponent<Image>();

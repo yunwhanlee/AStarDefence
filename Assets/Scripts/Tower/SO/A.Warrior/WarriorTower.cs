@@ -43,6 +43,7 @@ public class WarriorTower : Tower {
         if(Lv >= 6) IsRoarActive = true; //* レベル５以上
     }
 
+#region SKILLTREE_EXTRA_VALUE
     public void SetSkillTreeExtraDmg() {
         float extraPer = 0;
 
@@ -83,6 +84,22 @@ public class WarriorTower : Tower {
         if(extraPer > 0)
             ExtraRangeDic.Add($"{SKT_KEY.SKT_EXTRA_RANGE}", extraPer);
     }
+
+    public WaitForSeconds GetSkillTreeExtraRageTime() {
+        float extraTime = 0;
+
+        //* SkillTree 追加ダメージ
+        if(!sktDb.IsLockWarriorSTs[(int)SKT_WR.EXTRA_RAGE_TIME])
+            extraTime += sktDb.GetWarriorVal((int)SKT_WR.EXTRA_RAGE_TIME);
+
+        Debug.Log($"GetSkillTreeExtraRageTime():: extraRageTime= {extraTime}");
+
+        if(extraTime == 1)
+            return Util.Time1;
+        else 
+            return null;
+    }
+#endregion
 
     public override void CheckMergeUI() {
         Image mergeIcon = GM._.actBar.IconBtns[(int)ActionBarUIManager.ICON.Merge].GetComponent<Image>();
@@ -173,7 +190,9 @@ public class WarriorTower : Tower {
         SM._.SfxPlay(SM.SFX.RageSFX);
         GM._.gui.tsm.ShowTowerStateUI(InfoState());
 
-        yield return new WaitForSeconds(2.5f);
+        yield return Util.Time2;
+        yield return GetSkillTreeExtraRageTime();
+
         RageAuraEF.SetActive(false);
         CorSkill1ID = null;
         ExtraDmgDic.Remove(RAGE);

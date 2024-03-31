@@ -35,6 +35,7 @@ public class MagicianTower : Tower {
         IsBigbangActive = true;
     }
 
+#region SKILLTREE_EXTRA_VALUE
     public void SetSkillTreeExtraDmg() {
         float extraPer = 0;
 
@@ -75,6 +76,19 @@ public class MagicianTower : Tower {
         if(extraPer > 0)
             ExtraRangeDic.Add($"{SKT_KEY.SKT_EXTRA_RANGE}", extraPer);
     }
+
+    public float GetSkillTreeExtraExplosionDmgPer() {
+        float extraPer = 0;
+
+        //* SkillTree 追加ダメージ
+        if(!sktDb.IsLockMagicianSTs[(int)SKT_MG.EXPLOSION_DMG_PER])
+            extraPer += sktDb.GetMagicianVal((int)SKT_MG.EXPLOSION_DMG_PER);
+
+        Debug.Log($"SetSkillTreeExtraExplosionDmgPer():: extraPer= {extraPer}");
+
+        return extraPer;
+    }
+#endregion
 
     public override void CheckMergeUI() {
         Image mergeIcon = GM._.actBar.IconBtns[(int)ActionBarUIManager.ICON.Merge].GetComponent<Image>();
@@ -153,7 +167,10 @@ public class MagicianTower : Tower {
                 continue;
 
             //* ダメージ５０％ (クリティカル 無し)
-            enemy.DecreaseHp(Dmg / 2);
+            float dmgPer = 0.5f + GetSkillTreeExtraExplosionDmgPer();
+            Debug.Log($"Skill1_Explosion():: dmgPer= {dmgPer}");
+            int dmg = Mathf.RoundToInt(Dmg * dmgPer);
+            enemy.DecreaseHp(dmg);
         }
     }
 
