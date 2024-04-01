@@ -7,15 +7,15 @@ using Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts;
 using Random = UnityEngine.Random;
 
 public class WarriorTower : Tower {
-    public static readonly int[] SK1_RageActivePers = new int[6] {0, 0, 5, 10, 15, 20};
-    public static readonly float[] SK1_RageDmgSpdIncPers = new float[6] {0, 0, 0.15f, 0.2f, 0.25f, 0.3f};
+    public static readonly int[] SK1_RageActivePers = new int[6] {0, 0, 5, 10, 13, 15};
+    public static readonly float[] SK1_RageDmgSpdIncPers = new float[6] {0, 0, 0.1f, 0.15f, 0.175f, 0.2f};
     public static readonly float[] SK1_RageTime = new float[6] {0, 0, 2.25f, 2.5f, 2.75f, 3f};
 
     public static readonly float[] SK2_WheelwindActivePers = new float[6] {0, 0, 0, 10, 12, 15};
     public static readonly float[] SK2_WheelwindDmgPers = new float[6] {0, 0, 0, 0.5f, 0.7f, 0.9f};
 
-    public static readonly float[] SK3_CheerUpSpans = new float[6] {0, 0, 0, 0, 12, 10};
-    public static readonly float[] SK3_CheerUpDmgSpdIncPers = new float[6] {0, 0, 0, 0, 0.2f, 0.4f};
+    public static readonly float[] SK3_CheerUpSpans = new float[6] {0, 0, 0, 0, 15, 12};
+    public static readonly float[] SK3_CheerUpDmgSpdIncPers = new float[6] {0, 0, 0, 0, 0.1f, 0.15f};
 
     public static readonly float[] SK4_RoarSpans = new float[6] {0, 0, 0, 0, 0, 15};
     public static readonly float[] SK4_RoarDmgPers = new float[6] {0, 0, 0, 0, 0, 1.5f};
