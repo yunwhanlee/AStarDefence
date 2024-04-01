@@ -17,7 +17,7 @@ MonoBehaviour:
   Name: Magician6
   Lv: 6
   Dmg: 1492
-  AtkSpeed: 0.5
+  AtkSpeed: 2
   AtkRange: 5.5
   SplashRange: 0
   CritPer: 0

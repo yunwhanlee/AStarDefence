@@ -17,7 +17,7 @@ MonoBehaviour:
   Name: Warrior4
   Lv: 4
   Dmg: 237
-  AtkSpeed: 0.8
+  AtkSpeed: 1.35
   AtkRange: 2.5
   SplashRange: 0
   CritPer: 0

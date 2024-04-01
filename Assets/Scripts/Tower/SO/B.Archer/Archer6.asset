@@ -17,7 +17,7 @@ MonoBehaviour:
   Name: Archer6
   Lv: 6
   Dmg: 729
-  AtkSpeed: 0.2
+  AtkSpeed: 4
   AtkRange: 7
   SplashRange: 0
   CritPer: 0.25

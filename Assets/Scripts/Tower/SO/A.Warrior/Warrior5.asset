@@ -17,7 +17,7 @@ MonoBehaviour:
   Name: Warrior5
   Lv: 5
   Dmg: 759
-  AtkSpeed: 0.7
+  AtkSpeed: 1.5
   AtkRange: 3
   SplashRange: 0
   CritPer: 0

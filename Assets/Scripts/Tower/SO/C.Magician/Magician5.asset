@@ -17,7 +17,7 @@ MonoBehaviour:
   Name: Magician5
   Lv: 5
   Dmg: 481
-  AtkSpeed: 0.55
+  AtkSpeed: 1.75
   AtkRange: 4
   SplashRange: 0
   CritPer: 0

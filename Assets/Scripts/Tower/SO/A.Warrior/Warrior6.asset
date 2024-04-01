@@ -17,7 +17,7 @@ MonoBehaviour:
   Name: Warrior6
   Lv: 6
   Dmg: 2429
-  AtkSpeed: 0.6
+  AtkSpeed: 1.7
   AtkRange: 4
   SplashRange: 0
   CritPer: 0

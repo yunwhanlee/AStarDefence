@@ -17,7 +17,7 @@ MonoBehaviour:
   Name: Warrior3
   Lv: 3
   Dmg: 74
-  AtkSpeed: 0.9
+  AtkSpeed: 1.2
   AtkRange: 2
   SplashRange: 0
   CritPer: 0

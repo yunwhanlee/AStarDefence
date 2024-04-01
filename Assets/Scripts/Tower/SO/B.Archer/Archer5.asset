@@ -17,7 +17,7 @@ MonoBehaviour:
   Name: Archer5
   Lv: 5
   Dmg: 243
-  AtkSpeed: 0.275
+  AtkSpeed: 3.5
   AtkRange: 5
   SplashRange: 0
   CritPer: 0.2

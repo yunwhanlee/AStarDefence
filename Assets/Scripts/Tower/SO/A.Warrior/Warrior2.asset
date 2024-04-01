@@ -17,7 +17,7 @@ MonoBehaviour:
   Name: Warrior2
   Lv: 2
   Dmg: 23
-  AtkSpeed: 0.95
+  AtkSpeed: 1.1
   AtkRange: 1.5
   SplashRange: 0
   CritPer: 0

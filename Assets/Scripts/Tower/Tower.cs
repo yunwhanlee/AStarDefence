@@ -69,7 +69,7 @@ public abstract class Tower : MonoBehaviour {
             foreach(var dic in ExtraSpdDic)
                 extraSpd += dic.Value;
             //* 合計
-            return TowerData.AtkSpeed - extraSpd; //? (速度が⊖値になるのが正しい)
+            return TowerData.AtkSpeed + extraSpd; //? (速度が⊖値になるのが正しい)
         }
     }
 
@@ -368,7 +368,10 @@ public abstract class Tower : MonoBehaviour {
                     }
                 }
             }
-            yield return new WaitForSeconds(AtkSpeed);
+
+            float calcSec = 1 / AtkSpeed;
+            Debug.Log($"CoAttack():: AtkSpeed= {AtkSpeed}, calcSec= {calcSec}");
+            yield return new WaitForSeconds(calcSec);
         }
     }
 
@@ -431,7 +434,7 @@ public abstract class Tower : MonoBehaviour {
         string extraDmgStr = extraDmg == 0? "" : $"<color=green>+{extraDmg}";
         //* 追加スピード
         float extraSpd = AtkSpeed - TowerData.AtkSpeed;
-        string extraSpdStr = extraSpd == 0? "" : $"<color=green>{extraSpd}";
+        string extraSpdStr = extraSpd == 0? "" : $"<color=green>+{extraSpd}";
         //* 追加範囲
         float extraRange = AtkRange - TowerData.AtkRange;
         string extraRangeStr = extraRange == 0? "" : $"<color=green>+{extraRange}";

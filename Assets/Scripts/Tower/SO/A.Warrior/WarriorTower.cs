@@ -8,8 +8,8 @@ using Random = UnityEngine.Random;
 
 public class WarriorTower : Tower {
     public static readonly int[] SK1_RageActivePers = new int[6] {0, 0, 5, 10, 15, 20};
-    public static readonly float[] SK1_RageDmgSpdIncPers = new float[6] {0, 0, 0.15f, 0.2f, 0.3f, 0.4f};
-    public static readonly float[] SK1_RageTime = new float[6] {0, 0, 2.5f, 3, 3.5f, 4};
+    public static readonly float[] SK1_RageDmgSpdIncPers = new float[6] {0, 0, 0.15f, 0.2f, 0.25f, 0.3f};
+    public static readonly float[] SK1_RageTime = new float[6] {0, 0, 2.25f, 2.5f, 2.75f, 3f};
 
     public static readonly float[] SK2_WheelwindActivePers = new float[6] {0, 0, 0, 10, 12, 15};
     public static readonly float[] SK2_WheelwindDmgPers = new float[6] {0, 0, 0, 0.5f, 0.7f, 0.9f};
