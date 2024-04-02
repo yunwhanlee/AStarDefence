@@ -14,10 +14,15 @@ public class InventoryUIManager : MonoBehaviour {
     [field:SerializeField] public MouseFollower MouseFollower {get; set;}
     [field:SerializeField] List<InventoryItem> ItemList = new List<InventoryItem>();
 
-    [field:SerializeField] public Sprite Image {get; set;}
-    [field:SerializeField] public int Val {get; set;}
-    [field:SerializeField] public string Title {get; set;}
-    [field:SerializeField] public string Description {get; set;}
+    private int curDraggedItemIdx = -1;
+
+    //* Actionで使えるint ➝ Index
+    public event Action<int> OnDescriptionRequested,
+        OnItemActionRequested,
+        OnStartDragging;
+    public event Action<int, int> OnSwapItems;
+
+
 
     void Awake() {
         Hide();
@@ -37,12 +42,20 @@ public class InventoryUIManager : MonoBehaviour {
 #region FUNC
     public void Show() {
         WindowObj.SetActive(true);
+        ResetSelection();
+    }
+    private void ResetSelection() {
         ItemDescription.ResetDescription();
-
-        ItemList[0].SetData(Image, Val);
+        DeselectAllItems();
+    }
+    private void DeselectAllItems() {
+        foreach(InventoryItem item in ItemList) {
+            item.Deselect();
+        }
     }
     public void Hide() {
         WindowObj.SetActive(false);
+        ResetDraggedItem();
     }
     public void InitInventoryUI(int invSize) {
         for(int i = 0; i < invSize; i++) {
@@ -57,25 +70,51 @@ public class InventoryUIManager : MonoBehaviour {
         }
     }
 
-    private void HandleShowItemActions(InventoryItem obj) {
+    public void UpdateData(int itemIdx, Sprite itemSpr, int itemVal) {
+        if(ItemList.Count > itemIdx) {
+            ItemList[itemIdx].SetData(itemSpr, itemVal);
+        }
+    }
+    private void ResetDraggedItem() {
+        MouseFollower.Toggle(false);
+        curDraggedItemIdx = -1;
+    }
+
+    private void HandleShowItemActions(InventoryItem invItem) {
         HM._.ivm.EquipPopUp.SetActive(true);
     }
 
-    private void HandleEndDrag(InventoryItem obj) {
-        MouseFollower.Toggle(false);
+    private void HandleEndDrag(InventoryItem invItem) {
+        ResetDraggedItem();
     }
 
-    private void HandleSwap(InventoryItem obj) {
+    private void HandleSwap(InventoryItem invItem) {
+        int idx = ItemList.IndexOf(invItem);
+        if(idx == -1) {
+            return;
+        }
+        OnSwapItems?.Invoke(curDraggedItemIdx, idx);
     }
 
-    private void HandleItemSelection(InventoryItem obj) {
-        ItemDescription.SetDescription(Image, Title, Description);
-        ItemList[0].Select();
+    private void HandleBeginDrag(InventoryItem invItem) {
+        int idx = ItemList.IndexOf(invItem);
+        if(idx == -1) return;
+        curDraggedItemIdx = idx;
+        HandleItemSelection(invItem);
+        OnStartDragging?.Invoke(idx);
+
     }
 
-    private void HandleBeginDrag(InventoryItem obj) {
+    public void CreateDraggedItem(Sprite spr, int val) {
         MouseFollower.Toggle(true);
-        MouseFollower.SetData(Image, Val);
+        MouseFollower.SetData(spr, val);
+    } 
+
+    private void HandleItemSelection(InventoryItem invItem) {
+        int idx = ItemList.IndexOf(invItem);
+        if(idx == -1) return;
+        OnDescriptionRequested?.Invoke(idx);
     }
+
     #endregion
 }
