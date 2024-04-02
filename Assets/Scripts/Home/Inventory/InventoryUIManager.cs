@@ -8,11 +8,11 @@ public class InventoryUIManager : MonoBehaviour {
     [field:SerializeField] public GameObject WindowObj {get; private set;}
     [field:SerializeField] public GameObject EquipPopUp {get; private set;}
     [field:SerializeField] public GameObject ConsumePopUp {get; private set;}
-    [field:SerializeField] public InventoryItem ItemPf {get; private set;}
+    [field:SerializeField] public InventoryUIItem ItemPf {get; private set;}
     [field:SerializeField] public RectTransform Content {get; set;}
     [field:SerializeField] public InventoryDescription ItemDescription {get; set;}
     [field:SerializeField] public MouseFollower MouseFollower {get; set;}
-    [field:SerializeField] List<InventoryItem> ItemList = new List<InventoryItem>();
+    [field:SerializeField] List<InventoryUIItem> ItemList = new List<InventoryUIItem>();
 
     private int curDraggedItemIdx = -1;
 
@@ -49,7 +49,7 @@ public class InventoryUIManager : MonoBehaviour {
         DeselectAllItems();
     }
     private void DeselectAllItems() {
-        foreach(InventoryItem item in ItemList) {
+        foreach(InventoryUIItem item in ItemList) {
             item.Deselect();
         }
     }
@@ -59,7 +59,7 @@ public class InventoryUIManager : MonoBehaviour {
     }
     public void InitInventoryUI(int invSize) {
         for(int i = 0; i < invSize; i++) {
-            InventoryItem item = Instantiate(ItemPf, Content);
+            InventoryUIItem item = Instantiate(ItemPf, Content);
             ItemList.Add(item);
 
             item.OnItemClicked += HandleItemSelection;
@@ -80,15 +80,15 @@ public class InventoryUIManager : MonoBehaviour {
         curDraggedItemIdx = -1;
     }
 
-    private void HandleShowItemActions(InventoryItem invItem) {
+    private void HandleShowItemActions(InventoryUIItem invItem) {
         HM._.ivm.EquipPopUp.SetActive(true);
     }
 
-    private void HandleEndDrag(InventoryItem invItem) {
+    private void HandleEndDrag(InventoryUIItem invItem) {
         ResetDraggedItem();
     }
 
-    private void HandleSwap(InventoryItem invItem) {
+    private void HandleSwap(InventoryUIItem invItem) {
         int idx = ItemList.IndexOf(invItem);
         if(idx == -1) {
             return;
@@ -96,7 +96,7 @@ public class InventoryUIManager : MonoBehaviour {
         OnSwapItems?.Invoke(curDraggedItemIdx, idx);
     }
 
-    private void HandleBeginDrag(InventoryItem invItem) {
+    private void HandleBeginDrag(InventoryUIItem invItem) {
         int idx = ItemList.IndexOf(invItem);
         if(idx == -1) return;
         curDraggedItemIdx = idx;
@@ -110,7 +110,7 @@ public class InventoryUIManager : MonoBehaviour {
         MouseFollower.SetData(spr, val);
     } 
 
-    private void HandleItemSelection(InventoryItem invItem) {
+    private void HandleItemSelection(InventoryUIItem invItem) {
         int idx = ItemList.IndexOf(invItem);
         if(idx == -1) return;
         OnDescriptionRequested?.Invoke(idx);

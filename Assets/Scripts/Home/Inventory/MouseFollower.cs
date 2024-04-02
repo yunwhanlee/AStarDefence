@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class MouseFollower : MonoBehaviour {
     [field:SerializeField] private Canvas canvas;
-    [field:SerializeField] private InventoryItem Item;
+    [field:SerializeField] private InventoryUIItem Item;
 
     void Awake() {
         canvas = transform.root.GetComponent<Canvas>();
-        Item = GetComponentInChildren<InventoryItem>();
+        Item = GetComponentInChildren<InventoryUIItem>();
     }
 
     public void SetData(Sprite spr, int Val) {

@@ -6,11 +6,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IDragHandler {
+public class InventoryUIItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IDragHandler {
     [field:SerializeField] private Image ItemImg {get; set;}
     [field:SerializeField] private TMP_Text ValTxt {get; set;}
     [field:SerializeField] private Image BorderImg {get; set;}
-    public event Action<InventoryItem> OnItemClicked, 
+    public event Action<InventoryUIItem> OnItemClicked, 
         OnItemDroppedOn, 
         OnItemBeginDrag, 
         OnItemEndDrag,
