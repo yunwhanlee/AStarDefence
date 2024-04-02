@@ -35,6 +35,10 @@ public class InventorySO : ScriptableObject {
         }
         return result;
     }
+
+    public InventoryItem GetItemAt(int itemIdx) {
+        return inventoryItems[itemIdx];
+    }
 }
 
 [Serializable]

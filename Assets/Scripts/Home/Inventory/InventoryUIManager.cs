@@ -5,6 +5,8 @@ using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 public class InventoryUIManager : MonoBehaviour {
+    [SerializeField] InventoryController ivctrl;
+
     [field:SerializeField] public GameObject WindowObj {get; private set;}
     [field:SerializeField] public GameObject EquipPopUp {get; private set;}
     [field:SerializeField] public GameObject ConsumePopUp {get; private set;}
@@ -22,9 +24,9 @@ public class InventoryUIManager : MonoBehaviour {
         OnStartDragging;
     public event Action<int, int> OnSwapItems;
 
-
-
     void Awake() {
+        ivctrl = GameObject.Find("InventoryController").GetComponent<InventoryController>();
+
         Hide();
         MouseFollower.Toggle(false);
         ItemDescription.ResetDescription();
@@ -32,10 +34,10 @@ public class InventoryUIManager : MonoBehaviour {
 
 #region EVENT
     public void OnClickInventoryIconBtn() {
-        Show();
+        ivctrl.ShowInventory();
     }
     public void OnClickInventoryPopUpBackBtn() {
-        Hide();
+        ivctrl.HideInventory();
     }
 #endregion
 
@@ -44,7 +46,7 @@ public class InventoryUIManager : MonoBehaviour {
         WindowObj.SetActive(true);
         ResetSelection();
     }
-    private void ResetSelection() {
+    public void ResetSelection() {
         ItemDescription.ResetDescription();
         DeselectAllItems();
     }
@@ -114,6 +116,12 @@ public class InventoryUIManager : MonoBehaviour {
         int idx = ItemList.IndexOf(invItem);
         if(idx == -1) return;
         OnDescriptionRequested?.Invoke(idx);
+    }
+
+    internal void UpdateDescription(int itemIdx, Sprite itemImg, string name, string description) {
+        ItemDescription.SetDescription(itemImg, name, description);
+        DeselectAllItems();
+        ItemList[itemIdx].Select();
     }
 
     #endregion
