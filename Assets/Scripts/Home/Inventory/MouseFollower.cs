@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Inventory.UI;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MouseFollower : MonoBehaviour {
     [field:SerializeField] private Canvas canvas;
