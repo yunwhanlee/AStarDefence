@@ -12,8 +12,7 @@ namespace Inventory
         [SerializeField] private InventorySO inventoryData;
         public List<InventoryItem> initItems = new List<InventoryItem>();
 
-        void Start()
-        {
+        void Start() {
             PrepareUI();
             PrepareInventoryData();
         }

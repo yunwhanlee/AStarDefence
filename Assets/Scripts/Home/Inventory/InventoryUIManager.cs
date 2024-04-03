@@ -54,9 +54,8 @@ namespace Inventory.UI
             DeselectAllItems();
         }
         private void DeselectAllItems() {
-            foreach(InventoryUIItem item in ItemList) {
+            foreach(InventoryUIItem item in ItemList)
                 item.Deselect();
-            }
         }
         public void Hide() {
             WindowObj.SetActive(false);
@@ -66,12 +65,11 @@ namespace Inventory.UI
             for(int i = 0; i < invSize; i++) {
                 InventoryUIItem item = Instantiate(ItemPf, Content);
                 ItemList.Add(item);
-
                 item.OnItemClicked += HandleItemSelection;
                 item.OnItemBeginDrag += HandleBeginDrag;
                 item.OnItemDroppedOn += HandleSwap;
                 item.OnItemEndDrag += HandleEndDrag;
-                item.OnRightMouseBtnClick += HandleShowItemActions;
+                item.OnRightMouseBtnClick += HandleShowItemInfoPopUp;
             }
         }
 
@@ -85,8 +83,9 @@ namespace Inventory.UI
             curDraggedItemIdx = -1;
         }
 
-        private void HandleShowItemActions(InventoryUIItem invItemUI) {
+        private void HandleShowItemInfoPopUp(InventoryUIItem invItemUI) {
             EquipPopUp.SetActive(true);
+            DeselectAllItems();
         }
 
         private void HandleEndDrag(InventoryUIItem invItemUI) {
@@ -95,9 +94,7 @@ namespace Inventory.UI
 
         private void HandleSwap(InventoryUIItem invItemUI) {
             int idx = ItemList.IndexOf(invItemUI);
-            if(idx == -1) {
-                return;
-            }
+            if(idx == -1) return;
             OnSwapItems?.Invoke(curDraggedItemIdx, idx);
             HandleItemSelection(invItemUI);
         }

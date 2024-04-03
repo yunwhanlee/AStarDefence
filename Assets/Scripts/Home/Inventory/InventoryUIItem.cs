@@ -8,7 +8,9 @@ using UnityEngine.EventSystems;
 
 namespace Inventory.UI
 {
-    public class InventoryUIItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IDragHandler {
+    public class InventoryUIItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IDragHandler {
+        private Coroutine CorPushTimeID = null;
+        private bool IsShortPush = false;
         [field:SerializeField] public Image ItemImg {get; set;}
         [field:SerializeField] public TMP_Text ValTxt {get; set;}
         [field:SerializeField] public Image BorderImg {get; set;}
@@ -41,31 +43,54 @@ namespace Inventory.UI
         }
 
         public void Select() {
+            BorderImg.color = Color.red;
             BorderImg.enabled = true;
         }
 
-        public void OnPointerClick(PointerEventData pointerData) {
-            if(pointerData.button == PointerEventData.InputButton.Right)
+        public void Draggable() {
+            BorderImg.color = Color.green;
+        }
+
+        private IEnumerator CoCheckPushTime() {
+            IsShortPush = true;
+            yield return Util.Time0_3;
+            IsShortPush = false;
+            Draggable();
+        }
+
+        public void OnPointerDown(PointerEventData eventData) {
+            if(IsEmpty) return;
+            Debug.Log("OnPointerDown");
+            OnItemClicked?.Invoke(this);
+            CorPushTimeID = StartCoroutine(CoCheckPushTime());
+        }
+
+        public void OnPointerUp(PointerEventData eventData) {
+            Debug.Log("OnPointerUp");
+            if(IsShortPush) {
+                StopCoroutine(CorPushTimeID);
                 OnRightMouseBtnClick?.Invoke(this);
-            else
-                OnItemClicked?.Invoke(this);
+            }
         }
 
         public void OnBeginDrag(PointerEventData eventData) {
             if(IsEmpty) return;
+            if(IsShortPush) return;
             OnItemBeginDrag?.Invoke(this);
         }
 
         public void OnEndDrag(PointerEventData eventData) {
+            if(IsShortPush) return;
             OnItemEndDrag?.Invoke(this);
         }
 
         public void OnDrop(PointerEventData eventData) {
+            if(IsShortPush) return;
             OnItemDroppedOn?.Invoke(this);
         }
 
         public void OnDrag(PointerEventData eventData) {
-
+            if(IsShortPush) return;
         }
     }
 }
