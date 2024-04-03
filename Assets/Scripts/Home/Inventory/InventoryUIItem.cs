@@ -54,7 +54,7 @@ namespace Inventory.UI
             }
             ItemImg.gameObject.SetActive(true);
             ItemImg.sprite = spr;
-            ValTxt.text = $"{val}";
+            ValTxt.text = (type == Enum.ItemType.Etc)? $"{val}" : $"Lv.{val}";
             IsEmpty = false;
         }
 

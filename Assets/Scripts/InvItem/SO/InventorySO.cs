@@ -21,21 +21,26 @@ namespace Inventory.Model
 
         public int AddItem(ItemSO item, int val) {
             if(item.IsStackable == false) {
-                for(int i = 0; i < inventoryItems.Count; i++) {
-                    while(val > 0 && IsInventoryFull() == false) {
-                        val -= AddItemToFirstFreeSlot(item, 1);
-                    }
-                    InformAboutChange();
-                    return val;
-                }
+                Debug.Log($"InventorySO:: AddItem({item.name}, val= {val})::");
+                // 過去：Valが２なら、重ならないので１個しかできない複数に分ける
+                // for(int i = 0; i < inventoryItems.Count; i++) {
+                //     while(val > 0 && IsInventoryFull() == false) {
+                //         val -= AddItemToFirstFreeSlot(item, 1);
+                //     }
+                //     InformAboutChange();
+                //     return val;
+                // }
+                //! 変更：EquipアイテムはValをレベルとして扱う
+                val = AddItemToFirstFreeSlot(item, val);
+                InformAboutChange();
+                return val;
             }
             val = AddStackableItem(item, val);
             InformAboutChange();
             return val;
         }
 
-        private int AddItemToFirstFreeSlot(ItemSO item, int val)
-        {
+        private int AddItemToFirstFreeSlot(ItemSO item, int val) {
             InventoryItem newItem = new InventoryItem{
                 Data = item,
                 Val = val

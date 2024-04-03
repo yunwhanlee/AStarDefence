@@ -65,13 +65,13 @@ namespace Inventory
 
         private void HandleDescriptionRequest(int itemIdx)
         {
-            InventoryItem inventoryItem = inventoryData.GetItemAt(itemIdx);
-            if(inventoryItem.IsEmpty) {
+            InventoryItem invItem = inventoryData.GetItemAt(itemIdx);
+            if(invItem.IsEmpty) {
                 invUI.ResetSelection();
                 return;
             }
-            ItemSO item = inventoryItem.Data;
-            invUI.UpdateDescription(itemIdx, item);
+            ItemSO item = invItem.Data;
+            invUI.UpdateDescription(itemIdx, item, invItem.Val);
         }
 
         public void ShowInventory() {

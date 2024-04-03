@@ -12,5 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5164a52482337a44833b84d48bdc2b2, type: 3}
   m_Name: Inventory
   m_EditorClassIdentifier: 
-  inventoryItems: []
-  <Size>k__BackingField: 10
+  inventoryItems:
+  - Val: 5
+    Data: {fileID: 11400000, guid: d2febf22bacf6944895cd61c61cd1d56, type: 2}
+  - Val: 1
+    Data: {fileID: 11400000, guid: b177800f7dfbb444481d89fa208f869e, type: 2}
+  - Val: 2
+    Data: {fileID: 11400000, guid: c2355d0b0e71917439fe606ae7b8f8a4, type: 2}
+  - Val: 1
+    Data: {fileID: 11400000, guid: df93dc0cec06e8841bc597d25d6e48d0, type: 2}
+  - Val: 1
+    Data: {fileID: 11400000, guid: e3a7d6bd2cf816d429e90b6779fd7574, type: 2}
+  <Size>k__BackingField: 50

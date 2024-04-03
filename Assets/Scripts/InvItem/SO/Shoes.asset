@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shoes
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 0
-  <MaxStackSize>k__BackingField: 1
+  <MaxStackSize>k__BackingField: 2
   <Type>k__BackingField: 1
   <Grade>k__BackingField: 1
   <Name>k__BackingField: "\uC2E0\uBC1C"

@@ -130,8 +130,8 @@ namespace Inventory.UI
             OnDescriptionRequested?.Invoke(idx);
         }
 
-        internal void UpdateDescription(int itemIdx, ItemSO item) {
-            ItemDescription.SetDescription(item);
+        internal void UpdateDescription(int itemIdx, ItemSO item, int Val) {
+            ItemDescription.SetDescription(item, Val);
             DeselectAllItems();
             ItemList[itemIdx].Select();
         }
