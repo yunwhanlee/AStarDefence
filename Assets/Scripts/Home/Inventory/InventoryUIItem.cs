@@ -9,9 +9,9 @@ using UnityEngine.EventSystems;
 namespace Inventory.UI
 {
     public class InventoryUIItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IDragHandler {
-        [field:SerializeField] private Image ItemImg {get; set;}
-        [field:SerializeField] private TMP_Text ValTxt {get; set;}
-        [field:SerializeField] private Image BorderImg {get; set;}
+        [field:SerializeField] public Image ItemImg {get; set;}
+        [field:SerializeField] public TMP_Text ValTxt {get; set;}
+        [field:SerializeField] public Image BorderImg {get; set;}
         public event Action<InventoryUIItem> OnItemClicked, 
             OnItemDroppedOn, 
             OnItemBeginDrag, 
@@ -45,8 +45,6 @@ namespace Inventory.UI
         }
 
         public void OnPointerClick(PointerEventData pointerData) {
-            
-
             if(pointerData.button == PointerEventData.InputButton.Right)
                 OnRightMouseBtnClick?.Invoke(this);
             else

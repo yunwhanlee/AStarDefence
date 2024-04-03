@@ -175,7 +175,7 @@ public class WorkSpaceUIManager : MonoBehaviour {
             Array.ForEach(HM._.mnm.OreCards, card => card.InitCheck());
 
             //* 2. リワードPopUp表示
-            HM._.rwm.RewardListPopUp.SetActive(true);
+            HM._.rwlm.WindowObj.SetActive(true);
     }
 
 #endregion

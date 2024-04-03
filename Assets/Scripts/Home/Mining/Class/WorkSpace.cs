@@ -179,7 +179,7 @@ public class WorkSpace {
             Debug.Log($"FinishWork():: Award Reward");
             MiningMax = 0;
             MiningTime = 0;
-            HM._.wsm.OreSpot.OreImg.sprite = HM._.rwm.PresentSpr;
+            // HM._.wsm.OreSpot.OreImg.sprite = HM._.rwm.PresentSpr;
             HM._.mtm.RewardAuraEF.SetActive(true);
             HM._.mtm.SetTimerSlider("보상받기", 1);
             HM._.wsm.GoblinChrCtrl.HappyAnim();
