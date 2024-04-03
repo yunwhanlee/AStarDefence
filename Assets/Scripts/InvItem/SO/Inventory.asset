@@ -12,25 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5164a52482337a44833b84d48bdc2b2, type: 3}
   m_Name: Inventory
   m_EditorClassIdentifier: 
-  inventoryItems:
-  - Val: 5
-    Item: {fileID: 11400000, guid: d2febf22bacf6944895cd61c61cd1d56, type: 2}
-  - Val: 1
-    Item: {fileID: 11400000, guid: b177800f7dfbb444481d89fa208f869e, type: 2}
-  - Val: 1
-    Item: {fileID: 11400000, guid: df93dc0cec06e8841bc597d25d6e48d0, type: 2}
-  - Val: 0
-    Item: {fileID: 0}
-  - Val: 0
-    Item: {fileID: 0}
-  - Val: 0
-    Item: {fileID: 0}
-  - Val: 0
-    Item: {fileID: 0}
-  - Val: 0
-    Item: {fileID: 0}
-  - Val: 0
-    Item: {fileID: 0}
-  - Val: 0
-    Item: {fileID: 0}
+  inventoryItems: []
   <Size>k__BackingField: 10
