@@ -7,6 +7,13 @@ using Inventory.Model;
 
 namespace Inventory.UI {
     public class InventoryDescription : MonoBehaviour {
+        [field:Header("CONSUMABLE POPUP")]
+        [field:SerializeField] private Image EtcItemBg {get; set;}
+        [field:SerializeField] private TMP_Text EtcNameTxt {get; set;}
+        [field:SerializeField] private TMP_Text EtcCountTxt {get; set;}
+        [field:SerializeField] private TMP_Text EtcDescription {get; set;}
+
+        [field:Header("EQUIPMENT POPUP")]
         [field:SerializeField] private Image TopBg {get; set;}
         [field:SerializeField] private Image ItemBg {get; set;}
         [field:SerializeField] private Image ItemImg {get; set;}
@@ -21,6 +28,11 @@ namespace Inventory.UI {
         }
 
         public void ResetDescription() {
+            EtcItemBg.gameObject.SetActive(false);
+            EtcNameTxt.text = "";
+            EtcCountTxt.text = "";
+            EtcDescription.text = "";
+
             ItemImg.gameObject.SetActive(false);
             TypeTxt.text = "";
             NameTxt.text = "";
@@ -29,22 +41,33 @@ namespace Inventory.UI {
         }
 
         public void SetDescription(ItemSO item) {
-            Debug.Log("item.Name= " + item.Name + ",item.Image= " + item.ItemImg);
-            ItemImg.gameObject.SetActive(true);
-            //* スタイル
-            TopBg.color = HM._.ivm.GradeClrs[(int)item.Grade];
-            ItemBg.sprite = HM._.ivm.GradeBgSprs[(int)item.Grade];
-            ItemImg.sprite = item.ItemImg;
-            TypeImg.sprite = HM._.ivm.TypeSprs[(int)item.Type];
-            TypeTxt.text = (item.Type == Enum.ItemType.Weapon)? "무기"
-                : (item.Type == Enum.ItemType.Shoes)? "신발"
-                : (item.Type == Enum.ItemType.Accessories)? "악세서리"
-                : (item.Type == Enum.ItemType.Relic)? "유물"
-                : "기타";
-            NameTxt.text = item.Name;
-            GradeTxt.text = item.Grade.ToString();
-            GradeTxt.color = HM._.ivm.GradeClrs[(int)item.Grade];
-            Description.text = item.Description;
+            Debug.Log("SetDescription()::");
+            if(item.Type == Enum.ItemType.Etc) {
+                HM._.ivm.ConsumePopUp.SetActive(true);
+                EtcItemBg.gameObject.SetActive(true);
+                EtcItemBg.sprite = item.ItemImg;
+                EtcNameTxt.text = item.Name;
+                EtcCountTxt.text = "TODO";
+                EtcDescription.text = item.Description;
+            }
+            else {
+                HM._.ivm.EquipPopUp.SetActive(true);
+                ItemImg.gameObject.SetActive(true);
+                //* スタイル
+                TopBg.color = HM._.ivm.GradeClrs[(int)item.Grade];
+                ItemBg.sprite = HM._.ivm.GradeBgSprs[(int)item.Grade];
+                ItemImg.sprite = item.ItemImg;
+                TypeImg.sprite = HM._.ivm.TypeSprs[(int)item.Type];
+                TypeTxt.text = (item.Type == Enum.ItemType.Weapon)? "무기"
+                    : (item.Type == Enum.ItemType.Shoes)? "신발"
+                    : (item.Type == Enum.ItemType.Accessories)? "악세서리"
+                    : (item.Type == Enum.ItemType.Relic)? "유물"
+                    : "기타";
+                NameTxt.text = item.Name;
+                GradeTxt.text = item.Grade.ToString();
+                GradeTxt.color = HM._.ivm.GradeClrs[(int)item.Grade];
+                Description.text = item.Description;
+            }
         }
     }
 }

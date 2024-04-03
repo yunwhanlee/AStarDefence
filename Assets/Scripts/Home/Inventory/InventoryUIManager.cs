@@ -94,7 +94,7 @@ namespace Inventory.UI
         }
 
         private void HandleShowItemInfoPopUp(InventoryUIItem invItemUI) {
-            EquipPopUp.SetActive(true);
+            // EquipPopUp.SetActive(true);
             DeselectAllItems();
         }
 
