@@ -58,7 +58,8 @@ namespace Inventory
         }
 
         private void HandleSwapItems(int itemIdx1, int itemIdx2)
-        {
+        {   
+            Debug.Log($"HandleSwapItems():: itemIdx1= {itemIdx1}, itemIdx2= {itemIdx2}");
             inventoryData.SwapItems(itemIdx1, itemIdx2);
         }
 

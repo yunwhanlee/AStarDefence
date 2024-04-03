@@ -88,6 +88,7 @@ namespace Inventory.UI
 
         public void OnDrop(PointerEventData eventData) {
             if(IsShortPush) return;
+            Debug.Log("OnDrop():: IsShortPush= " + IsShortPush);
             OnItemDroppedOn?.Invoke(this);
         }
 

@@ -95,6 +95,7 @@ namespace Inventory.UI
         private void HandleSwap(InventoryUIItem invItemUI) {
             int idx = ItemList.IndexOf(invItemUI);
             if(idx == -1) return;
+            if(curDraggedItemIdx == -1) return;
             OnSwapItems?.Invoke(curDraggedItemIdx, idx);
             HandleItemSelection(invItemUI);
         }
