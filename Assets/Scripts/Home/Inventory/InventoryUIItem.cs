@@ -11,16 +11,20 @@ namespace Inventory.UI
     public class InventoryUIItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IDragHandler {
         private Coroutine CorPushTimeID = null;
         private bool IsShortPush = false;
-        [field:SerializeField] public Image ItemImg {get; set;}
-        [field:SerializeField] public Image FrameImg {get; set;}
+
+        [field: Header("ELEMENT")]
+        [field:SerializeField] public Image TypeBgImg {get; set;}
+        [field:SerializeField] public Image TypeIconImg {get; set;}
         [field:SerializeField] public Image BgImg {get; set;}
+        [field:SerializeField] public Image ItemImg {get; set;}
         [field:SerializeField] public TMP_Text ValTxt {get; set;}
         [field:SerializeField] public Image BorderImg {get; set;}
         public event Action<InventoryUIItem> OnItemClicked, 
             OnItemDroppedOn, 
             OnItemBeginDrag, 
             OnItemEndDrag,
-            OnRightMouseBtnClick;
+            OnItemClickShortly;
+
         bool IsEmpty = false;
 
         void Awake() {
@@ -36,8 +40,18 @@ namespace Inventory.UI
         }
 
         /// <summary> アイテムのデータ設定 </summary>
-        /// <param name="val">Equipment : Lv, Consumable : Cnt</param>
-        public void SetData(Sprite spr, int val) {
+        public void SetData(Enum.ItemType type, Enum.Grade grade, Sprite spr, int val) {
+            if(grade == Enum.Grade.None) {
+                TypeBgImg.enabled = false;
+                TypeIconImg.sprite = HM._.ivm.NoneSpr;
+                BgImg.sprite = HM._.ivm.NoneBgSpr;
+            }
+            else {
+                TypeBgImg.enabled = true;
+                TypeBgImg.color = HM._.ivm.GradeClrs[(int)grade];
+                TypeIconImg.sprite = HM._.ivm.TypeSprs[(int)type];
+                BgImg.sprite = HM._.ivm.GradeBgSprs[(int)grade];
+            }
             ItemImg.gameObject.SetActive(true);
             ItemImg.sprite = spr;
             ValTxt.text = $"{val}";
@@ -71,7 +85,7 @@ namespace Inventory.UI
             Debug.Log("OnPointerUp");
             if(IsShortPush) {
                 StopCoroutine(CorPushTimeID);
-                OnRightMouseBtnClick?.Invoke(this);
+                OnItemClickShortly?.Invoke(this);
             }
         }
 

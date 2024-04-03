@@ -37,7 +37,7 @@ namespace Inventory.Model
         private int AddItemToFirstFreeSlot(ItemSO item, int val)
         {
             InventoryItem newItem = new InventoryItem{
-                Item = item,
+                Data = item,
                 Val = val
             };
 
@@ -59,11 +59,11 @@ namespace Inventory.Model
             for(int i = 0; i < inventoryItems.Count; i++) {
                 if(inventoryItems[i].IsEmpty)
                     continue;
-                if(inventoryItems[i].Item.ID == item.ID) {
-                    int amountPossibleToTake = inventoryItems[i].Item.MaxStackSize - inventoryItems[i].Val;
+                if(inventoryItems[i].Data.ID == item.ID) {
+                    int amountPossibleToTake = inventoryItems[i].Data.MaxStackSize - inventoryItems[i].Val;
 
                     if(val > amountPossibleToTake) {
-                        inventoryItems[i] = inventoryItems[i].ChangeValue(inventoryItems[i].Item.MaxStackSize);
+                        inventoryItems[i] = inventoryItems[i].ChangeValue(inventoryItems[i].Data.MaxStackSize);
                         val -= amountPossibleToTake;
                     }
                     else {
@@ -84,7 +84,7 @@ namespace Inventory.Model
         }
 
         public void AddItem(InventoryItem item) {
-            AddItem(item.Item, item.Val);
+            AddItem(item.Data, item.Val);
         }
 
         public Dictionary<int, InventoryItem> GetCurrentInventoryState() {
@@ -118,18 +118,18 @@ namespace Inventory.Model
     [Serializable]
     public struct InventoryItem {
         public int Val;
-        public ItemSO Item;
-        public bool IsEmpty => Item == null;
+        public ItemSO Data;
+        public bool IsEmpty => Data == null;
 
         public InventoryItem ChangeValue(int newVal) {
             return new InventoryItem {
-                Item = this.Item,
+                Data = this.Data,
                 Val = newVal
             };
         }
         public static InventoryItem GetEmptyItem()
             => new InventoryItem {
-                Item = null,
+                Data = null,
                 Val = 0
             };
     }

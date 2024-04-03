@@ -46,9 +46,12 @@ public static class Enum {
     }
 
     public enum Grade {
-        None, 
+        None = -1, 
         //* 노말, 레어, 에픽, 유니크, 레전드, 신화, 태초
         Common, Rare, Epic, Unique, Legend, Myth, Prime
+    }
+    public enum ItemType {
+        Weapon, Shoes, Accessories, Relic, Etc
     }
 
     public enum BossRwd {

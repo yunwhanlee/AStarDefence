@@ -3,12 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using Inventory.Model;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 namespace Inventory.UI 
 {
     public class InventoryUIManager : MonoBehaviour {
         [SerializeField] InventoryController ivctrl;
 
+        [field: Header("RESOURCE")]
+        [field:SerializeField] public Sprite NoneSpr;
+        [field:SerializeField] public Sprite NoneBgSpr;
+        [field:SerializeField] public Sprite[] TypeSprs;
+        [field:SerializeField] public Color[] GradeClrs;
+        [field:SerializeField] public Sprite[] GradeBgSprs;
+
+        [field: Header("Elements")]
         [field:SerializeField] public GameObject WindowObj {get; private set;}
         [field:SerializeField] public GameObject EquipPopUp {get; private set;}
         [field:SerializeField] public GameObject ConsumePopUp {get; private set;}
@@ -69,13 +79,13 @@ namespace Inventory.UI
                 item.OnItemBeginDrag += HandleBeginDrag;
                 item.OnItemDroppedOn += HandleSwap;
                 item.OnItemEndDrag += HandleEndDrag;
-                item.OnRightMouseBtnClick += HandleShowItemInfoPopUp;
+                item.OnItemClickShortly += HandleShowItemInfoPopUp;
             }
         }
 
-        public void UpdateData(int itemIdx, Sprite itemSpr, int itemVal) {
+        public void UpdateData(int itemIdx, InventoryItem item) { //Enum.Grade grade, Sprite itemSpr, int itemVal) {
             if(ItemList.Count > itemIdx) {
-                ItemList[itemIdx].SetData(itemSpr, itemVal);
+                ItemList[itemIdx].SetData(item.Data.Type, item.Data.Grade, item.Data.ItemImg, item.Val);
             }
         }
         private void ResetDraggedItem() {
@@ -109,9 +119,9 @@ namespace Inventory.UI
 
         }
 
-        public void CreateDraggedItem(Sprite spr, int val) {
+        public void CreateDraggedItem(Enum.ItemType type, Enum.Grade grade, Sprite spr, int val) {
             MouseFollower.Toggle(true);
-            MouseFollower.SetData(spr, val);
+            MouseFollower.SetData(type, grade, spr, val);
         } 
 
         private void HandleItemSelection(InventoryUIItem invItemUI) {
@@ -120,8 +130,8 @@ namespace Inventory.UI
             OnDescriptionRequested?.Invoke(idx);
         }
 
-        internal void UpdateDescription(int itemIdx, Sprite itemImg, string name, string description) {
-            ItemDescription.SetDescription(itemImg, name, description);
+        internal void UpdateDescription(int itemIdx, ItemSO item) {
+            ItemDescription.SetDescription(item);
             DeselectAllItems();
             ItemList[itemIdx].Select();
         }

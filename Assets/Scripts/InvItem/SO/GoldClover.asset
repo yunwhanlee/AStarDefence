@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
   <MaxStackSize>k__BackingField: 99
+  <Type>k__BackingField: 4
+  <Grade>k__BackingField: -1
   <Name>k__BackingField: "\uD669\uAE08\uD074\uB85C\uBC84"
   <Description>k__BackingField: "\uD55C \uC2A4\uD14C\uC774\uC9C0 \uD074\uB9AC\uC5B4
     \uACBD\uD5D8\uCE58 10% \uC99D\uAC00"

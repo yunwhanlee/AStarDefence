@@ -92,7 +92,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2608241552112482418
 RectTransform:
   m_ObjectHideFlags: 0
@@ -281,9 +281,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 039fd2b0f5590a644ab835d05d7b668b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ItemImg>k__BackingField: {fileID: 740611621566078410}
-  <FrameImg>k__BackingField: {fileID: 6806068175862079782}
+  NoneSpr: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  NoneBgSpr: {fileID: 21300000, guid: 81b7d5aee59e5420b9baa91a05eb781f, type: 3}
+  TypeSprs:
+  - {fileID: 21300000, guid: 97aeaf017389e4efdb679f7db8867011, type: 3}
+  - {fileID: 21300000, guid: 4e72bc3825879426a9063db404f68716, type: 3}
+  - {fileID: 21300000, guid: 7031761beba0844f19638697d6537888, type: 3}
+  - {fileID: 21300000, guid: 7122c05d73e084043ab0df753f58ed40, type: 3}
+  GradeClrs:
+  - {r: 0.37647063, g: 0.49411768, b: 0.5411765, a: 1}
+  - {r: 0.12941177, g: 0.93725497, b: 0.10980393, a: 1}
+  - {r: 0.050980397, g: 0.5137255, b: 0.97647065, a: 1}
+  - {r: 0.6392157, g: 0.23529413, b: 0.9960785, a: 1}
+  - {r: 0.9960785, g: 0.8705883, b: 0, a: 1}
+  - {r: 0.9960785, g: 0.19215688, b: 0.3019608, a: 1}
+  - {r: 0.9960785, g: 0.47450984, b: 0.9686275, a: 1}
+  GradeBgSprs:
+  - {fileID: 21300000, guid: 266ad80e258c14796995663321df1c2c, type: 3}
+  - {fileID: 21300000, guid: b2c98bfbb087c4b05ba8430f094096d7, type: 3}
+  - {fileID: 21300000, guid: aecd3f85f0c11473388fb73bc0b9b441, type: 3}
+  - {fileID: 21300000, guid: b2c98bfbb087c4b05ba8430f094096d7, type: 3}
+  - {fileID: 21300000, guid: ae8f1b0f7f2424a2aa6c639e8f88de23, type: 3}
+  - {fileID: 21300000, guid: 94c2bb5b3bc5e4127901d01daca2a45f, type: 3}
+  - {fileID: 21300000, guid: 43146b890859542fa9c8292cb76250a7, type: 3}
+  - {fileID: 21300000, guid: b3c1d650e67a94aa6b25f5948dd7ff7a, type: 3}
+  <TypeBgImg>k__BackingField: {fileID: 996392001961664365}
+  <TypeIconImg>k__BackingField: {fileID: 3493857606018426509}
   <BgImg>k__BackingField: {fileID: 1972232930978752229}
+  <ItemImg>k__BackingField: {fileID: 740611621566078410}
   <ValTxt>k__BackingField: {fileID: 7514992977466342458}
   <BorderImg>k__BackingField: {fileID: 2303383643667711743}
 --- !u!1 &4354230450529455129
@@ -373,7 +398,7 @@ GameObject:
   - component: {fileID: 1300081535659424229}
   - component: {fileID: 996392001961664365}
   m_Layer: 0
-  m_Name: Type
+  m_Name: TypeBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -414,7 +439,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4664422988613715012}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -583,7 +608,7 @@ GameObject:
   - component: {fileID: 7343287431268656532}
   - component: {fileID: 3493857606018426509}
   m_Layer: 0
-  m_Name: Icon
+  m_Name: TypeIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -636,8 +661,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 97aeaf017389e4efdb679f7db8867011, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

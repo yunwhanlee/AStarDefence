@@ -17,10 +17,9 @@ public class HomeRewardListUIManager : MonoBehaviour {
     private void SetRewardItemList(List<RewardItem> itemList) {
         //* リワードリストへオブジェクト生成・追加
         for(int i = 0; i < itemList.Count; i++) {
-            RewardItem rwdDt = itemList[i];
-            InventoryUIItem rwdUIItem = Instantiate(rwdItemPf.gameObject, HM._.rwlm.Content)
-                .GetComponent<InventoryUIItem>();
-            rwdUIItem.SetData(rwdDt.InventoryItem.ItemImg, rwdDt.Val);
+            RewardItem rwd = itemList[i];
+            InventoryUIItem rwdUIItem = Instantiate(rwdItemPf.gameObject, HM._.rwlm.Content).GetComponent<InventoryUIItem>();
+            rwdUIItem.SetData(rwd.Data.Type, rwd.Data.Grade, rwd.Data.ItemImg, rwd.Val);
         }
     }
 

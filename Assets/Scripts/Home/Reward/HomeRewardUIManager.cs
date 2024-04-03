@@ -6,7 +6,7 @@ using UnityEngine;
 
 [Serializable]
 public class RewardItem {
-    [field: SerializeField] public ItemSO InventoryItem {get; private set;}
+    [field: SerializeField] public ItemSO Data {get; private set;}
     [field: SerializeField] public int Val {get; set;} = 1;
 }
 
@@ -26,7 +26,7 @@ public class HomeRewardUIManager : MonoBehaviour {
         public void UpdateInventory() {
             if(RewardList.Count > 0) {
                 foreach (RewardItem item in RewardList) {
-                    int reminder = InventoryData.AddItem(item.InventoryItem, item.Val);
+                    int reminder = InventoryData.AddItem(item.Data, item.Val);
                     item.Val = reminder;
                 }
             }

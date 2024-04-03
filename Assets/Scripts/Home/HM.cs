@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Inventory.UI;
 using TMPro;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ public class HM : MonoBehaviour {
     // SkillTree
     [HideInInspector] public SkillTreeUIManager stm;
     // Inventory
-    // [HideInInspector] public InventoryUIManager ivm;
+    [HideInInspector] public InventoryUIManager ivm;
 
     //* Value
     [field: SerializeField] public int SelectedStage {get; set;}
@@ -64,7 +65,7 @@ public class HM : MonoBehaviour {
         mtm = GameObject.Find("MiningTimeUIManager").GetComponent<MiningTimeUIManager>();
         wsm = GameObject.Find("WorkSpaceUIManager").GetComponent<WorkSpaceUIManager>();
         stm = GameObject.Find("SkillTreeUIManager").GetComponent<SkillTreeUIManager>();
-        // ivm = GameObject.Find("InventoryUIManager").GetComponent<InventoryUIManager>();
+        ivm = GameObject.Find("InventoryUIManager").GetComponent<InventoryUIManager>();
 
         //* 初期化
         SelectedStage = 0;
