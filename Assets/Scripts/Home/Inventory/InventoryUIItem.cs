@@ -12,6 +12,8 @@ namespace Inventory.UI
         private Coroutine CorPushTimeID = null;
         private bool IsShortPush = false;
         [field:SerializeField] public Image ItemImg {get; set;}
+        [field:SerializeField] public Image FrameImg {get; set;}
+        [field:SerializeField] public Image BgImg {get; set;}
         [field:SerializeField] public TMP_Text ValTxt {get; set;}
         [field:SerializeField] public Image BorderImg {get; set;}
         public event Action<InventoryUIItem> OnItemClicked, 

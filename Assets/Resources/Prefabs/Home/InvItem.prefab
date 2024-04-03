@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 8577227559343636107}
   - component: {fileID: 6806068175862079782}
   m_Layer: 0
-  m_Name: CornerDeco
+  m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -254,8 +254,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5584668644016915998}
   - {fileID: 2608241552112482418}
+  - {fileID: 5584668644016915998}
   - {fileID: 8085013169133413141}
   - {fileID: 804435091453043395}
   - {fileID: 27639176553036514}
@@ -282,6 +282,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ItemImg>k__BackingField: {fileID: 740611621566078410}
+  <FrameImg>k__BackingField: {fileID: 6806068175862079782}
+  <BgImg>k__BackingField: {fileID: 1972232930978752229}
   <ValTxt>k__BackingField: {fileID: 7514992977466342458}
   <BorderImg>k__BackingField: {fileID: 2303383643667711743}
 --- !u!1 &4354230450529455129
