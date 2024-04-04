@@ -33,8 +33,10 @@ namespace Inventory.UI
             Deselect();
         }
         public void ResetData() {
+            Type = Enum.ItemType.Etc;
             ItemImg.gameObject.SetActive(false);
             IsEmpty = true;
+            ValTxt.text = "";
         }
         public void Deselect() => BorderImg.enabled = false;
 
@@ -42,6 +44,8 @@ namespace Inventory.UI
         /// アイテムのデータ設定
         /// </summary>
         public void SetData(Enum.ItemType type, Enum.Grade grade, Sprite spr, int val) {
+            Type = type;
+
             if(grade == Enum.Grade.None) {
                 TypeBgImg.enabled = false;
                 TypeIconImg.sprite = HM._.ivm.NoneSpr;

@@ -5,6 +5,7 @@ using Inventory.Model;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 namespace Inventory.UI 
 {
@@ -22,6 +23,9 @@ namespace Inventory.UI
         [field:SerializeField] public GameObject WindowObj {get; private set;}
         [field:SerializeField] public GameObject EquipPopUp {get; private set;}
         [field:SerializeField] public GameObject ConsumePopUp {get; private set;}
+
+        [field:SerializeField] public RectTransform CateUnderline {get; private set;}
+
         [field:SerializeField] public InventoryUIItem ItemPf {get; private set;}
         [field:SerializeField] public RectTransform Content {get; set;}
         [field:SerializeField] public InventoryDescription ItemDescription {get; set;}
@@ -44,14 +48,41 @@ namespace Inventory.UI
             ItemDescription.ResetDescription();
         }
 
-    #region EVENT
-        public void OnClickInventoryIconBtn() {
-            InvCtrl.ShowInventory();
-        }
-        public void OnClickInventoryPopUpBackBtn() {
-            InvCtrl.HideInventory();
-        }
-    #endregion
+#region EVENT
+    /// <summary>
+    /// カテゴリーアイコンクリック
+    /// </summary>
+    /// <param name="cateIdx">０：全て、１：WEAPON、２：SHOES、３：ACCESARY、４：CROWN, 5：ETC</param>
+    public void OnClickCateMenuIconBtn(int cateIdx) {
+        //* Move Tap UnderLine
+        const int ORIGIN_X = -450, MOVE_X_UNIT = 180;
+        CateUnderline.anchoredPosition = new Vector2(ORIGIN_X + (cateIdx * MOVE_X_UNIT), CateUnderline.anchoredPosition.y);
+
+        //* ItemList 表示
+        switch(cateIdx) {
+            case 0: ItemList.ForEach(item => item.gameObject.SetActive(true)); break;
+            case 1: ActiveCategoryItemList(Enum.ItemType.Weapon); break;
+            case 2: ActiveCategoryItemList(Enum.ItemType.Shoes);  break;
+            case 3: ActiveCategoryItemList(Enum.ItemType.Accessories); break;
+            case 4: ActiveCategoryItemList(Enum.ItemType.Relic); break;
+            case 5: ActiveCategoryItemList(Enum.ItemType.Etc); break;
+        } 
+    }
+    private void ActiveCategoryItemList(Enum.ItemType category) {
+        //* 全て非表示
+        ItemList.ForEach(item => item.gameObject.SetActive(false));
+        //* カテゴリに合うリストのみ表示
+        var filterList = ItemList.FindAll(item => item.Type == category);
+        filterList.ForEach(item => item.gameObject.SetActive(true));
+    }
+
+    public void OnClickInventoryIconBtn() {
+        InvCtrl.ShowInventory();
+    }
+    public void OnClickInventoryPopUpBackBtn() {
+        InvCtrl.HideInventory();
+    }
+#endregion
 
     #region FUNC
         public void InitInventoryUI(int invSize) {
@@ -92,13 +123,22 @@ namespace Inventory.UI
             curDraggedItemIdx = -1;
         }
 
+        /// <summary>
+        ///* UIインベントリーから、実際のアイテム情報を受け取る
+        /// </summary>
+        /// <param name="invItemUI">インベントリーUIのアイテム</param>
+        public InventoryItem GetItemFromUI(InventoryUIItem invItemUI) {
+            int idx = ItemList.IndexOf(invItemUI);
+            if(idx == -1)
+                return InventoryItem.GetEmptyItem();
+            return InvCtrl.InventoryData.GetItemAt(idx);            
+        }
+
         private void HandleShowItemInfoPopUp(InventoryUIItem invItemUI) {
             DeselectAllItems();
 
             //* 実際のインベントリーへあるアイテム情報
-            int idx = ItemList.IndexOf(invItemUI);
-            if(idx == -1) return;
-            InventoryItem curInvItem = InvCtrl.InventoryData.GetItemAt(idx);
+            InventoryItem curInvItem = GetItemFromUI(invItemUI);
 
             if(curInvItem.Data.Type == Enum.ItemType.Etc)
                 ConsumePopUp.SetActive(true);
