@@ -10,18 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ee7d7a0ddf26d84d84647fede468360, type: 3}
-  m_Name: Weapon3_A
+  m_Name: Shoes3_A
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 0
   <MaxStackSize>k__BackingField: 1
-  <Type>k__BackingField: 0
+  <Type>k__BackingField: 1
   <Grade>k__BackingField: 2
-  <Name>k__BackingField: "\uCC28\uD06C\uB78C\uAC80"
-  <Description>k__BackingField: "\uACF5\uACA9\uB825 V1% \uC99D\uAC00"
-  <ItemImg>k__BackingField: {fileID: -316808845, guid: e433c8bb469a03548ae052468f941483, type: 3}
+  <Name>k__BackingField: "\uB179\uC0C9\uBD80\uCE20"
+  <Description>k__BackingField: "\uACF5\uACA9\uC18D\uB3C4 V0% \uC99D\uAC00\n\uACF5\uACA9\uBC94\uC704
+    V1% \uC99D\uAC00"
+  <ItemImg>k__BackingField: {fileID: -1162146448, guid: e433c8bb469a03548ae052468f941483, type: 3}
   <Abilities>k__BackingField:
-  - AbilityType: 0
-    Min: 0.11
+  - AbilityType: 1
+    Min: 0.05
+    Max: 0.06
+    UpgradeVal: 0.005
+  - AbilityType: 2
+    Min: 0.15
     Max: 0.15
-    Val: 0
-    UpgradeVal: 0.02
+    UpgradeVal: 0

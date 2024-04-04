@@ -10,18 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ee7d7a0ddf26d84d84647fede468360, type: 3}
-  m_Name: Weapon5_A
+  m_Name: Weapon2_A
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 0
   <MaxStackSize>k__BackingField: 1
   <Type>k__BackingField: 0
-  <Grade>k__BackingField: 4
-  <Name>k__BackingField: "\uBD89\uC740\uD53C\uC758\uAC80 "
-  <Description>k__BackingField: "\uACF5\uACA9\uB825 V1% \uC99D\uAC00"
-  <ItemImg>k__BackingField: {fileID: 1331523847, guid: e433c8bb469a03548ae052468f941483, type: 3}
+  <Grade>k__BackingField: 1
+  <Name>k__BackingField: "\uC798\uBCBC\uB9B0\uAC80"
+  <Description>k__BackingField: "\uACF5\uACA9\uB825 V0% \uC99D\uAC00"
+  <ItemImg>k__BackingField: {fileID: 299373663, guid: e433c8bb469a03548ae052468f941483, type: 3}
   <Abilities>k__BackingField:
   - AbilityType: 0
-    Min: 0.21
-    Max: 0.3
-    Val: 0
-    UpgradeVal: 0.03
+    Min: 0.06
+    Max: 0.1
+    UpgradeVal: 0.01

@@ -17,11 +17,10 @@ MonoBehaviour:
   <Type>k__BackingField: 0
   <Grade>k__BackingField: 0
   <Name>k__BackingField: "\uB3C4\uB07C"
-  <Description>k__BackingField: "\uACF5\uACA9\uB825 V1% \uC99D\uAC00"
+  <Description>k__BackingField: "\uACF5\uACA9\uB825 V0% \uC99D\uAC00"
   <ItemImg>k__BackingField: {fileID: 579474444, guid: e433c8bb469a03548ae052468f941483, type: 3}
   <Abilities>k__BackingField:
   - AbilityType: 0
     Min: 0.01
     Max: 0.05
-    Val: 0
     UpgradeVal: 0.01

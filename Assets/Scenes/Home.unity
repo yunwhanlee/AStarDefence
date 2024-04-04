@@ -27670,19 +27670,74 @@ MonoBehaviour:
     Data: {fileID: 11400000, guid: 7dfa2a86e8ed75d4db19e61c0353d063, type: 2}
   - Val: 1
     Abilities:
-    - AbilityType: 0
+    - AbilityType: 1
+      Value: 0.02
+    - AbilityType: 2
       Value: 0
-    Data: {fileID: 11400000, guid: b177800f7dfbb444481d89fa208f869e, type: 2}
+    Data: {fileID: 11400000, guid: 6e5c480b9535f9e4d938339604b4bdb1, type: 2}
   - Val: 1
     Abilities:
-    - AbilityType: 0
+    - AbilityType: 1
+      Value: 0.02
+    - AbilityType: 2
       Value: 0
-    Data: {fileID: 11400000, guid: c2355d0b0e71917439fe606ae7b8f8a4, type: 2}
+    Data: {fileID: 11400000, guid: 13fcfec81fcd1954384678ec18b47af0, type: 2}
   - Val: 1
     Abilities:
-    - AbilityType: 0
-      Value: 0
-    Data: {fileID: 11400000, guid: a13cd4839ae1ff24cb259d170d8a5aa5, type: 2}
+    - AbilityType: 1
+      Value: 0.04
+    - AbilityType: 2
+      Value: 0.1
+    Data: {fileID: 11400000, guid: 0c0412309a40a004ebe618e5818149c8, type: 2}
+  - Val: 1
+    Abilities:
+    - AbilityType: 1
+      Value: 0.04
+    - AbilityType: 2
+      Value: 0.1
+    Data: {fileID: 11400000, guid: abaccaa195463124bab30408fd7b1eb8, type: 2}
+  - Val: 1
+    Abilities:
+    - AbilityType: 1
+      Value: 0.06
+    - AbilityType: 2
+      Value: 0.15
+    Data: {fileID: 11400000, guid: e551d2b1622b85548af8e8bb9f061142, type: 2}
+  - Val: 1
+    Abilities:
+    - AbilityType: 1
+      Value: 0.06
+    - AbilityType: 2
+      Value: 0.15
+    Data: {fileID: 11400000, guid: 2c22965084196124293337c08a4e0087, type: 2}
+  - Val: 1
+    Abilities:
+    - AbilityType: 1
+      Value: 0.08
+    - AbilityType: 2
+      Value: 0.25
+    Data: {fileID: 11400000, guid: 59fb2aee1376eed4e8d611587e7cac1a, type: 2}
+  - Val: 1
+    Abilities:
+    - AbilityType: 1
+      Value: 0.14
+    - AbilityType: 2
+      Value: 0.3
+    Data: {fileID: 11400000, guid: a326ae150aa20af4f9d0ea42f67ee0c5, type: 2}
+  - Val: 1
+    Abilities:
+    - AbilityType: 1
+      Value: 0.2
+    - AbilityType: 2
+      Value: 0.35
+    Data: {fileID: 11400000, guid: b287f892d2d72c548985eb8a4110cf85, type: 2}
+  - Val: 1
+    Abilities:
+    - AbilityType: 1
+      Value: 0.25
+    - AbilityType: 2
+      Value: 0.4
+    Data: {fileID: 11400000, guid: e7b16abc42e82fe45baa56fd63c41791, type: 2}
 --- !u!1 &1055846979
 GameObject:
   m_ObjectHideFlags: 0

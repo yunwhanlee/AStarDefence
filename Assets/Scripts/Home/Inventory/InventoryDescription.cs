@@ -110,12 +110,20 @@ namespace Inventory.UI {
                 GradeTxt.text = item.Grade.ToString();
                 GradeTxt.color = HM._.ivm.GradeClrs[(int)item.Grade];
 
-                //* 強化数値表示 トーグル
-                string upgradeValStr = IsUpgradeValToogle? $"<color=green>( +{item.Abilities[0].UpgradeVal * 100}% )</color>" : "";
-                //* 能力数値表示
-                item.Description = item.Description.Replace("V1", $"{HM._.ivm.CurInvItem.Abilities[0].Value * 100}");
-                Description.text = $"{item.Description} {upgradeValStr}";
+                //* 能力木テスト 表示
+                string resMsg = "";
+                string[] sentences = item.Description.Split('\n');
+                Debug.Log($"Description Ability Sentences.Length= {sentences.Length}");
+                for(int i = 0; i < HM._.ivm.CurInvItem.Abilities.Length; i++) {
+                    //* V{N} → 能力数値変換
+                    string msg = sentences[i].Replace($"V{i}", $"{HM._.ivm.CurInvItem.Abilities[i].Value * 100}");
+                    //* 強化数値表示 トーグル
+                    string upgradeValMsg = IsUpgradeValToogle? $"<color=green>( +{item.Abilities[i].UpgradeVal * 100}% )</color>" : "";
+                    resMsg += $"{msg} {upgradeValMsg}\n";
+                }
+                Description.text = resMsg;
 
+                //* アップグレードボタン UI
                 int lvIdx = val - 1;
                 int[] rPrices = Config.H_PRICE.RELIC_UPG.PRICES;
                 int[] ePrices = Config.H_PRICE.EQUIP_UPG.PRICES;

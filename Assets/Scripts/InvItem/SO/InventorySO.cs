@@ -5,13 +5,18 @@ using System.Linq;
 using UnityEngine;
 
 namespace Inventory.Model 
-{
+{   
+    /// <summary>
+    /// 実際に保存するアイテムの能力データ
+    /// </summary>
     [Serializable]
     public struct Ability {
         public ItemAbilityType AbilityType;
         public float Value;
     }
-
+    /// <summary>
+    /// 実際に保存するアイテム表情
+    /// </summary>
     [Serializable]
     public struct InventoryItem {
         public int Val;
@@ -19,12 +24,12 @@ namespace Inventory.Model
         public ItemSO Data;
         public bool IsEmpty => Data == null;
 
-        public InventoryItem ChangeValue(int newVal) {
-            return new InventoryItem {
+        public InventoryItem ChangeValue(int newVal)
+            => new InventoryItem {
                 Data = this.Data,
-                Val = newVal
+                Val = newVal,
+                Abilities = this.Abilities
             };
-        }
         public static InventoryItem GetEmptyItem()
             => new InventoryItem {
                 Data = null,
