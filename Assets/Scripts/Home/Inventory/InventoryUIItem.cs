@@ -36,9 +36,7 @@ namespace Inventory.UI
             ItemImg.gameObject.SetActive(false);
             IsEmpty = true;
         }
-        public void Deselect() {
-            BorderImg.enabled = false;
-        }
+        public void Deselect() => BorderImg.enabled = false;
 
         /// <summary>
         /// アイテムのデータ設定

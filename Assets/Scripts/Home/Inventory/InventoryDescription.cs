@@ -26,6 +26,8 @@ namespace Inventory.UI {
 
         void Awake() => ResetDescription();
 
+
+
         public void ResetDescription() {
             EtcItemBg.gameObject.SetActive(false);
             EtcNameTxt.text = "";

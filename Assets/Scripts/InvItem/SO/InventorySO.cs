@@ -14,9 +14,8 @@ namespace Inventory.Model
 
         public void Init() {
             inventoryItems = new List<InventoryItem>();
-            for(int i = 0; i < Size; i++) {
+            for(int i = 0; i < Size; i++)
                 inventoryItems.Add(InventoryItem.GetEmptyItem());
-            }
         }
 
         public int AddItem(ItemSO item, int val) {
@@ -55,12 +54,13 @@ namespace Inventory.Model
             return 0;
         }
 
-        /// <summary> 一つでも空のスロットがあったら、インベントリーがFullではない => False </summary>
+        /// <summary>
+        /// 一つでも空スロットがあったら、インベントリーがFullではない => False
+        /// /// </summary>
         private bool IsInventoryFull()
             => inventoryItems.Where(item => item.IsEmpty).Any() == false;
 
-        private int AddStackableItem(ItemSO item, int val)
-        {
+        private int AddStackableItem(ItemSO item, int val) {
             for(int i = 0; i < inventoryItems.Count; i++) {
                 if(inventoryItems[i].IsEmpty)
                     continue;
@@ -93,21 +93,23 @@ namespace Inventory.Model
         }
 
         public Dictionary<int, InventoryItem> GetCurrentInventoryState() {
-            Dictionary<int, InventoryItem> result = new Dictionary<int, InventoryItem>();
+            Dictionary<int, InventoryItem> invItemDic = new Dictionary<int, InventoryItem>();
             for(int i = 0; i < inventoryItems.Count; i++) {
                 if(inventoryItems[i].IsEmpty)
                     continue;
-                result[i] = inventoryItems[i];
+                invItemDic[i] = inventoryItems[i];
             }
-            return result;
+            return invItemDic;
         }
 
-        public InventoryItem GetItemAt(int itemIdx) {
-            return inventoryItems[itemIdx];
-        }
+        /// <summary>
+        /// 実際のインベントリーへあるアイテム情報を返す
+        /// </summary>
+        /// <param name="itemIdx"></param>
+        public InventoryItem GetItemAt(int itemIdx)
+            => inventoryItems[itemIdx];
 
-        public void SwapItems(int itemIdx1, int itemIdx2)
-        {
+        public void SwapItems(int itemIdx1, int itemIdx2) {
             InventoryItem item1 = inventoryItems[itemIdx1];
             inventoryItems[itemIdx1] = inventoryItems[itemIdx2];
             inventoryItems[itemIdx2] = item1;
@@ -115,9 +117,7 @@ namespace Inventory.Model
         }
 
         private void InformAboutChange()
-        {
-            OnInventoryUpdated?.Invoke(GetCurrentInventoryState());
-        }
+            => OnInventoryUpdated?.Invoke(GetCurrentInventoryState());
     }
 
     [Serializable]

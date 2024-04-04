@@ -8,67 +8,68 @@ using UnityEngine;
 namespace Inventory 
 {
     public class InventoryController : MonoBehaviour {
-        [SerializeField] private InventoryUIManager invUI;
-        [SerializeField] private InventorySO inventoryData;
-        public List<InventoryItem> initItems = new List<InventoryItem>();
+        [SerializeField] private InventoryUIManager InvUI;
+        [SerializeField] public InventorySO InventoryData;
+        public List<InventoryItem> InitItems = new List<InventoryItem>();
 
         void Start() {
+            InvUI = HM._.ivm;
             PrepareUI();
             PrepareInventoryData();
         }
 
         private void PrepareInventoryData() {
-            inventoryData.Init();
-            inventoryData.OnInventoryUpdated += UpdateInventoryUI;
-            foreach (InventoryItem item in initItems) {
+            InventoryData.Init();
+            InventoryData.OnInventoryUpdated += UpdateInventoryUI;
+            foreach (InventoryItem item in InitItems) {
                 if(item.IsEmpty)
                     continue;
-                inventoryData.AddItem(item);
+                InventoryData.AddItem(item);
             }
         }
 
         private void UpdateInventoryUI(Dictionary<int, InventoryItem> inventoryState) {
-            invUI.ResetAllItems();
+            InvUI.ResetAllItems();
             foreach (var item in inventoryState) {
-                invUI.UpdateData(item.Key, item.Value);
+                InvUI.UpdateData(item.Key, item.Value);
             }
         }
 
         private void PrepareUI() {
-            invUI.InitInventoryUI(inventoryData.Size);
-            invUI.OnDescriptionRequested += HandleDescriptionRequest;
-            invUI.OnSwapItems += HandleSwapItems;
-            invUI.OnStartDragging += HandleDragging;
-            invUI.OnItemActionRequested += HandleItemActionRequest;
+            InvUI.InitInventoryUI(InventoryData.Size);
+            InvUI.OnDescriptionRequested += HandleDescriptionRequest;
+            InvUI.OnSwapItems += HandleSwapItems;
+            InvUI.OnStartDragging += HandleDragging;
+            InvUI.OnItemActionRequested += HandleItemActionRequest;
         }
 
         private void HandleItemActionRequest(int itemIdx) {}
 
         private void HandleDragging(int itemIdx) {
-            InventoryItem item = inventoryData.GetItemAt(itemIdx);
+            InventoryItem item = InventoryData.GetItemAt(itemIdx);
             if(item.IsEmpty) return;
-            invUI.CreateDraggedItem(item.Data.Type, item.Data.Grade, item.Data.ItemImg, item.Val);
+            InvUI.CreateDraggedItem(item.Data.Type, item.Data.Grade, item.Data.ItemImg, item.Val);
         }
 
         private void HandleSwapItems(int itemIdx1, int itemIdx2) {   
             Debug.Log($"HandleSwapItems():: itemIdx1= {itemIdx1}, itemIdx2= {itemIdx2}");
-            inventoryData.SwapItems(itemIdx1, itemIdx2);
+            InventoryData.SwapItems(itemIdx1, itemIdx2);
         }
 
         private void HandleDescriptionRequest(int itemIdx) {
-            InventoryItem invItem = inventoryData.GetItemAt(itemIdx);
+            InventoryItem invItem = InventoryData.GetItemAt(itemIdx);
             if(invItem.IsEmpty) {
-                invUI.ResetSelection();
+                InvUI.ResetSelection();
                 return;
             }
             ItemSO item = invItem.Data;
-            invUI.UpdateDescription(itemIdx, item, invItem.Val);
+            InvUI.UpdateDescription(itemIdx, item, invItem.Val);
         }
 
         public void ShowInventory() {
-            invUI.Show();
-            foreach (var item in inventoryData.GetCurrentInventoryState()) {
-                invUI.UpdateData(
+            InvUI.Show();
+            foreach (var item in InventoryData.GetCurrentInventoryState()) {
+                InvUI.UpdateData(
                     item.Key,
                     item.Value
                 );
@@ -76,9 +77,8 @@ namespace Inventory
         }
 
         public void HideInventory() {
-            invUI.Hide();
+            InvUI.Hide();
         }
     }
 
 }
-

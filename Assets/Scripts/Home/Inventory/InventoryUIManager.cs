@@ -9,7 +9,7 @@ using TMPro;
 namespace Inventory.UI 
 {
     public class InventoryUIManager : MonoBehaviour {
-        [SerializeField] InventoryController ivctrl;
+        public InventoryController InvCtrl;
 
         [field: Header("RESOURCE")]
         [field:SerializeField] public Sprite NoneSpr;
@@ -37,7 +37,7 @@ namespace Inventory.UI
         public event Action<int, int> OnSwapItems;
 
         void Awake() {
-            ivctrl = GameObject.Find("InventoryController").GetComponent<InventoryController>();
+            InvCtrl = GameObject.Find("InventoryController").GetComponent<InventoryController>();
 
             Hide();
             MouseFollower.Toggle(false);
@@ -46,10 +46,10 @@ namespace Inventory.UI
 
     #region EVENT
         public void OnClickInventoryIconBtn() {
-            ivctrl.ShowInventory();
+            InvCtrl.ShowInventory();
         }
         public void OnClickInventoryPopUpBackBtn() {
-            ivctrl.HideInventory();
+            InvCtrl.HideInventory();
         }
     #endregion
 
@@ -82,10 +82,10 @@ namespace Inventory.UI
                 item.Deselect();
         }
 
-        public void UpdateData(int itemIdx, InventoryItem item) { //Enum.Grade grade, Sprite itemSpr, int itemVal) {
-            if(ItemList.Count > itemIdx) {
-                ItemList[itemIdx].SetData(item.Data.Type, item.Data.Grade, item.Data.ItemImg, item.Val);
-            }
+        public void UpdateData(int itemIdx, InventoryItem item) {
+            ItemSO dt = item.Data;
+            if(ItemList.Count > itemIdx)
+                ItemList[itemIdx].SetData(dt.Type, dt.Grade, dt.ItemImg, item.Val);
         }
         private void ResetDraggedItem() {
             MouseFollower.Toggle(false);
@@ -94,15 +94,19 @@ namespace Inventory.UI
 
         private void HandleShowItemInfoPopUp(InventoryUIItem invItemUI) {
             DeselectAllItems();
-            if(invItemUI.Type == Enum.ItemType.Etc)
+
+            //* 実際のインベントリーへあるアイテム情報
+            int idx = ItemList.IndexOf(invItemUI);
+            if(idx == -1) return;
+            InventoryItem curInvItem = InvCtrl.InventoryData.GetItemAt(idx);
+
+            if(curInvItem.Data.Type == Enum.ItemType.Etc)
                 ConsumePopUp.SetActive(true);
             else
                 EquipPopUp.SetActive(true);
         }
-
-        private void HandleEndDrag(InventoryUIItem invItemUI) {
-            ResetDraggedItem();
-        }
+        private void HandleEndDrag(InventoryUIItem invItemUI)
+            => ResetDraggedItem();
 
         private void HandleSwap(InventoryUIItem invItemUI) {
             int idx = ItemList.IndexOf(invItemUI);
