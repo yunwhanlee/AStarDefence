@@ -27738,6 +27738,11 @@ MonoBehaviour:
     - AbilityType: 2
       Value: 0.4
     Data: {fileID: 11400000, guid: e7b16abc42e82fe45baa56fd63c41791, type: 2}
+  - Val: 1
+    Abilities:
+    - AbilityType: 1
+      Value: 0.25
+    Data: {fileID: 11400000, guid: a13cd4839ae1ff24cb259d170d8a5aa5, type: 2}
 --- !u!1 &1055846979
 GameObject:
   m_ObjectHideFlags: 0

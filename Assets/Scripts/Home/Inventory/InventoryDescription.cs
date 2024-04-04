@@ -43,7 +43,17 @@ namespace Inventory.UI {
         }
 
         public void OnClickUpgradeBtn() {
-            if(HM._.ivm.CurInvItem.Data.Type == Enum.ItemType.Etc) return;
+            var type = HM._.ivm.CurInvItem.Data.Type;
+            var lv = HM._.ivm.CurInvItem.Val;
+            if(type == Enum.ItemType.Etc) return;
+            if(type == Enum.ItemType.Relic && lv == Config.RELIC_UPGRADE_MAX) {
+                HM._.hui.ShowMsgError("업그레이드 최대치로 더 이상 할 수 없습니다.");
+                return;
+            }
+            if(type != Enum.ItemType.Relic && lv == Config.EQUIP_UPGRADE_MAX) {
+                HM._.hui.ShowMsgError("업그레이드 최대치로 더 이상 할 수 없습니다.");
+                return;
+            }
             HM._.ivCtrl.InventoryData.UpgradeEquipItem(HM._.ivm.CurInvItem.Data, ++HM._.ivm.CurInvItem.Val, HM._.ivm.CurInvItem.Abilities);
         }
         public void OnClickUpgradeValueNoticeToggle() {
@@ -115,11 +125,14 @@ namespace Inventory.UI {
                 string[] sentences = item.Description.Split('\n');
                 Debug.Log($"Description Ability Sentences.Length= {sentences.Length}");
                 for(int i = 0; i < HM._.ivm.CurInvItem.Abilities.Length; i++) {
+                    float upgradeIncVal = item.Abilities[i].UpgradeVal;
                     //* V{N} → 能力数値変換(実際のアイテムデータ)
-                    string abilityMsg = sentences[i].Replace($"V{i}", $"{HM._.ivm.CurInvItem.Abilities[i].Value * 100}");
+                    float curItemValue = HM._.ivm.CurInvItem.Abilities[i].Value;
+                    float itemLv = HM._.ivm.CurInvItem.Val;
+                    float resItemVal = curItemValue + ((itemLv - 1) * upgradeIncVal);
+                    string abilityMsg = sentences[i].Replace($"V{i}", $"{resItemVal * 100}");
                     //* 強化数値表示 トーグル(登録したアップグレードデータ)
-                    float upgradeVal = item.Abilities[i].UpgradeVal * 100;
-                    string upgradeMsg = (upgradeVal == 0)? "<color=grey>( 고정 )</color>" : $"<color=green>( {$"+{upgradeVal}%"} )</color>";
+                    string upgradeMsg = (upgradeIncVal == 0)? "<color=grey>( 고정 )</color>" : $"<color=green>( {$"+{upgradeIncVal * 100}%"} )</color>";
                     string upgradeToogleMsg = IsUpgradeValToogle? upgradeMsg : "";
                     resMsg += $"{abilityMsg} {upgradeToogleMsg}\n";
                 }

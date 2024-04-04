@@ -19,3 +19,8 @@ MonoBehaviour:
   <Name>k__BackingField: "\uC720\uBB3C\uC2A4"
   <Description>k__BackingField: "\uC720\uBB3C\uC774\uB2E4"
   <ItemImg>k__BackingField: {fileID: 21300000, guid: b833f8a5c5d3342ac9dccc17a9e2507b, type: 3}
+  <Abilities>k__BackingField:
+  - AbilityType: 0
+    Min: 0
+    Max: 0
+    UpgradeVal: 0
