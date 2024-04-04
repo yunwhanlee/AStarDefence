@@ -7,6 +7,8 @@ using Inventory.Model;
 
 namespace Inventory.UI {
     public class InventoryDescription : MonoBehaviour {
+        [field:SerializeField] private bool IsUpgradeValToogleActive {get; set;}
+
         [field:Header("CONSUMABLE POPUP")]
         [field:SerializeField] private Image EtcItemBg {get; set;}
         [field:SerializeField] private TMP_Text EtcNameTxt {get; set;}
@@ -23,11 +25,34 @@ namespace Inventory.UI {
         [field:SerializeField] private TMP_Text LvTxt {get; set;}
         [field:SerializeField] private TMP_Text GradeTxt {get; set;}
         [field:SerializeField] private TMP_Text Description {get; set;}
+        [field:SerializeField] private RectTransform UpgValToogleHandleTf {get; set;}
+        [field:SerializeField] private TMP_Text UpgValToogleHandleTxt {get; set;}
 
         void Awake() => ResetDescription();
 
+        void Start() {
+            IsUpgradeValToogleActive = false;
+        }
 
+#region EVENT
+        public void OnClickEquipBtn() {
+            
+        }
+        public void OnClickUpgradeBtn() {
+            
+        }
+        public void OnClickUpgradeValueNoticeToggle() {
+            Debug.Log($"OnClickUpgradeValueNoticeToggle():: IsUpgradeValToogleActive= {IsUpgradeValToogleActive}");
+            UpgValToogleHandleTf.anchoredPosition = new Vector2(IsUpgradeValToogleActive? -50 : 50, UpgValToogleHandleTf.anchoredPosition.y);
+            UpgValToogleHandleTxt.text = IsUpgradeValToogleActive? "OFF" : "ON";
+            IsUpgradeValToogleActive = !IsUpgradeValToogleActive;
+        }
+        public void OnClickDeleteIconBtn() {
+            Debug.Log("DELETE");
+        }
+#endregion
 
+#region FUNC
         public void ResetDescription() {
             EtcItemBg.gameObject.SetActive(false);
             EtcNameTxt.text = "";
@@ -70,5 +95,6 @@ namespace Inventory.UI {
                 Description.text = item.Description;
             }
         }
+    #endregion
     }
 }
