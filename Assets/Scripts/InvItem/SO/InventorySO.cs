@@ -6,6 +6,32 @@ using UnityEngine;
 
 namespace Inventory.Model 
 {
+    [Serializable]
+    public struct Ability {
+        public ItemAbilityType AbilityType;
+        public float Val;
+    }
+
+    [Serializable]
+    public struct InventoryItem {
+        public int Val;
+        public Ability[] Abilities;
+        public ItemSO Data;
+        public bool IsEmpty => Data == null;
+
+        public InventoryItem ChangeValue(int newVal) {
+            return new InventoryItem {
+                Data = this.Data,
+                Val = newVal
+            };
+        }
+        public static InventoryItem GetEmptyItem()
+            => new InventoryItem {
+                Data = null,
+                Val = 0
+            };
+    }
+
     [CreateAssetMenu]
     public class InventorySO : ScriptableObject {
         [SerializeField] private List<InventoryItem> inventoryItems;
@@ -91,7 +117,7 @@ namespace Inventory.Model
         /// <summary>
         /// アイテムのアップグレードや消費する
         /// </summary>
-        public void UpgradeEquipItem(ItemSO item, int val) {
+        public void UpgradeEquipItem(ItemSO item, int val, Ability[] abilities) {
             for(int i = 0; i < inventoryItems.Count; i++) {
                 //* 同じIDを探して
                 if(inventoryItems[i].Data.ID == item.ID) {
@@ -105,7 +131,7 @@ namespace Inventory.Model
                     //* イベントリーUI アップデート
                     InformAboutChange();
                     //* 情報表示ポップアップUI アップデート
-                    HM._.ivm.UpdateDescription(HM._.ivm.CurItemIdx, item, val);
+                    HM._.ivm.UpdateDescription(HM._.ivm.CurItemIdx, item, val, abilities);
                     return;
                 }
             }
@@ -143,22 +169,5 @@ namespace Inventory.Model
             => OnInventoryUpdated?.Invoke(GetCurrentInventoryState());
     }
 
-    [Serializable]
-    public struct InventoryItem {
-        public int Val;
-        public ItemSO Data;
-        public bool IsEmpty => Data == null;
 
-        public InventoryItem ChangeValue(int newVal) {
-            return new InventoryItem {
-                Data = this.Data,
-                Val = newVal
-            };
-        }
-        public static InventoryItem GetEmptyItem()
-            => new InventoryItem {
-                Data = null,
-                Val = 0
-            };
-    }
 }

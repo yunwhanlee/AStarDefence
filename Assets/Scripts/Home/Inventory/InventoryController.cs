@@ -63,7 +63,7 @@ namespace Inventory
                 return;
             }
             ItemSO item = invItem.Data;
-            InvUI.UpdateDescription(itemIdx, item, invItem.Val);
+            InvUI.UpdateDescription(itemIdx, item, invItem.Val, invItem.Abilities);
         }
 
         public void ShowInventory() {

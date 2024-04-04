@@ -177,7 +177,7 @@ namespace Inventory.UI
             CurInvItem = GetCurItemFromIdx(idx);
         }
 
-        public void UpdateDescription(int itemIdx, ItemSO item, int Val) {
+        public void UpdateDescription(int itemIdx, ItemSO item, int Val, Ability[] abilities) {
             ItemDescription.SetDescription(item, Val, itemIdx);
             DeselectAllItems();
             ItemList[itemIdx].Select();

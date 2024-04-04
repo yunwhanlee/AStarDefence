@@ -4,11 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Inventory.Model;
-using Unity.VisualScripting;
 
 namespace Inventory.UI {
     public class InventoryDescription : MonoBehaviour {
-        [field:SerializeField] private bool IsUpgradeValToogleActive {get; set;}
+        [field:SerializeField] private bool IsUpgradeValToogle {get; set;}
 
         [field:Header("CONSUMABLE POPUP")]
         [field:SerializeField] private Image EtcItemBg {get; set;}
@@ -35,7 +34,7 @@ namespace Inventory.UI {
         void Awake() => ResetDescription();
 
         void Start() {
-            IsUpgradeValToogleActive = false;
+            IsUpgradeValToogle = false;
         }
 
 #region EVENT
@@ -45,13 +44,14 @@ namespace Inventory.UI {
 
         public void OnClickUpgradeBtn() {
             if(HM._.ivm.CurInvItem.Data.Type == Enum.ItemType.Etc) return;
-            HM._.ivCtrl.InventoryData.UpgradeEquipItem(HM._.ivm.CurInvItem.Data, ++HM._.ivm.CurInvItem.Val);
+            HM._.ivCtrl.InventoryData.UpgradeEquipItem(HM._.ivm.CurInvItem.Data, ++HM._.ivm.CurInvItem.Val, HM._.ivm.CurInvItem.Abilities);
         }
         public void OnClickUpgradeValueNoticeToggle() {
-            Debug.Log($"OnClickUpgradeValueNoticeToggle():: IsUpgradeValToogleActive= {IsUpgradeValToogleActive}");
-            UpgValToogleHandleTf.anchoredPosition = new Vector2(IsUpgradeValToogleActive? -50 : 50, UpgValToogleHandleTf.anchoredPosition.y);
-            UpgValToogleHandleTxt.text = IsUpgradeValToogleActive? "OFF" : "ON";
-            IsUpgradeValToogleActive = !IsUpgradeValToogleActive;
+            Debug.Log($"OnClickUpgradeValueNoticeToggle():: IsUpgradeValToogleActive= {IsUpgradeValToogle}");
+            IsUpgradeValToogle = !IsUpgradeValToogle;
+            UpgValToogleHandleTf.anchoredPosition = new Vector2(IsUpgradeValToogle? 50 : -50, UpgValToogleHandleTf.anchoredPosition.y);
+            UpgValToogleHandleTxt.text = IsUpgradeValToogle? "ON" : "OFF";
+            SetDescription(HM._.ivm.CurInvItem.Data, HM._.ivm.CurInvItem.Val, -1);
         }
         public void OnClickDeleteIconBtn() {
             Debug.Log("DELETE ITEM");
@@ -109,8 +109,11 @@ namespace Inventory.UI {
                 StarTxt.text = Util.DrawEquipItemStarTxt(lv: val);
                 GradeTxt.text = item.Grade.ToString();
                 GradeTxt.color = HM._.ivm.GradeClrs[(int)item.Grade];
-                Description.text = item.Description;
-                
+
+                //* 強化数値表示 トーグル
+                string upgradeValStr = IsUpgradeValToogle? $"<color=green>( +{item.Abilities[0].UpgradeVal * 100}% )</color>" : "";
+                Description.text = $"{item.Description} {upgradeValStr}";
+
                 int lvIdx = val - 1;
                 int[] rPrices = Config.H_PRICE.RELIC_UPG.PRICES;
                 int[] ePrices = Config.H_PRICE.EQUIP_UPG.PRICES;

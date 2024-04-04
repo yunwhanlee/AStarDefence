@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
+
 [Serializable]
-public class Ability {
+public class AbilityData {
 	public ItemAbilityType AbilityType;
 	public float Min;
 	public float Max;
-	public float Val;
 	public float UpgradeVal;
 }
 
@@ -24,7 +25,7 @@ namespace Inventory.Model {
         [field: SerializeField] [field: TextArea] public string Description {get; set;}
         [field: SerializeField] public Sprite ItemImg {get; set;}
 
-        [field: SerializeField] public Ability[] Abilities {get; set;}
+        [field: SerializeField] public AbilityData[] Abilities {get; set;}
     }
 }
 
