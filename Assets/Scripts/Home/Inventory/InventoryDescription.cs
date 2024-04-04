@@ -112,6 +112,8 @@ namespace Inventory.UI {
 
                 //* 強化数値表示 トーグル
                 string upgradeValStr = IsUpgradeValToogle? $"<color=green>( +{item.Abilities[0].UpgradeVal * 100}% )</color>" : "";
+                //* 能力数値表示
+                item.Description = item.Description.Replace("V1", $"{HM._.ivm.CurInvItem.Abilities[0].Value * 100}");
                 Description.text = $"{item.Description} {upgradeValStr}";
 
                 int lvIdx = val - 1;

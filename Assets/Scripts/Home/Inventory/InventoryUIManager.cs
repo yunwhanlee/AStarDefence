@@ -173,8 +173,8 @@ namespace Inventory.UI
             int idx = ItemList.IndexOf(invItemUI);
             if(idx == -1) return;
             CurItemIdx = idx;
-            OnDescriptionRequested?.Invoke(idx);
             CurInvItem = GetCurItemFromIdx(idx);
+            OnDescriptionRequested?.Invoke(idx);
         }
 
         public void UpdateDescription(int itemIdx, ItemSO item, int Val, Ability[] abilities) {

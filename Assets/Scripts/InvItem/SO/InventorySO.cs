@@ -9,7 +9,7 @@ namespace Inventory.Model
     [Serializable]
     public struct Ability {
         public ItemAbilityType AbilityType;
-        public float Val;
+        public float Value;
     }
 
     [Serializable]
@@ -28,7 +28,8 @@ namespace Inventory.Model
         public static InventoryItem GetEmptyItem()
             => new InventoryItem {
                 Data = null,
-                Val = 0
+                Val = 0,
+                Abilities = null
             };
     }
 
@@ -44,19 +45,21 @@ namespace Inventory.Model
                 inventoryItems.Add(InventoryItem.GetEmptyItem());
         }
 
-        public int AddItem(ItemSO item, int val) {
+        public int AddItem(ItemSO item, int val, Ability[] abilities) {
             if(item.IsStackable == false) {
                 Debug.Log($"InventorySO:: AddItem({item.name}, val= {val})::");
                 // 過去：Valが２なら、重ならないので１個しかできない複数に分ける
-                // for(int i = 0; i < inventoryItems.Count; i++) {
-                //     while(val > 0 && IsInventoryFull() == false) {
-                //         val -= AddItemToFirstFreeSlot(item, 1);
-                //     }
-                //     InformAboutChange();
-                //     return val;
-                // }
-                //! 変更：EquipアイテムはValをレベルとして扱う
-                val = AddItemToFirstFreeSlot(item, val);
+                /*
+                for(int i = 0; i < inventoryItems.Count; i++) {
+                    while(val > 0 && IsInventoryFull() == false) {
+                        val -= AddItemToFirstFreeSlot(item, 1);
+                    }
+                    InformAboutChange();
+                    return val;
+                }
+                */
+                //* 変更：EquipアイテムはValをレベルとして扱う
+                val = AddItemToFirstFreeSlot(item, val, abilities);
                 InformAboutChange();
                 return val;
             }
@@ -65,10 +68,11 @@ namespace Inventory.Model
             return val;
         }
 
-        private int AddItemToFirstFreeSlot(ItemSO item, int val) {
+        private int AddItemToFirstFreeSlot(ItemSO item, int val, Ability[] abilities = null) {
             InventoryItem newItem = new InventoryItem{
                 Data = item,
-                Val = val
+                Val = val,
+                Abilities = abilities
             };
 
             for(int i = 0; i < inventoryItems.Count; i++) {
@@ -138,7 +142,7 @@ namespace Inventory.Model
         }
 
         public void AddItem(InventoryItem item) {
-            AddItem(item.Data, item.Val);
+            AddItem(item.Data, item.Val, item.Abilities);
         }
 
         public Dictionary<int, InventoryItem> GetCurrentInventoryState() {

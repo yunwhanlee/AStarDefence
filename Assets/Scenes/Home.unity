@@ -7335,7 +7335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f9fb1befe264ef44bb523f378c6879a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <IsUpgradeValToogleActive>k__BackingField: 0
+  <IsUpgradeValToogle>k__BackingField: 0
   <EtcItemBg>k__BackingField: {fileID: 2815886928598735044}
   <EtcNameTxt>k__BackingField: {fileID: 2471644427740139706}
   <EtcCountTxt>k__BackingField: {fileID: 2815886930433665312}
@@ -27407,12 +27407,16 @@ MonoBehaviour:
   RewardList:
   - <Data>k__BackingField: {fileID: 11400000, guid: d2febf22bacf6944895cd61c61cd1d56, type: 2}
     <Val>k__BackingField: 5
+    <Abilities>k__BackingField: []
   - <Data>k__BackingField: {fileID: 11400000, guid: b177800f7dfbb444481d89fa208f869e, type: 2}
     <Val>k__BackingField: 1
+    <Abilities>k__BackingField: []
   - <Data>k__BackingField: {fileID: 11400000, guid: c2355d0b0e71917439fe606ae7b8f8a4, type: 2}
     <Val>k__BackingField: 1
+    <Abilities>k__BackingField: []
   - <Data>k__BackingField: {fileID: 11400000, guid: df93dc0cec06e8841bc597d25d6e48d0, type: 2}
     <Val>k__BackingField: 1
+    <Abilities>k__BackingField: []
 --- !u!1 &1052295361
 GameObject:
   m_ObjectHideFlags: 0
@@ -27617,67 +27621,67 @@ MonoBehaviour:
   - Val: 1
     Abilities:
     - AbilityType: 0
-      Val: 5
+      Value: 0.05
     Data: {fileID: 11400000, guid: 8a8359171e95e0146a2537f75433dfee, type: 2}
   - Val: 1
     Abilities:
     - AbilityType: 0
-      Val: 5
+      Value: 0.05
     Data: {fileID: 11400000, guid: a36dc317bc29c034daf22a16984ae2c9, type: 2}
   - Val: 1
     Abilities:
     - AbilityType: 0
-      Val: 5
+      Value: 0.05
     Data: {fileID: 11400000, guid: b546c7a4ed5fa1c4c9cf264b9bd9e03c, type: 2}
   - Val: 1
     Abilities:
     - AbilityType: 0
-      Val: 10
+      Value: 0.1
     Data: {fileID: 11400000, guid: b080839ff7fe27e41a6bf21a77ce5163, type: 2}
   - Val: 1
     Abilities:
     - AbilityType: 0
-      Val: 10
+      Value: 0.1
     Data: {fileID: 11400000, guid: 578577323c67e284face365878981ead, type: 2}
   - Val: 1
     Abilities:
     - AbilityType: 0
-      Val: 15
+      Value: 0.15
     Data: {fileID: 11400000, guid: 1142b1647b0ab69418311cc19d2600e5, type: 2}
   - Val: 1
     Abilities:
     - AbilityType: 0
-      Val: 20
+      Value: 0.2
     Data: {fileID: 11400000, guid: f29a78694d52c9840acb19c51a9e8b19, type: 2}
   - Val: 1
     Abilities:
     - AbilityType: 0
-      Val: 30
+      Value: 0.3
     Data: {fileID: 11400000, guid: b64be0671fa00644abb9bc470cc99512, type: 2}
   - Val: 1
     Abilities:
     - AbilityType: 0
-      Val: 40
+      Value: 0.4
     Data: {fileID: 11400000, guid: bda94e90bf415c64cb7faf0b2d7617d1, type: 2}
   - Val: 1
     Abilities:
     - AbilityType: 0
-      Val: 50
+      Value: 0.5
     Data: {fileID: 11400000, guid: 7dfa2a86e8ed75d4db19e61c0353d063, type: 2}
   - Val: 1
     Abilities:
     - AbilityType: 0
-      Val: 50
+      Value: 0
     Data: {fileID: 11400000, guid: b177800f7dfbb444481d89fa208f869e, type: 2}
   - Val: 1
     Abilities:
     - AbilityType: 0
-      Val: 50
+      Value: 0
     Data: {fileID: 11400000, guid: c2355d0b0e71917439fe606ae7b8f8a4, type: 2}
   - Val: 1
     Abilities:
     - AbilityType: 0
-      Val: 50
+      Value: 0
     Data: {fileID: 11400000, guid: a13cd4839ae1ff24cb259d170d8a5aa5, type: 2}
 --- !u!1 &1055846979
 GameObject:
