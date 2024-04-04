@@ -6,6 +6,9 @@ using UnityEngine;
 public static class Config{
 #region HOME
     public const int MAX_GOBLINKEY = 5;
+    public const int EQUIP_UPGRADE_MAX = 10;
+    public const int RELIC_UPGRADE_MAX = 5;
+
 #endregion
 
 #region GAME
@@ -35,6 +38,14 @@ public static class Config{
     }
     public class H_PRICE {
         public static readonly int[] WORKSPACE_PRICES = {0, 1000, 5000, 12500, 30000};
+        public readonly struct EQUIP_UPG {
+            public static readonly int[] PRICES = {100, 200, 250, 300, 400, 500, 600, 800, 1000};
+            public static readonly int[] PERS = {90, 80, 70, 60, 45, 35, 25, 20, 10, 5};
+        }
+        public readonly struct RELIC_UPG {
+            public static readonly int[] PRICES = {200, 450, 500, 750, 1000};
+            public static readonly int[] PERS = {70, 40, 20, 5};
+        }
     }
-#endregion    
+#endregion
 }

@@ -10,7 +10,8 @@ using Unity.VisualScripting;
 namespace Inventory.UI 
 {
     public class InventoryUIManager : MonoBehaviour {
-        public InventoryController InvCtrl;
+        [field:SerializeField] public int CurItemIdx;
+        [field:SerializeField] public InventoryItem CurInvItem;
 
         [field: Header("RESOURCE")]
         [field:SerializeField] public Sprite NoneSpr;
@@ -30,7 +31,7 @@ namespace Inventory.UI
         [field:SerializeField] public RectTransform Content {get; set;}
         [field:SerializeField] public InventoryDescription ItemDescription {get; set;}
         [field:SerializeField] public MouseFollower MouseFollower {get; set;}
-        [field:SerializeField] List<InventoryUIItem> ItemList = new List<InventoryUIItem>();
+        [field:SerializeField] public List<InventoryUIItem> ItemList = new List<InventoryUIItem>();
 
         private int curDraggedItemIdx = -1;
 
@@ -41,8 +42,6 @@ namespace Inventory.UI
         public event Action<int, int> OnSwapItems;
 
         void Awake() {
-            InvCtrl = GameObject.Find("InventoryController").GetComponent<InventoryController>();
-
             Hide();
             MouseFollower.Toggle(false);
             ItemDescription.ResetDescription();
@@ -76,12 +75,8 @@ namespace Inventory.UI
         filterList.ForEach(item => item.gameObject.SetActive(true));
     }
 
-    public void OnClickInventoryIconBtn() {
-        InvCtrl.ShowInventory();
-    }
-    public void OnClickInventoryPopUpBackBtn() {
-        InvCtrl.HideInventory();
-    }
+    public void OnClickInventoryIconBtn() => HM._.ivCtrl.ShowInventory();
+    public void OnClickInventoryPopUpBackBtn() => HM._.ivCtrl.HideInventory();
 #endregion
 
     #region FUNC
@@ -124,23 +119,28 @@ namespace Inventory.UI
         }
 
         /// <summary>
-        ///* UIインベントリーから、実際のアイテム情報を受け取る
+        /// UIインベントリーから、実際のアイテム情報を受け取る
         /// </summary>
         /// <param name="invItemUI">インベントリーUIのアイテム</param>
         public InventoryItem GetItemFromUI(InventoryUIItem invItemUI) {
             int idx = ItemList.IndexOf(invItemUI);
             if(idx == -1)
                 return InventoryItem.GetEmptyItem();
-            return InvCtrl.InventoryData.GetItemAt(idx);            
+            return HM._.ivCtrl.InventoryData.GetItemAt(idx);
+        }
+        public InventoryItem GetCurItemFromIdx(int idx) {
+            if(idx == -1)
+                return InventoryItem.GetEmptyItem();
+            return HM._.ivCtrl.InventoryData.GetItemAt(idx);
         }
 
         private void HandleShowItemInfoPopUp(InventoryUIItem invItemUI) {
             DeselectAllItems();
 
             //* 実際のインベントリーへあるアイテム情報
-            InventoryItem curInvItem = GetItemFromUI(invItemUI);
+            // CurInvItem = GetItemFromUI(invItemUI);
 
-            if(curInvItem.Data.Type == Enum.ItemType.Etc)
+            if(CurInvItem.Data.Type == Enum.ItemType.Etc)
                 ConsumePopUp.SetActive(true);
             else
                 EquipPopUp.SetActive(true);
@@ -169,19 +169,21 @@ namespace Inventory.UI
             MouseFollower.SetData(type, grade, spr, val);
         } 
 
-        private void HandleItemSelection(InventoryUIItem invItemUI) {
+        public void HandleItemSelection(InventoryUIItem invItemUI) {
             int idx = ItemList.IndexOf(invItemUI);
             if(idx == -1) return;
+            CurItemIdx = idx;
             OnDescriptionRequested?.Invoke(idx);
+            CurInvItem = GetCurItemFromIdx(idx);
         }
 
-        internal void UpdateDescription(int itemIdx, ItemSO item, int Val) {
-            ItemDescription.SetDescription(item, Val);
+        public void UpdateDescription(int itemIdx, ItemSO item, int Val) {
+            ItemDescription.SetDescription(item, Val, itemIdx);
             DeselectAllItems();
             ItemList[itemIdx].Select();
         }
 
-        internal void ResetAllItems() {
+        public void ResetAllItems() {
             foreach (var item in ItemList) {
                 item.ResetData();
                 item.Deselect();

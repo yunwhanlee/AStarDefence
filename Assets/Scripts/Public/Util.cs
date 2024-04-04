@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -85,5 +87,12 @@ public class Util : MonoBehaviour {
         img.material = BlinkMt;
         yield return new WaitForSeconds(0.1f);
         img.material = DefaultMt;
+    }
+
+    public static string DrawEquipItemStarTxt(int lv) {
+        string[] starStrArr = new string[5];
+        for(int i = 0; i < lv; i++) 
+            starStrArr[i % 5] = $"<sprite name={(i < 5? "YellowStar" : "CristalStar")}>";
+        return string.Join("", starStrArr);
     }
 }

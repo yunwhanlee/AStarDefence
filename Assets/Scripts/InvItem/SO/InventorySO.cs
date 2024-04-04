@@ -88,6 +88,29 @@ namespace Inventory.Model
             return val;
         }
 
+        /// <summary>
+        /// アイテムのアップグレードや消費する
+        /// </summary>
+        public void UpgradeEquipItem(ItemSO item, int val) {
+            for(int i = 0; i < inventoryItems.Count; i++) {
+                //* 同じIDを探して
+                if(inventoryItems[i].Data.ID == item.ID) {
+                    //* アップグレードのMAX制限
+                    int max = (item.Type == Enum.ItemType.Relic)? Config.RELIC_UPGRADE_MAX : Config.EQUIP_UPGRADE_MAX;
+                    val = Mathf.Min(val, max);
+                    Debug.Log($"UpgradeEquipItem({inventoryItems[i].Data.ID} == {item.ID}):: val= {val}");
+
+                    //* 増えたVal値を最新化
+                    inventoryItems[i] = inventoryItems[i].ChangeValue(val);
+                    //* イベントリーUI アップデート
+                    InformAboutChange();
+                    //* 情報表示ポップアップUI アップデート
+                    HM._.ivm.UpdateDescription(HM._.ivm.CurItemIdx, item, val);
+                    return;
+                }
+            }
+        }
+
         public void AddItem(InventoryItem item) {
             AddItem(item.Data, item.Val);
         }
@@ -116,7 +139,7 @@ namespace Inventory.Model
             InformAboutChange();
         }
 
-        private void InformAboutChange()
+        public void InformAboutChange()
             => OnInventoryUpdated?.Invoke(GetCurrentInventoryState());
     }
 

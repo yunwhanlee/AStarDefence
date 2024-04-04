@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Inventory.Model;
+using Unity.VisualScripting;
 
 namespace Inventory.UI {
     public class InventoryDescription : MonoBehaviour {
@@ -22,9 +23,12 @@ namespace Inventory.UI {
         [field:SerializeField] private Image TypeImg {get; set;}
         [field:SerializeField] private TMP_Text TypeTxt {get; set;}
         [field:SerializeField] private TMP_Text NameTxt {get; set;}
-        [field:SerializeField] private TMP_Text LvTxt {get; set;}
         [field:SerializeField] private TMP_Text GradeTxt {get; set;}
+        [field:SerializeField] private TMP_Text LvTxt {get; set;}
+        [field:SerializeField] private TMP_Text StarTxt {get; set;}
         [field:SerializeField] private TMP_Text Description {get; set;}
+        [field:SerializeField] private TMP_Text UpgradePriceTxt {get; set;}
+        [field:SerializeField] private TMP_Text UpgradeSuccessPerTxt {get; set;}
         [field:SerializeField] private RectTransform UpgValToogleHandleTf {get; set;}
         [field:SerializeField] private TMP_Text UpgValToogleHandleTxt {get; set;}
 
@@ -38,8 +42,10 @@ namespace Inventory.UI {
         public void OnClickEquipBtn() {
             
         }
+
         public void OnClickUpgradeBtn() {
-            
+            if(HM._.ivm.CurInvItem.Data.Type == Enum.ItemType.Etc) return;
+            HM._.ivCtrl.InventoryData.UpgradeEquipItem(HM._.ivm.CurInvItem.Data, ++HM._.ivm.CurInvItem.Val);
         }
         public void OnClickUpgradeValueNoticeToggle() {
             Debug.Log($"OnClickUpgradeValueNoticeToggle():: IsUpgradeValToogleActive= {IsUpgradeValToogleActive}");
@@ -48,7 +54,10 @@ namespace Inventory.UI {
             IsUpgradeValToogleActive = !IsUpgradeValToogleActive;
         }
         public void OnClickDeleteIconBtn() {
-            Debug.Log("DELETE");
+            Debug.Log("DELETE ITEM");
+        }
+        public void OnClickCloseBtn() {
+            //TODO
         }
 #endregion
 
@@ -64,10 +73,12 @@ namespace Inventory.UI {
             NameTxt.text = "";
             GradeTxt.text = "";
             Description.text = "";
+            UpgradePriceTxt.text = "";
+            UpgradeSuccessPerTxt.text = "";
         }
 
-        public void SetDescription(ItemSO item, int val) {
-            Debug.Log("SetDescription()::");
+        public void SetDescription(ItemSO item, int val, int itemIdx) {
+            Debug.Log($"SetDescription():: item= {item.name}, val= {val}");
             if(item.Type == Enum.ItemType.Etc) {
                 EtcItemBg.gameObject.SetActive(true);
                 EtcItemBg.sprite = item.ItemImg;
@@ -89,10 +100,25 @@ namespace Inventory.UI {
                     : "기타";
 
                 NameTxt.text = item.Name;
-                LvTxt.text = $"Lv.{val}";
+
+                bool isRelic = item.Type == Enum.ItemType.Relic;
+                int max = isRelic? Config.RELIC_UPGRADE_MAX : Config.EQUIP_UPGRADE_MAX;
+                bool isLvMax = val >= max;
+
+                LvTxt.text = $"Lv.{(isLvMax? "MAX" : val)}";
+                StarTxt.text = Util.DrawEquipItemStarTxt(lv: val);
                 GradeTxt.text = item.Grade.ToString();
                 GradeTxt.color = HM._.ivm.GradeClrs[(int)item.Grade];
                 Description.text = item.Description;
+                
+                int[] rPrices = Config.H_PRICE.RELIC_UPG.PRICES;
+                int[] ePrices = Config.H_PRICE.EQUIP_UPG.PRICES;
+
+                int lvIdx = val - 1;
+                UpgradePriceTxt.text = $"강화\n{(isLvMax? "MAX" : $"<sprite name=Coin>{(isRelic? rPrices[lvIdx] : ePrices[lvIdx])}")}";
+
+                int successPer = isRelic? Config.H_PRICE.RELIC_UPG.PERS[lvIdx] : Config.H_PRICE.EQUIP_UPG.PERS[lvIdx];
+                UpgradeSuccessPerTxt.text = isLvMax? "" : $"확률 {successPer}%";
             }
         }
     #endregion
