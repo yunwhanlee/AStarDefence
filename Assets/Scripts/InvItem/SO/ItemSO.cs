@@ -1,9 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-namespace Inventory.Model
-{
+[Serializable]
+public class Ability {
+	public ItemAbilityType AbilityType;
+	public float Min;
+	public float Max;
+	public float Val;
+	public float UpgradeVal;
+}
+
+namespace Inventory.Model {
     [CreateAssetMenu]
     public class ItemSO : ScriptableObject {
         [field: SerializeField] public bool IsStackable { get; set; }
@@ -14,6 +23,8 @@ namespace Inventory.Model
         [field: SerializeField] public string Name {get; set;}
         [field: SerializeField] [field: TextArea] public string Description {get; set;}
         [field: SerializeField] public Sprite ItemImg {get; set;}
+
+        [field: SerializeField] public Ability[] Abilities {get; set;}
     }
 }
 

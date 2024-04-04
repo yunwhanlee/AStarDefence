@@ -23,6 +23,10 @@ public enum SKT_MG {
     EXTRA_DMG_A, EXTRA_RANGE, CRIT_PER, EXPLOSION_DMG_PER, EXTRA_DMG_B
 }
 
+public enum ItemAbilityType {
+	Attack, Speed, Range, Critical, CriticalDamage, 
+}
+
 
 public static class Enum {
     public enum Scene {Home, Game}

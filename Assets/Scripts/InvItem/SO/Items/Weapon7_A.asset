@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ee7d7a0ddf26d84d84647fede468360, type: 3}
+  m_Name: Weapon7_A
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 0
+  <MaxStackSize>k__BackingField: 1
+  <Type>k__BackingField: 0
+  <Grade>k__BackingField: 6
+  <Name>k__BackingField: "\uCC3D\uC870\uC758\uAC80"
+  <Description>k__BackingField: "\uACF5\uACA9\uB825 V1% \uC99D\uAC00"
+  <ItemImg>k__BackingField: {fileID: 1644905102, guid: e433c8bb469a03548ae052468f941483, type: 3}
+  <Abilities>k__BackingField:
+  - AbilityType: 0
+    Min: 0.41
+    Max: 0.5
+    Val: 0
+    UpgradeVal: 0.05

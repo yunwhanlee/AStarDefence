@@ -27613,16 +27613,26 @@ MonoBehaviour:
   InvUI: {fileID: 0}
   InventoryData: {fileID: 11400000, guid: 90871af7bfe5be24ebfea1d53585ac25, type: 2}
   InitItems:
-  - Val: 5
-    Data: {fileID: 11400000, guid: d2febf22bacf6944895cd61c61cd1d56, type: 2}
   - Val: 1
-    Data: {fileID: 11400000, guid: b177800f7dfbb444481d89fa208f869e, type: 2}
+    Data: {fileID: 11400000, guid: 8a8359171e95e0146a2537f75433dfee, type: 2}
   - Val: 1
-    Data: {fileID: 11400000, guid: df93dc0cec06e8841bc597d25d6e48d0, type: 2}
+    Data: {fileID: 11400000, guid: a36dc317bc29c034daf22a16984ae2c9, type: 2}
   - Val: 1
-    Data: {fileID: 11400000, guid: a13cd4839ae1ff24cb259d170d8a5aa5, type: 2}
-  - Val: 0
-    Data: {fileID: 0}
+    Data: {fileID: 11400000, guid: b546c7a4ed5fa1c4c9cf264b9bd9e03c, type: 2}
+  - Val: 1
+    Data: {fileID: 11400000, guid: b080839ff7fe27e41a6bf21a77ce5163, type: 2}
+  - Val: 1
+    Data: {fileID: 11400000, guid: 578577323c67e284face365878981ead, type: 2}
+  - Val: 1
+    Data: {fileID: 11400000, guid: 1142b1647b0ab69418311cc19d2600e5, type: 2}
+  - Val: 1
+    Data: {fileID: 11400000, guid: f29a78694d52c9840acb19c51a9e8b19, type: 2}
+  - Val: 1
+    Data: {fileID: 11400000, guid: b64be0671fa00644abb9bc470cc99512, type: 2}
+  - Val: 1
+    Data: {fileID: 11400000, guid: bda94e90bf415c64cb7faf0b2d7617d1, type: 2}
+  - Val: 1
+    Data: {fileID: 11400000, guid: 7dfa2a86e8ed75d4db19e61c0353d063, type: 2}
 --- !u!1 &1055846979
 GameObject:
   m_ObjectHideFlags: 0
