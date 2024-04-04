@@ -115,11 +115,13 @@ namespace Inventory.UI {
                 string[] sentences = item.Description.Split('\n');
                 Debug.Log($"Description Ability Sentences.Length= {sentences.Length}");
                 for(int i = 0; i < HM._.ivm.CurInvItem.Abilities.Length; i++) {
-                    //* V{N} → 能力数値変換
-                    string msg = sentences[i].Replace($"V{i}", $"{HM._.ivm.CurInvItem.Abilities[i].Value * 100}");
-                    //* 強化数値表示 トーグル
-                    string upgradeValMsg = IsUpgradeValToogle? $"<color=green>( +{item.Abilities[i].UpgradeVal * 100}% )</color>" : "";
-                    resMsg += $"{msg} {upgradeValMsg}\n";
+                    //* V{N} → 能力数値変換(実際のアイテムデータ)
+                    string abilityMsg = sentences[i].Replace($"V{i}", $"{HM._.ivm.CurInvItem.Abilities[i].Value * 100}");
+                    //* 強化数値表示 トーグル(登録したアップグレードデータ)
+                    float upgradeVal = item.Abilities[i].UpgradeVal * 100;
+                    string upgradeMsg = (upgradeVal == 0)? "<color=grey>( 고정 )</color>" : $"<color=green>( {$"+{upgradeVal}%"} )</color>";
+                    string upgradeToogleMsg = IsUpgradeValToogle? upgradeMsg : "";
+                    resMsg += $"{abilityMsg} {upgradeToogleMsg}\n";
                 }
                 Description.text = resMsg;
 
