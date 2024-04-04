@@ -111,14 +111,14 @@ namespace Inventory.UI {
                 GradeTxt.color = HM._.ivm.GradeClrs[(int)item.Grade];
                 Description.text = item.Description;
                 
+                int lvIdx = val - 1;
                 int[] rPrices = Config.H_PRICE.RELIC_UPG.PRICES;
                 int[] ePrices = Config.H_PRICE.EQUIP_UPG.PRICES;
+                int[] rPers = Config.H_PRICE.RELIC_UPG.PERS;
+                int[] ePers = Config.H_PRICE.EQUIP_UPG.PERS;
 
-                int lvIdx = val - 1;
                 UpgradePriceTxt.text = $"강화\n{(isLvMax? "MAX" : $"<sprite name=Coin>{(isRelic? rPrices[lvIdx] : ePrices[lvIdx])}")}";
-
-                int successPer = isRelic? Config.H_PRICE.RELIC_UPG.PERS[lvIdx] : Config.H_PRICE.EQUIP_UPG.PERS[lvIdx];
-                UpgradeSuccessPerTxt.text = isLvMax? "" : $"확률 {successPer}%";
+                UpgradeSuccessPerTxt.text = isLvMax? "" : $"확률 {(isRelic? rPers[lvIdx] : ePers[lvIdx])}%";
             }
         }
     #endregion
