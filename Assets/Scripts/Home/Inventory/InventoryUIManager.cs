@@ -34,7 +34,6 @@ namespace Inventory.UI
         public event Action<int> OnDescriptionRequested,
             OnItemActionRequested,
             OnStartDragging;
-
         public event Action<int, int> OnSwapItems;
 
         void Awake() {
@@ -55,22 +54,6 @@ namespace Inventory.UI
     #endregion
 
     #region FUNC
-        public void Show() {
-            WindowObj.SetActive(true);
-            ResetSelection();
-        }
-        public void ResetSelection() {
-            ItemDescription.ResetDescription();
-            DeselectAllItems();
-        }
-        private void DeselectAllItems() {
-            foreach(InventoryUIItem item in ItemList)
-                item.Deselect();
-        }
-        public void Hide() {
-            WindowObj.SetActive(false);
-            ResetDraggedItem();
-        }
         public void InitInventoryUI(int invSize) {
             for(int i = 0; i < invSize; i++) {
                 InventoryUIItem item = Instantiate(ItemPf, Content);
@@ -81,6 +64,22 @@ namespace Inventory.UI
                 item.OnItemEndDrag += HandleEndDrag;
                 item.OnItemClickShortly += HandleShowItemInfoPopUp;
             }
+        }
+        public void Show() {
+            WindowObj.SetActive(true);
+            ResetSelection();
+        }
+        public void Hide() {
+            WindowObj.SetActive(false);
+            ResetDraggedItem();
+        }
+        public void ResetSelection() {
+            ItemDescription.ResetDescription();
+            DeselectAllItems();
+        }
+        private void DeselectAllItems() {
+            foreach(InventoryUIItem item in ItemList)
+                item.Deselect();
         }
 
         public void UpdateData(int itemIdx, InventoryItem item) { //Enum.Grade grade, Sprite itemSpr, int itemVal) {
@@ -94,8 +93,11 @@ namespace Inventory.UI
         }
 
         private void HandleShowItemInfoPopUp(InventoryUIItem invItemUI) {
-            // EquipPopUp.SetActive(true);
             DeselectAllItems();
+            if(invItemUI.Type == Enum.ItemType.Etc)
+                ConsumePopUp.SetActive(true);
+            else
+                EquipPopUp.SetActive(true);
         }
 
         private void HandleEndDrag(InventoryUIItem invItemUI) {
@@ -116,7 +118,6 @@ namespace Inventory.UI
             curDraggedItemIdx = idx;
             HandleItemSelection(invItemUI);
             OnStartDragging?.Invoke(idx);
-
         }
 
         public void CreateDraggedItem(Enum.ItemType type, Enum.Grade grade, Sprite spr, int val) {
@@ -142,7 +143,6 @@ namespace Inventory.UI
                 item.Deselect();
             }
         }
-
         #endregion
     }
 

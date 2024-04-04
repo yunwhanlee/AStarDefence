@@ -24,9 +24,7 @@ namespace Inventory.UI {
         [field:SerializeField] private TMP_Text GradeTxt {get; set;}
         [field:SerializeField] private TMP_Text Description {get; set;}
 
-        void Awake() {
-            ResetDescription();
-        }
+        void Awake() => ResetDescription();
 
         public void ResetDescription() {
             EtcItemBg.gameObject.SetActive(false);
@@ -44,7 +42,6 @@ namespace Inventory.UI {
         public void SetDescription(ItemSO item, int val) {
             Debug.Log("SetDescription()::");
             if(item.Type == Enum.ItemType.Etc) {
-                HM._.ivm.ConsumePopUp.SetActive(true);
                 EtcItemBg.gameObject.SetActive(true);
                 EtcItemBg.sprite = item.ItemImg;
                 EtcNameTxt.text = item.Name;
@@ -52,7 +49,6 @@ namespace Inventory.UI {
                 EtcDescription.text = item.Description;
             }
             else {
-                HM._.ivm.EquipPopUp.SetActive(true);
                 ItemImg.gameObject.SetActive(true);
                 //* スタイル
                 TopBg.color = HM._.ivm.GradeClrs[(int)item.Grade];
@@ -64,6 +60,7 @@ namespace Inventory.UI {
                     : (item.Type == Enum.ItemType.Accessories)? "악세서리"
                     : (item.Type == Enum.ItemType.Relic)? "유물"
                     : "기타";
+
                 NameTxt.text = item.Name;
                 LvTxt.text = $"Lv.{val}";
                 GradeTxt.text = item.Grade.ToString();

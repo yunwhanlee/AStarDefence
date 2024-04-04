@@ -13,6 +13,7 @@ namespace Inventory.UI
         private bool IsShortPush = false;
 
         [field: Header("ELEMENT")]
+        [field:SerializeField] public Enum.ItemType Type {get; set;}
         [field:SerializeField] public Image TypeBgImg {get; set;}
         [field:SerializeField] public Image TypeIconImg {get; set;}
         [field:SerializeField] public Image BgImg {get; set;}
@@ -39,7 +40,9 @@ namespace Inventory.UI
             BorderImg.enabled = false;
         }
 
-        /// <summary> アイテムのデータ設定 </summary>
+        /// <summary>
+        /// アイテムのデータ設定
+        /// </summary>
         public void SetData(Enum.ItemType type, Enum.Grade grade, Sprite spr, int val) {
             if(grade == Enum.Grade.None) {
                 TypeBgImg.enabled = false;
@@ -59,13 +62,13 @@ namespace Inventory.UI
         }
 
         public void Select() {
+            if(!IsShortPush) return;
+            Debug.Log("Select():: BorderImg.Color= <color=red>Red</color>");
             BorderImg.color = Color.red;
             BorderImg.enabled = true;
         }
 
-        public void Draggable() {
-            BorderImg.color = Color.green;
-        }
+        public void Draggable() => BorderImg.color = Color.green;
 
         private IEnumerator CoCheckPushTime() {
             IsShortPush = true;
@@ -74,15 +77,14 @@ namespace Inventory.UI
             Draggable();
         }
 
-        public void OnPointerDown(PointerEventData eventData) {
+        public void OnPointerDown(PointerEventData eventData) { // マウス押した
             if(IsEmpty) return;
-            Debug.Log("OnPointerDown");
-            OnItemClicked?.Invoke(this);
             CorPushTimeID = StartCoroutine(CoCheckPushTime());
+            OnItemClicked?.Invoke(this);
         }
 
-        public void OnPointerUp(PointerEventData eventData) {
-            Debug.Log("OnPointerUp");
+        public void OnPointerUp(PointerEventData eventData) { // マウス離れた
+            Debug.Log($"OnPointerUp():: IsShortPush= {IsShortPush}");
             if(IsShortPush) {
                 StopCoroutine(CorPushTimeID);
                 OnItemClickShortly?.Invoke(this);
@@ -90,12 +92,14 @@ namespace Inventory.UI
         }
 
         public void OnBeginDrag(PointerEventData eventData) {
+            Debug.Log("OnBeginDrag():: IsShortPush= " + IsShortPush);
             if(IsEmpty) return;
             if(IsShortPush) return;
             OnItemBeginDrag?.Invoke(this);
         }
 
         public void OnEndDrag(PointerEventData eventData) {
+            Debug.Log("OnEndDrag():: IsShortPush= " + IsShortPush);
             if(IsShortPush) return;
             OnItemEndDrag?.Invoke(this);
         }
@@ -107,6 +111,7 @@ namespace Inventory.UI
         }
 
         public void OnDrag(PointerEventData eventData) {
+            Debug.Log("OnDrag():: IsShortPush= " + IsShortPush);
             if(IsShortPush) return;
         }
     }
