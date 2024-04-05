@@ -204,7 +204,6 @@ namespace Inventory.Model
                         : (type == Enum.ItemType.Shoes)? shoesItemDatas[nextGrade]
                         : (type == Enum.ItemType.Ring)? ringItemDatas[nextGrade]
                         : null; // TODO RELIC
-
                     AddStackableItem(nextItemDt, mergeCnt, lv: 1);
                 }
             }

@@ -120,7 +120,7 @@ namespace Inventory.UI {
 
                 LvTxt.text = $"Lv.{(isLvMax? "MAX" : lv)}";
                 QuantityTxt.text = quantity.ToString();
-                StarTxt.text = Util.DrawEquipItemStarTxt(lv: quantity);
+                StarTxt.text = Util.DrawEquipItemStarTxt(lv);
                 GradeTxt.text = item.Grade.ToString();
                 GradeTxt.color = HM._.ivm.GradeClrs[(int)item.Grade];
 
