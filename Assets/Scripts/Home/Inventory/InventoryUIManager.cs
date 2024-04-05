@@ -78,16 +78,7 @@ namespace Inventory.UI
     public void OnClickInventoryIconBtn() => HM._.ivCtrl.ShowInventory();
     public void OnClickInventoryPopUpBackBtn() => HM._.ivCtrl.HideInventory();
     public void OnClickInvItemAutoMergeBtn() {
-        var mergableItemList = HM._.ivCtrl.InventoryData.ItemList.FindAll(item => item.Quantity >= 10);
-
-        mergableItemList.ForEach(invItem => {
-            Debug.Log($"OnClickInvItemAutoMergeBtn():: invItem.Data.name= {invItem.Data.Name}");
-            invItem = invItem.ChangeQuantity(invItem.Quantity - 10);
-            HM._.ivCtrl.InventoryData.InformAboutChange();
-        });
-
-        
-
+        HM._.ivCtrl.InventoryData.AutoMergeEquipItem();
     }
 #endregion
 

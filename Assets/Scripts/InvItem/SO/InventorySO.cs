@@ -50,6 +50,8 @@ namespace Inventory.Model
 
     [CreateAssetMenu]
     public class InventorySO : ScriptableObject {
+        [SerializeField] private ItemSO[] weaponItemDatas;
+
         [SerializeField] public List<InventoryItem> ItemList;
         [field: SerializeField] public int Size {get; private set;} = 10;
         public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated;
@@ -84,7 +86,7 @@ namespace Inventory.Model
         }
 
         /// <summary>
-        ///* アイテムをインベントリーの空スロットから配置
+        ///* 数えないアイテムとして追加 （今は使うことがない）
         /// </summary>        
         private int AddItemToFirstFreeSlot(ItemSO item, int quantity, int lv, Ability[] abilities = null ) {
             InventoryItem newItem = new InventoryItem {
@@ -109,6 +111,9 @@ namespace Inventory.Model
         private bool IsInventoryFull()
             => ItemList.Where(item => item.IsEmpty).Any() == false;
 
+        /// <summary>
+        /// 数えるアイテムとして追加 (自動マージしたときも使う)
+        /// </summary>
         private int AddStackableItem(ItemSO item, int quantity, int lv) {
             for(int i = 0; i < ItemList.Count; i++) {
                 if(ItemList[i].IsEmpty)
@@ -157,6 +162,25 @@ namespace Inventory.Model
                     return;
                 }
             }
+        }
+
+        /// <summary>
+        /// インベントリーの装置アイテムを次のレベルに自動マージ
+        /// </summary>
+        public void AutoMergeEquipItem() {
+            const int LV_OFFSET = 1;
+            for(int i = 0; i < ItemList.Count; i++) {
+                var item = ItemList[i];
+                if(item.Quantity >= 10) {
+                    //* 数値を減って適用
+                    ItemList[i] = item.ChangeQuantity(item.Quantity - 10);
+                    //* 次のレベルアイテム生成
+                    int nextLvIdx = item.Lv + 1 - LV_OFFSET;
+                    AddStackableItem(weaponItemDatas[nextLvIdx], 1, 1);
+                }
+            }
+            //* イベントリーUI アップデート
+            InformAboutChange();
         }
 
         public void AddItem(InventoryItem item) {

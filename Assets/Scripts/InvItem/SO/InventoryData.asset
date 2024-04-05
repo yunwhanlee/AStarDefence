@@ -12,50 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5164a52482337a44833b84d48bdc2b2, type: 3}
   m_Name: InventoryData
   m_EditorClassIdentifier: 
-  inventoryItems:
-  - Val: 0
-    Abilities: []
-    Data: {fileID: 0}
-  - Val: 0
-    Abilities: []
-    Data: {fileID: 0}
-  - Val: 0
-    Abilities: []
-    Data: {fileID: 0}
-  - Val: 0
-    Abilities: []
-    Data: {fileID: 0}
-  - Val: 0
-    Abilities: []
-    Data: {fileID: 0}
-  - Val: 0
-    Abilities: []
-    Data: {fileID: 0}
-  - Val: 0
-    Abilities: []
-    Data: {fileID: 0}
-  - Val: 0
-    Abilities: []
-    Data: {fileID: 0}
-  - Val: 0
-    Abilities: []
-    Data: {fileID: 0}
-  - Val: 0
-    Abilities: []
-    Data: {fileID: 0}
-  - Val: 0
-    Abilities: []
-    Data: {fileID: 0}
-  - Val: 0
-    Abilities: []
-    Data: {fileID: 0}
-  - Val: 0
-    Abilities: []
-    Data: {fileID: 0}
-  - Val: 0
-    Abilities: []
-    Data: {fileID: 0}
-  - Val: 0
-    Abilities: []
-    Data: {fileID: 0}
+  weaponItemDatas:
+  - {fileID: 11400000, guid: 8a8359171e95e0146a2537f75433dfee, type: 2}
+  - {fileID: 11400000, guid: b080839ff7fe27e41a6bf21a77ce5163, type: 2}
+  - {fileID: 11400000, guid: 1142b1647b0ab69418311cc19d2600e5, type: 2}
+  - {fileID: 11400000, guid: f29a78694d52c9840acb19c51a9e8b19, type: 2}
+  - {fileID: 11400000, guid: b64be0671fa00644abb9bc470cc99512, type: 2}
+  - {fileID: 11400000, guid: bda94e90bf415c64cb7faf0b2d7617d1, type: 2}
+  - {fileID: 11400000, guid: 7dfa2a86e8ed75d4db19e61c0353d063, type: 2}
+  ItemList: []
   <Size>k__BackingField: 50

@@ -27650,15 +27650,15 @@ MonoBehaviour:
     RelicAbilities: []
   - Quantity: 1
     Lv: 1
-    Data: {fileID: 11400000, guid: 1142b1647b0ab69418311cc19d2600e5, type: 2}
+    Data: {fileID: 11400000, guid: 7dfa2a86e8ed75d4db19e61c0353d063, type: 2}
     RelicAbilities: []
   - Quantity: 1
     Lv: 1
-    Data: {fileID: 11400000, guid: 6e5c480b9535f9e4d938339604b4bdb1, type: 2}
+    Data: {fileID: 11400000, guid: e7b16abc42e82fe45baa56fd63c41791, type: 2}
     RelicAbilities: []
   - Quantity: 1
     Lv: 1
-    Data: {fileID: 11400000, guid: f2b3f2b3c3a9005448aac7a21a310dde, type: 2}
+    Data: {fileID: 11400000, guid: 9df07a90b6f09a242ac4bfb5c9fc8e08, type: 2}
     RelicAbilities: []
 --- !u!1 &1055846979
 GameObject:
