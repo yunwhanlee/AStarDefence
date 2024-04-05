@@ -192,6 +192,10 @@ namespace Inventory.Model
                     int mergeCnt = item.Quantity / MERGE_UNIT;
                     ItemList[i] = item.ChangeQuantity(item.Quantity - mergeCnt * MERGE_UNIT);
 
+                    //* もしマージしてから、以前のアイテム数量が０なら、削除（Empty）
+                    if(ItemList[i].Quantity <= 0) 
+                        ItemList[i] = InventoryItem.GetEmptyItem();
+
                     //* 次のレベルアイテム生成
                     var type = item.Data.Type;
                     int nextGrade = (int)item.Data.Grade + 1;

@@ -27648,6 +27648,10 @@ MonoBehaviour:
     Lv: 1
     Data: {fileID: 11400000, guid: 0c0412309a40a004ebe618e5818149c8, type: 2}
     RelicAbilities: []
+  - Quantity: 10
+    Lv: 1
+    Data: {fileID: 11400000, guid: ebce106603eb2a247bc80dad8eb59a8f, type: 2}
+    RelicAbilities: []
 --- !u!1 &1055846979
 GameObject:
   m_ObjectHideFlags: 0
