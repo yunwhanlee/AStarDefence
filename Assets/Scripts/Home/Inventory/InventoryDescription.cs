@@ -67,9 +67,6 @@ namespace Inventory.UI {
             UpgValToogleHandleTxt.text = IsUpgradeValToogle? "ON" : "OFF";
             SetDescription(ivm.CurInvItem.Data, ivm.CurInvItem.Quantity, -1);
         }
-        public void OnClickDeleteIconBtn() {
-            Debug.Log("DELETE ITEM");
-        }
         public void OnClickCloseBtn() {
             //TODO
         }

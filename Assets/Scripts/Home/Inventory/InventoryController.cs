@@ -68,10 +68,7 @@ namespace Inventory
         public void ShowInventory() {
             InvUI.Show();
             foreach (var item in InventoryData.GetCurrentInventoryState()) {
-                InvUI.UpdateData(
-                    item.Key,
-                    item.Value
-                );
+                InvUI.UpdateData( item.Key, item.Value );
             }
         }
 

@@ -7,11 +7,11 @@ using UnityEngine;
 namespace Inventory.Model 
 {   
     /// <summary>
-    ///* 実際に保存するアイテムの能力データ
+    ///* 実際に保存するアイテムの能力データ (ランダムで設定するRelicタイプをため)
     /// </summary>
     [Serializable]
     public struct Ability {
-        public ItemAbilityType Type; // 数値は既にAbilityDataクラスで決めているから、タイプだけが必要
+        public ItemAbilityType Type;
     }
 
     /// <summary>
@@ -50,14 +50,14 @@ namespace Inventory.Model
 
     [CreateAssetMenu]
     public class InventorySO : ScriptableObject {
-        [SerializeField] private List<InventoryItem> inventoryItems;
+        [SerializeField] public List<InventoryItem> ItemList;
         [field: SerializeField] public int Size {get; private set;} = 10;
         public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated;
 
         public void Init() {
-            inventoryItems = new List<InventoryItem>();
+            ItemList = new List<InventoryItem>();
             for(int i = 0; i < Size; i++)
-                inventoryItems.Add(InventoryItem.GetEmptyItem());
+                ItemList.Add(InventoryItem.GetEmptyItem());
         }
 
         public int AddItem(ItemSO item, int quantity, int lv, Ability[] abilities) {
@@ -94,9 +94,9 @@ namespace Inventory.Model
                 RelicAbilities = abilities
             };
 
-            for(int i = 0; i < inventoryItems.Count; i++) {
-                if(inventoryItems[i].IsEmpty) {
-                    inventoryItems[i] = newItem;
+            for(int i = 0; i < ItemList.Count; i++) {
+                if(ItemList[i].IsEmpty) {
+                    ItemList[i] = newItem;
                     return quantity;
                 }
             }
@@ -107,21 +107,21 @@ namespace Inventory.Model
         /// 一つでも空スロットがあったら、インベントリーがFullではない => False
         /// /// </summary>
         private bool IsInventoryFull()
-            => inventoryItems.Where(item => item.IsEmpty).Any() == false;
+            => ItemList.Where(item => item.IsEmpty).Any() == false;
 
         private int AddStackableItem(ItemSO item, int quantity, int lv) {
-            for(int i = 0; i < inventoryItems.Count; i++) {
-                if(inventoryItems[i].IsEmpty)
+            for(int i = 0; i < ItemList.Count; i++) {
+                if(ItemList[i].IsEmpty)
                     continue;
-                if(inventoryItems[i].Data.ID == item.ID) {
-                    int amountPossibleToTake = inventoryItems[i].Data.MaxStackSize - inventoryItems[i].Quantity;
+                if(ItemList[i].Data.ID == item.ID) {
+                    int amountPossibleToTake = ItemList[i].Data.MaxStackSize - ItemList[i].Quantity;
 
                     if(quantity > amountPossibleToTake) {
-                        inventoryItems[i] = inventoryItems[i].ChangeQuantity(inventoryItems[i].Data.MaxStackSize);
+                        ItemList[i] = ItemList[i].ChangeQuantity(ItemList[i].Data.MaxStackSize);
                         quantity -= amountPossibleToTake;
                     }
                     else {
-                        inventoryItems[i] = inventoryItems[i].ChangeQuantity(inventoryItems[i].Quantity + quantity);
+                        ItemList[i] = ItemList[i].ChangeQuantity(ItemList[i].Quantity + quantity);
                         InformAboutChange();
                         return 0;
                     }
@@ -141,15 +141,15 @@ namespace Inventory.Model
         /// アイテムのアップグレードや消費する
         /// </summary>
         public void UpgradeEquipItem(ItemSO item, int quantity, int lv, Ability[] abilities) {
-            for(int i = 0; i < inventoryItems.Count; i++) {
+            for(int i = 0; i < ItemList.Count; i++) {
                 //* 同じIDを探して
-                if(inventoryItems[i].Data.ID == item.ID) {
+                if(ItemList[i].Data.ID == item.ID) {
                     //* アップグレードのMAX制限
                     int max = (item.Type == Enum.ItemType.Relic)? Config.RELIC_UPGRADE_MAX : Config.EQUIP_UPGRADE_MAX;
                     lv = Mathf.Min(lv, max);
-                    Debug.Log($"UpgradeEquipItem({inventoryItems[i].Data.ID} == {item.ID}):: lv= {lv}");
+                    Debug.Log($"UpgradeEquipItem({ItemList[i].Data.ID} == {item.ID}):: lv= {lv}");
                     //* 増えたVal値を最新化
-                    inventoryItems[i] = inventoryItems[i].ChangeLevel(lv);
+                    ItemList[i] = ItemList[i].ChangeLevel(lv);
                     //* イベントリーUI アップデート
                     InformAboutChange();
                     //* 情報表示ポップアップUI アップデート
@@ -165,10 +165,10 @@ namespace Inventory.Model
 
         public Dictionary<int, InventoryItem> GetCurrentInventoryState() {
             Dictionary<int, InventoryItem> invItemDic = new Dictionary<int, InventoryItem>();
-            for(int i = 0; i < inventoryItems.Count; i++) {
-                if(inventoryItems[i].IsEmpty)
+            for(int i = 0; i < ItemList.Count; i++) {
+                if(ItemList[i].IsEmpty)
                     continue;
-                invItemDic[i] = inventoryItems[i];
+                invItemDic[i] = ItemList[i];
             }
             return invItemDic;
         }
@@ -178,12 +178,12 @@ namespace Inventory.Model
         /// </summary>
         /// <param name="itemIdx"></param>
         public InventoryItem GetItemAt(int itemIdx)
-            => inventoryItems[itemIdx];
+            => ItemList[itemIdx];
 
         public void SwapItems(int itemIdx1, int itemIdx2) {
-            InventoryItem item1 = inventoryItems[itemIdx1];
-            inventoryItems[itemIdx1] = inventoryItems[itemIdx2];
-            inventoryItems[itemIdx2] = item1;
+            InventoryItem item1 = ItemList[itemIdx1];
+            ItemList[itemIdx1] = ItemList[itemIdx2];
+            ItemList[itemIdx2] = item1;
             InformAboutChange();
         }
 
