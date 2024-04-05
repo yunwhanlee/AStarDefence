@@ -51,6 +51,8 @@ namespace Inventory.Model
     [CreateAssetMenu]
     public class InventorySO : ScriptableObject {
         [SerializeField] private ItemSO[] weaponItemDatas;
+        [SerializeField] private ItemSO[] shoesItemDatas;
+        [SerializeField] private ItemSO[] ringItemDatas;
 
         [SerializeField] public List<InventoryItem> ItemList;
         [field: SerializeField] public int Size {get; private set;} = 10;
@@ -143,7 +145,7 @@ namespace Inventory.Model
         }
 
         /// <summary>
-        /// アイテムのアップグレードや消費する
+        /// インベントリーの装置アイテムをアップグレード
         /// </summary>
         public void UpgradeEquipItem(ItemSO item, int quantity, int lv, Ability[] abilities) {
             for(int i = 0; i < ItemList.Count; i++) {
@@ -168,19 +170,43 @@ namespace Inventory.Model
         /// インベントリーの装置アイテムを次のレベルに自動マージ
         /// </summary>
         public void AutoMergeEquipItem() {
-            const int LV_OFFSET = 1;
+            const int MERGE_UNIT = 10;
+            //* マージすることがなかったら
+            bool isExistMergable = ItemList.Exists (item => item.Data && item.Data.Type != Enum.ItemType.Etc &&  item.Quantity >= 10);
+            if(!isExistMergable) {
+                HM._.hui.ShowMsgError("합성할 아이템이 없습니다.");
+                return;
+            }
+
+            //* マージ
             for(int i = 0; i < ItemList.Count; i++) {
-                var item = ItemList[i];
-                if(item.Quantity >= 10) {
-                    //* 数値を減って適用
-                    ItemList[i] = item.ChangeQuantity(item.Quantity - 10);
+                InventoryItem item = ItemList[i];
+                if(item.Quantity >= MERGE_UNIT) {
+                    if(item.Data.Grade == Enum.Grade.Prime) {
+                        //TODO もし、最後までできて、またマージするとしたらどうする？
+                        Debug.Log("最後の等級までしたので、もう次がない");
+                        continue;
+                    }
+
+                    //* 数量を切り替えて適用
+                    int mergeCnt = item.Quantity / MERGE_UNIT;
+                    ItemList[i] = item.ChangeQuantity(item.Quantity - mergeCnt * MERGE_UNIT);
+
                     //* 次のレベルアイテム生成
-                    int nextLvIdx = item.Lv + 1 - LV_OFFSET;
-                    AddStackableItem(weaponItemDatas[nextLvIdx], 1, 1);
+                    var type = item.Data.Type;
+                    int nextGrade = (int)item.Data.Grade + 1;
+                    // タイプ
+                    ItemSO nextItemDt = (type == Enum.ItemType.Weapon)? weaponItemDatas[nextGrade]
+                        : (type == Enum.ItemType.Shoes)? shoesItemDatas[nextGrade]
+                        : (type == Enum.ItemType.Ring)? ringItemDatas[nextGrade]
+                        : null; // TODO RELIC
+
+                    AddStackableItem(nextItemDt, mergeCnt, lv: 1);
                 }
             }
             //* イベントリーUI アップデート
             InformAboutChange();
+            HM._.hui.ShowMsgNotice("자동합성 완료!");
         }
 
         public void AddItem(InventoryItem item) {

@@ -27640,25 +27640,13 @@ MonoBehaviour:
   InvUI: {fileID: 0}
   InventoryData: {fileID: 11400000, guid: 90871af7bfe5be24ebfea1d53585ac25, type: 2}
   InitItems:
-  - Quantity: 14
-    Lv: 2
-    Data: {fileID: 11400000, guid: 8a8359171e95e0146a2537f75433dfee, type: 2}
-    RelicAbilities: []
-  - Quantity: 11
+  - Quantity: 67
     Lv: 1
-    Data: {fileID: 11400000, guid: b080839ff7fe27e41a6bf21a77ce5163, type: 2}
+    Data: {fileID: 11400000, guid: bda94e90bf415c64cb7faf0b2d7617d1, type: 2}
     RelicAbilities: []
-  - Quantity: 1
+  - Quantity: 67
     Lv: 1
-    Data: {fileID: 11400000, guid: 7dfa2a86e8ed75d4db19e61c0353d063, type: 2}
-    RelicAbilities: []
-  - Quantity: 1
-    Lv: 1
-    Data: {fileID: 11400000, guid: e7b16abc42e82fe45baa56fd63c41791, type: 2}
-    RelicAbilities: []
-  - Quantity: 1
-    Lv: 1
-    Data: {fileID: 11400000, guid: 9df07a90b6f09a242ac4bfb5c9fc8e08, type: 2}
+    Data: {fileID: 11400000, guid: 0c0412309a40a004ebe618e5818149c8, type: 2}
     RelicAbilities: []
 --- !u!1 &1055846979
 GameObject:
