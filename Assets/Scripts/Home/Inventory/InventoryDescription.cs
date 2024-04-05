@@ -65,7 +65,7 @@ namespace Inventory.UI {
             IsUpgradeValToogle = !IsUpgradeValToogle;
             UpgValToogleHandleTf.anchoredPosition = new Vector2(IsUpgradeValToogle? 50 : -50, UpgValToogleHandleTf.anchoredPosition.y);
             UpgValToogleHandleTxt.text = IsUpgradeValToogle? "ON" : "OFF";
-            SetDescription(ivm.CurInvItem.Data, ivm.CurInvItem.Quantity, -1);
+            SetDescription(ivm.CurInvItem.Data, ivm.CurInvItem.Quantity, ivm.CurInvItem.Lv);
         }
         public void OnClickCloseBtn() {
             //TODO
@@ -146,6 +146,8 @@ namespace Inventory.UI {
                 int[] rPers = Config.H_PRICE.RELIC_UPG.PERS;
                 int[] ePers = Config.H_PRICE.EQUIP_UPG.PERS;
 
+                Debug.Log($"ePrices.Length= {ePrices.Length}");
+                Debug.Log($"lvIdx= {lvIdx}");
                 UpgradePriceTxt.text = $"강화\n{(isLvMax? "MAX" : $"<sprite name=Coin>{(isRelic? rPrices[lvIdx] : ePrices[lvIdx])}")}";
                 UpgradeSuccessPerTxt.text = isLvMax? "" : $"확률 {(isRelic? rPers[lvIdx] : ePers[lvIdx])}%";
             }
