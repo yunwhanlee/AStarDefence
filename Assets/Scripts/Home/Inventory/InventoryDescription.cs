@@ -93,6 +93,8 @@ namespace Inventory.UI {
 
         public void SetDescription(ItemSO item, int quantity, int lv) {
             Debug.Log($"SetDescription():: item= {item.name}, val= {quantity}");
+            int lvIdx = lv - 1;
+
             if(item.Type == Enum.ItemType.Etc) {
                 EtcItemBg.gameObject.SetActive(true);
                 EtcItemBg.sprite = item.ItemImg;
@@ -109,7 +111,7 @@ namespace Inventory.UI {
                 TypeImg.sprite = HM._.ivm.TypeSprs[(int)item.Type];
                 TypeTxt.text = (item.Type == Enum.ItemType.Weapon)? "무기"
                     : (item.Type == Enum.ItemType.Shoes)? "신발"
-                    : (item.Type == Enum.ItemType.Ring)? "악세서리"
+                    : (item.Type == Enum.ItemType.Ring)? "반지"
                     : (item.Type == Enum.ItemType.Relic)? "유물"
                     : "기타";
 
@@ -132,8 +134,7 @@ namespace Inventory.UI {
                 for(int i = 0; i < item.Abilities.Length; i++) {
                     var ability = item.Abilities[i];
                     //* V{N} → 能力数値変換(実際のアイテムデータ)
-                    float itemLv = HM._.ivm.CurInvItem.Quantity;
-                    float resItemVal = ability.Val + ((itemLv - 1) * ability.UpgradeVal);
+                    float resItemVal = ability.Val + (lvIdx * ability.UpgradeVal);
                     string abilityMsg = sentences[i].Replace($"V{i}", $"{resItemVal * 100}");
                     //* 強化数値表示 トーグル(登録したアップグレードデータ)
                     string upgradeMsg = (ability.UpgradeVal == 0)? "<color=grey>( 고정 )</color>" : $"<color=green>( {$"+{ability.UpgradeVal * 100}%"} )</color>";
@@ -143,7 +144,6 @@ namespace Inventory.UI {
                 Description.text = resMsg;
 
                 //* アップグレードボタン UI
-                int lvIdx = quantity - 1;
                 int[] rPrices = Config.H_PRICE.RELIC_UPG.PRICES;
                 int[] ePrices = Config.H_PRICE.EQUIP_UPG.PRICES;
                 int[] rPers = Config.H_PRICE.RELIC_UPG.PERS;
