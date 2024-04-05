@@ -26,7 +26,7 @@ public class HomeRewardUIManager : MonoBehaviour {
         public void UpdateInventory() {
             if(RewardList.Count > 0) {
                 foreach (RewardItem item in RewardList) {
-                    int reminder = HM._.ivCtrl.InventoryData.AddItem(item.Data, item.Val, item.Abilities);
+                    int reminder = HM._.ivCtrl.InventoryData.AddItem(item.Data, item.Val, lv: 1, item.Abilities);
                     item.Val = reminder;
                 }
             }

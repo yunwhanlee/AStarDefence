@@ -18,7 +18,8 @@ namespace Inventory.UI
         [field:SerializeField] public Image TypeIconImg {get; set;}
         [field:SerializeField] public Image BgImg {get; set;}
         [field:SerializeField] public Image ItemImg {get; set;}
-        [field:SerializeField] public TMP_Text ValTxt {get; set;}
+        [field:SerializeField] public TMP_Text QuantityTxt {get; set;}
+        [field:SerializeField] public TMP_Text LvTxt {get; set;}
         [field:SerializeField] public Image BorderImg {get; set;}
         public event Action<InventoryUIItem> OnItemClicked, 
             OnItemDroppedOn, 
@@ -36,14 +37,15 @@ namespace Inventory.UI
             Type = Enum.ItemType.Etc;
             ItemImg.gameObject.SetActive(false);
             IsEmpty = true;
-            ValTxt.text = "";
+            // QuantityTxt.text = "";
+            // LvTxt.text = "";
         }
         public void Deselect() => BorderImg.enabled = false;
 
         /// <summary>
         /// アイテムのデータ設定
         /// </summary>
-        public void SetData(Enum.ItemType type, Enum.Grade grade, Sprite spr, int val) {
+        public void SetData(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv) {
             Type = type;
 
             if(grade == Enum.Grade.None) {
@@ -59,7 +61,8 @@ namespace Inventory.UI
             }
             ItemImg.gameObject.SetActive(true);
             ItemImg.sprite = spr;
-            ValTxt.text = (type == Enum.ItemType.Etc)? $"{val}" : $"Lv.{val}";
+            QuantityTxt.text = $"{quantity}";
+            LvTxt.text = $"Lv.{lv}";
             IsEmpty = false;
         }
 

@@ -12,7 +12,7 @@ namespace Inventory.UI {
         [field:Header("CONSUMABLE POPUP")]
         [field:SerializeField] private Image EtcItemBg {get; set;}
         [field:SerializeField] private TMP_Text EtcNameTxt {get; set;}
-        [field:SerializeField] private TMP_Text EtcCountTxt {get; set;}
+        [field:SerializeField] private TMP_Text EtcQuantityTxt {get; set;}
         [field:SerializeField] private TMP_Text EtcDescription {get; set;}
 
         [field:Header("EQUIPMENT POPUP")]
@@ -23,6 +23,7 @@ namespace Inventory.UI {
         [field:SerializeField] private TMP_Text TypeTxt {get; set;}
         [field:SerializeField] private TMP_Text NameTxt {get; set;}
         [field:SerializeField] private TMP_Text GradeTxt {get; set;}
+        [field:SerializeField] private TMP_Text QuantityTxt {get; set;}
         [field:SerializeField] private TMP_Text LvTxt {get; set;}
         [field:SerializeField] private TMP_Text StarTxt {get; set;}
         [field:SerializeField] private TMP_Text Description {get; set;}
@@ -31,9 +32,12 @@ namespace Inventory.UI {
         [field:SerializeField] private RectTransform UpgValToogleHandleTf {get; set;}
         [field:SerializeField] private TMP_Text UpgValToogleHandleTxt {get; set;}
 
+        InventoryUIManager ivm;
+
         void Awake() => ResetDescription();
 
         void Start() {
+            ivm = HM._.ivm;
             IsUpgradeValToogle = false;
         }
 
@@ -43,8 +47,8 @@ namespace Inventory.UI {
         }
 
         public void OnClickUpgradeBtn() {
-            var type = HM._.ivm.CurInvItem.Data.Type;
-            var lv = HM._.ivm.CurInvItem.Val;
+            var type = ivm.CurInvItem.Data.Type;
+            var lv = ivm.CurInvItem.Lv;
             if(type == Enum.ItemType.Etc) return;
             if(type == Enum.ItemType.Relic && lv == Config.RELIC_UPGRADE_MAX) {
                 HM._.hui.ShowMsgError("업그레이드 최대치로 더 이상 할 수 없습니다.");
@@ -54,14 +58,14 @@ namespace Inventory.UI {
                 HM._.hui.ShowMsgError("업그레이드 최대치로 더 이상 할 수 없습니다.");
                 return;
             }
-            HM._.ivCtrl.InventoryData.UpgradeEquipItem(HM._.ivm.CurInvItem.Data, ++HM._.ivm.CurInvItem.Val, HM._.ivm.CurInvItem.Abilities);
+            HM._.ivCtrl.InventoryData.UpgradeEquipItem(ivm.CurInvItem.Data, ivm.CurInvItem.Quantity,  ++ivm.CurInvItem.Lv, ivm.CurInvItem.RelicAbilities);
         }
         public void OnClickUpgradeValueNoticeToggle() {
             Debug.Log($"OnClickUpgradeValueNoticeToggle():: IsUpgradeValToogleActive= {IsUpgradeValToogle}");
             IsUpgradeValToogle = !IsUpgradeValToogle;
             UpgValToogleHandleTf.anchoredPosition = new Vector2(IsUpgradeValToogle? 50 : -50, UpgValToogleHandleTf.anchoredPosition.y);
             UpgValToogleHandleTxt.text = IsUpgradeValToogle? "ON" : "OFF";
-            SetDescription(HM._.ivm.CurInvItem.Data, HM._.ivm.CurInvItem.Val, -1);
+            SetDescription(ivm.CurInvItem.Data, ivm.CurInvItem.Quantity, -1);
         }
         public void OnClickDeleteIconBtn() {
             Debug.Log("DELETE ITEM");
@@ -75,7 +79,7 @@ namespace Inventory.UI {
         public void ResetDescription() {
             EtcItemBg.gameObject.SetActive(false);
             EtcNameTxt.text = "";
-            EtcCountTxt.text = "";
+            EtcQuantityTxt.text = "";
             EtcDescription.text = "";
 
             ItemImg.gameObject.SetActive(false);
@@ -87,13 +91,13 @@ namespace Inventory.UI {
             UpgradeSuccessPerTxt.text = "";
         }
 
-        public void SetDescription(ItemSO item, int val, int itemIdx) {
-            Debug.Log($"SetDescription():: item= {item.name}, val= {val}");
+        public void SetDescription(ItemSO item, int quantity, int lv) {
+            Debug.Log($"SetDescription():: item= {item.name}, val= {quantity}");
             if(item.Type == Enum.ItemType.Etc) {
                 EtcItemBg.gameObject.SetActive(true);
                 EtcItemBg.sprite = item.ItemImg;
                 EtcNameTxt.text = item.Name;
-                EtcCountTxt.text = $"{val}";
+                EtcQuantityTxt.text = $"{quantity}";
                 EtcDescription.text = item.Description;
             }
             else {
@@ -105,7 +109,7 @@ namespace Inventory.UI {
                 TypeImg.sprite = HM._.ivm.TypeSprs[(int)item.Type];
                 TypeTxt.text = (item.Type == Enum.ItemType.Weapon)? "무기"
                     : (item.Type == Enum.ItemType.Shoes)? "신발"
-                    : (item.Type == Enum.ItemType.Accessories)? "악세서리"
+                    : (item.Type == Enum.ItemType.Ring)? "악세서리"
                     : (item.Type == Enum.ItemType.Relic)? "유물"
                     : "기타";
 
@@ -113,10 +117,11 @@ namespace Inventory.UI {
 
                 bool isRelic = item.Type == Enum.ItemType.Relic;
                 int max = isRelic? Config.RELIC_UPGRADE_MAX : Config.EQUIP_UPGRADE_MAX;
-                bool isLvMax = val >= max;
+                bool isLvMax = lv >= max;
 
-                LvTxt.text = $"Lv.{(isLvMax? "MAX" : val)}";
-                StarTxt.text = Util.DrawEquipItemStarTxt(lv: val);
+                LvTxt.text = $"Lv.{(isLvMax? "MAX" : lv)}";
+                QuantityTxt.text = quantity.ToString();
+                StarTxt.text = Util.DrawEquipItemStarTxt(lv: quantity);
                 GradeTxt.text = item.Grade.ToString();
                 GradeTxt.color = HM._.ivm.GradeClrs[(int)item.Grade];
 
@@ -124,22 +129,21 @@ namespace Inventory.UI {
                 string resMsg = "";
                 string[] sentences = item.Description.Split('\n');
                 Debug.Log($"Description Ability Sentences.Length= {sentences.Length}");
-                for(int i = 0; i < HM._.ivm.CurInvItem.Abilities.Length; i++) {
-                    float upgradeIncVal = item.Abilities[i].UpgradeVal;
+                for(int i = 0; i < item.Abilities.Length; i++) {
+                    var ability = item.Abilities[i];
                     //* V{N} → 能力数値変換(実際のアイテムデータ)
-                    float curItemValue = HM._.ivm.CurInvItem.Abilities[i].Value;
-                    float itemLv = HM._.ivm.CurInvItem.Val;
-                    float resItemVal = curItemValue + ((itemLv - 1) * upgradeIncVal);
+                    float itemLv = HM._.ivm.CurInvItem.Quantity;
+                    float resItemVal = ability.Val + ((itemLv - 1) * ability.UpgradeVal);
                     string abilityMsg = sentences[i].Replace($"V{i}", $"{resItemVal * 100}");
                     //* 強化数値表示 トーグル(登録したアップグレードデータ)
-                    string upgradeMsg = (upgradeIncVal == 0)? "<color=grey>( 고정 )</color>" : $"<color=green>( {$"+{upgradeIncVal * 100}%"} )</color>";
+                    string upgradeMsg = (ability.UpgradeVal == 0)? "<color=grey>( 고정 )</color>" : $"<color=green>( {$"+{ability.UpgradeVal * 100}%"} )</color>";
                     string upgradeToogleMsg = IsUpgradeValToogle? upgradeMsg : "";
                     resMsg += $"{abilityMsg} {upgradeToogleMsg}\n";
                 }
                 Description.text = resMsg;
 
                 //* アップグレードボタン UI
-                int lvIdx = val - 1;
+                int lvIdx = quantity - 1;
                 int[] rPrices = Config.H_PRICE.RELIC_UPG.PRICES;
                 int[] ePrices = Config.H_PRICE.EQUIP_UPG.PRICES;
                 int[] rPers = Config.H_PRICE.RELIC_UPG.PERS;

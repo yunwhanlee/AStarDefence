@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ee7d7a0ddf26d84d84647fede468360, type: 3}
+  m_Name: Ring 3
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <MaxStackSize>k__BackingField: 99
+  <Type>k__BackingField: 2
+  <Grade>k__BackingField: 2
+  <Name>k__BackingField: "\uC0AC\uD30C\uC774\uC5B4\uBC18\uC9C0"
+  <Description>k__BackingField: "\uCE58\uBA85\uD0C0 V0% \uC99D\uAC00\n\uCE58\uBA85\uD0C0\uB370\uBBF8\uC9C0
+    V1% \uC99D\uAC00"
+  <ItemImg>k__BackingField: {fileID: 643739040, guid: e433c8bb469a03548ae052468f941483, type: 3}
+  <Abilities>k__BackingField:
+  - Type: 3
+    Val: 0.06
+    UpgradeVal: 0.0025
+  - Type: 4
+    Val: 0.25
+    UpgradeVal: 0.03

@@ -62,7 +62,7 @@ namespace Inventory.UI
             case 0: ItemList.ForEach(item => item.gameObject.SetActive(true)); break;
             case 1: ActiveCategoryItemList(Enum.ItemType.Weapon); break;
             case 2: ActiveCategoryItemList(Enum.ItemType.Shoes);  break;
-            case 3: ActiveCategoryItemList(Enum.ItemType.Accessories); break;
+            case 3: ActiveCategoryItemList(Enum.ItemType.Ring); break;
             case 4: ActiveCategoryItemList(Enum.ItemType.Relic); break;
             case 5: ActiveCategoryItemList(Enum.ItemType.Etc); break;
         } 
@@ -111,7 +111,7 @@ namespace Inventory.UI
         public void UpdateData(int itemIdx, InventoryItem item) {
             ItemSO dt = item.Data;
             if(ItemList.Count > itemIdx)
-                ItemList[itemIdx].SetData(dt.Type, dt.Grade, dt.ItemImg, item.Val);
+                ItemList[itemIdx].SetData(dt.Type, dt.Grade, dt.ItemImg, item.Quantity, item.Lv);
         }
         private void ResetDraggedItem() {
             MouseFollower.Toggle(false);
@@ -164,9 +164,9 @@ namespace Inventory.UI
             OnStartDragging?.Invoke(idx);
         }
 
-        public void CreateDraggedItem(Enum.ItemType type, Enum.Grade grade, Sprite spr, int val) {
+        public void CreateDraggedItem(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv) {
             MouseFollower.Toggle(true);
-            MouseFollower.SetData(type, grade, spr, val);
+            MouseFollower.SetData(type, grade, spr, quantity, lv);
         } 
 
         public void HandleItemSelection(InventoryUIItem invItemUI) {
@@ -177,8 +177,8 @@ namespace Inventory.UI
             OnDescriptionRequested?.Invoke(idx);
         }
 
-        public void UpdateDescription(int itemIdx, ItemSO item, int Val, Ability[] abilities) {
-            ItemDescription.SetDescription(item, Val, itemIdx);
+        public void UpdateDescription(int itemIdx, ItemSO item, int quantity, int lv, Ability[] abilities) {
+            ItemDescription.SetDescription(item, quantity, lv);
             DeselectAllItems();
             ItemList[itemIdx].Select();
         }

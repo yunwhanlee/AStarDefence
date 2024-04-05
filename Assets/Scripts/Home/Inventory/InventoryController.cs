@@ -30,9 +30,8 @@ namespace Inventory
 
         private void UpdateInventoryUI(Dictionary<int, InventoryItem> inventoryState) {
             InvUI.ResetAllItems();
-            foreach (var item in inventoryState) {
+            foreach (var item in inventoryState)
                 InvUI.UpdateData(item.Key, item.Value);
-            }
         }
 
         private void PrepareUI() {
@@ -48,7 +47,7 @@ namespace Inventory
         private void HandleDragging(int itemIdx) {
             InventoryItem item = InventoryData.GetItemAt(itemIdx);
             if(item.IsEmpty) return;
-            InvUI.CreateDraggedItem(item.Data.Type, item.Data.Grade, item.Data.ItemImg, item.Val);
+            InvUI.CreateDraggedItem(item.Data.Type, item.Data.Grade, item.Data.ItemImg, item.Quantity, item.Lv);
         }
 
         private void HandleSwapItems(int itemIdx1, int itemIdx2) {   
@@ -63,7 +62,7 @@ namespace Inventory
                 return;
             }
             ItemSO item = invItem.Data;
-            InvUI.UpdateDescription(itemIdx, item, invItem.Val, invItem.Abilities);
+            InvUI.UpdateDescription(itemIdx, item, invItem.Quantity, invItem.Lv, invItem.RelicAbilities);
         }
 
         public void ShowInventory() {

@@ -12,8 +12,8 @@ public class MouseFollower : MonoBehaviour {
         Item = GetComponentInChildren<InventoryUIItem>();
     }
 
-    public void SetData(Enum.ItemType type, Enum.Grade grade, Sprite spr, int Val) {
-        Item.SetData(type, grade, spr, Val);
+    public void SetData(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv) {
+        Item.SetData(type, grade, spr, quantity, lv);
     }
 
     void Update() {

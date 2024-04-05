@@ -55,7 +55,7 @@ public static class Enum {
         Common, Rare, Epic, Unique, Legend, Myth, Prime
     }
     public enum ItemType {
-        Weapon, Shoes, Accessories, Relic, Etc
+        Weapon, Shoes, Ring, Relic, Etc
     }
 
     public enum BossRwd {
