@@ -31,7 +31,7 @@ namespace Inventory.UI
         [field:SerializeField] public RectTransform Content {get; set;}
         [field:SerializeField] public InventoryDescription ItemDescription {get; set;}
         [field:SerializeField] public MouseFollower MouseFollower {get; set;}
-        [field:SerializeField] public List<InventoryUIItem> ItemList = new List<InventoryUIItem>();
+        [field:SerializeField] public List<InventoryUIItem> InvUIItemList = new List<InventoryUIItem>();
 
         private int curDraggedItemIdx = -1;
 
@@ -59,7 +59,7 @@ namespace Inventory.UI
 
         //* ItemList 表示
         switch(cateIdx) {
-            case 0: ItemList.ForEach(item => item.gameObject.SetActive(true)); break;
+            case 0: InvUIItemList.ForEach(item => item.gameObject.SetActive(true)); break;
             case 1: ActiveCategoryItemList(Enum.ItemType.Weapon); break;
             case 2: ActiveCategoryItemList(Enum.ItemType.Shoes);  break;
             case 3: ActiveCategoryItemList(Enum.ItemType.Ring); break;
@@ -69,9 +69,9 @@ namespace Inventory.UI
     }
     private void ActiveCategoryItemList(Enum.ItemType category) {
         //* 全て非表示
-        ItemList.ForEach(item => item.gameObject.SetActive(false));
+        InvUIItemList.ForEach(item => item.gameObject.SetActive(false));
         //* カテゴリに合うリストのみ表示
-        var filterList = ItemList.FindAll(item => item.Type == category);
+        var filterList = InvUIItemList.FindAll(item => item.Type == category);
         filterList.ForEach(item => item.gameObject.SetActive(true));
     }
 
@@ -86,7 +86,7 @@ namespace Inventory.UI
         public void InitInventoryUI(int invSize) {
             for(int i = 0; i < invSize; i++) {
                 InventoryUIItem item = Instantiate(ItemPf, Content);
-                ItemList.Add(item);
+                InvUIItemList.Add(item);
                 item.OnItemClicked += HandleItemSelection;
                 item.OnItemBeginDrag += HandleBeginDrag;
                 item.OnItemDroppedOn += HandleSwap;
@@ -107,14 +107,23 @@ namespace Inventory.UI
             DeselectAllItems();
         }
         private void DeselectAllItems() {
-            foreach(InventoryUIItem item in ItemList)
+            foreach(InventoryUIItem item in InvUIItemList)
                 item.Deselect();
         }
 
         public void UpdateData(int itemIdx, InventoryItem item) {
+            Debug.Log($"UpdateData(itemIdx= {itemIdx}, item= {item.Data})::");
             ItemSO dt = item.Data;
-            if(ItemList.Count > itemIdx)
-                ItemList[itemIdx].SetData(dt.Type, dt.Grade, dt.ItemImg, item.Quantity, item.Lv);
+            if(InvUIItemList.Count > itemIdx)
+                InvUIItemList[itemIdx].SetData(
+                    dt.Type, 
+                    dt.Grade, 
+                    dt.ItemImg, 
+                    item.Quantity, 
+                    item.Lv, 
+                    item.RelicAbilities
+                );
+            Debug.Log("SIBAL...");
         }
         private void ResetDraggedItem() {
             MouseFollower.Toggle(false);
@@ -126,7 +135,7 @@ namespace Inventory.UI
         /// </summary>
         /// <param name="invItemUI">インベントリーUIのアイテム</param>
         public InventoryItem GetItemFromUI(InventoryUIItem invItemUI) {
-            int idx = ItemList.IndexOf(invItemUI);
+            int idx = InvUIItemList.IndexOf(invItemUI);
             if(idx == -1)
                 return InventoryItem.GetEmptyItem();
             return HM._.ivCtrl.InventoryData.GetItemAt(idx);
@@ -152,7 +161,7 @@ namespace Inventory.UI
             => ResetDraggedItem();
 
         private void HandleSwap(InventoryUIItem invItemUI) {
-            int idx = ItemList.IndexOf(invItemUI);
+            int idx = InvUIItemList.IndexOf(invItemUI);
             if(idx == -1) return;
             if(curDraggedItemIdx == -1) return;
             OnSwapItems?.Invoke(curDraggedItemIdx, idx);
@@ -160,7 +169,7 @@ namespace Inventory.UI
         }
 
         private void HandleBeginDrag(InventoryUIItem invItemUI) {
-            int idx = ItemList.IndexOf(invItemUI);
+            int idx = InvUIItemList.IndexOf(invItemUI);
             if(idx == -1) return;
             curDraggedItemIdx = idx;
             HandleItemSelection(invItemUI);
@@ -173,21 +182,21 @@ namespace Inventory.UI
         } 
 
         public void HandleItemSelection(InventoryUIItem invItemUI) {
-            int idx = ItemList.IndexOf(invItemUI);
+            int idx = InvUIItemList.IndexOf(invItemUI);
             if(idx == -1) return;
             CurItemIdx = idx;
             CurInvItem = GetCurItemFromIdx(idx);
             OnDescriptionRequested?.Invoke(idx);
         }
 
-        public void UpdateDescription(int itemIdx, ItemSO item, int quantity, int lv, Ability[] abilities) {
+        public void UpdateDescription(int itemIdx, ItemSO item, int quantity, int lv, AbilityType[] abilities) {
             ItemDescription.SetDescription(item, quantity, lv);
             DeselectAllItems();
-            ItemList[itemIdx].Select();
+            InvUIItemList[itemIdx].Select();
         }
 
         public void ResetAllItems() {
-            foreach (var item in ItemList) {
+            foreach (var item in InvUIItemList) {
                 item.ResetData();
                 item.Deselect();
             }

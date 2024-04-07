@@ -10,6 +10,12 @@ public class AbilityData {
 	public AbilityType Type;
     public float Val;
 	public float UpgradeVal;
+
+    public AbilityData(AbilityType type, float val, float upgVal) {
+        Type = type;
+        Val = val;
+        UpgradeVal = upgVal;
+    }
 }
 
 namespace Inventory.Model {
@@ -25,6 +31,15 @@ namespace Inventory.Model {
         [field: SerializeField] public Sprite ItemImg {get; set;}
 
         [field: SerializeField] public AbilityData[] Abilities {get; set;}
+
+        public void SetRelicAbility() {
+            if(Type == Enum.ItemType.Relic) {
+                Debug.Log($"ItemSO:: SetRelicAbility():: Type= {Type}");
+                Abilities = new AbilityData[] {
+                    new AbilityData(AbilityType.ClearEtc, 0.1f, 0.1f)
+                };
+            }
+        }
     }
 }
 

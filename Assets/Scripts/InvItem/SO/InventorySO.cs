@@ -22,7 +22,7 @@ namespace Inventory.Model
         public int Quantity;
         public int Lv;
         public ItemSO Data;
-        public Ability[] RelicAbilities;
+        public AbilityType[] RelicAbilities;
         public bool IsEmpty => Data == null;
 
         public InventoryItem ChangeQuantity(int newQuantity)
@@ -46,9 +46,16 @@ namespace Inventory.Model
                 Data = newItemDt,
                 RelicAbilities = this.RelicAbilities
             };
+        public InventoryItem ChangeItemRelicAbilities(AbilityType[] relicAbilities)
+            => new InventoryItem {
+                Quantity = this.Quantity,
+                Lv = this.Lv,
+                Data = this.Data,
+                RelicAbilities = relicAbilities
+            };
         public static InventoryItem GetEmptyItem()
             => new InventoryItem {
-                Quantity = 0,
+                Quantity = 1,
                 Lv = 1,
                 Data = null,
                 RelicAbilities = null
@@ -71,39 +78,41 @@ namespace Inventory.Model
                 ItemList.Add(InventoryItem.GetEmptyItem());
         }
 
-        public int AddItem(ItemSO item, int quantity, int lv, Ability[] abilities) {
-            if(item.IsStackable == false) {
-                Debug.Log($"InventorySO:: AddItem({item.name}, quantity= {quantity}, lv= {lv})::");
-                // 過去：Valが２なら、重ならないので１個しかできない複数に分ける
-                /*
-                for(int i = 0; i < inventoryItems.Count; i++) {
-                    while(val > 0 && IsInventoryFull() == false) {
-                        val -= AddItemToFirstFreeSlot(item, 1);
-                    }
-                    InformAboutChange();
-                    return val;
-                }
-                */
-                //* 変更：EquipアイテムはValをレベルとして扱う
-                quantity = AddItemToFirstFreeSlot(item, quantity, lv, abilities);
-                InformAboutChange();
-                return quantity;
-            }
-            quantity = AddStackableItem(item, quantity, lv);
+        public int AddItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities) {
+            // if(item.IsStackable == false) {
+            //     Debug.Log($"InventorySO:: AddItem({item.name}, quantity= {quantity}, lv= {lv}, relicAbilities= {relicAbilities.Length})::");
+            //     // 過去：Valが２なら、重ならないので１個しかできない複数に分ける
+            //     /*
+            //     for(int i = 0; i < inventoryItems.Count; i++) {
+            //         while(val > 0 && IsInventoryFull() == false) {
+            //             val -= AddItemToFirstFreeSlot(item, 1);
+            //         }
+            //         InformAboutChange();
+            //         return val;
+            //     }
+            //     */
+            //     //* 変更：EquipアイテムはValをレベルとして扱う
+            //     quantity = AddItemToFirstFreeSlot(item, quantity, lv, null);
+            //     InformAboutChange();
+            //     return quantity;
+            // }
+            quantity = AddStackableItem(item, quantity, lv, relicAbilities);
             InformAboutChange();
             return quantity;
         }
 
         /// <summary>
         ///* 数えないアイテムとして追加 （今は使うことがない）
-        /// </summary>        
-        private int AddItemToFirstFreeSlot(ItemSO item, int quantity, int lv, Ability[] abilities = null ) {
+        /// </summary>
+        private int AddItemToFirstFreeSlot(ItemSO itemDt, int quantity, int lv, AbilityType[] relicAbilities) {
             InventoryItem newItem = new InventoryItem {
-                Data = item,
+                Data = itemDt,
                 Quantity = quantity,
                 Lv = lv,
-                RelicAbilities = abilities
+                RelicAbilities = relicAbilities
             };
+
+            Debug.Log($"newItem.RelicAbilities.Length= {newItem}");
 
             for(int i = 0; i < ItemList.Count; i++) {
                 if(ItemList[i].IsEmpty) {
@@ -123,7 +132,7 @@ namespace Inventory.Model
         /// <summary>
         /// 数えるアイテムとして追加 (自動マージしたときも使う)
         /// </summary>
-        private int AddStackableItem(ItemSO item, int quantity, int lv) {
+        private int AddStackableItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities) {
             for(int i = 0; i < ItemList.Count; i++) {
                 if(ItemList[i].IsEmpty)
                     continue;
@@ -145,7 +154,7 @@ namespace Inventory.Model
             while(quantity > 0 && IsInventoryFull() == false) {
                 int newQuantity = Mathf.Clamp(quantity, 0, item.MaxStackSize);
                 quantity -= newQuantity;
-                AddItemToFirstFreeSlot(item, newQuantity, lv);
+                AddItemToFirstFreeSlot(item, newQuantity, lv, relicAbilities);
             }
 
             return quantity;
@@ -154,7 +163,7 @@ namespace Inventory.Model
         /// <summary>
         /// インベントリーの装置アイテムをアップグレード
         /// </summary>
-        public void UpgradeEquipItem(ItemSO item, int quantity, int lv, Ability[] abilities) {
+        public void UpgradeEquipItem(ItemSO item, int quantity, int lv, AbilityType[] abilities) {
             for(int i = 0; i < ItemList.Count; i++) {
                 //* 同じIDを探して
                 if(ItemList[i].Data.ID == item.ID) {
@@ -211,7 +220,7 @@ namespace Inventory.Model
                         : (type == Enum.ItemType.Shoes)? shoesItemDatas[nextGrade]
                         : (type == Enum.ItemType.Ring)? ringItemDatas[nextGrade]
                         : null; // TODO RELIC
-                    AddStackableItem(nextItemDt, mergeCnt, lv: 1);
+                    AddStackableItem(nextItemDt, mergeCnt, lv: 1, relicAbilities: null);
                 }
             }
             //* イベントリーUI アップデート
@@ -220,6 +229,7 @@ namespace Inventory.Model
         }
 
         public void AddItem(InventoryItem item) {
+            Debug.Log($"AddItem():: {item.Data.Name}, Lv= {item.Lv}, RelicAbilities.Length= {item.RelicAbilities.Length}");
             AddItem(item.Data, item.Quantity, item.Lv, item.RelicAbilities);
         }
 
@@ -247,9 +257,9 @@ namespace Inventory.Model
             InformAboutChange();
         }
 
-        public void InformAboutChange()
-            => OnInventoryUpdated?.Invoke(GetCurrentInventoryState());
+        public void InformAboutChange() {
+            Debug.Log("InformAboutChange()::");
+            OnInventoryUpdated?.Invoke(GetCurrentInventoryState());
+        }
     }
-
-
 }

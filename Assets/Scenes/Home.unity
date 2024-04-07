@@ -18729,7 +18729,7 @@ MonoBehaviour:
   <Content>k__BackingField: {fileID: 2419870421383312345}
   <ItemDescription>k__BackingField: {fileID: 375479737}
   <MouseFollower>k__BackingField: {fileID: 1545824204}
-  ItemList: []
+  InvUIItemList: []
 --- !u!1 &702710245
 GameObject:
   m_ObjectHideFlags: 0
@@ -27781,19 +27781,7 @@ MonoBehaviour:
       <IsLockArcherSTs>k__BackingField: 0000000000
       <IsLockMagicianSTs>k__BackingField: 0000000000
       <IsLockUtilitySTs>k__BackingField: 0000000000
-    <InventryItemDBs>k__BackingField:
-    - Quantity: 1
-      Lv: 4
-      Data: {fileID: 11400000, guid: 59fb2aee1376eed4e8d611587e7cac1a, type: 2}
-      RelicAbilities: []
-    - Quantity: 15
-      Lv: 0
-      Data: {fileID: 11400000, guid: d2febf22bacf6944895cd61c61cd1d56, type: 2}
-      RelicAbilities: []
-    - Quantity: 1
-      Lv: 4
-      Data: {fileID: 11400000, guid: b64be0671fa00644abb9bc470cc99512, type: 2}
-      RelicAbilities: []
+    <InvItemDBs>k__BackingField: []
   <PassedSec>k__BackingField: 0
   <SelectedStage>k__BackingField: 0
   <SelectedDiff>k__BackingField: 0

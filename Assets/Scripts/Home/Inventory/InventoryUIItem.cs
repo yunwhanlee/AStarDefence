@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Inventory.Model;
 
 namespace Inventory.UI
 {
@@ -45,7 +46,8 @@ namespace Inventory.UI
         /// <summary>
         /// アイテムのデータ設定
         /// </summary>
-        public void SetData(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv) {
+        public void SetData(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv, AbilityType[] relicAbilities = null) {
+            Debug.Log("SetData()::");
             Type = type;
 
             if(grade == Enum.Grade.None) {

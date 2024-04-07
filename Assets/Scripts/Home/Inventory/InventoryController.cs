@@ -21,16 +21,20 @@ namespace Inventory
         }
 
         private void PrepareInventoryData() {
-            InventoryData.Init();
+            //* InventorySOリストデータを初期化（ロードしたデータを実際に管理する場所）
+            InventoryData.Init(); 
+            //* インベントリUI初期化するメソッド機能を購読（まだ使わない）=> InventorySO::InformAboutChange()で処理
             InventoryData.OnInventoryUpdated += UpdateInventoryUI;
+            //* DBの保存したインベントリデータを一個ずつ読みこみながら、インベントリSOリストへ追加
             foreach (InventoryItem item in InitItems) {
-                if(item.IsEmpty)
-                    continue;
+                if(item.IsEmpty) continue;
+                // item.Data.SetRelicAbility();
                 InventoryData.AddItem(item);
             }
         }
 
         private void UpdateInventoryUI(Dictionary<int, InventoryItem> inventoryState) {
+            Debug.Log("UpdateInventoryUI()::");
             InvUI.ResetAllItems();
             foreach (var item in inventoryState)
                 InvUI.UpdateData(item.Key, item.Value);
@@ -68,6 +72,7 @@ namespace Inventory
         }
 
         public void ShowInventory() {
+            Debug.Log("ShowInventory()::");
             InvUI.Show();
             foreach (var item in InventoryData.GetCurrentInventoryState()) {
                 InvUI.UpdateData( item.Key, item.Value );
