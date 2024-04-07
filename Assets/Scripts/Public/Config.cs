@@ -3,11 +3,35 @@ using System.Collections.Generic;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CollectionScripts;
 using UnityEngine;
 
-public static class Config{
+public static class Config {
 #region HOME
     public const int MAX_GOBLINKEY = 5;
     public const int EQUIP_UPGRADE_MAX = 10;
     public const int RELIC_UPGRADE_MAX = 5;
+
+    /// <summary>
+    /// Enum.AbilityTypeと連結
+    /// </summary>
+    public static string[] ABILITY_TYPE_DECS_MSGS = {
+        "공격력 V% 증가",
+        "공격속도 V% 증가",
+        "공격범위 V% 증가",
+        "치명타 V% 증가",
+        "치명타데미지 V% 증가",
+        "클리어 경험치 V% 추가",
+        "클리어 코인 V% 추가",
+        "시작코인 +V% 지원",
+        "시작체력 +V% 지원",
+        "아이템 획득 +V% 추가",
+        "추가 스킬포인트 +V% 추가",
+        "10킬당 V코인 추가 획득 ",
+        "전사타워 공격력 V% 증가",
+        "궁수타워 공격력 V% 증가",
+        "법사타워 공격력 V% 증가",
+        "전사타워 업글 비용 V% 감소",
+        "궁수타워 업글 비용 V% 감소",
+        "법사타워 업글 비용 V% 감소",
+    };
 
 #endregion
 

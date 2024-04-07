@@ -17,8 +17,7 @@ MonoBehaviour:
   <Type>k__BackingField: 1
   <Grade>k__BackingField: 4
   <Name>k__BackingField: "\uC11C\uB9AC\uC7A5\uD654"
-  <Description>k__BackingField: "\uACF5\uACA9\uC18D\uB3C4 V0% \uC99D\uAC00\n\uACF5\uACA9\uBC94\uC704
-    V1% \uC99D\uAC00"
+  <Description>k__BackingField: 
   <ItemImg>k__BackingField: {fileID: -1375436735, guid: e433c8bb469a03548ae052468f941483, type: 3}
   <Abilities>k__BackingField:
   - Type: 1

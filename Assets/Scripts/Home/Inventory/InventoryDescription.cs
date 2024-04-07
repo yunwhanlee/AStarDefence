@@ -126,13 +126,12 @@ namespace Inventory.UI {
 
                 //* 能力木テスト 表示
                 string resMsg = "";
-                string[] sentences = item.Description.Split('\n');
-                Debug.Log($"Description Ability Sentences.Length= {sentences.Length}");
                 for(int i = 0; i < item.Abilities.Length; i++) {
                     var ability = item.Abilities[i];
+                    string msg = Config.ABILITY_TYPE_DECS_MSGS[(int)ability.Type];
+                    float val = ability.Val + (lvIdx * ability.UpgradeVal);
                     //* V{N} → 能力数値変換(実際のアイテムデータ)
-                    float resItemVal = ability.Val + (lvIdx * ability.UpgradeVal);
-                    string abilityMsg = sentences[i].Replace($"V{i}", $"{resItemVal * 100}");
+                    string abilityMsg = msg.Replace($"V", $"{val * 100}");
                     //* 強化数値表示 トーグル(登録したアップグレードデータ)
                     string upgradeMsg = (ability.UpgradeVal == 0)? "<color=grey>( 고정 )</color>" : $"<color=green>( {$"+{ability.UpgradeVal * 100}%"} )</color>";
                     string upgradeToogleMsg = IsUpgradeValToogle? upgradeMsg : "";

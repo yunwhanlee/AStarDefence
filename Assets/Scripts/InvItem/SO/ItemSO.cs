@@ -7,7 +7,7 @@ using System;
 
 [Serializable]
 public class AbilityData {
-	public ItemAbilityType Type;
+	public AbilityType Type;
     public float Val;
 	public float UpgradeVal;
 }

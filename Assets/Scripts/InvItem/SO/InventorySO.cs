@@ -11,7 +11,7 @@ namespace Inventory.Model
     /// </summary>
     [Serializable]
     public struct Ability {
-        public ItemAbilityType Type;
+        public AbilityType Type;
     }
 
     /// <summary>

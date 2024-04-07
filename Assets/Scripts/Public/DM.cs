@@ -181,8 +181,7 @@ public class DM : MonoBehaviour {
         // 시간 차이를 정수형으로 변환하여 PlayerPrefs에 저장합니다.
         PlayerPrefs.SetInt(PASSEDTIME_KEY, (int)timestamp.TotalSeconds);
 
-        Debug.Log($"HM._.ivCtrl.InventoryData.ItemList.Count= {HM._.ivCtrl.InventoryData.ItemList.Count}");
-        //* 空に初期化してから、Inventoryデータを上書き
+        //* 空に初期化してから、InventorySOデータを上書き
         DB.InvItemDBs = new List<InventoryItem>();
         for(int i = 0; i < HM._.ivCtrl.InventoryData.ItemList.Count; i++) {
             var invItem = HM._.ivCtrl.InventoryData.ItemList[i];

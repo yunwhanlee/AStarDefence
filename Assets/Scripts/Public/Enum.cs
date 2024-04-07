@@ -22,8 +22,25 @@ using UnityEngine;
     }
 #endregion
 
-public enum ItemAbilityType {
-	Attack, Speed, Range, Critical, CriticalDamage, 
+public enum AbilityType {
+	Attack, 
+    Speed, 
+    Range, 
+    Critical, 
+    CriticalDamage,
+    ClearEtc,
+    ClearCoin,
+    StartCoin,
+    StartLife,
+    ItemDropPer,
+    SkillPoint,
+    BonusCoinBy10Kill,
+    WarriorAttack,
+    ArcherAttack,
+    MagicianAttack,
+    WarriorUpgCost,
+    ArcherUpgCost,
+    MagicianUpgCost,
 }
 
 
