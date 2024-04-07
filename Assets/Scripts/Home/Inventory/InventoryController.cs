@@ -10,7 +10,9 @@ namespace Inventory
     public class InventoryController : MonoBehaviour {
         [SerializeField] private InventoryUIManager InvUI;
         [SerializeField] public InventorySO InventoryData;
-        public List<InventoryItem> InitItems = new List<InventoryItem>();
+        [SerializeField] public List<InventoryItem> InitItems {
+            get => DM._.DB.InvItemDBs;
+        }
 
         void Start() {
             InvUI = HM._.ivm;

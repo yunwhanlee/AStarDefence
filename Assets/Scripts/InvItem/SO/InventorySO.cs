@@ -27,23 +27,30 @@ namespace Inventory.Model
 
         public InventoryItem ChangeQuantity(int newQuantity)
             => new InventoryItem {
-                Data = this.Data,
                 Quantity = newQuantity,
                 Lv = this.Lv,
+                Data = this.Data,
                 RelicAbilities = this.RelicAbilities
             };
         public InventoryItem ChangeLevel(int newLv)
             => new InventoryItem {
-                Data = this.Data,
                 Quantity = this.Quantity,
                 Lv = newLv,
+                Data = this.Data,
+                RelicAbilities = this.RelicAbilities
+            };
+        public InventoryItem ChangeItemData(ItemSO newItemDt)
+            => new InventoryItem {
+                Quantity = this.Quantity,
+                Lv = this.Lv,
+                Data = newItemDt,
                 RelicAbilities = this.RelicAbilities
             };
         public static InventoryItem GetEmptyItem()
             => new InventoryItem {
-                Data = null,
                 Quantity = 0,
                 Lv = 1,
+                Data = null,
                 RelicAbilities = null
             };
     }

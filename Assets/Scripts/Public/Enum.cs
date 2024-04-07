@@ -3,25 +3,24 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-public enum SKT_KEY {
-    SKT_EXTRA_DMG, 
-    SKT_EXTRA_SPD,
-    SKT_EXTRA_RANGE, 
-    SKT_EXTRA_CIRT, 
-    SKT_EXTRA_CIRTDMG
-}
-public enum SKT_UT {
-    EXTRA_MONEY, EXTRA_LIFE, TEN_KILL_1MONEY, EXTRA_EXP, TEN_KILL_2MONEY
-}
-public enum SKT_WR {
-    EXTRA_DMG_A, EXTRA_RANGE, EXTRA_SPD, EXTRA_RAGE_TIME, EXTRA_DMG_B
-}
-public enum SKT_AC {
-    EXTRA_DMG_A, CIRT_DMG_PER_A, CRIT_PER, CIRT_DMG_PER_B, EXTRA_DMG_B
-}
-public enum SKT_MG {
-    EXTRA_DMG_A, EXTRA_RANGE, CRIT_PER, EXPLOSION_DMG_PER, EXTRA_DMG_B
-}
+
+#region SKILL TREE
+    public enum SKT_KEY {
+        SKT_EXTRA_DMG, SKT_EXTRA_SPD, SKT_EXTRA_RANGE, SKT_EXTRA_CIRT, SKT_EXTRA_CIRTDMG
+    }
+    public enum SKT_UT {
+        EXTRA_MONEY, EXTRA_LIFE, TEN_KILL_1MONEY, EXTRA_EXP, TEN_KILL_2MONEY
+    }
+    public enum SKT_WR {
+        EXTRA_DMG_A, EXTRA_RANGE, EXTRA_SPD, EXTRA_RAGE_TIME, EXTRA_DMG_B
+    }
+    public enum SKT_AC {
+        EXTRA_DMG_A, CIRT_DMG_PER_A, CRIT_PER, CIRT_DMG_PER_B, EXTRA_DMG_B
+    }
+    public enum SKT_MG {
+        EXTRA_DMG_A, EXTRA_RANGE, CRIT_PER, EXPLOSION_DMG_PER, EXTRA_DMG_B
+    }
+#endregion
 
 public enum ItemAbilityType {
 	Attack, Speed, Range, Critical, CriticalDamage, 

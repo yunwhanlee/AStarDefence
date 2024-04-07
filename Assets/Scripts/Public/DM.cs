@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using Inventory.Model;
+using Unity.VisualScripting;
 
 /// <summary>
 /// ステータス
@@ -103,6 +105,7 @@ public class DB {
     [field:SerializeField] public StageLockedDB[] StageLockedDBs {get; set;}
     [field:SerializeField] public MiningDB MiningDB {get; set;}
     [field:SerializeField] public SkillTreeDB SkillTreeDB {get; set;}
+    [field:SerializeField] public List<InventoryItem> InvItemDBs {get; set;}
 }
 
 /// <summary>
@@ -177,6 +180,17 @@ public class DM : MonoBehaviour {
         TimeSpan timestamp = DateTime.UtcNow - new DateTime(1970,1,1,0,0,0);
         // 시간 차이를 정수형으로 변환하여 PlayerPrefs에 저장합니다.
         PlayerPrefs.SetInt(PASSEDTIME_KEY, (int)timestamp.TotalSeconds);
+
+        Debug.Log($"HM._.ivCtrl.InventoryData.ItemList.Count= {HM._.ivCtrl.InventoryData.ItemList.Count}");
+        //* 空に初期化してから、Inventoryデータを上書き
+        DB.InvItemDBs = new List<InventoryItem>();
+        for(int i = 0; i < HM._.ivCtrl.InventoryData.ItemList.Count; i++) {
+            var invItem = HM._.ivCtrl.InventoryData.ItemList[i];
+            DB.InvItemDBs.Add(InventoryItem.GetEmptyItem());
+            DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeQuantity(invItem.Quantity);
+            DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeLevel(invItem.Lv);
+            DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeItemData(invItem.Data);
+        }
 
         //* Serialize To Json
         PlayerPrefs.SetString(DB_KEY, JsonUtility.ToJson(DB, true)); 

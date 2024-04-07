@@ -27639,19 +27639,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InvUI: {fileID: 0}
   InventoryData: {fileID: 11400000, guid: 90871af7bfe5be24ebfea1d53585ac25, type: 2}
-  InitItems:
-  - Quantity: 67
-    Lv: 1
-    Data: {fileID: 11400000, guid: bda94e90bf415c64cb7faf0b2d7617d1, type: 2}
-    RelicAbilities: []
-  - Quantity: 67
-    Lv: 1
-    Data: {fileID: 11400000, guid: 0c0412309a40a004ebe618e5818149c8, type: 2}
-    RelicAbilities: []
-  - Quantity: 10
-    Lv: 1
-    Data: {fileID: 11400000, guid: ebce106603eb2a247bc80dad8eb59a8f, type: 2}
-    RelicAbilities: []
 --- !u!1 &1055846979
 GameObject:
   m_ObjectHideFlags: 0
@@ -27794,6 +27781,19 @@ MonoBehaviour:
       <IsLockArcherSTs>k__BackingField: 0000000000
       <IsLockMagicianSTs>k__BackingField: 0000000000
       <IsLockUtilitySTs>k__BackingField: 0000000000
+    <InventryItemDBs>k__BackingField:
+    - Quantity: 1
+      Lv: 4
+      Data: {fileID: 11400000, guid: 59fb2aee1376eed4e8d611587e7cac1a, type: 2}
+      RelicAbilities: []
+    - Quantity: 15
+      Lv: 0
+      Data: {fileID: 11400000, guid: d2febf22bacf6944895cd61c61cd1d56, type: 2}
+      RelicAbilities: []
+    - Quantity: 1
+      Lv: 4
+      Data: {fileID: 11400000, guid: b64be0671fa00644abb9bc470cc99512, type: 2}
+      RelicAbilities: []
   <PassedSec>k__BackingField: 0
   <SelectedStage>k__BackingField: 0
   <SelectedDiff>k__BackingField: 0

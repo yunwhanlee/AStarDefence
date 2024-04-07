@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ee7d7a0ddf26d84d84647fede468360, type: 3}
+  m_Name: Relic 4
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <MaxStackSize>k__BackingField: 99
+  <Type>k__BackingField: 3
+  <Grade>k__BackingField: 5
+  <Name>k__BackingField: "\uB9C8\uC655\uC758\uC794"
+  <Description>k__BackingField: 
+  <ItemImg>k__BackingField: {fileID: -87247803, guid: e433c8bb469a03548ae052468f941483, type: 3}
+  <Abilities>k__BackingField: []
