@@ -16,6 +16,9 @@ public class RewardItem {
         RelicAbilities = relicAblities;
     }
 
+    /// <summary>
+    /// インベントリへ表示されないアイテム 最新化
+    /// </summary>
     public void UpdateItemData(Etc.NoshowInvItem noShowInvItem, int quantity) {
         switch (noShowInvItem) {
             case (int)Etc.NoshowInvItem.Coin:
@@ -63,16 +66,17 @@ public class HomeRewardUIManager : MonoBehaviour {
 
             //* リワードリスト (最大８個)
             var rewardList = new List<RewardItem> {
-                new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 1000),
-                new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], 500),
-                new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 500),
-                new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin0]),
-                new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin1]),
-                new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin2]),
-                new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin3]),
-                new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin4]),
-                new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin5]),
-                new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin6]),
+                //* インベントリー以外で扱うアイテム
+                // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 1000),
+                // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], 500),
+                // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 500),
+                // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin0]),
+                // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin1]),
+                // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin2]),
+                // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin3]),
+                // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin4]),
+                // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin5]),
+                // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin6]),
                 // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore0]),
                 // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore1]),
                 // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore2]),
@@ -84,19 +88,24 @@ public class HomeRewardUIManager : MonoBehaviour {
                 // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore8]),
                 // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.SkillPoint]),
 
-                // new (EtcConsumableDatas[0]),
-                // new (EtcConsumableDatas[1]),
-                // new (EtcConsumableDatas[2]),
-                // new (EtcConsumableDatas[3]),
-                // new (EtcConsumableDatas[4]),
-                // new (EtcConsumableDatas[5]),
-                // new (EtcConsumableDatas[6]),
-                // new (EtcConsumableDatas[7]),
-                // new (EtcConsumableDatas[8]),
-                // new (EtcConsumableDatas[9]),
-                // new (EtcConsumableDatas[10]),
-                // new (EtcConsumableDatas[11]),
-                // new (EtcConsumableDatas[12]),
+                //* インベントリーへ表示するアイテム
+                new (EtcConsumableDatas[(int)Etc.ConsumableItem.BizzardScroll]),        // Info(Ingame)
+                new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon]),          // Chest Open
+                new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestDiamond]),         // Chest Open
+                new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment]),       // Chest Open
+                new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGoldKey]),         // Chest Open
+                new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium]),         // Chest Open
+                new (EtcConsumableDatas[(int)Etc.ConsumableItem.Clover]),               // Active
+                new (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover]),           // Active
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldKey]),           // Move Goblin Dungeon PopUp
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.LightningScroll]),   // Info(Ingame)
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone]),        // Reset Relic Abilities
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.Present0]),          // Reward Open
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.Present1]),          // Reward Open
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.Present2]),          // Reward Open
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone]),         // Equipment Secret Ability Active
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack0]),        // Info(Ingame)
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack1]),        // Info(Ingame)
 
                 // new (weaponDatas[2]),
                 // new (shoesDatas[1]),

@@ -14,10 +14,12 @@ namespace Inventory.UI {
         [field:SerializeField] private bool IsUpgradeValToogle {get; set;}
 
         [field:Header("CONSUMABLE POPUP")]
+        private Action OnClickConsumPopUpConfirmBtn = () => {};
         [field:SerializeField] private Image EtcItemBg {get; set;}
         [field:SerializeField] private TMP_Text EtcNameTxt {get; set;}
         [field:SerializeField] private TMP_Text EtcQuantityTxt {get; set;}
         [field:SerializeField] private TMP_Text EtcDescription {get; set;}
+        [field:SerializeField] private TMP_Text EtcConfirmBtnTxt {get; set;}
 
         [field:Header("EQUIPMENT POPUP")]
         [field:SerializeField] private Image TopBg {get; set;}
@@ -47,6 +49,11 @@ namespace Inventory.UI {
         }
 
 #region EVENT
+        public void OnClickConsumableItemConfirm() {
+            Debug.Log($"OnClickConsumableItemConfirm():: CurInvItem.Name= {HM._.ivm.CurInvItem.Data.Name}");
+            OnClickConsumPopUpConfirmBtn?.Invoke();
+        }
+
         public void OnClickEquipBtn() {
             
         }
@@ -98,12 +105,40 @@ namespace Inventory.UI {
             UpgradeSuccessPerTxt.text = "";
         }
 
+        private void ActiveClover() {
+            HM._.hui.CloverActiveIcon.SetActive(DM._.DB.IsCloverActive);
+            EtcConfirmBtnTxt.text = DM._.DB.IsCloverActive? "활성화" : "비활성화";
+            EtcConfirmBtnTxt.color = DM._.DB.IsCloverActive? Color.green: Color.gray;
+        }
+        private void ActiveGoldClover() {
+            HM._.hui.GoldCloverActiveIcon.SetActive(DM._.DB.IsGoldCloverActive);
+            EtcConfirmBtnTxt.text = DM._.DB.IsGoldCloverActive? "활성화" : "비활성화";
+            EtcConfirmBtnTxt.color = DM._.DB.IsGoldCloverActive? Color.yellow: Color.gray;
+        }
+
         public void SetDescription(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities) {
             Debug.Log($"SetDescription():: item= {item.name}, val= {quantity}");
             int lvIdx = lv - 1;
 
             //* その他 アイテム
             if(item.Type == Enum.ItemType.Etc) {
+                EtcConfirmBtnTxt.color = Color.white; //* 色 初期化
+                //* Active Type
+                if(item.name == $"{Etc.ConsumableItem.Clover}") {
+                    ActiveClover();
+                    OnClickConsumPopUpConfirmBtn = () => {
+                        DM._.DB.IsCloverActive = !DM._.DB.IsCloverActive;
+                        ActiveClover();
+                    };
+                }
+                if(item.name == $"{Etc.ConsumableItem.GoldClover}") {
+                    ActiveGoldClover();
+                    OnClickConsumPopUpConfirmBtn = () => {
+                        DM._.DB.IsGoldCloverActive = !DM._.DB.IsGoldCloverActive;
+                        ActiveGoldClover();
+                    };
+                }
+
                 EtcItemBg.gameObject.SetActive(true);
                 EtcItemBg.sprite = item.ItemImg;
                 EtcNameTxt.text = item.Name;

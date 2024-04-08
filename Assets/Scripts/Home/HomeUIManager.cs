@@ -20,6 +20,9 @@ public class HomeUIManager : MonoBehaviour {
     [field: SerializeField] public TextMeshProUGUI LvTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI ExpTxt {get; set;}
 
+    [field: SerializeField] public GameObject CloverActiveIcon {get; set;}
+    [field: SerializeField] public GameObject GoldCloverActiveIcon {get; set;}
+
     public Button PlayBtn {get; set;}
 
     [Header("ERROR MSG POPUP")]
@@ -48,6 +51,10 @@ public class HomeUIManager : MonoBehaviour {
         TopDiamondTxt.text = $"{HM._.Diamond}";
         LvTxt.text = $"{HM._.Lv}";
         ExpTxt.text = $"{HM._.Exp}";
+
+        //* クロバーEXPアイテム活性化 表示
+        CloverActiveIcon.SetActive(DM._.DB.IsCloverActive);
+        GoldCloverActiveIcon.SetActive(DM._.DB.IsGoldCloverActive);
     }
 
 #region EVENT

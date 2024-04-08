@@ -106,6 +106,8 @@ public class DB {
     [field:SerializeField] public MiningDB MiningDB {get; set;}
     [field:SerializeField] public SkillTreeDB SkillTreeDB {get; set;}
     [field:SerializeField] public List<InventoryItem> InvItemDBs {get; set;}
+    [field:SerializeField] public bool IsCloverActive {get; set;}
+    [field:SerializeField] public bool IsGoldCloverActive {get; set;}
 }
 
 /// <summary>
@@ -268,6 +270,9 @@ public class DM : MonoBehaviour {
         }
 
         DB.SkillTreeDB = new SkillTreeDB();
+
+        DB.IsCloverActive = false;
+        DB.IsGoldCloverActive = false;
     }
 #endregion
 }
