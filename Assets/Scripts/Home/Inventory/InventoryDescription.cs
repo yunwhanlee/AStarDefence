@@ -119,22 +119,33 @@ namespace Inventory.UI {
 
             //* その他 アイテム
             if(item.Type == Enum.ItemType.Etc) {
-                EtcConfirmBtnTxt.color = Color.white; //* 色 初期化
+                //* ボタンのテキスト色 初期化
+                EtcConfirmBtnTxt.color = Color.white; 
                 
-                //* Active Type
+                //* Active (Gold) Clover EXP Bonus
                 if(item.name == $"{Etc.ConsumableItem.Clover}") {
                     ActiveCloverItem(hui.CloverActiveIcon, db.IsCloverActive, Color.green);
+                    //* Actionボタン 購読
                     OnClickConsumPopUpConfirmBtn = () => {
                         db.IsCloverActive = !db.IsCloverActive;
                         ActiveCloverItem(hui.CloverActiveIcon, db.IsCloverActive, Color.green);
                     };
                 }
-                if(item.name == $"{Etc.ConsumableItem.GoldClover}") {
+                else if(item.name == $"{Etc.ConsumableItem.GoldClover}") {
                     ActiveCloverItem(hui.GoldCloverActiveIcon, db.IsGoldCloverActive, Color.yellow);
+                    //* Actionボタン 購読
                     OnClickConsumPopUpConfirmBtn = () => {
                         db.IsGoldCloverActive = !db.IsGoldCloverActive;
                         ActiveCloverItem(hui.GoldCloverActiveIcon, db.IsGoldCloverActive, Color.yellow);
                     };
+                }
+                //* Ingameで使えるアイテムの情報 表示
+                else if(item.name == $"{Etc.ConsumableItem.BizzardScroll}"
+                && item.name == $"{Etc.ConsumableItem.LightningScroll}"
+                && item.name == $"{Etc.ConsumableItem.SteamPack0}"
+                && item.name == $"{Etc.ConsumableItem.SteamPack1}") {
+                    Debug.Log("Ingame Info Item.");
+                    EtcConfirmBtnTxt.text = "확인";
                 }
 
                 EtcItemBg.gameObject.SetActive(true);

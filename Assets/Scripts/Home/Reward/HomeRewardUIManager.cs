@@ -95,8 +95,8 @@ public class HomeRewardUIManager : MonoBehaviour {
                 new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment]),       // Chest Open
                 new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGoldKey]),         // Chest Open
                 new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium]),         // Chest Open
-                new (EtcConsumableDatas[(int)Etc.ConsumableItem.Clover]),               // Active
-                new (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover]),           // Active
+                new (EtcConsumableDatas[(int)Etc.ConsumableItem.Clover]),               // ✓ Active
+                new (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover]),           // ✓ Active
                 // new (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldKey]),           // Move Goblin Dungeon PopUp
                 // new (EtcConsumableDatas[(int)Etc.ConsumableItem.LightningScroll]),   // Info(Ingame)
                 // new (EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone]),        // Reset Relic Abilities
