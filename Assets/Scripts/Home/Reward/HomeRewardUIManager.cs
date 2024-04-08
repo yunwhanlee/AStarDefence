@@ -19,7 +19,8 @@ public class RewardItem {
 
 public class HomeRewardUIManager : MonoBehaviour {
     [Header("ItemSO LIST")]
-    [SerializeField] ItemSO[] EtcDatas;
+    [SerializeField] ItemSO[] EtcConsumableDatas;
+    [SerializeField] ItemSO[] EtcNoShowInvDatas;
     [SerializeField] ItemSO[] weaponDatas;
     [SerializeField] ItemSO[] shoesDatas;
     [SerializeField] ItemSO[] ringDatas;
@@ -33,9 +34,13 @@ public class HomeRewardUIManager : MonoBehaviour {
 
             //* リワードリスト
             var rewardList = new List<RewardItem> {
-                new (EtcDatas[0]),
-                new (weaponDatas[2]),
-                new (shoesDatas[1]),
+                new (EtcConsumableDatas[0]),
+                new (EtcConsumableDatas[2]),
+                new (EtcConsumableDatas[7]),
+                new (EtcNoShowInvDatas[1]),
+                new (EtcNoShowInvDatas[6]),
+                // new (weaponDatas[2]),
+                // new (shoesDatas[1]),
             };
             
             HM._.rwlm.ShowReward(rewardList);

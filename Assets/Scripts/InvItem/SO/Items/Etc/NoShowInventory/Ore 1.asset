@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ee7d7a0ddf26d84d84647fede468360, type: 3}
+  m_Name: Ore 1
+  m_EditorClassIdentifier: 
+  <IsNoshowInventory>k__BackingField: 1
+  <MaxStackSize>k__BackingField: 100
+  <Type>k__BackingField: 4
+  <Grade>k__BackingField: -1
+  <Name>k__BackingField: "\uB3CC\uB369\uC774"
+  <Description>k__BackingField: 
+  <ItemImg>k__BackingField: {fileID: 2027891724, guid: 3098130d534545947b4d05f65c04033b, type: 3}
+  <Abilities>k__BackingField: []

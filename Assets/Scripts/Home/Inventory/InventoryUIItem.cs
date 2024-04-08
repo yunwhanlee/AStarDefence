@@ -52,7 +52,8 @@ namespace Inventory.UI
         public void SetData(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv, AbilityType[] relicAbilities = null) {
             Debug.Log("SetData()::");
             Type = type;
-
+            
+            //* その他アイテム
             if(type == Enum.ItemType.Etc) {
                 TypeBgImg.enabled = false;
                 TypeIconImg.enabled = false;
@@ -60,13 +61,16 @@ namespace Inventory.UI
                 BgImg.color = HM._.ivm.CommonSlotClr;
                 LvTxt.text = "";
             }
+            //* 装置アイテム
             else {
                 TypeBgImg.enabled = true;
                 TypeBgImg.color = HM._.ivm.GradeClrs[(int)grade];
                 TypeIconImg.sprite = HM._.ivm.TypeSprs[(int)type];
                 BgImg.sprite = HM._.ivm.GradeBgSprs[(int)grade];
                 BgImg.color = Color.white;
-                LvTxt.text = $"Lv.{lv}";
+                string lvStr = (type == Enum.ItemType.Relic && lv >= Config.RELIC_UPGRADE_MAX)
+                    || (type != Enum.ItemType.Relic && lv >= Config.EQUIP_UPGRADE_MAX) ? "MAX" : lv.ToString();
+                LvTxt.text = $"Lv.{lvStr}";
             }
             ItemImg.gameObject.SetActive(true);
             ItemImg.sprite = spr;

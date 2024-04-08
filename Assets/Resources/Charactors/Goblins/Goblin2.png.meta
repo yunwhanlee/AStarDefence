@@ -782,13 +782,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Block_0
+      name: g
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
-        width: 64
-        height: 64
+        x: 22
+        y: 70
+        width: 20
+        height: 20
       alignment: 9
       pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -981,7 +981,6 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Block_0: 2537882373423050008
       Block_1: 2189487477073400709
       Climb_0: 7534934852089752246
       Climb_1: 6714499952825786704
@@ -1022,6 +1021,7 @@ TextureImporter:
       Slash_1: -3696019449777573715
       Slash_2: 6099374761294450104
       Slash_3: -1817706105750108133
+      g: 2537882373423050008
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

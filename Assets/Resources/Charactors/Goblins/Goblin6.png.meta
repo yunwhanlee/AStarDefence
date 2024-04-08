@@ -785,10 +785,10 @@ TextureImporter:
       name: Block_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
-        width: 64
-        height: 64
+        x: 22
+        y: 70
+        width: 20
+        height: 20
       alignment: 9
       pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}

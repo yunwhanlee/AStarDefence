@@ -19,7 +19,7 @@ namespace Inventory.Model {
     }
     [CreateAssetMenu]
     public class ItemSO : ScriptableObject {
-        [field: SerializeField] public bool IsStackable { get; set; }
+        [field: SerializeField] public bool IsNoshowInventory { get; set; }
         public int ID => GetInstanceID();
         [field: SerializeField] public int MaxStackSize {get; set;} = 1;
         [field: SerializeField] public Enum.ItemType Type {get; private set;}
