@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ee7d7a0ddf26d84d84647fede468360, type: 3}
-  m_Name: Goblin 2
+  m_Name: SteamPack0
   m_EditorClassIdentifier: 
-  <IsNoshowInventory>k__BackingField: 1
+  <IsNoshowInventory>k__BackingField: 0
   <MaxStackSize>k__BackingField: 100
   <Type>k__BackingField: 4
-  <Grade>k__BackingField: 2
-  <Name>k__BackingField: "\uC740\uACE1\uAD2D\uC774\uACE0\uBE14\uB9B0"
-  <Description>k__BackingField: 
-  <ItemImg>k__BackingField: {fileID: 2537882373423050008, guid: 26d0cdfb728c91c44a26130b6f8cbfdc, type: 3}
+  <Grade>k__BackingField: 0
+  <Name>k__BackingField: "\uC804\uD22C\uC74C\uB8CC\uC218"
+  <Description>k__BackingField: "4\uBD84\uB3D9\uC548 \uACF5\uACA9\uB825 30%, \uACF5\uC18D10%
+    \uC99D\uAC00."
+  <ItemImg>k__BackingField: {fileID: 790996300, guid: e433c8bb469a03548ae052468f941483, type: 3}
   <Abilities>k__BackingField: []

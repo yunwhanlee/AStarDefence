@@ -31,11 +31,17 @@ public class HM : MonoBehaviour {
 
     [field: SerializeField] public int Lv {
         get => DM._.DB.StatusDB.Lv;
-        set => DM._.DB.StatusDB.Lv = value;
+        set {
+            DM._.DB.StatusDB.Lv = value;
+            hui.LvTxt.text = $"{value}";
+        } 
     }
     [field: SerializeField] public int Exp {
         get => DM._.DB.StatusDB.Exp;
-        set => DM._.DB.StatusDB.Exp = value;
+        set {
+            DM._.DB.StatusDB.Exp = value;
+            hui.ExpTxt.text = $"{value}";
+        } 
     }
     [field: SerializeField] public int GoblinKey {
         get => DM._.DB.StatusDB.GoblinKey;
@@ -43,15 +49,24 @@ public class HM : MonoBehaviour {
     }
     [field: SerializeField] public int Coin {
         get => DM._.DB.StatusDB.Coin;
-        set => DM._.DB.StatusDB.Coin = value;
+        set {
+            DM._.DB.StatusDB.Coin = value;
+            hui.TopCoinTxt.text = $"{value}";
+        } 
     }
     [field: SerializeField] public int Diamond {
         get => DM._.DB.StatusDB.Diamond;
-        set => DM._.DB.StatusDB.Diamond = value;
+        set {
+            DM._.DB.StatusDB.Diamond = value;
+            hui.TopDiamondTxt.text = $"{value}";
+        } 
     }
     [field: SerializeField] public int SkillPoint {
         get => DM._.DB.StatusDB.SkillPoint;
-        set => DM._.DB.StatusDB.SkillPoint = value;
+        set {
+            DM._.DB.StatusDB.SkillPoint = value;
+            stm.MySkillPointTxt.text = $"{value}";
+        } 
     }
 
     void Awake() {

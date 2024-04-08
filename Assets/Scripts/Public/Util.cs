@@ -95,4 +95,10 @@ public class Util : MonoBehaviour {
             starStrArr[i % 5] = $"<sprite name={(i < 5? "YellowStar" : "CristalStar")}>";
         return string.Join("", starStrArr);
     }
+
+    public static Etc.NoshowInvItem FindEnumVal(string name) {
+        Etc.NoshowInvItem[] enumValArr = (Etc.NoshowInvItem[])System.Enum.GetValues(typeof(Etc.NoshowInvItem));
+        Etc.NoshowInvItem enumVal = System.Array.Find(enumValArr, @enum => $"{@enum}" == name);
+        return enumVal;
+    }
 }

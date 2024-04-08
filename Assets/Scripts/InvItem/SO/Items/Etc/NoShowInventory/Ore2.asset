@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ee7d7a0ddf26d84d84647fede468360, type: 3}
-  m_Name: Ore 4
+  m_Name: Ore2
   m_EditorClassIdentifier: 
   <IsNoshowInventory>k__BackingField: 1
   <MaxStackSize>k__BackingField: 100
   <Type>k__BackingField: 4
-  <Grade>k__BackingField: 2
-  <Name>k__BackingField: "\uAE08\uAD11\uC11D"
+  <Grade>k__BackingField: 1
+  <Name>k__BackingField: "\uAD6C\uB9AC\uAD11\uC11D"
   <Description>k__BackingField: 
-  <ItemImg>k__BackingField: {fileID: 1207307646, guid: 3098130d534545947b4d05f65c04033b, type: 3}
+  <ItemImg>k__BackingField: {fileID: 1325396544, guid: 3098130d534545947b4d05f65c04033b, type: 3}
   <Abilities>k__BackingField: []

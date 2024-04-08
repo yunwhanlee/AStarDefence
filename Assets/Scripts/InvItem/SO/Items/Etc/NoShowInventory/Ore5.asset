@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ee7d7a0ddf26d84d84647fede468360, type: 3}
-  m_Name: SteamPack 1
+  m_Name: Ore5
   m_EditorClassIdentifier: 
-  <IsNoshowInventory>k__BackingField: 0
+  <IsNoshowInventory>k__BackingField: 1
   <MaxStackSize>k__BackingField: 100
   <Type>k__BackingField: 4
-  <Grade>k__BackingField: 5
-  <Name>k__BackingField: "\uC804\uD22C\uC790\uADF9\uC81C"
-  <Description>k__BackingField: "4\uBD84\uB3D9\uC548 \uACF5\uACA9\uB825 50%, \uACF5\uC18D
-    15% \uC99D\uAC00."
-  <ItemImg>k__BackingField: {fileID: -1274918361, guid: e433c8bb469a03548ae052468f941483, type: 3}
+  <Grade>k__BackingField: 3
+  <Name>k__BackingField: "\uC0AC\uD30C\uC774\uC5B4\uAD11\uC11D"
+  <Description>k__BackingField: 
+  <ItemImg>k__BackingField: {fileID: 2023439796, guid: 3098130d534545947b4d05f65c04033b, type: 3}
   <Abilities>k__BackingField: []

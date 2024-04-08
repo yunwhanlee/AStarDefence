@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ee7d7a0ddf26d84d84647fede468360, type: 3}
-  m_Name: Ore 1
+  m_Name: Goblin4
   m_EditorClassIdentifier: 
   <IsNoshowInventory>k__BackingField: 1
   <MaxStackSize>k__BackingField: 100
   <Type>k__BackingField: 4
-  <Grade>k__BackingField: 0
-  <Name>k__BackingField: "\uB3CC\uB369\uC774"
+  <Grade>k__BackingField: 4
+  <Name>k__BackingField: "\uC740\uBE5B\uACE0\uBE14\uB9B0"
   <Description>k__BackingField: 
-  <ItemImg>k__BackingField: {fileID: 2027891724, guid: 3098130d534545947b4d05f65c04033b, type: 3}
+  <ItemImg>k__BackingField: {fileID: 2537882373423050008, guid: ca2ea223550ce274fb12561c4733e0f0, type: 3}
   <Abilities>k__BackingField: []
