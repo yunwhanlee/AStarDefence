@@ -105,37 +105,35 @@ namespace Inventory.UI {
             UpgradeSuccessPerTxt.text = "";
         }
 
-        private void ActiveClover() {
-            HM._.hui.CloverActiveIcon.SetActive(DM._.DB.IsCloverActive);
-            EtcConfirmBtnTxt.text = DM._.DB.IsCloverActive? "활성화" : "비활성화";
-            EtcConfirmBtnTxt.color = DM._.DB.IsCloverActive? Color.green: Color.gray;
-        }
-        private void ActiveGoldClover() {
-            HM._.hui.GoldCloverActiveIcon.SetActive(DM._.DB.IsGoldCloverActive);
-            EtcConfirmBtnTxt.text = DM._.DB.IsGoldCloverActive? "활성화" : "비활성화";
-            EtcConfirmBtnTxt.color = DM._.DB.IsGoldCloverActive? Color.yellow: Color.gray;
+        private void ActiveCloverItem(GameObject icon, bool isActive, Color ActiveColor) {
+            icon.SetActive(isActive);
+            EtcConfirmBtnTxt.text = isActive? "활성화" : "비활성화";
+            EtcConfirmBtnTxt.color = isActive? ActiveColor: Color.gray;
         }
 
         public void SetDescription(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities) {
             Debug.Log($"SetDescription():: item= {item.name}, val= {quantity}");
+            var hui = HM._.hui;
+            var db = DM._.DB;
             int lvIdx = lv - 1;
 
             //* その他 アイテム
             if(item.Type == Enum.ItemType.Etc) {
                 EtcConfirmBtnTxt.color = Color.white; //* 色 初期化
+                
                 //* Active Type
                 if(item.name == $"{Etc.ConsumableItem.Clover}") {
-                    ActiveClover();
+                    ActiveCloverItem(hui.CloverActiveIcon, db.IsCloverActive, Color.green);
                     OnClickConsumPopUpConfirmBtn = () => {
-                        DM._.DB.IsCloverActive = !DM._.DB.IsCloverActive;
-                        ActiveClover();
+                        db.IsCloverActive = !db.IsCloverActive;
+                        ActiveCloverItem(hui.CloverActiveIcon, db.IsCloverActive, Color.green);
                     };
                 }
                 if(item.name == $"{Etc.ConsumableItem.GoldClover}") {
-                    ActiveGoldClover();
+                    ActiveCloverItem(hui.GoldCloverActiveIcon, db.IsGoldCloverActive, Color.yellow);
                     OnClickConsumPopUpConfirmBtn = () => {
-                        DM._.DB.IsGoldCloverActive = !DM._.DB.IsGoldCloverActive;
-                        ActiveGoldClover();
+                        db.IsGoldCloverActive = !db.IsGoldCloverActive;
+                        ActiveCloverItem(hui.GoldCloverActiveIcon, db.IsGoldCloverActive, Color.yellow);
                     };
                 }
 
