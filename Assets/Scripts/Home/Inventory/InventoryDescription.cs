@@ -18,6 +18,7 @@ namespace Inventory.UI {
 
         [field:Header("EQUIPMENT POPUP")]
         [field:SerializeField] private Image TopBg {get; set;}
+        [field:SerializeField] private Image GlowBg {get; set;}
         [field:SerializeField] private Image ItemBg {get; set;}
         [field:SerializeField] private Image ItemImg {get; set;}
         [field:SerializeField] private Image TypeImg {get; set;}
@@ -108,7 +109,8 @@ namespace Inventory.UI {
             else {
                 ItemImg.gameObject.SetActive(true);
                 //* スタイル
-                TopBg.color = HM._.ivm.GradeClrs[(int)item.Grade];
+                TopBg.color = HM._.ivm.TopBgClrs[(int)item.Grade];
+                GlowBg.color = HM._.ivm.GlowBgClrs[(int)item.Grade];
                 ItemBg.sprite = HM._.ivm.GradeBgSprs[(int)item.Grade];
                 ItemImg.sprite = item.ItemImg;
                 TypeImg.sprite = HM._.ivm.TypeSprs[(int)item.Type];

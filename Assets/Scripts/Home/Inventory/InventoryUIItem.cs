@@ -52,14 +52,16 @@ namespace Inventory.UI
 
             if(grade == Enum.Grade.None) {
                 TypeBgImg.enabled = false;
-                TypeIconImg.sprite = HM._.ivm.NoneSpr;
+                TypeIconImg.enabled = false;
                 BgImg.sprite = HM._.ivm.NoneBgSpr;
+                BgImg.color = HM._.ivm.BrightGrayClr;
             }
             else {
                 TypeBgImg.enabled = true;
                 TypeBgImg.color = HM._.ivm.GradeClrs[(int)grade];
                 TypeIconImg.sprite = HM._.ivm.TypeSprs[(int)type];
                 BgImg.sprite = HM._.ivm.GradeBgSprs[(int)grade];
+                BgImg.color = Color.white;
             }
             ItemImg.gameObject.SetActive(true);
             ItemImg.sprite = spr;

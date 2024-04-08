@@ -7476,6 +7476,7 @@ MonoBehaviour:
   <EtcQuantityTxt>k__BackingField: {fileID: 2815886930433665312}
   <EtcDescription>k__BackingField: {fileID: 2471644426495231823}
   <TopBg>k__BackingField: {fileID: 628638347814772243}
+  <GlowBg>k__BackingField: {fileID: 628638349242953163}
   <ItemBg>k__BackingField: {fileID: 628638347886277856}
   <ItemImg>k__BackingField: {fileID: 628638348362843235}
   <TypeImg>k__BackingField: {fileID: 628638347468036575}
@@ -18697,8 +18698,9 @@ MonoBehaviour:
     Quantity: 0
     Lv: 0
     Data: {fileID: 0}
-    RelicAbilities: []
+    RelicAbilities: 
   NoneSpr: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  BrightGrayClr: {r: 0.30588236, g: 0.30588236, b: 0.5294118, a: 1}
   NoneBgSpr: {fileID: 21300000, guid: 81b7d5aee59e5420b9baa91a05eb781f, type: 3}
   TypeSprs:
   - {fileID: 21300000, guid: 97aeaf017389e4efdb679f7db8867011, type: 3}
@@ -18713,6 +18715,20 @@ MonoBehaviour:
   - {r: 0.9960785, g: 0.8705883, b: 0, a: 1}
   - {r: 0.9960785, g: 0.19215688, b: 0.3019608, a: 1}
   - {r: 0.9960785, g: 0.47450984, b: 0.9686275, a: 1}
+  TopBgClrs:
+  - {r: 0.22745098, g: 0.29411766, b: 0.3529412, a: 1}
+  - {r: 0.09803922, g: 0.41960785, b: 0.34117648, a: 1}
+  - {r: 0.3019608, g: 0.3372549, b: 0.8745098, a: 1}
+  - {r: 0.5176471, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0.6901961, b: 0.2, a: 1}
+  - {r: 0.6, g: 0.08627451, b: 0.14509805, a: 1}
+  GlowBgClrs:
+  - {r: 0.34901962, g: 0.47843137, b: 0.5529412, a: 1}
+  - {r: 0.13333334, g: 0.6, b: 0.39607844, a: 1}
+  - {r: 0.16862746, g: 0.61960787, b: 1, a: 1}
+  - {r: 0.6627451, g: 0.29411766, b: 1, a: 1}
+  - {r: 1, g: 0.84705883, b: 0.16470589, a: 1}
+  - {r: 0.9607843, g: 0.2, b: 0.29803923, a: 1}
   GradeBgSprs:
   - {fileID: 21300000, guid: 266ad80e258c14796995663321df1c2c, type: 3}
   - {fileID: 21300000, guid: aecd3f85f0c11473388fb73bc0b9b441, type: 3}
@@ -27429,16 +27445,16 @@ MonoBehaviour:
   RewardList:
   - <Data>k__BackingField: {fileID: 11400000, guid: d2febf22bacf6944895cd61c61cd1d56, type: 2}
     <Val>k__BackingField: 5
-    <Abilities>k__BackingField: []
+    <RelicAbilities>k__BackingField: 
   - <Data>k__BackingField: {fileID: 11400000, guid: b177800f7dfbb444481d89fa208f869e, type: 2}
     <Val>k__BackingField: 1
-    <Abilities>k__BackingField: []
+    <RelicAbilities>k__BackingField: 
   - <Data>k__BackingField: {fileID: 11400000, guid: c2355d0b0e71917439fe606ae7b8f8a4, type: 2}
     <Val>k__BackingField: 1
-    <Abilities>k__BackingField: []
+    <RelicAbilities>k__BackingField: 
   - <Data>k__BackingField: {fileID: 11400000, guid: df93dc0cec06e8841bc597d25d6e48d0, type: 2}
     <Val>k__BackingField: 1
-    <Abilities>k__BackingField: []
+    <RelicAbilities>k__BackingField: 
 --- !u!1 &1052295361
 GameObject:
   m_ObjectHideFlags: 0

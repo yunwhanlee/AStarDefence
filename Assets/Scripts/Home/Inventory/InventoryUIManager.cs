@@ -15,9 +15,12 @@ namespace Inventory.UI
 
         [field: Header("RESOURCE")]
         [field:SerializeField] public Sprite NoneSpr;
+        [field:SerializeField] public Color BrightGrayClr;
         [field:SerializeField] public Sprite NoneBgSpr;
         [field:SerializeField] public Sprite[] TypeSprs;
         [field:SerializeField] public Color[] GradeClrs;
+        [field:SerializeField] public Color[] TopBgClrs;
+        [field:SerializeField] public Color[] GlowBgClrs;
         [field:SerializeField] public Sprite[] GradeBgSprs;
 
         [field: Header("Elements")]

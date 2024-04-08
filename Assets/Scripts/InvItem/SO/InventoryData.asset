@@ -38,23 +38,23 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9df07a90b6f09a242ac4bfb5c9fc8e08, type: 2}
   ItemList:
   - Quantity: 1
-    Lv: 10
-    Data: {fileID: 11400000, guid: 59fb2aee1376eed4e8d611587e7cac1a, type: 2}
-    RelicAbilities: 
-  - Quantity: 1
-    Lv: 5
-    Data: {fileID: 11400000, guid: 3de65b40cbdf0a147861ad667a44d428, type: 2}
-    RelicAbilities: 0900000005000000
-  - Quantity: 1
     Lv: 1
     Data: {fileID: 11400000, guid: 9b97b966b0df890429e36e025e342321, type: 2}
-    RelicAbilities: 0b000000
-  - Quantity: 1
-    Lv: 5
-    Data: {fileID: 11400000, guid: 2552d2c04cf50fc44972de5e8da0dca0, type: 2}
-    RelicAbilities: 03000000090000000e0000000f000000
+    RelicAbilities: 07000000
   - Quantity: 1
     Lv: 1
-    Data: {fileID: 11400000, guid: 48832db3812f05145b434b8c47f85156, type: 2}
-    RelicAbilities: 0d0000000900000003000000
+    Data: {fileID: 11400000, guid: 0c0412309a40a004ebe618e5818149c8, type: 2}
+    RelicAbilities: 
+  - Quantity: 1
+    Lv: 1
+    Data: {fileID: 11400000, guid: 8a8359171e95e0146a2537f75433dfee, type: 2}
+    RelicAbilities: 
+  - Quantity: 1
+    Lv: 1
+    Data: {fileID: 11400000, guid: ebce106603eb2a247bc80dad8eb59a8f, type: 2}
+    RelicAbilities: 
+  - Quantity: 15
+    Lv: 0
+    Data: {fileID: 11400000, guid: d2febf22bacf6944895cd61c61cd1d56, type: 2}
+    RelicAbilities: 
   <Size>k__BackingField: 5
