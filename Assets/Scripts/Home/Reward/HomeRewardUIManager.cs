@@ -34,11 +34,13 @@ public class HomeRewardUIManager : MonoBehaviour {
 
             //* リワードリスト
             var rewardList = new List<RewardItem> {
-                new (EtcConsumableDatas[0]),
-                new (EtcConsumableDatas[2]),
-                new (EtcConsumableDatas[7]),
+                new (EtcNoShowInvDatas[0]),
                 new (EtcNoShowInvDatas[1]),
-                new (EtcNoShowInvDatas[6]),
+                new (EtcNoShowInvDatas[2]),
+                new (EtcNoShowInvDatas[3]),
+                new (EtcNoShowInvDatas[4]),
+                // new (EtcNoShowInvDatas[5]),
+                // new (EtcNoShowInvDatas[6]),
                 // new (weaponDatas[2]),
                 // new (shoesDatas[1]),
             };

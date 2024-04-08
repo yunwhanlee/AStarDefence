@@ -15,7 +15,7 @@ MonoBehaviour:
   <IsNoshowInventory>k__BackingField: 1
   <MaxStackSize>k__BackingField: 100
   <Type>k__BackingField: 4
-  <Grade>k__BackingField: -1
+  <Grade>k__BackingField: 6
   <Name>k__BackingField: "\uC545\uB9C8\uACE0\uBE14\uB9B0"
   <Description>k__BackingField: 
   <ItemImg>k__BackingField: {fileID: 2537882373423050008, guid: 9fdf4cc0530ea7447b7d0bf9c0edb147, type: 3}

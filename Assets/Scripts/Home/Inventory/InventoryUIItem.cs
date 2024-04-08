@@ -21,6 +21,7 @@ namespace Inventory.UI
         [field:SerializeField] public Image TypeBgImg {get; set;}
         [field:SerializeField] public Image TypeIconImg {get; set;}
         [field:SerializeField] public Image BgImg {get; set;}
+        [field:SerializeField] public Image LightImg {get; set;}
         [field:SerializeField] public Image ItemImg {get; set;}
         [field:SerializeField] public TMP_Text QuantityTxt {get; set;}
         [field:SerializeField] public TMP_Text LvTxt {get; set;}
@@ -48,9 +49,9 @@ namespace Inventory.UI
 
         /// <summary>
         /// アイテムのデータ設定
-        /// </summary>
+        /// /// </summary>
         public void SetData(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv, AbilityType[] relicAbilities = null) {
-            Debug.Log("SetData()::");
+            Debug.Log($"SetData({type}, {(int)grade})::");
             Type = type;
             
             //* その他アイテム
@@ -58,7 +59,8 @@ namespace Inventory.UI
                 TypeBgImg.enabled = false;
                 TypeIconImg.enabled = false;
                 BgImg.sprite = HM._.ivm.NoneBgSpr;
-                BgImg.color = HM._.ivm.CommonSlotClr;
+                LightImg.enabled = false;
+                BgImg.color = (grade == Enum.Grade.None)? Color.white : HM._.ivm.GradeClrs[ (int)grade];
                 LvTxt.text = "";
             }
             //* 装置アイテム
@@ -67,7 +69,8 @@ namespace Inventory.UI
                 TypeBgImg.color = HM._.ivm.GradeClrs[(int)grade];
                 TypeIconImg.sprite = HM._.ivm.TypeSprs[(int)type];
                 BgImg.sprite = HM._.ivm.GradeBgSprs[(int)grade];
-                BgImg.color = Color.white;
+                LightImg.enabled = true;
+
                 string lvStr = (type == Enum.ItemType.Relic && lv >= Config.RELIC_UPGRADE_MAX)
                     || (type != Enum.ItemType.Relic && lv >= Config.EQUIP_UPGRADE_MAX) ? "MAX" : lv.ToString();
                 LvTxt.text = $"Lv.{lvStr}";
