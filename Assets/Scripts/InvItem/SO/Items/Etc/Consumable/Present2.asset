@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ee7d7a0ddf26d84d84647fede468360, type: 3}
   m_Name: Present2
   m_EditorClassIdentifier: 
-  <IsStackable>k__BackingField: 1
+  <IsNoshowInventory>k__BackingField: 0
   <MaxStackSize>k__BackingField: 100
   <Type>k__BackingField: 4
-  <Grade>k__BackingField: -1
+  <Grade>k__BackingField: 5
   <Name>k__BackingField: "\uC120\uBB3C\uC0C1\uC790"
   <Description>k__BackingField: "\uB354 \uD2B9\uBCC4\uD55C \uC120\uBB3C\uC774 \uC788\uC744\uAC83
     \uAC19\uB2E4."

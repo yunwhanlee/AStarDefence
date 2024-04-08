@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ee7d7a0ddf26d84d84647fede468360, type: 3}
   m_Name: ChestPremium
   m_EditorClassIdentifier: 
-  <IsStackable>k__BackingField: 1
+  <IsNoshowInventory>k__BackingField: 0
   <MaxStackSize>k__BackingField: 100
   <Type>k__BackingField: 4
-  <Grade>k__BackingField: -1
+  <Grade>k__BackingField: 6
   <Name>k__BackingField: "\uD504\uB9AC\uBBF8\uC5C4\uC0C1\uC790"
   <Description>k__BackingField: "\uC5F4\uBA74 \uAD49\uC7A5\uD55C \uBCF4\uC0C1\uC744
     \uC5BB\uC744 \uC218 \uC788\uB2E4."

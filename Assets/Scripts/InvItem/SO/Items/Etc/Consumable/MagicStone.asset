@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ee7d7a0ddf26d84d84647fede468360, type: 3}
   m_Name: MagicStone
   m_EditorClassIdentifier: 
-  <IsStackable>k__BackingField: 1
+  <IsNoshowInventory>k__BackingField: 0
   <MaxStackSize>k__BackingField: 100
   <Type>k__BackingField: 4
-  <Grade>k__BackingField: -1
+  <Grade>k__BackingField: 2
   <Name>k__BackingField: "\uB9C8\uBC95\uC758\uB3CC"
   <Description>k__BackingField: "\uC720\uBB3C\uC5D0 \uC0AC\uC6A9\uD558\uC5EC, \uB2A5\uB825\uC744
     \uC7AC\uC124\uC815 \uD560 \uC218 \uC788\uB2E4."

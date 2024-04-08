@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ee7d7a0ddf26d84d84647fede468360, type: 3}
   m_Name: GoldKey
   m_EditorClassIdentifier: 
-  <IsStackable>k__BackingField: 1
+  <IsNoshowInventory>k__BackingField: 0
   <MaxStackSize>k__BackingField: 100
   <Type>k__BackingField: 4
-  <Grade>k__BackingField: -1
+  <Grade>k__BackingField: 4
   <Name>k__BackingField: "\uD669\uAE08\uC5F4\uC1E0"
   <Description>k__BackingField: "1\uAC1C\uB97C \uC18C\uBE44\uD558\uC5EC \uACE0\uBE14\uB9B0
     \uB358\uC83C\uC5D0 \uC785\uC7A5 \uAC00\uB2A5."
