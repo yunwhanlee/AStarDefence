@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Inventory.Model;
+using System;
 
 namespace Inventory.UI {
     public class InventoryDescription : MonoBehaviour {
@@ -65,7 +66,12 @@ namespace Inventory.UI {
             IsUpgradeValToogle = !IsUpgradeValToogle;
             UpgValToogleHandleTf.anchoredPosition = new Vector2(IsUpgradeValToogle? 50 : -50, UpgValToogleHandleTf.anchoredPosition.y);
             UpgValToogleHandleTxt.text = IsUpgradeValToogle? "ON" : "OFF";
-            SetDescription(ivm.CurInvItem.Data, ivm.CurInvItem.Quantity, ivm.CurInvItem.Lv);
+            SetDescription(
+                ivm.CurInvItem.Data, 
+                ivm.CurInvItem.Quantity, 
+                ivm.CurInvItem.Lv, 
+                ivm.CurInvItem.RelicAbilities
+            );
         }
         public void OnClickCloseBtn() {
             //TODO
@@ -88,7 +94,7 @@ namespace Inventory.UI {
             UpgradeSuccessPerTxt.text = "";
         }
 
-        public void SetDescription(ItemSO item, int quantity, int lv) {
+        public void SetDescription(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities) {
             Debug.Log($"SetDescription():: item= {item.name}, val= {quantity}");
             int lvIdx = lv - 1;
 
@@ -126,17 +132,38 @@ namespace Inventory.UI {
 
                 //* 能力木テスト 表示
                 string resMsg = "";
-                for(int i = 0; i < item.Abilities.Length; i++) {
-                    var ability = item.Abilities[i];
-                    string msg = Config.ABILITY_TYPE_DECS_MSGS[(int)ability.Type];
-                    float val = ability.Val + (lvIdx * ability.UpgradeVal);
-                    //* V{N} → 能力数値変換(実際のアイテムデータ)
-                    string abilityMsg = msg.Replace($"V", $"{val * 100}");
-                    //* 強化数値表示 トーグル(登録したアップグレードデータ)
-                    string upgradeMsg = (ability.UpgradeVal == 0)? "<color=grey>( 고정 )</color>" : $"<color=green>( {$"+{ability.UpgradeVal * 100}%"} )</color>";
-                    string upgradeToogleMsg = IsUpgradeValToogle? upgradeMsg : "";
-                    resMsg += $"{abilityMsg} {upgradeToogleMsg}\n";
+                
+                //* 遺物能力（ItemSOのAbilityDataを等級によるValとUpgradeValとして使う）
+                if(isRelic) {
+                    for(int i = 0; i < relicAbilities.Length; i++) {
+                        AbilityType type = relicAbilities[i];
+                        string msg = Config.ABILITY_TYPE_DECS_MSGS[(int)type];
+                        AbilityData relicAbility = Array.Find(item.Abilities, val => val.Type == type);
+                        float val = relicAbility.Val + (lvIdx * relicAbility.UpgradeVal);
+                        //* V{N} → 能力数値変換(実際のアイテムデータ)
+                        bool isIntType = (type == AbilityType.StartCoin || type == AbilityType.StartLife || type == AbilityType.SkillPoint || type == AbilityType.BonusCoinBy10Kill);
+                        string abilityMsg = msg.Replace($"V", $"{val * (isIntType? 1 : 100)}");
+                        //* 強化数値表示 トーグル(登録したアップグレードデータ)
+                        string upgradeMsg = (relicAbility.UpgradeVal == 0)? "<color=grey>( 고정 )</color>" : $"<color=green>( {$"+{relicAbility.UpgradeVal * (isIntType? 1 : 100)}%"} )</color>";
+                        string upgradeToogleMsg = IsUpgradeValToogle? upgradeMsg : "";
+                        resMsg += $"{abilityMsg} {upgradeToogleMsg}\n";
+                    }
                 }
+                //* 装置能力（ItemSOのAbilityDataを自体をそのまま使う）
+                else {
+                    for(int i = 0; i < item.Abilities.Length; i++) {
+                        var ability = item.Abilities[i];
+                        string msg = Config.ABILITY_TYPE_DECS_MSGS[(int)ability.Type];
+                        float val = ability.Val + (lvIdx * ability.UpgradeVal);
+                        //* V{N} → 能力数値変換(実際のアイテムデータ)
+                        string abilityMsg = msg.Replace($"V", $"{val * 100}");
+                        //* 強化数値表示 トーグル(登録したアップグレードデータ)
+                        string upgradeMsg = (ability.UpgradeVal == 0)? "<color=grey>( 고정 )</color>" : $"<color=green>( {$"+{ability.UpgradeVal * 100}%"} )</color>";
+                        string upgradeToogleMsg = IsUpgradeValToogle? upgradeMsg : "";
+                        resMsg += $"{abilityMsg} {upgradeToogleMsg}\n";
+                    }
+                }
+
                 Description.text = resMsg;
 
                 //* アップグレードボタン UI

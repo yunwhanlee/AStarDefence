@@ -189,8 +189,8 @@ namespace Inventory.UI
             OnDescriptionRequested?.Invoke(idx);
         }
 
-        public void UpdateDescription(int itemIdx, ItemSO item, int quantity, int lv, AbilityType[] abilities) {
-            ItemDescription.SetDescription(item, quantity, lv);
+        public void UpdateDescription(int itemIdx, ItemSO item, int quantity, int lv, AbilityType[] relicAbilities) {
+            ItemDescription.SetDescription(item, quantity, lv, relicAbilities);
             DeselectAllItems();
             InvUIItemList[itemIdx].Select();
         }

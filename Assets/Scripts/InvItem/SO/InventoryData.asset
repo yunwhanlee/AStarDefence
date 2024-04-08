@@ -42,19 +42,19 @@ MonoBehaviour:
     Data: {fileID: 11400000, guid: 59fb2aee1376eed4e8d611587e7cac1a, type: 2}
     RelicAbilities: 
   - Quantity: 1
-    Lv: 1
+    Lv: 5
     Data: {fileID: 11400000, guid: 3de65b40cbdf0a147861ad667a44d428, type: 2}
-    RelicAbilities: 09000000
+    RelicAbilities: 0900000005000000
   - Quantity: 1
     Lv: 1
-    Data: {fileID: 0}
-    RelicAbilities: 
+    Data: {fileID: 11400000, guid: 9b97b966b0df890429e36e025e342321, type: 2}
+    RelicAbilities: 0b000000
+  - Quantity: 1
+    Lv: 5
+    Data: {fileID: 11400000, guid: 2552d2c04cf50fc44972de5e8da0dca0, type: 2}
+    RelicAbilities: 03000000090000000e0000000f000000
   - Quantity: 1
     Lv: 1
-    Data: {fileID: 0}
-    RelicAbilities: 
-  - Quantity: 1
-    Lv: 1
-    Data: {fileID: 0}
-    RelicAbilities: 
+    Data: {fileID: 11400000, guid: 48832db3812f05145b434b8c47f85156, type: 2}
+    RelicAbilities: 0d0000000900000003000000
   <Size>k__BackingField: 5
