@@ -119,6 +119,7 @@ public class HomeRewardUIManager : MonoBehaviour {
                     else {
                         int reminder = HM._.ivCtrl.InventoryData.AddItem(rwdItem.Data, rwdItem.Quantity, lv: 1, rwdItem.RelicAbilities);
                         rwdItem.Quantity = reminder;
+                        //TODO インベントリ表示するアイテム処理
                     }
                 }
             }
