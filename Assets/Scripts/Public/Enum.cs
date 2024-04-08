@@ -67,11 +67,27 @@ public static class Enum {
 
     public enum Grade {
         None = -1, 
-        //* 노말, 레어, 에픽, 유니크, 레전드, 신화, 태초
         Common, Rare, Epic, Unique, Legend, Myth, Prime
+    }
+    public static string GetGradeName(Grade grade) {
+        return (grade == Grade.Common)? "일반" 
+            : (grade == Grade.Rare)? "레어"
+            : (grade == Grade.Epic)? "에픽"
+            : (grade == Grade.Unique)? "유니크"
+            : (grade == Grade.Legend)? "레전드"
+            : (grade == Grade.Myth)? "신화"
+            : (grade == Grade.Prime)? "태초"
+            : "기타";
     }
     public enum ItemType {
         Weapon, Shoes, Ring, Relic, Etc
+    }
+    public static string GetItemTypeName(ItemType itemType) {
+        return (itemType == ItemType.Weapon)? "무기" 
+            : (itemType == ItemType.Shoes)? "신발"
+            : (itemType == ItemType.Ring)? "반지"
+            : (itemType == ItemType.Relic)? "유물"
+            : "기타";
     }
 
     public enum BossRwd {

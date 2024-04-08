@@ -4,21 +4,19 @@ using UnityEngine;
 using System;
 
 
-
-[Serializable]
-public class AbilityData {
-	public AbilityType Type;
-    public float Val;
-	public float UpgradeVal;
-
-    public AbilityData(AbilityType type, float val, float upgVal) {
-        Type = type;
-        Val = val;
-        UpgradeVal = upgVal;
-    }
-}
-
 namespace Inventory.Model {
+    [Serializable]
+    public class AbilityData {
+        public AbilityType Type;
+        public float Val;
+        public float UpgradeVal;
+
+        public AbilityData(AbilityType type, float val, float upgVal) {
+            Type = type;
+            Val = val;
+            UpgradeVal = upgVal;
+        }
+    }
     [CreateAssetMenu]
     public class ItemSO : ScriptableObject {
         [field: SerializeField] public bool IsStackable { get; set; }

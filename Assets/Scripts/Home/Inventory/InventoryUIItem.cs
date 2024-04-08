@@ -9,6 +9,9 @@ using Inventory.Model;
 
 namespace Inventory.UI
 {
+    /// <summary>
+    /// インベントリスロットのアイテム
+    /// </summary>
     public class InventoryUIItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IDragHandler {
         private Coroutine CorPushTimeID = null;
         private bool IsShortPush = false;
@@ -50,11 +53,12 @@ namespace Inventory.UI
             Debug.Log("SetData()::");
             Type = type;
 
-            if(grade == Enum.Grade.None) {
+            if(type == Enum.ItemType.Etc) {
                 TypeBgImg.enabled = false;
                 TypeIconImg.enabled = false;
                 BgImg.sprite = HM._.ivm.NoneBgSpr;
-                BgImg.color = HM._.ivm.BrightGrayClr;
+                BgImg.color = HM._.ivm.CommonSlotClr;
+                LvTxt.text = "";
             }
             else {
                 TypeBgImg.enabled = true;
@@ -62,11 +66,11 @@ namespace Inventory.UI
                 TypeIconImg.sprite = HM._.ivm.TypeSprs[(int)type];
                 BgImg.sprite = HM._.ivm.GradeBgSprs[(int)grade];
                 BgImg.color = Color.white;
+                LvTxt.text = $"Lv.{lv}";
             }
             ItemImg.gameObject.SetActive(true);
             ItemImg.sprite = spr;
             QuantityTxt.text = $"{quantity}";
-            LvTxt.text = $"Lv.{lv}";
             IsEmpty = false;
         }
 

@@ -7,6 +7,9 @@ using Inventory.Model;
 using System;
 
 namespace Inventory.UI {
+    /// <summary>
+    /// インベントリポップアップ
+    /// </summary>
     public class InventoryDescription : MonoBehaviour {
         [field:SerializeField] private bool IsUpgradeValToogle {get; set;}
 
@@ -99,13 +102,16 @@ namespace Inventory.UI {
             Debug.Log($"SetDescription():: item= {item.name}, val= {quantity}");
             int lvIdx = lv - 1;
 
+            //* その他 アイテム
             if(item.Type == Enum.ItemType.Etc) {
                 EtcItemBg.gameObject.SetActive(true);
                 EtcItemBg.sprite = item.ItemImg;
                 EtcNameTxt.text = item.Name;
                 EtcQuantityTxt.text = $"{quantity}";
                 EtcDescription.text = item.Description;
+                LvTxt.text = "";
             }
+            //* 装置 アイテム
             else {
                 ItemImg.gameObject.SetActive(true);
                 //* スタイル
@@ -114,11 +120,7 @@ namespace Inventory.UI {
                 ItemBg.sprite = HM._.ivm.GradeBgSprs[(int)item.Grade];
                 ItemImg.sprite = item.ItemImg;
                 TypeImg.sprite = HM._.ivm.TypeSprs[(int)item.Type];
-                TypeTxt.text = (item.Type == Enum.ItemType.Weapon)? "무기"
-                    : (item.Type == Enum.ItemType.Shoes)? "신발"
-                    : (item.Type == Enum.ItemType.Ring)? "반지"
-                    : (item.Type == Enum.ItemType.Relic)? "유물"
-                    : "기타";
+                TypeTxt.text = Enum.GetItemTypeName(item.Type);
 
                 NameTxt.text = item.Name;
 
@@ -129,7 +131,7 @@ namespace Inventory.UI {
                 LvTxt.text = $"Lv.{(isLvMax? "MAX" : lv)}";
                 QuantityTxt.text = quantity.ToString();
                 StarTxt.text = Util.DrawEquipItemStarTxt(lv);
-                GradeTxt.text = item.Grade.ToString();
+                GradeTxt.text = Enum.GetGradeName(item.Grade);
                 GradeTxt.color = HM._.ivm.GradeClrs[(int)item.Grade];
 
                 //* 能力木テスト 表示
@@ -177,7 +179,7 @@ namespace Inventory.UI {
                 Debug.Log($"ePrices.Length= {ePrices.Length}");
                 Debug.Log($"lvIdx= {lvIdx}");
                 UpgradePriceTxt.text = $"강화\n{(isLvMax? "MAX" : $"<sprite name=Coin>{(isRelic? rPrices[lvIdx] : ePrices[lvIdx])}")}";
-                UpgradeSuccessPerTxt.text = isLvMax? "" : $"확률 {(isRelic? rPers[lvIdx] : ePers[lvIdx])}%";
+                UpgradeSuccessPerTxt.text = isLvMax? "" : $"성공확률 {(isRelic? rPers[lvIdx] : ePers[lvIdx])}%";
             }
         }
     #endregion

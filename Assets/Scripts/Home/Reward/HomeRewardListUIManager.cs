@@ -19,7 +19,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
         for(int i = 0; i < itemList.Count; i++) {
             RewardItem rwdItem = itemList[i];
             InventoryUIItem rwdUIItem = Instantiate(rwdItemPf.gameObject, HM._.rwlm.Content).GetComponent<InventoryUIItem>();
-            rwdUIItem.SetData(rwdItem.Data.Type, rwdItem.Data.Grade, rwdItem.Data.ItemImg, rwdItem.Val, lv: 1);
+            rwdUIItem.SetData(rwdItem.Data.Type, rwdItem.Data.Grade, rwdItem.Data.ItemImg, rwdItem.Quantity, lv: 1);
         }
     }
 

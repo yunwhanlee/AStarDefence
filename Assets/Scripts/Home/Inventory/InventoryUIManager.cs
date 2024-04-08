@@ -5,7 +5,6 @@ using Inventory.Model;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
 
 namespace Inventory.UI 
 {
@@ -15,7 +14,7 @@ namespace Inventory.UI
 
         [field: Header("RESOURCE")]
         [field:SerializeField] public Sprite NoneSpr;
-        [field:SerializeField] public Color BrightGrayClr;
+        [field:SerializeField] public Color CommonSlotClr;
         [field:SerializeField] public Sprite NoneBgSpr;
         [field:SerializeField] public Sprite[] TypeSprs;
         [field:SerializeField] public Color[] GradeClrs;
