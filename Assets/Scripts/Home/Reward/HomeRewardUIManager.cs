@@ -72,7 +72,6 @@ public class HomeRewardUIManager : MonoBehaviour {
                 // new (weaponDatas[2]),
                 // new (shoesDatas[1]),
             };
-            
             HM._.rwlm.ShowReward(rewardList);
             UpdateInventory(rewardList);
         }
@@ -82,6 +81,7 @@ public class HomeRewardUIManager : MonoBehaviour {
         public void UpdateInventory(List<RewardItem> rewardList) {
             if(rewardList.Count > 0) {
                 foreach (RewardItem item in rewardList) {
+                    
                     int reminder = HM._.ivCtrl.InventoryData.AddItem(item.Data, item.Quantity, lv: 1, item.RelicAbilities);
                     item.Quantity = reminder;
                 }
