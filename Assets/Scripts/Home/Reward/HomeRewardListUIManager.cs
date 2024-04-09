@@ -7,6 +7,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
     public GameObject WindowObj;
     public Transform Content;
     public InventoryUIItem rwdItemPf;
+    [field: SerializeField] public RewardItemSO RwdItemDt {get; private set;}
 
 #region FUNC
     private void DeleteAll() {
@@ -30,6 +31,13 @@ public class HomeRewardListUIManager : MonoBehaviour {
         WindowObj.SetActive(true);
         DeleteAll();
         DisplayRewardList(itemList);
+    }
+
+    public void OpenPresent0Item() {
+        // var rewardList = new List<RewardItem> {
+        //     new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 1000),
+        // }
+        // ShowReward();
     }
 #endregion
 }

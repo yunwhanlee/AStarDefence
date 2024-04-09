@@ -53,16 +53,6 @@ public class RewardItem {
 }
 
 public class HomeRewardUIManager : MonoBehaviour {
-    [Header("ItemSO LIST")]
-    [SerializeField] ItemSO[] EtcConsumableDatas;
-    [SerializeField] ItemSO[] EtcNoShowInvDatas;
-    [SerializeField] ItemSO[] weaponDatas;
-    [SerializeField] ItemSO[] shoesDatas;
-    [SerializeField] ItemSO[] ringDatas;
-    [SerializeField] ItemSO[] RelicDatas;
-
-    // [SerializeField] List<RewardItem> RewardList;
-
     void Update() {
         if(Input.GetKeyDown(KeyCode.A)) {
             Debug.Log("REWARD TEST");
@@ -70,7 +60,7 @@ public class HomeRewardUIManager : MonoBehaviour {
             //* リワードリスト (最大８個)
             var rewardList = new List<RewardItem> {
                 //* インベントリー以外で扱うアイテム
-                new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], 1),
+                // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], 1),
                 // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 1000),
                 // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], 500),
                 // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 500),
@@ -110,8 +100,8 @@ public class HomeRewardUIManager : MonoBehaviour {
                 // new (EtcConsumableDatas[(int)Etc.ConsumableItem.Present1]),          // Reward Open
                 // new (EtcConsumableDatas[(int)Etc.ConsumableItem.Present2]),          // Reward Open
 
-                new (weaponDatas[4]),
-                new (shoesDatas[3]),
+                // new (weaponDatas[4]),
+                // new (shoesDatas[3]),
             };
             HM._.rwlm.ShowReward(rewardList);
             UpdateInventory(rewardList);

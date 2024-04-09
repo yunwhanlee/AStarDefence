@@ -116,6 +116,7 @@ namespace Inventory.UI {
             var hui = HM._.hui;
             var db = DM._.DB;
             int lvIdx = lv - 1;
+            int presentIdx = 0;
 
             //* その他 アイテム
             if(item.Type == Enum.ItemType.Etc) {
@@ -151,6 +152,14 @@ namespace Inventory.UI {
                     OnClickConsumPopUpConfirmBtn = () => {
                         HM._.ivm.ConsumePopUp.SetActive(false);
                     };
+                }
+                //* PresentBox 表示
+                else if(item.name == $"{Etc.ConsumableItem.Present0}"
+                || item.name == $"{Etc.ConsumableItem.Present1}"
+                || item.name == $"{Etc.ConsumableItem.Present2}") {
+                    presentIdx = int.Parse(item.name.Split("t")[1]);
+                    EtcConfirmBtnTxt.text = "열기";
+                    
                 }
 
                 EtcItemBg.gameObject.SetActive(true);

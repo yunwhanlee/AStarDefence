@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Inventory.Model 
 {   
+    #region ABILITY
     /// <summary>
     ///* 実際に保存するアイテムの能力データ (ランダムで設定するRelicタイプをため)
     /// </summary>
@@ -13,7 +14,9 @@ namespace Inventory.Model
     public struct Ability {
         public AbilityType Type;
     }
+    #endregion
 
+    #region INVENTORY ITEM
     /// <summary>
     ///* 実際に保存するアイテム表情
     /// </summary>
@@ -61,13 +64,11 @@ namespace Inventory.Model
                 RelicAbilities = null
             };
     }
+    #endregion
 
+    #region INVENTORY SO (DATA)
     [CreateAssetMenu]
     public class InventorySO : ScriptableObject {
-        [SerializeField] private ItemSO[] weaponItemDatas;
-        [SerializeField] private ItemSO[] shoesItemDatas;
-        [SerializeField] private ItemSO[] ringItemDatas;
-
         [SerializeField] public List<InventoryItem> ItemList;
         [field: SerializeField] public int Size {get; private set;} = 10;
         public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated;
@@ -216,9 +217,9 @@ namespace Inventory.Model
                     var type = item.Data.Type;
                     int nextGrade = (int)item.Data.Grade + 1;
                     // タイプ
-                    ItemSO nextItemDt = (type == Enum.ItemType.Weapon)? weaponItemDatas[nextGrade]
-                        : (type == Enum.ItemType.Shoes)? shoesItemDatas[nextGrade]
-                        : (type == Enum.ItemType.Ring)? ringItemDatas[nextGrade]
+                    ItemSO nextItemDt = (type == Enum.ItemType.Weapon)? HM._.rwlm.RwdItemDt.WeaponDatas[nextGrade]
+                        : (type == Enum.ItemType.Shoes)? HM._.rwlm.RwdItemDt.ShoesDatas[nextGrade]
+                        : (type == Enum.ItemType.Ring)? HM._.rwlm.RwdItemDt.RingDatas[nextGrade]
                         : null; // TODO RELIC
                     AddStackableItem(nextItemDt, mergeCnt, lv: 1, relicAbilities: null);
                 }
@@ -262,4 +263,5 @@ namespace Inventory.Model
             OnInventoryUpdated?.Invoke(GetCurrentInventoryState());
         }
     }
+    #endregion
 }
