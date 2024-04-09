@@ -14,7 +14,7 @@ using Unity.VisualScripting;
 public class StatusDB {
     [field:SerializeField] public int Lv {get; set;}
     [field:SerializeField] public int Exp {get; set;}
-    [field:SerializeField] public int GoblinKey {get; set;}
+    [field:SerializeField] public int GoldKey {get; set;}
     [field:SerializeField] public int Coin {get; set;}
     [field:SerializeField] public int Diamond {get; set;}
     [field:SerializeField] public int SkillPoint {get; set;}
@@ -22,7 +22,7 @@ public class StatusDB {
     public StatusDB() {
         Lv = 1;
         Exp = 8;
-        GoblinKey = 1;
+        GoldKey = 1;
         Coin = 0;
         Diamond = 0; 
         SkillPoint = 0; 

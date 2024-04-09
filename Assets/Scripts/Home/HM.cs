@@ -44,8 +44,11 @@ public class HM : MonoBehaviour {
         } 
     }
     [field: SerializeField] public int GoblinKey {
-        get => DM._.DB.StatusDB.GoblinKey;
-        set => DM._.DB.StatusDB.GoblinKey = value;
+        get => DM._.DB.StatusDB.GoldKey;
+        set {
+            DM._.DB.StatusDB.GoldKey = value;
+            hui.TopGoldKeyTxt.text = $"{value}/{Config.MAX_GOBLINKEY}";
+        }
     }
     [field: SerializeField] public int Coin {
         get => DM._.DB.StatusDB.Coin;

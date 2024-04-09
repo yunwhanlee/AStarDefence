@@ -21,7 +21,10 @@ public class RewardItem {
     /// </summary>
     public void UpdateItemData(Etc.NoshowInvItem noShowInvItem, int quantity) {
         switch (noShowInvItem) {
-            case (int)Etc.NoshowInvItem.Coin:
+            case Etc.NoshowInvItem.GoldKey:
+                HM._.GoblinKey += quantity;
+                break;
+            case Etc.NoshowInvItem.Coin:
                 HM._.Coin += quantity;
                 break;
             case Etc.NoshowInvItem.Diamond:
@@ -67,6 +70,7 @@ public class HomeRewardUIManager : MonoBehaviour {
             //* リワードリスト (最大８個)
             var rewardList = new List<RewardItem> {
                 //* インベントリー以外で扱うアイテム
+                new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], 1),
                 // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 1000),
                 // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], 500),
                 // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 500),
@@ -89,26 +93,25 @@ public class HomeRewardUIManager : MonoBehaviour {
                 // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.SkillPoint]),
 
                 //* インベントリーへ表示するアイテム
-                new (EtcConsumableDatas[(int)Etc.ConsumableItem.BizzardScroll]),        // Info(Ingame)
-                new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon]),          // Chest Open
-                new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestDiamond]),         // Chest Open
-                new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment]),       // Chest Open
-                new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGoldKey]),         // Chest Open
-                new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium]),         // Chest Open
-                new (EtcConsumableDatas[(int)Etc.ConsumableItem.Clover]),               // ✓ Active
-                new (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover]),           // ✓ Active
-                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldKey]),           // Move Goblin Dungeon PopUp
-                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.LightningScroll]),   // Info(Ingame)
-                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone]),        // Reset Relic Abilities
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.BizzardScroll]),        // ✓ Info(Ingame)
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.LightningScroll]),   // ✓ Info(Ingame)
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack0]),        // ✓ Info(Ingame)
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack1]),        // ✓ Info(Ingame)
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone]),        // ✓ Info (Reset Relic Abilities)
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone]),         // ✓ Info (Equipment Secret Ability Active)
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon]),          // Chest Open
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestDiamond]),         // Chest Open
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment]),       // Chest Open
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGoldKey]),         // Chest Open
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium]),         // Chest Open
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.Clover]),               // ✓ Active
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover]),           // ✓ Active
                 // new (EtcConsumableDatas[(int)Etc.ConsumableItem.Present0]),          // Reward Open
                 // new (EtcConsumableDatas[(int)Etc.ConsumableItem.Present1]),          // Reward Open
                 // new (EtcConsumableDatas[(int)Etc.ConsumableItem.Present2]),          // Reward Open
-                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone]),         // Equipment Secret Ability Active
-                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack0]),        // Info(Ingame)
-                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack1]),        // Info(Ingame)
 
-                // new (weaponDatas[2]),
-                // new (shoesDatas[1]),
+                new (weaponDatas[4]),
+                new (shoesDatas[3]),
             };
             HM._.rwlm.ShowReward(rewardList);
             UpdateInventory(rewardList);

@@ -14,7 +14,7 @@ public class HomeUIManager : MonoBehaviour {
     public Action OnClickAskConfirmAction;
 
     [field: Header("STATUS")]
-    [field: SerializeField] public TextMeshProUGUI TopGoblinKeyTxt {get; set;}
+    [field: SerializeField] public TextMeshProUGUI TopGoldKeyTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI TopCoinTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI TopDiamondTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI LvTxt {get; set;}
@@ -46,7 +46,7 @@ public class HomeUIManager : MonoBehaviour {
         CorMsgErrorID = null;
 
         //* Init Status Text UI
-        TopGoblinKeyTxt.text = $"{HM._.GoblinKey}/{Config.MAX_GOBLINKEY}";
+        TopGoldKeyTxt.text = $"{HM._.GoblinKey}/{Config.MAX_GOBLINKEY}";
         TopCoinTxt.text = $"{HM._.Coin}";
         TopDiamondTxt.text = $"{HM._.Diamond}";
         LvTxt.text = $"{HM._.Lv}";

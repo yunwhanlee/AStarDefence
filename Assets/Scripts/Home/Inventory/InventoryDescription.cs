@@ -141,11 +141,16 @@ namespace Inventory.UI {
                 }
                 //* Ingameで使えるアイテムの情報 表示
                 else if(item.name == $"{Etc.ConsumableItem.BizzardScroll}"
-                && item.name == $"{Etc.ConsumableItem.LightningScroll}"
-                && item.name == $"{Etc.ConsumableItem.SteamPack0}"
-                && item.name == $"{Etc.ConsumableItem.SteamPack1}") {
-                    Debug.Log("Ingame Info Item.");
+                || item.name == $"{Etc.ConsumableItem.LightningScroll}"
+                || item.name == $"{Etc.ConsumableItem.SteamPack0}"
+                || item.name == $"{Etc.ConsumableItem.SteamPack1}"
+                || item.name == $"{Etc.ConsumableItem.MagicStone}"
+                || item.name == $"{Etc.ConsumableItem.SoulStone}") {
                     EtcConfirmBtnTxt.text = "확인";
+                    //* Actionボタン 購読
+                    OnClickConsumPopUpConfirmBtn = () => {
+                        HM._.ivm.ConsumePopUp.SetActive(false);
+                    };
                 }
 
                 EtcItemBg.gameObject.SetActive(true);
