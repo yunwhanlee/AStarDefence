@@ -154,6 +154,12 @@ namespace Inventory.UI {
                     };
                 }
                 //* PresentBox 表示
+                else if(item.name == $"{Etc.ConsumableItem.Present0}") {
+                    EtcConfirmBtnTxt.text = "열기";
+                    OnClickConsumPopUpConfirmBtn = ()
+                        => HM._.rwlm.RwdItemDt.OpenPresent0();
+                }
+
                 else if(item.name == $"{Etc.ConsumableItem.Present0}"
                 || item.name == $"{Etc.ConsumableItem.Present1}"
                 || item.name == $"{Etc.ConsumableItem.Present2}") {

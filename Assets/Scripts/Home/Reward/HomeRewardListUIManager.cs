@@ -32,12 +32,5 @@ public class HomeRewardListUIManager : MonoBehaviour {
         DeleteAll();
         DisplayRewardList(itemList);
     }
-
-    public void OpenPresent0Item() {
-        // var rewardList = new List<RewardItem> {
-        //     new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 1000),
-        // }
-        // ShowReward();
-    }
 #endregion
 }

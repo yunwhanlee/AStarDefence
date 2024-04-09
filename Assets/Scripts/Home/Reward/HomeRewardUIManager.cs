@@ -4,54 +4,6 @@ using System.Collections.Generic;
 using Inventory.Model;
 using UnityEngine;
 
-[Serializable]
-public class RewardItem {
-    [field: SerializeField] public ItemSO Data {get; private set;}
-    [field: SerializeField] public int Quantity {get; set;} = 1;
-    [field: SerializeField] public AbilityType[] RelicAbilities {get; set;}
-
-    public RewardItem(ItemSO data, int quantity = 1, AbilityType[] relicAblities = null) {
-        Data = data;
-        Quantity = quantity;
-        RelicAbilities = relicAblities;
-    }
-
-    /// <summary>
-    /// インベントリへ表示されないアイテム 最新化
-    /// </summary>
-    public void UpdateItemData(Etc.NoshowInvItem noShowInvItem, int quantity) {
-        switch (noShowInvItem) {
-            case Etc.NoshowInvItem.GoldKey:
-                HM._.GoblinKey += quantity;
-                break;
-            case Etc.NoshowInvItem.Coin:
-                HM._.Coin += quantity;
-                break;
-            case Etc.NoshowInvItem.Diamond:
-                HM._.Diamond += quantity;
-                break;
-            case Etc.NoshowInvItem.Exp:
-                HM._.Exp += quantity;
-                break;
-            case Etc.NoshowInvItem.Goblin0: case Etc.NoshowInvItem.Goblin1: case Etc.NoshowInvItem.Goblin2:
-            case Etc.NoshowInvItem.Goblin3: case Etc.NoshowInvItem.Goblin4: case Etc.NoshowInvItem.Goblin5: case Etc.NoshowInvItem.Goblin6:
-                int goblinLvIdx = int.Parse($"{noShowInvItem}".Split("n")[1]);
-                HM._.mnm.GoblinCards[goblinLvIdx].Cnt += quantity;
-                break;
-            case Etc.NoshowInvItem.Ore0: case Etc.NoshowInvItem.Ore1: case Etc.NoshowInvItem.Ore2:
-            case Etc.NoshowInvItem.Ore3: case Etc.NoshowInvItem.Ore4: case Etc.NoshowInvItem.Ore5:
-            case Etc.NoshowInvItem.Ore6: case Etc.NoshowInvItem.Ore7: case Etc.NoshowInvItem.Ore8:
-                int oreLvIdx = int.Parse($"{noShowInvItem}".Split("e")[1]);
-                HM._.mnm.OreCards[oreLvIdx].Cnt += quantity;
-                break;
-            case Etc.NoshowInvItem.SkillPoint:
-                HM._.SkillPoint += quantity;
-                break;
-
-        }
-    }
-}
-
 public class HomeRewardUIManager : MonoBehaviour {
     void Update() {
         if(Input.GetKeyDown(KeyCode.A)) {
