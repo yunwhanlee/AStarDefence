@@ -115,8 +115,8 @@ namespace Inventory.UI {
             Debug.Log($"SetDescription():: item= {item.name}, val= {quantity}");
             var hui = HM._.hui;
             var db = DM._.DB;
+            var rwlm = HM._.rwlm;
             int lvIdx = lv - 1;
-            int presentIdx = 0;
 
             //* その他 アイテム
             if(item.Type == Enum.ItemType.Etc) {
@@ -153,47 +153,54 @@ namespace Inventory.UI {
                         HM._.ivm.ConsumePopUp.SetActive(false);
                     };
                 }
+
                 //* PresentBox 表示
                 else if(item.name == $"{Etc.ConsumableItem.Present0}") {
                     EtcConfirmBtnTxt.text = "열기";
                     OnClickConsumPopUpConfirmBtn = ()
-                        => HM._.rwlm.RwdItemDt.OpenPresent(HM._.rwlm.RwdItemDt.Rwd_Present0);
+                        => rwlm.RwdItemDt.OpenPresent(rwlm.RwdItemDt.Rwd_Present0);
                 }
                 else if(item.name == $"{Etc.ConsumableItem.Present1}") {
                     EtcConfirmBtnTxt.text = "열기";
                     OnClickConsumPopUpConfirmBtn = ()
-                        => HM._.rwlm.RwdItemDt.OpenPresent(HM._.rwlm.RwdItemDt.Rwd_Present1);
+                        => rwlm.RwdItemDt.OpenPresent(rwlm.RwdItemDt.Rwd_Present1);
                 }
                 else if(item.name == $"{Etc.ConsumableItem.Present2}") {
                     EtcConfirmBtnTxt.text = "열기";
                     OnClickConsumPopUpConfirmBtn = ()
-                        => HM._.rwlm.RwdItemDt.OpenPresent(HM._.rwlm.RwdItemDt.Rwd_Present2);
+                        => rwlm.RwdItemDt.OpenPresent(rwlm.RwdItemDt.Rwd_Present2);
                 }
+
                 //* ChestBox 表示
                 else if(item.name == $"{Etc.ConsumableItem.ChestCommon}") {
-                    HM._.rwlm.RewardChestPopUp.SetActive(true);
-                    OnClickConsumPopUpConfirmBtn = ()
-                        => {};
+                    rwlm.SetChestPopUpUI(Etc.ConsumableItem.ChestCommon, quantity);
+                    rwlm.OnClickOpenChest = () => {
+                        Debug.Log("Open Chest!");
+                    };
                 }
                 else if(item.name == $"{Etc.ConsumableItem.ChestDiamond}") {
-                    HM._.rwlm.RewardChestPopUp.SetActive(true);
-                    OnClickConsumPopUpConfirmBtn = ()
-                        => {};
+                    rwlm.SetChestPopUpUI(Etc.ConsumableItem.ChestDiamond, quantity);
+                    rwlm.OnClickOpenChest = () => {
+                        Debug.Log("Open Chest!");
+                    };
                 }
                 else if(item.name == $"{Etc.ConsumableItem.ChestEquipment}") {
-                    HM._.rwlm.RewardChestPopUp.SetActive(true);
-                    OnClickConsumPopUpConfirmBtn = ()
-                        => {};
+                    rwlm.SetChestPopUpUI(Etc.ConsumableItem.ChestEquipment, quantity);
+                    rwlm.OnClickOpenChest = () => {
+                        Debug.Log("Open Chest!");
+                    };
                 }
-                else if(item.name == $"{Etc.ConsumableItem.ChestGoldKey}") {
-                    HM._.rwlm.RewardChestPopUp.SetActive(true);
-                    OnClickConsumPopUpConfirmBtn = ()
-                        => {};
+                else if(item.name == $"{Etc.ConsumableItem.ChestGold}") {
+                    rwlm.SetChestPopUpUI(Etc.ConsumableItem.ChestGold, quantity);
+                    rwlm.OnClickOpenChest = () => {
+                        Debug.Log("Open Chest!");
+                    };
                 }
                 else if(item.name == $"{Etc.ConsumableItem.ChestPremium}") {
-                    HM._.rwlm.RewardChestPopUp.SetActive(true);
-                    OnClickConsumPopUpConfirmBtn = ()
-                        => {};
+                    rwlm.SetChestPopUpUI(Etc.ConsumableItem.ChestPremium, quantity);
+                    rwlm.OnClickOpenChest = () => {
+                        Debug.Log("Open Chest!");
+                    };
                 }
 
                 EtcItemBg.gameObject.SetActive(true);

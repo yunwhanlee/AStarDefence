@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Inventory.UI;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using System;
 
 public class HomeRewardListUIManager : MonoBehaviour {
     [Header("REWARD LIST POPUP")]
@@ -9,11 +12,24 @@ public class HomeRewardListUIManager : MonoBehaviour {
     public Transform Content;
 
     [Header("REWARD LIST POPUP")]
+    public Action OnClickOpenChest = () => {};
+    public Sprite[] TitleRibbonSprs;
     public GameObject RewardChestPopUp;
+    public TMP_Text ChestTitleTxt;
+    public TMP_Text ChestAlertCntTxt;
+    public Image ChestTitleRibbonImg;
+    public Image ChestImg;
+
 
     [Header("REWARD DATA")]
     public InventoryUIItem rwdItemPf;
     [field: SerializeField] public RewardItemSO RwdItemDt {get; private set;}
+
+#region EVENT
+    public void OnClickOpenChestImgBtn() {
+        OnClickOpenChest?.Invoke();
+    }
+#endregion
 
 #region FUNC
     private void DeleteAll() {
@@ -39,11 +55,19 @@ public class HomeRewardListUIManager : MonoBehaviour {
 
         }
     }
-
     public void ShowReward(List<RewardItem> itemList) {
         WindowObj.SetActive(true);
         DeleteAll();
+
         DisplayRewardList(itemList);
+    }
+    public void SetChestPopUpUI(Etc.ConsumableItem enumChestIdx, int quantity) {
+        const int OFFSET = (int)Etc.ConsumableItem.ChestCommon;
+        RewardChestPopUp.SetActive(true);
+        ChestTitleRibbonImg.sprite = TitleRibbonSprs[(int)enumChestIdx - OFFSET];
+        ChestImg.sprite = RwdItemDt.EtcConsumableDatas[(int)enumChestIdx].ItemImg;
+        ChestTitleTxt.text = RwdItemDt.EtcConsumableDatas[(int)enumChestIdx].Name;
+        ChestAlertCntTxt.text = quantity.ToString(); //TODO
     }
 #endregion
 }

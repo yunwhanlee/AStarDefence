@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -82,10 +83,22 @@ public class Etc {
     }
     public enum ConsumableItem {
         BizzardScroll, LightningScroll, SteamPack0, SteamPack1,
-        ChestCommon, ChestDiamond, ChestEquipment, ChestGoldKey, ChestPremium,
+        ChestCommon, ChestDiamond, ChestEquipment, ChestGold, ChestPremium,
         Clover, GoldClover,
         Present0, Present1, Present2,
         SoulStone, MagicStone,
+    }
+
+    public static string GetChestName(ConsumableItem enumChest) {
+        string name = "";
+        switch(enumChest) {
+            case ConsumableItem.ChestCommon: name = "일반상자"; break;
+            case ConsumableItem.ChestDiamond: name = "다이아상자"; break;
+            case ConsumableItem.ChestEquipment: name = "장비상자"; break;
+            case ConsumableItem.ChestGold: name = "황금상자"; break;
+            case ConsumableItem.ChestPremium: name = "프리미엄상자"; break;
+        }
+        return name;
     }
 
     public static ConsumableItem GetConsumableItem(int idx) {

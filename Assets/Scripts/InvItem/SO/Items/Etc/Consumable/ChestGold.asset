@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ee7d7a0ddf26d84d84647fede468360, type: 3}
-  m_Name: ChestGoldKey
+  m_Name: ChestGold
   m_EditorClassIdentifier: 
   <IsNoshowInventory>k__BackingField: 0
   <MaxStackSize>k__BackingField: 100
   <Type>k__BackingField: 4
   <Grade>k__BackingField: 4
-  <Name>k__BackingField: "\uD669\uAE08\uC5F4\uC1E0\uC0C1\uC790"
-  <Description>k__BackingField: "\uD669\uAE08\uC5F4\uC1E0\uB97C 1\uAC1C \uC18C\uBE44\uD574\uC11C
-    \uC5F4 \uC218 \uC788\uB2E4."
-  <ItemImg>k__BackingField: {fileID: 21300000, guid: 145874fd002594d928ac4f1cc9046b3d, type: 3}
+  <Name>k__BackingField: "\uD669\uAE08\uC0C1\uC790"
+  <Description>k__BackingField: "\uACE0\uBE14\uB9B0 \uAD11\uC11D \uBCF4\uC0C1 \uC804\uC6A9
+    \uC0C1\uC790."
+  <ItemImg>k__BackingField: {fileID: 21300000, guid: 44927745c5c88418fb5c605670c86d95, type: 3}
   <Abilities>k__BackingField: []
