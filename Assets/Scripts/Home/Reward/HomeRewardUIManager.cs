@@ -41,16 +41,16 @@ public class HomeRewardUIManager : MonoBehaviour {
                 // new (EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack1]),        // ✓ Info(Ingame)
                 // new (EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone]),        // ✓ Info (Reset Relic Abilities)
                 // new (EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone]),         // ✓ Info (Equipment Secret Ability Active)
-                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon]),          // Chest Open
-                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestDiamond]),         // Chest Open
-                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment]),       // Chest Open
-                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGoldKey]),         // Chest Open
-                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium]),         // Chest Open
+                new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon]),          // Chest Open
+                new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestDiamond]),         // Chest Open
+                new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment]),       // Chest Open
+                new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGoldKey]),         // Chest Open
+                new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium]),         // Chest Open
                 // new (EtcConsumableDatas[(int)Etc.ConsumableItem.Clover]),               // ✓ Active
                 // new (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover]),           // ✓ Active
-                new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present0]),          // Reward Open
-                new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present1]),          // Reward Open
-                new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present2]),          // Reward Open
+                // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present0]),          // Reward Open
+                // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present1]),          // Reward Open
+                // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present2]),          // Reward Open
 
                 // new (weaponDatas[4]),
                 // new (shoesDatas[3]),

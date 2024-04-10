@@ -169,6 +169,32 @@ namespace Inventory.UI {
                     OnClickConsumPopUpConfirmBtn = ()
                         => HM._.rwlm.RwdItemDt.OpenPresent(HM._.rwlm.RwdItemDt.Rwd_Present2);
                 }
+                //* ChestBox 表示
+                else if(item.name == $"{Etc.ConsumableItem.ChestCommon}") {
+                    HM._.rwlm.RewardChestPopUp.SetActive(true);
+                    OnClickConsumPopUpConfirmBtn = ()
+                        => {};
+                }
+                else if(item.name == $"{Etc.ConsumableItem.ChestDiamond}") {
+                    HM._.rwlm.RewardChestPopUp.SetActive(true);
+                    OnClickConsumPopUpConfirmBtn = ()
+                        => {};
+                }
+                else if(item.name == $"{Etc.ConsumableItem.ChestEquipment}") {
+                    HM._.rwlm.RewardChestPopUp.SetActive(true);
+                    OnClickConsumPopUpConfirmBtn = ()
+                        => {};
+                }
+                else if(item.name == $"{Etc.ConsumableItem.ChestGoldKey}") {
+                    HM._.rwlm.RewardChestPopUp.SetActive(true);
+                    OnClickConsumPopUpConfirmBtn = ()
+                        => {};
+                }
+                else if(item.name == $"{Etc.ConsumableItem.ChestPremium}") {
+                    HM._.rwlm.RewardChestPopUp.SetActive(true);
+                    OnClickConsumPopUpConfirmBtn = ()
+                        => {};
+                }
 
                 EtcItemBg.gameObject.SetActive(true);
                 EtcItemBg.sprite = item.ItemImg;

@@ -4,8 +4,14 @@ using Inventory.UI;
 using UnityEngine;
 
 public class HomeRewardListUIManager : MonoBehaviour {
+    [Header("REWARD LIST POPUP")]
     public GameObject WindowObj;
     public Transform Content;
+
+    [Header("REWARD LIST POPUP")]
+    public GameObject RewardChestPopUp;
+
+    [Header("REWARD DATA")]
     public InventoryUIItem rwdItemPf;
     [field: SerializeField] public RewardItemSO RwdItemDt {get; private set;}
 
