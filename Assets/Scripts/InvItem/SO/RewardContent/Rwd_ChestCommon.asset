@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bfdc2e6cb60e644db583700af3f5a05, type: 3}
+  m_Name: Rwd_ChestCommon
+  m_EditorClassIdentifier: 
+  <Cnt>k__BackingField: 2
+  <ItemPerTb>k__BackingField:
+    coin: -1
+    diamond: 50
+    equip: 400
+    relic: 0
+    goblin: 50
+    ore: 50
+    goldKey: 100
+    clover: 80
+    goldClover: 20
+    consumeItem: 250
+    soulStone: 0
+    magicStone: 0
+    <Coin>k__BackingField: -1
+    <Diamond>k__BackingField: 50
+    <Equip>k__BackingField: 400
+    <Relic>k__BackingField: 0
+    <Goblin>k__BackingField: 50
+    <Ore>k__BackingField: 50
+    <GoldKey>k__BackingField: 100
+    <Clover>k__BackingField: 80
+    <GoldClover>k__BackingField: 20
+    <ConsumeItem>k__BackingField: 250
+    <SoulStone>k__BackingField: 0
+    <MagicStone>k__BackingField: 0
+  <CoinMin>k__BackingField: 50
+  <CoinMax>k__BackingField: 500
+  <DiamondMin>k__BackingField: 10
+  <DiamondMax>k__BackingField: 20
+  <GoldKeyMax>k__BackingField: 1
+  <ConsumeItemMax>k__BackingField: 1
+  <SoulStoneMax>k__BackingField: 0
+  <MagicStoneMax>k__BackingField: 0
+  <RwdGradeTb>k__BackingField:
+    <EquipPerList>k__BackingField: ee020000e60000001400000000000000000000000000000000000000
+    <RelicPerList>k__BackingField: 
+    <GoblinPerList>k__BackingField: 580200005e0100003200000000000000000000000000000000000000
+    <OrePerList>k__BackingField: 76020000fa00000064000000140000000000000000000000000000000000000000000000

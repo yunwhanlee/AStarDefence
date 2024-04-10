@@ -125,7 +125,6 @@ namespace Inventory.UI
                     item.Lv, 
                     item.RelicAbilities
                 );
-            Debug.Log("SIBAL...");
         }
         private void ResetDraggedItem() {
             MouseFollower.Toggle(false);

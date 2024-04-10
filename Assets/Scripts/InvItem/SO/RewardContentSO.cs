@@ -6,40 +6,40 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 #region リワードアイテム％テーブル 構造体
-[Serializable]
-public struct RewardPercentTable {
-    public int COIN, DIAMOND, EQUIP, RELIC, GOBLIN, ORE, GOLD_KEY, CLOVER, GOLD_CLOVER, CONSUME_ITEM, SOUL_STONE, MAGIC_STONE;
+    [Serializable]
+    public struct RewardPercentTable {
+        [field: Header("-1は固定（必ず出る）")]
+        [field: SerializeField] public int Coin {get; private set;}
+        [field: SerializeField] public int Diamond {get; private set;}
+        [field: SerializeField] public int Equip {get; private set;}
+        [field: SerializeField] public int Relic {get; private set;}
+        [field: SerializeField] public int Goblin {get; private set;}
+        [field: SerializeField] public int Ore {get; private set;}
+        [field: SerializeField] public int GoldKey {get; private set;}
+        [field: SerializeField] public int Clover {get; private set;}
+        [field: SerializeField] public int GoldClover {get; private set;}
+        [field: SerializeField] public int ConsumeItem {get; private set;}
+        [field: SerializeField] public int SoulStone {get; private set;}
+        [field: SerializeField] public int MagicStone {get; private set;}
 
-    public RewardPercentTable (
-        int COIN = 0, 
-        int DIAMOND = 0, 
-        int EQUIP = 0, 
-        int RELIC = 0, 
-        int GOBLIN = 0, 
-        int ORE = 0, 
-        int GOLD_KEY = 0, 
-        int CLOVER = 0, 
-        int GOLD_CLOVER = 0, 
-        int CONSUME_ITEM = 0, 
-        int SOUL_STONE = 0, 
-        int MAGIC_STONE = 0) {
-            this.COIN = COIN;
-            this.DIAMOND = DIAMOND;
-            this.EQUIP = EQUIP;
-            this.RELIC = RELIC;
-            this.GOBLIN = GOBLIN;
-            this.ORE = ORE;
-            this.GOLD_KEY = GOLD_KEY;
-            this.CLOVER = CLOVER;
-            this.GOLD_CLOVER = GOLD_CLOVER;
-            this.CONSUME_ITEM = CONSUME_ITEM;
-            this.SOUL_STONE = SOUL_STONE;
-            this.MAGIC_STONE = MAGIC_STONE;
+        /// <summary>
+        /// 全ての合計が１０００なのかを検査。 ただし、-1値は固定(必ず出る)なので、-1を0にして切り替えて計算
+        /// </summary>
+        public readonly int GetTotal() {
+            return (Coin == -1? 0 :Coin) 
+                + (Diamond == -1? 0 :Diamond) 
+                + (Equip == -1? 0 :Equip) 
+                + (Relic == -1? 0 :Relic) 
+                + (Goblin == -1? 0 :Goblin) 
+                + (Ore == -1? 0 :Ore) 
+                + (GoldKey == -1? 0 :GoldKey) 
+                + (Clover == -1? 0 :Clover) 
+                + (GoldClover == -1? 0 :GoldClover) 
+                + (ConsumeItem == -1? 0 :ConsumeItem) 
+                + (SoulStone == -1? 0 :SoulStone) 
+                + (MagicStone == -1? 0 : MagicStone);
         }
-    
-    public int GetTotal() 
-        => COIN + DIAMOND + EQUIP + RELIC + GOBLIN + ORE + GOLD_KEY + CLOVER + GOLD_CLOVER + CONSUME_ITEM + SOUL_STONE + MAGIC_STONE;
-}
+    }
 #endregion
 
 [Serializable]

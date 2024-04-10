@@ -48,9 +48,9 @@ public class HomeRewardUIManager : MonoBehaviour {
                 new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium]),         // Chest Open
                 // new (EtcConsumableDatas[(int)Etc.ConsumableItem.Clover]),               // ✓ Active
                 // new (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover]),           // ✓ Active
-                // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present0]),          // Reward Open
-                // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present1]),          // Reward Open
-                // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present2]),          // Reward Open
+                new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present0]),          // Reward Open
+                new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present1]),          // Reward Open
+                new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present2]),          // Reward Open
 
                 // new (weaponDatas[4]),
                 // new (shoesDatas[3]),

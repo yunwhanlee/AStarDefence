@@ -158,25 +158,24 @@ namespace Inventory.UI {
                 else if(item.name == $"{Etc.ConsumableItem.Present0}") {
                     EtcConfirmBtnTxt.text = "열기";
                     OnClickConsumPopUpConfirmBtn = ()
-                        => rwlm.RwdItemDt.OpenPresent(rwlm.RwdItemDt.Rwd_Present0);
+                        => rwlm.RwdItemDt.OpenRewardContent(rwlm.RwdItemDt.Rwd_Present0);
                 }
                 else if(item.name == $"{Etc.ConsumableItem.Present1}") {
                     EtcConfirmBtnTxt.text = "열기";
                     OnClickConsumPopUpConfirmBtn = ()
-                        => rwlm.RwdItemDt.OpenPresent(rwlm.RwdItemDt.Rwd_Present1);
+                        => rwlm.RwdItemDt.OpenRewardContent(rwlm.RwdItemDt.Rwd_Present1);
                 }
                 else if(item.name == $"{Etc.ConsumableItem.Present2}") {
                     EtcConfirmBtnTxt.text = "열기";
                     OnClickConsumPopUpConfirmBtn = ()
-                        => rwlm.RwdItemDt.OpenPresent(rwlm.RwdItemDt.Rwd_Present2);
+                        => rwlm.RwdItemDt.OpenRewardContent(rwlm.RwdItemDt.Rwd_Present2);
                 }
 
                 //* ChestBox 表示
                 else if(item.name == $"{Etc.ConsumableItem.ChestCommon}") {
                     rwlm.SetChestPopUpUI(Etc.ConsumableItem.ChestCommon, quantity);
-                    rwlm.OnClickOpenChest = () => {
-                        Debug.Log("Open Chest!");
-                    };
+                    rwlm.OnClickOpenChest = () 
+                        => rwlm.RwdItemDt.OpenRewardContent(rwlm.RwdItemDt.Rwd_ChestCommon);
                 }
                 else if(item.name == $"{Etc.ConsumableItem.ChestDiamond}") {
                     rwlm.SetChestPopUpUI(Etc.ConsumableItem.ChestDiamond, quantity);

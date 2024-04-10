@@ -6,6 +6,12 @@ using System;
 using Random = UnityEngine.Random;
 using System.Linq;
 
+// public enum RWD_TBIDX {
+//     Coin, Diamond, Equip, Relic, 
+//     Goblin, Ore, GoldKey, Clover,
+//     GoldClover, CONSUME_ITEM, SoulStone, MagicStone
+// }
+
 #region リワードアイテム
 [Serializable]
 public class RewardItem {
@@ -69,59 +75,89 @@ public class RewardItemSO : ScriptableObject {
     [field: SerializeField] public ItemSO[] RelicDatas {get; private set;}
 
     [field: Header("RewardContentSO LIST")]
+
     [field: SerializeField] public RewardContentSO Rwd_Present0 {get; private set;}
     [field: SerializeField] public RewardContentSO Rwd_Present1 {get; private set;}
     [field: SerializeField] public RewardContentSO Rwd_Present2 {get; private set;}
+    [field: SerializeField] public RewardContentSO Rwd_ChestCommon {get; private set;}
+    [field: SerializeField] public RewardContentSO Rwd_ChestDiamond {get; private set;}
+    [field: SerializeField] public RewardContentSO Rwd_ChestEquipment {get; private set;}
+    [field: SerializeField] public RewardContentSO Rwd_ChestGold {get; private set;}
+    [field: SerializeField] public RewardContentSO Rwd_ChestPremium {get; private set;}
 
-    public void OpenPresent(RewardContentSO rwdPresentSO) {
+    /// <summary>
+    /// アイテム確率テーブルリスト
+    /// </summary>
+    private List<(ItemSO item, int percent, int quantity)> PrepareItemPerTable(RewardContentSO rwdContentDt) {
+        //* ランダム確率でアイテムや容量選択
+        int coinAmount = rwdContentDt.GetRandomCoin();
+        int diaAmount = rwdContentDt.GetRandomDiamond();
+        var equipItem = rwdContentDt.GetRandomEquipDatas(); //* 装置種類
+        int equipGradeIdx = rwdContentDt.GetRandomEquipGrade(); //* 装置等級
+        int relicGradeIdx = rwdContentDt.GetRandomRelicGrade(); //* 異物等級
+        int goblinGradeIdx = (int)rwdContentDt.GetRandomGoblinGrade(); //* ゴブリン等級
+        int oreGradeIdx = (int)rwdContentDt.GetRandomOreGrade(); //* 鉱石等
+        int randConsumeIdx = (int)rwdContentDt.GetRandomConsumeItem(); //* 消費アイテム
+
+        //* 夫々アイテム確率テーブルリスト生成 (Tuple方式)
+        RewardPercentTable  itemPerTb = rwdContentDt.ItemPerTb;
+        List<(ItemSO item, int percent, int quantity)> itemPerTableList = new List<(ItemSO, int, int)> {
+            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], itemPerTb.Coin, coinAmount),
+            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], itemPerTb.Diamond, diaAmount),
+            (equipItem[equipGradeIdx], itemPerTb.Equip, 1),
+            (RelicDatas[relicGradeIdx], itemPerTb.Relic, 1),
+            (EtcNoShowInvDatas[goblinGradeIdx], itemPerTb.Goblin, 1),
+            (EtcNoShowInvDatas[oreGradeIdx], itemPerTb.Ore, 1),
+            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], itemPerTb.GoldKey, rwdContentDt.GetRandomGoldKeyCnt()),
+            (EtcConsumableDatas[(int)Etc.ConsumableItem.Clover], itemPerTb.Clover, 1),
+            (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover], itemPerTb.GoldClover, 1),
+            (EtcConsumableDatas[randConsumeIdx], itemPerTb.ConsumeItem, rwdContentDt.GetRandomConsumeItemCnt()),
+            (EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone], itemPerTb.SoulStone, rwdContentDt.GetRandomSoulStoneMaxCnt()),
+            (EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone], itemPerTb.MagicStone, rwdContentDt.GetRandomMagicStoneCnt())
+        };
+
+        return itemPerTableList;
+    }
+
+    /// <summary>
+    /// リワードChestとPresentを開く
+    /// </summary>
+    public void OpenRewardContent(RewardContentSO rwdContentDt) {
+        int itemCnt = rwdContentDt.Cnt;
         List<RewardItem> rewardList = new List<RewardItem>();
 
         //* ランダムリワード
-        int randMax = rwdPresentSO.ItemPerTb.GetTotal();
+        int randMax = rwdContentDt.ItemPerTb.GetTotal();
         if(randMax != RAND_MAX) {
-            Debug.LogError("全てアイテム確率テーブルの合計が１０００にならないです。RewardContentSOのInspectorビューの値を確認してください。");
+            Debug.LogError($"<RNADMAX= {randMax}>:: 全てアイテム確率テーブルの合計が１０００にならないです。RewardContentSOのInspectorビューの値を確認してください。");
             return;
         }
 
-        //* ランダム確率でアイテムや容量選択
-        int coinAmount = rwdPresentSO.GetRandomCoin();
-        int diaAmount = rwdPresentSO.GetRandomDiamond();
-        var equipItem = rwdPresentSO.GetRandomEquipDatas(); //* 装置種類
-        int equipGradeIdx = rwdPresentSO.GetRandomEquipGrade(); //* 装置等級
-        int relicGradeIdx = rwdPresentSO.GetRandomRelicGrade(); //* 異物等級
-        int goblinGradeIdx = (int)rwdPresentSO.GetRandomGoblinGrade(); //* ゴブリン等級
-        int oreGradeIdx = (int)rwdPresentSO.GetRandomOreGrade(); //* 鉱石等
-        int randConsumeIdx = (int)rwdPresentSO.GetRandomConsumeItem(); //* 消費アイテム
+        //* アイテム確率テーブルリスト
+        List<(ItemSO item, int per, int quantity)> itemPerTableList = PrepareItemPerTable(rwdContentDt);
+        var copyItemTableList = itemPerTableList.ToList();
 
-        //* 夫々アイテム確率テーブルリスト生成 (Tuple方式)
-        RewardPercentTable  itemPerTb = rwdPresentSO.ItemPerTb;
-        List<(ItemSO item, int percent, int quantity)> itemPerTableList = new List<(ItemSO, int, int)> {
-            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], itemPerTb.COIN, coinAmount),
-            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], itemPerTb.DIAMOND, diaAmount),
-            (equipItem[equipGradeIdx], itemPerTb.EQUIP, 1),
-            (RelicDatas[relicGradeIdx], itemPerTb.RELIC, 1),
-            (EtcNoShowInvDatas[goblinGradeIdx], itemPerTb.GOBLIN, 1),
-            (EtcNoShowInvDatas[oreGradeIdx], itemPerTb.ORE, 1),
-            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], itemPerTb.GOLD_KEY, rwdPresentSO.GetRandomGoldKeyCnt()),
-            (EtcConsumableDatas[(int)Etc.ConsumableItem.Clover], itemPerTb.CLOVER, 1),
-            (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover], itemPerTb.GOLD_CLOVER, 1),
-            (EtcConsumableDatas[randConsumeIdx], itemPerTb.CONSUME_ITEM, rwdPresentSO.GetRandomConsumeItemCnt()),
-            (EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone], itemPerTb.SOUL_STONE, rwdPresentSO.GetRandomSoulStoneMaxCnt()),
-            (EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone], itemPerTb.MAGIC_STONE, rwdPresentSO.GetRandomMagicStoneCnt())
-        };
+        //* 固定アイテム項目があったら、取ってリワードリストへ入れる
+        for (int i = 0; i < copyItemTableList.Count; i++) {
+            var (item, per, quantity) = copyItemTableList[i];
+            if (per == -1) {
+                rewardList.Add(new RewardItem(item, quantity));
+                copyItemTableList.RemoveAt(i); // テーブルからこのアイテムを除く
+                --itemCnt; // アイテム習得カウント減る
+            }
+        }
 
         //* 確率テーブルによる、ランダムアイテム選択
-        var copyItemTableList = itemPerTableList.ToList();
-        for(int i = 0; i < rwdPresentSO.Cnt; i++) {
+        for(int i = 0; i < itemCnt; i++) {
             int rand = Random.Range(0, randMax);
             int startRange = 0;
-            foreach (var (item, percent, quantity) in copyItemTableList) {  //* ToList()를 사용하여 원본 리스트를 수정하지 않고 복사본을 만듭니다.
-                int endRange = startRange + percent;
+            foreach (var (item, per, quantity) in copyItemTableList) {  //* ToList()를 사용하여 원본 리스트를 수정하지 않고 복사본을 만듭니다.
+                int endRange = startRange + per;
                 if (rand < endRange) {
                     Debug.Log($"<color=yellow>OpenPresent0():: {i}: {item.name} {item.Name}, rand= {rand} / {randMax}, Range: {startRange} - {endRange - 1}</color>");
                     rewardList.Add(new RewardItem(item, quantity));
-                    copyItemTableList.Remove((item, percent, quantity));  //* 이미 선택된 아이템 제거
-                    randMax -= percent;
+                    copyItemTableList.Remove((item, per, quantity));  //* 이미 선택된 아이템 제거
+                    randMax -= per;
                     break;
                 }
                 startRange = endRange;

@@ -14,18 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Cnt>k__BackingField: 4
   <ItemPerTb>k__BackingField:
-    COIN: 150
-    DIAMOND: 50
-    EQUIP: 100
-    RELIC: 100
-    GOBLIN: 150
-    ORE: 150
-    GOLD_KEY: 100
-    CLOVER: 60
-    GOLD_CLOVER: 70
-    CONSUME_ITEM: 50
-    SOUL_STONE: 10
-    MAGIC_STONE: 10
+    coin: 150
+    diamond: 50
+    equip: 100
+    relic: 100
+    goblin: 150
+    ore: 150
+    goldKey: 100
+    clover: 60
+    goldClover: 70
+    consumeItem: 50
+    soulStone: 10
+    magicStone: 10
+    <Coin>k__BackingField: 150
+    <Diamond>k__BackingField: 50
+    <Equip>k__BackingField: 100
+    <Relic>k__BackingField: 100
+    <Goblin>k__BackingField: 150
+    <Ore>k__BackingField: 150
+    <GoldKey>k__BackingField: 100
+    <Clover>k__BackingField: 60
+    <GoldClover>k__BackingField: 70
+    <ConsumeItem>k__BackingField: 50
+    <SoulStone>k__BackingField: 10
+    <MagicStone>k__BackingField: 10
   <CoinMin>k__BackingField: 200
   <CoinMax>k__BackingField: 500
   <DiamondMin>k__BackingField: 50
