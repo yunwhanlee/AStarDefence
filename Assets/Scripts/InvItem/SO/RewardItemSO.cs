@@ -55,39 +55,6 @@ public class RewardItem {
 }
 #endregion
 
-#region リワードアイテム％テーブル 構造体
-public struct RewardPercentTable {
-    public int GOLD, DIAMOND, EQUIP, RELIC, GOBLIN, ORE, GOLD_KEY, CLOVER, GOLD_CLOVER, CONSUME_ITEM, SOUL_STONE, MAGIC_STONE;
-
-    public RewardPercentTable(
-        int GOLD = 0, 
-        int DIAMOND = 0, 
-        int EQUIP = 0, 
-        int RELIC = 0, 
-        int GOBLIN = 0, 
-        int ORE = 0, 
-        int GOLD_KEY = 0, 
-        int CLOVER = 0, 
-        int GOLD_CLOVER = 0, 
-        int CONSUME_ITEM = 0, 
-        int SOUL_STONE = 0, 
-        int MAGIC_STONE = 0) {
-            this.GOLD = GOLD;
-            this.DIAMOND = DIAMOND;
-            this.EQUIP = EQUIP;
-            this.RELIC = RELIC;
-            this.GOBLIN = GOBLIN;
-            this.ORE = ORE;
-            this.GOLD_KEY = GOLD_KEY;
-            this.CLOVER = CLOVER;
-            this.GOLD_CLOVER = GOLD_CLOVER;
-            this.CONSUME_ITEM = CONSUME_ITEM;
-            this.SOUL_STONE = SOUL_STONE;
-            this.MAGIC_STONE = MAGIC_STONE;
-        }
-}
-#endregion
-
 #region リワードアイテムのデータベース
 [CreateAssetMenu]
 public class RewardItemSO : ScriptableObject {
@@ -101,50 +68,45 @@ public class RewardItemSO : ScriptableObject {
     [field: SerializeField] public ItemSO[] RingDatas {get; private set;}
     [field: SerializeField] public ItemSO[] RelicDatas {get; private set;}
 
+    [field: Header("RewardContentSO LIST")]
+    [field: SerializeField] public RewardContentSO Rwd_Present0 {get; private set;}
+    [field: SerializeField] public RewardContentSO Rwd_Present1 {get; private set;}
+    [field: SerializeField] public RewardContentSO Rwd_Present2 {get; private set;}
+
     public void OpenPresent0() {
         const int CNT = 4;
         List<RewardItem> rewardList = new List<RewardItem>();
 
-        //* アイテム確率テーブル設定
-        var itemPerTb = new RewardPercentTable(
-            GOLD: 300, DIAMOND: 50,
-            EQUIP: 100, RELIC: 0, 
-            GOBLIN: 200, ORE: 200, GOLD_KEY: 50, 
-            CLOVER: 50, GOLD_CLOVER: 0, 
-            CONSUME_ITEM: 50, 
-            SOUL_STONE: 0, MAGIC_STONE: 0
-        );
-
         //* ランダムリワード
-        int randMax = RAND_MAX;
+        int randMax = Rwd_Present0.ItemPerTb.GetTotal();
+        if(randMax != RAND_MAX) {
+            Debug.LogError("全てアイテム確率テーブルの合計が１０００にならないです。RewardContentSOのInspectorビューの値を確認してください。");
+            return;
+        }
         int rand = Random.Range(0, randMax);
 
+        //* Coin Amount
+        int coinAmount = Rwd_Present0.GetRandomCoin();
+        //* Dia Amount
+        int diaAmount = Rwd_Present0.GetRandomDiamond();
         //* 装置種類
-        int randEquip = Random.Range(0, 2 + 1);
-        var equipItem = randEquip == 0? WeaponDatas : randEquip == 1? ShoesDatas: RingDatas;
+        var equipItem = Rwd_Present0.GetRandomEquipDatas();
         //* 装置等級
-        int randEquipGrade = Random.Range(0, 1000);
-        int equipGradeIdx = randEquipGrade < 750? 0 : randEquipGrade < 750 + 230? 1 : 2;
+        int equipGradeIdx = Rwd_Present0.GetRandomEquipGrade();
         //* 異物等級
-        int relicGradeIdx = 0;
+        int relicGradeIdx = Rwd_Present0.GetRandomRelicGrade();
         //* ゴブリン等級
-        int randGoblinGrade = Random.Range(0, 1000);
-        int goblinGradeIdx = randGoblinGrade < 650? (int)Etc.NoshowInvItem.Goblin0
-            : randGoblinGrade < 650 + 350? (int)Etc.NoshowInvItem.Goblin1
-            : (int)Etc.NoshowInvItem.Goblin2;
-        //* 鉱石等級
-        int randOreGrade = Random.Range(0, 1000);
-        int oreGradeIdx = randOreGrade < 450? (int)Etc.NoshowInvItem.Ore0
-            : randOreGrade < 450 + 350? (int)Etc.NoshowInvItem.Ore1
-            : randOreGrade < 450 + 350 + 150? (int)Etc.NoshowInvItem.Ore2
-            : (int)Etc.NoshowInvItem.Ore3;
+        int goblinGradeIdx = (int)Rwd_Present0.GetRandomGoblinGrade();
+        //* 鉱石等        
+        int oreGradeIdx = (int)Rwd_Present0.GetRandomOreGrade();
         //* 消費アイテム
-        int randConsumeIdx = Random.Range((int)Etc.ConsumableItem.BizzardScroll, (int)Etc.ConsumableItem.SteamPack1 + 1);
+        int randConsumeIdx = (int)Rwd_Present0.GetRandomConsumeItem();
 
         //* 夫々アイテム確率テーブルリスト生成 (Tuple方式)
+        RewardPercentTable  itemPerTb = Rwd_Present0.ItemPerTb;
         List<(ItemSO item, int percent, int quantity)> itemPerTableList = new List<(ItemSO, int, int)> {
-            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], itemPerTb.GOLD, Random.Range(50, 200 + 1)),
-            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], itemPerTb.DIAMOND, Random.Range(10, 50 + 1)),
+            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], itemPerTb.COIN, coinAmount),
+            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], itemPerTb.DIAMOND, diaAmount),
             (equipItem[equipGradeIdx], itemPerTb.EQUIP, 1),
             (RelicDatas[relicGradeIdx], itemPerTb.RELIC, 1),
             (EtcNoShowInvDatas[goblinGradeIdx], itemPerTb.GOBLIN, 1),
@@ -167,7 +129,7 @@ public class RewardItemSO : ScriptableObject {
                 int endRange = startRange + percent;
                 if (rand < endRange) {
                     Debug.Log($"<color=yellow>OpenPresent0():: {i}: {item.name} {item.Name}, rand= {rand} / {randMax}, Range: {startRange} - {endRange - 1}</color>");
-                    rewardList.Add(new RewardItem(item));
+                    rewardList.Add(new RewardItem(item, quantity));
                     copyItemTableList.Remove((item, percent, quantity));  //* 이미 선택된 아이템 제거
                     randMax -= percent;
                     break;

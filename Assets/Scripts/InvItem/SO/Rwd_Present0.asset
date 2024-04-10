@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bfdc2e6cb60e644db583700af3f5a05, type: 3}
+  m_Name: Rwd_Present0
+  m_EditorClassIdentifier: 
+  <ItemPerTb>k__BackingField:
+    COIN: 300
+    DIAMOND: 50
+    EQUIP: 100
+    RELIC: 0
+    GOBLIN: 200
+    ORE: 200
+    GOLD_KEY: 50
+    CLOVER: 50
+    GOLD_CLOVER: 50
+    CONSUME_ITEM: 0
+    SOUL_STONE: 0
+    MAGIC_STONE: 0
+  <CoinMin>k__BackingField: 50
+  <CoinMax>k__BackingField: 200
+  <DiamondMin>k__BackingField: 10
+  <DiamondMax>k__BackingField: 50
+  <RwdGradeTb>k__BackingField:
+    <EquipPerList>k__BackingField: ee020000e60000001400000000000000000000000000000000000000
+    <RelicPerList>k__BackingField: 
+    <GoblinPerList>k__BackingField: 580200005e0100003200000000000000000000000000000000000000
+    <OrePerList>k__BackingField: c20100005e01000096000000320000000000000000000000000000000000000000000000

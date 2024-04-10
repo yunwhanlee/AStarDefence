@@ -54,12 +54,48 @@ public class Etc {
     public static string GetNoshowInvItemNameStr(NoshowInvItem noshowInvItemEnum) {
         return noshowInvItemEnum.ToString();
     }
+    public static NoshowInvItem GetGoblinInvItem(int idx) {
+        switch(idx) {
+            case 0: return NoshowInvItem.Goblin0;
+            case 1: return NoshowInvItem.Goblin1;
+            case 2: return NoshowInvItem.Goblin2;
+            case 3: return NoshowInvItem.Goblin3;
+            case 4: return NoshowInvItem.Goblin4;
+            case 5: return NoshowInvItem.Goblin5;
+            case 6: return NoshowInvItem.Goblin6;
+        }
+        return NoshowInvItem.Goblin; //* 何も該当することがなかったら、エラーとして表示
+    }
+    public static NoshowInvItem GetOreInvItem(int idx) {
+        switch(idx) {
+            case 0: return NoshowInvItem.Ore0;
+            case 1: return NoshowInvItem.Ore1;
+            case 2: return NoshowInvItem.Ore2;
+            case 3: return NoshowInvItem.Ore3;
+            case 4: return NoshowInvItem.Ore4;
+            case 5: return NoshowInvItem.Ore5;
+            case 6: return NoshowInvItem.Ore6;
+            case 7: return NoshowInvItem.Ore7;
+            case 8: return NoshowInvItem.Ore8;
+        }
+        return NoshowInvItem.Ore; //* 何も該当することがなかったら、エラーとして表示
+    }
     public enum ConsumableItem {
         BizzardScroll, LightningScroll, SteamPack0, SteamPack1,
         ChestCommon, ChestDiamond, ChestEquipment, ChestGoldKey, ChestPremium,
         Clover, GoldClover,
         Present0, Present1, Present2,
         SoulStone, MagicStone,
+    }
+
+    public static ConsumableItem GetConsumableItem(int idx) {
+        switch(idx) {
+            case 0: return ConsumableItem.BizzardScroll;
+            case 1: return ConsumableItem.LightningScroll;
+            case 2: return ConsumableItem.SteamPack0;
+            case 3: return ConsumableItem.SteamPack1;
+        }
+        return ConsumableItem.BizzardScroll;
     }
 }
 
