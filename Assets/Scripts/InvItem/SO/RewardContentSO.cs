@@ -55,6 +55,8 @@ public struct RewardGradeTable {
 /// </summary>
 [CreateAssetMenu]
 public class RewardContentSO : ScriptableObject {
+    [field: SerializeField] public int Cnt {get; private set;}
+
     [field: Header("アイテム確率テーブル設定")]
     [field: SerializeField] public RewardPercentTable ItemPerTb {get; private set;}
     [field: Header("コイン範囲")]

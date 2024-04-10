@@ -157,15 +157,17 @@ namespace Inventory.UI {
                 else if(item.name == $"{Etc.ConsumableItem.Present0}") {
                     EtcConfirmBtnTxt.text = "열기";
                     OnClickConsumPopUpConfirmBtn = ()
-                        => HM._.rwlm.RwdItemDt.OpenPresent0();
+                        => HM._.rwlm.RwdItemDt.OpenPresent(HM._.rwlm.RwdItemDt.Rwd_Present0);
                 }
-
-                else if(item.name == $"{Etc.ConsumableItem.Present0}"
-                || item.name == $"{Etc.ConsumableItem.Present1}"
-                || item.name == $"{Etc.ConsumableItem.Present2}") {
-                    presentIdx = int.Parse(item.name.Split("t")[1]);
+                else if(item.name == $"{Etc.ConsumableItem.Present1}") {
                     EtcConfirmBtnTxt.text = "열기";
-                    
+                    OnClickConsumPopUpConfirmBtn = ()
+                        => HM._.rwlm.RwdItemDt.OpenPresent(HM._.rwlm.RwdItemDt.Rwd_Present1);
+                }
+                else if(item.name == $"{Etc.ConsumableItem.Present2}") {
+                    EtcConfirmBtnTxt.text = "열기";
+                    OnClickConsumPopUpConfirmBtn = ()
+                        => HM._.rwlm.RwdItemDt.OpenPresent(HM._.rwlm.RwdItemDt.Rwd_Present2);
                 }
 
                 EtcItemBg.gameObject.SetActive(true);
