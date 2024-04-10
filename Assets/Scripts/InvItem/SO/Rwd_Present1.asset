@@ -30,6 +30,10 @@ MonoBehaviour:
   <CoinMax>k__BackingField: 500
   <DiamondMin>k__BackingField: 50
   <DiamondMax>k__BackingField: 120
+  <GoldKeyMax>k__BackingField: 1
+  <ConsumeItemMax>k__BackingField: 2
+  <SoulStoneMax>k__BackingField: 1
+  <MagicStoneMax>k__BackingField: 1
   <RwdGradeTb>k__BackingField:
     <EquipPerList>k__BackingField: c20100005e010000c800000000000000000000000000000000000000
     <RelicPerList>k__BackingField: b603000032000000000000000000000000000000

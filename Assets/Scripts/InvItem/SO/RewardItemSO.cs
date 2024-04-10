@@ -102,12 +102,12 @@ public class RewardItemSO : ScriptableObject {
             (RelicDatas[relicGradeIdx], itemPerTb.RELIC, 1),
             (EtcNoShowInvDatas[goblinGradeIdx], itemPerTb.GOBLIN, 1),
             (EtcNoShowInvDatas[oreGradeIdx], itemPerTb.ORE, 1),
-            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], itemPerTb.GOLD_KEY, 1),
+            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], itemPerTb.GOLD_KEY, rwdPresentSO.GetRandomGoldKeyCnt()),
             (EtcConsumableDatas[(int)Etc.ConsumableItem.Clover], itemPerTb.CLOVER, 1),
             (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover], itemPerTb.GOLD_CLOVER, 1),
-            (EtcConsumableDatas[randConsumeIdx], itemPerTb.CONSUME_ITEM, 1),
-            (EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone], itemPerTb.SOUL_STONE, 1),
-            (EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone], itemPerTb.MAGIC_STONE, 1)
+            (EtcConsumableDatas[randConsumeIdx], itemPerTb.CONSUME_ITEM, rwdPresentSO.GetRandomConsumeItemCnt()),
+            (EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone], itemPerTb.SOUL_STONE, rwdPresentSO.GetRandomSoulStoneMaxCnt()),
+            (EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone], itemPerTb.MAGIC_STONE, rwdPresentSO.GetRandomMagicStoneCnt())
         };
 
         //* 確率テーブルによる、ランダムアイテム選択

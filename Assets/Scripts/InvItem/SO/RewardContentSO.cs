@@ -65,6 +65,12 @@ public class RewardContentSO : ScriptableObject {
     [field: Header("ダイアモンド範囲")]
     [field: SerializeField] public int DiamondMin {get; private set;}
     [field: SerializeField] public int DiamondMax {get; private set;}
+    [field: Header("アイテムランダム習得数")]
+    [field: SerializeField] public int GoldKeyMax {get; private set;}
+    [field: SerializeField] public int ConsumeItemMax {get; private set;}
+    [field: SerializeField] public int SoulStoneMax {get; private set;}
+    [field: SerializeField] public int MagicStoneMax {get; private set;}
+
     [field: Header("アイテム等級テーブル")]
     [field: SerializeField] public RewardGradeTable RwdGradeTb {get; private set;}
 
@@ -108,6 +114,10 @@ public class RewardContentSO : ScriptableObject {
         => Mathf.RoundToInt(Random.Range(CoinMin, CoinMax + 1) / 5) * 5; //* ５倍数
     public int GetRandomDiamond() 
         => Mathf.RoundToInt(Random.Range(DiamondMin, DiamondMax + 1) / 5) * 5; //* ５倍数
+    public int GetRandomGoldKeyCnt() => Random.Range(1, GoldKeyMax + 1);
+    public int GetRandomConsumeItemCnt() => Random.Range(1, ConsumeItemMax + 1);
+    public int GetRandomSoulStoneMaxCnt() => Random.Range(1, SoulStoneMax + 1);
+    public int GetRandomMagicStoneCnt() => Random.Range(1, MagicStoneMax + 1);
     public ItemSO[] GetRandomEquipDatas() {
         var rwdDt = HM._.rwlm.RwdItemDt;
         int rand = Random.Range(0, 2 + 1);
