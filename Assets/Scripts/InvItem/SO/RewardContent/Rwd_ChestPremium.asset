@@ -12,30 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bfdc2e6cb60e644db583700af3f5a05, type: 3}
   m_Name: Rwd_ChestPremium
   m_EditorClassIdentifier: 
-  <Cnt>k__BackingField: 99
+  <Cnt>k__BackingField: 8
   <ItemPerTb>k__BackingField:
     <Coin>k__BackingField: -1
-    <Diamond>k__BackingField: 50
-    <Equip>k__BackingField: 400
-    <Relic>k__BackingField: 0
+    <Diamond>k__BackingField: -1
+    <Equip>k__BackingField: -1
+    <Relic>k__BackingField: 250
     <Goblin>k__BackingField: 50
     <Ore>k__BackingField: 50
-    <GoldKey>k__BackingField: 100
-    <Clover>k__BackingField: 80
-    <GoldClover>k__BackingField: 20
-    <ConsumeItem>k__BackingField: 250
-    <SoulStone>k__BackingField: 0
-    <MagicStone>k__BackingField: 0
-  <CoinMin>k__BackingField: 50
-  <CoinMax>k__BackingField: 500
-  <DiamondMin>k__BackingField: 10
-  <DiamondMax>k__BackingField: 20
-  <GoldKeyMax>k__BackingField: 1
-  <ConsumeItemMax>k__BackingField: 1
-  <SoulStoneMax>k__BackingField: 0
-  <MagicStoneMax>k__BackingField: 0
+    <GoldKey>k__BackingField: 50
+    <Clover>k__BackingField: 50
+    <GoldClover>k__BackingField: 150
+    <ConsumeItem>k__BackingField: 100
+    <SoulStone>k__BackingField: 150
+    <MagicStone>k__BackingField: 150
+  <CoinMin>k__BackingField: 1000
+  <CoinMax>k__BackingField: 5000
+  <DiamondMin>k__BackingField: 500
+  <DiamondMax>k__BackingField: 1000
+  <GoldKeyMax>k__BackingField: 3
+  <ConsumeItemMax>k__BackingField: 3
+  <SoulStoneMax>k__BackingField: 5
+  <MagicStoneMax>k__BackingField: 5
   <RwdGradeTb>k__BackingField:
-    <EquipPerList>k__BackingField: ee020000e60000001400000000000000000000000000000000000000
-    <RelicPerList>k__BackingField: 
-    <GoblinPerList>k__BackingField: 580200005e0100003200000000000000000000000000000000000000
-    <OrePerList>k__BackingField: 76020000fa00000064000000140000000000000000000000000000000000000000000000
+    <EquipPerList>k__BackingField: 00000000000000002c01000008020000960000001b00000003000000
+    <RelicPerList>k__BackingField: ea0100009a010000500000001200000002000000
+    <GoblinPerList>k__BackingField: 000000001801000090010000c80000005a0000001b00000003000000
+    <OrePerList>k__BackingField: 0000000000000000000000001801000090010000c80000005a0000001b00000003000000

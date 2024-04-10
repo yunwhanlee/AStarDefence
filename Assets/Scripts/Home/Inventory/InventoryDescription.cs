@@ -194,9 +194,8 @@ namespace Inventory.UI {
                 }
                 else if(item.name == $"{Etc.ConsumableItem.ChestPremium}") {
                     rwlm.SetChestPopUpUI(Etc.ConsumableItem.ChestPremium, quantity);
-                    rwlm.OnClickOpenChest = () => {
-                        Debug.Log("Open Chest!");
-                    };
+                    rwlm.OnClickOpenChest = ()
+                        => rwlm.RwdItemDt.OpenRewardContent(rwlm.RwdItemDt.Rwd_ChestPremium);
                 }
 
                 EtcItemBg.gameObject.SetActive(true);
