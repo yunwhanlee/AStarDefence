@@ -179,21 +179,18 @@ namespace Inventory.UI {
                 }
                 else if(item.name == $"{Etc.ConsumableItem.ChestDiamond}") {
                     rwlm.SetChestPopUpUI(Etc.ConsumableItem.ChestDiamond, quantity);
-                    rwlm.OnClickOpenChest = () => {
-                        Debug.Log("Open Chest!");
-                    };
+                    rwlm.OnClickOpenChest = ()
+                        => rwlm.RwdItemDt.OpenRewardContent(rwlm.RwdItemDt.Rwd_ChestDiamond);
                 }
                 else if(item.name == $"{Etc.ConsumableItem.ChestEquipment}") {
                     rwlm.SetChestPopUpUI(Etc.ConsumableItem.ChestEquipment, quantity);
-                    rwlm.OnClickOpenChest = () => {
-                        Debug.Log("Open Chest!");
-                    };
+                    rwlm.OnClickOpenChest = ()
+                        => rwlm.RwdItemDt.OpenRewardContent(rwlm.RwdItemDt.Rwd_ChestEquipment);
                 }
                 else if(item.name == $"{Etc.ConsumableItem.ChestGold}") {
                     rwlm.SetChestPopUpUI(Etc.ConsumableItem.ChestGold, quantity);
-                    rwlm.OnClickOpenChest = () => {
-                        Debug.Log("Open Chest!");
-                    };
+                    rwlm.OnClickOpenChest = ()
+                        => rwlm.RwdItemDt.OpenRewardContent(rwlm.RwdItemDt.Rwd_ChestGold);
                 }
                 else if(item.name == $"{Etc.ConsumableItem.ChestPremium}") {
                     rwlm.SetChestPopUpUI(Etc.ConsumableItem.ChestPremium, quantity);
