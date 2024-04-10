@@ -55,12 +55,11 @@ public class Etc {
         return noshowInvItemEnum.ToString();
     }
     public enum ConsumableItem {
-        BizzardScroll, 
-        ChestCommon, ChestDiamond, ChestEquipment, ChestGoldKey, ChestPremium, 
-        Clover, GoldClover, 
-        LightningScroll, MagicStone, 
-        Present0, Present1, Present2, 
-        SoulStone, SteamPack0, SteamPack1
+        BizzardScroll, LightningScroll, SteamPack0, SteamPack1,
+        ChestCommon, ChestDiamond, ChestEquipment, ChestGoldKey, ChestPremium,
+        Clover, GoldClover,
+        Present0, Present1, Present2,
+        SoulStone, MagicStone,
     }
 }
 

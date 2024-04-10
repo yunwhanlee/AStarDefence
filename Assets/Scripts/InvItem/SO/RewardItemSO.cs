@@ -55,6 +55,7 @@ public class RewardItem {
 }
 #endregion
 
+#region リワードアイテム％テーブル 構造体
 public struct RewardPercentTable {
     public int GOLD, DIAMOND, EQUIP, RELIC, GOBLIN, ORE, GOLD_KEY, CLOVER, GOLD_CLOVER, CONSUME_ITEM, SOUL_STONE, MAGIC_STONE;
 
@@ -84,9 +85,8 @@ public struct RewardPercentTable {
             this.SOUL_STONE = SOUL_STONE;
             this.MAGIC_STONE = MAGIC_STONE;
         }
-
-    // public int GetTocalPercent() => GOLD + DIAMOND + EQUIP + RELIC + GOBLIN + ORE + GOLD_KEY + CLOVER + GOLD_CLOVER + CONSUME_ITEM + SOUL_STONE + MAGIC_STONE;
 }
+#endregion
 
 #region リワードアイテムのデータベース
 [CreateAssetMenu]
@@ -119,31 +119,40 @@ public class RewardItemSO : ScriptableObject {
         int randMax = RAND_MAX;
         int rand = Random.Range(0, randMax);
 
-        //* 夫々アイテム確率テーブルリスト生成 (Tuple方式)
+        //* 装置種類
         int randEquip = Random.Range(0, 2 + 1);
         var equipItem = randEquip == 0? WeaponDatas : randEquip == 1? ShoesDatas: RingDatas;
-
+        //* 装置等級
         int randEquipGrade = Random.Range(0, 1000);
         int equipGradeIdx = randEquipGrade < 750? 0 : randEquipGrade < 750 + 230? 1 : 2;
+        //* 異物等級
+        int relicGradeIdx = 0;
+        //* ゴブリン等級
+        int randGoblinGrade = Random.Range(0, 1000);
+        int goblinGradeIdx = randGoblinGrade < 650? (int)Etc.NoshowInvItem.Goblin0
+            : randGoblinGrade < 650 + 350? (int)Etc.NoshowInvItem.Goblin1
+            : (int)Etc.NoshowInvItem.Goblin2;
+        //* 鉱石等級
+        int randOreGrade = Random.Range(0, 1000);
+        int oreGradeIdx = randOreGrade < 450? (int)Etc.NoshowInvItem.Ore0
+            : randOreGrade < 450 + 350? (int)Etc.NoshowInvItem.Ore1
+            : randOreGrade < 450 + 350 + 150? (int)Etc.NoshowInvItem.Ore2
+            : (int)Etc.NoshowInvItem.Ore3;
+        //* 消費アイテム
+        int randConsumeIdx = Random.Range((int)Etc.ConsumableItem.BizzardScroll, (int)Etc.ConsumableItem.SteamPack1 + 1);
 
-        int randRelicGrade = Random.Range(0, 1000);
-        int relicGradeIdx = randRelicGrade < 95? 0 : 1;
-
-        //TODO Rand Goblin 
-        //TODO Rand Ore
-        //TODO Rand Goblin ConsumeItem
-
+        //* 夫々アイテム確率テーブルリスト生成 (Tuple方式)
         List<(ItemSO item, int percent, int quantity)> itemPerTableList = new List<(ItemSO, int, int)> {
             (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], itemPerTb.GOLD, Random.Range(50, 200 + 1)),
             (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], itemPerTb.DIAMOND, Random.Range(10, 50 + 1)),
             (equipItem[equipGradeIdx], itemPerTb.EQUIP, 1),
             (RelicDatas[relicGradeIdx], itemPerTb.RELIC, 1),
-            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin0], itemPerTb.GOBLIN, 1),
-            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore0], itemPerTb.ORE, 1),
+            (EtcNoShowInvDatas[goblinGradeIdx], itemPerTb.GOBLIN, 1),
+            (EtcNoShowInvDatas[oreGradeIdx], itemPerTb.ORE, 1),
             (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], itemPerTb.GOLD_KEY, 1),
             (EtcConsumableDatas[(int)Etc.ConsumableItem.Clover], itemPerTb.CLOVER, 1),
             (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover], itemPerTb.GOLD_CLOVER, 1),
-            (EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack0], itemPerTb.CONSUME_ITEM, 1),
+            (EtcConsumableDatas[randConsumeIdx], itemPerTb.CONSUME_ITEM, 1),
             (EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone], itemPerTb.SOUL_STONE, 1),
             (EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone], itemPerTb.MAGIC_STONE, 1)
         };

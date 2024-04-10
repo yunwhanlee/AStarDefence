@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Inventory.Model;
+using AssetKits.ParticleImage;
 
 namespace Inventory.UI
 {
@@ -26,6 +27,8 @@ namespace Inventory.UI
         [field:SerializeField] public TMP_Text QuantityTxt {get; set;}
         [field:SerializeField] public TMP_Text LvTxt {get; set;}
         [field:SerializeField] public Image BorderImg {get; set;}
+        [field:SerializeField] public ParticleImage ItemImgScaleUIEF {get; set;}
+        [field:SerializeField] public ParticleImage WhiteDimScaleUIEF {get; set;}
         public event Action<InventoryUIItem> OnItemClicked, 
             OnItemDroppedOn, 
             OnItemBeginDrag, 

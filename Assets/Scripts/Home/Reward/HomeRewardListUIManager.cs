@@ -22,8 +22,15 @@ public class HomeRewardListUIManager : MonoBehaviour {
         //* リワードリストへオブジェクト生成・追加
         for(int i = 0; i < rewardList.Count; i++) {
             RewardItem rewardItem = rewardList[i];
-            InventoryUIItem rewardItemUI = Instantiate(rwdItemPf.gameObject, HM._.rwlm.Content).GetComponent<InventoryUIItem>();
-            rewardItemUI.SetData(rewardItem.Data.Type, rewardItem.Data.Grade, rewardItem.Data.ItemImg, rewardItem.Quantity, lv: 1);
+            InventoryUIItem rwdItemUI = Instantiate(rwdItemPf.gameObject, HM._.rwlm.Content).GetComponent<InventoryUIItem>();
+            rwdItemUI.SetData(rewardItem.Data.Type, rewardItem.Data.Grade, rewardItem.Data.ItemImg, rewardItem.Quantity, lv: 1);
+            //* Particle UI Effect
+            rwdItemUI.ItemImgScaleUIEF.sprite = rewardItem.Data.ItemImg;
+            rwdItemUI.ItemImgScaleUIEF.startDelay = 0.5f + i * 0.1f;
+            rwdItemUI.ItemImgScaleUIEF.Play();
+            rwdItemUI.WhiteDimScaleUIEF.lifetime = 0.5f + i * 0.1f;
+            rwdItemUI.WhiteDimScaleUIEF.Play();
+
         }
     }
 

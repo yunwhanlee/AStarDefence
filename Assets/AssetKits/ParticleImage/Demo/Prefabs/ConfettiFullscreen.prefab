@@ -32,7 +32,6 @@ RectTransform:
   m_Children:
   - {fileID: 3374385850710733559}
   m_Father: {fileID: 2559037202506892817}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -20}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -87,6 +86,7 @@ MonoBehaviour:
   _emitOnSurface: 1
   _emitterThickness: 0
   _loop: 0
+  _prewarm: 0
   _duration: 0.3
   _playMode: 1
   _startSize:
@@ -1250,7 +1250,7 @@ MonoBehaviour:
   - time: 0
     count: 100
     used: 1
-  _trailRenderer: {fileID: 9141640328788218967}
+  _particleTrailRenderer: {fileID: 9141640328788218967}
   _trailModule:
     enabled: 1
   _trailWidth:
@@ -1418,12 +1418,16 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     m_ColorMin: {r: 0, g: 0, b: 0, a: 1}
     m_ColorMax: {r: 1, g: 1, b: 1, a: 1}
+  _trailMaterial: {fileID: 0}
   _inheritParticleColor: 1
   _dieWithParticle: 0
   _trailRatio: 0.1
-  _noiseOctaves: 1
+  _noiseOffset: {x: 0, y: 0}
   _noiseFrequency: 0.3
   _noiseStrength: 2
+  _multithreadModule:
+    enabled: 0
+  _multithreadEnabled: 0
   _onStart:
     m_PersistentCalls:
       m_Calls: []
@@ -1443,6 +1447,8 @@ MonoBehaviour:
   moduleParticleFoldout: 1
   moduleMovementFoldout: 0
   moduleEventsFoldout: 0
+  moduleAdvancedFoldout: 0
+  m_Sprite: {fileID: 0}
   m_Texture: {fileID: 0}
 --- !u!1 &2559037201541945338
 GameObject:
@@ -1476,7 +1482,6 @@ RectTransform:
   m_Children:
   - {fileID: 7397465476810166022}
   m_Father: {fileID: 2559037202506892817}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 20}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -1531,6 +1536,7 @@ MonoBehaviour:
   _emitOnSurface: 1
   _emitterThickness: 0
   _loop: 0
+  _prewarm: 0
   _duration: 0.3
   _playMode: 1
   _startSize:
@@ -2694,7 +2700,7 @@ MonoBehaviour:
   - time: 0
     count: 100
     used: 1
-  _trailRenderer: {fileID: 8482527137697274034}
+  _particleTrailRenderer: {fileID: 8482527137697274034}
   _trailModule:
     enabled: 1
   _trailWidth:
@@ -2862,12 +2868,16 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     m_ColorMin: {r: 0, g: 0, b: 0, a: 1}
     m_ColorMax: {r: 1, g: 1, b: 1, a: 1}
+  _trailMaterial: {fileID: 0}
   _inheritParticleColor: 1
   _dieWithParticle: 0
   _trailRatio: 0.1
-  _noiseOctaves: 1
+  _noiseOffset: {x: 0, y: 0}
   _noiseFrequency: 0.3
   _noiseStrength: 2
+  _multithreadModule:
+    enabled: 0
+  _multithreadEnabled: 0
   _onStart:
     m_PersistentCalls:
       m_Calls: []
@@ -2887,6 +2897,8 @@ MonoBehaviour:
   moduleParticleFoldout: 1
   moduleMovementFoldout: 1
   moduleEventsFoldout: 0
+  moduleAdvancedFoldout: 0
+  m_Sprite: {fileID: 0}
   m_Texture: {fileID: 0}
 --- !u!1 &2559037202506892816
 GameObject:
@@ -2921,7 +2933,6 @@ RectTransform:
   - {fileID: 2559037201267623758}
   - {fileID: 2559037201541945339}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -2978,6 +2989,7 @@ MonoBehaviour:
   _emitOnSurface: 1
   _emitterThickness: 0
   _loop: 0
+  _prewarm: 0
   _duration: 1
   _playMode: 1
   _startSize:
@@ -4138,7 +4150,7 @@ MonoBehaviour:
   _rateOverLifetime: 0
   _rateOverDistance: 0
   _bursts: []
-  _trailRenderer: {fileID: 0}
+  _particleTrailRenderer: {fileID: 0}
   _trailModule:
     enabled: 0
   _trailWidth:
@@ -4288,12 +4300,16 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     m_ColorMin: {r: 0, g: 0, b: 0, a: 1}
     m_ColorMax: {r: 1, g: 1, b: 1, a: 1}
+  _trailMaterial: {fileID: 0}
   _inheritParticleColor: 0
   _dieWithParticle: 0
   _trailRatio: 1
-  _noiseOctaves: 1
+  _noiseOffset: {x: 0, y: 0}
   _noiseFrequency: 0.3
   _noiseStrength: 1
+  _multithreadModule:
+    enabled: 0
+  _multithreadEnabled: 0
   _onStart:
     m_PersistentCalls:
       m_Calls: []
@@ -4313,6 +4329,8 @@ MonoBehaviour:
   moduleParticleFoldout: 1
   moduleMovementFoldout: 0
   moduleEventsFoldout: 0
+  moduleAdvancedFoldout: 0
+  m_Sprite: {fileID: 0}
   m_Texture: {fileID: 0}
 --- !u!1 &3300608721723349028
 GameObject:
@@ -4345,7 +4363,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2559037201267623758}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4411,7 +4428,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2559037201541945339}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
