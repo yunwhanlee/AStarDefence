@@ -237,10 +237,13 @@ namespace Inventory.Model
 
             //* アイテム数量が０なら、削除（Empty）
             if(ItemList[tgIdx].Quantity <= 0) {
+                //* インベントリースロットのデータとUIリセット
                 ItemList[tgIdx] = InventoryItem.GetEmptyItem();
                 HM._.ivm.InvUIItemList[tgIdx].ResetData();
-                //* ChestPopUpが開いていたら、非表示
+                //* アイテムがないので、開いたPopUpに可能性があることを全て非表示
                 HM._.rwlm.RewardChestPopUp.SetActive(false);
+                HM._.ivm.ConsumePopUp.SetActive(false);
+                //* 整列
                 SortInventory();
             }
 
