@@ -82,6 +82,38 @@ namespace Inventory
         public void HideInventory() {
             ivm.Hide();
         }
+
+        public void EquipItemSlot() {
+            int curIdx = HM._.ivm.CurItemIdx;
+            InventoryItem  curInvItem = InventoryData.ItemList[curIdx];
+            InventoryData.ItemList[curIdx] = curInvItem.ChangeEquipItem(true);
+
+            //* アイテム「装置中」DimUI表示 
+            HM._.ivm.InitEquipDimUI(curInvItem.Data.Type); // 同じタイプのアイテムの「装置中」を初期化
+            HM._.ivm.InvUIItemList[curIdx].EquipDim.SetActive(true);
+
+            //* 装置スロットUI
+            ItemSO dt = curInvItem.Data;
+            switch(curInvItem.Data.Type) {
+                case Enum.ItemType.Weapon:
+                    HM._.ivEqu.WeaponInvUISlot.SetUIData(dt.Type, dt.Grade, dt.ItemImg, curInvItem.Quantity, curInvItem.Lv);
+                    HM._.ivEqu.WeaponInvUISlot.WhiteDimScaleUIEF.Play();
+                    break;
+                case Enum.ItemType.Shoes:
+                    HM._.ivEqu.ShoesInvUISlot.SetUIData(dt.Type, dt.Grade, dt.ItemImg, curInvItem.Quantity, curInvItem.Lv);
+                    HM._.ivEqu.ShoesInvUISlot.WhiteDimScaleUIEF.Play();
+                    break;
+                case Enum.ItemType.Ring:
+                    HM._.ivEqu.RingInvUISlot.SetUIData (dt.Type, dt.Grade, dt.ItemImg, curInvItem.Quantity, curInvItem.Lv);
+                    HM._.ivEqu.RingInvUISlot.WhiteDimScaleUIEF.Play();
+                    break;
+                case Enum.ItemType.Relic:
+                    HM._.ivEqu.RelicInvUISlot.SetUIData (dt.Type, dt.Grade, dt.ItemImg, curInvItem.Quantity, curInvItem.Lv);
+                    HM._.ivEqu.RelicInvUISlot.WhiteDimScaleUIEF.Play();
+                    break;
+            }
+            
+        }
     }
 
 }

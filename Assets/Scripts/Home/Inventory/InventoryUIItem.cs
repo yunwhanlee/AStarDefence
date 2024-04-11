@@ -27,6 +27,7 @@ namespace Inventory.UI
         [field:SerializeField] public TMP_Text QuantityTxt {get; set;}
         [field:SerializeField] public TMP_Text LvTxt {get; set;}
         [field:SerializeField] public Image BorderImg {get; set;}
+        [field:SerializeField] public GameObject EquipDim {get; set;}
         [field:SerializeField] public ParticleImage ItemImgScaleUIEF {get; set;}
         [field:SerializeField] public ParticleImage WhiteDimScaleUIEF {get; set;}
         public bool IsEmpty = false;
@@ -41,6 +42,7 @@ namespace Inventory.UI
             ResetData();
             Deselect();
         }
+
         public void ResetData() {
             Type = Enum.ItemType.Etc;
             TypeBgImg.enabled = false;

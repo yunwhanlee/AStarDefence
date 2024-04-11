@@ -25,7 +25,7 @@ public class HM : MonoBehaviour {
     // Inventory
     [HideInInspector] public InventoryUIManager ivm;
     [HideInInspector] public InventoryController ivCtrl;
-    [HideInInspector] public InventoryEquipManager ivEqu;
+    [HideInInspector] public InventoryEquipUIManager ivEqu;
 
     //* Value
     [field: SerializeField] public int SelectedStage {get; set;}
@@ -88,7 +88,7 @@ public class HM : MonoBehaviour {
         stm = GameObject.Find("SkillTreeUIManager").GetComponent<SkillTreeUIManager>();
         ivm = GameObject.Find("InventoryUIManager").GetComponent<InventoryUIManager>();
         ivCtrl = GameObject.Find("InventoryController").GetComponent<InventoryController>();
-        ivEqu = GameObject.Find("InventoryEquipManager").GetComponent<InventoryEquipManager>();
+        ivEqu = GameObject.Find("InventoryEquipUIManager").GetComponent<InventoryEquipUIManager>();
 
         //* 初期化
         SelectedStage = 0;

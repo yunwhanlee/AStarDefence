@@ -72,7 +72,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
     /// </summary>
     public void UpdateChestPopUpUI() {
         var ivm = HM._.ivm;
-        ivm.CurInvItem = ivm.GetCurItemFromIdx(ivm.CurItemIdx);
+        ivm.CurInvItem = ivm.GetCurItemUIFromIdx(ivm.CurItemIdx);
         ChestAlertCntTxt.text = $"{ivm.CurInvItem.Quantity}";
     }
 #endregion

@@ -141,7 +141,7 @@ namespace Inventory.UI
                 return InventoryItem.GetEmptyItem();
             return HM._.ivCtrl.InventoryData.GetItemAt(idx);
         }
-        public InventoryItem GetCurItemFromIdx(int idx) {
+        public InventoryItem GetCurItemUIFromIdx(int idx) {
             if(idx == -1)
                 return InventoryItem.GetEmptyItem();
             return HM._.ivCtrl.InventoryData.GetItemAt(idx);
@@ -194,7 +194,7 @@ namespace Inventory.UI
             int idx = InvUIItemList.IndexOf(invItemUI);
             if(idx == -1) return;
             CurItemIdx = idx;
-            CurInvItem = GetCurItemFromIdx(idx);
+            CurInvItem = GetCurItemUIFromIdx(idx);
             OnDescriptionRequested?.Invoke(idx);
         }
 
@@ -209,6 +209,11 @@ namespace Inventory.UI
                 item.ResetData();
                 item.Deselect();
             }
+        }
+
+        public void InitEquipDimUI(Enum.ItemType type) {
+            List<InventoryUIItem> filterItemUIs = InvUIItemList.FindAll(elem => elem.Type == type);
+            filterItemUIs.ForEach(elem => elem.EquipDim.SetActive(false));
         }
         #endregion
     }

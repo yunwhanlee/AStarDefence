@@ -13,25 +13,25 @@ MonoBehaviour:
   m_Name: InventoryData
   m_EditorClassIdentifier: 
   ItemList:
-  - Quantity: 5
+  - Quantity: 3
     Lv: 1
     Data: {fileID: 11400000, guid: 8a8359171e95e0146a2537f75433dfee, type: 2}
     RelicAbilities: 
     IsEquip: 0
-  - Quantity: 4
-    Lv: 1
-    Data: {fileID: 11400000, guid: 9b97b966b0df890429e36e025e342321, type: 2}
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
     RelicAbilities: 
     IsEquip: 0
-  - Quantity: 1
-    Lv: 1
-    Data: {fileID: 11400000, guid: b080839ff7fe27e41a6bf21a77ce5163, type: 2}
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
     RelicAbilities: 
     IsEquip: 0
-  - Quantity: 1
-    Lv: 1
-    Data: {fileID: 11400000, guid: 2552d2c04cf50fc44972de5e8da0dca0, type: 2}
-    RelicAbilities: 1000000007000000
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
     IsEquip: 0
   - Quantity: 0
     Lv: 0
