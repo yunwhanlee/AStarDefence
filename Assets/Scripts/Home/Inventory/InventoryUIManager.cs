@@ -114,10 +114,10 @@ namespace Inventory.UI
         }
 
         public void UpdateData(int itemIdx, InventoryItem item) {
-            Debug.Log($"UpdateData(itemIdx= {itemIdx}, item= {item.Data})::");
+            Debug.Log($"UpdateData(itemIdx= {itemIdx}, type= {item.Data.Type}, item= {item.Data.Name}):: -> SetUIData()");
             ItemSO dt = item.Data;
             if(InvUIItemList.Count > itemIdx)
-                InvUIItemList[itemIdx].SetData(
+                InvUIItemList[itemIdx].SetUIData (
                     dt.Type, 
                     dt.Grade, 
                     dt.ItemImg, 
@@ -187,7 +187,7 @@ namespace Inventory.UI
 
         public void CreateDraggedItem(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv) {
             MouseFollower.Toggle(true);
-            MouseFollower.SetData(type, grade, spr, quantity, lv);
+            MouseFollower.SetUIData(type, grade, spr, quantity, lv);
         } 
 
         public void HandleItemSelection(InventoryUIItem invItemUI) {

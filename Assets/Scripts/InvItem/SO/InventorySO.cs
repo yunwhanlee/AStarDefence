@@ -235,12 +235,43 @@ namespace Inventory.Model
             ItemList[tgIdx] = ItemList[tgIdx].ChangeQuantity(ItemList[tgIdx].Quantity + decVal);
             // Debug.Log($"DecreaseItem():: ItemList[{tgIdx}]= {ItemList[tgIdx].Data.Name}, Quantity= {ItemList[tgIdx].Quantity}");
 
-            //* もしマージしてから、以前のアイテム数量が０なら、削除（Empty）
-            if(ItemList[tgIdx].Quantity <= 0) 
+            //* アイテム数量が０なら、削除（Empty）
+            if(ItemList[tgIdx].Quantity <= 0) {
                 ItemList[tgIdx] = InventoryItem.GetEmptyItem();
+                HM._.ivm.InvUIItemList[tgIdx].ResetData();
+                //* ChestPopUpが開いていたら、非表示
+                HM._.rwlm.RewardChestPopUp.SetActive(false);
+                SortInventory();
+            }
+
+            foreach (var invItemUI in HM._.ivm.InvUIItemList) {
+                if(invItemUI.IsEmpty)
+                    invItemUI.ResetData();
+            }
 
             //* イベントリーUI アップデート
             InformAboutChange();
+        }
+
+        public void SortInventory() {
+            Debug.Log("SortInventory()::");
+            //* 整列
+            ItemList.Sort((a, b) => {
+                if (a.IsEmpty && b.IsEmpty)
+                    return 0; 
+                if (a.IsEmpty)
+                    return 1; // aをb後ろへ
+                if (b.IsEmpty)
+                    return -1; // bをa後ろへ
+
+                // １．タイプによって整列する
+                int itemTypeComparison = a.Data.Type.CompareTo(b.Data.Type);
+                if (itemTypeComparison != 0) {
+                    return itemTypeComparison;
+                }
+                // ２．同じタイプの場合、名前で整列
+                return a.Data.name.CompareTo(b.Data.name);
+            });
         }
 
         public void AddItem(InventoryItem item) {

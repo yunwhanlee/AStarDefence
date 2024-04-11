@@ -29,13 +29,13 @@ namespace Inventory.UI
         [field:SerializeField] public Image BorderImg {get; set;}
         [field:SerializeField] public ParticleImage ItemImgScaleUIEF {get; set;}
         [field:SerializeField] public ParticleImage WhiteDimScaleUIEF {get; set;}
+        public bool IsEmpty = false;
         public event Action<InventoryUIItem> OnItemClicked, 
             OnItemDroppedOn, 
             OnItemBeginDrag, 
             OnItemEndDrag,
             OnItemClickShortly;
 
-        bool IsEmpty = false;
 
         void Awake() {
             ResetData();
@@ -43,6 +43,10 @@ namespace Inventory.UI
         }
         public void ResetData() {
             Type = Enum.ItemType.Etc;
+            TypeBgImg.enabled = false;
+            TypeIconImg.enabled = false;
+            LightImg.enabled = false;
+            BgImg.sprite = HM._.ivm.NoneBgSpr;
             BgImg.color = Color.white;
             ItemImg.gameObject.SetActive(false);
             IsEmpty = true;
@@ -54,12 +58,12 @@ namespace Inventory.UI
         /// <summary>
         /// アイテムのデータ設定
         /// /// </summary>
-        public void SetData(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv, AbilityType[] relicAbilities = null) {
-            Debug.Log($"SetData({type}, {(int)grade})::");
+        public void SetUIData(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv, AbilityType[] relicAbilities = null) {
+            // Debug.Log($"SetUIData(ItemImg.name={ItemImg.sprite.name}, type={type}, grade={grade})::");
             Type = type;
-            
             //* その他アイテム
             if(type == Enum.ItemType.Etc) {
+                Debug.Log($"SetUIData(<color=white>type={type}</color>, ItemImg.name={ItemImg.sprite.name}, grade={grade})::");
                 TypeBgImg.enabled = false;
                 TypeIconImg.enabled = false;
                 BgImg.sprite = HM._.ivm.NoneBgSpr;
@@ -69,7 +73,9 @@ namespace Inventory.UI
             }
             //* 装置アイテム
             else {
+                Debug.Log($"SetUIData(<color=yellow>type={type}</color>, ItemImg.name={ItemImg.sprite.name}, grade={grade})::");
                 TypeBgImg.enabled = true;
+                TypeIconImg.enabled = true;
                 TypeBgImg.color = HM._.ivm.GradeClrs[(int)grade];
                 TypeIconImg.sprite = HM._.ivm.TypeSprs[(int)type];
                 BgImg.sprite = HM._.ivm.GradeBgSprs[(int)grade];

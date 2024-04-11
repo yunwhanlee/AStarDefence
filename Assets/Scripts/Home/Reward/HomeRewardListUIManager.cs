@@ -43,7 +43,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
         for(int i = 0; i < rewardList.Count; i++) {
             RewardItem rewardItem = rewardList[i];
             InventoryUIItem rwdItemUI = Instantiate(rwdItemPf.gameObject, HM._.rwlm.Content).GetComponent<InventoryUIItem>();
-            rwdItemUI.SetData(rewardItem.Data.Type, rewardItem.Data.Grade, rewardItem.Data.ItemImg, rewardItem.Quantity, lv: 1);
+            rwdItemUI.SetUIData(rewardItem.Data.Type, rewardItem.Data.Grade, rewardItem.Data.ItemImg, rewardItem.Quantity, lv: 1);
             //* Particle UI Effect
             rwdItemUI.ItemImgScaleUIEF.sprite = rewardItem.Data.ItemImg;
             rwdItemUI.ItemImgScaleUIEF.startDelay = 0.5f + i * 0.1f;
@@ -74,9 +74,6 @@ public class HomeRewardListUIManager : MonoBehaviour {
         var ivm = HM._.ivm;
         ivm.CurInvItem = ivm.GetCurItemFromIdx(ivm.CurItemIdx);
         ChestAlertCntTxt.text = $"{ivm.CurInvItem.Quantity}";
-        //* もしカウント０なら、Chestがないので、ポップアップUI 非表示
-        if(ivm.CurInvItem.Quantity <= 0)
-            RewardChestPopUp.SetActive(false);
     }
 #endregion
 }

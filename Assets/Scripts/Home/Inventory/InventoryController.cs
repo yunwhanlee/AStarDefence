@@ -8,14 +8,14 @@ using UnityEngine;
 namespace Inventory 
 {
     public class InventoryController : MonoBehaviour {
-        [SerializeField] private InventoryUIManager InvUI;
+        [SerializeField] private InventoryUIManager ivm;
         [SerializeField] public InventorySO InventoryData;
         [SerializeField] public List<InventoryItem> InitItems {
             get => DM._.DB.InvItemDBs;
         }
 
         void Start() {
-            InvUI = HM._.ivm;
+            ivm = HM._.ivm;
             PrepareUI();
             PrepareInventoryData();
         }
@@ -35,17 +35,17 @@ namespace Inventory
 
         private void UpdateInventoryUI(Dictionary<int, InventoryItem> inventoryState) {
             Debug.Log("UpdateInventoryUI()::");
-            InvUI.ResetAllItems();
+            ivm.ResetAllItems();
             foreach (var item in inventoryState)
-                InvUI.UpdateData(item.Key, item.Value);
+                ivm.UpdateData(item.Key, item.Value);
         }
 
         private void PrepareUI() {
-            InvUI.InitInventoryUI(InventoryData.Size);
-            InvUI.OnDescriptionRequested += HandleDescriptionRequest;
-            InvUI.OnSwapItems += HandleSwapItems;
-            InvUI.OnStartDragging += HandleDragging;
-            InvUI.OnItemActionRequested += HandleItemActionRequest;
+            ivm.InitInventoryUI(InventoryData.Size);
+            ivm.OnDescriptionRequested += HandleDescriptionRequest;
+            ivm.OnSwapItems += HandleSwapItems;
+            ivm.OnStartDragging += HandleDragging;
+            ivm.OnItemActionRequested += HandleItemActionRequest;
         }
 
         private void HandleItemActionRequest(int itemIdx) {}
@@ -53,7 +53,7 @@ namespace Inventory
         private void HandleDragging(int itemIdx) {
             InventoryItem item = InventoryData.GetItemAt(itemIdx);
             if(item.IsEmpty) return;
-            InvUI.CreateDraggedItem(item.Data.Type, item.Data.Grade, item.Data.ItemImg, item.Quantity, item.Lv);
+            ivm.CreateDraggedItem(item.Data.Type, item.Data.Grade, item.Data.ItemImg, item.Quantity, item.Lv);
         }
 
         private void HandleSwapItems(int itemIdx1, int itemIdx2) {   
@@ -64,23 +64,23 @@ namespace Inventory
         private void HandleDescriptionRequest(int itemIdx) {
             InventoryItem invItem = InventoryData.GetItemAt(itemIdx);
             if(invItem.IsEmpty) {
-                InvUI.ResetSelection();
+                ivm.ResetSelection();
                 return;
             }
             ItemSO item = invItem.Data;
-            InvUI.UpdateDescription(itemIdx, item, invItem.Quantity, invItem.Lv, invItem.RelicAbilities);
+            ivm.UpdateDescription(itemIdx, item, invItem.Quantity, invItem.Lv, invItem.RelicAbilities);
         }
 
         public void ShowInventory() {
             Debug.Log("ShowInventory()::");
-            InvUI.Show();
+            ivm.Show();
             foreach (var item in InventoryData.GetCurrentInventoryState()) {
-                InvUI.UpdateData( item.Key, item.Value );
+                ivm.UpdateData( item.Key, item.Value );
             }
         }
 
         public void HideInventory() {
-            InvUI.Hide();
+            ivm.Hide();
         }
     }
 
