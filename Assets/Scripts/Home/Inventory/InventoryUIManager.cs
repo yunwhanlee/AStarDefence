@@ -198,8 +198,8 @@ namespace Inventory.UI
             OnDescriptionRequested?.Invoke(idx);
         }
 
-        public void UpdateDescription(int itemIdx, ItemSO item, int quantity, int lv, AbilityType[] relicAbilities) {
-            ItemDescription.SetDescription(item, quantity, lv, relicAbilities);
+        public void UpdateDescription(int itemIdx, ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip) {
+            ItemDescription.SetDescription(item, quantity, lv, relicAbilities, isEquip);
             DeselectAllItems();
             InvUIItemList[itemIdx].Select();
         }
@@ -211,7 +211,8 @@ namespace Inventory.UI
             }
         }
 
-        public void InitEquipDimUI(Enum.ItemType type) {
+        public void ResetEquipDimUI(Enum.ItemType type) {
+            //* UI Elements
             List<InventoryUIItem> filterItemUIs = InvUIItemList.FindAll(elem => elem.Type == type);
             filterItemUIs.ForEach(elem => elem.EquipDim.SetActive(false));
         }

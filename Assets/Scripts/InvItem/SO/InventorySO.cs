@@ -65,7 +65,7 @@ namespace Inventory.Model
                 RelicAbilities = newRelicAbilities,
                 IsEquip = this.IsEquip,
             };
-        public InventoryItem ChangeEquipItem(bool newIsEquip)
+        public InventoryItem ChangeIsEquip(bool newIsEquip)
             => new InventoryItem {
                 Quantity = this.Quantity,
                 Lv = this.Lv,
@@ -95,6 +95,15 @@ namespace Inventory.Model
             ItemList = new List<InventoryItem>();
             for(int i = 0; i < Size; i++)
                 ItemList.Add(InventoryItem.GetEmptyItem());
+        }
+
+        public void ResetIsEquipData(Enum.ItemType type) {
+            for(int i = 0; i < ItemList.Count; i++) {
+                if(ItemList[i].IsEmpty)
+                    continue;
+                if(ItemList[i].Data.Type == type)
+                    ItemList[i] = ItemList[i].ChangeIsEquip(false);
+            }
         }
 
         public int AddItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities) {
@@ -181,7 +190,7 @@ namespace Inventory.Model
         /// <summary>
         /// インベントリーの装置アイテムをアップグレード
         /// </summary>
-        public void UpgradeEquipItem(ItemSO item, int quantity, int lv, AbilityType[] abilities) {
+        public void UpgradeEquipItem(ItemSO item, int quantity, int lv, AbilityType[] abilities, bool isEquip) {
             for(int i = 0; i < ItemList.Count; i++) {
                 //* 同じIDを探して
                 if(ItemList[i].Data.ID == item.ID) {
@@ -194,7 +203,7 @@ namespace Inventory.Model
                     //* イベントリーUI アップデート
                     InformAboutChange();
                     //* 情報表示ポップアップUI アップデート
-                    HM._.ivm.UpdateDescription(HM._.ivm.CurItemIdx, item, quantity, lv, abilities);
+                    HM._.ivm.UpdateDescription(HM._.ivm.CurItemIdx, item, quantity, lv, abilities, isEquip);
                     return;
                 }
             }

@@ -11,6 +11,8 @@ namespace Inventory.UI {
     /// インベントリポップアップ
     /// </summary>
     public class InventoryDescription : MonoBehaviour {
+        const int BLUE_BTN = 0, RED_BTN = 1;
+        [field:SerializeField] private Sprite[] BtnBgSprs {get; set;}
         [field:SerializeField] private bool IsUpgradeValToogle {get; set;}
 
         [field:Header("CONSUMABLE POPUP")]
@@ -27,6 +29,7 @@ namespace Inventory.UI {
         [field:SerializeField] private Image ItemBg {get; set;}
         [field:SerializeField] private Image ItemImg {get; set;}
         [field:SerializeField] private Image TypeImg {get; set;}
+        [field:SerializeField] private Image EquipBtnBg {get; set;}
         [field:SerializeField] private TMP_Text TypeTxt {get; set;}
         [field:SerializeField] private TMP_Text NameTxt {get; set;}
         [field:SerializeField] private TMP_Text GradeTxt {get; set;}
@@ -34,6 +37,7 @@ namespace Inventory.UI {
         [field:SerializeField] private TMP_Text LvTxt {get; set;}
         [field:SerializeField] private TMP_Text StarTxt {get; set;}
         [field:SerializeField] private TMP_Text Description {get; set;}
+        [field:SerializeField] private TMP_Text EquipBtnTxt {get; set;}
         [field:SerializeField] private TMP_Text UpgradePriceTxt {get; set;}
         [field:SerializeField] private TMP_Text UpgradeSuccessPerTxt {get; set;}
         [field:SerializeField] private RectTransform UpgValToogleHandleTf {get; set;}
@@ -55,6 +59,7 @@ namespace Inventory.UI {
         }
 
         public void OnClickEquipBtn() {
+            HM._.ivm.EquipPopUp.SetActive(false);
             HM._.ivCtrl.EquipItemSlot();
         }
 
@@ -70,7 +75,13 @@ namespace Inventory.UI {
                 HM._.hui.ShowMsgError("업그레이드 최대치로 더 이상 할 수 없습니다.");
                 return;
             }
-            HM._.ivCtrl.InventoryData.UpgradeEquipItem(ivm.CurInvItem.Data, ivm.CurInvItem.Quantity,  ++ivm.CurInvItem.Lv, ivm.CurInvItem.RelicAbilities);
+            HM._.ivCtrl.InventoryData.UpgradeEquipItem (
+                ivm.CurInvItem.Data, 
+                ivm.CurInvItem.Quantity, 
+                ++ivm.CurInvItem.Lv, 
+                ivm.CurInvItem.RelicAbilities,
+                ivm.CurInvItem.IsEquip
+            );
         }
         public void OnClickUpgradeValueNoticeToggle() {
             Debug.Log($"OnClickUpgradeValueNoticeToggle():: IsUpgradeValToogleActive= {IsUpgradeValToogle}");
@@ -81,7 +92,8 @@ namespace Inventory.UI {
                 ivm.CurInvItem.Data, 
                 ivm.CurInvItem.Quantity, 
                 ivm.CurInvItem.Lv, 
-                ivm.CurInvItem.RelicAbilities
+                ivm.CurInvItem.RelicAbilities,
+                ivm.CurInvItem.IsEquip
             );
         }
         public void OnClickCloseBtn() {
@@ -111,7 +123,7 @@ namespace Inventory.UI {
             EtcConfirmBtnTxt.color = isActive? ActiveColor: Color.gray;
         }
 
-        public void SetDescription(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities) {
+        public void SetDescription(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip) {
             Debug.Log($"SetDescription():: item= {item.name}, val= {quantity}");
             var hui = HM._.hui;
             var db = DM._.DB;
@@ -270,8 +282,9 @@ namespace Inventory.UI {
                 int[] rPers = Config.H_PRICE.RELIC_UPG.PERS;
                 int[] ePers = Config.H_PRICE.EQUIP_UPG.PERS;
 
-                Debug.Log($"ePrices.Length= {ePrices.Length}");
-                Debug.Log($"lvIdx= {lvIdx}");
+                Debug.Log($"ePrices.Length= {ePrices.Length}, lvIdx= {lvIdx}");
+                EquipBtnTxt.text = isEquip? "해제" : "장비";
+                EquipBtnBg.sprite = BtnBgSprs[isEquip? RED_BTN : BLUE_BTN];
                 UpgradePriceTxt.text = $"강화\n{(isLvMax? "MAX" : $"<sprite name=Coin>{(isRelic? rPrices[lvIdx] : ePrices[lvIdx])}")}";
                 UpgradeSuccessPerTxt.text = isLvMax? "" : $"성공확률 {(isRelic? rPers[lvIdx] : ePers[lvIdx])}%";
             }

@@ -192,6 +192,7 @@ public class DM : MonoBehaviour {
             DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeLevel(invItem.Lv);
             DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeItemData(invItem.Data);
             DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeItemRelicAbilities(invItem.RelicAbilities);
+            DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeIsEquip(invItem.IsEquip);
         }
 
         //* Serialize To Json
