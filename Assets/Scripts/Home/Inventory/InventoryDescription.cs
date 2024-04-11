@@ -55,7 +55,9 @@ namespace Inventory.UI {
         }
 
         public void OnClickEquipBtn() {
-            
+            Debug.Log("OnClickEquipBtn():: ");
+            int curIdx = HM._.ivm.CurItemIdx;
+            HM._.ivCtrl.InventoryData.ItemList[curIdx] = HM._.ivCtrl.InventoryData.ItemList[curIdx].ChangeEquipItem(true);
         }
 
         public void OnClickUpgradeBtn() {

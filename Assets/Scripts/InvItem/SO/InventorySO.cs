@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Inventory.Model 
 {   
@@ -27,6 +28,7 @@ namespace Inventory.Model
         public ItemSO Data;
         public AbilityType[] RelicAbilities;
         public bool IsEmpty => Data == null;
+        public bool IsEquip;
 
         /// <summary>
         ///* 必ず自分のインベントリーへ再代入しなければならない
@@ -36,35 +38,48 @@ namespace Inventory.Model
                 Quantity = newQuantity,
                 Lv = this.Lv,
                 Data = this.Data,
-                RelicAbilities = this.RelicAbilities
+                RelicAbilities = this.RelicAbilities,
+                IsEquip = this.IsEquip,
             };
         public InventoryItem ChangeLevel(int newLv)
             => new InventoryItem {
                 Quantity = this.Quantity,
                 Lv = newLv,
                 Data = this.Data,
-                RelicAbilities = this.RelicAbilities
+                RelicAbilities = this.RelicAbilities,
+                IsEquip = this.IsEquip,
             };
         public InventoryItem ChangeItemData(ItemSO newItemDt)
             => new InventoryItem {
                 Quantity = this.Quantity,
                 Lv = this.Lv,
                 Data = newItemDt,
-                RelicAbilities = this.RelicAbilities
+                RelicAbilities = this.RelicAbilities,
+                IsEquip = this.IsEquip,
             };
-        public InventoryItem ChangeItemRelicAbilities(AbilityType[] relicAbilities)
+        public InventoryItem ChangeItemRelicAbilities(AbilityType[] newRelicAbilities)
             => new InventoryItem {
                 Quantity = this.Quantity,
                 Lv = this.Lv,
                 Data = this.Data,
-                RelicAbilities = relicAbilities
+                RelicAbilities = newRelicAbilities,
+                IsEquip = this.IsEquip,
+            };
+        public InventoryItem ChangeEquipItem(bool newIsEquip)
+            => new InventoryItem {
+                Quantity = this.Quantity,
+                Lv = this.Lv,
+                Data = this.Data,
+                RelicAbilities = this.RelicAbilities,
+                IsEquip = newIsEquip,
             };
         public static InventoryItem GetEmptyItem()
             => new InventoryItem {
                 Quantity = 0,
                 Lv = 0,
                 Data = null,
-                RelicAbilities = null
+                RelicAbilities = null,
+                IsEquip = false,
             };
     }
     #endregion
@@ -218,17 +233,41 @@ namespace Inventory.Model
                     //* 次のレベルアイテム生成
                     var type = item.Data.Type;
                     int nextGrade = (int)item.Data.Grade + 1;
+                    Debug.Log($"AutoMergeEquipItem():: {type}: {(int)item.Data.Grade} -> {nextGrade}");
                     // タイプ
                     ItemSO nextItemDt = (type == Enum.ItemType.Weapon)? HM._.rwlm.RwdItemDt.WeaponDatas[nextGrade]
                         : (type == Enum.ItemType.Shoes)? HM._.rwlm.RwdItemDt.ShoesDatas[nextGrade]
                         : (type == Enum.ItemType.Ring)? HM._.rwlm.RwdItemDt.RingDatas[nextGrade]
-                        : null; // TODO RELIC
-                    AddStackableItem(nextItemDt, mergeCnt, lv: 1, relicAbilities: null);
+                        : (type == Enum.ItemType.Relic)? HM._.rwlm.RwdItemDt.RelicDatas[nextGrade - (int)Enum.Grade.Epic]
+                        : null;
+
+                    //* Relicなら、ランダムで能力
+                    var relicAbilities = CheckRelicAbilitiesData(nextItemDt);
+
+                    AddStackableItem(nextItemDt, mergeCnt, lv: 1, relicAbilities);
                 }
             }
             //* イベントリーUI アップデート
             InformAboutChange();
             HM._.hui.ShowMsgNotice("자동합성 완료!");
+        }
+
+        public AbilityType[] CheckRelicAbilitiesData(ItemSO itemDt) {
+            var abilities = new AbilityType[0];
+            if(itemDt.Type == Enum.ItemType.Relic) {
+                //* 配列のIndex数
+                int len = (int)itemDt.Grade - 1;
+                Debug.Log($"CheckRelicAbilitiesData():: Relic Grade= {itemDt.Grade}, len= {len}");
+                abilities = new AbilityType[len];
+
+                for(int j = 0; j < abilities.Length; j++) {
+                    int rand = Random.Range(0, Util.GetEnumAbilityTypeLength());
+                    var abilityTypeVals = Util.GetEnumAbilityTypeVals();
+                    abilities[j] = abilityTypeVals[rand];
+                    Debug.Log($"CheckRelicAbilitiesData():: RELIC:: abilities[{j}]= {abilities[j]}");
+                }
+            }
+            return abilities;
         }
 
         public void DecreaseItem(int tgIdx, int decVal = -1) {

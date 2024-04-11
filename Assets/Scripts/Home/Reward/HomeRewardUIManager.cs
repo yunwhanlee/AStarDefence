@@ -54,6 +54,9 @@ public class HomeRewardUIManager : MonoBehaviour {
 
                 // new (weaponDatas[4]),
                 // new (shoesDatas[3]),
+                // new (HM._.rwlm.RwdItemDt.WeaponDatas[0]),
+                // new (HM._.rwlm.RwdItemDt.RelicDatas[0], 1, HM._.ivCtrl.InventoryData.CheckRelicAbilitiesData(HM._.rwlm.RwdItemDt.RelicDatas[0])),
+
             };
             HM._.rwlm.ShowReward(rewardList);
             UpdateInventory(rewardList);

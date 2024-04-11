@@ -13,204 +13,254 @@ MonoBehaviour:
   m_Name: InventoryData
   m_EditorClassIdentifier: 
   ItemList:
-  - Quantity: 1
+  - Quantity: 5
     Lv: 1
-    Data: {fileID: 11400000, guid: b080839ff7fe27e41a6bf21a77ce5163, type: 2}
+    Data: {fileID: 11400000, guid: 8a8359171e95e0146a2537f75433dfee, type: 2}
     RelicAbilities: 
-  - Quantity: 1
-    Lv: 1
-    Data: {fileID: 11400000, guid: b287f892d2d72c548985eb8a4110cf85, type: 2}
-    RelicAbilities: 
-  - Quantity: 1
-    Lv: 1
-    Data: {fileID: 11400000, guid: c9e1c362fd99582428308f8bb5e958ac, type: 2}
-    RelicAbilities: 
-  - Quantity: 1
-    Lv: 1
-    Data: {fileID: 11400000, guid: 48832db3812f05145b434b8c47f85156, type: 2}
-    RelicAbilities: 
+    IsEquip: 0
   - Quantity: 4
     Lv: 1
     Data: {fileID: 11400000, guid: 9b97b966b0df890429e36e025e342321, type: 2}
     RelicAbilities: 
-  - Quantity: 7
-    Lv: 1
-    Data: {fileID: 11400000, guid: c8fe25062d1a648429e0768e24348ee9, type: 2}
-    RelicAbilities: 
-  - Quantity: 10
-    Lv: 1
-    Data: {fileID: 11400000, guid: fb02e075d4a22a746b11662f62cc7e34, type: 2}
-    RelicAbilities: 
-  - Quantity: 3
-    Lv: 1
-    Data: {fileID: 11400000, guid: 20a91e858db3fa44c98d94fca34a2f79, type: 2}
-    RelicAbilities: 
-  - Quantity: 4
-    Lv: 1
-    Data: {fileID: 11400000, guid: 5b3155c04e4929b459298d5cc42e695c, type: 2}
-    RelicAbilities: 
+    IsEquip: 0
   - Quantity: 1
     Lv: 1
-    Data: {fileID: 11400000, guid: 8a8359171e95e0146a2537f75433dfee, type: 2}
+    Data: {fileID: 11400000, guid: b080839ff7fe27e41a6bf21a77ce5163, type: 2}
     RelicAbilities: 
-  - Quantity: 2
-    Lv: 1
-    Data: {fileID: 11400000, guid: 3de65b40cbdf0a147861ad667a44d428, type: 2}
-    RelicAbilities: 
+    IsEquip: 0
   - Quantity: 1
     Lv: 1
-    Data: {fileID: 11400000, guid: a326ae150aa20af4f9d0ea42f67ee0c5, type: 2}
-    RelicAbilities: 
-  - Quantity: 4
-    Lv: 1
-    Data: {fileID: 11400000, guid: 55062c6bcdd62e24ab3df7a6ce9e92f8, type: 2}
-    RelicAbilities: 
-  - Quantity: 2
-    Lv: 1
-    Data: {fileID: 11400000, guid: 95b4bbda070243d418267e688d332fcb, type: 2}
-    RelicAbilities: 
-  - Quantity: 4
-    Lv: 1
-    Data: {fileID: 11400000, guid: d2febf22bacf6944895cd61c61cd1d56, type: 2}
-    RelicAbilities: 
-  - Quantity: 4
-    Lv: 1
-    Data: {fileID: 11400000, guid: b090a68a131e2d348a61c7fff140bf3b, type: 2}
-    RelicAbilities: 
-  - Quantity: 2
-    Lv: 1
-    Data: {fileID: 11400000, guid: c9a2acec13022ae43b53df965b713764, type: 2}
-    RelicAbilities: 
-  - Quantity: 2
-    Lv: 1
-    Data: {fileID: 11400000, guid: 26e21f24a5d896f41b746d8ba6046115, type: 2}
-    RelicAbilities: 
-  - Quantity: 1
-    Lv: 1
-    Data: {fileID: 11400000, guid: 4a4de2b829ad6b84e9079b19c1a487a8, type: 2}
-    RelicAbilities: 
-  - Quantity: 1
-    Lv: 1
-    Data: {fileID: 11400000, guid: f29a78694d52c9840acb19c51a9e8b19, type: 2}
-    RelicAbilities: 
-  - Quantity: 4
-    Lv: 1
-    Data: {fileID: 11400000, guid: 8cd212ca43221204fb5aa9fb592bd568, type: 2}
-    RelicAbilities: 
+    Data: {fileID: 11400000, guid: 2552d2c04cf50fc44972de5e8da0dca0, type: 2}
+    RelicAbilities: 1000000007000000
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
   - Quantity: 0
     Lv: 0
     Data: {fileID: 0}
     RelicAbilities: 
+    IsEquip: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
   <Size>k__BackingField: 50

@@ -101,4 +101,12 @@ public class Util : MonoBehaviour {
         Etc.NoshowInvItem enumVal = System.Array.Find(enumValArr, @enum => $"{@enum}" == name);
         return enumVal;
     }
+
+    public static int GetEnumAbilityTypeLength() {
+        var enumVals = System.Enum.GetValues(typeof(AbilityType));
+        return enumVals.Length;
+    }
+    public static AbilityType[] GetEnumAbilityTypeVals() {
+        return (AbilityType[])System.Enum.GetValues(typeof(AbilityType));
+    }
 }

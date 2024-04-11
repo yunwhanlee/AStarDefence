@@ -155,7 +155,11 @@ public class RewardItemSO : ScriptableObject {
                 int endRange = startRange + per;
                 if (rand < endRange) {
                     Debug.Log($"<color=yellow>OpenPresent0():: {i}: {item.name} {item.Name}, rand= {rand} / {randMax}, Range: {startRange} - {endRange - 1}</color>");
-                    rewardList.Add(new RewardItem(item, quantity));
+
+                    //* RELICなら、ランダムで能力
+                    var relicAbilities = HM._.ivCtrl.InventoryData.CheckRelicAbilitiesData(item);
+
+                    rewardList.Add(new RewardItem(item, quantity, relicAbilities));
                     copyItemTableList.Remove((item, per, quantity));  //* 이미 선택된 아이템 제거
                     randMax -= per;
                     break;
