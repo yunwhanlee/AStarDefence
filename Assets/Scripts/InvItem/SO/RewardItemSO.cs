@@ -167,6 +167,8 @@ public class RewardItemSO : ScriptableObject {
         //* UI表示
         HM._.rwlm.ShowReward(rewardList);
         HM._.rwm.UpdateInventory(rewardList);
+        HM._.ivCtrl.InventoryData.DecreaseItem(HM._.ivm.CurItemIdx, decVal: -1);
+        HM._.rwlm.UpdateChestPopUpUI();
     }
 }
 #endregion

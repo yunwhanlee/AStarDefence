@@ -26,9 +26,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
     [field: SerializeField] public RewardItemSO RwdItemDt {get; private set;}
 
 #region EVENT
-    public void OnClickOpenChestImgBtn() {
-        OnClickOpenChest?.Invoke();
-    }
+    public void OnClickOpenChestImgBtn() => OnClickOpenChest?.Invoke();
 #endregion
 
 #region FUNC
@@ -67,7 +65,18 @@ public class HomeRewardListUIManager : MonoBehaviour {
         ChestTitleRibbonImg.sprite = TitleRibbonSprs[(int)enumChestIdx - OFFSET];
         ChestImg.sprite = RwdItemDt.EtcConsumableDatas[(int)enumChestIdx].ItemImg;
         ChestTitleTxt.text = RwdItemDt.EtcConsumableDatas[(int)enumChestIdx].Name;
-        ChestAlertCntTxt.text = quantity.ToString(); //TODO
+        ChestAlertCntTxt.text = quantity.ToString();
+    }
+    /// <summary>
+    /// Chestを開いた後、カウント減った状況 最新化
+    /// </summary>
+    public void UpdateChestPopUpUI() {
+        var ivm = HM._.ivm;
+        ivm.CurInvItem = ivm.GetCurItemFromIdx(ivm.CurItemIdx);
+        ChestAlertCntTxt.text = $"{ivm.CurInvItem.Quantity}";
+        //* もしカウント０なら、Chestがないので、ポップアップUI 非表示
+        if(ivm.CurInvItem.Quantity <= 0)
+            RewardChestPopUp.SetActive(false);
     }
 #endregion
 }

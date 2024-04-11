@@ -28,6 +28,9 @@ namespace Inventory.Model
         public AbilityType[] RelicAbilities;
         public bool IsEmpty => Data == null;
 
+        /// <summary>
+        ///* 必ず自分のインベントリーへ再代入しなければならない
+        /// </summary>
         public InventoryItem ChangeQuantity(int newQuantity)
             => new InventoryItem {
                 Quantity = newQuantity,
@@ -58,8 +61,8 @@ namespace Inventory.Model
             };
         public static InventoryItem GetEmptyItem()
             => new InventoryItem {
-                Quantity = 1,
-                Lv = 1,
+                Quantity = 0,
+                Lv = 0,
                 Data = null,
                 RelicAbilities = null
             };
@@ -114,7 +117,6 @@ namespace Inventory.Model
             };
 
             Debug.Log($"newItem.RelicAbilities.Length= {newItem}");
-
             for(int i = 0; i < ItemList.Count; i++) {
                 if(ItemList[i].IsEmpty) {
                     ItemList[i] = newItem;
@@ -126,7 +128,7 @@ namespace Inventory.Model
 
         /// <summary>
         /// 一つでも空スロットがあったら、インベントリーがFullではない => False
-        /// /// </summary>
+        /// </summary>
         private bool IsInventoryFull()
             => ItemList.Where(item => item.IsEmpty).Any() == false;
 
@@ -205,7 +207,7 @@ namespace Inventory.Model
                         continue;
                     }
 
-                    //* 数量を切り替えて適用
+                    //* 数量を減る
                     int mergeCnt = item.Quantity / MERGE_UNIT;
                     ItemList[i] = item.ChangeQuantity(item.Quantity - mergeCnt * MERGE_UNIT);
 
@@ -227,6 +229,18 @@ namespace Inventory.Model
             //* イベントリーUI アップデート
             InformAboutChange();
             HM._.hui.ShowMsgNotice("자동합성 완료!");
+        }
+
+        public void DecreaseItem(int tgIdx, int decVal = -1) {
+            ItemList[tgIdx] = ItemList[tgIdx].ChangeQuantity(ItemList[tgIdx].Quantity + decVal);
+            // Debug.Log($"DecreaseItem():: ItemList[{tgIdx}]= {ItemList[tgIdx].Data.Name}, Quantity= {ItemList[tgIdx].Quantity}");
+
+            //* もしマージしてから、以前のアイテム数量が０なら、削除（Empty）
+            if(ItemList[tgIdx].Quantity <= 0) 
+                ItemList[tgIdx] = InventoryItem.GetEmptyItem();
+
+            //* イベントリーUI アップデート
+            InformAboutChange();
         }
 
         public void AddItem(InventoryItem item) {

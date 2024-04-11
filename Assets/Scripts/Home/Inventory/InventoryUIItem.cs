@@ -43,10 +43,11 @@ namespace Inventory.UI
         }
         public void ResetData() {
             Type = Enum.ItemType.Etc;
+            BgImg.color = Color.white;
             ItemImg.gameObject.SetActive(false);
             IsEmpty = true;
-            // QuantityTxt.text = "";
-            // LvTxt.text = "";
+            QuantityTxt.text = "";
+            LvTxt.text = "";
         }
         public void Deselect() => BorderImg.enabled = false;
 
