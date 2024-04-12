@@ -17,7 +17,6 @@ public class InventoryEquipUIManager : MonoBehaviour {
     public void OnClickEquipSlot(int itemType) {
         switch (itemType) {
             case (int)Enum.ItemType.Weapon:
-                
                 break;
             case (int)Enum.ItemType.Shoes:
                 break;

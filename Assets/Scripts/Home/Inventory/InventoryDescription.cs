@@ -66,7 +66,6 @@ namespace Inventory.UI {
                 HM._.ivCtrl.UnEquipSlotUI();
             }
             else {
-                
                 HM._.ivCtrl.EquipItemSlotUI();
             }
         }

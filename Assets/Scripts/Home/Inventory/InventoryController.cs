@@ -83,6 +83,15 @@ namespace Inventory
             ivm.Hide();
         }
 
+#region EQUIP
+        public int FindCurEquipItemIdx(Enum.ItemType type) {
+            return InventoryData.ItemList.FindIndex(item
+                => !item.IsEmpty
+                && item.IsEquip
+                && item.Data.Type == type
+            );
+        }
+
         public void UnEquipSlotUI() {
             InventoryEquipUIManager ivEqu = HM._.ivEqu;
             InventoryItem curInvItem = InventoryData.ItemList[HM._.ivm.CurItemIdx];
@@ -112,6 +121,7 @@ namespace Inventory
             //* 装置スロットUI
             ivEqu.EquipItem(type, curInvItem);
         }
+#endregion
     }
 
 }

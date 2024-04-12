@@ -157,11 +157,15 @@ namespace Inventory.UI
             return HM._.ivCtrl.InventoryData.GetItemAt(idx);
         }
 
+        /// <summary>
+        /// インベントリの情報PopUp表示
+        /// </summary>
         private void HandleShowItemInfoPopUp(InventoryUIItem invItemUI) {
+            Debug.Log($"HandleShowItemInfoPopUp(invItemUI.name= {invItemUI.name})::");
             DeselectAllItems();
-            if(CurInvItem.IsEmpty)
+            if(invItemUI.IsEmpty)
                 return;
-
+            
             if(CurInvItem.Data.Type == Enum.ItemType.Etc) {
                 if(CurInvItem.Data.name == $"{Etc.ConsumableItem.ChestCommon}") return;
                 if(CurInvItem.Data.name == $"{Etc.ConsumableItem.ChestDiamond}") return;
@@ -170,9 +174,11 @@ namespace Inventory.UI
                 if(CurInvItem.Data.name == $"{Etc.ConsumableItem.ChestPremium}") return;
                 ConsumePopUp.SetActive(true);
             }
-            else
+            else {
                 EquipPopUp.SetActive(true);
+            }
         }
+
         // private void HandleEndDrag(InventoryUIItem invItemUI)
         //     => ResetDraggedItem();
 
@@ -198,25 +204,33 @@ namespace Inventory.UI
         } 
 
         public void HandleItemSelection(InventoryUIItem invItemUI) {
-            Debug.Log($"HandleItemSelection(invItemUI= {invItemUI.name}):: ");
-            //* Equip スロットなら
-            if(invItemUI.name == "WeaponInvItemUISlot") {
-                int equipItemIdx = HM._.ivCtrl.InventoryData.ItemList.FindIndex(invItem
-                    => invItem.Data.Type == Enum.ItemType.Weapon && invItem.IsEquip);
-
-                CurItemIdx = equipItemIdx;
-                CurInvItem = GetCurItemUIFromIdx(CurItemIdx);
-                OnDescriptionRequested?.Invoke(CurItemIdx);
-                return;
+            //* アイテムのINDEX 習得
+            int idx;
+            switch(invItemUI.name) {
+                //* Equip スロットなら
+                case "WeaponInvItemUISlot" : 
+                    idx = HM._.ivCtrl.FindCurEquipItemIdx(Enum.ItemType.Weapon);
+                    break;
+                case "ShoesInvItemUISlot" : 
+                    idx = HM._.ivCtrl.FindCurEquipItemIdx(Enum.ItemType.Shoes);
+                    break;
+                case "RingInvItemUISlot" : 
+                    idx = HM._.ivCtrl.FindCurEquipItemIdx(Enum.ItemType.Ring);
+                    break;
+                case "RelicInvItemUISlot" : 
+                    idx = HM._.ivCtrl.FindCurEquipItemIdx(Enum.ItemType.Relic);
+                    break;
+                //* インベントリーアイテムなら
+                default:
+                    idx = InvUIItemList.IndexOf(invItemUI);
+                    break;
             }
-            //* インベントリーアイテムなら
-            else {
-                int idx = InvUIItemList.IndexOf(invItemUI);
-                if(idx == -1) return;
-                CurItemIdx = idx;
-                CurInvItem = GetCurItemUIFromIdx(idx);
-                OnDescriptionRequested?.Invoke(idx);
-            }
+            //* 適用
+            Debug.Log($"HandleItemSelection(invItemUI= {invItemUI.name}):: idx= {idx}");
+            if(idx == -1) return;
+            CurItemIdx = idx;
+            CurInvItem = GetCurItemUIFromIdx(idx);
+            OnDescriptionRequested?.Invoke(idx);
         }
 
         public void UpdateDescription(int itemIdx, ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip) {
