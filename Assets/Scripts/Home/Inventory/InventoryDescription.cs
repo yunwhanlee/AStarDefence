@@ -66,6 +66,8 @@ namespace Inventory.UI {
                 HM._.ivCtrl.UnEquipSlotUI();
             else
                 HM._.ivCtrl.EquipItemSlotUI();
+
+            HM._.ivEqu.UpdateAllEquipAbilityData();
         }
 
         public void OnClickUpgradeBtn() {
@@ -90,6 +92,7 @@ namespace Inventory.UI {
 
             //* Equipスロット最新化
             HM._.ivEqu.EquipItem(type, HM._.ivEqu.FindEquipItem(type), isEffect: false);
+            HM._.ivEqu.UpdateAllEquipAbilityData();
         }
         public void OnClickUpgradeValueNoticeToggle() {
             Debug.Log($"OnClickUpgradeValueNoticeToggle():: IsUpgradeValToogleActive= {IsUpgradeValToogle}");

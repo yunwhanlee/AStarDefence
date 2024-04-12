@@ -103,6 +103,8 @@ namespace Inventory
 
             //* Equipスロット 初期化
             ivEqu.ResetEquipSlot(type);
+
+            // HM._.ivEqu.SetEquipAbilityData(curInvItem, isUnEquip: true);
         }
 
         public void EquipItemSlotUI() {
@@ -120,6 +122,8 @@ namespace Inventory
 
             //* 装置スロットUI
             ivEqu.EquipItem(type, curInvItem);
+
+            // HM._.ivEqu.SetEquipAbilityData(curInvItem);
         }
 #endregion
     }

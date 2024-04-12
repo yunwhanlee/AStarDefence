@@ -47,6 +47,7 @@ namespace Inventory.UI
             });
 
             HM._.ivEqu.UpdateAllEquipSlots();
+            HM._.ivEqu.UpdateAllEquipAbilityData();
         }
 
     #region EVENT
