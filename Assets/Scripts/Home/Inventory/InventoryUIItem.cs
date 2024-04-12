@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Inventory.Model;
 using AssetKits.ParticleImage;
 
 namespace Inventory.UI
@@ -13,8 +12,9 @@ namespace Inventory.UI
     /// <summary>
     /// インベントリスロットのアイテム
     /// </summary>
-    public class InventoryUIItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IDragHandler {
-        private Coroutine CorPushTimeID = null;
+    public class InventoryUIItem : MonoBehaviour //, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IDragHandler 
+    {
+        // private Coroutine CorPushTimeID = null;
         private bool IsShortPush = false;
 
         [field: Header("ELEMENT")]
@@ -37,11 +37,18 @@ namespace Inventory.UI
             OnItemEndDrag,
             OnItemClickShortly;
 
-
         void Awake() {
             ResetData();
             Deselect();
+            GetComponent<Button>().onClick.AddListener(() => {
+                Debug.Log("OnClick Item!");
+                OnItemClicked?.Invoke(this);
+                OnItemClickShortly?.Invoke(this);
+            });
         }
+
+    #region EVENT
+    #endregion
 
         public void ResetData() {
             Type = Enum.ItemType.Etc;
@@ -104,51 +111,51 @@ namespace Inventory.UI
             BorderImg.enabled = true;
         }
 
-        public void Draggable() => BorderImg.color = Color.green;
+        // public void Draggable() => BorderImg.color = Color.green;
 
-        private IEnumerator CoCheckPushTime() {
-            IsShortPush = true;
-            yield return Util.Time0_3;
-            IsShortPush = false;
-            Draggable();
-        }
+        // private IEnumerator CoCheckPushTime() {
+        //     IsShortPush = true;
+        //     yield return Util.Time0_3;
+        //     IsShortPush = false;
+        //     Draggable();
+        // }
 
-        public void OnPointerDown(PointerEventData eventData) { // マウス押した
-            if(IsEmpty) return;
-            CorPushTimeID = StartCoroutine(CoCheckPushTime());
-            OnItemClicked?.Invoke(this);
-        }
+        // public void OnPointerDown(PointerEventData eventData) { // マウス押した
+        //     if(IsEmpty) return;
+        //     CorPushTimeID = StartCoroutine(CoCheckPushTime());
+        //     OnItemClicked?.Invoke(this);
+        // }
 
-        public void OnPointerUp(PointerEventData eventData) { // マウス離れた
-            Debug.Log($"OnPointerUp():: IsShortPush= {IsShortPush}");
-            if(IsShortPush) {
-                StopCoroutine(CorPushTimeID);
-                OnItemClickShortly?.Invoke(this);
-            }
-        }
+        // public void OnPointerUp(PointerEventData eventData) { // マウス離れた
+        //     Debug.Log($"OnPointerUp():: IsShortPush= {IsShortPush}");
+        //     if(IsShortPush) {
+        //         StopCoroutine(CorPushTimeID);
+        //         OnItemClickShortly?.Invoke(this);
+        //     }
+        // }
 
-        public void OnBeginDrag(PointerEventData eventData) {
-            Debug.Log("OnBeginDrag():: IsShortPush= " + IsShortPush);
-            if(IsEmpty) return;
-            if(IsShortPush) return;
-            OnItemBeginDrag?.Invoke(this);
-        }
+        // public void OnBeginDrag(PointerEventData eventData) {
+        //     Debug.Log("OnBeginDrag():: IsShortPush= " + IsShortPush);
+        //     if(IsEmpty) return;
+        //     if(IsShortPush) return;
+        //     OnItemBeginDrag?.Invoke(this);
+        // }
 
-        public void OnEndDrag(PointerEventData eventData) {
-            Debug.Log("OnEndDrag():: IsShortPush= " + IsShortPush);
-            if(IsShortPush) return;
-            OnItemEndDrag?.Invoke(this);
-        }
+        // public void OnEndDrag(PointerEventData eventData) {
+        //     Debug.Log("OnEndDrag():: IsShortPush= " + IsShortPush);
+        //     if(IsShortPush) return;
+        //     OnItemEndDrag?.Invoke(this);
+        // }
 
-        public void OnDrop(PointerEventData eventData) {
-            if(IsShortPush) return;
-            Debug.Log("OnDrop():: IsShortPush= " + IsShortPush);
-            OnItemDroppedOn?.Invoke(this);
-        }
+        // public void OnDrop(PointerEventData eventData) {
+        //     if(IsShortPush) return;
+        //     Debug.Log("OnDrop():: IsShortPush= " + IsShortPush);
+        //     OnItemDroppedOn?.Invoke(this);
+        // }
 
-        public void OnDrag(PointerEventData eventData) {
-            Debug.Log("OnDrag():: IsShortPush= " + IsShortPush);
-            if(IsShortPush) return;
-        }
+        // public void OnDrag(PointerEventData eventData) {
+        //     Debug.Log("OnDrag():: IsShortPush= " + IsShortPush);
+        //     if(IsShortPush) return;
+        // }
     }
 }

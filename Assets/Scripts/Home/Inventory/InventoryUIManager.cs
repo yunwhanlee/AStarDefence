@@ -85,15 +85,25 @@ namespace Inventory.UI
 #endregion
 
     #region FUNC
+        /// <summary>
+        ///* インベントリとEquipアイテムのスロットUI イベント登録
+        /// </summary>
         public void InitInventoryUI(int invSize) {
+            //* Inventory ItemUI Btn
             for(int i = 0; i < invSize; i++) {
                 InventoryUIItem item = Instantiate(ItemPf, Content);
                 InvUIItemList.Add(item);
                 item.OnItemClicked += HandleItemSelection;
-                item.OnItemBeginDrag += HandleBeginDrag;
-                item.OnItemDroppedOn += HandleSwap;
-                item.OnItemEndDrag += HandleEndDrag;
                 item.OnItemClickShortly += HandleShowItemInfoPopUp;
+                // item.OnItemBeginDrag += HandleBeginDrag;
+                // item.OnItemDroppedOn += HandleSwap;
+                // item.OnItemEndDrag += HandleEndDrag;
+            }
+
+            //* Equip Slot Btn
+            foreach (var equipSlot in HM._.ivEqu.EquipItemSlotUIs) {
+                equipSlot.OnItemClicked += HandleItemSelection;
+                equipSlot.OnItemClickShortly += HandleShowItemInfoPopUp;
             }
         }
         public void Show() {

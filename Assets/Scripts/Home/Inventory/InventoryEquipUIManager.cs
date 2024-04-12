@@ -6,22 +6,22 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryEquipUIManager : MonoBehaviour {
-    public InventoryUIItem WeaponInvUISlot;
-    public GameObject WeaponEmptyIconObj;
-    public InventoryUIItem ShoesInvUISlot;
-    public GameObject ShoesEmptyIconObj;
-    public InventoryUIItem RingInvUISlot;
-    public GameObject RingEmptyIconObj;
-    public InventoryUIItem RelicInvUISlot;
-    public GameObject RelicEmptyIconObj;
+    public InventoryUIItem[] EquipItemSlotUIs;
+    public GameObject[] EmptyIconObjs;
 
+    private void SetEquipEmptyIcon(Enum.ItemType type, bool isActive)
+        => EmptyIconObjs[(int)type].SetActive(isActive);
 
-    public void SetEquipEmptyIcon(Enum.ItemType type, bool isActive) {
-        switch (type) {
-            case Enum.ItemType.Weapon: WeaponEmptyIconObj.SetActive(isActive); break;
-            case Enum.ItemType.Shoes: ShoesEmptyIconObj.SetActive(isActive); break;
-            case Enum.ItemType.Ring: RingEmptyIconObj.SetActive(isActive); break;
-            case Enum.ItemType.Relic: RelicEmptyIconObj.SetActive(isActive); break;
-        }
+    public void InitEquipSlot(Enum.ItemType type) {
+        EquipItemSlotUIs[(int)type].ResetData();
+        EmptyIconObjs[(int)type].SetActive(true);
+        SetEquipEmptyIcon(type, true);
+    }
+
+    public void EquipItem(Enum.ItemType type, InventoryItem curInvItem) {
+        ItemSO dt = curInvItem.Data;
+        EquipItemSlotUIs[(int)type].SetUIData(dt.Type, dt.Grade, dt.ItemImg, curInvItem.Quantity, curInvItem.Lv);
+        EquipItemSlotUIs[(int)type].PlayScaleUIEF(EquipItemSlotUIs[(int)type], dt.ItemImg);
+        SetEquipEmptyIcon(type, false);
     }
 }

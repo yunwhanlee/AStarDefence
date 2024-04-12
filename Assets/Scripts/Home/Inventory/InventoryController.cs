@@ -88,30 +88,12 @@ namespace Inventory
             InventoryItem curInvItem = InventoryData.ItemList[HM._.ivm.CurItemIdx];
             Enum.ItemType type = curInvItem.Data.Type;
 
-            //* 初期化
-            InventoryData.InitIsEquipData(type); // 「装置中」DimUI 
-            HM._.ivm.InitEquipDimUI(type); // ItemDt
-            ivEqu.SetEquipEmptyIcon(type, isActive: true); // Equipの空スロット
+            //* インベントリ 初期化
+            InventoryData.InitIsEquipData(type); // ItemDt.isEquip
+            HM._.ivm.InitEquipDimUI(type); // 「装置中」DimUI 
 
-            //* 該当なスロット 初期化
-            switch(type) {
-                case Enum.ItemType.Weapon:
-                    ivEqu.WeaponInvUISlot.ResetData();
-                    ivEqu.WeaponEmptyIconObj.SetActive(true);
-                    break;
-                case Enum.ItemType.Shoes:
-                    ivEqu.ShoesInvUISlot.ResetData();
-                    ivEqu.ShoesEmptyIconObj.SetActive(true);
-                    break;
-                case Enum.ItemType.Ring:
-                    ivEqu.RingInvUISlot.ResetData();
-                    ivEqu.RingEmptyIconObj.SetActive(true);
-                    break;
-                case Enum.ItemType.Relic:
-                    ivEqu.RelicInvUISlot.ResetData();
-                    ivEqu.RelicEmptyIconObj.SetActive(true);
-                    break;
-            }
+            //* Equipスロット 初期化
+            ivEqu.InitEquipSlot(type);
         }
 
         public void EquipItemSlotUI() {
@@ -122,36 +104,13 @@ namespace Inventory
             //* 初期化
             InventoryData.InitIsEquipData(curInvItem.Data.Type); // 「装置中」DimUI 
             HM._.ivm.InitEquipDimUI(curInvItem.Data.Type); // ItemDt
-            ivEqu.SetEquipEmptyIcon(type, isActive: false); // Equipの空スロット
 
             //* アップデート (現在着用したアイテム)
             InventoryData.ItemList[HM._.ivm.CurItemIdx] = curInvItem.ChangeIsEquip(true); // IsEquip：True
             HM._.ivm.InvUIItemList[HM._.ivm.CurItemIdx].EquipDim.SetActive(true); // DimUI 表示
 
             //* 装置スロットUI
-            ItemSO dt = curInvItem.Data;
-            switch(curInvItem.Data.Type) {
-                case Enum.ItemType.Weapon:
-                    ivEqu.WeaponInvUISlot.SetUIData(dt.Type, dt.Grade, dt.ItemImg, curInvItem.Quantity, curInvItem.Lv);
-                    ivEqu.WeaponInvUISlot.PlayScaleUIEF(ivEqu.WeaponInvUISlot, dt.ItemImg);
-                    ivEqu.WeaponEmptyIconObj.SetActive(false);
-                    break;
-                case Enum.ItemType.Shoes:
-                    ivEqu.ShoesInvUISlot.SetUIData(dt.Type, dt.Grade, dt.ItemImg, curInvItem.Quantity, curInvItem.Lv);
-                    ivEqu.ShoesInvUISlot.PlayScaleUIEF(ivEqu.ShoesInvUISlot, dt.ItemImg);
-                    ivEqu.ShoesEmptyIconObj.SetActive(false);
-                    break;
-                case Enum.ItemType.Ring:
-                    ivEqu.RingInvUISlot.SetUIData (dt.Type, dt.Grade, dt.ItemImg, curInvItem.Quantity, curInvItem.Lv);
-                    ivEqu.RingInvUISlot.PlayScaleUIEF(ivEqu.RingInvUISlot, dt.ItemImg);
-                    ivEqu.RingEmptyIconObj.SetActive(false);
-                    break;
-                case Enum.ItemType.Relic:
-                    ivEqu.RelicInvUISlot.SetUIData (dt.Type, dt.Grade, dt.ItemImg, curInvItem.Quantity, curInvItem.Lv);
-                    ivEqu.RelicInvUISlot.PlayScaleUIEF(ivEqu.RelicInvUISlot, dt.ItemImg);
-                    ivEqu.RelicEmptyIconObj.SetActive(false);
-                    break;
-            }
+            ivEqu.EquipItem(type, curInvItem);
         }
     }
 
