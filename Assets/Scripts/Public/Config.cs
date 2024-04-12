@@ -12,7 +12,7 @@ public static class Config {
     /// <summary>
     /// Enum.AbilityTypeと連結
     /// </summary>
-    public static string[] ABILITY_TYPE_DECS_MSGS = {
+    public static string[] ABILITY_DECS = {
         "공격력 V% 증가",
         "공격속도 V% 증가",
         "공격범위 V% 증가",

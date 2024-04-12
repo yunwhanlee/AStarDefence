@@ -102,11 +102,8 @@ public class Util : MonoBehaviour {
         return enumVal;
     }
 
-    public static int GetEnumAbilityTypeLength() {
-        var enumVals = System.Enum.GetValues(typeof(AbilityType));
-        return enumVals.Length;
-    }
-    public static AbilityType[] GetEnumAbilityTypeVals() {
-        return (AbilityType[])System.Enum.GetValues(typeof(AbilityType));
-    }
+    public static int GetSize_AbilityType() 
+        => System.Enum.GetValues(typeof(AbilityType)).Length;
+    public static AbilityType[] GetEnumArray_AbilityType()
+        => (AbilityType[])System.Enum.GetValues(typeof(AbilityType));
 }

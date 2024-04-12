@@ -240,18 +240,23 @@ namespace Inventory.UI {
                 GradeTxt.text = Enum.GetGradeName(item.Grade);
                 GradeTxt.color = HM._.ivm.GradeClrs[(int)item.Grade];
 
-                //* 能力木テスト 表示
+                //* 能力メッセージ 初期化
                 string resMsg = "";
                 
-                //* 遺物能力（ItemSOのAbilityDataを等級によるValとUpgradeValとして使う）
+                //* Relic 能力) 
+                // 1. ItemSO.Abilities.RelicAbilitiesへデータがあったら、Relicという意味で
+                // 2. RelicSO.Abilitiesへ全て能力データが宣言されている。
+                // 3. ここから、ValとUpgradeValを取って使う。
                 if(isRelic) {
                     for(int i = 0; i < relicAbilities.Length; i++) {
-                        AbilityType type = relicAbilities[i];
-                        string msg = Config.ABILITY_TYPE_DECS_MSGS[(int)type];
-                        AbilityData relicAbility = Array.Find(item.Abilities, val => val.Type == type);
+                        AbilityType rType = relicAbilities[i];
+                        //* データ取る
+                        string msg = Config.ABILITY_DECS[(int)rType];
+                        AbilityData[] relicAllAbilityDatas = item.Abilities;
+                        AbilityData relicAbility = Array.Find(relicAllAbilityDatas, rAbility => rAbility.Type == rType);
                         float val = relicAbility.Val + (lvIdx * relicAbility.UpgradeVal);
                         //* V{N} → 能力数値変換(実際のアイテムデータ)
-                        bool isIntType = (type == AbilityType.StartCoin || type == AbilityType.StartLife || type == AbilityType.SkillPoint || type == AbilityType.BonusCoinBy10Kill);
+                        bool isIntType = (rType == AbilityType.StartCoin || rType == AbilityType.StartLife || rType == AbilityType.SkillPoint || rType == AbilityType.BonusCoinBy10Kill);
                         string abilityMsg = msg.Replace($"V", $"{val * (isIntType? 1 : 100)}");
                         //* 強化数値表示 トーグル(登録したアップグレードデータ)
                         string upgradeMsg = (relicAbility.UpgradeVal == 0)? "<color=grey>( 고정 )</color>" : $"<color=green>( {$"+{relicAbility.UpgradeVal * (isIntType? 1 : 100)}%"} )</color>";
@@ -259,11 +264,11 @@ namespace Inventory.UI {
                         resMsg += $"{abilityMsg} {upgradeToogleMsg}\n";
                     }
                 }
-                //* 装置能力（ItemSOのAbilityDataを自体をそのまま使う）
+                //* Equip 能力
                 else {
                     for(int i = 0; i < item.Abilities.Length; i++) {
                         var ability = item.Abilities[i];
-                        string msg = Config.ABILITY_TYPE_DECS_MSGS[(int)ability.Type];
+                        string msg = Config.ABILITY_DECS[(int)ability.Type];
                         float val = ability.Val + (lvIdx * ability.UpgradeVal);
                         //* V{N} → 能力数値変換(実際のアイテムデータ)
                         string abilityMsg = msg.Replace($"V", $"{val * 100}");

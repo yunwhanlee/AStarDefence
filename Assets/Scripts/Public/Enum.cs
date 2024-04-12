@@ -27,6 +27,7 @@ public enum AbilityType {
 	Attack, 
     Speed, 
     Range, 
+    //* Relic Abilityとして適用することはここから
     Critical, 
     CriticalDamage,
     ClearEtc,
