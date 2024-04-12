@@ -16,7 +16,7 @@ namespace Inventory.UI {
         [field:SerializeField] private bool IsUpgradeValToogle {get; set;}
 
         [field:Header("CONSUMABLE POPUP")]
-        private Action OnClickConsumPopUpConfirmBtn = () => {};
+        private Action OnClickConfirmBtn = () => {};
         [field:SerializeField] private Image EtcItemBg {get; set;}
         [field:SerializeField] private TMP_Text EtcNameTxt {get; set;}
         [field:SerializeField] private TMP_Text EtcQuantityTxt {get; set;}
@@ -55,7 +55,7 @@ namespace Inventory.UI {
 #region EVENT
         public void OnClickConsumableItemConfirm() {
             Debug.Log($"OnClickConsumableItemConfirm():: CurInvItem.Name= {HM._.ivm.CurInvItem.Data.Name}");
-            OnClickConsumPopUpConfirmBtn?.Invoke();
+            OnClickConfirmBtn?.Invoke();
         }
 
         public void OnClickEquipBtn() {
@@ -123,6 +123,25 @@ namespace Inventory.UI {
             EtcConfirmBtnTxt.color = isActive? ActiveColor: Color.gray;
         }
 
+        private void SetConsumePopUpUI(string btnTxt, Etc.ConsumableItem type) {
+            RewardItemSO rwdItemDt = HM._.rwlm.RwdItemDt;
+            EtcConfirmBtnTxt.text = btnTxt;
+            //* Actionボタン 購読
+            OnClickConfirmBtn = () => {
+                switch(type) {
+                    case Etc.ConsumableItem.Present0:
+                        rwdItemDt.OpenRewardContent(rwdItemDt.Rwd_Present0);
+                        break;
+                    case Etc.ConsumableItem.Present1:
+                        rwdItemDt.OpenRewardContent(rwdItemDt.Rwd_Present1);
+                        break;
+                    case Etc.ConsumableItem.Present2:
+                        rwdItemDt.OpenRewardContent(rwdItemDt.Rwd_Present2);
+                        break;
+                }
+            };
+        }
+
         public void SetDescription(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip) {
             Debug.Log($"SetDescription():: item= {item.name}, val= {quantity}");
             var hui = HM._.hui;
@@ -139,7 +158,7 @@ namespace Inventory.UI {
                 if(item.name == $"{Etc.ConsumableItem.Clover}") {
                     ActiveCloverItem(hui.CloverActiveIcon, db.IsCloverActive, Color.green);
                     //* Actionボタン 購読
-                    OnClickConsumPopUpConfirmBtn = () => {
+                    OnClickConfirmBtn = () => {
                         db.IsCloverActive = !db.IsCloverActive;
                         ActiveCloverItem(hui.CloverActiveIcon, db.IsCloverActive, Color.green);
                     };
@@ -147,7 +166,7 @@ namespace Inventory.UI {
                 else if(item.name == $"{Etc.ConsumableItem.GoldClover}") {
                     ActiveCloverItem(hui.GoldCloverActiveIcon, db.IsGoldCloverActive, Color.yellow);
                     //* Actionボタン 購読
-                    OnClickConsumPopUpConfirmBtn = () => {
+                    OnClickConfirmBtn = () => {
                         db.IsGoldCloverActive = !db.IsGoldCloverActive;
                         ActiveCloverItem(hui.GoldCloverActiveIcon, db.IsGoldCloverActive, Color.yellow);
                     };
@@ -158,57 +177,32 @@ namespace Inventory.UI {
                 || item.name == $"{Etc.ConsumableItem.SteamPack0}"
                 || item.name == $"{Etc.ConsumableItem.SteamPack1}"
                 || item.name == $"{Etc.ConsumableItem.MagicStone}"
-                || item.name == $"{Etc.ConsumableItem.SoulStone}") {
+                || item.name == $"{Etc.ConsumableItem.SoulStone}")
+                {
                     EtcConfirmBtnTxt.text = "확인";
                     //* Actionボタン 購読
-                    OnClickConsumPopUpConfirmBtn = () => {
-                        HM._.ivm.ConsumePopUp.SetActive(false);
-                    };
+                    OnClickConfirmBtn = () => HM._.ivm.ConsumePopUp.SetActive(false);
                 }
 
                 //* PresentBox 表示
-                else if(item.name == $"{Etc.ConsumableItem.Present0}") {
-                    EtcConfirmBtnTxt.text = "열기";
-                    OnClickConsumPopUpConfirmBtn = ()
-                        => rwlm.RwdItemDt.OpenRewardContent(rwlm.RwdItemDt.Rwd_Present0);
-                }
-                else if(item.name == $"{Etc.ConsumableItem.Present1}") {
-                    EtcConfirmBtnTxt.text = "열기";
-                    OnClickConsumPopUpConfirmBtn = ()
-                        => rwlm.RwdItemDt.OpenRewardContent(rwlm.RwdItemDt.Rwd_Present1);
-                }
-                else if(item.name == $"{Etc.ConsumableItem.Present2}") {
-                    EtcConfirmBtnTxt.text = "열기";
-                    OnClickConsumPopUpConfirmBtn = ()
-                        => rwlm.RwdItemDt.OpenRewardContent(rwlm.RwdItemDt.Rwd_Present2);
-                }
+                else if(item.name == $"{Etc.ConsumableItem.Present0}")
+                    SetConsumePopUpUI("열기", Etc.ConsumableItem.Present0);
+                else if(item.name == $"{Etc.ConsumableItem.Present1}")
+                    SetConsumePopUpUI("열기", Etc.ConsumableItem.Present1);
+                else if(item.name == $"{Etc.ConsumableItem.Present2}")
+                    SetConsumePopUpUI("열기", Etc.ConsumableItem.Present2);
 
                 //* ChestBox 表示
-                else if(item.name == $"{Etc.ConsumableItem.ChestCommon}") {
-                    rwlm.SetChestPopUpUI(Etc.ConsumableItem.ChestCommon, quantity);
-                    rwlm.OnClickOpenChest = () 
-                        => rwlm.RwdItemDt.OpenRewardContent(rwlm.RwdItemDt.Rwd_ChestCommon);
-                }
-                else if(item.name == $"{Etc.ConsumableItem.ChestDiamond}") {
-                    rwlm.SetChestPopUpUI(Etc.ConsumableItem.ChestDiamond, quantity);
-                    rwlm.OnClickOpenChest = ()
-                        => rwlm.RwdItemDt.OpenRewardContent(rwlm.RwdItemDt.Rwd_ChestDiamond);
-                }
-                else if(item.name == $"{Etc.ConsumableItem.ChestEquipment}") {
-                    rwlm.SetChestPopUpUI(Etc.ConsumableItem.ChestEquipment, quantity);
-                    rwlm.OnClickOpenChest = ()
-                        => rwlm.RwdItemDt.OpenRewardContent(rwlm.RwdItemDt.Rwd_ChestEquipment);
-                }
-                else if(item.name == $"{Etc.ConsumableItem.ChestGold}") {
-                    rwlm.SetChestPopUpUI(Etc.ConsumableItem.ChestGold, quantity);
-                    rwlm.OnClickOpenChest = ()
-                        => rwlm.RwdItemDt.OpenRewardContent(rwlm.RwdItemDt.Rwd_ChestGold);
-                }
-                else if(item.name == $"{Etc.ConsumableItem.ChestPremium}") {
-                    rwlm.SetChestPopUpUI(Etc.ConsumableItem.ChestPremium, quantity);
-                    rwlm.OnClickOpenChest = ()
-                        => rwlm.RwdItemDt.OpenRewardContent(rwlm.RwdItemDt.Rwd_ChestPremium);
-                }
+                else if(item.name == $"{Etc.ConsumableItem.ChestCommon}")
+                    rwlm.ShowChestPopUp(Etc.ConsumableItem.ChestCommon, quantity);
+                else if(item.name == $"{Etc.ConsumableItem.ChestDiamond}")
+                    rwlm.ShowChestPopUp(Etc.ConsumableItem.ChestDiamond, quantity);
+                else if(item.name == $"{Etc.ConsumableItem.ChestEquipment}")
+                    rwlm.ShowChestPopUp(Etc.ConsumableItem.ChestEquipment, quantity);
+                else if(item.name == $"{Etc.ConsumableItem.ChestGold}")
+                    rwlm.ShowChestPopUp(Etc.ConsumableItem.ChestGold, quantity);
+                else if(item.name == $"{Etc.ConsumableItem.ChestPremium}")
+                    rwlm.ShowChestPopUp(Etc.ConsumableItem.ChestPremium, quantity);
 
                 EtcItemBg.gameObject.SetActive(true);
                 EtcItemBg.sprite = item.ItemImg;

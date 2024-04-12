@@ -31,7 +31,7 @@ namespace Inventory.UI
 
         [field:SerializeField] public InventoryUIItem ItemPf {get; private set;}
         [field:SerializeField] public RectTransform Content {get; set;}
-        [field:SerializeField] public InventoryDescription ItemDescription {get; set;}
+        [field:SerializeField] public InventoryDescription InvDesc {get; set;}
         [field:SerializeField] public MouseFollower MouseFollower {get; set;}
         [field:SerializeField] public List<InventoryUIItem> InvUIItemList = new List<InventoryUIItem>();
 
@@ -46,7 +46,7 @@ namespace Inventory.UI
         void Awake() {
             Hide();
             MouseFollower.Toggle(false);
-            ItemDescription.ResetDescription();
+            InvDesc.ResetDescription();
         }
 
 #region EVENT
@@ -105,7 +105,7 @@ namespace Inventory.UI
             ResetDraggedItem();
         }
         public void ResetSelection() {
-            ItemDescription.ResetDescription();
+            InvDesc.ResetDescription();
             DeselectAllItems();
         }
         private void DeselectAllItems() {
@@ -199,7 +199,7 @@ namespace Inventory.UI
         }
 
         public void UpdateDescription(int itemIdx, ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip) {
-            ItemDescription.SetDescription(item, quantity, lv, relicAbilities, isEquip);
+            InvDesc.SetDescription(item, quantity, lv, relicAbilities, isEquip);
             DeselectAllItems();
             InvUIItemList[itemIdx].Select();
         }

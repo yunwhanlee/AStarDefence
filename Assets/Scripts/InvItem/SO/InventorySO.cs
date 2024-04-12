@@ -270,7 +270,7 @@ namespace Inventory.Model
                 abilities = new AbilityType[len];
 
                 for(int j = 0; j < abilities.Length; j++) {
-                    int start = (int)AbilityType.Critical; // RelicでAttack、Speed、Rangeは対応しない！
+                    int start = (int)AbilityType.Critical; //* RelicでAttack、Speed、Rangeは対応しない！
                     int end = Util.GetSize_AbilityType();
                     int randIdx = Random.Range(start, end);
                     AbilityType[] abilityTypeArr = Util.GetEnumArray_AbilityType();

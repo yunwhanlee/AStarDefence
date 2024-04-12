@@ -56,16 +56,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
     public void ShowReward(List<RewardItem> itemList) {
         WindowObj.SetActive(true);
         DeleteAll();
-
         DisplayRewardList(itemList);
-    }
-    public void SetChestPopUpUI(Etc.ConsumableItem enumChestIdx, int quantity) {
-        const int OFFSET = (int)Etc.ConsumableItem.ChestCommon;
-        RewardChestPopUp.SetActive(true);
-        ChestTitleRibbonImg.sprite = TitleRibbonSprs[(int)enumChestIdx - OFFSET];
-        ChestImg.sprite = RwdItemDt.EtcConsumableDatas[(int)enumChestIdx].ItemImg;
-        ChestTitleTxt.text = RwdItemDt.EtcConsumableDatas[(int)enumChestIdx].Name;
-        ChestAlertCntTxt.text = quantity.ToString();
     }
     /// <summary>
     /// Chestを開いた後、カウント減った状況 最新化
@@ -74,6 +65,28 @@ public class HomeRewardListUIManager : MonoBehaviour {
         var ivm = HM._.ivm;
         ivm.CurInvItem = ivm.GetCurItemUIFromIdx(ivm.CurItemIdx);
         ChestAlertCntTxt.text = $"{ivm.CurInvItem.Quantity}";
+    }
+    private void SetChestPopUpUI(Etc.ConsumableItem enumChestIdx, int quantity) {
+        const int OFFSET = (int)Etc.ConsumableItem.ChestCommon;
+        RewardChestPopUp.SetActive(true);
+        ChestTitleRibbonImg.sprite = TitleRibbonSprs[(int)enumChestIdx - OFFSET];
+        ChestImg.sprite = RwdItemDt.EtcConsumableDatas[(int)enumChestIdx].ItemImg;
+        ChestTitleTxt.text = RwdItemDt.EtcConsumableDatas[(int)enumChestIdx].Name;
+        ChestAlertCntTxt.text = quantity.ToString();
+    }
+    /// <summary>
+    /// ChestをTapして開くPopUp 表示
+    /// </summary>  
+    public void ShowChestPopUp(Etc.ConsumableItem type, int quantity) {
+        RewardContentSO chestDt = (type == Etc.ConsumableItem.ChestCommon)? RwdItemDt.Rwd_ChestCommon
+            : (type == Etc.ConsumableItem.ChestDiamond)? RwdItemDt.Rwd_ChestDiamond
+            : (type == Etc.ConsumableItem.ChestEquipment)? RwdItemDt.Rwd_ChestEquipment
+            : (type == Etc.ConsumableItem.ChestGold)? RwdItemDt.Rwd_ChestGold
+            : RwdItemDt.Rwd_ChestPremium;
+        SetChestPopUpUI(type, quantity);
+
+        //* 次の開くイベント登録
+        OnClickOpenChest = () => RwdItemDt.OpenRewardContent(chestDt);
     }
 #endregion
 }
