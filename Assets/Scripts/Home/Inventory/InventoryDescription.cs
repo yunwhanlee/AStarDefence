@@ -59,8 +59,16 @@ namespace Inventory.UI {
         }
 
         public void OnClickEquipBtn() {
+            Debug.Log($"OnClickEquipBtn():: CurInvItem= {HM._.ivm.CurInvItem}, IsEquip= {HM._.ivm.CurInvItem.IsEquip}");
             HM._.ivm.EquipPopUp.SetActive(false);
-            HM._.ivCtrl.EquipItemSlot();
+
+            if(HM._.ivm.CurInvItem.IsEquip) {
+                HM._.ivCtrl.UnEquipSlotUI();
+            }
+            else {
+                
+                HM._.ivCtrl.EquipItemSlotUI();
+            }
         }
 
         public void OnClickUpgradeBtn() {

@@ -25,7 +25,7 @@ public class StatusDB {
         GoldKey = 1;
         Coin = 0;
         Diamond = 0; 
-        SkillPoint = 0; 
+        SkillPoint = 20; 
     }
 }
 

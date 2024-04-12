@@ -167,13 +167,4 @@ public static class Enum {
         IncreaseCCTowerCnt, 
         SwitchTowerPositionCnt
     }
-
-    /// <summary> SKILLTREEのUtilityデータ情報 </summary>
-    // public static enum SKT_UT {
-    //     EXTRA_MONEY,
-    //     EXTRA_LIFE,
-    //     TEN_KILL_EXTRA_1MONEY,
-    //     EXTRA_EXP,
-    //     TEN_KILL_EXTRA_2MONEY,
-    // }
 }

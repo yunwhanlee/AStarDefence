@@ -97,7 +97,7 @@ namespace Inventory.Model
                 ItemList.Add(InventoryItem.GetEmptyItem());
         }
 
-        public void ResetIsEquipData(Enum.ItemType type) {
+        public void InitIsEquipData(Enum.ItemType type) {
             for(int i = 0; i < ItemList.Count; i++) {
                 if(ItemList[i].IsEmpty)
                     continue;

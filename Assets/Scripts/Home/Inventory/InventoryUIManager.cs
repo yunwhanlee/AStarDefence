@@ -211,7 +211,7 @@ namespace Inventory.UI
             }
         }
 
-        public void ResetEquipDimUI(Enum.ItemType type) {
+        public void InitEquipDimUI(Enum.ItemType type) {
             //* UI Elements
             List<InventoryUIItem> filterItemUIs = InvUIItemList.FindAll(elem => elem.Type == type);
             filterItemUIs.ForEach(elem => elem.EquipDim.SetActive(false));

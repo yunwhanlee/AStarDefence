@@ -48,7 +48,7 @@ namespace Inventory.UI
             TypeBgImg.enabled = false;
             TypeIconImg.enabled = false;
             LightImg.enabled = false;
-            BgImg.sprite = HM._.ivm.NoneBgSpr;
+            if(HM._) BgImg.sprite = HM._.ivm.NoneBgSpr;
             BgImg.color = Color.white;
             ItemImg.gameObject.SetActive(false);
             IsEmpty = true;
@@ -57,11 +57,10 @@ namespace Inventory.UI
         }
         public void Deselect() => BorderImg.enabled = false;
 
-        public void PlayScaleUIEF(Sprite itemSpr) {
-            HM._.ivEqu.WeaponInvUISlot.ItemImgScaleUIEF.sprite = itemSpr;
-            HM._.ivEqu.WeaponInvUISlot.ItemImgScaleUIEF.Play();
+        public void PlayScaleUIEF(InventoryUIItem  invItemUI, Sprite itemSpr) {
+            invItemUI.ItemImgScaleUIEF.sprite = itemSpr;
+            invItemUI.ItemImgScaleUIEF.Play();
         }
-
         /// <summary>
         /// アイテムのデータ設定
         /// /// </summary>
