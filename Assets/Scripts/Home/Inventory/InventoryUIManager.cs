@@ -160,8 +160,8 @@ namespace Inventory.UI
         private void HandleShowItemInfoPopUp(InventoryUIItem invItemUI) {
             DeselectAllItems();
 
-            //* 実際のインベントリーへあるアイテム情報
-            // CurInvItem = GetItemFromUI(invItemUI);
+            if(CurInvItem.IsEmpty)
+                return;
 
             if(CurInvItem.Data.Type == Enum.ItemType.Etc) {
                 if(CurInvItem.Data.name == $"{Etc.ConsumableItem.ChestCommon}") return;
@@ -169,10 +169,8 @@ namespace Inventory.UI
                 if(CurInvItem.Data.name == $"{Etc.ConsumableItem.ChestEquipment}") return;
                 if(CurInvItem.Data.name == $"{Etc.ConsumableItem.ChestGold}") return;
                 if(CurInvItem.Data.name == $"{Etc.ConsumableItem.ChestPremium}") return;
-
                 ConsumePopUp.SetActive(true);
             }
-                
             else
                 EquipPopUp.SetActive(true);
         }
