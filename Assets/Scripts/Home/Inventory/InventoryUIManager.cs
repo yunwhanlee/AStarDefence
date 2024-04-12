@@ -159,7 +159,6 @@ namespace Inventory.UI
 
         private void HandleShowItemInfoPopUp(InventoryUIItem invItemUI) {
             DeselectAllItems();
-
             if(CurInvItem.IsEmpty)
                 return;
 
@@ -174,24 +173,24 @@ namespace Inventory.UI
             else
                 EquipPopUp.SetActive(true);
         }
-        private void HandleEndDrag(InventoryUIItem invItemUI)
-            => ResetDraggedItem();
+        // private void HandleEndDrag(InventoryUIItem invItemUI)
+        //     => ResetDraggedItem();
 
-        private void HandleSwap(InventoryUIItem invItemUI) {
-            int idx = InvUIItemList.IndexOf(invItemUI);
-            if(idx == -1) return;
-            if(curDraggedItemIdx == -1) return;
-            OnSwapItems?.Invoke(curDraggedItemIdx, idx);
-            HandleItemSelection(invItemUI);
-        }
+        // private void HandleSwap(InventoryUIItem invItemUI) {
+        //     int idx = InvUIItemList.IndexOf(invItemUI);
+        //     if(idx == -1) return;
+        //     if(curDraggedItemIdx == -1) return;
+        //     OnSwapItems?.Invoke(curDraggedItemIdx, idx);
+        //     HandleItemSelection(invItemUI);
+        // }
 
-        private void HandleBeginDrag(InventoryUIItem invItemUI) {
-            int idx = InvUIItemList.IndexOf(invItemUI);
-            if(idx == -1) return;
-            curDraggedItemIdx = idx;
-            HandleItemSelection(invItemUI);
-            OnStartDragging?.Invoke(idx);
-        }
+        // private void HandleBeginDrag(InventoryUIItem invItemUI) {
+        //     int idx = InvUIItemList.IndexOf(invItemUI);
+        //     if(idx == -1) return;
+        //     curDraggedItemIdx = idx;
+        //     HandleItemSelection(invItemUI);
+        //     OnStartDragging?.Invoke(idx);
+        // }
 
         public void CreateDraggedItem(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv) {
             MouseFollower.Toggle(true);
@@ -199,11 +198,25 @@ namespace Inventory.UI
         } 
 
         public void HandleItemSelection(InventoryUIItem invItemUI) {
-            int idx = InvUIItemList.IndexOf(invItemUI);
-            if(idx == -1) return;
-            CurItemIdx = idx;
-            CurInvItem = GetCurItemUIFromIdx(idx);
-            OnDescriptionRequested?.Invoke(idx);
+            Debug.Log($"HandleItemSelection(invItemUI= {invItemUI.name}):: ");
+            //* Equip スロットなら
+            if(invItemUI.name == "WeaponInvItemUISlot") {
+                int equipItemIdx = HM._.ivCtrl.InventoryData.ItemList.FindIndex(invItem
+                    => invItem.Data.Type == Enum.ItemType.Weapon && invItem.IsEquip);
+
+                CurItemIdx = equipItemIdx;
+                CurInvItem = GetCurItemUIFromIdx(CurItemIdx);
+                OnDescriptionRequested?.Invoke(CurItemIdx);
+                return;
+            }
+            //* インベントリーアイテムなら
+            else {
+                int idx = InvUIItemList.IndexOf(invItemUI);
+                if(idx == -1) return;
+                CurItemIdx = idx;
+                CurInvItem = GetCurItemUIFromIdx(idx);
+                OnDescriptionRequested?.Invoke(idx);
+            }
         }
 
         public void UpdateDescription(int itemIdx, ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip) {

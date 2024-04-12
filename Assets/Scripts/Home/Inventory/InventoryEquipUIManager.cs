@@ -9,6 +9,27 @@ public class InventoryEquipUIManager : MonoBehaviour {
     public InventoryUIItem[] EquipItemSlotUIs;
     public GameObject[] EmptyIconObjs;
 
+#region EVENT
+    /// <summary>
+    /// 装置スロットクリック イベント
+    /// </summary>
+    /// <param name="itemType">0: Weapon, 1: Shoes, 2: Ring, 3: Relic</param>
+    public void OnClickEquipSlot(int itemType) {
+        switch (itemType) {
+            case (int)Enum.ItemType.Weapon:
+                
+                break;
+            case (int)Enum.ItemType.Shoes:
+                break;
+            case (int)Enum.ItemType.Ring:
+                break;
+            case (int)Enum.ItemType.Relic:
+                break;
+        }
+    }
+#endregion
+
+#region FUNC
     private void SetEquipEmptyIcon(Enum.ItemType type, bool isActive)
         => EmptyIconObjs[(int)type].SetActive(isActive);
 
@@ -24,4 +45,5 @@ public class InventoryEquipUIManager : MonoBehaviour {
         EquipItemSlotUIs[(int)type].PlayScaleUIEF(EquipItemSlotUIs[(int)type], dt.ItemImg);
         SetEquipEmptyIcon(type, false);
     }
+#endregion
 }
