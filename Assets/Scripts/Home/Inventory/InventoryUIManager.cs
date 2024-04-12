@@ -137,6 +137,7 @@ namespace Inventory.UI
                     item.IsEquip
                 );
         }
+
         private void ResetDraggedItem() {
             MouseFollower.Toggle(false);
             curDraggedItemIdx = -1;

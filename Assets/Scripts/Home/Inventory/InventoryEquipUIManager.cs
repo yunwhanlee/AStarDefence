@@ -9,48 +9,46 @@ public class InventoryEquipUIManager : MonoBehaviour {
     public InventoryUIItem[] EquipItemSlotUIs;
     public GameObject[] EmptyIconObjs;
 
-#region EVENT
-    /// <summary>
-    /// 装置スロットクリック イベント
-    /// </summary>
-    /// <param name="itemType">0: Weapon, 1: Shoes, 2: Ring, 3: Relic</param>
-    public void OnClickEquipSlot(int itemType) {
-        switch (itemType) {
-            case (int)Enum.ItemType.Weapon:
-                break;
-            case (int)Enum.ItemType.Shoes:
-                break;
-            case (int)Enum.ItemType.Ring:
-                break;
-            case (int)Enum.ItemType.Relic:
-                break;
-        }
-    }
-#endregion
-
 #region FUNC
+    public InventoryItem FindEquipItem(Enum.ItemType type) {
+        int idx = HM._.ivCtrl.FindCurEquipItemIdx(type);
+        InventoryItem equipItem = HM._.ivm.GetCurItemUIFromIdx(idx);
+        return equipItem;
+    }
+
+    /// <summary>
+    /// 現在装置しているEquipスロットを最新化
+    /// </summary>
+    public void UpdateAllEquipSlots() {
+        EquipItem(Enum.ItemType.Weapon, FindEquipItem(Enum.ItemType.Weapon), isEffect: false);
+        EquipItem(Enum.ItemType.Shoes, FindEquipItem(Enum.ItemType.Shoes), isEffect: false);
+        EquipItem(Enum.ItemType.Ring, FindEquipItem(Enum.ItemType.Ring), isEffect: false);
+        EquipItem(Enum.ItemType.Relic, FindEquipItem(Enum.ItemType.Relic), isEffect: false);
+    }
+
     private void SetEquipEmptyIcon(Enum.ItemType type, bool isActive)
         => EmptyIconObjs[(int)type].SetActive(isActive);
 
-    public void InitEquipSlot(Enum.ItemType type) {
+    public void ResetEquipSlot(Enum.ItemType type) {
         EquipItemSlotUIs[(int)type].ResetData();
         EmptyIconObjs[(int)type].SetActive(true);
         SetEquipEmptyIcon(type, true);
     }
 
-    public void EquipItem(Enum.ItemType type, InventoryItem curInvItem) {
-        ItemSO dt = curInvItem.Data;
+    public void EquipItem(Enum.ItemType type, InventoryItem invItem, bool isEffect = true) {
+        ItemSO dt = invItem.Data;
         EquipItemSlotUIs[(int)type].SetUIData (
             dt.Type, 
             dt.Grade, 
             dt.ItemImg, 
-            curInvItem.Quantity, 
-            curInvItem.Lv, 
-            curInvItem.RelicAbilities, 
-            curInvItem.IsEquip
+            invItem.Quantity, 
+            invItem.Lv, 
+            invItem.RelicAbilities, 
+            invItem.IsEquip
         );
-        EquipItemSlotUIs[(int)type].PlayScaleUIEF(EquipItemSlotUIs[(int)type], dt.ItemImg);
         SetEquipEmptyIcon(type, false);
+        if(isEffect)
+            EquipItemSlotUIs[(int)type].PlayScaleUIEF(EquipItemSlotUIs[(int)type], dt.ItemImg);
     }
 #endregion
 }

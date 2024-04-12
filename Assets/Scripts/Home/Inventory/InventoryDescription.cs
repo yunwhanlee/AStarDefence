@@ -62,17 +62,15 @@ namespace Inventory.UI {
             Debug.Log($"OnClickEquipBtn():: CurInvItem= {HM._.ivm.CurInvItem}, IsEquip= {HM._.ivm.CurInvItem.IsEquip}");
             HM._.ivm.EquipPopUp.SetActive(false);
 
-            if(HM._.ivm.CurInvItem.IsEquip) {
+            if(HM._.ivm.CurInvItem.IsEquip)
                 HM._.ivCtrl.UnEquipSlotUI();
-            }
-            else {
+            else
                 HM._.ivCtrl.EquipItemSlotUI();
-            }
         }
 
         public void OnClickUpgradeBtn() {
-            var type = ivm.CurInvItem.Data.Type;
-            var lv = ivm.CurInvItem.Lv;
+            Enum.ItemType type = ivm.CurInvItem.Data.Type;
+            int lv = ivm.CurInvItem.Lv;
             if(type == Enum.ItemType.Etc) return;
             if(type == Enum.ItemType.Relic && lv == Config.RELIC_UPGRADE_MAX) {
                 HM._.hui.ShowMsgError("업그레이드 최대치로 더 이상 할 수 없습니다.");
@@ -89,6 +87,9 @@ namespace Inventory.UI {
                 ivm.CurInvItem.RelicAbilities,
                 ivm.CurInvItem.IsEquip
             );
+
+            //* Equipスロット最新化
+            HM._.ivEqu.EquipItem(type, HM._.ivEqu.FindEquipItem(type), isEffect: false);
         }
         public void OnClickUpgradeValueNoticeToggle() {
             Debug.Log($"OnClickUpgradeValueNoticeToggle():: IsUpgradeValToogleActive= {IsUpgradeValToogle}");

@@ -45,6 +45,8 @@ namespace Inventory.UI
                 OnItemClicked?.Invoke(this);
                 OnItemClickShortly?.Invoke(this);
             });
+
+            HM._.ivEqu.UpdateAllEquipSlots();
         }
 
     #region EVENT

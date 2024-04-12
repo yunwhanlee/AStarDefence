@@ -102,11 +102,11 @@ namespace Inventory
             HM._.ivm.InitEquipDimUI(type); // 「装置中」DimUI 
 
             //* Equipスロット 初期化
-            ivEqu.InitEquipSlot(type);
+            ivEqu.ResetEquipSlot(type);
         }
 
         public void EquipItemSlotUI() {
-            InventoryEquipUIManager ivEqu = HM._.ivEqu;
+            var ivEqu = HM._.ivEqu;
             InventoryItem  curInvItem = InventoryData.ItemList[HM._.ivm.CurItemIdx];
             Enum.ItemType type = curInvItem.Data.Type;
 
