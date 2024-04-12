@@ -52,7 +52,7 @@ public class HomeRewardUIManager : MonoBehaviour {
                 new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present1]),          // Reward Open
                 new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present2]),          // Reward Open
 
-                new (HM._.rwlm.RwdItemDt.WeaponDatas[5]),
+                // new (HM._.rwlm.RwdItemDt.WeaponDatas[5]),
                 // new (shoesDatas[3]),
                 // new (HM._.rwlm.RwdItemDt.WeaponDatas[0]),
                 // new (HM._.rwlm.RwdItemDt.RelicDatas[0], 1, HM._.ivCtrl.InventoryData.CheckRelicAbilitiesData(HM._.rwlm.RwdItemDt.RelicDatas[0])),
@@ -74,7 +74,12 @@ public class HomeRewardUIManager : MonoBehaviour {
                     }
                     //* リワード処理：インベントリーへ表示する物
                     else {
-                        int reminder = HM._.ivCtrl.InventoryData.AddItem(rwdItem.Data, rwdItem.Quantity, lv: 1, rwdItem.RelicAbilities);
+                        int reminder = HM._.ivCtrl.InventoryData.AddItem (
+                            rwdItem.Data, 
+                            rwdItem.Quantity, 
+                            lv: 1, 
+                            rwdItem.RelicAbilities
+                        );
                         rwdItem.Quantity = reminder;
                     }
                 }

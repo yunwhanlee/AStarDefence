@@ -106,25 +106,8 @@ namespace Inventory.Model
             }
         }
 
-        public int AddItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities) {
-            // if(item.IsStackable == false) {
-            //     Debug.Log($"InventorySO:: AddItem({item.name}, quantity= {quantity}, lv= {lv}, relicAbilities= {relicAbilities.Length})::");
-            //     // 過去：Valが２なら、重ならないので１個しかできない複数に分ける
-            //     /*
-            //     for(int i = 0; i < inventoryItems.Count; i++) {
-            //         while(val > 0 && IsInventoryFull() == false) {
-            //             val -= AddItemToFirstFreeSlot(item, 1);
-            //         }
-            //         InformAboutChange();
-            //         return val;
-            //     }
-            //     */
-            //     //* 変更：EquipアイテムはValをレベルとして扱う
-            //     quantity = AddItemToFirstFreeSlot(item, quantity, lv, null);
-            //     InformAboutChange();
-            //     return quantity;
-            // }
-            quantity = AddStackableItem(item, quantity, lv, relicAbilities);
+        public int AddItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip = false) {
+            quantity = AddStackableItem(item, quantity, lv, relicAbilities, isEquip);
             InformAboutChange();
             return quantity;
         }
@@ -132,12 +115,13 @@ namespace Inventory.Model
         /// <summary>
         ///* 数えないアイテムとして追加 （今は使うことがない）
         /// </summary>
-        private int AddItemToFirstFreeSlot(ItemSO itemDt, int quantity, int lv, AbilityType[] relicAbilities) {
+        private int AddItemToFirstFreeSlot(ItemSO itemDt, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip) {
             InventoryItem newItem = new InventoryItem {
                 Data = itemDt,
                 Quantity = quantity,
                 Lv = lv,
-                RelicAbilities = relicAbilities
+                RelicAbilities = relicAbilities,
+                IsEquip = isEquip
             };
 
             Debug.Log($"newItem.RelicAbilities.Length= {newItem}");
@@ -159,7 +143,7 @@ namespace Inventory.Model
         /// <summary>
         /// 数えるアイテムとして追加 (自動マージしたときも使う)
         /// </summary>
-        private int AddStackableItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities) {
+        private int AddStackableItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip) {
             for(int i = 0; i < ItemList.Count; i++) {
                 if(ItemList[i].IsEmpty)
                     continue;
@@ -181,7 +165,7 @@ namespace Inventory.Model
             while(quantity > 0 && IsInventoryFull() == false) {
                 int newQuantity = Mathf.Clamp(quantity, 0, item.MaxStackSize);
                 quantity -= newQuantity;
-                AddItemToFirstFreeSlot(item, newQuantity, lv, relicAbilities);
+                AddItemToFirstFreeSlot(item, newQuantity, lv, relicAbilities, isEquip);
             }
 
             return quantity;
@@ -253,7 +237,7 @@ namespace Inventory.Model
                     //* Relicなら、ランダムで能力
                     var relicAbilities = CheckRelicAbilitiesData(nextItemDt);
 
-                    AddStackableItem(nextItemDt, mergeCnt, lv: 1, relicAbilities);
+                    AddStackableItem(nextItemDt, mergeCnt, lv: 1, relicAbilities, item.IsEquip);
                 }
             }
             //* イベントリーUI アップデート
@@ -328,8 +312,8 @@ namespace Inventory.Model
         }
 
         public void AddItem(InventoryItem item) {
-            Debug.Log($"AddItem():: {item.Data.Name}, Lv= {item.Lv}, RelicAbilities.Length= {item.RelicAbilities.Length}");
-            AddItem(item.Data, item.Quantity, item.Lv, item.RelicAbilities);
+            Debug.Log($"AddItem():: {item.Data.Name}, Lv= {item.Lv}, RelicAbilities.Length= {item.RelicAbilities.Length}, isEquip= {item.IsEquip}");
+            AddItem(item.Data, item.Quantity, item.Lv, item.RelicAbilities, item.IsEquip);
         }
 
         public Dictionary<int, InventoryItem> GetCurrentInventoryState() {

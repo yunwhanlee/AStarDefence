@@ -133,7 +133,8 @@ namespace Inventory.UI
                     dt.ItemImg, 
                     item.Quantity, 
                     item.Lv, 
-                    item.RelicAbilities
+                    item.RelicAbilities,
+                    item.IsEquip
                 );
         }
         private void ResetDraggedItem() {
@@ -165,7 +166,7 @@ namespace Inventory.UI
             DeselectAllItems();
             if(invItemUI.IsEmpty)
                 return;
-            
+
             if(CurInvItem.Data.Type == Enum.ItemType.Etc) {
                 if(CurInvItem.Data.name == $"{Etc.ConsumableItem.ChestCommon}") return;
                 if(CurInvItem.Data.name == $"{Etc.ConsumableItem.ChestDiamond}") return;
@@ -198,10 +199,10 @@ namespace Inventory.UI
         //     OnStartDragging?.Invoke(idx);
         // }
 
-        public void CreateDraggedItem(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv) {
-            MouseFollower.Toggle(true);
-            MouseFollower.SetUIData(type, grade, spr, quantity, lv);
-        } 
+        // public void CreateDraggedItem(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv) {
+        //     MouseFollower.Toggle(true);
+        //     MouseFollower.SetUIData(type, grade, spr, quantity, lv);
+        // } 
 
         public void HandleItemSelection(InventoryUIItem invItemUI) {
             //* アイテムのINDEX 習得

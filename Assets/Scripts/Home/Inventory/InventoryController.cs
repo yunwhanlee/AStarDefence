@@ -44,17 +44,17 @@ namespace Inventory
             ivm.InitInventoryUI(InventoryData.Size);
             ivm.OnDescriptionRequested += HandleDescriptionRequest;
             ivm.OnSwapItems += HandleSwapItems;
-            ivm.OnStartDragging += HandleDragging;
+            // ivm.OnStartDragging += HandleDragging;
             ivm.OnItemActionRequested += HandleItemActionRequest;
         }
 
         private void HandleItemActionRequest(int itemIdx) {}
 
-        private void HandleDragging(int itemIdx) {
-            InventoryItem item = InventoryData.GetItemAt(itemIdx);
-            if(item.IsEmpty) return;
-            ivm.CreateDraggedItem(item.Data.Type, item.Data.Grade, item.Data.ItemImg, item.Quantity, item.Lv);
-        }
+        // private void HandleDragging(int itemIdx) {
+        //     InventoryItem item = InventoryData.GetItemAt(itemIdx);
+        //     if(item.IsEmpty) return;
+        //     ivm.CreateDraggedItem(item.Data.Type, item.Data.Grade, item.Data.ItemImg, item.Quantity, item.Lv);
+        // }
 
         private void HandleSwapItems(int itemIdx1, int itemIdx2) {   
             Debug.Log($"HandleSwapItems():: itemIdx1= {itemIdx1}, itemIdx2= {itemIdx2}");

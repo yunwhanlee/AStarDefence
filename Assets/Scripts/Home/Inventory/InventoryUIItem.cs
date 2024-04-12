@@ -58,6 +58,7 @@ namespace Inventory.UI
             if(HM._) BgImg.sprite = HM._.ivm.NoneBgSpr;
             BgImg.color = Color.white;
             ItemImg.gameObject.SetActive(false);
+            if(EquipDim) EquipDim.SetActive(false);
             IsEmpty = true;
             QuantityTxt.text = "";
             LvTxt.text = "";
@@ -71,7 +72,7 @@ namespace Inventory.UI
         /// <summary>
         /// アイテムのデータ設定
         /// /// </summary>
-        public void SetUIData(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv, AbilityType[] relicAbilities = null) {
+        public void SetUIData(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv, AbilityType[] relicAbilities = null, bool isEquip = false) {
             // Debug.Log($"SetUIData(ItemImg.name={ItemImg.sprite.name}, type={type}, grade={grade})::");
             Type = type;
             //* その他アイテム
@@ -83,6 +84,7 @@ namespace Inventory.UI
                 LightImg.enabled = false;
                 BgImg.color = (grade == Enum.Grade.None)? Color.white : HM._.ivm.GradeClrs[ (int)grade];
                 LvTxt.text = "";
+                EquipDim.SetActive(false);
             }
             //* 装置アイテム
             else {
@@ -93,6 +95,7 @@ namespace Inventory.UI
                 TypeIconImg.sprite = HM._.ivm.TypeSprs[(int)type];
                 BgImg.sprite = HM._.ivm.GradeBgSprs[(int)grade];
                 LightImg.enabled = true;
+                if(EquipDim) EquipDim.SetActive(isEquip); //* EquipスロットはEquipDimオブジェクトがないため、合うかif文でチェック
 
                 string lvStr = (type == Enum.ItemType.Relic && lv >= Config.RELIC_UPGRADE_MAX)
                     || (type != Enum.ItemType.Relic && lv >= Config.EQUIP_UPGRADE_MAX) ? "MAX" : lv.ToString();

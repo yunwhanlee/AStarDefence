@@ -40,7 +40,15 @@ public class InventoryEquipUIManager : MonoBehaviour {
 
     public void EquipItem(Enum.ItemType type, InventoryItem curInvItem) {
         ItemSO dt = curInvItem.Data;
-        EquipItemSlotUIs[(int)type].SetUIData(dt.Type, dt.Grade, dt.ItemImg, curInvItem.Quantity, curInvItem.Lv);
+        EquipItemSlotUIs[(int)type].SetUIData (
+            dt.Type, 
+            dt.Grade, 
+            dt.ItemImg, 
+            curInvItem.Quantity, 
+            curInvItem.Lv, 
+            curInvItem.RelicAbilities, 
+            curInvItem.IsEquip
+        );
         EquipItemSlotUIs[(int)type].PlayScaleUIEF(EquipItemSlotUIs[(int)type], dt.ItemImg);
         SetEquipEmptyIcon(type, false);
     }
