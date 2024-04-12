@@ -100,23 +100,19 @@ namespace Inventory
             switch(curInvItem.Data.Type) {
                 case Enum.ItemType.Weapon:
                     HM._.ivEqu.WeaponInvUISlot.SetUIData(dt.Type, dt.Grade, dt.ItemImg, curInvItem.Quantity, curInvItem.Lv);
-                    HM._.ivEqu.WeaponInvUISlot.ItemImgScaleUIEF.sprite = dt.ItemImg;
-                    HM._.ivEqu.WeaponInvUISlot.ItemImgScaleUIEF.Play();
+                    HM._.ivEqu.WeaponInvUISlot.PlayScaleUIEF(dt.ItemImg);
                     break;
                 case Enum.ItemType.Shoes:
                     HM._.ivEqu.ShoesInvUISlot.SetUIData(dt.Type, dt.Grade, dt.ItemImg, curInvItem.Quantity, curInvItem.Lv);
-                    HM._.ivEqu.ShoesInvUISlot.ItemImgScaleUIEF.sprite = dt.ItemImg;
-                    HM._.ivEqu.ShoesInvUISlot.ItemImgScaleUIEF.Play();
+                    HM._.ivEqu.ShoesInvUISlot.PlayScaleUIEF(dt.ItemImg);
                     break;
                 case Enum.ItemType.Ring:
                     HM._.ivEqu.RingInvUISlot.SetUIData (dt.Type, dt.Grade, dt.ItemImg, curInvItem.Quantity, curInvItem.Lv);
-                    HM._.ivEqu.RingInvUISlot.ItemImgScaleUIEF.sprite = dt.ItemImg;
-                    HM._.ivEqu.RingInvUISlot.ItemImgScaleUIEF.Play();
+                    HM._.ivEqu.RingInvUISlot.PlayScaleUIEF(dt.ItemImg);
                     break;
                 case Enum.ItemType.Relic:
                     HM._.ivEqu.RelicInvUISlot.SetUIData (dt.Type, dt.Grade, dt.ItemImg, curInvItem.Quantity, curInvItem.Lv);
-                    HM._.ivEqu.RelicInvUISlot.ItemImgScaleUIEF.sprite = dt.ItemImg;
-                    HM._.ivEqu.RelicInvUISlot.ItemImgScaleUIEF.Play();
+                    HM._.ivEqu.RelicInvUISlot.PlayScaleUIEF(dt.ItemImg);
                     break;
             }
             

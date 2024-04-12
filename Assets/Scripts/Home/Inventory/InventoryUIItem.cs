@@ -57,6 +57,11 @@ namespace Inventory.UI
         }
         public void Deselect() => BorderImg.enabled = false;
 
+        public void PlayScaleUIEF(Sprite itemSpr) {
+            HM._.ivEqu.WeaponInvUISlot.ItemImgScaleUIEF.sprite = itemSpr;
+            HM._.ivEqu.WeaponInvUISlot.ItemImgScaleUIEF.Play();
+        }
+
         /// <summary>
         /// アイテムのデータ設定
         /// /// </summary>
