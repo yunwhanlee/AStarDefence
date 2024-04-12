@@ -210,17 +210,21 @@ namespace Inventory.UI
             int idx;
             switch(invItemUI.name) {
                 //* Equip スロットなら
-                case "WeaponInvItemUISlot" : 
+                case InventoryEquipUIManager.WEAPON_SLOT_OBJ_NAME : 
                     idx = HM._.ivCtrl.FindCurEquipItemIdx(Enum.ItemType.Weapon);
+                    if(idx == -1) OnClickCateMenuIconBtn((int)Enum.ItemType.Weapon + 1); // スロットが空なら、該当なカテゴリ表示
                     break;
-                case "ShoesInvItemUISlot" : 
+                case InventoryEquipUIManager.SHOES_SLOT_OBJ_NAME : 
                     idx = HM._.ivCtrl.FindCurEquipItemIdx(Enum.ItemType.Shoes);
+                    if(idx == -1) OnClickCateMenuIconBtn((int)Enum.ItemType.Shoes + 1); // スロットが空なら、該当なカテゴリ表示
                     break;
-                case "RingInvItemUISlot" : 
+                case InventoryEquipUIManager.RING_SLOT_OBJ_NAME : 
                     idx = HM._.ivCtrl.FindCurEquipItemIdx(Enum.ItemType.Ring);
+                    if(idx == -1) OnClickCateMenuIconBtn((int)Enum.ItemType.Ring + 1); // スロットが空なら、該当なカテゴリ表示
                     break;
-                case "RelicInvItemUISlot" : 
+                case InventoryEquipUIManager.RELIC_SLOT_OBJ_NAME : 
                     idx = HM._.ivCtrl.FindCurEquipItemIdx(Enum.ItemType.Relic);
+                    if(idx == -1) OnClickCateMenuIconBtn((int)Enum.ItemType.Relic + 1); // スロットが空なら、該当なカテゴリ表示
                     break;
                 //* インベントリーアイテムなら
                 default:

@@ -6,6 +6,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryEquipUIManager : MonoBehaviour {
+    public const string WEAPON_SLOT_OBJ_NAME = "WeaponInvItemUISlot";
+    public const string SHOES_SLOT_OBJ_NAME = "ShoesInvItemUISlot";
+    public const string RING_SLOT_OBJ_NAME = "RingInvItemUISlot";
+    public const string RELIC_SLOT_OBJ_NAME = "RelicInvItemUISlot";
+
     public InventoryUIItem[] EquipItemSlotUIs;
     public GameObject[] EmptyIconObjs;
 
@@ -36,6 +41,9 @@ public class InventoryEquipUIManager : MonoBehaviour {
     }
 
     public void EquipItem(Enum.ItemType type, InventoryItem invItem, bool isEffect = true) {
+        if(invItem.IsEmpty)
+            return;
+
         ItemSO dt = invItem.Data;
         EquipItemSlotUIs[(int)type].SetUIData (
             dt.Type, 
