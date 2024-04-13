@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AssetKits.ParticleImage;
 using Inventory.Model;
 using Inventory.UI;
 using TMPro;
@@ -54,6 +55,7 @@ public class InventoryEquipUIManager : MonoBehaviour {
 
     public InventoryUIItem[] EquipItemSlotUIs;
     public GameObject[] EmptyIconObjs;
+    public ParticleImage[] EquipUIEFs;
 
     public TMP_Text AttackPerTxt;
     public TMP_Text SpeedPerTxt;

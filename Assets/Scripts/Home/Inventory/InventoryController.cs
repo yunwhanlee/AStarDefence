@@ -122,7 +122,7 @@ namespace Inventory
 
             //* 装置スロットUI
             ivEqu.EquipItem(type, curInvItem);
-
+            ivEqu.EquipUIEFs[(int)type].Play();
             // HM._.ivEqu.SetEquipAbilityData(curInvItem);
         }
 #endregion

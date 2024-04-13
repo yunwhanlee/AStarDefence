@@ -245,6 +245,7 @@ namespace Inventory.UI {
                 GradeTxt.text = Enum.GetGradeName(item.Grade);
                 GradeTxt.color = HM._.ivm.GradeClrs[(int)item.Grade];
 
+
                 //* 能力メッセージ 初期化
                 string resMsg = "";
                 

@@ -6,8 +6,8 @@ using UnityEngine;
 public static class Config {
 #region HOME
     public const int MAX_GOBLINKEY = 5;
-    public const int EQUIP_UPGRADE_MAX = 10;
-    public const int RELIC_UPGRADE_MAX = 5;
+    public const int EQUIP_UPGRADE_MAX = 11;
+    public const int RELIC_UPGRADE_MAX = 6;
 
     /// <summary>
     /// Enum.AbilityTypeと連結
@@ -23,7 +23,7 @@ public static class Config {
         "시작코인 +V 지원",
         "시작체력 +V 지원",
         "아이템 획득 +V% 추가",
-        "추가 스킬포인트 +V% 추가",
+        "추가 스킬포인트 +V개 추가",
         "10킬당 V코인 추가 획득 ",
         "전사타워 공격력 V% 증가",
         "궁수타워 공격력 V% 증가",
@@ -63,12 +63,12 @@ public static class Config {
     public class H_PRICE {
         public static readonly int[] WORKSPACE_PRICES = {0, 1000, 5000, 12500, 30000};
         public readonly struct EQUIP_UPG {
-            public static readonly int[] PRICES = {100, 200, 250, 300, 400, 500, 600, 800, 1000};
-            public static readonly int[] PERS = {90, 80, 70, 60, 45, 35, 25, 20, 10, 5};
+            public static readonly int[] PRICES = {100, 200, 250, 300, 400, 500, 600, 800, 1000, 1300};
+            public static readonly int[] PERS = {90, 80, 70, 60, 45, 35, 25, 20, 10, 5, 3};
         }
         public readonly struct RELIC_UPG {
-            public static readonly int[] PRICES = {200, 450, 500, 750, 1000};
-            public static readonly int[] PERS = {70, 40, 20, 5};
+            public static readonly int[] PRICES = {200, 450, 500, 750, 1000, 1500};
+            public static readonly int[] PERS = {70, 40, 20, 5, 3};
         }
     }
 #endregion

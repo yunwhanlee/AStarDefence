@@ -27,9 +27,10 @@ namespace Inventory.UI
         [field:SerializeField] public TMP_Text QuantityTxt {get; set;}
         [field:SerializeField] public TMP_Text LvTxt {get; set;}
         [field:SerializeField] public Image BorderImg {get; set;}
-        [field:SerializeField] public GameObject EquipDim {get; set;}
+        [field:SerializeField] public GameObject EquipDim {get; set;} 
         [field:SerializeField] public ParticleImage ItemImgScaleUIEF {get; set;}
         [field:SerializeField] public ParticleImage WhiteDimScaleUIEF {get; set;}
+        [field:SerializeField] public ParticleImage ShinyUIEF {get; set;}
         public bool IsEmpty = false;
         public event Action<InventoryUIItem> OnItemClicked, 
             OnItemDroppedOn, 
@@ -50,6 +51,12 @@ namespace Inventory.UI
             HM._.ivEqu.UpdateAllEquipAbilityData();
         }
 
+        // IEnumerator CoShinyUIEF() {
+        //     while(true) {
+        //         yield return Util.Time1;
+        //     }
+        // }
+
     #region EVENT
     #endregion
         public void ResetData() {
@@ -64,6 +71,7 @@ namespace Inventory.UI
             IsEmpty = true;
             QuantityTxt.text = "";
             LvTxt.text = "";
+            ShinyUIEF.Stop();
         }
         public void Deselect() => BorderImg.enabled = false;
 
@@ -77,6 +85,7 @@ namespace Inventory.UI
         public void SetUIData(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv, AbilityType[] relicAbilities = null, bool isEquip = false) {
             // Debug.Log($"SetUIData(ItemImg.name={ItemImg.sprite.name}, type={type}, grade={grade})::");
             Type = type;
+
             //* その他アイテム
             if(type == Enum.ItemType.Etc) {
                 Debug.Log($"SetUIData(<color=white>type={type}</color>, ItemImg.name={ItemImg.sprite.name}, grade={grade})::");
@@ -102,6 +111,9 @@ namespace Inventory.UI
                 string lvStr = (type == Enum.ItemType.Relic && lv >= Config.RELIC_UPGRADE_MAX)
                     || (type != Enum.ItemType.Relic && lv >= Config.EQUIP_UPGRADE_MAX) ? "MAX" : lv.ToString();
                 LvTxt.text = $"Lv.{lvStr}";
+
+                if(grade >= Enum.Grade.Unique)
+                    ShinyUIEF.Play();
             }
             ItemImg.gameObject.SetActive(true);
             ItemImg.sprite = spr;
