@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-// using Unity.VisualScripting;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
 using Inventory.Model;
-using Unity.VisualScripting;
 
 /// <summary>
 /// ステータス
@@ -44,6 +42,7 @@ public class EquipDB {
     [field:SerializeField] public int StartCoin {get; set;}
     [field:SerializeField] public int StartLife {get; set;}
     [field:SerializeField] public float ItemDropPer {get; set;}
+    [field:SerializeField] public int SkillPoint {get; set;}
     [field:SerializeField] public int BonusCoinBy10Kill {get; set;}
     [field:SerializeField] public float WarriorAttackPer {get; set;}
     [field:SerializeField] public float ArcherAttackPer {get; set;}
@@ -51,7 +50,6 @@ public class EquipDB {
     [field:SerializeField] public float WarriorUpgCostPer {get; set;}
     [field:SerializeField] public float ArcherUpgCostPer {get; set;}
     [field:SerializeField] public float MagicianUpgCostPer {get; set;}
-    // [field:SerializeField] public int SkillPoint {get; set;}
 }
 
 /// <summary>
@@ -289,7 +287,8 @@ public class DM : MonoBehaviour {
             MagicianAttackPer = 0,
             WarriorUpgCostPer = 0,
             ArcherUpgCostPer = 0,
-            MagicianUpgCostPer = 0
+            MagicianUpgCostPer = 0,
+            SkillPoint = 0
         };
 
         //* Stages

@@ -51,12 +51,6 @@ namespace Inventory.UI
             HM._.ivEqu.UpdateAllEquipAbilityData();
         }
 
-        // IEnumerator CoShinyUIEF() {
-        //     while(true) {
-        //         yield return Util.Time1;
-        //     }
-        // }
-
     #region EVENT
     #endregion
         public void ResetData() {

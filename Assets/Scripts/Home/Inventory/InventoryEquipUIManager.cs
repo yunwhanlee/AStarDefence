@@ -52,6 +52,58 @@ public class InventoryEquipUIManager : MonoBehaviour {
             CritDmgPerTxt.text = $"{value * 100}%";
         }
     }
+    [field: SerializeField] public float ClearEtcPer {
+        get => DM._.DB.EquipDB.ClearEtcPer;
+        set => DM._.DB.EquipDB.ClearEtcPer = value;
+    }
+    [field: SerializeField] public float ClearCoinPer {
+        get => DM._.DB.EquipDB.ClearCoinPer;
+        set => DM._.DB.EquipDB.ClearCoinPer = value;
+    }
+    [field: SerializeField] public int StartCoin {
+        get => DM._.DB.EquipDB.StartCoin;
+        set => DM._.DB.EquipDB.StartCoin = value;
+    }
+    [field: SerializeField] public int StartLife {
+        get => DM._.DB.EquipDB.StartLife;
+        set => DM._.DB.EquipDB.StartLife = value;
+    }
+    [field: SerializeField] public float ItemDropPer {
+        get => DM._.DB.EquipDB.ItemDropPer;
+        set => DM._.DB.EquipDB.ItemDropPer = value;
+    }
+    [field: SerializeField] public int BonusCoinBy10Kill {
+        get => DM._.DB.EquipDB.BonusCoinBy10Kill;
+        set => DM._.DB.EquipDB.BonusCoinBy10Kill = value;
+    }
+    [field: SerializeField] public float WarriorAttackPer {
+        get => DM._.DB.EquipDB.WarriorAttackPer;
+        set => DM._.DB.EquipDB.WarriorAttackPer = value;
+    }
+    [field: SerializeField] public float ArcherAttackPer {
+        get => DM._.DB.EquipDB.ArcherAttackPer;
+        set => DM._.DB.EquipDB.ArcherAttackPer = value;
+    }
+    [field: SerializeField] public float MagicianAttackPer {
+        get => DM._.DB.EquipDB.MagicianAttackPer;
+        set => DM._.DB.EquipDB.MagicianAttackPer = value;
+    }
+    [field: SerializeField] public float WarriorUpgCostPer {
+        get => DM._.DB.EquipDB.WarriorUpgCostPer;
+        set => DM._.DB.EquipDB.WarriorUpgCostPer = value;
+    }
+    [field: SerializeField] public float ArcherUpgCostPer {
+        get => DM._.DB.EquipDB.ArcherUpgCostPer;
+        set => DM._.DB.EquipDB.ArcherUpgCostPer = value;
+    }
+    [field: SerializeField] public float MagicianUpgCostPer {
+        get => DM._.DB.EquipDB.MagicianUpgCostPer;
+        set => DM._.DB.EquipDB.MagicianUpgCostPer = value;
+    }
+    [field: SerializeField] public int SkillPoint {
+        get => DM._.DB.EquipDB.SkillPoint;
+        set => DM._.DB.EquipDB.SkillPoint = value;
+    }
 
     public InventoryUIItem[] EquipItemSlotUIs;
     public GameObject[] EmptyIconObjs;
@@ -111,7 +163,24 @@ public class InventoryEquipUIManager : MonoBehaviour {
     }
 
     private void ResetEquipAbilityData() {
-        AttackPer = 0; SpeedPer = 0; RangePer = 0; CritPer = 0; CritDmgPer = 0;
+        AttackPer = 0; 
+        SpeedPer = 0; 
+        RangePer = 0; 
+        CritPer = 0; 
+        CritDmgPer = 0;
+        ClearEtcPer = 0;
+        ClearCoinPer = 0;
+        StartCoin = 0;
+        StartLife = 0;
+        ItemDropPer = 0;
+        SkillPoint = 0;
+        BonusCoinBy10Kill = 0;
+        WarriorAttackPer = 0;
+        ArcherAttackPer = 0;
+        MagicianAttackPer = 0;
+        WarriorUpgCostPer = 0;
+        ArcherUpgCostPer = 0;
+        MagicianUpgCostPer = 0;
     }
 
     private void SetEquipAbilityData(InventoryItem invItem) {
@@ -153,7 +222,45 @@ public class InventoryEquipUIManager : MonoBehaviour {
                 case AbilityType.CriticalDamage:
                     CritDmgPer += abt.Val + (lvIdx * abt.UpgradeVal);
                     break;
-                //TODO 他の全てのAbilityに関して宣言
+                case AbilityType.ClearEtc:
+                    ClearEtcPer += abt.Val + (lvIdx * abt.UpgradeVal);
+                    break;
+                case AbilityType.ClearCoin:
+                    ClearCoinPer += abt.Val + (lvIdx * abt.UpgradeVal);
+                    break;
+                case AbilityType.StartCoin:
+                    StartCoin += (int)(abt.Val + (lvIdx * abt.UpgradeVal));
+                    break;
+                case AbilityType.StartLife:
+                    StartLife += (int)(abt.Val + (lvIdx * abt.UpgradeVal));
+                    break;
+                case AbilityType.ItemDropPer:
+                    ItemDropPer += abt.Val + (lvIdx * abt.UpgradeVal);
+                    break;
+                case AbilityType.SkillPoint:
+                    SkillPoint += (int)(abt.Val + (lvIdx * abt.UpgradeVal));
+                    break;
+                case AbilityType.BonusCoinBy10Kill:
+                    BonusCoinBy10Kill += (int)(abt.Val + (lvIdx * abt.UpgradeVal));
+                    break;
+                case AbilityType.WarriorAttack:
+                    WarriorAttackPer += abt.Val + (lvIdx * abt.UpgradeVal);
+                    break;
+                case AbilityType.ArcherAttack:
+                    ArcherAttackPer += abt.Val + (lvIdx * abt.UpgradeVal);
+                    break;
+                case AbilityType.MagicianAttack:
+                    MagicianAttackPer += abt.Val + (lvIdx * abt.UpgradeVal);
+                    break;
+                case AbilityType.WarriorUpgCost:
+                    WarriorUpgCostPer += abt.Val + (lvIdx * abt.UpgradeVal);
+                    break;
+                case AbilityType.ArcherUpgCost:
+                    ArcherUpgCostPer += abt.Val + (lvIdx * abt.UpgradeVal);
+                    break;
+                case AbilityType.MagicianUpgCost:
+                    MagicianUpgCostPer += abt.Val + (lvIdx * abt.UpgradeVal);
+                    break;
             }
         }
     }
