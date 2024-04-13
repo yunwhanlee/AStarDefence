@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.SceneManagement;
 using Inventory.Model;
 
 /// <summary>
@@ -162,10 +161,10 @@ public class DM : MonoBehaviour {
         //* SINGLETON
         if(_ == null) {
             _ = this;
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(_);
         }
         else {
-            Destroy(this);
+            Destroy(gameObject);
             return;
         }
 
@@ -252,11 +251,7 @@ public class DM : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
 #region RESET
 /// -----------------------------------------------------------------------------------------------------------------
-    public void OnClickResetBtn() {
-        Reset();
-        SceneManager.LoadScene($"{Enum.Scene.Home}");
-    }
-    private void Reset() {
+    public void Reset() {
         Debug.Log($"★RESET:: The Key: {DB_KEY} Exists? {PlayerPrefs.HasKey(DB_KEY)}");
         PlayerPrefs.DeleteAll();
         Init();
@@ -267,6 +262,8 @@ public class DM : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
     public void Init() {
         DB = new DB();
+        
+        DB.InvItemDBs = new List<InventoryItem>();
 
         DB.StatusDB = new StatusDB();
 

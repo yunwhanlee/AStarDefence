@@ -37,7 +37,7 @@ public class GM : MonoBehaviour {
     [SerializeField] int life; public int Life {
         get => life;
         set {
-            life = value;
+            life = value + DM._.DB.EquipDB.StartLife;
             gui.HeartFillImg.fillAmount = (float)life / MaxLife;
             gui.LifeTxt.text = life.ToString();
             bossRwd.SetCurValueTxt(Enum.BossRwd.IncreaseLife, life);

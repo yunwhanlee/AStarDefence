@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: InventoryData
   m_EditorClassIdentifier: 
   ItemList:
-  - Quantity: 3
+  - Quantity: 1
     Lv: 1
     Data: {fileID: 11400000, guid: 8a8359171e95e0146a2537f75433dfee, type: 2}
     RelicAbilities: 

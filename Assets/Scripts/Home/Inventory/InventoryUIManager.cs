@@ -246,7 +246,8 @@ namespace Inventory.UI
         }
 
         public void ResetAllItems() {
-            foreach (var item in InvUIItemList) {
+            Debug.Log($"ResetAllItems():: InvUIItemList.Count= {InvUIItemList.Count}");
+            foreach (InventoryUIItem item in InvUIItemList) {
                 item.ResetData();
                 item.Deselect();
             }

@@ -54,6 +54,7 @@ namespace Inventory.UI
     #region EVENT
     #endregion
         public void ResetData() {
+            Debug.Log($"ObjName= {this.name} ResetData():: TypeBgImg= {TypeBgImg}");
             Type = Enum.ItemType.Etc;
             TypeBgImg.enabled = false;
             TypeIconImg.enabled = false;

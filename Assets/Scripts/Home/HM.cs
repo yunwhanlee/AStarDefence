@@ -4,6 +4,7 @@ using Inventory;
 using Inventory.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HM : MonoBehaviour {
     public static HM _; //* Global
@@ -92,5 +93,10 @@ public class HM : MonoBehaviour {
 
         //* 初期化
         SelectedStage = 0;
+    }
+
+    public void OnClickResetBtn() {
+        DM._.Reset();
+        SceneManager.LoadScene($"{Enum.Scene.Home}");
     }
 }
