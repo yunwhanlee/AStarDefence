@@ -41,14 +41,18 @@ namespace Inventory.UI
         void Awake() {
             ResetData();
             Deselect();
-            GetComponent<Button>().onClick.AddListener(() => {
-                Debug.Log("OnClick Item!");
-                OnItemClicked?.Invoke(this);
-                OnItemClickShortly?.Invoke(this);
-            });
 
-            HM._.ivEqu.UpdateAllEquipSlots();
-            HM._.ivEqu.UpdateAllEquipAbilityData();
+            //* HOMEシーンのみ
+            if(HM._) {
+                GetComponent<Button>().onClick.AddListener(() => {
+                    Debug.Log("OnClick Item!");
+                    OnItemClicked?.Invoke(this);
+                    OnItemClickShortly?.Invoke(this);
+                });
+
+                HM._.ivEqu.UpdateAllEquipSlots();
+                HM._.ivEqu.UpdateAllEquipAbilityData();
+            }
         }
 
     #region EVENT

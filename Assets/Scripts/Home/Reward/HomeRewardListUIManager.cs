@@ -11,8 +11,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
     public GameObject WindowObj;
     public Transform Content;
 
-    [Header("REWARD LIST POPUP")]
-    public Action OnClickOpenChest = () => {};
+    [Header("REWARD CHEST POPUP")]
     public Sprite[] TitleRibbonSprs;
     public GameObject RewardChestPopUp;
     public TMP_Text ChestTitleTxt;
@@ -20,6 +19,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
     public Image ChestTitleRibbonImg;
     public Image ChestImg;
 
+    public Action OnClickOpenChest = () => {};
 
     [Header("REWARD DATA")]
     public InventoryUIItem rwdItemPf;
@@ -42,7 +42,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
         //* リワードリストへオブジェクト生成・追加
         for(int i = 0; i < rewardList.Count; i++) {
             RewardItem rewardItem = rewardList[i];
-            InventoryUIItem rwdItemUI = Instantiate(rwdItemPf.gameObject, HM._.rwlm.Content).GetComponent<InventoryUIItem>();
+            InventoryUIItem rwdItemUI = Instantiate(rwdItemPf.gameObject, Content).GetComponent<InventoryUIItem>();
             rwdItemUI.SetUIData(rewardItem.Data.Type, rewardItem.Data.Grade, rewardItem.Data.ItemImg, rewardItem.Quantity, lv: 1);
             //* Particle UI Effect 1
             rwdItemUI.PlayScaleUIEF(rwdItemUI, rewardItem.Data.ItemImg);

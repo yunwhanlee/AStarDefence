@@ -60,6 +60,8 @@ public class GM : MonoBehaviour {
     public BossRewardUIManager bossRwd;
     public TowerManager tm;
     public MissileManager mm;
+    public GameRewardUIManager rwm;
+    public GameRewardListUIManager rwlm;
 
     void Awake() {
         //* Global化 値 代入
@@ -77,6 +79,8 @@ public class GM : MonoBehaviour {
         bossRwd = GameObject.Find("BossRewardUIManager").GetComponent<BossRewardUIManager>();
         tm = GameObject.Find("TowerManager").GetComponent<TowerManager>();
         mm = GameObject.Find("MissileManager").GetComponent<MissileManager>();
+        rwm = GameObject.Find("MissileManager").GetComponent<GameRewardUIManager>();
+        rwlm = GameObject.Find("GameRewardListUIManager").GetComponent<GameRewardListUIManager>();
 
         //* 初期化
         state = GameState.Ready;
