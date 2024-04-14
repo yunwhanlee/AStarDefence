@@ -88,7 +88,7 @@ namespace Inventory.Model
     [CreateAssetMenu]
     public class InventorySO : ScriptableObject {
         [SerializeField] public List<InventoryItem> ItemList;
-        [field: SerializeField] public static int Size {get; private set;} = 10;
+        [field: SerializeField] public static int Size {get; private set;} = 50;
         public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated;
 
         public void Init() {

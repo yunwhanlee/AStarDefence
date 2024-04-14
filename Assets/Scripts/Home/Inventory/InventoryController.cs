@@ -16,6 +16,7 @@ namespace Inventory
 
         void Start() {
             DM._.LoadDt();
+
             ivm = HM._.ivm;
             PrepareUI();
             PrepareInventoryData();
@@ -40,7 +41,7 @@ namespace Inventory
             //* インベントリUI初期化するメソッド機能を購読（まだ使わない）=> InventorySO::InformAboutChange()で処理
             InventoryData.OnInventoryUpdated += UpdateInventoryUI;
             //* DBの保存したインベントリデータを一個ずつ読みこみながら、インベントリSOリストへ追加
-            Debug.Log($"PrepareInventoryData():: InitItems.Length= {InvItemDBs.Count}");
+            Debug.Log($"PrepareInventoryData():: InitItems.Length= {InvItemDBs}");
             foreach (InventoryItem item in InvItemDBs) {
                 if(item.IsEmpty) continue;
                 // item.Data.SetRelicAbility();

@@ -258,6 +258,7 @@ public class DM : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
     public void Reset() {
         Debug.Log($"★RESET:: The Key: {DB_KEY} Exists? {PlayerPrefs.HasKey(DB_KEY)}");
+        IsReset = true; //* リセットしたら、InventoryControllerのStart()からLoadDt()が呼び出して、InvItemDBsがNullになるエラー防止
         PlayerPrefs.DeleteAll();
         Init();
     }
@@ -265,14 +266,27 @@ public class DM : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
-    public void LoadDt() => DB = Load();
+    /// <summary>
+    /// アプリ起動：データロード
+    /// アプリ終了：データセーブ
+    /// ホーム ➡ ゲーム：データセーブ
+    /// ホームシーン：データロード (※リセットかけたら、これスキップ：InvItemDBsがNULLになるエラーあるため)
+    /// </summary>
+    public void LoadDt() {
+        if(IsReset)
+            IsReset = false;
+        else 
+            DB = Load();
+    }
 
     public void Init() {
         DB = new DB();
         
         DB.InvItemDBs = new List<InventoryItem>();
-        for(int i = 0; i < InventorySO.Size; i++)
+        for(int i = 0; i < InventorySO.Size; i++) {
             DB.InvItemDBs.Add(InventoryItem.GetEmptyItem());
+        }
+        Debug.Log("DB.InvItemDBs.Count= " + DB.InvItemDBs.Count);
 
         DB.StatusDB = new StatusDB();
 
