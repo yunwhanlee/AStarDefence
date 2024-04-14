@@ -61,8 +61,8 @@ public class InventoryEquipUIManager : MonoBehaviour {
         set => DM._.DB.EquipDB.ClearCoinPer = value;
     }
     [field: SerializeField] public int StartCoin {
-        get => DM._.DB.EquipDB.StartCoin;
-        set => DM._.DB.EquipDB.StartCoin = value;
+        get => DM._.DB.EquipDB.StartMoney;
+        set => DM._.DB.EquipDB.StartMoney = value;
     }
     [field: SerializeField] public int StartLife {
         get => DM._.DB.EquipDB.StartLife;
@@ -228,7 +228,7 @@ public class InventoryEquipUIManager : MonoBehaviour {
                 case AbilityType.ClearCoin:
                     ClearCoinPer += abt.Val + (lvIdx * abt.UpgradeVal);
                     break;
-                case AbilityType.StartCoin:
+                case AbilityType.StartMoney:
                     StartCoin += (int)(abt.Val + (lvIdx * abt.UpgradeVal));
                     break;
                 case AbilityType.StartLife:

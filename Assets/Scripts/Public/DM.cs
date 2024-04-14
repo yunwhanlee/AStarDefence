@@ -32,23 +32,23 @@ public class StatusDB {
 [Serializable]
 public class EquipDB {
     [field:SerializeField] public float AttackPer {get; set;} //
-    [field:SerializeField] public float SpeedPer {get; set;}
-    [field:SerializeField] public float RangePer {get; set;}
-    [field:SerializeField] public float CritPer {get; set;}
-    [field:SerializeField] public float CritDmgPer {get; set;}
+    [field:SerializeField] public float SpeedPer {get; set;} //
+    [field:SerializeField] public float RangePer {get; set;} //
+    [field:SerializeField] public float CritPer {get; set;} //
+    [field:SerializeField] public float CritDmgPer {get; set;} //
     [field:SerializeField] public float ClearEtcPer {get; set;}
     [field:SerializeField] public float ClearCoinPer {get; set;}
-    [field:SerializeField] public int StartCoin {get; set;}
+    [field:SerializeField] public int StartMoney {get; set;} //
     [field:SerializeField] public int StartLife {get; set;} //
     [field:SerializeField] public float ItemDropPer {get; set;}
     [field:SerializeField] public int SkillPoint {get; set;}
-    [field:SerializeField] public int BonusCoinBy10Kill {get; set;}
-    [field:SerializeField] public float WarriorAttackPer {get; set;}
-    [field:SerializeField] public float ArcherAttackPer {get; set;}
-    [field:SerializeField] public float MagicianAttackPer {get; set;}
-    [field:SerializeField] public float WarriorUpgCostPer {get; set;}
-    [field:SerializeField] public float ArcherUpgCostPer {get; set;}
-    [field:SerializeField] public float MagicianUpgCostPer {get; set;}
+    [field:SerializeField] public int BonusCoinBy10Kill {get; set;} //
+    [field:SerializeField] public float WarriorAttackPer {get; set;} //
+    [field:SerializeField] public float ArcherAttackPer {get; set;} //
+    [field:SerializeField] public float MagicianAttackPer {get; set;} //
+    [field:SerializeField] public float WarriorUpgCostPer {get; set;} //
+    [field:SerializeField] public float ArcherUpgCostPer {get; set;} //
+    [field:SerializeField] public float MagicianUpgCostPer {get; set;} //
 }
 
 /// <summary>
@@ -282,7 +282,7 @@ public class DM : MonoBehaviour {
             CritDmgPer = 0,
             ClearEtcPer = 0,
             ClearCoinPer = 0,
-            StartCoin = 0,
+            StartMoney = 0,
             StartLife = 0,
             ItemDropPer = 0,
             BonusCoinBy10Kill = 0,

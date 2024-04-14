@@ -32,7 +32,7 @@ public enum AbilityType {
     CriticalDamage,
     ClearEtc,
     ClearCoin,
-    StartCoin,
+    StartMoney,
     StartLife,
     ItemDropPer,
     SkillPoint,

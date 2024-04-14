@@ -46,6 +46,7 @@ public class MagicianTower : Tower {
             extraPer += sktDb.GetMagicianVal((int)SKT_MG.EXTRA_DMG_B);
         //* Euqip 追加ダメージ
         extraPer += DM._.DB.EquipDB.AttackPer;
+        extraPer += DM._.DB.EquipDB.MagicianAttackPer;
 
         //* DICIONARYへ追加
         if(extraPer > 0) {

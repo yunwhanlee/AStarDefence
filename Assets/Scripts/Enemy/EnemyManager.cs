@@ -51,8 +51,12 @@ public class EnemyManager : MonoBehaviour {
                 extraMoney += (int)sktDb.GetUtilityVal((int)SKT_UT.TEN_KILL_1MONEY);
             if(!sktDb.IsLockUtilitySTs[(int)SKT_UT.TEN_KILL_2MONEY])
                 extraMoney += (int)sktDb.GetUtilityVal((int)SKT_UT.TEN_KILL_2MONEY);
-            GM._.SetMoney(extraMoney);
-            GM._.gef.ShowIconTxtEF(GM._.gui.MoneyTxt.transform.position, extraMoney, "Meat", isDown: true);
+            extraMoney += DM._.DB.EquipDB.BonusCoinBy10Kill;
+
+            if(extraMoney > 0) {
+                GM._.SetMoney(extraMoney);
+                GM._.gef.ShowIconTxtEF(GM._.gui.MoneyTxt.transform.position, extraMoney, "Meat", isDown: true);
+            }
         }
         
 

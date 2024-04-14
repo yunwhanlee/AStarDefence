@@ -91,7 +91,9 @@ public class GM : MonoBehaviour {
             + (int)DM._.DB.SkillTreeDB.GetUtilityVal((int)SKT_UT.EXTRA_LIFE)
             + DM._.DB.EquipDB.StartLife;
         MaxLife = life;
-        Money = Config.DEFAULT_MONEY + (int)DM._.DB.SkillTreeDB.GetUtilityVal((int)SKT_UT.EXTRA_MONEY);
+        Money = Config.DEFAULT_MONEY
+            + (int)DM._.DB.SkillTreeDB.GetUtilityVal((int)SKT_UT.EXTRA_MONEY)
+            + DM._.DB.EquipDB.StartMoney;
 
         SM._.SfxPlay(SM.SFX.GameStartSFX);
 

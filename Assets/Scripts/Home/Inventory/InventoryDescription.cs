@@ -262,7 +262,7 @@ namespace Inventory.UI {
                         AbilityData relicAbility = Array.Find(relicAllAbilityDatas, rAbility => rAbility.Type == rType);
                         float val = relicAbility.Val + (lvIdx * relicAbility.UpgradeVal);
                         //* V{N} → 能力数値変換(実際のアイテムデータ)
-                        bool isIntType = (rType == AbilityType.StartCoin || rType == AbilityType.StartLife || rType == AbilityType.SkillPoint || rType == AbilityType.BonusCoinBy10Kill);
+                        bool isIntType = (rType == AbilityType.StartMoney || rType == AbilityType.StartLife || rType == AbilityType.SkillPoint || rType == AbilityType.BonusCoinBy10Kill);
                         string abilityMsg = msg.Replace($"V", $"{val * (isIntType? 1 : 100)}");
                         //* 強化数値表示 トーグル(登録したアップグレードデータ)
                         string upgradeMsg = (relicAbility.UpgradeVal == 0)? "<color=grey>( 고정 )</color>" : $"<color=green>( {$"+{relicAbility.UpgradeVal * (isIntType? 1 : 100)}%"} )</color>";

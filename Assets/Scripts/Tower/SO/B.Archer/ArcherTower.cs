@@ -37,6 +37,7 @@ public class ArcherTower : Tower {
             extraPer += sktDb.GetArcherVal((int)SKT_AC.EXTRA_DMG_B);
         //* Euqip 追加ダメージ
         extraPer += DM._.DB.EquipDB.AttackPer;
+        extraPer += DM._.DB.EquipDB.ArcherAttackPer;
 
         //* DICIONARYへ追加
         if(extraPer > 0) {

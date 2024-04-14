@@ -201,10 +201,12 @@ public class GameUIManager : MonoBehaviour {
             : kindIdx == 2? TowerKind.Magician
             : TowerKind.None;
 
-        int price = TowerManager.CARD_UPG_PRICE_START + GM._.tm.TowerCardUgrLvs[kindIdx] * TowerManager.CARD_UPG_PRICE_UNIT;
+        int resultPrice = TowerManager.CARD_UPG_PRICE_START + GM._.tm.TowerCardUgrLvs[kindIdx] * TowerManager.CARD_UPG_PRICE_UNIT;
+        int discount = GetUpgradeCostDiscountPrice(kindIdx, resultPrice);
+        resultPrice -= discount;
 
         //* 費用チェック
-        if(!GM._.CheckMoney(price)) return;
+        if(!GM._.CheckMoney(resultPrice)) return;
 
         //* アップグレード
         GM._.tm.UpgradeTowerCard(kind);
@@ -243,6 +245,20 @@ public class GameUIManager : MonoBehaviour {
     private void Retry() {
         Time.timeScale = 1;
         SceneManager.LoadScene(Enum.Scene.Game.ToString());
+    }
+
+    private int GetUpgradeCostDiscountPrice(int kindIdx, int resultPrice) {
+        int disCountPrice = 0;
+        //* 割引き能力チェック
+        float disCountPer = (kindIdx == (int)TowerKind.Warrior)? DM._.DB.EquipDB.WarriorUpgCostPer
+            : (kindIdx == (int)TowerKind.Archer)? DM._.DB.EquipDB.ArcherUpgCostPer
+            : (kindIdx == (int)TowerKind.Magician)? DM._.DB.EquipDB.MagicianUpgCostPer
+            : 0;
+        //* アップデートコスト減る能力があるのに、値段を整数化したら、０なら最小１を割引きする
+        if(disCountPer > 0.0f) {
+            disCountPrice = disCountPer > 0? (int)(resultPrice * disCountPer) : 1;
+        }
+        return disCountPrice;
     }
 
     public void SetStartBtnUI(bool isReady) {
@@ -313,7 +329,11 @@ public class GameUIManager : MonoBehaviour {
 
         for(int i = 0; i < TowerCardUI.Buttons.Length; i++) {
             TowerCardUI.LvTxts[i].text = $"LV {cardLvs[i]}";
-            TowerCardUI.PriceTxts[i].text = $"{PRICE + (cardLvs[i] > 0 ? cardLvs[i] * UNIT : 0)}" ;
+
+            int resultPrice = PRICE + (cardLvs[i] > 0 ? cardLvs[i] * UNIT : 0);
+            int discount = GetUpgradeCostDiscountPrice(i, resultPrice);
+            resultPrice -= discount;
+            TowerCardUI.PriceTxts[i].text = $"{resultPrice}";
 
             if(cardLvs[i] >= TowerManager.CARD_UPG_LV_MAX) {
                 TowerCardUI.PriceTxts[i].text = "MAX";
