@@ -37,7 +37,7 @@ public class GM : MonoBehaviour {
     [SerializeField] int life; public int Life {
         get => life;
         set {
-            life = value + DM._.DB.EquipDB.StartLife;
+            life = value;
             gui.HeartFillImg.fillAmount = (float)life / MaxLife;
             gui.LifeTxt.text = life.ToString();
             bossRwd.SetCurValueTxt(Enum.BossRwd.IncreaseLife, life);
@@ -87,7 +87,9 @@ public class GM : MonoBehaviour {
         MaxWave = StageDts[Stage].EnemyData.Waves.Length;
         WaveCnt = 0;
         ResetCnt = Config.DEFAULT_RESET_CNT;
-        life = Config.DEFAULT_LIFE + (int)DM._.DB.SkillTreeDB.GetUtilityVal((int)SKT_UT.EXTRA_LIFE);
+        life = Config.DEFAULT_LIFE
+            + (int)DM._.DB.SkillTreeDB.GetUtilityVal((int)SKT_UT.EXTRA_LIFE)
+            + DM._.DB.EquipDB.StartLife;
         MaxLife = life;
         Money = Config.DEFAULT_MONEY + (int)DM._.DB.SkillTreeDB.GetUtilityVal((int)SKT_UT.EXTRA_MONEY);
 

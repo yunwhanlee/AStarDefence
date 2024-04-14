@@ -27,7 +27,7 @@ public class ArcherTower : Tower {
     }
 
 #region SKILLTREE_EXTRA_VALUE
-    public void SetSkillTreeExtraDmg() {
+    public void SetExtraDmg() {
         float extraPer = 0;
 
         //* SkillTree 追加ダメージ
@@ -35,28 +35,58 @@ public class ArcherTower : Tower {
             extraPer += sktDb.GetArcherVal((int)SKT_AC.EXTRA_DMG_A);
         if(!sktDb.IsLockArcherSTs[(int)SKT_AC.EXTRA_DMG_B])
             extraPer += sktDb.GetArcherVal((int)SKT_AC.EXTRA_DMG_B);
+        //* Euqip 追加ダメージ
+        extraPer += DM._.DB.EquipDB.AttackPer;
 
         //* DICIONARYへ追加
         if(extraPer > 0) {
             int extraDmg = Mathf.RoundToInt(TowerData.Dmg * extraPer);
             extraDmg = extraDmg == 0? 1 : extraDmg;
-            ExtraDmgDic.Add($"{SKT_KEY.SKT_EXTRA_DMG}", extraDmg);
+            ExtraDmgDic.Add($"{AbilityType.Attack}", extraDmg);
         }
     }
+    public void SetExtraSpeed() {
+        float extraPer = 0;
 
-    public void SetSkillTreeExtraCrit() {
+        //* SkillTree 追加ダメージ
+        // なし
+        //* Euqip 追加ダメージ
+        extraPer += DM._.DB.EquipDB.SpeedPer;
+
+        //* DICIONARYへ追加
+        if(extraPer > 0)
+            ExtraSpdDic.Add($"{AbilityType.Speed}", extraPer);
+    }
+
+    public void SetExtraRange() {
+        float extraPer = 0;
+
+        //* SkillTree 追加ダメージ
+        if(!sktDb.IsLockWarriorSTs[(int)SKT_WR.EXTRA_RANGE])
+            extraPer += sktDb.GetWarriorVal((int)SKT_WR.EXTRA_RANGE);
+        //* Euqip 追加ダメージ
+        extraPer += DM._.DB.EquipDB.RangePer;
+
+        //* DICIONARYへ追加
+        if(extraPer > 0)
+            ExtraRangeDic.Add($"{AbilityType.Range}", extraPer);
+    }
+
+    public void SetExtraCrit() {
         float extraPer = 0;
 
         //* SkillTree 追加ダメージ
         if(!sktDb.IsLockArcherSTs[(int)SKT_AC.CRIT_PER])
             extraPer += sktDb.GetArcherVal((int)SKT_AC.CRIT_PER);
+        //* Euqip 追加ダメージ
+        extraPer += DM._.DB.EquipDB.CritPer;
 
         //* DICIONARYへ追加
         if(extraPer > 0)
-            ExtraCritDic.Add($"{SKT_KEY.SKT_EXTRA_CIRT}", extraPer);
+            ExtraCritDic.Add($"{AbilityType.Critical}", extraPer);
     }
 
-    public void SetSkillTreeExtraCritDmg() {
+    public void SetExtraCritDmg() {
         float extraPer = 0;
 
         //* SkillTree 追加ダメージ
@@ -64,10 +94,12 @@ public class ArcherTower : Tower {
             extraPer += sktDb.GetArcherVal((int)SKT_AC.CIRT_DMG_PER_A);
         if(!sktDb.IsLockArcherSTs[(int)SKT_AC.CIRT_DMG_PER_B])
             extraPer += sktDb.GetArcherVal((int)SKT_AC.CIRT_DMG_PER_B);
+        //* Euqip 追加ダメージ
+        extraPer += DM._.DB.EquipDB.CritDmgPer;
 
         //* DICIONARYへ追加
         if(extraPer > 0)
-            ExtraCritDmgDic.Add($"{SKT_KEY.SKT_EXTRA_CIRTDMG}", extraPer);
+            ExtraCritDmgDic.Add($"{AbilityType.CriticalDamage}", extraPer);
     }
 #endregion
 

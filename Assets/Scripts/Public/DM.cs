@@ -31,7 +31,7 @@ public class StatusDB {
 /// </summary>
 [Serializable]
 public class EquipDB {
-    [field:SerializeField] public float AttackPer {get; set;}
+    [field:SerializeField] public float AttackPer {get; set;} //
     [field:SerializeField] public float SpeedPer {get; set;}
     [field:SerializeField] public float RangePer {get; set;}
     [field:SerializeField] public float CritPer {get; set;}
@@ -39,7 +39,7 @@ public class EquipDB {
     [field:SerializeField] public float ClearEtcPer {get; set;}
     [field:SerializeField] public float ClearCoinPer {get; set;}
     [field:SerializeField] public int StartCoin {get; set;}
-    [field:SerializeField] public int StartLife {get; set;}
+    [field:SerializeField] public int StartLife {get; set;} //
     [field:SerializeField] public float ItemDropPer {get; set;}
     [field:SerializeField] public int SkillPoint {get; set;}
     [field:SerializeField] public int BonusCoinBy10Kill {get; set;}

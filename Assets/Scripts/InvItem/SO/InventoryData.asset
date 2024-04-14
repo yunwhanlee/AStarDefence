@@ -15,47 +15,47 @@ MonoBehaviour:
   ItemList:
   - Quantity: 1
     Lv: 1
-    Data: {fileID: 11400000, guid: 8a8359171e95e0146a2537f75433dfee, type: 2}
+    Data: {fileID: 11400000, guid: 9b97b966b0df890429e36e025e342321, type: 2}
+    RelicAbilities: 08000000
+    IsEquip: 1
+  - Quantity: 1
+    Lv: 1
+    Data: {fileID: 11400000, guid: 3de65b40cbdf0a147861ad667a44d428, type: 2}
+    RelicAbilities: 0500000003000000
+    IsEquip: 0
+  - Quantity: 2
+    Lv: 1
+    Data: {fileID: 11400000, guid: 4a4de2b829ad6b84e9079b19c1a487a8, type: 2}
     RelicAbilities: 
     IsEquip: 0
-  - Quantity: 0
-    Lv: 0
-    Data: {fileID: 0}
+  - Quantity: 2
+    Lv: 1
+    Data: {fileID: 11400000, guid: 26e21f24a5d896f41b746d8ba6046115, type: 2}
     RelicAbilities: 
     IsEquip: 0
-  - Quantity: 0
-    Lv: 0
-    Data: {fileID: 0}
+  - Quantity: 2
+    Lv: 1
+    Data: {fileID: 11400000, guid: c9a2acec13022ae43b53df965b713764, type: 2}
     RelicAbilities: 
     IsEquip: 0
-  - Quantity: 0
-    Lv: 0
-    Data: {fileID: 0}
+  - Quantity: 2
+    Lv: 1
+    Data: {fileID: 11400000, guid: 7c60b585f35f1c548a22a9b86f9e8116, type: 2}
     RelicAbilities: 
     IsEquip: 0
-  - Quantity: 0
-    Lv: 0
-    Data: {fileID: 0}
+  - Quantity: 2
+    Lv: 1
+    Data: {fileID: 11400000, guid: b090a68a131e2d348a61c7fff140bf3b, type: 2}
     RelicAbilities: 
     IsEquip: 0
-  - Quantity: 0
-    Lv: 0
-    Data: {fileID: 0}
+  - Quantity: 2
+    Lv: 1
+    Data: {fileID: 11400000, guid: 55062c6bcdd62e24ab3df7a6ce9e92f8, type: 2}
     RelicAbilities: 
     IsEquip: 0
-  - Quantity: 0
-    Lv: 0
-    Data: {fileID: 0}
-    RelicAbilities: 
-    IsEquip: 0
-  - Quantity: 0
-    Lv: 0
-    Data: {fileID: 0}
-    RelicAbilities: 
-    IsEquip: 0
-  - Quantity: 0
-    Lv: 0
-    Data: {fileID: 0}
+  - Quantity: 2
+    Lv: 1
+    Data: {fileID: 11400000, guid: 8cd212ca43221204fb5aa9fb592bd568, type: 2}
     RelicAbilities: 
     IsEquip: 0
   - Quantity: 0

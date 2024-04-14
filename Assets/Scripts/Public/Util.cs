@@ -62,6 +62,11 @@ public class Util : MonoBehaviour {
         return isCritical;
     }
 
+    public static float RoundDecimal(float val, int decimalCount = 2) {
+        float multiplier = Mathf.Pow(10, decimalCount);
+        return Mathf.Round(val * multiplier) / multiplier;
+    }
+
     public void ComboAttack(Enemy enemy, int dmg, int hitCnt, WaitForSeconds delay)
         => StartCoroutine(CoComboAttack(enemy, dmg, hitCnt, delay));
     IEnumerator CoComboAttack(Enemy enemy, int dmg, int hitCnt, WaitForSeconds delay) {

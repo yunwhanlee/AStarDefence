@@ -43,8 +43,8 @@ public class WarriorTower : Tower {
         if(Lv >= 6) IsRoarActive = true; //* レベル５以上
     }
 
-#region SKILLTREE_EXTRA_VALUE
-    public void SetSkillTreeExtraDmg() {
+#region EXTRA_VALUE
+    public void SetExtraDmg() {
         float extraPer = 0;
 
         //* SkillTree 追加ダメージ
@@ -52,37 +52,68 @@ public class WarriorTower : Tower {
             extraPer += sktDb.GetWarriorVal((int)SKT_WR.EXTRA_DMG_A);
         if(!sktDb.IsLockWarriorSTs[(int)SKT_WR.EXTRA_DMG_B])
             extraPer += sktDb.GetWarriorVal((int)SKT_WR.EXTRA_DMG_B);
+        //* Euqip 追加ダメージ
+        extraPer += DM._.DB.EquipDB.AttackPer;
 
         //* DICIONARYへ追加
         if(extraPer > 0) {
             int extraDmg = Mathf.RoundToInt(TowerData.Dmg * extraPer);
             extraDmg = extraDmg == 0? 1 : extraDmg;
-            ExtraDmgDic.Add($"{SKT_KEY.SKT_EXTRA_DMG}", extraDmg);
+            ExtraDmgDic.Add($"{AbilityType.Attack}", extraDmg);
         }
     }
 
-    public void SetSkillTreeExtraSpeed() {
+    public void SetExtraSpeed() {
         float extraPer = 0;
 
         //* SkillTree 追加ダメージ
         if(!sktDb.IsLockWarriorSTs[(int)SKT_WR.EXTRA_SPD])
             extraPer += sktDb.GetWarriorVal((int)SKT_WR.EXTRA_SPD);
+        //* Euqip 追加ダメージ
+        extraPer += DM._.DB.EquipDB.SpeedPer;
 
         //* DICIONARYへ追加
         if(extraPer > 0)
-            ExtraSpdDic.Add($"{SKT_KEY.SKT_EXTRA_SPD}", extraPer);
+            ExtraSpdDic.Add($"{AbilityType.Speed}", extraPer);
     }
 
-    public void SetSkillTreeExtraRange() {
+    public void SetExtraRange() {
         float extraPer = 0;
 
         //* SkillTree 追加ダメージ
-        if(!sktDb.IsLockWarriorSTs[(int)SKT_WR.EXTRA_RANGE])
-            extraPer += sktDb.GetWarriorVal((int)SKT_WR.EXTRA_RANGE);
+        // なし
+        //* Euqip 追加ダメージ
+        extraPer += DM._.DB.EquipDB.RangePer;
 
         //* DICIONARYへ追加
         if(extraPer > 0)
-            ExtraRangeDic.Add($"{SKT_KEY.SKT_EXTRA_RANGE}", extraPer);
+            ExtraRangeDic.Add($"{AbilityType.Range}", extraPer);
+    }
+
+    public void SetExtraCrit() {
+        float extraPer = 0;
+
+        //* SkillTree 追加ダメージ
+        // なし
+        //* Euqip 追加ダメージ
+        extraPer += DM._.DB.EquipDB.CritPer;
+
+        //* DICIONARYへ追加
+        if(extraPer > 0)
+            ExtraCritDic.Add($"{AbilityType.Critical}", extraPer);
+    }
+
+    public void SetExtraCritDmg() {
+        float extraPer = 0;
+
+        //* SkillTree 追加ダメージ
+        // なし
+        //* Euqip 追加ダメージ
+        extraPer += DM._.DB.EquipDB.CritDmgPer;
+
+        //* DICIONARYへ追加
+        if(extraPer > 0)
+            ExtraCritDmgDic.Add($"{AbilityType.CriticalDamage}", extraPer);
     }
 
     public WaitForSeconds GetSkillTreeExtraRageTime() {

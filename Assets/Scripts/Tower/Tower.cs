@@ -159,105 +159,111 @@ public abstract class Tower : MonoBehaviour {
 
 #region FUNC
     /// <summary>
-    /// スキルツリーの追加ダメージ：まとめて実行
+    /// 追加ダメージ：まとめて実行
     /// </summary>
     private void SetExtraDmgDic() {
-        if(ExtraDmgDic.ContainsKey($"{SKT_KEY.SKT_EXTRA_DMG}"))
-            ExtraDmgDic.Remove($"{SKT_KEY.SKT_EXTRA_DMG}");
+        if(ExtraDmgDic.ContainsKey($"{AbilityType.Attack}"))
+            ExtraDmgDic.Remove($"{AbilityType.Attack}");
         switch(Kind) {
             case TowerKind.Warrior:
                 WarriorTower wr = this as WarriorTower;
-                wr.SetSkillTreeExtraDmg();
+                wr.SetExtraDmg();
                 break;
             case TowerKind.Archer:
                 ArcherTower ac = this as ArcherTower;
-                ac.SetSkillTreeExtraDmg();
+                ac.SetExtraDmg();
                 break;
             case TowerKind.Magician:
                 MagicianTower mg = this as MagicianTower;
-                mg.SetSkillTreeExtraDmg();
+                mg.SetExtraDmg();
                 break;
         }
     }
 
     /// <summary>
-    /// スキルツリーの追加速度：まとめて実行
+    /// 追加速度：まとめて実行
     /// </summary>
     private void SetExtraSpdDic() {
-        if(ExtraSpdDic.ContainsKey($"{SKT_KEY.SKT_EXTRA_SPD}"))
-            ExtraSpdDic.Remove($"{SKT_KEY.SKT_EXTRA_SPD}");
+        if(ExtraSpdDic.ContainsKey($"{AbilityType.Speed}"))
+            ExtraSpdDic.Remove($"{AbilityType.Speed}");
         switch(Kind) {
             case TowerKind.Warrior:
                 WarriorTower wr = this as WarriorTower;
-                wr.SetSkillTreeExtraSpeed();
-                break;
-            case TowerKind.Archer:
-                // なし
-                break;
-            case TowerKind.Magician:
-                // なし
-                break;
-        }
-    }
-
-    /// <summary>
-    /// スキルツリーの追加クリティカル：まとめて実行
-    /// </summary>
-    private void SetExtraCritDic() {
-        if(ExtraCritDic.ContainsKey($"{SKT_KEY.SKT_EXTRA_CIRT}"))
-            ExtraCritDic.Remove($"{SKT_KEY.SKT_EXTRA_CIRT}");
-        switch(Kind) {
-            case TowerKind.Warrior:
-                // なし
+                wr.SetExtraSpeed();
                 break;
             case TowerKind.Archer:
                 ArcherTower ac = this as ArcherTower;
-                ac.SetSkillTreeExtraCrit();
+                ac.SetExtraSpeed();
                 break;
             case TowerKind.Magician:
                 MagicianTower mg = this as MagicianTower;
-                mg.SetSkillTreeExtraCrit();
+                mg.SetExtraSpeed();
                 break;
         }
     }
 
     /// <summary>
-    /// スキルツリーの追加クリティカルダメージ：まとめて実行
-    /// </summary>
-    private void SetExtraCritDmgDic() {
-        if(ExtraCritDmgDic.ContainsKey($"{SKT_KEY.SKT_EXTRA_CIRTDMG}"))
-            ExtraCritDmgDic.Remove($"{SKT_KEY.SKT_EXTRA_CIRTDMG}");
-        switch(Kind) {
-            case TowerKind.Warrior:
-                // なし
-                break;
-            case TowerKind.Archer:
-                ArcherTower ac = this as ArcherTower;
-                ac.SetSkillTreeExtraCritDmg();
-                break;
-            case TowerKind.Magician:
-                // なし
-                break;
-        }
-    }
-
-    /// <summary>
-    /// スキルツリーの追加範囲：まとめて実行
+    /// 追加範囲：まとめて実行
     /// </summary>
     private void SetExtraRangeDic() {
-        if(ExtraRangeDic.ContainsKey($"{SKT_KEY.SKT_EXTRA_RANGE}"))
-            ExtraRangeDic.Remove($"{SKT_KEY.SKT_EXTRA_RANGE}");
+        if(ExtraRangeDic.ContainsKey($"{AbilityType.Range}"))
+            ExtraRangeDic.Remove($"{AbilityType.Range}");
         switch(Kind) {
             case TowerKind.Warrior:
                 WarriorTower wr = this as WarriorTower;
-                wr.SetSkillTreeExtraRange();
+                wr.SetExtraRange();
                 break;
             case TowerKind.Archer:
-                // なし
+                ArcherTower ac = this as ArcherTower;
+                ac.SetExtraRange();
+                break;
+            case TowerKind.Magician: 
+                MagicianTower mg = this as MagicianTower;
+                mg.SetExtraRange();
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 追加クリティカル：まとめて実行
+    /// </summary>
+    private void SetExtraCritDic() {
+        if(ExtraCritDic.ContainsKey($"{AbilityType.Critical}"))
+            ExtraCritDic.Remove($"{AbilityType.Critical}");
+        switch(Kind) {
+            case TowerKind.Warrior:
+                WarriorTower wr = this as WarriorTower;
+                wr.SetExtraCrit();
+                break;
+            case TowerKind.Archer:
+                ArcherTower ac = this as ArcherTower;
+                ac.SetExtraCrit();
                 break;
             case TowerKind.Magician:
                 MagicianTower mg = this as MagicianTower;
-                mg.SetSkillTreeExtraRange();
+                mg.SetExtraCrit();
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 追加クリティカルダメージ：まとめて実行
+    /// </summary>
+    private void SetExtraCritDmgDic() {
+        if(ExtraCritDmgDic.ContainsKey($"{AbilityType.CriticalDamage}"))
+            ExtraCritDmgDic.Remove($"{AbilityType.CriticalDamage}");
+        switch(Kind) {
+            case TowerKind.Warrior:
+                WarriorTower wr = this as WarriorTower;
+                wr.SetExtraCritDmg();
+                break;
+            case TowerKind.Archer:
+                ArcherTower ac = this as ArcherTower;
+                ac.SetExtraCritDmg();
+                break;
+            case TowerKind.Magician:
+                MagicianTower mg = this as MagicianTower;
+                mg.SetExtraCritDmg();
                 break;
         }
     }
@@ -428,22 +434,23 @@ public abstract class Tower : MonoBehaviour {
 
     public virtual string[] InfoState() {
         Debug.Log($"Tower:: InfoState():: Name={Name}, Lv= {Lv}");
+        const string TAG_OPT = "<size=80%><color=green>";
 
         //* 追加ダメージ
         int extraDmg = Dmg - TowerData.Dmg;
-        string extraDmgStr = extraDmg == 0? "" : $"<color=green>+{extraDmg}";
+        string extraDmgStr = extraDmg == 0? "" : $"{TAG_OPT}+{extraDmg}";
         //* 追加スピード
-        float extraSpd = AtkSpeed - TowerData.AtkSpeed;
-        string extraSpdStr = extraSpd == 0? "" : $"<color=green>+{extraSpd}";
+        float extraSpd = Util.RoundDecimal(AtkSpeed - TowerData.AtkSpeed);
+        string extraSpdStr = extraSpd == 0? "" : $"{TAG_OPT}+{extraSpd}";
         //* 追加範囲
-        float extraRange = AtkRange - TowerData.AtkRange;
-        string extraRangeStr = extraRange == 0? "" : $"<color=green>+{extraRange}";
+        float extraRange = Util.RoundDecimal(AtkRange - TowerData.AtkRange);
+        string extraRangeStr = extraRange == 0? "" : $"{TAG_OPT}+{extraRange}";
         //* 追加クリティカル
         float extraCirtPer = CritPer - TowerData.CritPer;
-        string extraCritStr = extraCirtPer == 0? "" : $"<color=green>+{extraCirtPer * 100}";
+        string extraCritStr = extraCirtPer == 0? "" : $"{TAG_OPT}+{extraCirtPer * 100}";
         //* 追加クリティカルダメージ
         float extraCritDmgPer = CritDmgPer - TowerData.CritDmgPer;
-        string extraCritDmgPerStr = extraCritDmgPer == 0? "" : $"<color=green>+{extraCritDmgPer * 100}";
+        string extraCritDmgPerStr = extraCritDmgPer == 0? "" : $"{TAG_OPT}+{extraCritDmgPer * 100}";
 
         string[] states = new string[10];
         states[0] = Lv.ToString(); //* Gradeラベルとして表示

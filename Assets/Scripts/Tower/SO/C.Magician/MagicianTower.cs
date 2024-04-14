@@ -36,7 +36,7 @@ public class MagicianTower : Tower {
     }
 
 #region SKILLTREE_EXTRA_VALUE
-    public void SetSkillTreeExtraDmg() {
+    public void SetExtraDmg() {
         float extraPer = 0;
 
         //* SkillTree 追加ダメージ
@@ -44,37 +44,69 @@ public class MagicianTower : Tower {
             extraPer += sktDb.GetMagicianVal((int)SKT_MG.EXTRA_DMG_A);
         if(!sktDb.IsLockMagicianSTs[(int)SKT_MG.EXTRA_DMG_B])
             extraPer += sktDb.GetMagicianVal((int)SKT_MG.EXTRA_DMG_B);
+        //* Euqip 追加ダメージ
+        extraPer += DM._.DB.EquipDB.AttackPer;
 
         //* DICIONARYへ追加
         if(extraPer > 0) {
             int extraDmg = Mathf.RoundToInt(TowerData.Dmg * extraPer);
             extraDmg = extraDmg == 0? 1 : extraDmg;
-            ExtraDmgDic.Add($"{SKT_KEY.SKT_EXTRA_DMG}", extraDmg);
+            ExtraDmgDic.Add($"{AbilityType.Attack}", extraDmg);
         }
     }
 
-    public void SetSkillTreeExtraCrit() {
+    public void SetExtraSpeed() {
         float extraPer = 0;
 
         //* SkillTree 追加ダメージ
-        if(!sktDb.IsLockMagicianSTs[(int)SKT_MG.CRIT_PER])
-            extraPer += sktDb.GetMagicianVal((int)SKT_MG.CRIT_PER);
+        // なし
+        //* Euqip 追加ダメージ
+        extraPer += DM._.DB.EquipDB.SpeedPer;
 
         //* DICIONARYへ追加
         if(extraPer > 0)
-            ExtraCritDic.Add($"{SKT_KEY.SKT_EXTRA_CIRT}", extraPer);
+            ExtraSpdDic.Add($"{AbilityType.Speed}", extraPer);
     }
 
-    public void SetSkillTreeExtraRange() {
+    public void SetExtraRange() {
         float extraPer = 0;
 
         //* SkillTree 追加ダメージ
         if(!sktDb.IsLockMagicianSTs[(int)SKT_MG.EXTRA_RANGE])
             extraPer += sktDb.GetMagicianVal((int)SKT_MG.EXTRA_RANGE);
+        //* Euqip 追加ダメージ
+        extraPer += DM._.DB.EquipDB.RangePer;
 
         //* DICIONARYへ追加
         if(extraPer > 0)
-            ExtraRangeDic.Add($"{SKT_KEY.SKT_EXTRA_RANGE}", extraPer);
+            ExtraRangeDic.Add($"{AbilityType.Range}", extraPer);
+    }
+
+    public void SetExtraCrit() {
+        float extraPer = 0;
+
+        //* SkillTree 追加ダメージ
+        if(!sktDb.IsLockMagicianSTs[(int)SKT_MG.CRIT_PER])
+            extraPer += sktDb.GetMagicianVal((int)SKT_MG.CRIT_PER);
+        //* Euqip 追加ダメージ
+        extraPer += DM._.DB.EquipDB.CritPer;
+
+        //* DICIONARYへ追加
+        if(extraPer > 0)
+            ExtraCritDic.Add($"{AbilityType.Critical}", extraPer);
+    }
+
+    public void SetExtraCritDmg() {
+        float extraPer = 0;
+
+        //* SkillTree 追加ダメージ
+        // なし
+        //* Euqip 追加ダメージ
+        extraPer += DM._.DB.EquipDB.CritDmgPer;
+
+        //* DICIONARYへ追加
+        if(extraPer > 0)
+            ExtraCritDmgDic.Add($"{AbilityType.CriticalDamage}", extraPer);
     }
 
     public float GetSkillTreeExtraExplosionDmgPer() {
