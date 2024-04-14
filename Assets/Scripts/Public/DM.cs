@@ -22,7 +22,7 @@ public class StatusDB {
         GoldKey = 1;
         Coin = 0;
         Diamond = 0; 
-        SkillPoint = 20; 
+        SkillPoint = 0; 
     }
 }
 
@@ -271,6 +271,8 @@ public class DM : MonoBehaviour {
         DB = new DB();
         
         DB.InvItemDBs = new List<InventoryItem>();
+        for(int i = 0; i < InventorySO.Size; i++)
+            DB.InvItemDBs.Add(InventoryItem.GetEmptyItem());
 
         DB.StatusDB = new StatusDB();
 

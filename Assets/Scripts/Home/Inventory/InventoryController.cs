@@ -27,7 +27,7 @@ namespace Inventory
 
     #region FUNC
         private void PrepareUI() {
-            ivm.InitInventoryUI(InventoryData.Size);
+            ivm.InitInventoryUI(InventorySO.Size);
             ivm.OnDescriptionRequested += HandleDescriptionRequest;
             ivm.OnSwapItems += HandleSwapItems;
             // ivm.OnStartDragging += HandleDragging;
