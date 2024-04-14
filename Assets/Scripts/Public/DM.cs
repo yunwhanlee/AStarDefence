@@ -141,6 +141,7 @@ public class DM : MonoBehaviour {
     const string DB_KEY = "DB";
     const string PASSEDTIME_KEY = "PASSED_TIME";
     [field: SerializeField] public bool IsReset {get; set;}
+    [field: SerializeField] public bool IsInit {get; set;}
 
     //* スキルツリーデータ
     [field:Header("SKILL TREE DATA")]
@@ -176,6 +177,10 @@ public class DM : MonoBehaviour {
         }
         else
             DB = Load();
+    }
+
+    void LateUpdate() {
+        IsInit = true;
     }
 
 /// -----------------------------------------------------------------------------------------------------------------
@@ -260,6 +265,8 @@ public class DM : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
+    public void LoadDt() => DB = Load();
+
     public void Init() {
         DB = new DB();
         

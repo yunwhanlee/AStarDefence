@@ -92,9 +92,7 @@ namespace Inventory.Model
         public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated;
 
         public void Init() {
-            //* Action NULL初期化（シーンを切り替えたら既に破壊された過去のObjectへアクセスするバグ対応）
-            OnInventoryUpdated = null;
-
+            Debug.Log("InventorySO:: Init():: (インベントリデータ) 初期化");
             ItemList = new List<InventoryItem>();
             for(int i = 0; i < Size; i++)
                 ItemList.Add(InventoryItem.GetEmptyItem());

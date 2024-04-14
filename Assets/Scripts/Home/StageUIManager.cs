@@ -25,6 +25,9 @@ public class StageUIManager : MonoBehaviour {
     }
 
     public void OnClickDifficultyBtn(int diffIdx) {
+        //* ホーム ➡ ゲームシーン移動の時、インベントリのデータを保存
+        DM._.Save();
+
         SM._.SfxPlay(SM.SFX.StageSelectSFX);
         //* 難易度 データ設定
         DM._.SelectedDiff = (diffIdx == 0)? Enum.Difficulty.Easy

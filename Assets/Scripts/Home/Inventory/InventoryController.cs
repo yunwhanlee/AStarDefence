@@ -10,23 +10,38 @@ namespace Inventory
     public class InventoryController : MonoBehaviour {
         [SerializeField] private InventoryUIManager ivm;
         [SerializeField] public InventorySO InventoryData;
-        [SerializeField] public List<InventoryItem> InitItems {
+        [SerializeField] public List<InventoryItem> InvItemDBs {
             get => DM._.DB.InvItemDBs;
         }
 
         void Start() {
+            DM._.LoadDt();
             ivm = HM._.ivm;
             PrepareUI();
             PrepareInventoryData();
         }
 
+        void OnDisable() {
+            InventoryData.OnInventoryUpdated -= UpdateInventoryUI;
+        }
+
+    #region FUNC
+        private void PrepareUI() {
+            ivm.InitInventoryUI(InventoryData.Size);
+            ivm.OnDescriptionRequested += HandleDescriptionRequest;
+            ivm.OnSwapItems += HandleSwapItems;
+            // ivm.OnStartDragging += HandleDragging;
+            ivm.OnItemActionRequested += HandleItemActionRequest;
+        }
+
         private void PrepareInventoryData() {
             //* InventorySOリストデータを初期化（ロードしたデータを実際に管理する場所）
-            InventoryData.Init(); 
+            InventoryData.Init();
             //* インベントリUI初期化するメソッド機能を購読（まだ使わない）=> InventorySO::InformAboutChange()で処理
             InventoryData.OnInventoryUpdated += UpdateInventoryUI;
             //* DBの保存したインベントリデータを一個ずつ読みこみながら、インベントリSOリストへ追加
-            foreach (InventoryItem item in InitItems) {
+            Debug.Log($"PrepareInventoryData():: InitItems.Length= {InvItemDBs.Count}");
+            foreach (InventoryItem item in InvItemDBs) {
                 if(item.IsEmpty) continue;
                 // item.Data.SetRelicAbility();
                 InventoryData.AddItem(item);
@@ -40,13 +55,7 @@ namespace Inventory
                 ivm.UpdateData(item.Key, item.Value);
         }
 
-        private void PrepareUI() {
-            ivm.InitInventoryUI(InventoryData.Size);
-            ivm.OnDescriptionRequested += HandleDescriptionRequest;
-            ivm.OnSwapItems += HandleSwapItems;
-            // ivm.OnStartDragging += HandleDragging;
-            ivm.OnItemActionRequested += HandleItemActionRequest;
-        }
+
 
         private void HandleItemActionRequest(int itemIdx) {}
 
@@ -83,7 +92,7 @@ namespace Inventory
             ivm.Hide();
         }
 
-#region EQUIP
+    #region EQUIP
         public int FindCurEquipItemIdx(Enum.ItemType type) {
             return InventoryData.ItemList.FindIndex(item
                 => !item.IsEmpty
@@ -125,7 +134,7 @@ namespace Inventory
             ivEqu.EquipUIEFs[(int)type].Play();
             // HM._.ivEqu.SetEquipAbilityData(curInvItem);
         }
-#endregion
+    #endregion
     }
-
+    #endregion
 }
