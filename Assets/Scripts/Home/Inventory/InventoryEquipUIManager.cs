@@ -100,10 +100,10 @@ public class InventoryEquipUIManager : MonoBehaviour {
         get => DM._.DB.EquipDB.MagicianUpgCostPer;
         set => DM._.DB.EquipDB.MagicianUpgCostPer = value;
     }
-    [field: SerializeField] public int SkillPoint {
-        get => DM._.DB.EquipDB.SkillPoint;
-        set => DM._.DB.EquipDB.SkillPoint = value;
-    }
+    // [field: SerializeField] public int SkillPoint {
+    //     get => DM._.DB.EquipDB.SkillPoint;
+    //     set => DM._.DB.EquipDB.SkillPoint = value;
+    // }
 
     public InventoryUIItem[] EquipItemSlotUIs;
     public GameObject[] EmptyIconObjs;
@@ -173,7 +173,7 @@ public class InventoryEquipUIManager : MonoBehaviour {
         StartCoin = 0;
         StartLife = 0;
         ItemDropPer = 0;
-        SkillPoint = 0;
+        // SkillPoint = 0;
         BonusCoinBy10Kill = 0;
         WarriorAttackPer = 0;
         ArcherAttackPer = 0;
@@ -237,9 +237,9 @@ public class InventoryEquipUIManager : MonoBehaviour {
                 case AbilityType.ItemDropPer:
                     ItemDropPer += abt.Val + (lvIdx * abt.UpgradeVal);
                     break;
-                case AbilityType.SkillPoint:
-                    SkillPoint += (int)(abt.Val + (lvIdx * abt.UpgradeVal));
-                    break;
+                // case AbilityType.SkillPoint:
+                //     SkillPoint += (int)(abt.Val + (lvIdx * abt.UpgradeVal));
+                //     break;
                 case AbilityType.BonusCoinBy10Kill:
                     BonusCoinBy10Kill += (int)(abt.Val + (lvIdx * abt.UpgradeVal));
                     break;

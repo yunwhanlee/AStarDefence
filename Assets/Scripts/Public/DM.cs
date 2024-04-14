@@ -41,7 +41,7 @@ public class EquipDB {
     [field:SerializeField] public int StartMoney {get; set;} //
     [field:SerializeField] public int StartLife {get; set;} //
     [field:SerializeField] public float ItemDropPer {get; set;}
-    [field:SerializeField] public int SkillPoint {get; set;}
+    // [field:SerializeField] public int SkillPoint {get; set;}
     [field:SerializeField] public int BonusCoinBy10Kill {get; set;} //
     [field:SerializeField] public float WarriorAttackPer {get; set;} //
     [field:SerializeField] public float ArcherAttackPer {get; set;} //
@@ -308,7 +308,7 @@ public class DM : MonoBehaviour {
             WarriorUpgCostPer = 0,
             ArcherUpgCostPer = 0,
             MagicianUpgCostPer = 0,
-            SkillPoint = 0
+            // SkillPoint = 0
         };
 
         //* Stages

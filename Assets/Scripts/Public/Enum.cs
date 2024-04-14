@@ -35,7 +35,7 @@ public enum AbilityType {
     StartMoney,
     StartLife,
     ItemDropPer,
-    SkillPoint,
+    // SkillPoint,
     BonusCoinBy10Kill,
     WarriorAttack,
     ArcherAttack,
