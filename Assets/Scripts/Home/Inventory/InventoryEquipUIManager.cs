@@ -53,8 +53,8 @@ public class InventoryEquipUIManager : MonoBehaviour {
         }
     }
     [field: SerializeField] public float ClearEtcPer {
-        get => DM._.DB.EquipDB.ClearEtcPer;
-        set => DM._.DB.EquipDB.ClearEtcPer = value;
+        get => DM._.DB.EquipDB.ClearExpPer;
+        set => DM._.DB.EquipDB.ClearExpPer = value;
     }
     [field: SerializeField] public float ClearCoinPer {
         get => DM._.DB.EquipDB.ClearCoinPer;

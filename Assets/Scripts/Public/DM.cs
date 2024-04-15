@@ -36,11 +36,11 @@ public class EquipDB {
     [field:SerializeField] public float RangePer {get; set;} //
     [field:SerializeField] public float CritPer {get; set;} //
     [field:SerializeField] public float CritDmgPer {get; set;} //
-    [field:SerializeField] public float ClearEtcPer {get; set;}
-    [field:SerializeField] public float ClearCoinPer {get; set;}
+    [field:SerializeField] public float ClearCoinPer {get; set;} //
+    [field:SerializeField] public float ClearExpPer {get; set;} //
     [field:SerializeField] public int StartMoney {get; set;} //
     [field:SerializeField] public int StartLife {get; set;} //
-    [field:SerializeField] public float ItemDropPer {get; set;}
+    [field:SerializeField] public float ItemDropPer {get; set;} //! 未
     // [field:SerializeField] public int SkillPoint {get; set;}
     [field:SerializeField] public int BonusCoinBy10Kill {get; set;} //
     [field:SerializeField] public float WarriorAttackPer {get; set;} //
@@ -296,7 +296,7 @@ public class DM : MonoBehaviour {
             RangePer = 0,
             CritPer = 0,
             CritDmgPer = 0,
-            ClearEtcPer = 0,
+            ClearExpPer = 0,
             ClearCoinPer = 0,
             StartMoney = 0,
             StartLife = 0,

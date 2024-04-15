@@ -31,30 +31,30 @@ public class RewardItem {
     public void UpdateItemData(Etc.NoshowInvItem noShowInvItem, int quantity) {
         switch (noShowInvItem) {
             case Etc.NoshowInvItem.GoldKey:
-                DM._.DB.StatusDB.GoldKey += quantity; // HM._.GoldKey += quantity;
+                DM._.DB.StatusDB.GoldKey += quantity;
                 break;
             case Etc.NoshowInvItem.Coin:
-                DM._.DB.StatusDB.Coin += quantity; // HM._.Coin += quantity;
+                DM._.DB.StatusDB.Coin += quantity;
                 break;
             case Etc.NoshowInvItem.Diamond:
-                DM._.DB.StatusDB.Diamond += quantity; // HM._.Diamond += quantity;
+                DM._.DB.StatusDB.Diamond += quantity;
                 break;
             case Etc.NoshowInvItem.Exp:
-                DM._.DB.StatusDB.Exp += quantity; // HM._.Exp += quantity;
+                DM._.DB.StatusDB.Exp += quantity;
                 break;
             case Etc.NoshowInvItem.Goblin0: case Etc.NoshowInvItem.Goblin1: case Etc.NoshowInvItem.Goblin2:
             case Etc.NoshowInvItem.Goblin3: case Etc.NoshowInvItem.Goblin4: case Etc.NoshowInvItem.Goblin5: case Etc.NoshowInvItem.Goblin6:
                 int goblinLvIdx = int.Parse($"{noShowInvItem}".Split("n")[1]);
-                DM._.DB.MiningDB.GoblinCardCnts[goblinLvIdx] += quantity; // HM._.mnm.GoblinCards[goblinLvIdx].Cnt += quantity;
+                DM._.DB.MiningDB.GoblinCardCnts[goblinLvIdx] += quantity;
                 break;
             case Etc.NoshowInvItem.Ore0: case Etc.NoshowInvItem.Ore1: case Etc.NoshowInvItem.Ore2:
             case Etc.NoshowInvItem.Ore3: case Etc.NoshowInvItem.Ore4: case Etc.NoshowInvItem.Ore5:
             case Etc.NoshowInvItem.Ore6: case Etc.NoshowInvItem.Ore7: case Etc.NoshowInvItem.Ore8:
                 int oreLvIdx = int.Parse($"{noShowInvItem}".Split("e")[1]);
-                DM._.DB.MiningDB.OreCardCnts[oreLvIdx] += quantity; // HM._.mnm.OreCards[oreLvIdx].Cnt += quantity;
+                DM._.DB.MiningDB.OreCardCnts[oreLvIdx] += quantity;
                 break;
             case Etc.NoshowInvItem.SkillPoint:
-                DM._.DB.StatusDB.SkillPoint += quantity; // HM._.SkillPoint += quantity;
+                DM._.DB.StatusDB.SkillPoint += quantity;
                 break;
         }
     }

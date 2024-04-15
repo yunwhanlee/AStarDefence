@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameRewardUIManager : MonoBehaviour {
     void Update() {
         if(Input.GetKeyDown(KeyCode.A)) {
-            Debug.Log("REWARD TEST");
+            Debug.Log("VICTORY REWARD TEST");
             //* リワード
             var rewardList = new List<RewardItem> {
                 new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 500),
@@ -13,6 +13,16 @@ public class GameRewardUIManager : MonoBehaviour {
                 new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore0]),
                 new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon]),
             };
+
+            //* 追加コイン＆EXP 適用
+            rewardList.ForEach(rwdItem => {
+                Etc.NoshowInvItem enumVal = Util.FindEnumVal(rwdItem.Data.name);
+                if(enumVal == Etc.NoshowInvItem.Coin && DM._.DB.EquipDB.ClearCoinPer > 0)
+                    rwdItem.Quantity = (int)(rwdItem.Quantity * (1 + DM._.DB.EquipDB.ClearCoinPer));
+                if(enumVal == Etc.NoshowInvItem.Exp && DM._.DB.EquipDB.ClearExpPer > 0)
+                    rwdItem.Quantity = (int)(rwdItem.Quantity * (1 + DM._.DB.EquipDB.ClearExpPer));
+            });
+
             GM._.rwlm.ShowReward(rewardList);
             UpdateInventory(rewardList);
         }
