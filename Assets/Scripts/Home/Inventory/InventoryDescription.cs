@@ -55,6 +55,7 @@ namespace Inventory.UI {
 #region EVENT
         public void OnClickConsumableItemConfirm() {
             Debug.Log($"OnClickConsumableItemConfirm():: CurInvItem.Name= {HM._.ivm.CurInvItem.Data.Name}");
+            SM._.SfxPlay(SM.SFX.ClickSFX);
             OnClickConfirmBtn?.Invoke();
         }
 
@@ -128,6 +129,8 @@ namespace Inventory.UI {
         }
 
         private void ActiveCloverItem(GameObject icon, bool isActive, Color ActiveColor) {
+            if(isActive)
+                SM._.SfxPlay(SM.SFX.ItemPickSFX);
             icon.SetActive(isActive);
             EtcConfirmBtnTxt.text = isActive? "활성화" : "비활성화";
             EtcConfirmBtnTxt.color = isActive? ActiveColor: Color.gray;

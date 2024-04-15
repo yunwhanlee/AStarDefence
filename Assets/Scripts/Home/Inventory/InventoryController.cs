@@ -27,6 +27,28 @@ namespace Inventory
 
     #region FUNC
         /// <summary>
+        ///  EXPクロバーが活性化したら、一個減る
+        /// </summary>
+        public void CheckActiveClover() {
+            for(int i = 0; i < InventoryData.ItemList.Count; i++) {
+                var itemList = InventoryData.ItemList[i];
+                if(itemList.IsEmpty)
+                    continue;
+
+                if(itemList.Data.name == $"{Etc.ConsumableItem.Clover}") {
+                    InventoryData.ItemList[i] = itemList.ChangeQuantity(itemList.Quantity - 1);
+                    if(InventoryData.ItemList[i].Quantity <= 0)
+                        DM._.DB.IsCloverActive = false;
+                }
+                else if(itemList.Data.name == $"{Etc.ConsumableItem.GoldClover}") {
+                    InventoryData.ItemList[i] = itemList.ChangeQuantity(itemList.Quantity - 1);
+                    if(InventoryData.ItemList[i].Quantity <= 0)
+                        DM._.DB.IsGoldCloverActive = false;
+                }
+            }
+        }
+
+        /// <summary>
         /// インベントリーNewアイテムの数を赤い点で表示
         /// </summary>
         IEnumerator CoUpdateNewItemAlert() {
@@ -68,8 +90,6 @@ namespace Inventory
             foreach (var item in inventoryState)
                 ivm.UpdateUI(item.Key, item.Value);
         }
-
-
 
         private void HandleItemActionRequest(int itemIdx) {}
 

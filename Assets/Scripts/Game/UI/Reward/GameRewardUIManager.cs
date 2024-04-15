@@ -19,8 +19,20 @@ public class GameRewardUIManager : MonoBehaviour {
                 Etc.NoshowInvItem enumVal = Util.FindEnumVal(rwdItem.Data.name);
                 if(enumVal == Etc.NoshowInvItem.Coin && DM._.DB.EquipDB.ClearCoinPer > 0)
                     rwdItem.Quantity = (int)(rwdItem.Quantity * (1 + DM._.DB.EquipDB.ClearCoinPer));
-                if(enumVal == Etc.NoshowInvItem.Exp && DM._.DB.EquipDB.ClearExpPer > 0)
-                    rwdItem.Quantity = (int)(rwdItem.Quantity * (1 + DM._.DB.EquipDB.ClearExpPer));
+                if(enumVal == Etc.NoshowInvItem.Exp) {
+                    float bonusExpPer = 0;
+                    //* ボーナスEXP％ 計算
+                    if(DM._.DB.EquipDB.ClearExpPer > 0)
+                        bonusExpPer += DM._.DB.EquipDB.ClearExpPer;
+                    if(DM._.DB.IsCloverActive)
+                        bonusExpPer += Config.CLOVER_BONUS_EXP_PER;
+                    if(DM._.DB.IsGoldCloverActive)
+                        bonusExpPer += Config.GOLDCLOVER_BONUS_EXP_PER;
+
+                    //* 適用
+                    if(bonusExpPer > 0)
+                        rwdItem.Quantity += Mathf.RoundToInt(rwdItem.Quantity * bonusExpPer);
+                }
             });
 
             GM._.rwlm.ShowReward(rewardList);

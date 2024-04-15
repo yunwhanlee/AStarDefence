@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.UI;
+using Inventory.Model;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -25,6 +26,8 @@ public class StageUIManager : MonoBehaviour {
     }
 
     public void OnClickDifficultyBtn(int diffIdx) {
+        HM._.ivCtrl.CheckActiveClover();
+
         //* ホーム ➡ ゲームシーン移動の時、インベントリのデータを保存
         DM._.Save();
 
