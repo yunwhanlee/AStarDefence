@@ -27,6 +27,9 @@ namespace Inventory.UI
         [field:SerializeField] public GameObject EquipPopUp {get; private set;}
         [field:SerializeField] public GameObject ConsumePopUp {get; private set;}
 
+        [field:SerializeField] public GameObject InvAlertIcon {get; private set;}
+        [field:SerializeField] public TMP_Text InvAlertCntTxt {get; private set;}
+
         [field:SerializeField] public RectTransform CateUnderline {get; private set;}
 
         [field:SerializeField] public InventoryUIItem ItemPf {get; private set;}
@@ -49,7 +52,7 @@ namespace Inventory.UI
             InvDesc.ResetDescription();
         }
 
-#region EVENT
+    #region EVENT
     /// <summary>
     /// カテゴリーアイコンクリック
     /// </summary>
@@ -83,9 +86,15 @@ namespace Inventory.UI
     public void OnClickInvItemAutoMergeBtn() {
         HM._.ivCtrl.InventoryData.AutoMergeEquipItem();
     }
-#endregion
+    #endregion
 
     #region FUNC
+        public void SetInvAlertIcon(int newItemCnt) {
+            InvAlertIcon.SetActive(newItemCnt > 0);
+            if(InvAlertIcon.activeSelf)
+                InvAlertCntTxt.text = $"{newItemCnt}";
+        }
+
         /// <summary>
         ///* インベントリとEquipアイテムのスロットUI イベント登録
         /// </summary>

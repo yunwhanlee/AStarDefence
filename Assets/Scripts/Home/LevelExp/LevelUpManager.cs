@@ -67,7 +67,6 @@ public class LevelUpManager : MonoBehaviour {
     private void LevelUp() {
         Debug.Log($"LevelUp():: Lv= {Lv}, DB.Lv= {DM._.DB.StatusDB.Lv}");
         SM._.SfxPlay(SM.SFX.LevelUpSFX);
-        // SM._.SfxPlay(SM.SFX.BossKilledSFX);
         Lv++;
         var rewardList = new List<RewardItem> {
             new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 1000),

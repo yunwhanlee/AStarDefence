@@ -18,6 +18,7 @@ namespace Inventory
             ivm = HM._.ivm;
             PrepareUI();
             PrepareInventoryData();
+            StartCoroutine(CoUpdateNewItemAlert()); 
         }
 
         void OnDisable() {
@@ -25,6 +26,20 @@ namespace Inventory
         }
 
     #region FUNC
+        /// <summary>
+        /// インベントリーNewアイテムの数を赤い点で表示
+        /// </summary>
+        IEnumerator CoUpdateNewItemAlert() {
+            int newItemCnt;
+            while(true) {
+                newItemCnt = 0;
+                foreach (InventoryItem itemDt in InventoryData.ItemList)
+                    if (itemDt.IsNewAlert) newItemCnt++;
+                HM._.ivm.SetInvAlertIcon(newItemCnt);
+                yield return Util.Time0_5;
+            }
+        }
+
         private void PrepareUI() {
             ivm.InitInventoryUI(InventorySO.Size);
             ivm.OnDescriptionRequested += HandleDescriptionRequest;
