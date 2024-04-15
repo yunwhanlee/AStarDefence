@@ -43,7 +43,8 @@ public class HomeRewardListUIManager : MonoBehaviour {
         for(int i = 0; i < rewardList.Count; i++) {
             RewardItem rewardItem = rewardList[i];
             InventoryUIItem rwdItemUI = Instantiate(rwdItemPf.gameObject, Content).GetComponent<InventoryUIItem>();
-            rwdItemUI.SetUIData(rewardItem.Data.Type, rewardItem.Data.Grade, rewardItem.Data.ItemImg, rewardItem.Quantity, lv: 1);
+            rwdItemUI.SetUI(rewardItem.Data.Type, rewardItem.Data.Grade, rewardItem.Data.ItemImg, rewardItem.Quantity, lv: 1);
+            // rwdItemUI.IsNewAlert = true;
             //* Particle UI Effect 1
             rwdItemUI.PlayScaleUIEF(rwdItemUI, rewardItem.Data.ItemImg);
             rwdItemUI.ItemImgScaleUIEF.startDelay = 0.5f + i * 0.1f;

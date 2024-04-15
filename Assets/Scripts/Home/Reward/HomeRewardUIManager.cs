@@ -78,7 +78,9 @@ public class HomeRewardUIManager : MonoBehaviour {
                             rwdItem.Data, 
                             rwdItem.Quantity, 
                             lv: 1, 
-                            rwdItem.RelicAbilities
+                            rwdItem.RelicAbilities,
+                            isEquip: false,
+                            isNewAlert: true
                         );
                         rwdItem.Quantity = reminder;
                     }

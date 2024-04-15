@@ -51,7 +51,7 @@ namespace Inventory
             Debug.Log("UpdateInventoryUI()::");
             ivm.ResetAllItems();
             foreach (var item in inventoryState)
-                ivm.UpdateData(item.Key, item.Value);
+                ivm.UpdateUI(item.Key, item.Value);
         }
 
 
@@ -83,7 +83,7 @@ namespace Inventory
             Debug.Log("ShowInventory()::");
             ivm.Show();
             foreach (var item in InventoryData.GetCurrentInventoryState()) {
-                ivm.UpdateData( item.Key, item.Value );
+                ivm.UpdateUI( item.Key, item.Value );
             }
         }
 

@@ -27,6 +27,7 @@ namespace Inventory.UI
         [field:SerializeField] public TMP_Text QuantityTxt {get; set;}
         [field:SerializeField] public TMP_Text LvTxt {get; set;}
         [field:SerializeField] public Image BorderImg {get; set;}
+        [field:SerializeField] public GameObject AlertRedDot {get; set;}
         [field:SerializeField] public GameObject EquipDim {get; set;} 
         [field:SerializeField] public ParticleImage ItemImgScaleUIEF {get; set;}
         [field:SerializeField] public ParticleImage WhiteDimScaleUIEF {get; set;}
@@ -39,7 +40,7 @@ namespace Inventory.UI
             OnItemClickShortly;
 
         void Awake() {
-            ResetData();
+            ResetUI();
             Deselect();
 
             //* HOMEシーンのみ
@@ -57,8 +58,8 @@ namespace Inventory.UI
 
     #region EVENT
     #endregion
-        public void ResetData() {
-            Debug.Log($"ObjName= {this.name} ResetData():: TypeBgImg= {TypeBgImg}");
+        public void ResetUI() {
+            Debug.Log($"ResetUI():: TypeBgImg= {TypeBgImg}");
             Type = Enum.ItemType.Etc;
             TypeBgImg.enabled = false;
             TypeIconImg.enabled = false;
@@ -66,8 +67,13 @@ namespace Inventory.UI
             if(HM._) BgImg.sprite = HM._.ivm.NoneBgSpr;
             BgImg.color = Color.white;
             ItemImg.gameObject.SetActive(false);
+
+            //* Equipスロットは対応しない（そのそのオブジェクトが付いていない）
+            if(AlertRedDot) AlertRedDot.SetActive(false);
             if(EquipDim) EquipDim.SetActive(false);
+
             IsEmpty = true;
+            // IsNewAlert = false;
             QuantityTxt.text = "";
             LvTxt.text = "";
             ShinyUIEF.Stop();
@@ -81,13 +87,22 @@ namespace Inventory.UI
         /// <summary>
         /// アイテムのデータ設定
         /// /// </summary>
-        public void SetUIData(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv, AbilityType[] relicAbilities = null, bool isEquip = false) {
-            // Debug.Log($"SetUIData(ItemImg.name={ItemImg.sprite.name}, type={type}, grade={grade})::");
+        public void SetUI (
+            Enum.ItemType type, 
+            Enum.Grade grade, 
+            Sprite spr, 
+            int quantity, 
+            int lv, 
+            AbilityType[] relicAbilities = null, 
+            bool isEquip = false,
+            bool isNewAlert = false
+        ) {
+            // Debug.Log($"SetUI(ItemImg.name={ItemImg.sprite.name}, type={type}, grade={grade})::");
             Type = type;
 
             //* その他アイテム
             if(type == Enum.ItemType.Etc) {
-                Debug.Log($"SetUIData(<color=white>type={type}</color>, ItemImg.name={ItemImg.sprite.name}, grade={grade})::");
+                Debug.Log($"SetUI(<color=white>type={type}</color>, ItemImg.name={ItemImg.sprite.name}, grade={grade})::");
                 TypeBgImg.enabled = false;
                 TypeIconImg.enabled = false;
                 BgImg.sprite = HM._.ivm.NoneBgSpr;
@@ -98,7 +113,7 @@ namespace Inventory.UI
             }
             //* 装置アイテム
             else {
-                Debug.Log($"SetUIData(<color=yellow>type={type}</color>, ItemImg.name={ItemImg.sprite.name}, grade={grade})::");
+                Debug.Log($"SetUI(<color=yellow>type={type}</color>, ItemImg.name={ItemImg.sprite.name}, grade={grade})::");
                 TypeBgImg.enabled = true;
                 TypeIconImg.enabled = true;
                 TypeBgImg.color = HM._.ivm.GradeClrs[(int)grade];
@@ -114,10 +129,12 @@ namespace Inventory.UI
                 if(grade >= Enum.Grade.Unique)
                     ShinyUIEF.Play();
             }
+            IsEmpty = false;
+            // IsNewAlert = true;
+            if(AlertRedDot) AlertRedDot.SetActive(isNewAlert);
             ItemImg.gameObject.SetActive(true);
             ItemImg.sprite = spr;
             QuantityTxt.text = $"{quantity}";
-            IsEmpty = false;
         }
 
         public void Select() {

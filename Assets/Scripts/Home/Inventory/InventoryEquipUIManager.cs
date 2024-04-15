@@ -136,7 +136,7 @@ public class InventoryEquipUIManager : MonoBehaviour {
         => EmptyIconObjs[(int)type].SetActive(isActive);
 
     public void ResetEquipSlot(Enum.ItemType type) {
-        EquipItemSlotUIs[(int)type].ResetData();
+        EquipItemSlotUIs[(int)type].ResetUI();
         EmptyIconObjs[(int)type].SetActive(true);
         SetEquipEmptyIcon(type, true);
     }
@@ -146,7 +146,7 @@ public class InventoryEquipUIManager : MonoBehaviour {
             return;
 
         ItemSO dt = invItem.Data;
-        EquipItemSlotUIs[(int)type].SetUIData (
+        EquipItemSlotUIs[(int)type].SetUI (
             dt.Type, 
             dt.Grade, 
             dt.ItemImg, 

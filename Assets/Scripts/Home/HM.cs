@@ -85,8 +85,6 @@ public class HM : MonoBehaviour {
         ivm = GameObject.Find("InventoryUIManager").GetComponent<InventoryUIManager>();
         ivCtrl = GameObject.Find("InventoryController").GetComponent<InventoryController>();
         ivEqu = GameObject.Find("InventoryEquipUIManager").GetComponent<InventoryEquipUIManager>();
-        
-
 
         //* 初期化
         SelectedStage = 0;

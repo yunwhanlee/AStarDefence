@@ -29,6 +29,7 @@ namespace Inventory.Model
         public AbilityType[] RelicAbilities;
         public bool IsEmpty => Data == null;
         public bool IsEquip;
+        public bool IsNewAlert;
 
         /// <summary>
         ///* 必ず自分のインベントリーへ再代入しなければならない
@@ -40,6 +41,7 @@ namespace Inventory.Model
                 Data = this.Data,
                 RelicAbilities = this.RelicAbilities,
                 IsEquip = this.IsEquip,
+                IsNewAlert = this.IsNewAlert,
             };
         public InventoryItem ChangeLevel(int newLv)
             => new InventoryItem {
@@ -48,6 +50,7 @@ namespace Inventory.Model
                 Data = this.Data,
                 RelicAbilities = this.RelicAbilities,
                 IsEquip = this.IsEquip,
+                IsNewAlert = this.IsNewAlert,
             };
         public InventoryItem ChangeItemData(ItemSO newItemDt)
             => new InventoryItem {
@@ -56,6 +59,7 @@ namespace Inventory.Model
                 Data = newItemDt,
                 RelicAbilities = this.RelicAbilities,
                 IsEquip = this.IsEquip,
+                IsNewAlert = this.IsNewAlert,
             };
         public InventoryItem ChangeItemRelicAbilities(AbilityType[] newRelicAbilities)
             => new InventoryItem {
@@ -64,6 +68,7 @@ namespace Inventory.Model
                 Data = this.Data,
                 RelicAbilities = newRelicAbilities,
                 IsEquip = this.IsEquip,
+                IsNewAlert = this.IsNewAlert,
             };
         public InventoryItem ChangeIsEquip(bool newIsEquip)
             => new InventoryItem {
@@ -72,6 +77,16 @@ namespace Inventory.Model
                 Data = this.Data,
                 RelicAbilities = this.RelicAbilities,
                 IsEquip = newIsEquip,
+                IsNewAlert = this.IsNewAlert,
+            };
+        public InventoryItem ChangeIsNewAlert(bool isNewAlert)
+            => new InventoryItem {
+                Quantity = this.Quantity,
+                Lv = this.Lv,
+                Data = this.Data,
+                RelicAbilities = this.RelicAbilities,
+                IsEquip = this.IsEquip,
+                IsNewAlert = isNewAlert,
             };
         public static InventoryItem GetEmptyItem()
             => new InventoryItem {
@@ -80,6 +95,7 @@ namespace Inventory.Model
                 Data = null,
                 RelicAbilities = null,
                 IsEquip = false,
+                IsNewAlert = false,
             };
     }
     #endregion
@@ -107,8 +123,8 @@ namespace Inventory.Model
             }
         }
 
-        public int AddItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip = false) {
-            quantity = AddStackableItem(item, quantity, lv, relicAbilities, isEquip);
+        public int AddItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip = false, bool isNewAlert = false) {
+            quantity = AddStackableItem(item, quantity, lv, relicAbilities, isEquip, isNewAlert);
             InformAboutChange();
             return quantity;
         }
@@ -116,13 +132,14 @@ namespace Inventory.Model
         /// <summary>
         ///* 数えないアイテムとして追加 （今は使うことがない）
         /// </summary>
-        private int AddItemToFirstFreeSlot(ItemSO itemDt, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip) {
+        private int AddItemToFirstFreeSlot(ItemSO itemDt, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip, bool isNewAlert = false) {
             InventoryItem newItem = new InventoryItem {
                 Data = itemDt,
                 Quantity = quantity,
                 Lv = lv,
                 RelicAbilities = relicAbilities,
-                IsEquip = isEquip
+                IsEquip = isEquip,
+                IsNewAlert = isNewAlert
             };
 
             Debug.Log($"newItem.RelicAbilities.Length= {newItem}");
@@ -144,7 +161,7 @@ namespace Inventory.Model
         /// <summary>
         /// 数えるアイテムとして追加 (自動マージしたときも使う)
         /// </summary>
-        private int AddStackableItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip) {
+        private int AddStackableItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip, bool isNewAlert) {
             for(int i = 0; i < ItemList.Count; i++) {
                 if(ItemList[i].IsEmpty)
                     continue;
@@ -166,7 +183,7 @@ namespace Inventory.Model
             while(quantity > 0 && IsInventoryFull() == false) {
                 int newQuantity = Mathf.Clamp(quantity, 0, item.MaxStackSize);
                 quantity -= newQuantity;
-                AddItemToFirstFreeSlot(item, newQuantity, lv, relicAbilities, isEquip);
+                AddItemToFirstFreeSlot(item, newQuantity, lv, relicAbilities, isEquip, isNewAlert);
             }
 
             return quantity;
@@ -237,8 +254,7 @@ namespace Inventory.Model
 
                     //* Relicなら、ランダムで能力
                     var relicAbilities = CheckRelicAbilitiesData(nextItemDt);
-
-                    AddStackableItem(nextItemDt, mergeCnt, lv: 1, relicAbilities, item.IsEquip);
+                    AddStackableItem(nextItemDt, mergeCnt, lv: 1, relicAbilities, item.IsEquip, item.IsNewAlert);
                 }
             }
             //* イベントリーUI アップデート
@@ -274,7 +290,7 @@ namespace Inventory.Model
             if(ItemList[tgIdx].Quantity <= 0) {
                 //* インベントリースロットのデータとUIリセット
                 ItemList[tgIdx] = InventoryItem.GetEmptyItem();
-                HM._.ivm.InvUIItemList[tgIdx].ResetData();
+                HM._.ivm.InvUIItemList[tgIdx].ResetUI();
                 //* アイテムがないので、開いたPopUpに可能性があることを全て非表示
                 HM._.rwlm.RewardChestPopUp.SetActive(false);
                 HM._.ivm.ConsumePopUp.SetActive(false);
@@ -284,7 +300,7 @@ namespace Inventory.Model
 
             foreach (var invItemUI in HM._.ivm.InvUIItemList) {
                 if(invItemUI.IsEmpty)
-                    invItemUI.ResetData();
+                    invItemUI.ResetUI();
             }
 
             //* イベントリーUI アップデート
@@ -314,7 +330,7 @@ namespace Inventory.Model
 
         public void AddItem(InventoryItem item) {
             Debug.Log($"AddItem():: {item.Data.Name}, Lv= {item.Lv}, RelicAbilities.Length= {item.RelicAbilities.Length}, isEquip= {item.IsEquip}");
-            AddItem(item.Data, item.Quantity, item.Lv, item.RelicAbilities, item.IsEquip);
+            AddItem(item.Data, item.Quantity, item.Lv, item.RelicAbilities, item.IsEquip, item.IsNewAlert);
         }
 
         public Dictionary<int, InventoryItem> GetCurrentInventoryState() {

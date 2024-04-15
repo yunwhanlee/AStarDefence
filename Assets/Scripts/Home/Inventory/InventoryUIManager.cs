@@ -123,19 +123,21 @@ namespace Inventory.UI
                 item.Deselect();
         }
 
-        public void UpdateData(int itemIdx, InventoryItem item) {
-            Debug.Log($"UpdateData(itemIdx= {itemIdx}, type= {item.Data.Type}, item= {item.Data.Name}):: -> SetUIData()");
+        public void UpdateUI(int itemIdx, InventoryItem item) {
+            // Debug.Log($"UpdateData(itemIdx= {itemIdx}, type= {item.Data.Type}, item= {item.Data.Name}):: -> SetUIData()");
             ItemSO dt = item.Data;
-            if(InvUIItemList.Count > itemIdx)
-                InvUIItemList[itemIdx].SetUIData (
+            if(InvUIItemList.Count > itemIdx) {
+                InvUIItemList[itemIdx].SetUI (
                     dt.Type, 
                     dt.Grade, 
                     dt.ItemImg, 
                     item.Quantity, 
                     item.Lv, 
                     item.RelicAbilities,
-                    item.IsEquip
+                    item.IsEquip,
+                    item.IsNewAlert
                 );
+            }
         }
 
         private void ResetDraggedItem() {
@@ -167,6 +169,12 @@ namespace Inventory.UI
             DeselectAllItems();
             if(invItemUI.IsEmpty)
                 return;
+
+            //* 選択したら、NewAlertアイコン 非表示
+            if(invItemUI.AlertRedDot) {
+                invItemUI.AlertRedDot.SetActive(false);
+                HM._.ivCtrl.InventoryData.ItemList[CurItemIdx] = CurInvItem.ChangeIsNewAlert(false);
+            }
 
             if(CurInvItem.Data.Type == Enum.ItemType.Etc) {
                 if(CurInvItem.Data.name == $"{Etc.ConsumableItem.ChestCommon}") return;
@@ -248,7 +256,7 @@ namespace Inventory.UI
         public void ResetAllItems() {
             Debug.Log($"ResetAllItems():: InvUIItemList.Count= {InvUIItemList.Count}");
             foreach (InventoryUIItem item in InvUIItemList) {
-                item.ResetData();
+                item.ResetUI();
                 item.Deselect();
             }
         }
