@@ -55,6 +55,7 @@ namespace Inventory.UI
     /// </summary>
     /// <param name="cateIdx">０：全て、１：WEAPON、２：SHOES、３：ACCESARY、４：CROWN, 5：ETC</param>
     public void OnClickCateMenuIconBtn(int cateIdx) {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
         //* Move Tap UnderLine
         const int ORIGIN_X = -450, MOVE_X_UNIT = 180;
         CateUnderline.anchoredPosition = new Vector2(ORIGIN_X + (cateIdx * MOVE_X_UNIT), CateUnderline.anchoredPosition.y);
@@ -167,6 +168,7 @@ namespace Inventory.UI
         private void HandleShowItemInfoPopUp(InventoryUIItem invItemUI) {
             Debug.Log($"HandleShowItemInfoPopUp(invItemUI.name= {invItemUI.name})::");
             DeselectAllItems();
+
             if(invItemUI.IsEmpty)
                 return;
 
@@ -182,9 +184,11 @@ namespace Inventory.UI
                 if(CurInvItem.Data.name == $"{Etc.ConsumableItem.ChestEquipment}") return;
                 if(CurInvItem.Data.name == $"{Etc.ConsumableItem.ChestGold}") return;
                 if(CurInvItem.Data.name == $"{Etc.ConsumableItem.ChestPremium}") return;
+                SM._.SfxPlay(SM.SFX.ClickSFX);
                 ConsumePopUp.SetActive(true);
             }
             else {
+                SM._.SfxPlay(SM.SFX.ClickSFX);
                 EquipPopUp.SetActive(true);
             }
         }

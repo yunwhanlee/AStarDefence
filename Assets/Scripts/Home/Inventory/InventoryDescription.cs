@@ -83,19 +83,21 @@ namespace Inventory.UI {
                 return;
             }
             HM._.ivCtrl.InventoryData.UpgradeEquipItem (
-                ivm.CurInvItem.Data, 
-                ivm.CurInvItem.Quantity, 
-                ++ivm.CurInvItem.Lv, 
+                ivm.CurInvItem.Data,
+                ivm.CurInvItem.Quantity,
+                ++ivm.CurInvItem.Lv,
                 ivm.CurInvItem.RelicAbilities,
                 ivm.CurInvItem.IsEquip
             );
 
             //* Equipスロット最新化
+            SM._.SfxPlay(SM.SFX.UpgradeSFX);
             HM._.ivEqu.EquipItem(type, HM._.ivEqu.FindEquipItem(type), isEffect: false);
             HM._.ivEqu.UpdateAllEquipAbilityData();
         }
         public void OnClickUpgradeValueNoticeToggle() {
             Debug.Log($"OnClickUpgradeValueNoticeToggle():: IsUpgradeValToogleActive= {IsUpgradeValToogle}");
+            SM._.SfxPlay(SM.SFX.ClickSFX);
             IsUpgradeValToogle = !IsUpgradeValToogle;
             UpgValToogleHandleTf.anchoredPosition = new Vector2(IsUpgradeValToogle? 50 : -50, UpgValToogleHandleTf.anchoredPosition.y);
             UpgValToogleHandleTxt.text = IsUpgradeValToogle? "ON" : "OFF";
@@ -106,9 +108,6 @@ namespace Inventory.UI {
                 ivm.CurInvItem.RelicAbilities,
                 ivm.CurInvItem.IsEquip
             );
-        }
-        public void OnClickCloseBtn() {
-            //TODO
         }
 #endregion
 

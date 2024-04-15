@@ -10,6 +10,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
     [Header("REWARD LIST POPUP")]
     public GameObject WindowObj;
     public Transform Content;
+    public bool IsFinishSlotsSpawn = false;
 
     [Header("REWARD CHEST POPUP")]
     public Sprite[] TitleRibbonSprs;
@@ -27,6 +28,14 @@ public class HomeRewardListUIManager : MonoBehaviour {
 
 #region EVENT
     public void OnClickOpenChestImgBtn() => OnClickOpenChest?.Invoke();
+    public void OnClickCloseDimBtn() {
+        //* リワードスロットのアニメーションが全部終わるまで待つ
+        if(IsFinishSlotsSpawn)
+            return;
+
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        WindowObj.SetActive(false);
+    }
 #endregion
 
 #region FUNC
@@ -35,10 +44,21 @@ public class HomeRewardListUIManager : MonoBehaviour {
             Destroy(child.gameObject);
     }
 
+    IEnumerator CoPlayRewardSlotSpawnSFX(int cnt) {
+        IsFinishSlotsSpawn = true;
+        yield return Util.Time0_5;
+        for(int i = 0; i < cnt; i++) {
+            SM._.SfxPlay(SM.SFX.InvUnEquipSFX);
+            yield return Util.Time0_1;
+        }
+        IsFinishSlotsSpawn = false;
+    }
+
     /// <summary>
     /// リワードリスト表示
     /// </summary>
     private void DisplayRewardList(List<RewardItem> rewardList) {
+        StartCoroutine(CoPlayRewardSlotSpawnSFX(rewardList.Count));
         //* リワードリストへオブジェクト生成・追加
         for(int i = 0; i < rewardList.Count; i++) {
             RewardItem rewardItem = rewardList[i];
@@ -54,6 +74,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
         }
     }
     public void ShowReward(List<RewardItem> itemList) {
+        SM._.SfxPlay(SM.SFX.RewardSFX);
         WindowObj.SetActive(true);
         DeleteAll();
         DisplayRewardList(itemList);
@@ -78,6 +99,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
     /// ChestをTapして開くPopUp 表示
     /// </summary>  
     public void ShowChestPopUp(Etc.ConsumableItem type, int quantity) {
+        SM._.SfxPlay(SM.SFX.CreateTowerSFX);
         RewardContentSO chestDt = (type == Etc.ConsumableItem.ChestCommon)? RwdItemDt.Rwd_ChestCommon
             : (type == Etc.ConsumableItem.ChestDiamond)? RwdItemDt.Rwd_ChestDiamond
             : (type == Etc.ConsumableItem.ChestEquipment)? RwdItemDt.Rwd_ChestEquipment

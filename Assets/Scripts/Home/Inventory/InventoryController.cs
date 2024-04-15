@@ -80,7 +80,7 @@ namespace Inventory
         }
 
         public void ShowInventory() {
-            Debug.Log("ShowInventory()::");
+            SM._.SfxPlay(SM.SFX.ClickSFX);
             ivm.Show();
             foreach (var item in InventoryData.GetCurrentInventoryState()) {
                 ivm.UpdateUI( item.Key, item.Value );
@@ -88,6 +88,7 @@ namespace Inventory
         }
 
         public void HideInventory() {
+            SM._.SfxPlay(SM.SFX.ClickSFX);
             ivm.Hide();
         }
 
@@ -101,6 +102,7 @@ namespace Inventory
         }
 
         public void UnEquipSlotUI() {
+            SM._.SfxPlay(SM.SFX.InvUnEquipSFX);
             InventoryEquipUIManager ivEqu = HM._.ivEqu;
             InventoryItem curInvItem = InventoryData.ItemList[HM._.ivm.CurItemIdx];
             Enum.ItemType type = curInvItem.Data.Type;
@@ -116,6 +118,7 @@ namespace Inventory
         }
 
         public void EquipItemSlotUI() {
+            SM._.SfxPlay(SM.SFX.InvEquipSFX);
             var ivEqu = HM._.ivEqu;
             InventoryItem  curInvItem = InventoryData.ItemList[HM._.ivm.CurItemIdx];
             Enum.ItemType type = curInvItem.Data.Type;

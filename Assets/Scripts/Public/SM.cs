@@ -59,6 +59,9 @@ public class SM : MonoBehaviour {
         ErrorSFX,
         StageSelectSFX,
         ItemPickSFX,
+        InvEquipSFX,
+        InvUnEquipSFX,
+        LevelUpSFX,
     }
 
     [field: SerializeField] public AudioSource SfxPlayer {get; set;}
@@ -115,6 +118,9 @@ public class SM : MonoBehaviour {
     [field: SerializeField] AudioClip ErrorSFX {get; set;}
     [field: SerializeField] AudioClip StageSelectSFX {get; set;}
     [field: SerializeField] AudioClip ItemPickSFX {get; set;}
+    [field: SerializeField] AudioClip InvEquipSFX {get; set;}
+    [field: SerializeField] AudioClip InvUnEquipSFX {get; set;}
+    [field: SerializeField] AudioClip LevelUpSFX {get; set;}
 
     void Awake() => singleton();
 
@@ -127,6 +133,11 @@ public class SM : MonoBehaviour {
             Destroy(gameObject);
     }
 
+#region EVENT
+        public void OnClickCloseBtnSFX() => SfxPlay(SFX.ClickSFX);
+#endregion
+
+#region FUNC
     public void SfxPlay(SFX sfx, float delay = 0) {
         //* GAME
         if(sfx == SFX.GameStartSFX) SfxPlayer.PlayOneShot(GameStartSFX);
@@ -174,12 +185,16 @@ public class SM : MonoBehaviour {
         if(sfx == SFX.PassArrowSFX) SfxPlayer.PlayOneShot(PassArrowSFX);
         if(sfx == SFX.ArrowRainSFX) SfxPlayer.PlayOneShot(ArrowRainSFX);
 
-        //* U        
+        //* UI   
         if(sfx == SFX.RewardSFX) SfxPlayer.PlayOneShot(RewardSFX);
         if(sfx == SFX.ClickSFX) SfxPlayer.PlayOneShot(ClickSFX);
         if(sfx == SFX.CompleteSFX) SfxPlayer.PlayOneShot(CompleteSFX);
         if(sfx == SFX.ErrorSFX) SfxPlayer.PlayOneShot(ErrorSFX);
         if(sfx == SFX.StageSelectSFX) SfxPlayer.PlayOneShot(StageSelectSFX);
         if(sfx == SFX.ItemPickSFX) SfxPlayer.PlayOneShot(ItemPickSFX);
+        if(sfx == SFX.InvEquipSFX) SfxPlayer.PlayOneShot(InvEquipSFX);
+        if(sfx == SFX.InvUnEquipSFX) SfxPlayer.PlayOneShot(InvUnEquipSFX);
+        if(sfx == SFX.LevelUpSFX) SfxPlayer.PlayOneShot(LevelUpSFX);
     }
+#endregion
 }

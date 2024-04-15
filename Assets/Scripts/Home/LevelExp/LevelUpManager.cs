@@ -24,6 +24,7 @@ public class LevelUpManager : MonoBehaviour {
     public GameObject WindowObj;
     public TMP_Text LevelMarkTxt;
     public Transform Content;
+    public bool IsFinishSlotsSpawn = false;
 
     [Header("REWARD DATA")]
     public InventoryUIItem rwdItemPf;
@@ -47,6 +48,11 @@ public class LevelUpManager : MonoBehaviour {
 #region EVENT
     public void OnClickCloseLevelUpPopUp() {
         Debug.Log("OnClickCloseLevelUpPopUp()::");
+        //* リワードスロットのアニメーションが全部終わるまで待つ
+        if(IsFinishSlotsSpawn)
+            return;
+
+        SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(false);
         StartCoroutine(CoReCheckLevelUp());
     }
@@ -59,8 +65,10 @@ public class LevelUpManager : MonoBehaviour {
         HM._.hui.ExpSlider.value = (float)Exp / MaxExp;
     }
     private void LevelUp() {
-        Lv++;
         Debug.Log($"LevelUp():: Lv= {Lv}, DB.Lv= {DM._.DB.StatusDB.Lv}");
+        SM._.SfxPlay(SM.SFX.LevelUpSFX);
+        // SM._.SfxPlay(SM.SFX.BossKilledSFX);
+        Lv++;
         var rewardList = new List<RewardItem> {
             new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 1000),
             new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], 5),
@@ -88,10 +96,21 @@ public class LevelUpManager : MonoBehaviour {
             Destroy(child.gameObject);
     }
 
+    IEnumerator CoPlayRewardSlotSpawnSFX(int cnt) {
+        IsFinishSlotsSpawn = true;
+        yield return Util.Time0_5;
+        for(int i = 0; i < cnt; i++) {
+            SM._.SfxPlay(SM.SFX.InvUnEquipSFX);
+            yield return Util.Time0_1;
+        }
+        IsFinishSlotsSpawn = false;
+    }
+
     /// <summary>
     /// リワードリスト表示
     /// </summary>
     private void DisplayRewardList(List<RewardItem> rewardList) {
+        StartCoroutine(CoPlayRewardSlotSpawnSFX(rewardList.Count));
         //* リワードリストへオブジェクト生成・追加
         for(int i = 0; i < rewardList.Count; i++) {
             RewardItem rewardItem = rewardList[i];
