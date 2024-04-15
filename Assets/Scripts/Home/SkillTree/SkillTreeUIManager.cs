@@ -200,7 +200,7 @@ public class SkillTreeUIManager : MonoBehaviour {
     private void UpdateMyPointTxt() {
         MySkillPointTxt.text = $"{HM._.SkillPoint}";
     }
-    private void UpdateAlertIcon() {
+    public void UpdateAlertIcon() {
         AlertIcon.SetActive(HM._.SkillPoint > 0);
         AlertIconTxt.text = HM._.SkillPoint.ToString();
     }

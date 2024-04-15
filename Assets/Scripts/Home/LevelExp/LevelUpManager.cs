@@ -72,10 +72,11 @@ public class LevelUpManager : MonoBehaviour {
             new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 1000),
             new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], 5),
             new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon]),
-            new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore0]),
+            new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.SkillPoint]),
         };
         ShowReward(rewardList);
         UpdateInventory(rewardList);
+        HM._.stm.UpdateAlertIcon();
     }
     
     IEnumerator CoReCheckLevelUp() {
