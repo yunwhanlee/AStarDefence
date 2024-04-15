@@ -31,6 +31,8 @@ public class Util : MonoBehaviour {
     public static WaitForSeconds Time4 = new WaitForSeconds(4);
     public static WaitForSeconds Time5 = new WaitForSeconds(5);
 
+    public static WaitForSecondsRealtime RealTime0_1 = new WaitForSecondsRealtime(0.1f);
+    public static WaitForSecondsRealtime RealTime0_5 = new WaitForSecondsRealtime(0.5f);
     public static WaitForSecondsRealtime RealTime1 = new WaitForSecondsRealtime(1);
     public static WaitForSecondsRealtime RealTime2 = new WaitForSecondsRealtime(2);
     public static WaitForSecondsRealtime RealTime3 = new WaitForSecondsRealtime(3);

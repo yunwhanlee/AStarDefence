@@ -6,6 +6,8 @@ public class GameRewardUIManager : MonoBehaviour {
     void Update() {
         if(Input.GetKeyDown(KeyCode.A)) {
             Debug.Log("VICTORY REWARD TEST");
+            GM._.Victory();
+
             //* リワード
             var rewardList = new List<RewardItem> {
                 new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 500),

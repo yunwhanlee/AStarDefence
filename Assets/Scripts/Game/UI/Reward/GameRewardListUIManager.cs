@@ -10,6 +10,7 @@ public class GameRewardListUIManager : MonoBehaviour {
     [Header("REWARD LIST POPUP")]
     public GameObject VictoryPopUpObj;
     public Transform Content;
+    public bool IsFinishSlotsSpawn = false;
 
     [Header("REWARD DATA")]
     public InventoryUIItem rwdItemPf;
@@ -21,10 +22,21 @@ public class GameRewardListUIManager : MonoBehaviour {
             Destroy(child.gameObject);
     }
 
+    IEnumerator CoPlayRewardSlotSpawnSFX(int cnt) {
+        IsFinishSlotsSpawn = true;
+        yield return Util.Time0_5;
+        for(int i = 0; i < cnt; i++) {
+            SM._.SfxPlay(SM.SFX.InvUnEquipSFX);
+            yield return Util.Time0_1;
+        }
+        IsFinishSlotsSpawn = false;
+    }
+
     /// <summary>
     /// リワードリスト表示
     /// </summary>
     private void DisplayRewardList(List<RewardItem> rewardList) {
+        StartCoroutine(CoPlayRewardSlotSpawnSFX(rewardList.Count));
         //* リワードリストへオブジェクト生成・追加
         for(int i = 0; i < rewardList.Count; i++) {
             RewardItem rewardItem = rewardList[i];

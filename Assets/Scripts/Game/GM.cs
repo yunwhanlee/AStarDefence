@@ -215,8 +215,11 @@ public class GM : MonoBehaviour {
         }
     }
 
-    private void Victory() {
-        gui.Pause();
+    public void Victory() {
+        // gui.Pause();
+        Time.timeScale = 1;
+        State = GameState.Pause;
+
         SM._.SfxPlay(SM.SFX.CompleteSFX);
         gui.VictoryPopUp.SetActive(true);
 
