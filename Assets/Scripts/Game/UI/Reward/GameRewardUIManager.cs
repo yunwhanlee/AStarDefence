@@ -7,7 +7,7 @@ public class GameRewardUIManager : MonoBehaviour {
     void Update() {
         if(Input.GetKeyDown(KeyCode.A)) {
             Debug.Log("REWARD TEST");
-            //* リワードリスト (最大８個)
+            //* リワード
             var rewardList = new List<RewardItem> {
                 new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 500),
                 new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 1000),

@@ -45,7 +45,7 @@ public class HM : MonoBehaviour {
             hui.ExpTxt.text = $"{value}";
         } 
     }
-    [field: SerializeField] public int GoblinKey {
+    [field: SerializeField] public int GoldKey {
         get => DM._.DB.StatusDB.GoldKey;
         set {
             DM._.DB.StatusDB.GoldKey = value;

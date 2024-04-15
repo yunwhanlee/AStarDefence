@@ -46,7 +46,7 @@ public class HomeUIManager : MonoBehaviour {
         CorMsgErrorID = null;
 
         //* Init Status Text UI
-        TopGoldKeyTxt.text = $"{HM._.GoblinKey}/{Config.MAX_GOBLINKEY}";
+        TopGoldKeyTxt.text = $"{HM._.GoldKey}/{Config.MAX_GOBLINKEY}";
         TopCoinTxt.text = $"{HM._.Coin}";
         TopDiamondTxt.text = $"{HM._.Diamond}";
         LvTxt.text = $"{HM._.Lv}";
