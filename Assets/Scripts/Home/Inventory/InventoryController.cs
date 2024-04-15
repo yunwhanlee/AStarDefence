@@ -15,8 +15,6 @@ namespace Inventory
         }
 
         void Start() {
-            DM._.LoadDt();
-
             ivm = HM._.ivm;
             PrepareUI();
             PrepareInventoryData();

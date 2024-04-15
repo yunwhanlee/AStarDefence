@@ -32,13 +32,14 @@ public class HM : MonoBehaviour {
     public Color RedOrangeColor;
     [field: SerializeField] public int SelectedStage {get; set;}
 
-    [field: SerializeField] public int Lv {
-        get => DM._.DB.StatusDB.Lv;
-        set {
-            DM._.DB.StatusDB.Lv = value;
-            hui.LvTxt.text = $"{value}";
-        } 
-    }
+    // [field: SerializeField] public int Lv {
+    //     get => DM._.DB.StatusDB.Lv;
+    //     set {
+    //         DM._.DB.StatusDB.Lv = value;
+    //         hui.LvTxt.text = $"{value}";
+    //         lvm.LevelMarkTxt.text = $"{value}";
+    //     } 
+    // }
     [field: SerializeField] public int GoldKey {
         get => DM._.DB.StatusDB.GoldKey;
         set {
@@ -84,10 +85,15 @@ public class HM : MonoBehaviour {
         ivm = GameObject.Find("InventoryUIManager").GetComponent<InventoryUIManager>();
         ivCtrl = GameObject.Find("InventoryController").GetComponent<InventoryController>();
         ivEqu = GameObject.Find("InventoryEquipUIManager").GetComponent<InventoryEquipUIManager>();
+        
+
 
         //* 初期化
         SelectedStage = 0;
+    }
 
+    void Start() {
+        DM._.LoadDt();
     }
 
     public void OnClickResetBtn() {

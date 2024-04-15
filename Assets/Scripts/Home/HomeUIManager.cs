@@ -49,7 +49,6 @@ public class HomeUIManager : MonoBehaviour {
         TopGoldKeyTxt.text = $"{HM._.GoldKey}/{Config.MAX_GOBLINKEY}";
         TopCoinTxt.text = $"{HM._.Coin}";
         TopDiamondTxt.text = $"{HM._.Diamond}";
-        LvTxt.text = $"{HM._.Lv}";
 
         //* クロバーEXPアイテム活性化 表示
         CloverActiveIcon.SetActive(DM._.DB.IsCloverActive);

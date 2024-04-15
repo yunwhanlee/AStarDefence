@@ -6,12 +6,20 @@ using UnityEngine.UI;
 using TMPro;
 
 public class LevelUpManager : MonoBehaviour {
+    [field: SerializeField] public int Lv {
+        get => DM._.DB.StatusDB.Lv;
+        set {
+            DM._.DB.StatusDB.Lv = value;
+            HM._.hui.LvTxt.text = $"{value}";
+            LevelMarkTxt.text = $"{value}";
+        } 
+    }
     [field: SerializeField] public int Exp {
         get => DM._.DB.StatusDB.Exp;
         set => UpdateData(value);
     }
     [field: SerializeField] public int MaxExp {
-        get => ExpDt.Datas[HM._.Lv - 1].Max;
+        get => ExpDt.Datas[Lv - 1].Max;
     }
     public GameObject WindowObj;
     public TMP_Text LevelMarkTxt;
@@ -21,10 +29,12 @@ public class LevelUpManager : MonoBehaviour {
     public InventoryUIItem rwdItemPf;
     [field: SerializeField] public SettingExpData ExpDt {get; private set;}
 
-
-    void Start() {
+    IEnumerator Start() {
+        //* HM.Start()でのDM.LoadDt()してから、下の処理を実行するために、子ルチンで少し待機
+        yield return Util.Time0_1;
         UpdateData(Exp);
         CheckLevelUp();
+        HM._.hui.LvTxt.text = $"{Lv}";
     }
 
     void Update() {
@@ -34,6 +44,14 @@ public class LevelUpManager : MonoBehaviour {
         }
     }
 
+#region EVENT
+    public void OnClickCloseLevelUpPopUp() {
+        Debug.Log("OnClickCloseLevelUpPopUp()::");
+        WindowObj.SetActive(false);
+        StartCoroutine(CoReCheckLevelUp());
+    }
+#endregion
+
 #region FUNC
     private void UpdateData(int value) {
         DM._.DB.StatusDB.Exp = value;
@@ -41,8 +59,8 @@ public class LevelUpManager : MonoBehaviour {
         HM._.hui.ExpSlider.value = (float)Exp / MaxExp;
     }
     private void LevelUp() {
-        Exp = 1;
-        LevelMarkTxt.text = $"{++HM._.Lv}";
+        Lv++;
+        Debug.Log($"LevelUp():: Lv= {Lv}, DB.Lv= {DM._.DB.StatusDB.Lv}");
         var rewardList = new List<RewardItem> {
             new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 1000),
             new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], 5),
@@ -52,11 +70,17 @@ public class LevelUpManager : MonoBehaviour {
         ShowReward(rewardList);
         UpdateInventory(rewardList);
     }
-
+    
+    IEnumerator CoReCheckLevelUp() {
+        yield return Util.Time0_2;
+        CheckLevelUp();
+    }
     public void CheckLevelUp() {
-        Debug.Log($"CheckLevelUp():: Exp={Exp}, MaxExp={MaxExp}");
-        if(Exp >= MaxExp)
+        if(Exp >= MaxExp) {
+            Exp -= MaxExp;
+            Debug.Log($"CheckLevelUp():: AfterLevel -> Exp={Exp}, MaxExp={MaxExp}");
             LevelUp();
+        }
     }
 
     private void DeleteAll() {

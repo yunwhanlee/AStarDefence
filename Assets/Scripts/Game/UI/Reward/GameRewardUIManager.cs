@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameRewardUIManager : MonoBehaviour {
-
     void Update() {
         if(Input.GetKeyDown(KeyCode.A)) {
             Debug.Log("REWARD TEST");
