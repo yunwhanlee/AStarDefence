@@ -50,7 +50,6 @@ public class HomeRewardListUIManager : MonoBehaviour {
             //* Particle UI Effect 2
             rwdItemUI.WhiteDimScaleUIEF.lifetime = 0.5f + i * 0.1f;
             rwdItemUI.WhiteDimScaleUIEF.Play();
-
         }
     }
     public void ShowReward(List<RewardItem> itemList) {

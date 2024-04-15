@@ -18,7 +18,7 @@ public class StatusDB {
 
     public StatusDB() {
         Lv = 1;
-        Exp = 8;
+        Exp = 1;
         GoldKey = 1;
         Coin = 0;
         Diamond = 0; 

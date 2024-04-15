@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Inventory;
 using Inventory.UI;
 using TMPro;
@@ -8,9 +9,6 @@ using UnityEngine.SceneManagement;
 
 public class HM : MonoBehaviour {
     public static HM _; //* Global
-
-    public Color SkyBlueColor;
-    public Color RedOrangeColor;
 
     //* Outside
     [HideInInspector] public HomeUIManager hui;
@@ -23,12 +21,15 @@ public class HM : MonoBehaviour {
     [HideInInspector] public WorkSpaceUIManager wsm;
     // SkillTree
     [HideInInspector] public SkillTreeUIManager stm;
+    [HideInInspector] public LevelUpManager lvm;
     // Inventory
     [HideInInspector] public InventoryUIManager ivm;
     [HideInInspector] public InventoryController ivCtrl;
     [HideInInspector] public InventoryEquipUIManager ivEqu;
 
     //* Value
+    public Color SkyBlueColor;
+    public Color RedOrangeColor;
     [field: SerializeField] public int SelectedStage {get; set;}
 
     [field: SerializeField] public int Lv {
@@ -36,13 +37,6 @@ public class HM : MonoBehaviour {
         set {
             DM._.DB.StatusDB.Lv = value;
             hui.LvTxt.text = $"{value}";
-        } 
-    }
-    [field: SerializeField] public int Exp {
-        get => DM._.DB.StatusDB.Exp;
-        set {
-            DM._.DB.StatusDB.Exp = value;
-            hui.ExpTxt.text = $"{value}";
         } 
     }
     [field: SerializeField] public int GoldKey {
@@ -93,10 +87,15 @@ public class HM : MonoBehaviour {
 
         //* 初期化
         SelectedStage = 0;
+
     }
 
     public void OnClickResetBtn() {
         DM._.Reset();
         SceneManager.LoadScene($"{Enum.Scene.Home}");
     }
+
+#region FUNC
+    
+#endregion
 }

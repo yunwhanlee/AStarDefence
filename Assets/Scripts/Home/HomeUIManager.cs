@@ -19,7 +19,7 @@ public class HomeUIManager : MonoBehaviour {
     [field: SerializeField] public TextMeshProUGUI TopDiamondTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI LvTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI ExpTxt {get; set;}
-
+    [field: SerializeField] public Slider ExpSlider {get; set;}
     [field: SerializeField] public GameObject CloverActiveIcon {get; set;}
     [field: SerializeField] public GameObject GoldCloverActiveIcon {get; set;}
 
@@ -50,7 +50,6 @@ public class HomeUIManager : MonoBehaviour {
         TopCoinTxt.text = $"{HM._.Coin}";
         TopDiamondTxt.text = $"{HM._.Diamond}";
         LvTxt.text = $"{HM._.Lv}";
-        ExpTxt.text = $"{HM._.Exp}";
 
         //* クロバーEXPアイテム活性化 表示
         CloverActiveIcon.SetActive(DM._.DB.IsCloverActive);

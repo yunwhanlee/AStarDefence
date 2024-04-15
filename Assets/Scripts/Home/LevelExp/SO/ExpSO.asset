@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9548b8020c114d4b96680b5ecb0567d, type: 3}
+  m_Name: ExpSO
+  m_EditorClassIdentifier: 
+  <Datas>k__BackingField:
+  - <Max>k__BackingField: 10
+  - <Max>k__BackingField: 25
+  - <Max>k__BackingField: 40
+  - <Max>k__BackingField: 55
+  - <Max>k__BackingField: 70
+  - <Max>k__BackingField: 75
+  - <Max>k__BackingField: 80
+  - <Max>k__BackingField: 90
+  - <Max>k__BackingField: 95
+  - <Max>k__BackingField: 105
+  - <Max>k__BackingField: 115
+  - <Max>k__BackingField: 130
+  - <Max>k__BackingField: 145
+  - <Max>k__BackingField: 160
+  - <Max>k__BackingField: 175
+  - <Max>k__BackingField: 185
+  - <Max>k__BackingField: 200
+  - <Max>k__BackingField: 215
+  - <Max>k__BackingField: 230
+  - <Max>k__BackingField: 385
+  - <Max>k__BackingField: 425
+  - <Max>k__BackingField: 480
+  - <Max>k__BackingField: 535
+  - <Max>k__BackingField: 580
+  - <Max>k__BackingField: 635
+  - <Max>k__BackingField: 785
+  - <Max>k__BackingField: 845
+  - <Max>k__BackingField: 895
+  - <Max>k__BackingField: 925
+  - <Max>k__BackingField: 975
+  - <Max>k__BackingField: 1010
+  - <Max>k__BackingField: 1095
+  - <Max>k__BackingField: 1165
+  - <Max>k__BackingField: 1250
+  - <Max>k__BackingField: 1335
+  - <Max>k__BackingField: 1425
+  - <Max>k__BackingField: 1545
+  - <Max>k__BackingField: 1625
+  - <Max>k__BackingField: 1685
+  - <Max>k__BackingField: 1735
+  - <Max>k__BackingField: 1800
+  - <Max>k__BackingField: 1975
+  - <Max>k__BackingField: 2165
+  - <Max>k__BackingField: 2370
+  - <Max>k__BackingField: 2585
+  - <Max>k__BackingField: 2815
+  - <Max>k__BackingField: 3065
+  - <Max>k__BackingField: 3340
+  - <Max>k__BackingField: 3645
+  - <Max>k__BackingField: 3985
+  - <Max>k__BackingField: 4365
+  - <Max>k__BackingField: 4790
+  - <Max>k__BackingField: 5265
+  - <Max>k__BackingField: 5795
+  - <Max>k__BackingField: 6385
+  - <Max>k__BackingField: 7040
+  - <Max>k__BackingField: 7765
+  - <Max>k__BackingField: 8565
+  - <Max>k__BackingField: 9445
+  - <Max>k__BackingField: 10410
+  - <Max>k__BackingField: 11465
+  - <Max>k__BackingField: 12615
+  - <Max>k__BackingField: 13865
+  - <Max>k__BackingField: 15220
+  - <Max>k__BackingField: 16685
+  - <Max>k__BackingField: 18265
+  - <Max>k__BackingField: 19965
+  - <Max>k__BackingField: 21790
+  - <Max>k__BackingField: 23745
+  - <Max>k__BackingField: 25700
+  - <Max>k__BackingField: 27655
+  - <Max>k__BackingField: 29610
+  - <Max>k__BackingField: 31565
+  - <Max>k__BackingField: 33520
+  - <Max>k__BackingField: 35475
+  - <Max>k__BackingField: 37430
+  - <Max>k__BackingField: 39385
+  - <Max>k__BackingField: 39385
+  - <Max>k__BackingField: 39385
+  - <Max>k__BackingField: 39385
+  - <Max>k__BackingField: 39385
+  - <Max>k__BackingField: 39385
+  - <Max>k__BackingField: 39385
+  - <Max>k__BackingField: 39385
+  - <Max>k__BackingField: 39385
+  - <Max>k__BackingField: 43295
+  - <Max>k__BackingField: 52265
+  - <Max>k__BackingField: 69200
+  - <Max>k__BackingField: 102990
+  - <Max>k__BackingField: 125645
