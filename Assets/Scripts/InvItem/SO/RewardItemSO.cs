@@ -31,13 +31,16 @@ public class RewardItem {
     public void UpdateItemData(Etc.NoshowInvItem noShowInvItem, int quantity) {
         switch (noShowInvItem) {
             case Etc.NoshowInvItem.GoldKey:
-                DM._.DB.StatusDB.GoldKey += quantity;
+                if(HM._)    HM._.GoldKey += quantity;
+                else        DM._.DB.StatusDB.GoldKey += quantity;
                 break;
             case Etc.NoshowInvItem.Coin:
-                DM._.DB.StatusDB.Coin += quantity;
+                if(HM._)    HM._.Coin += quantity;
+                else        DM._.DB.StatusDB.Coin += quantity;
                 break;
             case Etc.NoshowInvItem.Diamond:
-                DM._.DB.StatusDB.Diamond += quantity;
+                if(HM._)    HM._.Diamond += quantity;
+                else        DM._.DB.StatusDB.Diamond += quantity;
                 break;
             case Etc.NoshowInvItem.Exp:
                 DM._.DB.StatusDB.Exp += quantity;
@@ -54,7 +57,8 @@ public class RewardItem {
                 DM._.DB.MiningDB.OreCardCnts[oreLvIdx] += quantity;
                 break;
             case Etc.NoshowInvItem.SkillPoint:
-                DM._.DB.StatusDB.SkillPoint += quantity;
+                if(HM._)    HM._.SkillPoint += quantity;
+                else        DM._.DB.StatusDB.SkillPoint += quantity;
                 break;
         }
     }
