@@ -160,6 +160,12 @@ public class GameConsumeItemUIManager : MonoBehaviour {
                 break;
         }
         GM._.tm.RemoveAllTowerExtraDmg(key);
+
+        //* ステータスUI 最新化
+        if(GM._.tmc.HitObject != null) {
+            Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
+            GM._.gui.tsm.ShowTowerStateUI(tower.InfoState());
+        }
     }
 #endregion
 }

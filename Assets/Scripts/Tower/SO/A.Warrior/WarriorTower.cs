@@ -322,7 +322,7 @@ public class WarriorTower : Tower {
         if(GM._.tmc.HitObject != null)
             GM._.gui.tsm.ShowTowerStateUI(InfoState());
 
-        yield return new WaitForSeconds(10);
+        yield return Util.Time10;
         IsCheerUpActive = true;
     }
 #endregion

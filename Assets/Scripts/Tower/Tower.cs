@@ -69,7 +69,7 @@ public abstract class Tower : MonoBehaviour {
             foreach(var dic in ExtraSpdDic)
                 extraSpd += dic.Value;
             //* 合計
-            return TowerData.AtkSpeed + extraSpd; //? (速度が⊖値になるのが正しい)
+            return TowerData.AtkSpeed + extraSpd;
         }
     }
 

@@ -80,8 +80,7 @@ public class TowerManager : MonoBehaviour {
         //* 全てタワー
         allTowerList.ForEach(tower => {
             //* スタイル変更
-            Util._.SetRedMt(tower.BodySprRdr);
-
+            // Util._.SetRedMt(tower.BodySprRdr);
             //* 追加タメージ
             int extraDmg = (int)(tower.TowerData.Dmg * extraDmgPer);
             if(tower.ExtraDmgDic.ContainsKey(dicKey))
@@ -100,7 +99,7 @@ public class TowerManager : MonoBehaviour {
         //* 全てタワー
         allTowerList.ForEach(tower => {
             //* スタイル戻す
-            Util._.SetDefMt(tower.BodySprRdr);
+            // Util._.SetDefMt(tower.BodySprRdr);
             //* ダメージと速度戻す
             tower.ExtraDmgDic.Remove(key);
         });
@@ -119,10 +118,9 @@ public class TowerManager : MonoBehaviour {
         //* 全てタワー
         allTowerList.ForEach(tower => {
             //* スタイル変更
-            Util._.SetRedMt(tower.BodySprRdr);
-
+            // Util._.SetRedMt(tower.BodySprRdr);
             //* 追加タメージ
-            int extraSpd = (int)(tower.TowerData.AtkSpeed * extraSpdPer);
+            float extraSpd = (float)(tower.TowerData.AtkSpeed * extraSpdPer);
             if(tower.ExtraSpdDic.ContainsKey(dicKey))
                 tower.ExtraSpdDic.Remove(dicKey);
             tower.ExtraSpdDic.Add(dicKey, extraSpd);
@@ -139,7 +137,7 @@ public class TowerManager : MonoBehaviour {
         //* 全てタワー
         allTowerList.ForEach(tower => {
             //* スタイル戻す
-            Util._.SetDefMt(tower.BodySprRdr);
+            // Util._.SetDefMt(tower.BodySprRdr);
             //* ダメージと速度戻す
             tower.ExtraSpdDic.Remove(key);
         });
