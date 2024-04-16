@@ -17,12 +17,15 @@ public class ConsumableItemBtn {
         set {
             waitTurnNum = value;
             WaitTurnTxt.text = $"{value}턴";
+            Dim.SetActive(value > 0);
         }
     }
     [field: SerializeField] public GameObject Dim {get; set;}
     [field: SerializeField] public ParticleSystem ParticleEF {get; set;}
     [field: SerializeField] public TMP_Text QuantityTxt {get; set;}
     [field: SerializeField] public TMP_Text WaitTurnTxt {get; set;}
+
+
 }
 
 /// <summary>
@@ -43,7 +46,7 @@ public class GameConsumeItemUIManager : MonoBehaviour {
     void Start() {
         foreach(var item in ConsumableItemBtns) {
             item.QuantityTxt.text = "1";
-            item.Dim.SetActive(false);
+            item.WaitTurnNum = 0;
         }
     }
 
@@ -95,22 +98,19 @@ public class GameConsumeItemUIManager : MonoBehaviour {
     IEnumerator CoSteamPack0Active() {
         const string STEAMPACK0 = "STEAMPACK0";
 
-
         SM._.SfxPlay(SM.SFX.CheerUpSFX);
+
+        //* 能力 メッセージ
+        var enumConsumableItem = GM._.rwlm.RwdItemDt.EtcConsumableDatas;
+        GM._.gui.ShowMsgNotice(enumConsumableItem[(int)Etc.ConsumableItem.SteamPack0].Description);
+
         // CheerUpEF.SetActive(true);
         float dmgUpPer = 1.3f;
         ConsumableItemBtns[0].ParticleEF.Play();
         ConsumableItemBtns[0].WaitTurnNum = 2;
-        ConsumableItemBtns[0].Dim.SetActive(true);
 
         //* 全てタワーを探す
-        List<Tower> allTowerList = new List<Tower>();
-        for(int i = 0 ; i < GM._.tm.WarriorGroup.childCount; i++)
-            allTowerList.Add(GM._.tm.WarriorGroup.GetChild(i).GetComponentInChildren<Tower>());
-        for(int i = 0 ; i < GM._.tm.ArcherGroup.childCount; i++)
-            allTowerList.Add(GM._.tm.ArcherGroup.GetChild(i).GetComponentInChildren<Tower>());
-        for(int i = 0 ; i < GM._.tm.MagicianGroup.childCount; i++)
-            allTowerList.Add(GM._.tm.MagicianGroup.GetChild(i).GetComponentInChildren<Tower>());
+        List<Tower> allTowerList = GM._.tm.GetAllTower();
 
         //* 全てタワー
         allTowerList.ForEach(tower => {

@@ -286,13 +286,7 @@ public class WarriorTower : Tower {
         CheerUpSpdUp = (float)(TowerData.AtkSpeed * SK3_CheerUpDmgSpdIncPers[LvIdx]);
 
         //* 全てタワーを探す
-        List<Tower> allTowerList = new List<Tower>();
-        for(int i = 0 ; i < GM._.tm.WarriorGroup.childCount; i++)
-            allTowerList.Add(GM._.tm.WarriorGroup.GetChild(i).GetComponentInChildren<Tower>());
-        for(int i = 0 ; i < GM._.tm.ArcherGroup.childCount; i++)
-            allTowerList.Add(GM._.tm.ArcherGroup.GetChild(i).GetComponentInChildren<Tower>());
-        for(int i = 0 ; i < GM._.tm.MagicianGroup.childCount; i++)
-            allTowerList.Add(GM._.tm.MagicianGroup.GetChild(i).GetComponentInChildren<Tower>());
+        List<Tower> allTowerList = GM._.tm.GetAllTower();
 
         //* 全てタワー
         allTowerList.ForEach(tower => {

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RewardItemData
   m_EditorClassIdentifier: 
   <EtcConsumableDatas>k__BackingField:
+  - {fileID: 11400000, guid: 5b3155c04e4929b459298d5cc42e695c, type: 2}
+  - {fileID: 11400000, guid: cc85e923b150d85409ef392668e26a1e, type: 2}
   - {fileID: 11400000, guid: 2008658a7f9938b4a90b913f530adc2d, type: 2}
   - {fileID: 11400000, guid: 646213eda1797d04484ad5b9cc49cb8d, type: 2}
-  - {fileID: 11400000, guid: cc85e923b150d85409ef392668e26a1e, type: 2}
-  - {fileID: 11400000, guid: 5b3155c04e4929b459298d5cc42e695c, type: 2}
   - {fileID: 11400000, guid: 4a4de2b829ad6b84e9079b19c1a487a8, type: 2}
   - {fileID: 11400000, guid: 26e21f24a5d896f41b746d8ba6046115, type: 2}
   - {fileID: 11400000, guid: fad9708e48335ad498287c5f9c4738e8, type: 2}

@@ -297,7 +297,10 @@ public class GameUIManager : MonoBehaviour {
         BottomMsgNotice.SetActive(true);
         BottomMsgNotice.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, y);
         MsgNoticeTxt.text = msg;
-        yield return Util.RealTime1;
+        yield return Time.timeScale == 1.5f? Util.Time1_5
+            : Time.timeScale == 2? Util.Time2
+            : Time.timeScale == 4? Util.Time4
+            : Util.Time1;
         BottomMsgNotice.SetActive(false);
     }
     public bool ShowErrMsgCreateTowerAtPlayState() {

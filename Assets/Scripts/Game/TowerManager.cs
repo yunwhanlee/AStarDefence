@@ -55,7 +55,19 @@ public class TowerManager : MonoBehaviour {
         CCTowerMax = 2;
         CCTowerCnt = 0;
     }
+#region FUNC
+    public List<Tower> GetAllTower() {
+        List<Tower> allTowerList = new List<Tower>();
+        for(int i = 0 ; i < WarriorGroup.childCount; i++)
+            allTowerList.Add(WarriorGroup.GetChild(i).GetComponentInChildren<Tower>());
+        for(int i = 0 ; i < ArcherGroup.childCount; i++)
+            allTowerList.Add(ArcherGroup.GetChild(i).GetComponentInChildren<Tower>());
+        for(int i = 0 ; i < MagicianGroup.childCount; i++)
+            allTowerList.Add(MagicianGroup.GetChild(i).GetComponentInChildren<Tower>());
 
+        return allTowerList;
+    }
+#endregion
 #region CREATE
     public void InstallBoard() {
         Debug.Log("InstallBoard()::");
