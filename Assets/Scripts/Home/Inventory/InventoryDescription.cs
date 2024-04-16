@@ -262,6 +262,7 @@ namespace Inventory.UI {
                         string msg = Config.ABILITY_DECS[(int)rType];
                         AbilityData[] relicAllAbilityDatas = item.Abilities;
                         AbilityData relicAbility = Array.Find(relicAllAbilityDatas, rAbility => rAbility.Type == rType);
+                        Debug.Log("rType=" + rType + ", relicAbility= " + relicAbility);
                         float val = relicAbility.Val + (lvIdx * relicAbility.UpgradeVal);
                         //* V{N} → 能力数値変換(実際のアイテムデータ)
                         bool isIntType = (rType == AbilityType.StartMoney || rType == AbilityType.StartLife || rType == AbilityType.BonusCoinBy10Kill); //rType == AbilityType.SkillPoint);

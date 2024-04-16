@@ -20,6 +20,12 @@ MonoBehaviour:
   <Description>k__BackingField: 
   <ItemImg>k__BackingField: {fileID: 542386597, guid: e433c8bb469a03548ae052468f941483, type: 3}
   <Abilities>k__BackingField:
+  - Type: 3
+    Val: 0.04
+    UpgradeVal: 0.006
+  - Type: 4
+    Val: 0.35
+    UpgradeVal: 0.04
   - Type: 5
     Val: 0.15
     UpgradeVal: 0.02
@@ -35,15 +41,12 @@ MonoBehaviour:
   - Type: 9
     Val: 0.12
     UpgradeVal: 0.01
-  - Type: 3
-    Val: 0.04
-    UpgradeVal: 0.006
-  - Type: 4
-    Val: 0.35
-    UpgradeVal: 0.04
-  - Type: 11
+  - Type: 10
     Val: 2
     UpgradeVal: 0
+  - Type: 11
+    Val: 0.1
+    UpgradeVal: 0.01
   - Type: 12
     Val: 0.15
     UpgradeVal: 0.02
@@ -52,13 +55,10 @@ MonoBehaviour:
     UpgradeVal: 0.02
   - Type: 14
     Val: 0.15
-    UpgradeVal: 0.02
+    UpgradeVal: 0.01
   - Type: 15
     Val: 0.15
     UpgradeVal: 0.01
   - Type: 16
-    Val: 0.15
-    UpgradeVal: 0.01
-  - Type: 17
     Val: 0.15
     UpgradeVal: 0.01
