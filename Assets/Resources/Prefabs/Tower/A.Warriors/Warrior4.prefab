@@ -29289,8 +29289,6 @@ MonoBehaviour:
   MissileSpr: {fileID: 0}
   Name: 
   Lv: 2
-  AtkRange: 1.5
-  CritDmgPer: 0
   SlowSec: 0
   StunSec: 0
   RageAuraEF: {fileID: 4557551623412061038}
@@ -48875,8 +48873,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Tower>k__BackingField: {fileID: 0}
   <SprRdr>k__BackingField: {fileID: 0}
-  TargetList: []
   <CurTarget>k__BackingField: {fileID: 0}
+  TargetList: []
 --- !u!58 &219873314043732724
 CircleCollider2D:
   m_ObjectHideFlags: 0

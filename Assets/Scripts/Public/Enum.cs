@@ -83,7 +83,7 @@ public class Etc {
         return NoshowInvItem.Ore; //* 何も該当することがなかったら、エラーとして表示
     }
     public enum ConsumableItem {
-        BizzardScroll, LightningScroll, SteamPack0, SteamPack1,
+        SteamPack0, SteamPack1, BizzardScroll, LightningScroll,
         ChestCommon, ChestDiamond, ChestEquipment, ChestGold, ChestPremium,
         Clover, GoldClover,
         Present0, Present1, Present2,
@@ -104,10 +104,10 @@ public class Etc {
 
     public static ConsumableItem GetConsumableItem(int idx) {
         switch(idx) {
-            case 0: return ConsumableItem.BizzardScroll;
-            case 1: return ConsumableItem.LightningScroll;
-            case 2: return ConsumableItem.SteamPack0;
-            case 3: return ConsumableItem.SteamPack1;
+            case 0: return ConsumableItem.SteamPack0;
+            case 1: return ConsumableItem.SteamPack1;
+            case 2: return ConsumableItem.BizzardScroll;
+            case 3: return ConsumableItem.LightningScroll;
         }
         return ConsumableItem.BizzardScroll;
     }

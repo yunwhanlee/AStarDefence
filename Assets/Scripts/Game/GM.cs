@@ -62,6 +62,7 @@ public class GM : MonoBehaviour {
     public MissileManager mm;
     public GameRewardUIManager rwm;
     public GameRewardListUIManager rwlm;
+    public GameConsumeItemUIManager gcsm;
 
     void Awake() {
         //* Global化 値 代入
@@ -81,6 +82,7 @@ public class GM : MonoBehaviour {
         mm = GameObject.Find("MissileManager").GetComponent<MissileManager>();
         rwm = GameObject.Find("MissileManager").GetComponent<GameRewardUIManager>();
         rwlm = GameObject.Find("GameRewardListUIManager").GetComponent<GameRewardListUIManager>();
+        gcsm = GameObject.Find("GameConsumeItemUIManager").GetComponent<GameConsumeItemUIManager>();
 
         //* 初期化
         state = GameState.Ready;
@@ -213,6 +215,10 @@ public class GM : MonoBehaviour {
             }
             bossRwd.Active(rwdSelectCnt);
         }
+
+        //* 消費アイテムの待機ターンを一個 減る
+        gcsm.CheckConsumeItemWaitTurn();
+
     }
 
     public void Victory() {

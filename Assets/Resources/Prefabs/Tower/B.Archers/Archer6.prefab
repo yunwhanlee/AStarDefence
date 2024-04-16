@@ -38851,8 +38851,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Tower>k__BackingField: {fileID: 0}
   <SprRdr>k__BackingField: {fileID: 0}
-  TargetList: []
   <CurTarget>k__BackingField: {fileID: 0}
+  TargetList: []
 --- !u!58 &1417441894091411568
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -63031,8 +63031,6 @@ MonoBehaviour:
   MissileSpr: {fileID: -270779740, guid: 58c24ccdded125944a2253fe8954a33b, type: 3}
   Name: 
   Lv: 2
-  AtkRange: 3
-  CritDmgPer: 0
   SlowSec: 0
   StunSec: 0
   <PerfectAimAuraEF>k__BackingField: {fileID: 2499159274795602843}

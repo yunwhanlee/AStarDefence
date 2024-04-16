@@ -58709,8 +58709,6 @@ MonoBehaviour:
   MissileSpr: {fileID: 0}
   Name: 
   Lv: 2
-  AtkRange: 1.5
-  CritDmgPer: 0
   SlowSec: 0
   StunSec: 0
   RageAuraEF: {fileID: 2013655013029150396}

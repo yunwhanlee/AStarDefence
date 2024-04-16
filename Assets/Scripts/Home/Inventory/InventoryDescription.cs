@@ -185,10 +185,10 @@ namespace Inventory.UI {
                     };
                 }
                 //* Ingameで使えるアイテムの情報 表示
-                else if(item.name == $"{Etc.ConsumableItem.BizzardScroll}"
-                || item.name == $"{Etc.ConsumableItem.LightningScroll}"
-                || item.name == $"{Etc.ConsumableItem.SteamPack0}"
+                else if(item.name == $"{Etc.ConsumableItem.SteamPack0}"
                 || item.name == $"{Etc.ConsumableItem.SteamPack1}"
+                || item.name == $"{Etc.ConsumableItem.BizzardScroll}"
+                || item.name == $"{Etc.ConsumableItem.LightningScroll}"
                 || item.name == $"{Etc.ConsumableItem.MagicStone}"
                 || item.name == $"{Etc.ConsumableItem.SoulStone}")
                 {
