@@ -31,6 +31,8 @@ public class SM : MonoBehaviour {
         Magic6SFX,
         CCFrostSFX,
         CCLightningSFX,
+        FrostNovaSFX,
+        LightningNovaSFX,
         // Hit
         HitSFX,
         MetalHitSFX,
@@ -90,6 +92,8 @@ public class SM : MonoBehaviour {
     [field: SerializeField] AudioClip Magic6SFX {get; set;}
     [field: SerializeField] AudioClip CCFrostSFX {get; set;}
     [field: SerializeField] AudioClip CCLightningSFX {get; set;}
+    [field: SerializeField] AudioClip FrostNovaSFX {get; set;}
+    [field: SerializeField] AudioClip LightningNovaSFX {get; set;}
     // Hit
     [field: SerializeField] AudioClip[] HitSFXs {get; set;}
     [field: SerializeField] AudioClip[] MetalHitSFXs {get; set;}
@@ -165,6 +169,8 @@ public class SM : MonoBehaviour {
         if(sfx == SFX.Magic6SFX) SfxPlayer.PlayOneShot(Magic6SFX);
         if(sfx == SFX.CCFrostSFX) SfxPlayer.PlayOneShot(CCFrostSFX);
         if(sfx == SFX.CCLightningSFX) SfxPlayer.PlayOneShot(CCLightningSFX);
+        if(sfx == SFX.FrostNovaSFX) SfxPlayer.PlayOneShot(FrostNovaSFX);
+        if(sfx == SFX.LightningNovaSFX) SfxPlayer.PlayOneShot(LightningNovaSFX);
         // Hit
         if(sfx == SFX.HitSFX) SfxPlayer.PlayOneShot(HitSFXs[Random.Range(0, HitSFXs.Length)]);
         if(sfx == SFX.MetalHitSFX) SfxPlayer.PlayOneShot(MetalHitSFXs[Random.Range(0, MetalHitSFXs.Length)]);

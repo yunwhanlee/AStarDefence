@@ -353,7 +353,7 @@ public class WarriorTower : Tower {
             Enemy enemy = enemyGroup.GetChild(i).GetComponent<Enemy>();
             int dmg = Mathf.RoundToInt(Dmg * SK4_RoarDmgPers[LvIdx]);
             enemy.DecreaseHp(dmg);
-            if(enemy.gameObject.activeSelf)
+            if(enemy != null && enemy.gameObject.activeSelf)
                 enemy.Stun(1.5f);
         }
 

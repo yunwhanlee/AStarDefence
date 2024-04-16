@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.Pool;
 using TMPro;
 
+public enum GameEF_ActiveObj {
+    BlizzardScrollNovaEF,
+    LightningScrollNovaEF
+}
+
 public enum GameEF_UI {
     StageTitleAnim,
 }
@@ -62,10 +67,14 @@ public enum GameEF {
 }
 
 public class GameEffectManager : MonoBehaviour {
-    /* UI Active Type */
+    [field:Header("Obj Active Type")]
+    [field:SerializeField] public GameObject BlizzardScrollNovaEF;
+    [field:SerializeField] public GameObject LightningScrollNovaEF;
+
+    [field:Header("UI Active Type")]
     [field:SerializeField] public GameObject StageTitleAnim;
 
-    /* Pool Type */
+    [field:Header("Pool Type")]
     List<ObjectPool<GameObject>> pool = new List<ObjectPool<GameObject>>();
     [field:SerializeField] public GameObject BuildTowerEF;
     [field:SerializeField] public GameObject WoodDestroyEF;
@@ -232,4 +241,16 @@ public class GameEffectManager : MonoBehaviour {
         StageTitleAnim.SetActive(false);
     }
 #endregion
+#region OBJ ACTIVE EFFECT
+    public void ActiveObjEF(GameEF_ActiveObj activeObj) => StartCoroutine(CoActiveObjEF(activeObj));
+    IEnumerator CoActiveObjEF(GameEF_ActiveObj activeObj) {
+        GameObject objEF = (activeObj == GameEF_ActiveObj.BlizzardScrollNovaEF)? BlizzardScrollNovaEF
+            : (activeObj == GameEF_ActiveObj.LightningScrollNovaEF)? BlizzardScrollNovaEF
+            : null;
+        objEF.SetActive(true);
+        yield return Util.Time2;
+        objEF.SetActive(false);
+    }
+#endregion
+
 }

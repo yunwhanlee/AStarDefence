@@ -217,7 +217,7 @@ public class GM : MonoBehaviour {
         }
 
         //* 消費アイテムの待機ターンを一個 減る
-        gcsm.CheckConsumeItemWaitTurn();
+        gcsm.DecreaseConsumeItemWaitTurn();
 
     }
 

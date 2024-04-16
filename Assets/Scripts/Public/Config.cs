@@ -50,10 +50,13 @@ public static class Config {
 
     public const int INC_MAX_LIFE = 15;
 
-    public const int STEAMPACK_WAIT_TURN = 2;
+    public const int CONSUMEITEM_WAIT_TURN = 1;
     public const float STREAMPACK_DURATION = 10;
     public const float STEAMPACK0_EXTRA_DMG_PER = 0.5f;
     public const float STEAMPACK1_EXTRA_SPD_PER = 0.2f;
+
+    public const int BLIZZARDSCROLL_SLOW_SEC = 5;
+    public const int LIGHTNINGSCROLL_STUN_SEC = 3;
 #endregion
 
 #region PRICE

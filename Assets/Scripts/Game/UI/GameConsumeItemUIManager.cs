@@ -19,8 +19,12 @@ public class ConsumableItemBtn {
         get => waitTurnNum;
         set {
             waitTurnNum = value;
-            WaitTurnTxt.text = DimImg.fillAmount < 1? "" : $"{value}턴";
-            // DimImg.gameObject.SetActive(value > 0);
+            if(WaitTurnNum < 0) {
+                WaitTurnNum = 0;
+                WaitTurnTxt.text = "";
+            } 
+            WaitTurnTxt.text = (WaitTurnNum == 0)? "" : $"{value}턴";
+            DimImg.fillAmount = (WaitTurnNum == 0)? 0 : 1;
         }
     }
     [field: SerializeField] public Image DimImg {get; set;}
@@ -67,6 +71,7 @@ public class GameConsumeItemUIManager : MonoBehaviour {
     /// </summary>
     /// <param name="idx">0: Steampack0, 1: Steampack1, 2: BlizzardScroll, 3: LighteningScroll</param>
     public void OnClickConsumeItemBtn(int idx) {
+        if(CheckAvailable(idx) == false) return;
         switch(idx) {
             case (int)Etc.ConsumableItem.SteamPack0:
                 SteamPackActive(Etc.ConsumableItem.SteamPack0);
@@ -75,36 +80,82 @@ public class GameConsumeItemUIManager : MonoBehaviour {
                 SteamPackActive(Etc.ConsumableItem.SteamPack1);
                 break;
             case (int)Etc.ConsumableItem.BizzardScroll:
+                ScrollActive(Etc.ConsumableItem.BizzardScroll);
                 break;
             case (int)Etc.ConsumableItem.LightningScroll:
+                ScrollActive(Etc.ConsumableItem.LightningScroll);
                 break;
         }
     }
 #endregion
 
 #region FUNC
+    private bool CheckAvailable(int itemIdx) {
+        var consumeItemBtn = ConsumableItemBtns[itemIdx];
+        if(consumeItemBtn.IsActive) {
+            GM._.gui.ShowMsgError($"현재 적용 중입니다!");
+            return false;
+        }
+        else if(consumeItemBtn.WaitTurnNum > 0) {
+            GM._.gui.ShowMsgError($"재사용까지 {consumeItemBtn.WaitTurnNum}턴 남았습니다!");
+            return false;
+        }
+
+        return true;
+    }
+
     /// <summary>
     /// 消費アイテムの待機ターンがなるものを確認し、ターンを減る
     /// </summary>
-    public void CheckConsumeItemWaitTurn() {
-        Debug.Log("CheckConsumeItemWaitTurn()::");
+    public void DecreaseConsumeItemWaitTurn() {
+        Debug.Log("DecreaseConsumeItemWaitTurn()::");
         for(int i = 0; i < ConsumableItemBtns.Length; i++) {
             var cItem = ConsumableItemBtns[i];
-            if(cItem.WaitTurnNum > 0)
+            // if(cItem.WaitTurnNum > 0)
                 --ConsumableItemBtns[i].WaitTurnNum;
         }
     }
 
+    private void ScrollActive(Etc.ConsumableItem itemEnumIdx) {
+        int itemIdx = (int)itemEnumIdx;
+        ItemSO[] consumableItem = GM._.rwlm.RwdItemDt.EtcConsumableDatas;
+        
+        Transform enemyGroup = GM._.em.enemyObjGroup;
+
+        //* Set 待機時間
+        ConsumableItemBtns[itemIdx].DimImg.fillAmount = 1;
+        ConsumableItemBtns[itemIdx].WaitTurnNum = Config.CONSUMEITEM_WAIT_TURN;
+
+        //* 能力 メッセージ
+        GM._.gui.ShowMsgNotice(consumableItem[itemIdx].Description);
+        ConsumableItemBtns[itemIdx].ParticleEF.Play();
+
+        switch(itemEnumIdx) {
+            case Etc.ConsumableItem.BizzardScroll:
+                SM._.SfxPlay(SM.SFX.FrostNovaSFX);
+                GM._.gef.ActiveObjEF(GameEF_ActiveObj.BlizzardScrollNovaEF);
+                //* 全ての敵を凍らせる
+                for(int i = 0; i < enemyGroup.childCount; i++) {
+                    Enemy enemy = enemyGroup.GetChild(i).GetComponent<Enemy>();
+                    if(enemy != null && enemy.gameObject.activeSelf)
+                        enemy.Slow(sec: Config.BLIZZARDSCROLL_SLOW_SEC);
+                }
+                break;
+            case Etc.ConsumableItem.LightningScroll:
+                SM._.SfxPlay(SM.SFX.LightningNovaSFX);
+                GM._.gef.ActiveObjEF(GameEF_ActiveObj.LightningScrollNovaEF);
+                //* 全ての敵を凍らせる
+                for(int i = 0; i < enemyGroup.childCount; i++) {
+                    Enemy enemy = enemyGroup.GetChild(i).GetComponent<Enemy>();
+                    if(enemy != null && enemy.gameObject.activeSelf)
+                        enemy.Stun(sec: Config.LIGHTNINGSCROLL_STUN_SEC);
+                }
+                break;
+        }
+    }
+
+    #region STEAMPACK 
     private void SteamPackActive(Etc.ConsumableItem itemEnumIdx) {
-        var consumeItemBtn = ConsumableItemBtns[(int)itemEnumIdx];
-        if(consumeItemBtn.IsActive) {
-            GM._.gui.ShowMsgError($"현재 적용 중입니다!");
-            return;
-        }
-        else if(consumeItemBtn.WaitTurnNum > 0) {
-            GM._.gui.ShowMsgError($"재사용까지 {consumeItemBtn.WaitTurnNum}턴 남았습니다!");
-            return;
-        }
         StartCoroutine(CoSteamPackActive(itemEnumIdx));
     }
 
@@ -152,8 +203,8 @@ public class GameConsumeItemUIManager : MonoBehaviour {
         //* アクティブトリガー OFF
         ConsumableItemBtns[itemIdx].IsActive = false;
 
-        //* 待機時間を登録 （TxtUIもset処理で行うため、Buffが終わってからやる）
-        ConsumableItemBtns[itemIdx].WaitTurnNum = Config.STEAMPACK_WAIT_TURN;
+        //* Set 待機時間 （TxtUIもset処理で行うため、Buffが終わってからやる）
+        ConsumableItemBtns[itemIdx].WaitTurnNum = Config.CONSUMEITEM_WAIT_TURN;
 
         //* Buff 解除
         switch(itemEnumIdx) {
@@ -174,5 +225,6 @@ public class GameConsumeItemUIManager : MonoBehaviour {
             GM._.gui.tsm.ShowTowerStateUI(tower.InfoState());
         }
     }
+    #endregion
 #endregion
 }
