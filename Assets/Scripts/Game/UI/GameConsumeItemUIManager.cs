@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Inventory.Model;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -63,9 +64,10 @@ public class GameConsumeItemUIManager : MonoBehaviour {
     public void OnClickConsumeItemBtn(int idx) {
         switch(idx) {
             case (int)Etc.ConsumableItem.SteamPack0:
-                SteamPack0Active();
+                SteamPackActive(Etc.ConsumableItem.SteamPack0);
                 break;
             case (int)Etc.ConsumableItem.SteamPack1:
+                SteamPackActive(Etc.ConsumableItem.SteamPack1);
                 break;
             case (int)Etc.ConsumableItem.BizzardScroll:
                 break;
@@ -88,64 +90,54 @@ public class GameConsumeItemUIManager : MonoBehaviour {
         }
     }
 
-    public void SteamPack0Active() {
-        if(ConsumableItemBtns[0].WaitTurnNum > 0) {
+    private void SteamPackActive(Etc.ConsumableItem itemEnumIdx) {
+        if(ConsumableItemBtns[(int)itemEnumIdx].WaitTurnNum > 0) {
             GM._.gui.ShowMsgError($"재사용하려면 {ConsumableItemBtns[0].WaitTurnNum}이 남았습니다!");
             return;
         }
-        StartCoroutine(CoSteamPack0Active());
-    } 
-    IEnumerator CoSteamPack0Active() {
-        const string STEAMPACK0 = "STEAMPACK0";
+        StartCoroutine(CoSteamPackActive(itemEnumIdx));
+    }
+
+    IEnumerator CoSteamPackActive(Etc.ConsumableItem itemEnumIdx) {
+        int itemIdx = (int)itemEnumIdx;
+        ItemSO[] consumableItem = GM._.rwlm.RwdItemDt.EtcConsumableDatas;
+        string key = consumableItem[itemIdx].name;
 
         SM._.SfxPlay(SM.SFX.CheerUpSFX);
 
         //* 能力 メッセージ
-        var enumConsumableItem = GM._.rwlm.RwdItemDt.EtcConsumableDatas;
-        GM._.gui.ShowMsgNotice(enumConsumableItem[(int)Etc.ConsumableItem.SteamPack0].Description);
+        GM._.gui.ShowMsgNotice(consumableItem[itemIdx].Description);
+        ConsumableItemBtns[itemIdx].ParticleEF.Play();
+        ConsumableItemBtns[itemIdx].WaitTurnNum = Config.STEAMPACK_WAIT_TURN;
 
-        // CheerUpEF.SetActive(true);
-        float dmgUpPer = 1.3f;
-        ConsumableItemBtns[0].ParticleEF.Play();
-        ConsumableItemBtns[0].WaitTurnNum = 2;
+        //* Buff 追加
+        switch(itemEnumIdx) {
+            case Etc.ConsumableItem.SteamPack0:
+                GM._.tm.AddAllTowerExtraDmg(key, Config.STEAMPACK0_EXTRA_DMG_PER);
+                break;
+            case Etc.ConsumableItem.SteamPack1:
+                GM._.tm.AddAllTowerExtraSpd(key, Config.STEAMPACK1_EXTRA_SPD_PER);
+                break;
+        }
 
-        //* 全てタワーを探す
-        List<Tower> allTowerList = GM._.tm.GetAllTower();
-
-        //* 全てタワー
-        allTowerList.ForEach(tower => {
-            //* スタイル変更
-            Util._.SetRedMt(tower.BodySprRdr);
-
-            //* 追加タメージ
-            int extraDmg = (int)(tower.TowerData.Dmg * dmgUpPer);
-            if(tower.ExtraDmgDic.ContainsKey(STEAMPACK0))
-                tower.ExtraDmgDic.Remove(STEAMPACK0);
-            tower.ExtraDmgDic.Add(STEAMPACK0, extraDmg);
-        });
-
+        //* ステータスUI 最新化
         if(GM._.tmc.HitObject != null) {
             Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
             GM._.gui.tsm.ShowTowerStateUI(tower.InfoState());
         }
 
-        yield return Util.Time5;
-        // CheerUpEF.SetActive(false);
+        yield return Util.Time10; //* 10秒待機
 
-        //* 全てタワー
-        allTowerList.ForEach(tower => {
-            //* スタイル戻す
-            Util._.SetDefMt(tower.BodySprRdr);
-            //* ダメージと速度戻す
-            tower.ExtraDmgDic.Remove(STEAMPACK0);
-            tower.ExtraSpdDic.Remove(STEAMPACK0);
-        });
-
-        // if(GM._.tmc.HitObject != null)
-            // GM._.gui.tsm.ShowTowerStateUI(InfoState());
-
-        // yield return new WaitForSeconds(10);
-        // IsCheerUpActive = true;
+        //* Buff 解除
+        switch(itemEnumIdx) {
+            case Etc.ConsumableItem.SteamPack0:
+                GM._.tm.RemoveAllTowerExtraDmg(key);
+                break;
+            case Etc.ConsumableItem.SteamPack1:
+                GM._.tm.RemoveAllTowerExtraSpd(key);
+                break;
+        }
+        GM._.tm.RemoveAllTowerExtraDmg(key);
     }
 #endregion
 }

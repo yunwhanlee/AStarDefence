@@ -67,6 +67,84 @@ public class TowerManager : MonoBehaviour {
 
         return allTowerList;
     }
+    #region ALL TOWER : EXTRA DMG BUFF
+    /// <summary>
+    /// 全てのタワーへ追加ダメージBUFF 追加
+    /// </summary>
+    /// <param name="dicKey">追加するBUFFのキー</param>
+    /// <param name="extraDmgPer">追加ダメージ％</param>
+    public void AddAllTowerExtraDmg(string dicKey, float extraDmgPer) {
+        //* 全てタワーを探す
+        List<Tower> allTowerList = GM._.tm.GetAllTower();
+
+        //* 全てタワー
+        allTowerList.ForEach(tower => {
+            //* スタイル変更
+            Util._.SetRedMt(tower.BodySprRdr);
+
+            //* 追加タメージ
+            int extraDmg = (int)(tower.TowerData.Dmg * extraDmgPer);
+            if(tower.ExtraDmgDic.ContainsKey(dicKey))
+                tower.ExtraDmgDic.Remove(dicKey);
+            tower.ExtraDmgDic.Add(dicKey, extraDmg);
+        });
+    }
+    /// <summary>
+    /// 全てのタワーへ追加ダメージBUFF 解除
+    /// </summary>
+    /// <param name="key">解除するBUFFのキー</param>
+    public void RemoveAllTowerExtraDmg(string key) {
+        //* 全てタワー
+        List<Tower> allTowerList = GM._.tm.GetAllTower();
+
+        //* 全てタワー
+        allTowerList.ForEach(tower => {
+            //* スタイル戻す
+            Util._.SetDefMt(tower.BodySprRdr);
+            //* ダメージと速度戻す
+            tower.ExtraDmgDic.Remove(key);
+        });
+    }
+    #endregion
+    #region ALL TOWER : EXTRA SPD BUFF
+    /// <summary>
+    /// 全てのタワーへ追加スピードBUFF 追加
+    /// </summary>
+    /// <param name="dicKey">追加するBUFFのキー</param>
+    /// <param name="extraDmgPer">追加ダメージ％</param>
+    public void AddAllTowerExtraSpd(string dicKey, float extraSpdPer) {
+        //* 全てタワーを探す
+        List<Tower> allTowerList = GM._.tm.GetAllTower();
+
+        //* 全てタワー
+        allTowerList.ForEach(tower => {
+            //* スタイル変更
+            Util._.SetRedMt(tower.BodySprRdr);
+
+            //* 追加タメージ
+            int extraSpd = (int)(tower.TowerData.AtkSpeed * extraSpdPer);
+            if(tower.ExtraSpdDic.ContainsKey(dicKey))
+                tower.ExtraSpdDic.Remove(dicKey);
+            tower.ExtraSpdDic.Add(dicKey, extraSpd);
+        });
+    }
+    /// <summary>
+    /// 全てのタワーへ追加スピードBUFF 解除
+    /// </summary>
+    /// <param name="key">解除するBUFFのキー</param>
+    public void RemoveAllTowerExtraSpd(string key) {
+        //* 全てタワー
+        List<Tower> allTowerList = GM._.tm.GetAllTower();
+
+        //* 全てタワー
+        allTowerList.ForEach(tower => {
+            //* スタイル戻す
+            Util._.SetDefMt(tower.BodySprRdr);
+            //* ダメージと速度戻す
+            tower.ExtraSpdDic.Remove(key);
+        });
+    }
+    #endregion
 #endregion
 #region CREATE
     public void InstallBoard() {
