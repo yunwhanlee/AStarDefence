@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AssetKits.ParticleImage;
 using Inventory.Model;
 using TMPro;
 using UnityEngine;
@@ -42,6 +43,8 @@ public class GameConsumeItemUIManager : MonoBehaviour {
     [field: SerializeField] public Image BagIconImg {get; set;}
     [field: SerializeField] public GameObject ConsumeItemBtnGroup {get; set;}
     [field: SerializeField] public ConsumableItemBtn[] ConsumableItemBtns {get; set;}
+    [field: SerializeField] public ParticleImage StreamPack0AuraUIEF {get; set;}
+    [field: SerializeField] public ParticleImage StreamPack1AuraUIEF {get; set;}
 
     [field: SerializeField] public bool IsBagActive {get; set;}
 
@@ -121,9 +124,11 @@ public class GameConsumeItemUIManager : MonoBehaviour {
         //* Buff 追加
         switch(itemEnumIdx) {
             case Etc.ConsumableItem.SteamPack0:
+                StreamPack0AuraUIEF.Play();
                 GM._.tm.AddAllTowerExtraDmg(key, Config.STEAMPACK0_EXTRA_DMG_PER);
                 break;
             case Etc.ConsumableItem.SteamPack1:
+                StreamPack1AuraUIEF.Play();
                 GM._.tm.AddAllTowerExtraSpd(key, Config.STEAMPACK1_EXTRA_SPD_PER);
                 break;
         }
@@ -153,9 +158,11 @@ public class GameConsumeItemUIManager : MonoBehaviour {
         //* Buff 解除
         switch(itemEnumIdx) {
             case Etc.ConsumableItem.SteamPack0:
+                StreamPack0AuraUIEF.Stop();
                 GM._.tm.RemoveAllTowerExtraDmg(key);
                 break;
             case Etc.ConsumableItem.SteamPack1:
+                StreamPack1AuraUIEF.Stop();
                 GM._.tm.RemoveAllTowerExtraSpd(key);
                 break;
         }
