@@ -171,6 +171,16 @@ namespace Inventory
             ivEqu.EquipUIEFs[(int)type].Play();
             // HM._.ivEqu.SetEquipAbilityData(curInvItem);
         }
+
+        public void ResetCurrentRelicAbilities() {
+            Debug.Log("ResetCurrentRelicAbilities()::");
+            var ivm = HM._.ivm;
+            ItemSO itemDt = ivm.CurInvItem.Data;
+            //* 新しい能力
+            AbilityType[] newRelicAbilities = InventoryData.CheckRelicAbilitiesData(itemDt);
+            //* Relicの能力 変更
+            InventoryData.ItemList[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(newRelicAbilities);
+        }
     #endregion
     }
     #endregion

@@ -160,7 +160,7 @@ public class RewardItemSO : ScriptableObject {
                 if (rand < endRange) {
                     Debug.Log($"<color=yellow>OpenPresent0():: {i}: {item.name} {item.Name}, rand= {rand} / {randMax}, Range: {startRange} - {endRange - 1}</color>");
 
-                    //* RELICなら、ランダムで能力
+                    //* ★RELICなら、ランダムで能力
                     var relicAbilities = HM._.ivCtrl.InventoryData.CheckRelicAbilitiesData(item);
 
                     rewardList.Add(new RewardItem(item, quantity, relicAbilities));

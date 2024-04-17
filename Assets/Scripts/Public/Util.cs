@@ -65,6 +65,11 @@ public class Util : MonoBehaviour {
         return isCritical;
     }
 
+    /// <summary>
+    /// 小数点四捨五入し、何桁まで表示
+    /// </summary>
+    /// <param name="val">数値</param>
+    /// <param name="decimalCount">小数点何桁まで</param>
     public static float RoundDecimal(float val, int decimalCount = 2) {
         float multiplier = Mathf.Pow(10, decimalCount);
         return Mathf.Round(val * multiplier) / multiplier;
@@ -112,6 +117,7 @@ public class Util : MonoBehaviour {
 
     public static int GetSize_AbilityType() 
         => System.Enum.GetValues(typeof(AbilityType)).Length;
+
     public static AbilityType[] GetEnumArray_AbilityType()
         => (AbilityType[])System.Enum.GetValues(typeof(AbilityType));
 }

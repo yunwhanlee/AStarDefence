@@ -29,6 +29,7 @@ namespace Inventory.UI {
         [field:SerializeField] private GameObject SoulStoneBtnObj {get; set;}
         [field:SerializeField] private ParticleImage ItemImgScaleUIEF {get; set;}
         [field:SerializeField] private ParticleImage UpgradeSucessUIEF {get; set;}
+        [field:SerializeField] private ParticleImage MagicStoneSpawnUIEF {get; set;}
         [field:SerializeField] private Image TopBg {get; set;}
         [field:SerializeField] private Image GlowBg {get; set;}
         [field:SerializeField] private Image ItemBg {get; set;}
@@ -47,6 +48,8 @@ namespace Inventory.UI {
         [field:SerializeField] private TMP_Text UpgradeSuccessPerTxt {get; set;}
         [field:SerializeField] private RectTransform UpgValToogleHandleTf {get; set;}
         [field:SerializeField] private TMP_Text UpgValToogleHandleTxt {get; set;}
+        [field:SerializeField] private TMP_Text MagicStoneBtnTxt {get; set;}
+        [field:SerializeField] private TMP_Text SoulStoneBtnTxt {get; set;}
 
         InventoryUIManager ivm;
 
@@ -118,11 +121,71 @@ namespace Inventory.UI {
                 ivm.CurInvItem.IsEquip
             );
         }
-        public void OnClickStoneBtn() {
-            HM._.hui.ShowAgainAskMsg("매직스톤을 사용하여 유물의 능력을 바꾸시겠습니까?");
-            HM._.hui.OnClickAskConfirmAction = () => {
-                Debug.Log("DECREASE STONE");
+
+        private bool CheckStoneItemQuantity(Etc.ConsumableItem itemEnumIdx, string againAskMsg) {
+            InventoryItem stoneItem = HM._.ivCtrl.InventoryData.ItemList.Find( item
+                => !item.IsEmpty && item.Data.name == itemEnumIdx.ToString());
+            if(stoneItem.IsEmpty) {
+                HM._.hui.ShowMsgError("사용할 아이템이 없습니다.");
+                return false;
+            }
+            //* 本当にしますか？メッセージ
+            HM._.hui.ShowAgainAskMsg(againAskMsg);
+            return true;
+        }
+
+        /// <summary>
+        /// ストーンボタンクリック
+        /// </summary>
+        /// <param name="idx">0: SoulStone, 1: MagicStone</param>
+        public void OnClickStoneBtn(int idx) {
+            //* パラメーター１
+            Etc.ConsumableItem[] stoneItemEnumList = {
+                Etc.ConsumableItem.SoulStone, 
+                Etc.ConsumableItem.MagicStone, 
             };
+            //* パラメーター２
+            string[] againAskMsgs = {
+                "소울스톤을 사용하여 잠재능력을 개방하시겠습니까?",
+                "매직스톤을 사용하여 유물의 능력을 바꾸시겠습니까?"
+            };
+
+            //* ストーンアイテムが有るか 確認
+            if(!CheckStoneItemQuantity(stoneItemEnumList[idx], againAskMsgs[idx]))
+                return;
+
+            //* AgainAskPopUpクリックボタンイベント登録
+            HM._.hui.OnClickAskConfirmAction = () => {
+                switch(idx) {
+                    case 0:
+                        //TODO SOUL STONE
+                        break;
+                    case 1:
+                        //* インベントリデータから、残る量を減る
+                        int invItemIdx = HM._.ivCtrl.InventoryData.ItemList.FindIndex (itemDt
+                            => !itemDt.IsEmpty && itemDt.Data.name == stoneItemEnumList[idx].ToString());
+                        HM._.ivCtrl.InventoryData.DecreaseItem(invItemIdx, -1);
+
+                        //* リセット RELIC 能力
+                        ResetCurrentRelicAbilities();
+                        break;
+                }
+            };
+        }
+        private void ResetCurrentRelicAbilities() {
+            int curIdx = HM._.ivm.CurItemIdx;
+            SM._.SfxPlay(SM.SFX.InvStoneSFX);
+            MagicStoneSpawnUIEF.Play();
+
+            //* リセット
+            HM._.ivCtrl.ResetCurrentRelicAbilities();
+            InventoryItem  curItem = HM._.ivCtrl.InventoryData.ItemList[curIdx];
+
+            //* イベントリーUI アップデート
+            HM._.ivCtrl.InventoryData.InformAboutChange();
+
+            //* 情報表示ポップアップUI アップデート
+            HM._.ivm.UpdateDescription(curIdx, curItem.Data, curItem.Quantity, curItem.Lv, curItem.RelicAbilities, curItem.IsEquip);
         }
 #endregion
 
@@ -140,6 +203,8 @@ namespace Inventory.UI {
             Description.text = "";
             UpgradePriceTxt.text = "";
             UpgradeSuccessPerTxt.text = "";
+            MagicStoneBtnTxt.text = "0";
+            SoulStoneBtnTxt.text = "0";
         }
 
         private void ActiveCloverItem(GameObject icon, bool isActive, Color ActiveColor) {
@@ -277,7 +342,7 @@ namespace Inventory.UI {
                         AbilityData[] relicAllAbilityDatas = item.Abilities;
                         AbilityData relicAbility = Array.Find(relicAllAbilityDatas, rAbility => rAbility.Type == rType);
                         Debug.Log("rType=" + rType + ", relicAbility= " + relicAbility);
-                        float val = relicAbility.Val + (lvIdx * relicAbility.UpgradeVal);
+                        float val = Util.RoundDecimal(relicAbility.Val + (lvIdx * relicAbility.UpgradeVal));
                         //* V{N} → 能力数値変換(実際のアイテムデータ)
                         bool isIntType = (rType == AbilityType.StartMoney || rType == AbilityType.StartLife || rType == AbilityType.BonusCoinBy10Kill); //rType == AbilityType.SkillPoint);
                         string abilityMsg = msg.Replace($"V", $"{val * (isIntType? 1 : 100)}");
@@ -292,7 +357,7 @@ namespace Inventory.UI {
                     for(int i = 0; i < item.Abilities.Length; i++) {
                         var ability = item.Abilities[i];
                         string msg = Config.ABILITY_DECS[(int)ability.Type];
-                        float val = ability.Val + (lvIdx * ability.UpgradeVal);
+                        float val = Util.RoundDecimal(ability.Val + (lvIdx * ability.UpgradeVal));
                         //* V{N} → 能力数値変換(実際のアイテムデータ)
                         string abilityMsg = msg.Replace($"V", $"{val * 100}");
                         //* 強化数値表示 トーグル(登録したアップグレードデータ)
@@ -313,6 +378,9 @@ namespace Inventory.UI {
                 Debug.Log($"ePrices.Length= {ePrices.Length}, lvIdx= {lvIdx}");
                 MagicStoneBtnObj.SetActive(isRelic);
                 SoulStoneBtnObj.SetActive(!isRelic);
+                var invItemList = HM._.ivCtrl.InventoryData.ItemList;
+                MagicStoneBtnTxt.text = $"{invItemList.Find(item => !item.IsEmpty && item.Data.name == $"{Etc.ConsumableItem.MagicStone}").Quantity}";
+                SoulStoneBtnTxt.text = $"{invItemList.Find(item => !item.IsEmpty && item.Data.name == $"{Etc.ConsumableItem.SoulStone}").Quantity}";
                 EquipBtnTxt.text = isEquip? "해제" : "장비";
                 EquipBtnBg.sprite = BtnBgSprs[isEquip? RED_BTN : BLUE_BTN];
                 UpgradePriceTxt.text = $"강화\n{(isLvMax? "MAX" : $"<sprite name=Coin>{(isRelic? rPrices[lvIdx] : ePrices[lvIdx])}")}";

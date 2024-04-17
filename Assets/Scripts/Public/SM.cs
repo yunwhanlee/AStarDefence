@@ -63,6 +63,7 @@ public class SM : MonoBehaviour {
         ItemPickSFX,
         InvEquipSFX,
         InvUnEquipSFX,
+        InvStoneSFX,
         LevelUpSFX,
     }
 
@@ -124,6 +125,7 @@ public class SM : MonoBehaviour {
     [field: SerializeField] AudioClip ItemPickSFX {get; set;}
     [field: SerializeField] AudioClip InvEquipSFX {get; set;}
     [field: SerializeField] AudioClip InvUnEquipSFX {get; set;}
+    [field: SerializeField] AudioClip InvStoneSFX {get; set;}
     [field: SerializeField] AudioClip LevelUpSFX {get; set;}
 
     void Awake() => singleton();
@@ -200,6 +202,7 @@ public class SM : MonoBehaviour {
         if(sfx == SFX.ItemPickSFX) SfxPlayer.PlayOneShot(ItemPickSFX);
         if(sfx == SFX.InvEquipSFX) SfxPlayer.PlayOneShot(InvEquipSFX);
         if(sfx == SFX.InvUnEquipSFX) SfxPlayer.PlayOneShot(InvUnEquipSFX);
+        if(sfx == SFX.InvStoneSFX) SfxPlayer.PlayOneShot(InvStoneSFX);
         if(sfx == SFX.LevelUpSFX) SfxPlayer.PlayOneShot(LevelUpSFX);
     }
 #endregion
