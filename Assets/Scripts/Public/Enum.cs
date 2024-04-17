@@ -109,7 +109,7 @@ public class Etc {
             case 2: return ConsumableItem.BizzardScroll;
             case 3: return ConsumableItem.LightningScroll;
         }
-        return ConsumableItem.BizzardScroll;
+        return ConsumableItem.SteamPack0;
     }
 }
 

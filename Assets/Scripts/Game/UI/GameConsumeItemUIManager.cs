@@ -31,8 +31,6 @@ public class ConsumableItemBtn {
     [field: SerializeField] public ParticleSystem ParticleEF {get; set;}
     [field: SerializeField] public TMP_Text QuantityTxt {get; set;}
     [field: SerializeField] public TMP_Text WaitTurnTxt {get; set;}
-
-
 }
 
 /// <summary>
@@ -53,11 +51,15 @@ public class GameConsumeItemUIManager : MonoBehaviour {
     [field: SerializeField] public bool IsBagActive {get; set;}
 
     void Start() {
+        //* 初期化
         foreach(var item in ConsumableItemBtns) {
-            item.QuantityTxt.text = "1";
             item.WaitTurnNum = 0;
             item.IsActive = false;
+            item.QuantityTxt.text = "0";
         }
+
+        //* インベントリーからの消費アイテムの数 表示
+        UpdateBtnQuantityTxt();
     }
 
 #region EVENT
@@ -71,36 +73,64 @@ public class GameConsumeItemUIManager : MonoBehaviour {
     /// </summary>
     /// <param name="idx">0: Steampack0, 1: Steampack1, 2: BlizzardScroll, 3: LighteningScroll</param>
     public void OnClickConsumeItemBtn(int idx) {
-        if(CheckAvailable(idx) == false) return;
-        switch(idx) {
-            case (int)Etc.ConsumableItem.SteamPack0:
-                SteamPackActive(Etc.ConsumableItem.SteamPack0);
+        Etc.ConsumableItem itemEnumIdx = Etc.GetConsumableItem(idx);
+        //* アイテム利用が出来るのかチェック
+        if(CheckAvailable(itemEnumIdx) == false) return;
+
+        //* インベントリデータから、残る量を減る
+        int invItemIdx = GM._.InventoryData.ItemList.FindIndex (itemDt
+            => !itemDt.IsEmpty && itemDt.Data.name == itemEnumIdx.ToString());
+        var invItemDt = GM._.InventoryData.ItemList[invItemIdx];        
+        GM._.InventoryData.ItemList[invItemIdx] = invItemDt.ChangeQuantity(invItemDt.Quantity - 1);
+
+        //* 能力 反映
+        switch(itemEnumIdx) {
+            case Etc.ConsumableItem.SteamPack0:
+                SteamPackActive(itemEnumIdx);
                 break;
-            case (int)Etc.ConsumableItem.SteamPack1:
-                SteamPackActive(Etc.ConsumableItem.SteamPack1);
+            case Etc.ConsumableItem.SteamPack1:
+                SteamPackActive(itemEnumIdx);
                 break;
-            case (int)Etc.ConsumableItem.BizzardScroll:
-                ScrollActive(Etc.ConsumableItem.BizzardScroll);
+            case Etc.ConsumableItem.BizzardScroll:
+                ScrollActive(itemEnumIdx);
                 break;
-            case (int)Etc.ConsumableItem.LightningScroll:
-                ScrollActive(Etc.ConsumableItem.LightningScroll);
+            case Etc.ConsumableItem.LightningScroll:
+                ScrollActive(itemEnumIdx);
                 break;
         }
     }
 #endregion
 
 #region FUNC
-    private bool CheckAvailable(int itemIdx) {
-        var consumeItemBtn = ConsumableItemBtns[itemIdx];
-        if(consumeItemBtn.IsActive) {
-            GM._.gui.ShowMsgError($"현재 적용 중입니다!");
-            return false;
+    private void UpdateBtnQuantityTxt() {
+        foreach(var itemDt in GM._.InventoryData.ItemList) {
+            if(itemDt.Data.name == $"{Etc.ConsumableItem.SteamPack0}")
+                ConsumableItemBtns[0].QuantityTxt.text = $"{itemDt.Quantity}";
+            if(itemDt.Data.name == $"{Etc.ConsumableItem.SteamPack1}")
+                ConsumableItemBtns[1].QuantityTxt.text = $"{itemDt.Quantity}";
+            if(itemDt.Data.name == $"{Etc.ConsumableItem.BizzardScroll}")
+                ConsumableItemBtns[2].QuantityTxt.text = $"{itemDt.Quantity}";
+            if(itemDt.Data.name == $"{Etc.ConsumableItem.LightningScroll}")
+                ConsumableItemBtns[3].QuantityTxt.text = $"{itemDt.Quantity}";
         }
-        else if(consumeItemBtn.WaitTurnNum > 0) {
-            GM._.gui.ShowMsgError($"재사용까지 {consumeItemBtn.WaitTurnNum}턴 남았습니다!");
-            return false;
-        }
+    }
+    private bool CheckAvailable(Etc.ConsumableItem itemEnumIdx) {
+        ConsumableItemBtn iconBtn = ConsumableItemBtns[(int)itemEnumIdx];
+        InventoryItem findInvItem = GM._.InventoryData.ItemList.Find ( itemDt
+            => !itemDt.IsEmpty && itemDt.Data.name == itemEnumIdx.ToString());
 
+        if(findInvItem.Quantity <= 0) {
+            GM._.gui.ShowMsgError("사용할 아이템이 없습니다.");
+            return false;
+        }
+        else if(iconBtn.IsActive) {
+            GM._.gui.ShowMsgError("현재 적용 중입니다!");
+            return false;
+        }
+        else if(iconBtn.WaitTurnNum > 0) {
+            GM._.gui.ShowMsgError($"재사용까지 {iconBtn.WaitTurnNum}턴 남았습니다!");
+            return false;
+        }
         return true;
     }
 
@@ -110,10 +140,9 @@ public class GameConsumeItemUIManager : MonoBehaviour {
     public void DecreaseConsumeItemWaitTurn() {
         Debug.Log("DecreaseConsumeItemWaitTurn()::");
         for(int i = 0; i < ConsumableItemBtns.Length; i++) {
-            var cItem = ConsumableItemBtns[i];
-            // if(cItem.WaitTurnNum > 0)
-                --ConsumableItemBtns[i].WaitTurnNum;
+            --ConsumableItemBtns[i].WaitTurnNum;
         }
+        UpdateBtnQuantityTxt();
     }
 
     private void ScrollActive(Etc.ConsumableItem itemEnumIdx) {
@@ -155,9 +184,8 @@ public class GameConsumeItemUIManager : MonoBehaviour {
     }
 
     #region STEAMPACK 
-    private void SteamPackActive(Etc.ConsumableItem itemEnumIdx) {
-        StartCoroutine(CoSteamPackActive(itemEnumIdx));
-    }
+    private void SteamPackActive(Etc.ConsumableItem itemEnumIdx)
+        => StartCoroutine(CoSteamPackActive(itemEnumIdx));
 
     IEnumerator CoSteamPackActive(Etc.ConsumableItem itemEnumIdx) {
         int itemIdx = (int)itemEnumIdx;

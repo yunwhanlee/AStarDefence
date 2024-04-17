@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
+using Inventory.Model;
 // using UnityEditorInternal;
 // using UnityEditor.SceneManagement;
 // using UnityEngine.Events;
@@ -25,6 +26,7 @@ public class GM : MonoBehaviour {
     Coroutine CorReadyWaveID;
     public static GM _; //* Global
 
+    [SerializeField] public InventorySO InventoryData;
     [SerializeField] GameState state;   public GameState State {get => state; set => state = value;}
     [field: SerializeField] public bool IsReady;
     [field: SerializeField] public StageData[] StageDts;
