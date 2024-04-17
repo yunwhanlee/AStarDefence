@@ -139,6 +139,7 @@ namespace Inventory.UI {
         /// </summary>
         /// <param name="idx">0: SoulStone, 1: MagicStone</param>
         public void OnClickStoneBtn(int idx) {
+            SM._.SfxPlay(SM.SFX.ClickSFX);
             //* パラメーター１
             Etc.ConsumableItem[] stoneItemEnumList = {
                 Etc.ConsumableItem.SoulStone, 
