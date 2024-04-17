@@ -6,6 +6,7 @@ using TMPro;
 using Inventory.Model;
 using System;
 using AssetKits.ParticleImage;
+using System.Linq;
 
 namespace Inventory.UI {
     /// <summary>
@@ -29,6 +30,7 @@ namespace Inventory.UI {
         [field:SerializeField] private GameObject SoulStoneBtnObj {get; set;}
         [field:SerializeField] private ParticleImage ItemImgScaleUIEF {get; set;}
         [field:SerializeField] private ParticleImage UpgradeSucessUIEF {get; set;}
+        [field:SerializeField] private ParticleImage SoulStoneSpawnUIEF {get; set;}
         [field:SerializeField] private ParticleImage MagicStoneSpawnUIEF {get; set;}
         [field:SerializeField] private Image TopBg {get; set;}
         [field:SerializeField] private Image GlowBg {get; set;}
@@ -129,6 +131,7 @@ namespace Inventory.UI {
                 HM._.hui.ShowMsgError("사용할 아이템이 없습니다.");
                 return false;
             }
+
             //* 本当にしますか？メッセージ
             HM._.hui.ShowAgainAskMsg(againAskMsg);
             return true;
@@ -146,8 +149,12 @@ namespace Inventory.UI {
                 Etc.ConsumableItem.MagicStone, 
             };
             //* パラメーター２
+            string potentialStatusWord = "";
+            if(idx == 0)
+                potentialStatusWord = HM._.ivm.CurInvItem.RelicAbilities.Length == 0? "개방" : "변경";
+
             string[] againAskMsgs = {
-                "소울스톤을 사용하여 잠재능력을 개방하시겠습니까?",
+                $"소울스톤을 사용하여 잠재능력을 {potentialStatusWord}하시겠습니까?",
                 "매직스톤을 사용하여 유물의 능력을 바꾸시겠습니까?"
             };
 
@@ -158,10 +165,17 @@ namespace Inventory.UI {
             //* AgainAskPopUpクリックボタンイベント登録
             HM._.hui.OnClickAskConfirmAction = () => {
                 switch(idx) {
-                    case 0:
-                        //TODO SOUL STONE
+                    case 0: {
+                        //* インベントリデータから、残る量を減る
+                        int invItemIdx = HM._.ivCtrl.InventoryData.ItemList.FindIndex (itemDt
+                            => !itemDt.IsEmpty && itemDt.Data.name == stoneItemEnumList[idx].ToString());
+                        HM._.ivCtrl.InventoryData.DecreaseItem(invItemIdx, -1);
+
+                        //* Potential Ability 解放
+                        OpenEquipPotentialAbility();
                         break;
-                    case 1:
+                    }
+                    case 1: {
                         //* インベントリデータから、残る量を減る
                         int invItemIdx = HM._.ivCtrl.InventoryData.ItemList.FindIndex (itemDt
                             => !itemDt.IsEmpty && itemDt.Data.name == stoneItemEnumList[idx].ToString());
@@ -170,23 +184,39 @@ namespace Inventory.UI {
                         //* リセット RELIC 能力
                         ResetCurrentRelicAbilities();
                         break;
+                    }
                 }
             };
         }
+
+        private void OpenEquipPotentialAbility() {
+            int curIdx = HM._.ivm.CurItemIdx;
+            SM._.SfxPlay(SM.SFX.InvStoneSFX);
+            SoulStoneSpawnUIEF.Play();
+
+            //* 新しいRelic能力を一つランダム選択
+            InventoryItem curInvItem = HM._.ivCtrl.OpenCurrentEquipPotentialAbility();
+
+            //* イベントリーUI アップデート
+            HM._.ivCtrl.InventoryData.InformAboutChange();
+
+            //* 情報表示ポップアップUI アップデート
+            HM._.ivm.UpdateDescription(curIdx, curInvItem.Data, curInvItem.Quantity, curInvItem.Lv, curInvItem.RelicAbilities, curInvItem.IsEquip);
+        }
+
         private void ResetCurrentRelicAbilities() {
             int curIdx = HM._.ivm.CurItemIdx;
             SM._.SfxPlay(SM.SFX.InvStoneSFX);
             MagicStoneSpawnUIEF.Play();
 
             //* リセット
-            HM._.ivCtrl.ResetCurrentRelicAbilities();
-            InventoryItem  curItem = HM._.ivCtrl.InventoryData.ItemList[curIdx];
+            InventoryItem curInvItem = HM._.ivCtrl.ResetCurrentRelicAbilities();
 
             //* イベントリーUI アップデート
             HM._.ivCtrl.InventoryData.InformAboutChange();
 
             //* 情報表示ポップアップUI アップデート
-            HM._.ivm.UpdateDescription(curIdx, curItem.Data, curItem.Quantity, curItem.Lv, curItem.RelicAbilities, curItem.IsEquip);
+            HM._.ivm.UpdateDescription(curIdx, curInvItem.Data, curInvItem.Quantity, curInvItem.Lv, curInvItem.RelicAbilities, curInvItem.IsEquip);
         }
 #endregion
 
@@ -338,15 +368,20 @@ namespace Inventory.UI {
                 if(isRelic) {
                     for(int i = 0; i < relicAbilities.Length; i++) {
                         AbilityType rType = relicAbilities[i];
-                        //* データ取る
+
+                        //* 説明メッセージ
                         string msg = Config.ABILITY_DECS[(int)rType];
+
                         AbilityData[] relicAllAbilityDatas = item.Abilities;
                         AbilityData relicAbility = Array.Find(relicAllAbilityDatas, rAbility => rAbility.Type == rType);
                         Debug.Log("rType=" + rType + ", relicAbility= " + relicAbility);
+
                         float val = Util.RoundDecimal(relicAbility.Val + (lvIdx * relicAbility.UpgradeVal));
+
                         //* V{N} → 能力数値変換(実際のアイテムデータ)
                         bool isIntType = (rType == AbilityType.StartMoney || rType == AbilityType.StartLife || rType == AbilityType.BonusCoinBy10Kill); //rType == AbilityType.SkillPoint);
                         string abilityMsg = msg.Replace($"V", $"{val * (isIntType? 1 : 100)}");
+
                         //* 強化数値表示 トーグル(登録したアップグレードデータ)
                         string upgradeMsg = (relicAbility.UpgradeVal == 0)? "<color=grey>( 고정 )</color>" : $"<color=green>( {$"+{relicAbility.UpgradeVal * (isIntType? 1 : 100)}%"} )</color>";
                         string upgradeToogleMsg = IsUpgradeValToogle? upgradeMsg : "";
@@ -365,6 +400,42 @@ namespace Inventory.UI {
                         string upgradeMsg = (ability.UpgradeVal == 0)? "<color=grey>( 고정 )</color>" : $"<color=green>( {$"+{ability.UpgradeVal * 100}%"} )</color>";
                         string upgradeToogleMsg = IsUpgradeValToogle? upgradeMsg : "";
                         resMsg += $"{abilityMsg} {upgradeToogleMsg}\n";
+                    }
+
+                    //* Potential Ability
+                    if(relicAbilities.Length == 1) {
+                        AbilityType rType = relicAbilities[0];
+
+                        //* 説明メッセージ
+                        string msg = Config.ABILITY_DECS[(int)rType];
+
+                        //* Potential能力データリスト
+                        ItemSO[] relicDts = HM._.rwlm.RwdItemDt.RelicDatas;
+                        AbilityData[] relicAllAbilityDatas = null;
+                        switch(item.Grade) {
+                            case Enum.Grade.Common: 
+                            case Enum.Grade.Rare: 
+                            case Enum.Grade.Epic:   relicAllAbilityDatas = relicDts[0].Abilities;   break;
+                            case Enum.Grade.Unique: relicAllAbilityDatas = relicDts[1].Abilities;   break;
+                            case Enum.Grade.Legend: relicAllAbilityDatas = relicDts[2].Abilities;   break;
+                            case Enum.Grade.Myth:   relicAllAbilityDatas = relicDts[3].Abilities;   break;
+                            case Enum.Grade.Prime:  relicAllAbilityDatas = relicDts[4].Abilities;   break;
+                        }
+
+                        AbilityData relicAbility = Array.Find(relicAllAbilityDatas, rAbility => rAbility.Type == rType);
+                        Debug.Log("relicAllAbilityDatas.Length= " + relicAllAbilityDatas.Length);
+                        Debug.Log("Grade=" + item.Grade + ", rType=" + rType + ", relicAbility= " + relicAbility);
+
+                        float val = Util.RoundDecimal(relicAbility.Val + (lvIdx * relicAbility.UpgradeVal));
+
+                        //* V{N} → 能力数値変換(実際のアイテムデータ)
+                        bool isIntType = (rType == AbilityType.StartMoney || rType == AbilityType.StartLife || rType == AbilityType.BonusCoinBy10Kill); //rType == AbilityType.SkillPoint);
+                        string abilityMsg = msg.Replace($"V", $"{val * (isIntType? 1 : 100)}");
+
+                        //* 強化数値表示 トーグル(登録したアップグレードデータ)
+                        string upgradeMsg = (relicAbility.UpgradeVal == 0)? "<color=grey>( 고정 )</color>" : $"<color=green>( {$"+{relicAbility.UpgradeVal * (isIntType? 1 : 100)}%"} )</color>";
+                        string upgradeToogleMsg = IsUpgradeValToogle? upgradeMsg : "";
+                        resMsg += $"<color=red>{abilityMsg}</color> {upgradeToogleMsg}\n";
                     }
                 }
 

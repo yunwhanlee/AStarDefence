@@ -172,14 +172,23 @@ namespace Inventory
             // HM._.ivEqu.SetEquipAbilityData(curInvItem);
         }
 
-        public void ResetCurrentRelicAbilities() {
+        public InventoryItem OpenCurrentEquipPotentialAbility() {
+            Debug.Log("OpenCurrentEquipPotentialAbility()::");
+            var ivm = HM._.ivm;
+            //* 新しいRelic能力を一つランダム選択
+            return InventoryData.ItemList[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(
+                new AbilityType[1] {Util.PickRandomAbilityType()}
+            );
+        }
+
+        public InventoryItem ResetCurrentRelicAbilities() {
             Debug.Log("ResetCurrentRelicAbilities()::");
             var ivm = HM._.ivm;
             ItemSO itemDt = ivm.CurInvItem.Data;
             //* 新しい能力
             AbilityType[] newRelicAbilities = InventoryData.CheckRelicAbilitiesData(itemDt);
             //* Relicの能力 変更
-            InventoryData.ItemList[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(newRelicAbilities);
+            return InventoryData.ItemList[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(newRelicAbilities);
         }
     #endregion
     }

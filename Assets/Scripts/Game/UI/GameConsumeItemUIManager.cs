@@ -57,7 +57,6 @@ public class GameConsumeItemUIManager : MonoBehaviour {
             item.IsActive = false;
             item.QuantityTxt.text = "0";
         }
-
         //* インベントリーからの消費アイテムの数 表示
         UpdateBtnQuantityTxt();
     }
@@ -116,6 +115,7 @@ public class GameConsumeItemUIManager : MonoBehaviour {
                 ConsumableItemBtns[3].QuantityTxt.text = $"{itemDt.Quantity}";
         }
     }
+
     private bool CheckAvailable(Etc.ConsumableItem itemEnumIdx) {
         ConsumableItemBtn iconBtn = ConsumableItemBtns[(int)itemEnumIdx];
         InventoryItem findInvItem = GM._.InventoryData.ItemList.Find ( itemDt

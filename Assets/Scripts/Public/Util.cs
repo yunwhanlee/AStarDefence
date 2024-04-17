@@ -120,4 +120,11 @@ public class Util : MonoBehaviour {
 
     public static AbilityType[] GetEnumArray_AbilityType()
         => (AbilityType[])System.Enum.GetValues(typeof(AbilityType));
+
+    public static AbilityType PickRandomAbilityType() {
+        AbilityType[] abilities = (AbilityType[])System.Enum.GetValues(typeof(AbilityType));
+        // 3番INDEXから、最後までランダムで選択
+        return abilities[Random.Range(3, abilities.Length)];
+        
+    }
 }
