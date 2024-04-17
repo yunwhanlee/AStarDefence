@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Inventory.Model;
 using System;
+using AssetKits.ParticleImage;
 
 namespace Inventory.UI {
     /// <summary>
@@ -24,6 +25,10 @@ namespace Inventory.UI {
         [field:SerializeField] private TMP_Text EtcConfirmBtnTxt {get; set;}
 
         [field:Header("EQUIPMENT POPUP")]
+        [field:SerializeField] private GameObject MagicStoneBtnObj {get; set;}
+        [field:SerializeField] private GameObject SoulStoneBtnObj {get; set;}
+        [field:SerializeField] private ParticleImage ItemImgScaleUIEF {get; set;}
+        [field:SerializeField] private ParticleImage UpgradeSucessUIEF {get; set;}
         [field:SerializeField] private Image TopBg {get; set;}
         [field:SerializeField] private Image GlowBg {get; set;}
         [field:SerializeField] private Image ItemBg {get; set;}
@@ -92,6 +97,9 @@ namespace Inventory.UI {
             );
 
             //* Equipスロット最新化
+            ItemImgScaleUIEF.sprite = ivm.CurInvItem.Data.ItemImg;
+            ItemImgScaleUIEF.Play();
+            UpgradeSucessUIEF.Play();
             SM._.SfxPlay(SM.SFX.UpgradeSFX);
             HM._.ivEqu.EquipItem(type, HM._.ivEqu.FindEquipItem(type), isEffect: false);
             HM._.ivEqu.UpdateAllEquipAbilityData();
@@ -109,6 +117,12 @@ namespace Inventory.UI {
                 ivm.CurInvItem.RelicAbilities,
                 ivm.CurInvItem.IsEquip
             );
+        }
+        public void OnClickStoneBtn() {
+            HM._.hui.ShowAgainAskMsg("매직스톤을 사용하여 유물의 능력을 바꾸시겠습니까?");
+            HM._.hui.OnClickAskConfirmAction = () => {
+                Debug.Log("DECREASE STONE");
+            };
         }
 #endregion
 
@@ -297,6 +311,8 @@ namespace Inventory.UI {
                 int[] ePers = Config.H_PRICE.EQUIP_UPG.PERS;
 
                 Debug.Log($"ePrices.Length= {ePrices.Length}, lvIdx= {lvIdx}");
+                MagicStoneBtnObj.SetActive(isRelic);
+                SoulStoneBtnObj.SetActive(!isRelic);
                 EquipBtnTxt.text = isEquip? "해제" : "장비";
                 EquipBtnBg.sprite = BtnBgSprs[isEquip? RED_BTN : BLUE_BTN];
                 UpgradePriceTxt.text = $"강화\n{(isLvMax? "MAX" : $"<sprite name=Coin>{(isRelic? rPrices[lvIdx] : ePrices[lvIdx])}")}";
