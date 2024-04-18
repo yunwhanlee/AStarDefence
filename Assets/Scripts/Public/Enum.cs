@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Inventory.Model;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -139,8 +140,23 @@ public static class Enum {
         None = -1, 
         Common, Rare, Epic, Unique, Legend, Myth, Prime
     }
+    public static AbilityData[] GetRelicAllDts(Grade grade) {
+        ItemSO[] relicDts = HM._.rwlm.RwdItemDt.RelicDatas;
+        AbilityData[] relicAllAbilityDatas = null;
+        //* 等級 判断
+        switch(grade) {
+            case Grade.Common:
+            case Grade.Rare:
+            case Grade.Epic:   relicAllAbilityDatas = relicDts[0].Abilities;   break;
+            case Grade.Unique: relicAllAbilityDatas = relicDts[1].Abilities;   break;
+            case Grade.Legend: relicAllAbilityDatas = relicDts[1].Abilities;   break;
+            case Grade.Myth:   relicAllAbilityDatas = relicDts[2].Abilities;   break;
+            case Grade.Prime:  relicAllAbilityDatas = relicDts[3].Abilities;   break;
+        } 
+        return relicAllAbilityDatas;
+    }
     public static string GetGradeName(Grade grade) {
-        return (grade == Grade.Common)? "일반" 
+        return (grade == Grade.Common)? "일반"
             : (grade == Grade.Rare)? "레어"
             : (grade == Grade.Epic)? "에픽"
             : (grade == Grade.Unique)? "유니크"
@@ -153,7 +169,7 @@ public static class Enum {
         Weapon, Shoes, Ring, Relic, Etc
     }
     public static string GetItemTypeName(ItemType itemType) {
-        return (itemType == ItemType.Weapon)? "무기" 
+        return (itemType == ItemType.Weapon)? "무기"
             : (itemType == ItemType.Shoes)? "신발"
             : (itemType == ItemType.Ring)? "반지"
             : (itemType == ItemType.Relic)? "유물"

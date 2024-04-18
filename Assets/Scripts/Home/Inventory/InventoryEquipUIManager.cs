@@ -60,7 +60,7 @@ public class InventoryEquipUIManager : MonoBehaviour {
         get => DM._.DB.EquipDB.ClearCoinPer;
         set => DM._.DB.EquipDB.ClearCoinPer = value;
     }
-    [field: SerializeField] public int StartCoin {
+    [field: SerializeField] public int StartMoney {
         get => DM._.DB.EquipDB.StartMoney;
         set => DM._.DB.EquipDB.StartMoney = value;
     }
@@ -162,6 +162,9 @@ public class InventoryEquipUIManager : MonoBehaviour {
             EquipItemSlotUIs[(int)type].PlayScaleUIEF(EquipItemSlotUIs[(int)type], dt.ItemImg);
     }
 
+    /// <summary>
+    /// インベントリーからEquipアイテムを装置・解除の時、先に０で初期化
+    /// </summary>
     private void ResetEquipAbilityData() {
         AttackPer = 0; 
         SpeedPer = 0; 
@@ -170,7 +173,7 @@ public class InventoryEquipUIManager : MonoBehaviour {
         CritDmgPer = 0;
         ClearEtcPer = 0;
         ClearCoinPer = 0;
-        StartCoin = 0;
+        StartMoney = 0;
         StartLife = 0;
         ItemDropPer = 0;
         // SkillPoint = 0;
@@ -183,29 +186,47 @@ public class InventoryEquipUIManager : MonoBehaviour {
         MagicianUpgCostPer = 0;
     }
 
-    private void SetEquipAbilityData(InventoryItem invItem) {
-        if(invItem.IsEmpty) return;
-        List<AbilityData> abilityDataList = new List<AbilityData>();
+    /// <summary>
+    /// インベントリーへ装置したアイテムの能力データをDBを反映
+    /// </summary>
+    private void SetEquipAbilityData(InventoryItem invEquipItem) {
+        if(invEquipItem.IsEmpty) return;
+        List<AbilityData> myAbilityDataList = new List<AbilityData>();
 
-        //* Relicとか他のタイプに分け、Abilityデータリスト作成
-        if(invItem.Data.Type == Enum.ItemType.Relic) {
-            AbilityData[] abilityDb = invItem.Data.Abilities;
-            Array.ForEach(invItem.RelicAbilities, relicAbtType => {
+        //*「Relic」と「その他(Weapon, Shoes, Ring)」タイプに分け、Abilityデータリスト作成 : 形が違う
+        if(invEquipItem.Data.Type == Enum.ItemType.Relic) {
+            // Relic ➝ invItem.RelicAbilitiesへ宣言
+            AbilityData[] abilityDb = invEquipItem.Data.Abilities;
+            Array.ForEach(invEquipItem.RelicAbilities, relicAbtType => {
                 foreach(var db in abilityDb) {
                     if(db.Type == relicAbtType) {
-                        abilityDataList.Add(new AbilityData(relicAbtType, db.Val, db.UpgradeVal));
+                        myAbilityDataList.Add(new AbilityData(relicAbtType, db.Val, db.UpgradeVal));
                         break;
                     }
                 }
             });
         }
-        else
-            abilityDataList = invItem.Data.Abilities.ToList();
 
-        //* データ設定
-        int lvIdx = invItem.Lv - 1;
-        foreach(var abt in abilityDataList) {
-            Debug.Log($"SetEquipAbilityData():: {invItem.Data.Name}, ability= {abt.Type}");
+        else {
+            //* １．その他 ➝ invItem.Data.Abilitiesへ宣言
+            myAbilityDataList = invEquipItem.Data.Abilities.ToList();
+
+            //* ２．Potential能力があったら
+            if(invEquipItem.RelicAbilities.Length == 1) {
+                ItemSO[] relicDts = HM._.rwlm.RwdItemDt.RelicDatas;
+                AbilityData[] relicAllAbilityDatas = Enum.GetRelicAllDts(invEquipItem.Data.Grade);
+
+                //* EquipのPotential能力：InventoryItemでRelicAbilitiesの[0]Index追加
+                AbilityType rType = invEquipItem.RelicAbilities[0];
+                AbilityData potentialAbility = Array.Find(relicAllAbilityDatas, rAbility => rAbility.Type == rType);
+                myAbilityDataList.Add(new AbilityData(potentialAbility.Type, potentialAbility.Val, potentialAbility.UpgradeVal));
+            }
+        }
+
+        //* DBデータ設定
+        int lvIdx = invEquipItem.Lv - 1;
+        foreach(var abt in myAbilityDataList) {
+            Debug.Log($"SetEquipAbilityData():: {invEquipItem.Data.Name}, ability= {abt.Type}");
             switch(abt.Type) {
                 case AbilityType.Attack:
                     AttackPer += abt.Val + (lvIdx * abt.UpgradeVal);
@@ -229,7 +250,7 @@ public class InventoryEquipUIManager : MonoBehaviour {
                     ClearCoinPer += abt.Val + (lvIdx * abt.UpgradeVal);
                     break;
                 case AbilityType.StartMoney:
-                    StartCoin += (int)(abt.Val + (lvIdx * abt.UpgradeVal));
+                    StartMoney += (int)(abt.Val + (lvIdx * abt.UpgradeVal));
                     break;
                 case AbilityType.StartLife:
                     StartLife += (int)(abt.Val + (lvIdx * abt.UpgradeVal));

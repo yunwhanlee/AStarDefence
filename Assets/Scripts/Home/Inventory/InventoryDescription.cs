@@ -411,18 +411,9 @@ namespace Inventory.UI {
                         //* 説明メッセージ
                         string msg = Config.ABILITY_DECS[(int)rType];
 
-                        //* Potential能力データリスト
+                        //* 等級 判断
                         ItemSO[] relicDts = HM._.rwlm.RwdItemDt.RelicDatas;
-                        AbilityData[] relicAllAbilityDatas = null;
-                        switch(item.Grade) {
-                            case Enum.Grade.Common: 
-                            case Enum.Grade.Rare: 
-                            case Enum.Grade.Epic:   relicAllAbilityDatas = relicDts[0].Abilities;   break;
-                            case Enum.Grade.Unique: relicAllAbilityDatas = relicDts[1].Abilities;   break;
-                            case Enum.Grade.Legend: relicAllAbilityDatas = relicDts[2].Abilities;   break;
-                            case Enum.Grade.Myth:   relicAllAbilityDatas = relicDts[3].Abilities;   break;
-                            case Enum.Grade.Prime:  relicAllAbilityDatas = relicDts[4].Abilities;   break;
-                        }
+                        AbilityData[] relicAllAbilityDatas = Enum.GetRelicAllDts(item.Grade);
 
                         AbilityData relicAbility = Array.Find(relicAllAbilityDatas, rAbility => rAbility.Type == rType);
                         Debug.Log("relicAllAbilityDatas.Length= " + relicAllAbilityDatas.Length);
