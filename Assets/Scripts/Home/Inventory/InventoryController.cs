@@ -174,11 +174,14 @@ namespace Inventory
 
         public InventoryItem OpenCurrentEquipPotentialAbility() {
             Debug.Log("OpenCurrentEquipPotentialAbility()::");
-            var ivm = HM._.ivm;
-            //* 新しいRelic能力を一つランダム選択
-            return InventoryData.ItemList[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(
+            //* 新しいRelic能力を一つランダム選択 -> InventoryDtへ反映
+            InventoryData.ItemList[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(
                 new AbilityType[1] {Util.PickRandomAbilityType()}
             );
+            //* ★ CurInvItemDtへも反映(EquipPopUpが開いたままであれば、CurInvItemで表示するため、最新化必要)
+            ivm.CurInvItem = InventoryData.ItemList[ivm.CurItemIdx];
+
+            return ivm.CurInvItem;
         }
 
         public InventoryItem ResetCurrentRelicAbilities() {

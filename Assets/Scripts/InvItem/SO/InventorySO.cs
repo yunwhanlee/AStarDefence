@@ -205,10 +205,10 @@ namespace Inventory.Model
                     Debug.Log($"UpgradeEquipItem({ItemList[i].Data.ID} == {item.ID}):: lv= {lv}");
                     //* 増えたVal値を最新化
                     ItemList[i] = ItemList[i].ChangeLevel(lv);
-                    //* イベントリーUI アップデート
-                    InformAboutChange();
-                    //* 情報表示ポップアップUI アップデート
-                    HM._.ivm.UpdateDescription(HM._.ivm.CurItemIdx, item, quantity, lv, abilities, isEquip);
+                    // //* イベントリーUI アップデート
+                    // InformAboutChange();
+                    // //* 情報表示ポップアップUI アップデート
+                    // HM._.ivm.UpdateDescription(HM._.ivm.CurItemIdx, item, quantity, lv, abilities, isEquip);
                     return;
                 }
             }

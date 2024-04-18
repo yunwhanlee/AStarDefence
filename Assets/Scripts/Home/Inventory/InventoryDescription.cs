@@ -86,66 +86,52 @@ namespace Inventory.UI {
             HM._.ivCtrl.InventoryData.InformAboutChange();
         }
 
+        private bool TryUpgrade() {
+            Enum.ItemType type = ivm.CurInvItem.Data.Type;
+            bool isRelic = type == Enum.ItemType.Relic;
+            int lvIdx = ivm.CurInvItem.Lv - 1;
+
+            //* Euqipタイプによって、アップグレードと成功％データリスト
+            int upgradeMax = isRelic? Config.RELIC_UPGRADE_MAX : Config.EQUIP_UPGRADE_MAX;
+            int[] priceDts = isRelic? Config.H_PRICE.RELIC_UPG.GetRelicUpgradePriceArr(ivm.CurInvItem.Data.Grade)
+                : Config.H_PRICE.EQUIP_UPG.GetEquipUpgradePriceArr(ivm.CurInvItem.Data.Grade);
+            int[] perDts = isRelic? Config.H_PRICE.RELIC_UPG.PERS : Config.H_PRICE.EQUIP_UPG.PERS;
+
+            if(ivm.CurInvItem.Lv == upgradeMax) {
+                HM._.hui.ShowMsgError("업그레이드 최대치로 더 이상 할 수 없습니다.");
+                return false;
+            }
+            else if(HM._.Coin < priceDts[lvIdx]) {
+                HM._.hui.ShowMsgError("코인이 부족합니다.");
+                return false;
+            }
+            //* アップグレード試す
+            int randPer = Random.Range(0, 100);
+            HM._.Coin -= priceDts[lvIdx];
+            if(randPer < perDts[lvIdx]) {
+                HM._.hui.ShowMsgNotice("<color=blue>업그레이드 성공!</color>");
+                return true;
+            }
+            else {
+                SM._.SfxPlay(SM.SFX.EnemyDeadSFX);
+                UpgradeFailUIEF.Play();
+                HM._.ivm.EquipPopUpAnim.SetTrigger("DoShake");
+                HM._.hui.ShowMsgNotice($"<color=red>업그레이드 실패..{randPer} / {perDts[lvIdx]}</color>");
+                return false;
+            }
+        }
+
         public void OnClickUpgradeBtn() {
             Enum.ItemType type = ivm.CurInvItem.Data.Type;
-            Enum.Grade grade = ivm.CurInvItem.Data.Grade;
-            int lv = ivm.CurInvItem.Lv;
-            int lvIdx = lv - 1;
-    
-            //* アップグレードボタン UI
-            int[] rPrices = Config.H_PRICE.RELIC_UPG.GetRelicUpgradePriceArr(grade);
-            int[] ePrices = Config.H_PRICE.EQUIP_UPG.GetEquipUpgradePriceArr(grade); //Config.H_PRICE.EQUIP_UPG.PRICES;
-            int[] rPers = Config.H_PRICE.RELIC_UPG.PERS;
-            int[] ePers = Config.H_PRICE.EQUIP_UPG.PERS;
 
-            if(type == Enum.ItemType.Etc) return;
-            if(type == Enum.ItemType.Relic) {
-                if(lv == Config.RELIC_UPGRADE_MAX) {
-                    HM._.hui.ShowMsgError("업그레이드 최대치로 더 이상 할 수 없습니다.");
-                    return;
-                }
-                else if(HM._.Coin < rPrices[lvIdx]) {
-                    HM._.hui.ShowMsgError("코인이 부족합니다.");
-                    return;
-                }
-                //* アップグレード試す
-                int randPer = Random.Range(0, 100);
-                HM._.Coin -= rPrices[lvIdx];
-                if(randPer < rPers[lvIdx]) {
-                    HM._.hui.ShowMsgNotice("<color=blue>업그레이드 성공!</color>");
-                }
-                else {
-                    SM._.SfxPlay(SM.SFX.EnemyDeadSFX);
-                    UpgradeFailUIEF.Play();
-                    HM._.ivm.EquipPopUpAnim.SetTrigger("DoShake");
-                    HM._.hui.ShowMsgNotice($"<color=red>업그레이드 실패..{randPer} / {ePers[lvIdx]}</color>");
-                    return;
-                }
-            }
-            else { //* Weapon, Shoes, Ring
-                if(lv == Config.EQUIP_UPGRADE_MAX) {
-                    HM._.hui.ShowMsgError("업그레이드 최대치로 더 이상 할 수 없습니다.");
-                    return;
-                }
-                else if(HM._.Coin < ePrices[lvIdx]) {
-                    HM._.hui.ShowMsgError("코인이 부족합니다.");
-                    return;
-                }
-                //* アップグレード試す
-                int randPer = Random.Range(0, 100);
-                HM._.Coin -= ePrices[lvIdx];
-                if(randPer < ePers[lvIdx]) {
-                    HM._.hui.ShowMsgNotice("<color=blue>업그레이드 성공!</color>");
-                }
-                else {
-                    SM._.SfxPlay(SM.SFX.EnemyDeadSFX);
-                    UpgradeFailUIEF.Play();
-                    HM._.ivm.EquipPopUpAnim.SetTrigger("DoShake");
-                    HM._.hui.ShowMsgNotice($"<color=red>업그레이드 실패..{randPer} / {ePers[lvIdx]}</color>");
-                    return;
-                }
-            }
+            if(type == Enum.ItemType.Etc)
+                return;
 
+            //* アップグレードが成功しなかったら、以下の処理しない
+            if(!TryUpgrade())
+                return;
+
+            //* アップグレードデータ 最新化
             HM._.ivCtrl.InventoryData.UpgradeEquipItem (
                 ivm.CurInvItem.Data,
                 ivm.CurInvItem.Quantity,
@@ -161,6 +147,12 @@ namespace Inventory.UI {
             SM._.SfxPlay(SM.SFX.UpgradeSFX);
             HM._.ivEqu.EquipItem(type, HM._.ivEqu.FindEquipItem(type), isEffect: false);
             HM._.ivEqu.UpdateAllEquipAbilityData();
+
+            //* イベントリーUI アップデート
+            HM._.ivCtrl.InventoryData.InformAboutChange();
+
+            //* 情報表示ポップアップUI アップデート
+            HM._.ivm.UpdateDescription(ivm.CurItemIdx, ivm.CurInvItem.Data, ivm.CurInvItem.Quantity, ivm.CurInvItem.Lv, ivm.CurInvItem.RelicAbilities, ivm.CurInvItem.IsEquip);
         }
         public void OnClickUpgradeValueNoticeToggle() {
             Debug.Log($"OnClickUpgradeValueNoticeToggle():: IsUpgradeValToogleActive= {IsUpgradeValToogle}");
