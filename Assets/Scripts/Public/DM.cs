@@ -61,11 +61,11 @@ public class StageLockedDB {
     [field:SerializeField] public bool IsLockNormal {get; set;}
     [field:SerializeField] public bool IsLockHard {get; set;}
     
-    public StageLockedDB(string name, bool isLockEasy) {
+    public StageLockedDB(string name, bool easy, bool normal, bool hard) {
         Name = name;
-        IsLockEasy = isLockEasy;
-        IsLockNormal = false;
-        IsLockHard = false;
+        IsLockEasy = easy;
+        IsLockNormal = normal;
+        IsLockHard = hard;
     }
 }
 
@@ -312,12 +312,13 @@ public class DM : MonoBehaviour {
         };
 
         //* Stages
-        DB.StageLockedDBs = new StageLockedDB[5] {
-            new ("스테이지1. 초원", false),
-            new ("스테이지2. 황량한 사막", true),
-            new ("스테이지3. 침묵의 바다", true),
-            new ("스테이지4. 죽음의 던젼", true),
-            new ("스테이지5. 불타는 지옥", true),
+        DB.StageLockedDBs = new StageLockedDB[6] {
+            new ("스테이지1. 초원", false, true, true),
+            new ("스테이지2. 황량한 사막", true, true, true),
+            new ("스테이지3. 침묵의 바다", true, true, true),
+            new ("스테이지4. 죽음의 던젼", true, true, true),
+            new ("스테이지5. 불타는 지옥", true, true, true),
+            new ("히든스테이지. 고블린 던전", false, false, false)
         };
 
         //* Mining

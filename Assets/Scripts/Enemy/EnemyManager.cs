@@ -16,6 +16,7 @@ public class EnemyManager : MonoBehaviour {
     [Space(10)]
     public Transform enemyObjGroup;
     public Enemy enemyPf;
+    public Enemy goblinEnemyPf;
     IObjectPool<Enemy> pool;    public IObjectPool<Enemy> Pool {get => pool;}
     [field:SerializeField] public int EnemyCnt {get; set;}
     [field:SerializeField] public int KillCnt {get; set;}
@@ -31,7 +32,10 @@ public class EnemyManager : MonoBehaviour {
 
 #region OBJECT POOL
     private Enemy create() {
-        Enemy enemy = Instantiate(enemyPf, enemyObjGroup);
+        Enemy enemy = Instantiate(
+            DM._.SelectedStage == 5? goblinEnemyPf : enemyPf, 
+            enemyObjGroup
+        );
         return enemy;
     }
     private void onGet(Enemy enemy) { //* 使う
@@ -100,7 +104,7 @@ public class EnemyManager : MonoBehaviour {
             Init(i); //* データ初期化
             spawnCnt--;
             GM._.gui.EnemyCntTxt.text = $"{spawnCnt} / {EnemyCnt}"; //* 敵スピーン数を表示
-            yield return new WaitForSeconds(0.5f);
+            yield return Util.Time0_5;
         }
     }
     private void Init(int i) {

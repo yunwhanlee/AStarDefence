@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
 
 public enum EnemyType {
@@ -11,6 +12,7 @@ public enum EnemyType {
 
 [System.Serializable]
 public abstract class Enemy : MonoBehaviour {
+    public bool isGoblin;
     public readonly static int LIFE_DEC_BOSS = 5;
     public readonly static int LIFE_DEC_MONSTER = 1;
     public readonly static int ORIGIN_SORTING_LAYER = 9;
@@ -19,7 +21,9 @@ public abstract class Enemy : MonoBehaviour {
     Coroutine CorStun;
 
     [field: SerializeField] public EnemyType Type {get; set;}
-    [field: SerializeField] public SpriteRenderer SprRdr {get; set;}
+    [field: SerializeField] SpriteRenderer sprRdr; public SpriteRenderer SprRdr {
+        get => isGoblin? GetComponentInChildren<SpriteRenderer>() : sprRdr;
+    }
     [field: SerializeField] public Slider HpBar {get; set;}
 
     [field: SerializeField] public bool IsDie {get; set;}
@@ -40,7 +44,7 @@ public abstract class Enemy : MonoBehaviour {
     [field: SerializeField] public int NodeIdx {get; private set;}
 
     void Awake() {
-        SprRdr = GetComponent<SpriteRenderer>();
+        sprRdr = GetComponent<SpriteRenderer>();
         HpBar = GetComponentInChildren<Slider>();
     }
 
@@ -108,7 +112,7 @@ public abstract class Enemy : MonoBehaviour {
             Util._.SetDefMt(SprRdr);
             SprRdr.color = Color.white;
             SprRdr.sortingOrder = (Type == EnemyType.Flight)? 15 : ORIGIN_SORTING_LAYER;
-            transform.localScale = Vector2.one * (Type == EnemyType.Boss? 2 : 1);
+            transform.localScale = Vector2.one * (Type == EnemyType.Boss? transform.localScale.x * 2 : transform.localScale.x);
 
         }
         /// <summary>
@@ -119,6 +123,8 @@ public abstract class Enemy : MonoBehaviour {
             Lv = curEnemyDt.Lv;
             Type = curEnemyDt.Type;
             SprRdr.sprite = curEnemyDt.Spr;
+            if(isGoblin)
+                GetComponentInChildren<SpriteLibrary>().spriteLibraryAsset = curEnemyDt.SprLibAst;
             maxHp = curEnemyDt.Hp;
             Hp = maxHp;
             originSpd = curEnemyDt.Speed;

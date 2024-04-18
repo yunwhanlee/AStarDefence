@@ -6,6 +6,7 @@ using AnimationState = Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterS
 namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
 {
     public class CharacterControls : MonoBehaviour {
+        public bool isGoblinEnemy;
         public Character Character;
         public CharacterController Controller; // https://docs.unity3d.com/ScriptReference/CharacterController.html
         public float RunSpeed = 1f;
@@ -21,7 +22,15 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
         private int _inputX, _inputY;
         private float _activityTime;
         
-        public void Awake() => SpawnAnim();
+        public void Awake() {
+            if(!isGoblinEnemy)
+                SpawnAnim();
+        }
+
+        private void OnEnable() {
+            if(isGoblinEnemy)
+                Character.SetState(AnimationState.Walking);
+        }
 
         private IEnumerator BounceAnim() {
             Character.SetState(AnimationState.Jumping);
