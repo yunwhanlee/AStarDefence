@@ -86,16 +86,44 @@ namespace Inventory.UI {
 
         public void OnClickUpgradeBtn() {
             Enum.ItemType type = ivm.CurInvItem.Data.Type;
+            Enum.Grade grade = ivm.CurInvItem.Data.Grade;
             int lv = ivm.CurInvItem.Lv;
+            int lvIdx = lv - 1;
+    
+            //* アップグレードボタン UI
+            int[] rPrices = Config.H_PRICE.RELIC_UPG.GetRelicUpgradePriceArr(grade);
+            int[] ePrices = Config.H_PRICE.EQUIP_UPG.GetEquipUpgradePriceArr(grade); //Config.H_PRICE.EQUIP_UPG.PRICES;
+            int[] rPers = Config.H_PRICE.RELIC_UPG.PERS;
+            int[] ePers = Config.H_PRICE.EQUIP_UPG.PERS;
+
             if(type == Enum.ItemType.Etc) return;
-            if(type == Enum.ItemType.Relic && lv == Config.RELIC_UPGRADE_MAX) {
-                HM._.hui.ShowMsgError("업그레이드 최대치로 더 이상 할 수 없습니다.");
-                return;
+            // * Relic
+            if(type == Enum.ItemType.Relic) {
+                if(lv == Config.RELIC_UPGRADE_MAX) {
+                    HM._.hui.ShowMsgError("업그레이드 최대치로 더 이상 할 수 없습니다.");
+                    return;
+                }
+                else if(HM._.Coin < rPrices[lvIdx]) {
+                    HM._.hui.ShowMsgError("코인이 부족합니다.");
+                    return;
+                }
+                //* コイン 設定
+                HM._.Coin -= rPrices[lvIdx];
             }
-            if(type != Enum.ItemType.Relic && lv == Config.EQUIP_UPGRADE_MAX) {
-                HM._.hui.ShowMsgError("업그레이드 최대치로 더 이상 할 수 없습니다.");
-                return;
+            // * Equip
+            if(type != Enum.ItemType.Relic) {
+                if(lv == Config.EQUIP_UPGRADE_MAX) {
+                    HM._.hui.ShowMsgError("업그레이드 최대치로 더 이상 할 수 없습니다.");
+                    return;
+                }
+                else if(HM._.Coin < ePrices[lvIdx]) {
+                    HM._.hui.ShowMsgError("코인이 부족합니다.");
+                    return;
+                }
+                //* コイン 設定
+                HM._.Coin -= ePrices[lvIdx];
             }
+
             HM._.ivCtrl.InventoryData.UpgradeEquipItem (
                 ivm.CurInvItem.Data,
                 ivm.CurInvItem.Quantity,
@@ -118,6 +146,7 @@ namespace Inventory.UI {
             IsUpgradeValToogle = !IsUpgradeValToogle;
             UpgValToogleHandleTf.anchoredPosition = new Vector2(IsUpgradeValToogle? 50 : -50, UpgValToogleHandleTf.anchoredPosition.y);
             UpgValToogleHandleTxt.text = IsUpgradeValToogle? "ON" : "OFF";
+
             SetDescription(
                 ivm.CurInvItem.Data, 
                 ivm.CurInvItem.Quantity, 
@@ -276,7 +305,9 @@ namespace Inventory.UI {
             var hui = HM._.hui;
             var db = DM._.DB;
             var rwlm = HM._.rwlm;
+            
             int lvIdx = lv - 1;
+
 
             //* その他 アイテム
             if(item.Type == Enum.ItemType.Etc) {
@@ -439,8 +470,9 @@ namespace Inventory.UI {
                 Description.text = resMsg;
 
                 //* アップグレードボタン UI
-                int[] rPrices = Config.H_PRICE.RELIC_UPG.PRICES;
-                int[] ePrices = Config.H_PRICE.EQUIP_UPG.PRICES;
+                
+                int[] rPrices = Config.H_PRICE.RELIC_UPG.GetRelicUpgradePriceArr(item.Grade);
+                int[] ePrices = Config.H_PRICE.EQUIP_UPG.GetEquipUpgradePriceArr(item.Grade);
                 int[] rPers = Config.H_PRICE.RELIC_UPG.PERS;
                 int[] ePers = Config.H_PRICE.EQUIP_UPG.PERS;
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CollectionScripts;
 using UnityEngine;
 
@@ -71,14 +72,62 @@ public static class Config {
         public const int BOSS_KILL_MONEY_BONUS = 65;
     }
     public class H_PRICE {
-        public static readonly int[] WORKSPACE_PRICES = {0, 1000, 5000, 12500, 30000};
+        public static readonly int[] WORKSPACE_PRICES = {
+            0, 1000, 5000, 12500, 30000
+        };
         public readonly struct EQUIP_UPG {
-            public static readonly int[] PRICES = {100, 200, 250, 300, 400, 500, 600, 800, 1000, 1300};
-            public static readonly int[] PERS = {90, 80, 70, 60, 45, 35, 25, 20, 10, 5, 3};
+            private static readonly int[] PRICES = {
+                100, 200, 250, 300, 400, 500, 600, 800, 1000, 1300
+            };
+            public static int[] GetEquipUpgradePriceArr(Enum.Grade grade) {
+                Debug.Log($"GetEquipUpgradePriceArr(grade= {grade})::");
+                int[] prices = PRICES.ToArray(); //* コピー
+                
+                //* 等級による追加値段％
+                float extraPer = (grade == Enum.Grade.Common)? 1
+                    : (grade == Enum.Grade.Rare)? 1.2f
+                    : (grade == Enum.Grade.Epic)? 1.4f
+                    : (grade == Enum.Grade.Unique)? 1.7f
+                    : (grade == Enum.Grade.Legend)? 2.1f
+                    : (grade == Enum.Grade.Myth)? 2.5f
+                    : (grade == Enum.Grade.Prime)? 3
+                    : 1;
+
+                //* 結果
+                for(int i = 0; i < PRICES.Length; i++) 
+                    prices[i] = Mathf.RoundToInt(prices[i] * extraPer);
+
+                return prices;
+            }
+            public static readonly int[] PERS = {
+                90, 80, 70, 60, 45, 35, 25, 15, 10, 5
+            };
         }
         public readonly struct RELIC_UPG {
-            public static readonly int[] PRICES = {200, 450, 500, 750, 1000, 1500};
-            public static readonly int[] PERS = {70, 40, 20, 5, 3};
+            private static readonly int[] PRICES = {
+                200, 400, 700, 1000, 1400
+            };
+            public static int[] GetRelicUpgradePriceArr(Enum.Grade grade) {
+                Debug.Log($"GetRelicUpgradePriceArr(grade= {grade})::");
+                int[] prices = PRICES.ToArray(); //* コピー
+                
+                //* 等級による追加値段％
+                float extraPer = (grade == Enum.Grade.Epic)? 1
+                    : (grade == Enum.Grade.Unique)? 1.7f
+                    : (grade == Enum.Grade.Legend)? 2.1f
+                    : (grade == Enum.Grade.Myth)? 2.5f
+                    : (grade == Enum.Grade.Prime)? 3
+                    : 1;
+
+                //* 結果
+                for(int i = 0; i < PRICES.Length; i++) 
+                    prices[i] = Mathf.RoundToInt(prices[i] * extraPer);
+
+                return prices;
+            }
+            public static readonly int[] PERS = {
+                70, 40, 20, 5, 3
+            };
         }
     }
 #endregion
