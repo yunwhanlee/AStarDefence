@@ -192,6 +192,7 @@ namespace Inventory.UI {
         private void OpenEquipPotentialAbility() {
             int curIdx = HM._.ivm.CurItemIdx;
             SM._.SfxPlay(SM.SFX.InvStoneSFX);
+            HM._.hui.ShowMsgNotice("잠재능력 설정 완료!", y: 170);
             SoulStoneSpawnUIEF.Play();
 
             //* 新しいRelic能力を一つランダム選択
@@ -207,6 +208,7 @@ namespace Inventory.UI {
         private void ResetCurrentRelicAbilities() {
             int curIdx = HM._.ivm.CurItemIdx;
             SM._.SfxPlay(SM.SFX.InvStoneSFX);
+            HM._.hui.ShowMsgNotice("능력 재설정 완료!", y: 170);
             MagicStoneSpawnUIEF.Play();
 
             //* リセット
