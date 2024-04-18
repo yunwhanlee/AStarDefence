@@ -103,6 +103,7 @@ public static class Config {
                 90, 80, 70, 60, 45, 35, 25, 15, 10, 5
             };
         }
+
         public readonly struct RELIC_UPG {
             private static readonly int[] PRICES = {
                 200, 400, 700, 1000, 1400

@@ -7,6 +7,7 @@ using Inventory.Model;
 using System;
 using AssetKits.ParticleImage;
 using System.Linq;
+using Random = UnityEngine.Random;
 
 namespace Inventory.UI {
     /// <summary>
@@ -97,7 +98,6 @@ namespace Inventory.UI {
             int[] ePers = Config.H_PRICE.EQUIP_UPG.PERS;
 
             if(type == Enum.ItemType.Etc) return;
-            // * Relic
             if(type == Enum.ItemType.Relic) {
                 if(lv == Config.RELIC_UPGRADE_MAX) {
                     HM._.hui.ShowMsgError("업그레이드 최대치로 더 이상 할 수 없습니다.");
@@ -107,11 +107,19 @@ namespace Inventory.UI {
                     HM._.hui.ShowMsgError("코인이 부족합니다.");
                     return;
                 }
-                //* コイン 設定
+                //* アップグレード試す
+                int randPer = Random.Range(0, 100);
                 HM._.Coin -= rPrices[lvIdx];
+                if(randPer < rPers[lvIdx]) {
+                    HM._.hui.ShowMsgNotice("<color=blue>업그레이드 성공!</color>");
+                }
+                else {
+                    SM._.SfxPlay(SM.SFX.EnemyDeadSFX);
+                    HM._.hui.ShowMsgNotice($"<color=red>업그레이드 실패..{randPer} / {ePers[lvIdx]}</color>");
+                    return;
+                }
             }
-            // * Equip
-            if(type != Enum.ItemType.Relic) {
+            else { //* Weapon, Shoes, Ring
                 if(lv == Config.EQUIP_UPGRADE_MAX) {
                     HM._.hui.ShowMsgError("업그레이드 최대치로 더 이상 할 수 없습니다.");
                     return;
@@ -120,8 +128,17 @@ namespace Inventory.UI {
                     HM._.hui.ShowMsgError("코인이 부족합니다.");
                     return;
                 }
-                //* コイン 設定
+                //* アップグレード試す
+                int randPer = Random.Range(0, 100);
                 HM._.Coin -= ePrices[lvIdx];
+                if(randPer < ePers[lvIdx]) {
+                    HM._.hui.ShowMsgNotice("<color=blue>업그레이드 성공!</color>");
+                }
+                else {
+                    SM._.SfxPlay(SM.SFX.EnemyDeadSFX);
+                    HM._.hui.ShowMsgNotice($"<color=red>업그레이드 실패..{randPer} / {ePers[lvIdx]}</color>");
+                    return;
+                }
             }
 
             HM._.ivCtrl.InventoryData.UpgradeEquipItem (
