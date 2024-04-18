@@ -45,6 +45,7 @@ public class HM : MonoBehaviour {
         set {
             DM._.DB.StatusDB.GoldKey = value;
             hui.TopGoldKeyTxt.text = $"{value}/{Config.MAX_GOBLINKEY}";
+            stgm.DungeonAlertDot.SetActive(value > 0);
         }
     }
     [field: SerializeField] public int Coin {

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.UI;
 using Inventory.Model;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,6 +11,8 @@ using UnityEngine.UI;
 public class StageUIManager : MonoBehaviour {
     [Header("GOBLIN DUNGEON")]
     [field:SerializeField] public GameObject GoblinDungeonPopUp;
+    [field:SerializeField] public TMP_Text GoldKeyTxt;
+    [field:SerializeField] public GameObject DungeonAlertDot;
 
     [Header("STAGE")]
     [field:SerializeField] public GameObject StageGroup;
@@ -20,14 +23,26 @@ public class StageUIManager : MonoBehaviour {
     [field:SerializeField] public GameObject NormalLockedFrame;
     [field:SerializeField] public GameObject HardLockedFrame;
 
+    void Start() {
+        
+        DungeonAlertDot.SetActive(HM._.GoldKey > 0);
+    }
+
 #region GOBLIN DUNGEON EVENT 
     public void OnClickDungeonIconBtn() {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         GoblinDungeonPopUp.SetActive(true);
+        GoldKeyTxt.text = $"{HM._.GoldKey}/{Config.MAX_GOBLINKEY}";
     }
 
     public void OnClickDungeonDifficultyBtn(int diffIdx) {
-        DM._.SelectedStage = 5;
+        if(HM._.GoldKey <= 0) {
+            HM._.hui.ShowMsgError("황금열쇠가 있어야 입장가능합니다.");
+            return;
+        }
+        --HM._.GoldKey;
+
+        DM._.SelectedStage = Config.GOBLIN_DUNGEON_STAGE;
 
         HM._.ivCtrl.CheckActiveClover();
 
