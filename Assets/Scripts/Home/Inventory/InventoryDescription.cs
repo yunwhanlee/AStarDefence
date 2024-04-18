@@ -149,9 +149,10 @@ namespace Inventory.UI {
                 Etc.ConsumableItem.MagicStone, 
             };
             //* パラメーター２
+            var relicAbilities = HM._.ivm.CurInvItem.RelicAbilities;
             string potentialStatusWord = "";
-            if(idx == 0)
-                potentialStatusWord = HM._.ivm.CurInvItem.RelicAbilities.Length == 0? "개방" : "변경";
+            if(idx == 0 && relicAbilities != null)
+                potentialStatusWord = relicAbilities.Length == 0? "개방" : "변경";
 
             string[] againAskMsgs = {
                 $"소울스톤을 사용하여 잠재능력을 {potentialStatusWord}하시겠습니까?",
@@ -405,7 +406,7 @@ namespace Inventory.UI {
                     }
 
                     //* Potential Ability
-                    if(relicAbilities.Length == 1) {
+                    if(relicAbilities != null && relicAbilities.Length == 1) {
                         AbilityType rType = relicAbilities[0];
 
                         //* 説明メッセージ
