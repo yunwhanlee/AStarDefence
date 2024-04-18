@@ -74,6 +74,7 @@ public class LevelUpManager : MonoBehaviour {
             new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon]),
             new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.SkillPoint]),
         };
+        UpdateData(Exp);
         ShowReward(rewardList);
         UpdateInventory(rewardList);
         HM._.stm.UpdateAlertIcon();

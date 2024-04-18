@@ -43,7 +43,8 @@ public class RewardItem {
                 else        DM._.DB.StatusDB.Diamond += quantity;
                 break;
             case Etc.NoshowInvItem.Exp:
-                DM._.DB.StatusDB.Exp += quantity;
+                HM._.lvm.Exp += quantity;
+                HM._.lvm.CheckLevelUp();
                 break;
             case Etc.NoshowInvItem.Goblin0: case Etc.NoshowInvItem.Goblin1: case Etc.NoshowInvItem.Goblin2:
             case Etc.NoshowInvItem.Goblin3: case Etc.NoshowInvItem.Goblin4: case Etc.NoshowInvItem.Goblin5: case Etc.NoshowInvItem.Goblin6:

@@ -15,6 +15,9 @@ public class MiningTimeUIManager : MonoBehaviour {
     [field: SerializeField] public GameObject RewardAuraEF {get; set;}
 
 #region EVENT
+    /// <summary>
+    /// 時間がたったら、Miningリワード習得
+    /// </summary>
     public void OnClickTimerSliderBtn() {
         WorkSpace curWS = HM._.wsm.CurWorkSpace;
 

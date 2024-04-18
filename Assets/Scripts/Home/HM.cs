@@ -83,6 +83,7 @@ public class HM : MonoBehaviour {
         mtm = GameObject.Find("MiningTimeUIManager").GetComponent<MiningTimeUIManager>();
         wsm = GameObject.Find("WorkSpaceUIManager").GetComponent<WorkSpaceUIManager>();
         stm = GameObject.Find("SkillTreeUIManager").GetComponent<SkillTreeUIManager>();
+        lvm = GameObject.Find("LevelUpManager").GetComponent<LevelUpManager>();
         ivm = GameObject.Find("InventoryUIManager").GetComponent<InventoryUIManager>();
         ivCtrl = GameObject.Find("InventoryController").GetComponent<InventoryController>();
         ivEqu = GameObject.Find("InventoryEquipUIManager").GetComponent<InventoryEquipUIManager>();
