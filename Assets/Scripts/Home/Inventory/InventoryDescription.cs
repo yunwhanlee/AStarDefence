@@ -31,6 +31,7 @@ namespace Inventory.UI {
         [field:SerializeField] private GameObject SoulStoneBtnObj {get; set;}
         [field:SerializeField] private ParticleImage ItemImgScaleUIEF {get; set;}
         [field:SerializeField] private ParticleImage UpgradeSucessUIEF {get; set;}
+        [field:SerializeField] private ParticleImage UpgradeFailUIEF {get; set;}
         [field:SerializeField] private ParticleImage SoulStoneSpawnUIEF {get; set;}
         [field:SerializeField] private ParticleImage MagicStoneSpawnUIEF {get; set;}
         [field:SerializeField] private Image TopBg {get; set;}
@@ -115,6 +116,8 @@ namespace Inventory.UI {
                 }
                 else {
                     SM._.SfxPlay(SM.SFX.EnemyDeadSFX);
+                    UpgradeFailUIEF.Play();
+                    HM._.ivm.EquipPopUpAnim.SetTrigger("DoShake");
                     HM._.hui.ShowMsgNotice($"<color=red>업그레이드 실패..{randPer} / {ePers[lvIdx]}</color>");
                     return;
                 }
@@ -136,6 +139,8 @@ namespace Inventory.UI {
                 }
                 else {
                     SM._.SfxPlay(SM.SFX.EnemyDeadSFX);
+                    UpgradeFailUIEF.Play();
+                    HM._.ivm.EquipPopUpAnim.SetTrigger("DoShake");
                     HM._.hui.ShowMsgNotice($"<color=red>업그레이드 실패..{randPer} / {ePers[lvIdx]}</color>");
                     return;
                 }

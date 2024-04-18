@@ -27,6 +27,8 @@ namespace Inventory.UI
         [field:SerializeField] public GameObject EquipPopUp {get; private set;}
         [field:SerializeField] public GameObject ConsumePopUp {get; private set;}
 
+        [field:SerializeField] public Animator EquipPopUpAnim {get; private set;}
+
         [field:SerializeField] public GameObject AutoMergeBtnAlertIcon {get; private set;}
         [field:SerializeField] public GameObject InvAlertIcon {get; private set;}
         [field:SerializeField] public TMP_Text InvAlertCntTxt {get; private set;}
