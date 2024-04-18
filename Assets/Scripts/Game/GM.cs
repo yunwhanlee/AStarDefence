@@ -91,6 +91,9 @@ public class GM : MonoBehaviour {
         CorReadyWaveID = null;
         IsReady = false;
         Stage = DM._ == null? 0 : DM._.SelectedStage;
+        if(Stage == Config.GOBLIN_DUNGEON_STAGE) {
+            Stage += (int)DM._.SelectedDiff;
+        }
         Array.ForEach(StageDts, stageDt => stageDt.TileMapObj.SetActive(false)); //* 非表示 初期化
         MaxWave = StageDts[Stage].EnemyData.Waves.Length;
         WaveCnt = 0;

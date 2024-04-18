@@ -125,7 +125,7 @@ public abstract class Enemy : MonoBehaviour {
             SprRdr.sprite = curEnemyDt.Spr;
             if(isGoblin)
                 GetComponentInChildren<SpriteLibrary>().spriteLibraryAsset = curEnemyDt.SprLibAst;
-            maxHp = curEnemyDt.Hp;
+            maxHp = Mathf.RoundToInt(curEnemyDt.Hp * Config.STAGE.DIFF_INC_HP_PERS[(int)DM._.SelectedDiff]);
             Hp = maxHp;
             originSpd = curEnemyDt.Speed;
             Speed = originSpd;

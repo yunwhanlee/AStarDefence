@@ -58,6 +58,14 @@ public static class Config {
 
     public const int BLIZZARDSCROLL_SLOW_SEC = 5;
     public const int LIGHTNINGSCROLL_STUN_SEC = 3;
+
+    public const int GOBLIN_DUNGEON_STAGE = 5;
+
+    public class STAGE {
+        public static readonly float[] DIFF_INC_HP_PERS = {
+            1, 2.75f, 7
+        };
+    }
 #endregion
 
 #region PRICE
