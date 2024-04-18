@@ -70,15 +70,18 @@ namespace Inventory.UI {
         }
 
         public void OnClickEquipBtn() {
-            Debug.Log($"OnClickEquipBtn():: CurInvItem= {HM._.ivm.CurInvItem}, IsEquip= {HM._.ivm.CurInvItem.IsEquip}");
-            HM._.ivm.EquipPopUp.SetActive(false);
-
-            if(HM._.ivm.CurInvItem.IsEquip)
+            Debug.Log($"OnClickEquipBtn():: CurInvItem= {ivm.CurInvItem}, IsEquip= {ivm.CurInvItem.IsEquip}");
+            ivm.EquipPopUp.SetActive(false);
+            //* 装置・解除
+            if(ivm.CurInvItem.IsEquip)
                 HM._.ivCtrl.UnEquipSlotUI();
             else
                 HM._.ivCtrl.EquipItemSlotUI();
 
             HM._.ivEqu.UpdateAllEquipAbilityData();
+
+            //* イベントリーUI アップデート
+            HM._.ivCtrl.InventoryData.InformAboutChange();
         }
 
         public void OnClickUpgradeBtn() {

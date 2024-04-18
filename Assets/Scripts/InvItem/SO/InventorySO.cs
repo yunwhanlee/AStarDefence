@@ -165,6 +165,8 @@ namespace Inventory.Model
             for(int i = 0; i < ItemList.Count; i++) {
                 if(ItemList[i].IsEmpty)
                     continue;
+
+                //* 同じアイテムが有ったら
                 if(ItemList[i].Data.ID == item.ID) {
                     int amountPossibleToTake = ItemList[i].Data.MaxStackSize - ItemList[i].Quantity;
 
@@ -180,6 +182,7 @@ namespace Inventory.Model
                 }
             }
 
+            //* アイテム生成 (最初の初期化にも使う)
             while(quantity > 0 && IsInventoryFull() == false) {
                 int newQuantity = Mathf.Clamp(quantity, 0, item.MaxStackSize);
                 quantity -= newQuantity;
@@ -216,12 +219,33 @@ namespace Inventory.Model
         /// </summary>
         public void AutoMergeEquipItem() {
             const int MERGE_UNIT = 10;
-            //* マージすることがなかったら
-            bool isExistMergable = ItemList.Exists (item => item.Data && item.Data.Type != Enum.ItemType.Etc &&  item.Quantity >= 10);
-            if(!isExistMergable) {
+
+            bool isMergable = false;
+            bool isMustUnEquip = false;
+
+            //* マージできるか状況 確認
+            foreach(var item in ItemList) {
+                if(item.IsEmpty) continue;
+                if(item.Data.Type == Enum.ItemType.Etc) continue;
+
+                if(item.Quantity >= 10) {
+                    isMergable = true;
+                    if(item.IsEquip) {
+                        isMustUnEquip = true;
+                    }
+                }
+            }
+
+            if(!isMergable) {
                 HM._.hui.ShowMsgError("합성할 아이템이 없습니다.");
                 return;
             }
+            else if(isMustUnEquip) {
+                HM._.hui.ShowMsgError("장착중인 아이템은 합성이 불가능합니다. 장착을 해제해주세요!");
+                return;
+            }
+
+            SM._.SfxPlay(SM.SFX.Merge3SFX);
 
             //* マージ
             for(int i = 0; i < ItemList.Count; i++) {
@@ -245,6 +269,7 @@ namespace Inventory.Model
                     var type = item.Data.Type;
                     int nextGrade = (int)item.Data.Grade + 1;
                     Debug.Log($"AutoMergeEquipItem():: {type}: {(int)item.Data.Grade} -> {nextGrade}");
+
                     // タイプ
                     ItemSO nextItemDt = (type == Enum.ItemType.Weapon)? HM._.rwlm.RwdItemDt.WeaponDatas[nextGrade]
                         : (type == Enum.ItemType.Shoes)? HM._.rwlm.RwdItemDt.ShoesDatas[nextGrade]
@@ -252,9 +277,14 @@ namespace Inventory.Model
                         : (type == Enum.ItemType.Relic)? HM._.rwlm.RwdItemDt.RelicDatas[nextGrade - (int)Enum.Grade.Epic]
                         : null;
 
+                    if(nextItemDt == null)
+                        continue;
+
                     //* Relicなら、ランダムで能力
                     var relicAbilities = CheckRelicAbilitiesData(nextItemDt);
-                    AddStackableItem(nextItemDt, mergeCnt, lv: 1, relicAbilities, item.IsEquip, item.IsNewAlert);
+
+                    //* アイテムマージ
+                    AddStackableItem(nextItemDt, mergeCnt, lv: 1, relicAbilities, item.IsEquip, isNewAlert: true);
                 }
             }
             //* イベントリーUI アップデート

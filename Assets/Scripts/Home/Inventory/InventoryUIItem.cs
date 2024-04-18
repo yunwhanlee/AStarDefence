@@ -67,6 +67,7 @@ namespace Inventory.UI
             if(HM._) BgImg.sprite = HM._.ivm.NoneBgSpr;
             BgImg.color = Color.white;
             ItemImg.gameObject.SetActive(false);
+            if(HM._) HM._.ivm.AutoMergeBtnAlertIcon.SetActive(false);
 
             //* Equipスロットは対応しない（そのそのオブジェクトが付いていない）
             if(AlertRedDot) AlertRedDot.SetActive(false);
@@ -85,20 +86,12 @@ namespace Inventory.UI
             invItemUI.ItemImgScaleUIEF.Play();
         }
         /// <summary>
-        /// アイテムのデータ設定
-        /// /// </summary>
-        public void SetUI (
-            Enum.ItemType type, 
-            Enum.Grade grade, 
-            Sprite spr, 
-            int quantity, 
-            int lv, 
-            AbilityType[] relicAbilities = null, 
-            bool isEquip = false,
-            bool isNewAlert = false
-        ) {
+        /// インベントリアイテムUIとデータ設定
+        /// </summary>
+        public void SetUI (Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv, AbilityType[] relicAbilities = null, bool isEquip = false, bool isNewAlert = false) {
             // Debug.Log($"SetUI(ItemImg.name={ItemImg.sprite.name}, type={type}, grade={grade})::");
             Type = type;
+            QuantityTxt.text = $"{quantity}";
 
             //* その他アイテム
             if(type == Enum.ItemType.Etc) {
@@ -110,6 +103,7 @@ namespace Inventory.UI
                 BgImg.color = (grade == Enum.Grade.None)? Color.white : HM._.ivm.GradeClrs[ (int)grade];
                 LvTxt.text = "";
                 EquipDim.SetActive(false);
+                
             }
             //* 装置アイテム
             else {
@@ -121,6 +115,10 @@ namespace Inventory.UI
                 BgImg.sprite = HM._.ivm.GradeBgSprs[(int)grade];
                 LightImg.enabled = true;
                 if(EquipDim) EquipDim.SetActive(isEquip); //* EquipスロットはEquipDimオブジェクトがないため、合うかif文でチェック
+                if(quantity >= 10) {
+                    QuantityTxt.text = $"<color=green>{quantity}</color>";
+                    HM._.ivm.AutoMergeBtnAlertIcon.SetActive(true);
+                }
 
                 string lvStr = (type == Enum.ItemType.Relic && lv >= Config.RELIC_UPGRADE_MAX)
                     || (type != Enum.ItemType.Relic && lv >= Config.EQUIP_UPGRADE_MAX) ? "MAX" : lv.ToString();
@@ -128,13 +126,14 @@ namespace Inventory.UI
 
                 if(grade >= Enum.Grade.Unique)
                     ShinyUIEF.Play();
+                
             }
+
             IsEmpty = false;
             // IsNewAlert = true;
             if(AlertRedDot) AlertRedDot.SetActive(isNewAlert);
             ItemImg.gameObject.SetActive(true);
             ItemImg.sprite = spr;
-            QuantityTxt.text = $"{quantity}";
         }
 
         public void Select() {

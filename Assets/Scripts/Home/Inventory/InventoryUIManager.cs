@@ -27,6 +27,7 @@ namespace Inventory.UI
         [field:SerializeField] public GameObject EquipPopUp {get; private set;}
         [field:SerializeField] public GameObject ConsumePopUp {get; private set;}
 
+        [field:SerializeField] public GameObject AutoMergeBtnAlertIcon {get; private set;}
         [field:SerializeField] public GameObject InvAlertIcon {get; private set;}
         [field:SerializeField] public TMP_Text InvAlertCntTxt {get; private set;}
 
@@ -83,9 +84,7 @@ namespace Inventory.UI
 
     public void OnClickInventoryIconBtn() => HM._.ivCtrl.ShowInventory();
     public void OnClickInventoryPopUpBackBtn() => HM._.ivCtrl.HideInventory();
-    public void OnClickInvItemAutoMergeBtn() {
-        HM._.ivCtrl.InventoryData.AutoMergeEquipItem();
-    }
+    public void OnClickInvItemAutoMergeBtn() => HM._.ivCtrl.InventoryData.AutoMergeEquipItem();
     #endregion
 
     #region FUNC

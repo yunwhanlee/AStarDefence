@@ -212,7 +212,7 @@ public class InventoryEquipUIManager : MonoBehaviour {
             myAbilityDataList = invEquipItem.Data.Abilities.ToList();
 
             //* ２．Potential能力があったら
-            if(invEquipItem.RelicAbilities.Length == 1) {
+            if(invEquipItem.RelicAbilities?.Length == 1) {
                 ItemSO[] relicDts = HM._.rwlm.RwdItemDt.RelicDatas;
                 AbilityData[] relicAllAbilityDatas = Enum.GetRelicAllDts(invEquipItem.Data.Grade);
 
