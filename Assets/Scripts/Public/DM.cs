@@ -177,8 +177,6 @@ public class DM : MonoBehaviour {
         }
         else
             DB = Load();
-
-        HM._.hui.ShowMsgNotice($"WarriorSkillTreeSO= {WarriorSkillTreeDts}");
     }
 
     void LateUpdate() {
