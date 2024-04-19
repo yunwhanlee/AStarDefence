@@ -239,11 +239,35 @@ public class GM : MonoBehaviour {
         RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
         Enum.Difficulty diff = DM._.SelectedDiff;
         var rewardList = new List<RewardItem>();
+        int nextStage = DM._.SelectedStage + 1;
         switch(DM._.SelectedStage) {
-            case 1: break;
-            case 2: break;
-            case 3: break;
-            case 4: break;
+            case 0: 
+            case 1: 
+            case 2: 
+            case 3: 
+                if(diff == Enum.Difficulty.Easy) {
+                    DM._.DB.StageLockedDBs[nextStage].IsUnlockAlert = true;
+                    DM._.DB.StageLockedDBs[nextStage].IsLockEasy = false;
+                }
+                else if(diff == Enum.Difficulty.Normal) {
+                    DM._.DB.StageLockedDBs[nextStage].IsUnlockAlert = true;
+                    DM._.DB.StageLockedDBs[nextStage].IsLockNormal = false;
+                }
+                else if(diff == Enum.Difficulty.Hard) {
+                    DM._.DB.StageLockedDBs[nextStage].IsUnlockAlert = true;
+                    DM._.DB.StageLockedDBs[nextStage].IsLockHard = false;
+                }
+                break;
+            case 4: 
+                if(diff == Enum.Difficulty.Easy) {
+                    DM._.DB.StageLockedDBs[0].IsUnlockAlert = true;
+                    DM._.DB.StageLockedDBs[0].IsLockNormal = false;
+                }
+                else if(diff == Enum.Difficulty.Normal) {
+                    DM._.DB.StageLockedDBs[0].IsUnlockAlert = true;
+                    DM._.DB.StageLockedDBs[0].IsLockHard = false;
+                }
+                break;
             case Config.GOBLIN_DUNGEON_STAGE:
             case Config.GOBLIN_DUNGEON_STAGE + 1:
             case Config.GOBLIN_DUNGEON_STAGE + 2: //* 唯一にStageSelectedStageが＋して分けている（ゴブリン敵イメージを異なるため）

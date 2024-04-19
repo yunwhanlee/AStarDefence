@@ -57,6 +57,7 @@ public class EquipDB {
 [Serializable]
 public class StageLockedDB {
     [field:SerializeField] public string Name {get; private set;}
+    [field:SerializeField] public bool IsUnlockAlert {get; set;}
     [field:SerializeField] public bool IsLockEasy {get; set;}
     [field:SerializeField] public bool IsLockNormal {get; set;}
     [field:SerializeField] public bool IsLockHard {get; set;}

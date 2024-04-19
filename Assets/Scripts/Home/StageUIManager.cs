@@ -15,6 +15,12 @@ public class StageUIManager : MonoBehaviour {
     [field:SerializeField] public GameObject DungeonAlertDot;
 
     [Header("STAGE")]
+    [field:SerializeField] public int NewStageAlertIdx;
+    [field:SerializeField] public GameObject NewStageAlertBtnObj;
+    [field:SerializeField] public Sprite[] MapIconSprs;
+    [field:SerializeField] public Image NewStageAlertMapImg;
+    [field:SerializeField] public TMP_Text NewStageAlertTxt;
+
     [field:SerializeField] public GameObject StageGroup;
     [field:SerializeField] public GameObject[] StagePopUps;
 
@@ -24,8 +30,22 @@ public class StageUIManager : MonoBehaviour {
     [field:SerializeField] public GameObject HardLockedFrame;
 
     void Start() {
-        
         DungeonAlertDot.SetActive(HM._.GoldKey > 0);
+        NewStageAlertBtnObj.SetActive(false);
+
+        //* New Stage Alert 表示
+        for(int i = 0; i < DM._.DB.StageLockedDBs.Length; i++) {
+            StageLockedDB stageDb = DM._.DB.StageLockedDBs[i];
+            if(stageDb.IsUnlockAlert) {
+                int nextStageIdx = i + 1;
+                NewStageAlertIdx = i;
+                NewStageAlertBtnObj.SetActive(true);
+                stageDb.IsUnlockAlert = false;
+                HM._.hui.ShowMsgNotice($"축하합니다! 스테이지{nextStageIdx}가 열렸습니다!");
+                NewStageAlertMapImg.sprite = MapIconSprs[i];
+                NewStageAlertTxt.text = $"스테이지{nextStageIdx} 플레이 가능";
+            }
+        }
     }
 
 #region GOBLIN DUNGEON EVENT 
@@ -63,6 +83,11 @@ public class StageUIManager : MonoBehaviour {
 #endregion
 
 #region STAGE EVENT
+    public void OnClickNewStageAlertBtn() {
+        Debug.Log($"OnClickNewStageAlertBtn():: NewStageAlertIdx= {NewStageAlertIdx}");
+        HM._.SelectedStage = NewStageAlertIdx;
+        HM._.hui.OnClickPlayBtn();
+    }
     public void OnClickStartBtn() {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         DifficultyWindow.SetActive(true);
