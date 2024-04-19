@@ -105,16 +105,16 @@ public class SkillTreeDB {
     /// </summary>
     /// <param name="lvIdx">レベルIndex</param>
     public float GetWarriorVal(int lvIdx) {
-        return !IsLockWarriorSTs[lvIdx]? DM._.WarriorSkillTreeSO.Datas[lvIdx].Val : 0;
+        return !IsLockWarriorSTs[lvIdx]? DM._.WarriorSkillTreeDts[lvIdx].Val : 0;
     }
     public float GetArcherVal(int lvIdx) {
-        return !IsLockArcherSTs[lvIdx]? DM._.ArcherSkillTreeSO.Datas[lvIdx].Val : 0;
+        return !IsLockArcherSTs[lvIdx]? DM._.ArcherSkillTreeDts[lvIdx].Val : 0;
     }
     public float GetMagicianVal(int lvIdx) {
-        return !IsLockMagicianSTs[lvIdx]? DM._.MagicianSkillTreeSO.Datas[lvIdx].Val : 0;
+        return !IsLockMagicianSTs[lvIdx]? DM._.MagicianSkillTreeDts[lvIdx].Val : 0;
     }
     public float GetUtilityVal(int lvIdx) {
-        return !IsLockUtilitySTs[lvIdx]? DM._.UtilitySkillTreeSO.Datas[lvIdx].Val : 0;
+        return !IsLockUtilitySTs[lvIdx]? DM._.UtilitySkillTreeDts[lvIdx].Val : 0;
     }
 }
 
@@ -145,10 +145,10 @@ public class DM : MonoBehaviour {
 
     //* スキルツリーデータ
     [field:Header("SKILL TREE DATA")]
-    [field:SerializeField] public SettingSkillTreeData WarriorSkillTreeSO {get; private set;}
-    [field:SerializeField] public SettingSkillTreeData ArcherSkillTreeSO {get; private set;}
-    [field:SerializeField] public SettingSkillTreeData MagicianSkillTreeSO {get; private set;}
-    [field:SerializeField] public SettingSkillTreeData UtilitySkillTreeSO {get; private set;}
+    [field:SerializeField] public SkillTreeData[] WarriorSkillTreeDts {get; private set;}
+    [field:SerializeField] public SkillTreeData[] ArcherSkillTreeDts {get; private set;}
+    [field:SerializeField] public SkillTreeData[] MagicianSkillTreeDts {get; private set;}
+    [field:SerializeField] public SkillTreeData[] UtilitySkillTreeDts {get; private set;}
 
     //* ★データベース
     [field: SerializeField] public DB DB {get; private set;}
@@ -177,6 +177,8 @@ public class DM : MonoBehaviour {
         }
         else
             DB = Load();
+
+        HM._.hui.ShowMsgNotice($"WarriorSkillTreeSO= {WarriorSkillTreeDts}");
     }
 
     void LateUpdate() {

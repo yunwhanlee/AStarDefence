@@ -181,13 +181,13 @@ public class SkillTreeUIManager : MonoBehaviour {
     private SkillTreeData GetCurSkillDataSO(SkillTreeCate cate, int idx) {
         switch(cate) {
             case SkillTreeCate.Warrior:
-                return DM._.WarriorSkillTreeSO.Datas[idx];
+                return DM._.WarriorSkillTreeDts[idx];
             case SkillTreeCate.Archer:
-                return DM._.ArcherSkillTreeSO.Datas[idx];
+                return DM._.ArcherSkillTreeDts[idx];
             case SkillTreeCate.Magician:
-                return DM._.MagicianSkillTreeSO.Datas[idx];
+                return DM._.MagicianSkillTreeDts[idx];
             case SkillTreeCate.Utility:
-                return DM._.UtilitySkillTreeSO.Datas[idx];
+                return DM._.UtilitySkillTreeDts[idx];
         }
         return null;
     }
