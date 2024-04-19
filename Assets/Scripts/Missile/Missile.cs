@@ -13,7 +13,7 @@ public class Missile : MonoBehaviour {
     [field:SerializeField] public List<Collider2D> ColList {get; set;}
     [field:SerializeField] public bool IsMultiShot = false;
     private Vector2 dir;
-    private const float speed = 12;
+    private const float speed = 15;
 
     // void Awake() => SprRdr = GetComponent<SpriteRenderer>();
 
@@ -55,7 +55,9 @@ public class Missile : MonoBehaviour {
 
         if(Target == null) return;
 
-        dir = Target.position - transform.position;
+        Vector3 tgOffset = new Vector3(Target.position.x, Target.position.y + 0.5f, Target.position.z);
+
+        dir = tgOffset - transform.position;
         dir = dir.normalized;
         
         float degree = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;

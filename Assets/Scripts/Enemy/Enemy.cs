@@ -112,7 +112,7 @@ public abstract class Enemy : MonoBehaviour {
             Util._.SetDefMt(SprRdr);
             SprRdr.color = Color.white;
             SprRdr.sortingOrder = (Type == EnemyType.Flight)? 15 : ORIGIN_SORTING_LAYER;
-            transform.localScale = Vector2.one * (Type == EnemyType.Boss? transform.localScale.x * 2 : transform.localScale.x);
+            transform.localScale = Vector2.one * (Type == EnemyType.Boss? 2 : 1);
 
         }
         /// <summary>

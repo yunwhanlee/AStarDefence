@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using Inventory.Model;
+using Random = UnityEngine.Random;
 // using UnityEditorInternal;
 // using UnityEditor.SceneManagement;
 // using UnityEngine.Events;
@@ -234,8 +235,64 @@ public class GM : MonoBehaviour {
         SM._.SfxPlay(SM.SFX.CompleteSFX);
         gui.VictoryPopUp.SetActive(true);
 
-        //TODO Reward 処理
-        //TODO SkillTree Utility Lv4 Exp 10% Up
+        //* リワード
+        RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
+        Enum.Difficulty diff = DM._.SelectedDiff;
+        var rewardList = new List<RewardItem>();
+        switch(DM._.SelectedStage) {
+            case 1: break;
+            case 2: break;
+            case 3: break;
+            case 4: break;
+            case Config.GOBLIN_DUNGEON_STAGE:
+            case Config.GOBLIN_DUNGEON_STAGE + 1:
+            case Config.GOBLIN_DUNGEON_STAGE + 2: //* 唯一にStageSelectedStageが＋して分けている（ゴブリン敵イメージを異なるため）
+            {
+                //* Difficultによる、リワードデータ
+                int exp = (diff == Enum.Difficulty.Easy)? 150 : (diff == Enum.Difficulty.Normal)? 350 : 700;
+                int coin = (diff == Enum.Difficulty.Easy)? 1000 : (diff == Enum.Difficulty.Normal)? 2500 : 5000;
+                int chestGoldQuantity = (diff == Enum.Difficulty.Easy)? 1 : (diff == Enum.Difficulty.Normal)? 2 : 3;
+
+                //* Difficultによる、ゴブリンリワードデータ
+                Etc.NoshowInvItem[] gblEasyRwdArr = {Etc.NoshowInvItem.Goblin0, Etc.NoshowInvItem.Goblin1, Etc.NoshowInvItem.Goblin2};
+                Etc.NoshowInvItem[] gblNormalRwdArr = {Etc.NoshowInvItem.Goblin2, Etc.NoshowInvItem.Goblin3, Etc.NoshowInvItem.Goblin4};
+                Etc.NoshowInvItem[] gblHardRwdArr = {Etc.NoshowInvItem.Goblin4, Etc.NoshowInvItem.Goblin5, Etc.NoshowInvItem.Goblin6};
+
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], exp));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], coin));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGold], chestGoldQuantity));
+
+                //* Goblin Reward
+                int rand = Random.Range(0, 100);
+                var goblinRwd = rand < 50? gblEasyRwdArr[0] : rand < 85? gblNormalRwdArr[1] : gblHardRwdArr[2];
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)goblinRwd], Random.Range(1, 4)));
+                break;
+            }
+        }
+
+        //* 追加コイン＆EXP 適用
+        rewardList.ForEach(rwdItem => {
+            Etc.NoshowInvItem enumVal = Util.FindEnumVal(rwdItem.Data.name);
+            if(enumVal == Etc.NoshowInvItem.Coin && DM._.DB.EquipDB.ClearCoinPer > 0)
+                rwdItem.Quantity = (int)(rwdItem.Quantity * (1 + DM._.DB.EquipDB.ClearCoinPer));
+            if(enumVal == Etc.NoshowInvItem.Exp) {
+                float bonusExpPer = 0;
+                //* ボーナスEXP％ 計算
+                if(DM._.DB.EquipDB.ClearExpPer > 0)
+                    bonusExpPer += DM._.DB.EquipDB.ClearExpPer;
+                if(DM._.DB.IsCloverActive)
+                    bonusExpPer += Config.CLOVER_BONUS_EXP_PER;
+                if(DM._.DB.IsGoldCloverActive)
+                    bonusExpPer += Config.GOLDCLOVER_BONUS_EXP_PER;
+
+                //* 適用
+                if(bonusExpPer > 0)
+                    rwdItem.Quantity += Mathf.RoundToInt(rwdItem.Quantity * bonusExpPer);
+            }
+        });
+
+        rwlm.ShowReward(rewardList);
+        HM._.rwm.UpdateInventory(rewardList);
     }
 
     /// <summary>
