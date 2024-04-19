@@ -34,6 +34,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
             return;
 
         SM._.SfxPlay(SM.SFX.ClickSFX);
+        HM._.lvm.CheckLevelUp();
         WindowObj.SetActive(false);
     }
 #endregion
