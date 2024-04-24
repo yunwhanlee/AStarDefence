@@ -72,9 +72,9 @@ public class StageUIManager : MonoBehaviour {
         SM._.SfxPlay(SM.SFX.StageSelectSFX);
 
         //* 難易度 データ設定
-        DM._.SelectedDiff = (diffIdx == 0)? Enum.Difficulty.Easy
-            : (diffIdx == 1)? Enum.Difficulty.Normal
-            : Enum.Difficulty.Hard;
+        DM._.SelectedDiff = (diffIdx == 0)? Enum.StageNum.Stage1_1
+            : (diffIdx == 1)? Enum.StageNum.Stage1_2
+            : Enum.StageNum.Stage1_3;
 
         //* ➡ ゲームシーンロード
         SceneManager.LoadScene(Enum.Scene.Game.ToString());
@@ -92,8 +92,8 @@ public class StageUIManager : MonoBehaviour {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         DifficultyWindow.SetActive(true);
         //* Diff Btns
-        NormalLockedFrame.SetActive(DM._.DB.StageLockedDBs[HM._.SelectedStage].IsLockNormal);
-        HardLockedFrame.SetActive(DM._.DB.StageLockedDBs[HM._.SelectedStage].IsLockHard);
+        NormalLockedFrame.SetActive(DM._.DB.StageLockedDBs[HM._.SelectedStage].IsLockStage1_2);
+        HardLockedFrame.SetActive(DM._.DB.StageLockedDBs[HM._.SelectedStage].IsLockStage1_3);
 
         DM._.SelectedStage = HM._.SelectedStage;
     }
@@ -106,9 +106,9 @@ public class StageUIManager : MonoBehaviour {
 
         SM._.SfxPlay(SM.SFX.StageSelectSFX);
         //* 難易度 データ設定
-        DM._.SelectedDiff = (diffIdx == 0)? Enum.Difficulty.Easy
-            : (diffIdx == 1)? Enum.Difficulty.Normal
-            : Enum.Difficulty.Hard;
+        DM._.SelectedDiff = (diffIdx == 0)? Enum.StageNum.Stage1_1
+            : (diffIdx == 1)? Enum.StageNum.Stage1_2
+            : Enum.StageNum.Stage1_3;
 
         //* ➡ ゲームシーンロード
         SceneManager.LoadScene(Enum.Scene.Game.ToString());
@@ -133,7 +133,7 @@ public class StageUIManager : MonoBehaviour {
         // 選択したステージ 表示
         StagePopUps[hm.SelectedStage].SetActive(true);
         //　ロック状況 表示
-        WholeLockedFrame.SetActive(DM._.DB.StageLockedDBs[hm.SelectedStage].IsLockEasy);
+        WholeLockedFrame.SetActive(DM._.DB.StageLockedDBs[hm.SelectedStage].IsLockStage1_1);
     }
     public void OnClickBackBtn() { //* 閉じるボタン(StageとGoblin Dungeon全て)
         SM._.SfxPlay(SM.SFX.ClickSFX);

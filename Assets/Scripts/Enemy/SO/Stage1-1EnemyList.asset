@@ -1,0 +1,296 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e7b3a9d9a82ab4481c34b2140fe2a9, type: 3}
+  m_Name: Stage1-1EnemyList
+  m_EditorClassIdentifier: 
+  <Waves>k__BackingField:
+  - <Name>k__BackingField: "\uC2AC\uB77C\uC784"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 1320815918, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 1
+    <Hp>k__BackingField: 10
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uD30C\uB780\uC2AC\uB77C\uC784"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 1462142213, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 2
+    <Hp>k__BackingField: 15
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uBE68\uAC04\uC2AC\uB77C\uC784"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 1517589404, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 3
+    <Hp>k__BackingField: 23
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uB178\uB780\uBC84\uC12F"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 765574535, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 4
+    <Hp>k__BackingField: 31
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uBE68\uAC04\uBC84\uC12F"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 1610329140, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 5
+    <Hp>k__BackingField: 43
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uCD08\uB85D\uBC84\uC12F"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: -1473748856, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 6
+    <Hp>k__BackingField: 55
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uC678\uB208\uBC15\uC950"
+    <Type>k__BackingField: 1
+    <Spr>k__BackingField: {fileID: 1800572130, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 7
+    <Hp>k__BackingField: 71
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uD551\uD06C\uC2AC\uB77C\uC784"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 1743440783, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 8
+    <Hp>k__BackingField: 87
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uD654\uB09C\uC694\uC815"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 1125276084, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 9
+    <Hp>k__BackingField: 107
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uBC14\uC704\uACE8\uB818"
+    <Type>k__BackingField: 2
+    <Spr>k__BackingField: {fileID: -1868488212, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 10
+    <Hp>k__BackingField: 3810
+    <Speed>k__BackingField: 1
+  - <Name>k__BackingField: "\uC2A4\uD140\uD504"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: -732777723, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 11
+    <Hp>k__BackingField: 130
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uBBF8\uBBF9"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 392838042, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 12
+    <Hp>k__BackingField: 143
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uB178\uB780\uD398\uC5B4\uB9AC"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: -2098531603, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 13
+    <Hp>k__BackingField: 158
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uC9C8\uD37D\uC774"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: -1357869212, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 14
+    <Hp>k__BackingField: 174
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uBB34\uB2F9\uBC8C\uB808"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 558120206, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 15
+    <Hp>k__BackingField: 192
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uC5B4\uB460\uC758\uBBF8\uBBF9"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: -593094450, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 16
+    <Hp>k__BackingField: 212
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uD478\uB978\uC678\uB208\uBC15\uC950"
+    <Type>k__BackingField: 1
+    <Spr>k__BackingField: {fileID: 1562513854, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 17
+    <Hp>k__BackingField: 234
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uCF04\uD0C0\uB85C\uC2A4"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: -699452619, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 18
+    <Hp>k__BackingField: 258
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uC624\uC6B0\uAC70"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: -178163794, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 19
+    <Hp>k__BackingField: 284
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uBC14\uC704\uBAAC"
+    <Type>k__BackingField: 2
+    <Spr>k__BackingField: {fileID: -456943933, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 20
+    <Hp>k__BackingField: 12640
+    <Speed>k__BackingField: 1
+  - <Name>k__BackingField: "\uC57C\uC218"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: -2003954225, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 21
+    <Hp>k__BackingField: 313
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uB178\uB780\uBB34\uB2F9\uBC8C\uB808"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: -1646231356, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 22
+    <Hp>k__BackingField: 345
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uB450\uBC1C\uB3C5\uC218\uB9AC"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 1273295989, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 23
+    <Hp>k__BackingField: 380
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uD478\uB978\uC57C\uC218"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: -1921180440, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 24
+    <Hp>k__BackingField: 418
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uBBF8\uB178\uD0C0\uC2A4"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: -371200465, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 25
+    <Hp>k__BackingField: 460
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uC800\uC8FC\uBC1B\uC740\uC804\uC0AC"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: -1967727816, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 26
+    <Hp>k__BackingField: 506
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uBD89\uC740\uD398\uC5B4\uB9AC"
+    <Type>k__BackingField: 1
+    <Spr>k__BackingField: {fileID: -1640072155, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 27
+    <Hp>k__BackingField: 557
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uCF54\uBFD4\uC804\uC0AC"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 2061086723, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 28
+    <Hp>k__BackingField: 613
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uC804\uD22C\uC624\uC6B0\uAC70"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 819215828, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 29
+    <Hp>k__BackingField: 675
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uC232\uAD00\uB9AC\uC790"
+    <Type>k__BackingField: 2
+    <Spr>k__BackingField: {fileID: -1751026566, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 30
+    <Hp>k__BackingField: 35800
+    <Speed>k__BackingField: 1
+  - <Name>k__BackingField: "\uBC14\uB78C\uC694\uC815"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: -1725695702, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 31
+    <Hp>k__BackingField: 743
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uB300\uC9C0\uAD34\uC218"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 1028424733, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 32
+    <Hp>k__BackingField: 818
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uB098\uBB34\uC815\uB839"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: -2062036941, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 33
+    <Hp>k__BackingField: 900
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uB450\uBC1C\uC789\uAF2C\uC0C8"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 1950656385, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 34
+    <Hp>k__BackingField: 990
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uC220\uC758\uC694\uC815"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 963525556, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 35
+    <Hp>k__BackingField: 1089
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uBC9A\uAF43\uB098\uBB34\uC815\uB839"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 591250537, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 36
+    <Hp>k__BackingField: 1198
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uC544\uAE30\uBC14\uB78C\uC6A9"
+    <Type>k__BackingField: 1
+    <Spr>k__BackingField: {fileID: -2139718104, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 37
+    <Hp>k__BackingField: 1318
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uAF2C\uB9C8\uBC14\uB78C\uB4DC\uB798\uACE4"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: 1245904281, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 38
+    <Hp>k__BackingField: 1450
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uBC14\uB78C\uB4DC\uB798\uACE4"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: -994731371, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 39
+    <Hp>k__BackingField: 1595
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uD0C0\uB77D\uD55C \uC232\uAD00\uB9AC\uC790"
+    <Type>k__BackingField: 2
+    <Spr>k__BackingField: {fileID: -337359016, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 0}
+    <Lv>k__BackingField: 40
+    <Hp>k__BackingField: 100440
+    <Speed>k__BackingField: 1
+  <HpRatio>k__BackingField: 1

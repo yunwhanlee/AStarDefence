@@ -58,15 +58,15 @@ public class EquipDB {
 public class StageLockedDB {
     [field:SerializeField] public string Name {get; private set;}
     [field:SerializeField] public bool IsUnlockAlert {get; set;}
-    [field:SerializeField] public bool IsLockEasy {get; set;}
-    [field:SerializeField] public bool IsLockNormal {get; set;}
-    [field:SerializeField] public bool IsLockHard {get; set;}
+    [field:SerializeField] public bool IsLockStage1_1 {get; set;}
+    [field:SerializeField] public bool IsLockStage1_2 {get; set;}
+    [field:SerializeField] public bool IsLockStage1_3 {get; set;}
     
-    public StageLockedDB(string name, bool easy, bool normal, bool hard) {
+    public StageLockedDB(string name, bool islockStage1_1, bool islockStage1_2, bool islockStage1_3) {
         Name = name;
-        IsLockEasy = easy;
-        IsLockNormal = normal;
-        IsLockHard = hard;
+        IsLockStage1_1 = islockStage1_1;
+        IsLockStage1_2 = islockStage1_2;
+        IsLockStage1_3 = islockStage1_3;
     }
 }
 
@@ -157,7 +157,7 @@ public class DM : MonoBehaviour {
 
     //* Global Values
     [field: SerializeField] public int SelectedStage {get; set;}
-    [field: SerializeField] public Enum.Difficulty SelectedDiff {get; set;}
+    [field: SerializeField] public Enum.StageNum SelectedDiff {get; set;}
 
     void Awake() {
         //* SINGLETON
