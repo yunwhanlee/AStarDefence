@@ -241,6 +241,7 @@ public class GM : MonoBehaviour {
         var rewardList = new List<RewardItem>();
         int nextStage = DM._.SelectedStage + 1;
         switch(DM._.SelectedStage) {
+            //TODO ステージのリワードをEASYとNORMALとHARDに分けて設定。
             case 0: 
             case 1: 
             case 2: 
