@@ -61,7 +61,10 @@ namespace Inventory.UI {
 
         void Start() {
             ivm = HM._.ivm;
-            IsUpgradeValToogle = false;
+            //* 初期値：アップグレードトーグルキーをONにする
+            IsUpgradeValToogle = true;
+            UpgValToogleHandleTf.anchoredPosition = new Vector2(IsUpgradeValToogle? 50 : -50, UpgValToogleHandleTf.anchoredPosition.y);
+            UpgValToogleHandleTxt.text = IsUpgradeValToogle? "ON" : "OFF";
         }
 
 #region EVENT
