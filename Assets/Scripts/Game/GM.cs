@@ -18,7 +18,7 @@ public class StageData {
     [field: SerializeField] public string Name {get; set;}
     [field: SerializeField] public GameObject TileMapObj {get; set;}
     [field: SerializeField] public TileBase[] Walls {get; set;}
-    [field: SerializeField] public SettingEnemyData EnemyData {get; set;}
+    [field: SerializeField] public SettingEnemyData[] EnemyDatas {get; set;}
 }
 
 public enum GameState {Ready, Play, Pause, Gameover};
@@ -93,10 +93,10 @@ public class GM : MonoBehaviour {
         IsReady = false;
         Stage = DM._ == null? 0 : DM._.SelectedStage;
         if(Stage == Config.GOBLIN_DUNGEON_STAGE) {
-            Stage += (int)DM._.SelectedDiff;
+            Stage += (int)DM._.SelectedStageNum;
         }
         Array.ForEach(StageDts, stageDt => stageDt.TileMapObj.SetActive(false)); //* 非表示 初期化
-        MaxWave = StageDts[Stage].EnemyData.Waves.Length;
+        MaxWave = StageDts[Stage].EnemyDatas[(int)DM._.SelectedStageNum].Waves.Length;
         WaveCnt = 0;
         ResetCnt = Config.DEFAULT_RESET_CNT;
         life = Config.DEFAULT_LIFE
@@ -117,8 +117,8 @@ public class GM : MonoBehaviour {
 
         //* ステージタイトルと難易度 表示 アニメーション
         string difficulty = (DM._ == null)? "TEST"
-            : (DM._.SelectedDiff == Enum.StageNum.Stage1_1)? "1-1"
-            : (DM._.SelectedDiff == Enum.StageNum.Stage1_2)? "1-2"
+            : (DM._.SelectedStageNum == Enum.StageNum.Stage1_1)? "1-1"
+            : (DM._.SelectedStageNum == Enum.StageNum.Stage1_2)? "1-2"
             : "1-3";
         string stageInfoTxt = $"{StageDts[Stage].Name}\n<size=70%>- {difficulty} -</size>";
         gef.ActiveStageTitleAnim(stageInfoTxt);
@@ -167,8 +167,8 @@ public class GM : MonoBehaviour {
 #endregion
 
 #region FUNC
-    public EnemyData GetCurEnemyData() => StageDts[Stage].EnemyData.Waves[WaveCnt - 1];
-    public EnemyData GetNextEnemyData() => StageDts[Stage].EnemyData.Waves[WaveCnt];
+    public EnemyData GetCurEnemyData() => StageDts[Stage].EnemyDatas[(int)DM._.SelectedStageNum].Waves[WaveCnt - 1];
+    public EnemyData GetNextEnemyData() => StageDts[Stage].EnemyDatas[(int)DM._.SelectedStageNum].Waves[WaveCnt];
 
     IEnumerator CoReadyWave() {
         yield return Util.RealTime1;
@@ -237,7 +237,7 @@ public class GM : MonoBehaviour {
 
         //* リワード
         RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
-        Enum.StageNum diff = DM._.SelectedDiff;
+        Enum.StageNum diff = DM._.SelectedStageNum;
         var rewardList = new List<RewardItem>();
         int nextStage = DM._.SelectedStage + 1;
         int selectStage = DM._.SelectedStage;

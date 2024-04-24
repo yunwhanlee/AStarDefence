@@ -109,7 +109,7 @@ public class SettingEnemyDataEditor : Editor {
             foreach (var enemyDt in dt.Waves) {
                 enemyDt.Lv = ++i;
                 EditorUtility.SetDirty(dt); // 변경 내용을 저장
-            } 
+            }
         }
 
         //* 체력 비율 적용 버튼

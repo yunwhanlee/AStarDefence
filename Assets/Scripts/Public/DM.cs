@@ -157,7 +157,7 @@ public class DM : MonoBehaviour {
 
     //* Global Values
     [field: SerializeField] public int SelectedStage {get; set;}
-    [field: SerializeField] public Enum.StageNum SelectedDiff {get; set;}
+    [field: SerializeField] public Enum.StageNum SelectedStageNum {get; set;}
 
     void Awake() {
         //* SINGLETON

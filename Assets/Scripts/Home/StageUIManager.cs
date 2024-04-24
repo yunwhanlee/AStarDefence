@@ -72,7 +72,7 @@ public class StageUIManager : MonoBehaviour {
         SM._.SfxPlay(SM.SFX.StageSelectSFX);
 
         //* 難易度 データ設定
-        DM._.SelectedDiff = (diffIdx == 0)? Enum.StageNum.Stage1_1
+        DM._.SelectedStageNum = (diffIdx == 0)? Enum.StageNum.Stage1_1
             : (diffIdx == 1)? Enum.StageNum.Stage1_2
             : Enum.StageNum.Stage1_3;
 
@@ -106,7 +106,7 @@ public class StageUIManager : MonoBehaviour {
 
         SM._.SfxPlay(SM.SFX.StageSelectSFX);
         //* 難易度 データ設定
-        DM._.SelectedDiff = (diffIdx == 0)? Enum.StageNum.Stage1_1
+        DM._.SelectedStageNum = (diffIdx == 0)? Enum.StageNum.Stage1_1
             : (diffIdx == 1)? Enum.StageNum.Stage1_2
             : Enum.StageNum.Stage1_3;
 

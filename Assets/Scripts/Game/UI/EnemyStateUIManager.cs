@@ -31,7 +31,7 @@ public class EnemyInfoUI {
         //* 情報表示
         LvTxt.text = $"LV {enemy.Lv}";
         NameTxt.text = $"{enemy.Name}";
-        HpTxt.text = $"{Mathf.RoundToInt(enemy.Hp * Config.STAGE.DIFF_INC_HP_PERS[(int)DM._.SelectedDiff])}";
+        HpTxt.text = $"{enemy.Hp}";
         SpeedTxt.text = $"{enemy.Speed}";
 
         Obj.SetActive(true);
