@@ -14,7 +14,8 @@ public class StageUIManager : MonoBehaviour {
     [field:SerializeField] public TMP_Text GoldKeyTxt;
     [field:SerializeField] public GameObject DungeonAlertDot;
 
-    [Header("STAGE")]
+    [field: Header("STAGE")]
+    [field: SerializeField] public SettingEnemyData[] StageEnemyDatas {get; set;}
     [field:SerializeField] public int NewStageAlertIdx;
     [field:SerializeField] public GameObject NewStageAlertBtnObj;
     [field:SerializeField] public Sprite[] MapIconSprs;
@@ -24,10 +25,12 @@ public class StageUIManager : MonoBehaviour {
     [field:SerializeField] public GameObject StageGroup;
     [field:SerializeField] public GameObject[] StagePopUps;
 
-    [field:SerializeField] public GameObject DifficultyWindow;
+    [field:SerializeField] public GameObject SelectStageNumWindow;
+    [field:SerializeField] public TMP_Text[] StageNumBtnHpRatioTxts;
+    
     [field:SerializeField] public GameObject WholeLockedFrame;
-    [field:SerializeField] public GameObject NormalLockedFrame;
-    [field:SerializeField] public GameObject HardLockedFrame;
+    [field:SerializeField] public GameObject Stage1_2LockedFrame;
+    [field:SerializeField] public GameObject Stage1_3LockedFrame;
 
     void Start() {
         DungeonAlertDot.SetActive(HM._.GoldKey > 0);
@@ -89,16 +92,25 @@ public class StageUIManager : MonoBehaviour {
         HM._.hui.OnClickPlayBtn();
     }
     public void OnClickStartBtn() {
-        SM._.SfxPlay(SM.SFX.ClickSFX);
-        DifficultyWindow.SetActive(true);
-        //* Diff Btns
-        NormalLockedFrame.SetActive(DM._.DB.StageLockedDBs[HM._.SelectedStage].IsLockStage1_2);
-        HardLockedFrame.SetActive(DM._.DB.StageLockedDBs[HM._.SelectedStage].IsLockStage1_3);
+        var selectStage = HM._.SelectedStage;
 
-        DM._.SelectedStage = HM._.SelectedStage;
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        SelectStageNumWindow.SetActive(true);
+
+        //* StageNum Enemy Hp Ratio Txt 表示
+        int stageIdx = selectStage / 3 * 3;
+        StageNumBtnHpRatioTxts[0].text = $"몬스터 체력 {StageEnemyDatas[stageIdx + 0].HpRatio * 100}%";
+        StageNumBtnHpRatioTxts[1].text = $"몬스터 체력 {StageEnemyDatas[stageIdx + 1].HpRatio * 100}%";
+        StageNumBtnHpRatioTxts[2].text = $"몬스터 체력 {StageEnemyDatas[stageIdx + 2].HpRatio * 100}%";
+
+        //* StageNum Btns Unlock 表示
+        Stage1_2LockedFrame.SetActive(DM._.DB.StageLockedDBs[selectStage].IsLockStage1_2);
+        Stage1_3LockedFrame.SetActive(DM._.DB.StageLockedDBs[selectStage].IsLockStage1_3);
+
+        DM._.SelectedStage = selectStage;
     }
 
-    public void OnClickDifficultyBtn(int diffIdx) {
+    public void OnClickStageNumBtn(int stageNumIdx) {
         HM._.ivCtrl.CheckActiveClover();
 
         //* ホーム ➡ ゲームシーン移動の時、インベントリのデータを保存
@@ -106,8 +118,8 @@ public class StageUIManager : MonoBehaviour {
 
         SM._.SfxPlay(SM.SFX.StageSelectSFX);
         //* 難易度 データ設定
-        DM._.SelectedStageNum = (diffIdx == 0)? Enum.StageNum.Stage1_1
-            : (diffIdx == 1)? Enum.StageNum.Stage1_2
+        DM._.SelectedStageNum = (stageNumIdx == 0)? Enum.StageNum.Stage1_1
+            : (stageNumIdx == 1)? Enum.StageNum.Stage1_2
             : Enum.StageNum.Stage1_3;
 
         //* ➡ ゲームシーンロード
@@ -137,8 +149,8 @@ public class StageUIManager : MonoBehaviour {
     }
     public void OnClickBackBtn() { //* 閉じるボタン(StageとGoblin Dungeon全て)
         SM._.SfxPlay(SM.SFX.ClickSFX);
-        if(DifficultyWindow.activeSelf) {
-            DifficultyWindow.SetActive(false);
+        if(SelectStageNumWindow.activeSelf) {
+            SelectStageNumWindow.SetActive(false);
             return;
         }
 
