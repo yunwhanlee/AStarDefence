@@ -26,6 +26,7 @@ public class StageUIManager : MonoBehaviour {
     [field:SerializeField] public GameObject[] StagePopUps;
     [field:SerializeField] public GameObject StageUnlockBonusChestBtnObj;
     [field:SerializeField] public TMP_Text StageUnlockBonusChestBtnTxt;
+    [field:SerializeField] public Image StageUnlockBonusChestImg;
     [field:SerializeField] public GameObject SelectStageNumWindow;
     [field:SerializeField] public TMP_Text[] StageNumBtnTxts;
     [field:SerializeField] public TMP_Text[] StageNumBtnHpRatioTxts;
@@ -54,7 +55,7 @@ public class StageUIManager : MonoBehaviour {
                 //* Alert UI
                 NewStageAlertBtnObj.SetActive(true);
                 NewStageAlertMapImg.sprite = MapIconSprs[StageAlertIdx];
-                NewStageAlertTxt.text = $"스테이지{stageStr}-{stgNumStr} 플레이 가능";
+                NewStageAlertTxt.text = $"스테이지{stageStr}-{stgNumStr} 가능!";
                 HM._.hui.ShowMsgNotice($"축하합니다! 새로운 스테이지{stageStr}-{stgNumStr}가 열렸습니다!");
                 break;
             }
@@ -98,6 +99,48 @@ public class StageUIManager : MonoBehaviour {
 #endregion
 
 #region STAGE EVENT
+    private (Sprite, ItemSO) GetStageBonusRewardChestData(int stg, int stgNum) {
+        var consumeItemDts = HM._.rwlm.RwdItemDt.EtcConsumableDatas;
+        ItemSO commonChest = consumeItemDts[(int)Etc.ConsumableItem.ChestCommon];
+        ItemSO equipChest = consumeItemDts[(int)Etc.ConsumableItem.ChestEquipment];
+        ItemSO goldChest = consumeItemDts[(int)Etc.ConsumableItem.ChestGold];
+        ItemSO diamondChest = consumeItemDts[(int)Etc.ConsumableItem.ChestDiamond];
+        ItemSO PremiumChest = consumeItemDts[(int)Etc.ConsumableItem.ChestPremium];
+
+        switch(stg) {
+            case 0:
+                if(stgNum == 0)
+                    return (commonChest.ItemImg, commonChest);
+                else if(stgNum == 1)
+                    return (equipChest.ItemImg, equipChest);
+                else
+                    return (goldChest.ItemImg, goldChest);
+            case 1:
+                if(stgNum == 0)
+                    return (commonChest.ItemImg, commonChest);
+                else if(stgNum == 1)
+                    return (equipChest.ItemImg, equipChest);
+                else
+                    return (diamondChest.ItemImg, diamondChest);
+            case 2:
+                if(stgNum == 0)
+                    return (goldChest.ItemImg, goldChest);
+                else if(stgNum == 1)
+                    return (equipChest.ItemImg, equipChest);
+                else
+                    return (equipChest.ItemImg, equipChest);
+            case 3:
+            case 4:
+                if(stgNum == 0)
+                    return (equipChest.ItemImg, equipChest);
+                else if(stgNum == 1)
+                    return (equipChest.ItemImg, equipChest);
+                else
+                    return (PremiumChest.ItemImg, PremiumChest);
+            default:
+                return (null, null); // 기본값으로 리턴할 값 지정
+        }
+    }
     private void UpdateStageBonusChestIcon() {
         StageUnlockBonusChestBtnObj.SetActive(false);
 
@@ -107,14 +150,13 @@ public class StageUIManager : MonoBehaviour {
             Debug.Log("UpdateStageBonusChestIcon():: stgNumIdx= " + stgNumIdx);
 
             if(stgNumIdx != -1) {
-                int stageStr = i + 1;
-                int stgNumStr = stgNumIdx + 1;
+                int stage = i + 1;
+                int stgNum = stgNumIdx + 1;
 
                 //* Bonus Reward Chest UI
                 StageUnlockBonusChestBtnObj.SetActive(true);
-                int clearStage = stageStr;
-                int clearStageNum = stgNumStr;
-                StageUnlockBonusChestBtnTxt.text = $"클리어 보너스:{clearStage}-{clearStageNum}";
+                StageUnlockBonusChestBtnTxt.text = $"클리어 보너스:{stage}-{stgNum}";
+                StageUnlockBonusChestImg.sprite = GetStageBonusRewardChestData(i, stgNumIdx).Item1;
                 return;
             }
             i++;
@@ -123,7 +165,6 @@ public class StageUIManager : MonoBehaviour {
     public void OnClickStageUnlockBonusChestIconBtn() {
         string stageInfoStr = StageUnlockBonusChestBtnTxt.text.Split(":")[1];
         string[] splitStr = stageInfoStr.Split("-");
-        Array.ForEach(splitStr, str => Debug.Log("splitStr= " + str));
         int stgIdx = int.Parse(splitStr[0]) - 1;
         int stgNumIdx = int.Parse(splitStr[1]) - 1;
         Debug.Log($"OnClickStageUnlockBonusChestIconBtn():: STAGE: stgIdx={stgIdx}, stgNumIdx={stgNumIdx}");
@@ -135,8 +176,9 @@ public class StageUIManager : MonoBehaviour {
         UpdateStageBonusChestIcon();
 
         //* Reward Chest
-        var ConsumeItemDt = HM._.rwlm.RwdItemDt.EtcConsumableDatas;
-        var rewardList = new List<RewardItem> {new (ConsumeItemDt[(int)Etc.ConsumableItem.ChestGold])};
+        var rewardList = new List<RewardItem> {
+            new (GetStageBonusRewardChestData(stgIdx, stgNumIdx).Item2)
+        };
         HM._.rwlm.ShowReward(rewardList);
         HM._.rwm.UpdateInventory(rewardList);
     }
@@ -156,10 +198,9 @@ public class StageUIManager : MonoBehaviour {
         StageNumBtnTxts[2].text = $"{selectStage + 1} - 3";
 
         //* StageNum Enemy Hp Ratio Txt 表示
-        int stageIdx = selectStage / 3 * 3;
-        StageNumBtnHpRatioTxts[0].text = $"몬스터 체력 {StageEnemyDatas[stageIdx + 0].HpRatio * 100}%";
-        StageNumBtnHpRatioTxts[1].text = $"몬스터 체력 {StageEnemyDatas[stageIdx + 1].HpRatio * 100}%";
-        StageNumBtnHpRatioTxts[2].text = $"몬스터 체력 {StageEnemyDatas[stageIdx + 2].HpRatio * 100}%";
+        StageNumBtnHpRatioTxts[0].text = $"몬스터 체력 {StageEnemyDatas[3 * selectStage + 0].HpRatio * 100}%";
+        StageNumBtnHpRatioTxts[1].text = $"몬스터 체력 {StageEnemyDatas[3 * selectStage + 1].HpRatio * 100}%";
+        StageNumBtnHpRatioTxts[2].text = $"몬스터 체력 {StageEnemyDatas[3 * selectStage + 2].HpRatio * 100}%";
 
         //* StageNum Btns Unlock 表示
         Stage1_2LockedFrame.SetActive(DM._.DB.StageLockedDBs[selectStage].IsLockStage1_2);
