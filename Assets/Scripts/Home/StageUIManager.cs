@@ -24,8 +24,10 @@ public class StageUIManager : MonoBehaviour {
 
     [field:SerializeField] public GameObject StageGroup;
     [field:SerializeField] public GameObject[] StagePopUps;
-
+    [field:SerializeField] public GameObject StageUnlockBonusChestBtnObj;
+    [field:SerializeField] public TMP_Text StageUnlockBonusChestBtnTxt;
     [field:SerializeField] public GameObject SelectStageNumWindow;
+    [field:SerializeField] public TMP_Text[] StageNumBtnTxts;
     [field:SerializeField] public TMP_Text[] StageNumBtnHpRatioTxts;
     
     [field:SerializeField] public GameObject WholeLockedFrame;
@@ -41,20 +43,24 @@ public class StageUIManager : MonoBehaviour {
             StageLockedDB stageDb = DM._.DB.StageLockedDBs[i];
             int stgNumIdx = Array.FindIndex(stageDb.StageRewards, stgRwd => stgRwd.IsUnlockAlert);
             if(stgNumIdx != -1) {
-                //* お知らせアンロックのトリガー OFF
-                stageDb.StageRewards[stgNumIdx].IsUnlockAlert = false;
-
-                NewStageAlertBtnObj.SetActive(true);
-                StageAlertIdx = i;
-
                 int stageStr = i + 1;
                 int stgNumStr = stgNumIdx + 1;
-                HM._.hui.ShowMsgNotice($"축하합니다! 새로운 스테이지{stageStr}-{stgNumStr}가 열렸습니다!");
+
+                //* お知らせアンロックのトリガー OFF
+                stageDb.StageRewards[stgNumIdx].IsUnlockAlert = false;
+                //* お知らせステージのIndex 設定
+                StageAlertIdx = i;
+
+                //* Alert UI
+                NewStageAlertBtnObj.SetActive(true);
                 NewStageAlertMapImg.sprite = MapIconSprs[StageAlertIdx];
                 NewStageAlertTxt.text = $"스테이지{stageStr}-{stgNumStr} 플레이 가능";
-                return;
+                HM._.hui.ShowMsgNotice($"축하합니다! 새로운 스테이지{stageStr}-{stgNumStr}가 열렸습니다!");
+                break;
             }
         }
+
+        UpdateStageBonusChestIcon();
     }
 
 #region GOBLIN DUNGEON EVENT 
@@ -92,6 +98,48 @@ public class StageUIManager : MonoBehaviour {
 #endregion
 
 #region STAGE EVENT
+    private void UpdateStageBonusChestIcon() {
+        StageUnlockBonusChestBtnObj.SetActive(false);
+
+        int i = 0;
+        foreach (var stageDb in DM._.DB.StageLockedDBs) {
+            int stgNumIdx = Array.FindIndex(stageDb.StageRewards, stgRwd => stgRwd.IsActiveBonusReward);
+            Debug.Log("UpdateStageBonusChestIcon():: stgNumIdx= " + stgNumIdx);
+
+            if(stgNumIdx != -1) {
+                int stageStr = i + 1;
+                int stgNumStr = stgNumIdx + 1;
+
+                //* Bonus Reward Chest UI
+                StageUnlockBonusChestBtnObj.SetActive(true);
+                int clearStage = stageStr;
+                int clearStageNum = stgNumStr;
+                StageUnlockBonusChestBtnTxt.text = $"클리어 보너스:{clearStage}-{clearStageNum}";
+                return;
+            }
+            i++;
+        }
+    }
+    public void OnClickStageUnlockBonusChestIconBtn() {
+        string stageInfoStr = StageUnlockBonusChestBtnTxt.text.Split(":")[1];
+        string[] splitStr = stageInfoStr.Split("-");
+        Array.ForEach(splitStr, str => Debug.Log("splitStr= " + str));
+        int stgIdx = int.Parse(splitStr[0]) - 1;
+        int stgNumIdx = int.Parse(splitStr[1]) - 1;
+        Debug.Log($"OnClickStageUnlockBonusChestIconBtn():: STAGE: stgIdx={stgIdx}, stgNumIdx={stgNumIdx}");
+
+        //* Activeトリガー OFF
+        DM._.DB.StageLockedDBs[stgIdx].StageRewards[stgNumIdx].IsActiveBonusReward = false;
+
+        //* 最新化
+        UpdateStageBonusChestIcon();
+
+        //* Reward Chest
+        var ConsumeItemDt = HM._.rwlm.RwdItemDt.EtcConsumableDatas;
+        var rewardList = new List<RewardItem> {new (ConsumeItemDt[(int)Etc.ConsumableItem.ChestGold])};
+        HM._.rwlm.ShowReward(rewardList);
+        HM._.rwm.UpdateInventory(rewardList);
+    }
     public void OnClickNewStageAlertBtn() {
         Debug.Log($"OnClickNewStageAlertBtn():: NewStageAlertIdx= {StageAlertIdx}");
         HM._.SelectedStage = StageAlertIdx;
@@ -102,6 +150,10 @@ public class StageUIManager : MonoBehaviour {
 
         SM._.SfxPlay(SM.SFX.ClickSFX);
         SelectStageNumWindow.SetActive(true);
+
+        StageNumBtnTxts[0].text = $"{selectStage + 1} - 1";
+        StageNumBtnTxts[1].text = $"{selectStage + 1} - 2";
+        StageNumBtnTxts[2].text = $"{selectStage + 1} - 3";
 
         //* StageNum Enemy Hp Ratio Txt 表示
         int stageIdx = selectStage / 3 * 3;
