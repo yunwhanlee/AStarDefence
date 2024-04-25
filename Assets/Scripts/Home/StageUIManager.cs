@@ -16,7 +16,7 @@ public class StageUIManager : MonoBehaviour {
 
     [field: Header("STAGE")]
     [field: SerializeField] public SettingEnemyData[] StageEnemyDatas {get; set;}
-    [field:SerializeField] public int NewStageAlertIdx;
+    [field:SerializeField] public int StageAlertIdx;
     [field:SerializeField] public GameObject NewStageAlertBtnObj;
     [field:SerializeField] public Sprite[] MapIconSprs;
     [field:SerializeField] public Image NewStageAlertMapImg;
@@ -39,14 +39,20 @@ public class StageUIManager : MonoBehaviour {
         //* New Stage Alert 表示
         for(int i = 0; i < DM._.DB.StageLockedDBs.Length; i++) {
             StageLockedDB stageDb = DM._.DB.StageLockedDBs[i];
-            if(stageDb.IsUnlockAlert) {
-                int nextStageIdx = i + 1;
-                NewStageAlertIdx = i;
+            int stgNumIdx = Array.FindIndex(stageDb.StageRewards, stgRwd => stgRwd.IsUnlockAlert);
+            if(stgNumIdx != -1) {
+                //* お知らせアンロックのトリガー OFF
+                stageDb.StageRewards[stgNumIdx].IsUnlockAlert = false;
+
                 NewStageAlertBtnObj.SetActive(true);
-                stageDb.IsUnlockAlert = false;
-                HM._.hui.ShowMsgNotice($"축하합니다! 스테이지{nextStageIdx}가 열렸습니다!");
-                NewStageAlertMapImg.sprite = MapIconSprs[i];
-                NewStageAlertTxt.text = $"스테이지{nextStageIdx} 플레이 가능";
+                StageAlertIdx = i;
+
+                int stageStr = i + 1;
+                int stgNumStr = stgNumIdx + 1;
+                HM._.hui.ShowMsgNotice($"축하합니다! 새로운 스테이지{stageStr}-{stgNumStr}가 열렸습니다!");
+                NewStageAlertMapImg.sprite = MapIconSprs[StageAlertIdx];
+                NewStageAlertTxt.text = $"스테이지{stageStr}-{stgNumStr} 플레이 가능";
+                return;
             }
         }
     }
@@ -87,8 +93,8 @@ public class StageUIManager : MonoBehaviour {
 
 #region STAGE EVENT
     public void OnClickNewStageAlertBtn() {
-        Debug.Log($"OnClickNewStageAlertBtn():: NewStageAlertIdx= {NewStageAlertIdx}");
-        HM._.SelectedStage = NewStageAlertIdx;
+        Debug.Log($"OnClickNewStageAlertBtn():: NewStageAlertIdx= {StageAlertIdx}");
+        HM._.SelectedStage = StageAlertIdx;
         HM._.hui.OnClickPlayBtn();
     }
     public void OnClickStartBtn() {
