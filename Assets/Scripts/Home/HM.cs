@@ -26,6 +26,8 @@ public class HM : MonoBehaviour {
     [HideInInspector] public InventoryUIManager ivm;
     [HideInInspector] public InventoryController ivCtrl;
     [HideInInspector] public InventoryEquipUIManager ivEqu;
+    // TowerInfo
+    [HideInInspector] public TowerInfoUIManager tifm;
 
     //* Value
     public Color SkyBlueColor;
@@ -87,6 +89,7 @@ public class HM : MonoBehaviour {
         ivm = GameObject.Find("InventoryUIManager").GetComponent<InventoryUIManager>();
         ivCtrl = GameObject.Find("InventoryController").GetComponent<InventoryController>();
         ivEqu = GameObject.Find("InventoryEquipUIManager").GetComponent<InventoryEquipUIManager>();
+        tifm = GameObject.Find("TowerInfoUIManager").GetComponent<TowerInfoUIManager>();
 
         //* 初期化
         SelectedStage = 0;

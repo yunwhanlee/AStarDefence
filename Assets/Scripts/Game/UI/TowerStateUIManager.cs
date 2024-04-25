@@ -26,8 +26,9 @@ public class TowerSkill {
     public void UpdateUI(TowerKind kind, int lv, int idx) {
         Debug.Log($"UpdateUI():: TowerKind= {kind}, lv= {lv}");
         //* Actionバー右上にアイコン表示
-        IconObj.SetActive(true);
-        IconImg.sprite = SkillSprs[(int)kind];
+        
+        if(IconObj) IconObj.SetActive(true);
+        if(IconImg) IconImg.sprite = SkillSprs[(int)kind];
 
         //* Detail PopUp
         DetailPopUpIconImg.sprite = SkillSprs[(int)kind];
