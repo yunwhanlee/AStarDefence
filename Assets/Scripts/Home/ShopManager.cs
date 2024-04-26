@@ -37,6 +37,46 @@ public class ShopManager : MonoBehaviour {
         TapBtns[btnIdx].GetComponent<Image>().color = TapBtnActiveClr;
         ActiveCateGroup(btnIdx);
     }
+    public void OnClickPackageBtn(int idx) {
+        const int AllInOne = 0, LevelUpSupport = 1, RandomEquip = 2,
+            RandomRelic = 3, EquipUpgradeSupport = 4, MiningSupport = 5;
+
+        RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
+
+        //TODO IAP PURCHASE
+
+        var rewardList = new List<RewardItem>();
+        switch(idx) {
+            case AllInOne:
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon], 10));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestDiamond], 3));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGold], 5));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment], 16));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium], 3));
+                //TODO Remove Ads Item
+                break;
+            case LevelUpSupport:
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], 10));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Clover], 10));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Clover], 10));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack0], 7));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack1], 7));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.BizzardScroll], 7));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.LightningScroll], 7));
+                break;
+            case RandomEquip:
+                break;
+            case RandomRelic:
+                break;
+            case EquipUpgradeSupport:
+                break;
+            case MiningSupport:
+                break;
+        }
+
+        HM._.rwlm.ShowReward(rewardList);
+        HM._.rwm.UpdateInventory(rewardList);
+    }
 
 #endregion
 #region FUNC
