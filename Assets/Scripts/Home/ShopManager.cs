@@ -22,8 +22,11 @@ public class ShopManager : MonoBehaviour {
     public void OnClickShopIconBtnAtHome() => ShowShopPanel(true);
     public void OnClickBackBtn() => ShowShopPanel(false);
     public void OnClickTapBtn(int btnIdx) {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        //* 再クリック：全て表示して終了
         if(TapBtns[btnIdx].GetComponent<Image>().color == TapBtnActiveClr) {
             InitUI();
+            return;
         }
 
         //* TapBtnの色 初期化
