@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using AssetKits.ParticleImage;
 
 public class HomeRewardListUIManager : MonoBehaviour {
     [Header("REWARD LIST POPUP")]
@@ -72,6 +73,17 @@ public class HomeRewardListUIManager : MonoBehaviour {
             //* Particle UI Effect 2
             rwdItemUI.WhiteDimScaleUIEF.lifetime = 0.5f + i * 0.1f;
             rwdItemUI.WhiteDimScaleUIEF.Play();
+            //* Particle UI Equipment High Grade Effect 3
+            if(rewardItem.Data.Grade >= Enum.Grade.Unique) {
+                SM._.SfxPlay(SM.SFX.Merge3SFX, 0.5f + i * 0.1f);
+                rwdItemUI.HighGradeSpawnUIEF.Play();
+
+                //* High Grade Nice Effect 4
+                rwdItemUI.HighGradeNiceUIEF.startDelay = 0.5f + i * 0.1f;
+                rwdItemUI.HighGradeNiceUIEF.GetComponentsInChildren<ParticleImage>()[1].startDelay = 0.5f + i * 0.1f;
+                rwdItemUI.HighGradeNiceUIEF.GetComponentsInChildren<ParticleImage>()[2].startDelay = 0.5f + i * 0.1f;
+                rwdItemUI.HighGradeNiceUIEF.Play();
+            }
         }
     }
     public void ShowReward(List<RewardItem> itemList) {

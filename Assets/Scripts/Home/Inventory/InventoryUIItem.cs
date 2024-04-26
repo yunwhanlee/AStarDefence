@@ -32,6 +32,8 @@ namespace Inventory.UI
         [field:SerializeField] public ParticleImage ItemImgScaleUIEF {get; set;}
         [field:SerializeField] public ParticleImage WhiteDimScaleUIEF {get; set;}
         [field:SerializeField] public ParticleImage ShinyUIEF {get; set;}
+        [field:SerializeField] public ParticleImage HighGradeSpawnUIEF {get; set;}
+        [field:SerializeField] public ParticleImage HighGradeNiceUIEF {get; set;}
         public bool IsEmpty = false;
         public event Action<InventoryUIItem> OnItemClicked, 
             OnItemDroppedOn, 

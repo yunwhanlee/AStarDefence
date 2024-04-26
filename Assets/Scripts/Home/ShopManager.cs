@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using Random = UnityEngine.Random;
 
 public class ShopManager : MonoBehaviour {
     const int TAPBTN_PACKAGE = 0, TAPBTN_CHEST = 1, TAPBTN_RSC = 2;
@@ -65,12 +66,53 @@ public class ShopManager : MonoBehaviour {
                 rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.LightningScroll], 7));
                 break;
             case RandomEquip:
+                List<int> gradePerList = rwDt.Rwd_ChestEquipment.RwdGradeTb.EquipPerList;
+
+                //* 等級パーセントリスト 準備
+                int COMMON = gradePerList[(int)Enum.Grade.Common];
+                int RARE = COMMON + gradePerList[(int)Enum.Grade.Rare];
+                int EPIC = RARE + gradePerList[(int)Enum.Grade.Epic];
+                int UNIQUE = EPIC + gradePerList[(int)Enum.Grade.Unique];
+                int LEGEND = UNIQUE + gradePerList[(int)Enum.Grade.Legend];
+                int MYTH = LEGEND + gradePerList[(int)Enum.Grade.Myth];
+                // int PRIME = MYTH + gradePerList[(int)Enum.Grade.Prime];
+
+                //* ランダム等級 適用
+                int cnt = 12;
+                int lastIdx = cnt - 1;
+                for(int i = 0; i < cnt; i++) {
+                    int rdPer = Random.Range(0, 1000);
+                    int grade = (rdPer < COMMON)? 0
+                        : (rdPer < RARE)? 1
+                        : (rdPer < EPIC)? 2
+                        : (rdPer < UNIQUE)? 3
+                        : (rdPer < LEGEND)? 4
+                        : (rdPer < MYTH)? 5
+                        : 6;
+                    
+                    int rdItemKind = Random.Range(0, 3);
+                    var randItemDts = (rdItemKind == 0)? rwDt.WeaponDatas
+                        : (rdItemKind == 1)? rwDt.ShoesDatas
+                        : rwDt.RingDatas;
+                    
+                    //* リワード追加
+                    rewardList.Add(new (randItemDts[i == lastIdx? (int)Enum.Grade.Myth : grade]));
+                }
                 break;
             case RandomRelic:
                 break;
             case EquipUpgradeSupport:
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.LightningScroll], 15));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.LightningScroll], 25));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 50000));
                 break;
             case MiningSupport:
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin0], 100));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin1], 50));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin2], 25));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin3], 10));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin4], 5));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin5], 1));
                 break;
         }
 
