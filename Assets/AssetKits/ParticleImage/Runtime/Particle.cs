@@ -484,7 +484,10 @@ namespace AssetKits.ParticleImage {
                 if (_time >= _trailPoints[0].time+_source.trailLifetime)
                 {
                     _trailPoints.RemoveAt(0);
-                    lastTrailPoint = _trailPoints[0].point;
+                    //* (BUG) Actionで際読みこむときに、こちらから negative and less than the size of the collection.エラー発生すること対応
+                    if (_trailPoints.Count > 0) {
+                        lastTrailPoint = _trailPoints[0].point;
+                    }
                 }
                 
                 if (_time < _lifetime && _hasTrail)

@@ -28,6 +28,8 @@ public class HM : MonoBehaviour {
     [HideInInspector] public InventoryEquipUIManager ivEqu;
     // TowerInfo
     [HideInInspector] public TowerInfoUIManager tifm;
+    // Shop
+    [HideInInspector] public ShopManager shopMg;
 
     //* Value
     public Color SkyBlueColor;
@@ -90,6 +92,7 @@ public class HM : MonoBehaviour {
         ivCtrl = GameObject.Find("InventoryController").GetComponent<InventoryController>();
         ivEqu = GameObject.Find("InventoryEquipUIManager").GetComponent<InventoryEquipUIManager>();
         tifm = GameObject.Find("TowerInfoUIManager").GetComponent<TowerInfoUIManager>();
+        shopMg = GameObject.Find("ShopManager").GetComponent<ShopManager>();
 
         //* 初期化
         SelectedStage = 0;

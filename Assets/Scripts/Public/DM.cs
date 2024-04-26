@@ -133,6 +133,19 @@ public class SkillTreeDB {
 }
 
 /// <summary>
+/// スキルツリー Lockリストデータ
+/// </summary>
+[Serializable]
+public class ShopDB {
+    [field:SerializeField] public bool[] IsPruchasedPackages {get; set;} = new bool[6];
+
+    public ShopDB() {
+        for(int i = 0; i < IsPruchasedPackages.Length; i++)
+            IsPruchasedPackages[i] = false;
+    }
+}
+
+/// <summary>
 ///* 保存・読込のデータベース ★データはPlayerPrefsに保存するので、String、Float、Intのみ！！！★
 /// </summary>
 [Serializable]
@@ -142,6 +155,8 @@ public class DB {
     [field:SerializeField] public StageLockedDB[] StageLockedDBs {get; set;}
     [field:SerializeField] public MiningDB MiningDB {get; set;}
     [field:SerializeField] public SkillTreeDB SkillTreeDB {get; set;}
+    [field:SerializeField] public ShopDB ShopDB {get; set;}
+    
     [field:SerializeField] public List<InventoryItem> InvItemDBs {get; set;}
     [field:SerializeField] public bool IsCloverActive {get; set;}
     [field:SerializeField] public bool IsGoldCloverActive {get; set;}
@@ -351,6 +366,8 @@ public class DM : MonoBehaviour {
         }
 
         DB.SkillTreeDB = new SkillTreeDB();
+
+        DB.ShopDB = new ShopDB();
 
         DB.IsCloverActive = false;
         DB.IsGoldCloverActive = false;

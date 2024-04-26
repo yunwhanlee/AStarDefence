@@ -33,6 +33,11 @@ public class HomeRewardListUIManager : MonoBehaviour {
         //* リワードスロットのアニメーションが全部終わるまで待つ
         if(IsFinishSlotsSpawn)
             return;
+        
+        if(HM._.shopMg.OnClickEquipPackage != null) {
+            HM._.shopMg.OnClickEquipPackage?.Invoke();
+            return;
+        }
 
         SM._.SfxPlay(SM.SFX.ClickSFX);
         HM._.lvm.CheckLevelUp();
@@ -61,6 +66,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
     /// </summary>
     private void DisplayRewardList(List<RewardItem> rewardList) {
         StartCoroutine(CoPlayRewardSlotSpawnSFX(rewardList.Count));
+
         //* リワードリストへオブジェクト生成・追加
         for(int i = 0; i < rewardList.Count; i++) {
             RewardItem rewardItem = rewardList[i];
