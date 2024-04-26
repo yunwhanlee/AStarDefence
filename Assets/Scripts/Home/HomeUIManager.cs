@@ -14,6 +14,7 @@ public class HomeUIManager : MonoBehaviour {
     public Action OnClickAskConfirmAction;
 
     [field: Header("STATUS")]
+    [field: SerializeField] public Canvas TopNavCanvas {get; set;}
     [field: SerializeField] public TextMeshProUGUI TopGoldKeyTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI TopCoinTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI TopDiamondTxt {get; set;}
