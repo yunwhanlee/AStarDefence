@@ -44,8 +44,9 @@ public class TowerInfoUIManager : MonoBehaviour {
     [field:SerializeField] public TowerCardStatusUI[] MagicianCardStatusUIs {get; private set;}
 
     [field:Header("TOWER SKILL DETAIL INFO")]
-    [field: SerializeField] public TowerSkill[] TowerSkills;
     [field: SerializeField] public GameObject InfoPopUp {get; set;}
+    [field: SerializeField] public GameObject NoSkillTxtObj {get; set;}
+    [field: SerializeField] public TowerSkill[] TowerSkills;
     
     void Start() {
         int i = 0;
@@ -78,42 +79,29 @@ public class TowerInfoUIManager : MonoBehaviour {
             WindowObj.SetActive(false);
         }
 
-
-        public void OnClickWarriorTowerInfoCard(int lv) {
-            Array.ForEach(TowerSkills, Icon => Icon.DetailPopUpFrame.SetActive(false));
-            InfoPopUp.SetActive(true);
-            //* レベル３から、一つずつ増やしてスキル表示
-            int maxSkillsToUpdate = Mathf.Min(lv - 2, TowerSkills.Length);
-            for(int i = 0; i < maxSkillsToUpdate; i++) {
-                TowerSkills[i].DetailPopUpFrame.SetActive(true);
-                TowerSkills[i].UpdateUI(TowerKind.Warrior, lv, i++);
-            }
-        }
-        public void OnClickArcherTowerInfoCard(int lv) {
-            Array.ForEach(TowerSkills, Icon => Icon.DetailPopUpFrame.SetActive(false));
-            InfoPopUp.SetActive(true);
-            //* レベル３から、一つずつ増やしてスキル表示
-            int maxSkillsToUpdate = Mathf.Min(lv - 2, TowerSkills.Length);
-            for(int i = 0; i < maxSkillsToUpdate; i++) {
-                TowerSkills[i].DetailPopUpFrame.SetActive(true);
-                TowerSkills[i].UpdateUI(TowerKind.Archer, lv, i++);
-            }
-        }
-        public void OnClickMagicianTowerInfoCard(int lv) {
-            Array.ForEach(TowerSkills, Icon => Icon.DetailPopUpFrame.SetActive(false));
-            InfoPopUp.SetActive(true);
-            //* レベル３から、一つずつ増やしてスキル表示
-            int maxSkillsToUpdate = Mathf.Min(lv - 2, TowerSkills.Length);
-            for(int i = 0; i < maxSkillsToUpdate; i++) {
-                TowerSkills[i].DetailPopUpFrame.SetActive(true);
-                TowerSkills[i].UpdateUI(TowerKind.Magician, lv, i++);
-            }
-        }
+        public void OnClickWarriorTowerInfoCard(int lv) 
+            => SetTowerSkillInfoUI(TowerKind.Warrior, lv);
+        public void OnClickArcherTowerInfoCard(int lv) 
+            => SetTowerSkillInfoUI(TowerKind.Archer, lv);
+        public void OnClickMagicianTowerInfoCard(int lv) 
+            => SetTowerSkillInfoUI(TowerKind.Magician, lv);
         public void OnClickDetailSkillInfoCloseBtn() {
             SM._.SfxPlay(SM.SFX.ClickSFX);            
             InfoPopUp.SetActive(false);
         }
     #endregion
     #region FUNC
+        private void SetTowerSkillInfoUI(TowerKind kind, int lv) {
+            InfoPopUp.SetActive(true);
+            Array.ForEach(TowerSkills, Icon => Icon.DetailPopUpFrame.SetActive(false));
+            //* レベル３から、一つずつ増やしてスキル表示
+            int maxSkillCnt = Mathf.Min(lv - 2, TowerSkills.Length);
+            for(int i = 0; i < maxSkillCnt; i++) {
+                TowerSkills[i].DetailPopUpFrame.SetActive(true);
+                TowerSkills[i].UpdateUI(kind, lv, i);
+            }
+            //* スキルがない場合 ON
+            NoSkillTxtObj.SetActive(maxSkillCnt <= 0);
+        }
     #endregion
 }

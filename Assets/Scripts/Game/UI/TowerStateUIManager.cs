@@ -19,11 +19,12 @@ public class TowerSkill {
 
     //* Tower Status Info PopUp用
     [field: SerializeField] public GameObject DetailPopUpFrame {get; set;}
+    [field: SerializeField] public Transform SkillLvPointOnTf {get; set;}
     [field: SerializeField] public Image DetailPopUpIconImg {get; set;}
     [field: SerializeField] public TextMeshProUGUI DetailPopUpNameTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI DetailPopUpInfoTxt {get; set;}
 
-    public void UpdateUI(TowerKind kind, int lv, int idx) {
+    public void UpdateUI(TowerKind kind, int lv, int skillFrameIdx) {
         Debug.Log($"UpdateUI():: TowerKind= {kind}, lv= {lv}");
         //* Actionバー右上にアイコン表示
         
@@ -35,57 +36,117 @@ public class TowerSkill {
 
         DetailPopUpNameTxt.text = TitleArr[(int)kind];
 
+        //* Skill Level Point UI
+        // 初期化
+        for(int i = 0; i < SkillLvPointOnTf.childCount; i++) 
+            SkillLvPointOnTf.GetChild(i).gameObject.SetActive(false);
+        // 適用
+        switch(lv) {
+            case 1:
+            case 2:
+                // なし
+                break;
+            case 3:
+                if(skillFrameIdx == 0) {
+                    SkillLvPointOnTf.GetChild(0).gameObject.SetActive(true);
+                }
+                break;
+            case 4:
+                if(skillFrameIdx == 0) {
+                    SkillLvPointOnTf.GetChild(0).gameObject.SetActive(true);
+                    SkillLvPointOnTf.GetChild(1).gameObject.SetActive(true);
+                }
+                if(skillFrameIdx == 1) {
+                    SkillLvPointOnTf.GetChild(0).gameObject.SetActive(true);
+                }
+                break;
+            case 5:
+                if(skillFrameIdx == 0) {
+                    SkillLvPointOnTf.GetChild(0).gameObject.SetActive(true);
+                    SkillLvPointOnTf.GetChild(1).gameObject.SetActive(true);
+                    SkillLvPointOnTf.GetChild(2).gameObject.SetActive(true);
+                }
+                if(skillFrameIdx == 1) {
+                    SkillLvPointOnTf.GetChild(0).gameObject.SetActive(true);
+                    SkillLvPointOnTf.GetChild(1).gameObject.SetActive(true);
+                }
+                if(skillFrameIdx == 2) {
+                    SkillLvPointOnTf.GetChild(0).gameObject.SetActive(true);
+                }
+                break;
+            case 6:
+                if(skillFrameIdx == 0) {
+                    SkillLvPointOnTf.GetChild(0).gameObject.SetActive(true);
+                    SkillLvPointOnTf.GetChild(1).gameObject.SetActive(true);
+                    SkillLvPointOnTf.GetChild(2).gameObject.SetActive(true);
+                    SkillLvPointOnTf.GetChild(3).gameObject.SetActive(true);
+                }
+                if(skillFrameIdx == 1) {
+                    SkillLvPointOnTf.GetChild(0).gameObject.SetActive(true);
+                    SkillLvPointOnTf.GetChild(1).gameObject.SetActive(true);
+                    SkillLvPointOnTf.GetChild(2).gameObject.SetActive(true);
+                }
+                if(skillFrameIdx == 2) {
+                    SkillLvPointOnTf.GetChild(0).gameObject.SetActive(true);
+                    SkillLvPointOnTf.GetChild(1).gameObject.SetActive(true);
+                }
+                if(skillFrameIdx == 3) {
+                    SkillLvPointOnTf.GetChild(0).gameObject.SetActive(true);
+                }
+                break;
+        }
+
         int lvIdx = lv - 1;
         string infoMsg = InfoArr[(int)kind];
         switch(kind) {
             case TowerKind.Warrior:
-                if(idx == 0) {
+                if(skillFrameIdx == 0) {
                     infoMsg = infoMsg.Replace("N1", $"{WarriorTower.SK1_RageActivePers[lvIdx]}");
                     infoMsg = infoMsg.Replace("N2", $"{WarriorTower.SK1_RageDmgSpdIncPers[lvIdx] * 100}");
                     infoMsg = infoMsg.Replace("N3", $"{WarriorTower.SK1_RageTime[lvIdx]}");
                 }
-                else if(idx == 1) {
+                else if(skillFrameIdx == 1) {
                     infoMsg = infoMsg.Replace("N1", $"{WarriorTower.SK2_WheelwindActivePers[lvIdx]}");
                     infoMsg = infoMsg.Replace("N2", $"{WarriorTower.SK2_WheelwindDmgPers[lvIdx] * 100}");
                 }
-                else if(idx == 2) {
+                else if(skillFrameIdx == 2) {
                     infoMsg = infoMsg.Replace("N1", $"{WarriorTower.SK3_CheerUpSpans[lvIdx]}");
                     infoMsg = infoMsg.Replace("N2", $"{WarriorTower.SK3_CheerUpDmgSpdIncPers[lvIdx] * 100}");
                 }
-                else if(idx == 3) {
+                else if(skillFrameIdx == 3) {
                     infoMsg = infoMsg.Replace("N1", $"{WarriorTower.SK4_RoarSpans[lvIdx]}");
                     infoMsg = infoMsg.Replace("N2", $"{WarriorTower.SK4_RoarDmgPers[lvIdx] * 100}");
                 }
                 break;
             case TowerKind.Archer:
-                if(idx == 0) {
+                if(skillFrameIdx == 0) {
                     infoMsg = infoMsg.Replace("N", $"{ArcherTower.SK1_CritIncPers[lvIdx] * 100}");
                 }
-                else if(idx == 1) {
+                else if(skillFrameIdx == 1) {
                     infoMsg = infoMsg.Replace("N1", $"{ArcherTower.SK2_MultiShotActivePers[lvIdx]}");
                     infoMsg = infoMsg.Replace("N2", $"{ArcherTower.SK2_MultiShotCnts[lvIdx]}");
                 }
-                else if(idx == 2) {
+                else if(skillFrameIdx == 2) {
                     infoMsg = infoMsg.Replace("N1", $"{ArcherTower.SK3_PassShotSpans[lvIdx]}");
                     infoMsg = infoMsg.Replace("N2", $"{ArcherTower.SK3_PassShotDmgPers[lvIdx] * 100}");
                 }
-                else if(idx == 3) {
+                else if(skillFrameIdx == 3) {
                     infoMsg = infoMsg.Replace("N", $"{ArcherTower.SK4_ArrowRainSpans[lvIdx]}");
                 }
                 break;
             case TowerKind.Magician:
-                if(idx == 0) {
+                if(skillFrameIdx == 0) {
                     infoMsg = infoMsg.Replace("N", $"{MagicianTower.SK1_ExplosionLvActivePers[lvIdx]}");
                 }
-                else if(idx == 1) {
+                else if(skillFrameIdx == 1) {
                     infoMsg = infoMsg.Replace("N1", $"{MagicianTower.SK2_MagicCircleActivePers[lvIdx]}");
                     infoMsg = infoMsg.Replace("N2", $"{MagicianTower.SK2_MagicCircleDmgPers[lvIdx] * 100}");
                 }
-                else if(idx == 2) {
+                else if(skillFrameIdx == 2) {
                     infoMsg = infoMsg.Replace("N1", $"{MagicianTower.SK3_LaserSpans[lvIdx]}");
                     infoMsg = infoMsg.Replace("N2", $"{MagicianTower.SK3_LaserDmgPers[lvIdx] * 100}");
                 }
-                else if(idx == 3) {
+                else if(skillFrameIdx == 3) {
                     infoMsg = infoMsg.Replace("N1", $"{MagicianTower.SK4_BigbangSpans[lvIdx]}");
                     infoMsg = infoMsg.Replace("N2", $"{MagicianTower.SK4_BigbangDmgs[lvIdx] * 100}");
                 }
