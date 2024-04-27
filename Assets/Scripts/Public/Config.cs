@@ -94,6 +94,53 @@ public static class Config {
                 "Diamond_360", // EQUIP x 6
                 "Diamond_720", // EQUIP x 12
             };
+
+            public const int COIN_TINY = 0, COIN_MEDIUM = 1, COIN_HUGE = 2;
+            public static readonly string[] COIN_PRICES = {
+                "Diamond_30",
+                "Diamond_600",
+                "Diamond_1500",
+            };
+
+            public static bool TryPurchaseChest(int chestIdx) {
+                //* キーと値段を分ける
+                string[] split = CHEST_PRICES[chestIdx].Split("_");
+                string key = split[0];
+                int price = int.Parse(split[1]);
+
+                //* 購入 処理
+                return SetPurchaseData(key, price);
+            }
+            public static bool TryPurchaseCoinPack(int coinIdx) {
+                //* キーと値段を分ける
+                string[] split = COIN_PRICES[coinIdx].Split("_");
+                string key = split[0];
+                int price = int.Parse(split[1]);
+
+                //* 購入 処理
+                return SetPurchaseData(key, price);
+            }
+
+            private static bool SetPurchaseData(string key, int price) {
+                //* 購入 処理
+                if(key == "Diamond") {
+                    if(HM._.Diamond < price) {
+                        HM._.hui.ShowMsgError("다이아가 부족합니다.");
+                        return false;
+                    }
+                    else
+                        HM._.Diamond -= price;
+                }
+                else {
+                    if(HM._.Coin < price) {
+                        HM._.hui.ShowMsgError("코인이 부족합니다.");
+                        return false;
+                    }
+                    else
+                        HM._.Coin -= price;
+                }
+                return true;
+            }
         }
 
         public readonly struct EQUIP_UPG {

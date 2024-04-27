@@ -64,7 +64,7 @@ public class ChestInfoManager : MonoBehaviour {
             string infoTemp = "";
             switch(chestIdx) {
                 case Config.H_PRICE.SHOP.FREECOMMON: {
-                    //TODO AD
+                    
 
                     //* Daily Item
                     if(DM._.DB.ShopDB.DailyItems[ShopDB.FREE_COMMON].IsAccept)
@@ -74,6 +74,8 @@ public class ChestInfoManager : MonoBehaviour {
                     infoTemp = SetCommonChest(rwdDt);
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => {
+                        //TODO AD
+
                         //* Daily Item
                         DM._.DB.ShopDB.SetAcceptData(ShopDB.FREE_COMMON);
                         HM._.shopMg.FreeCommonChestDim.SetActive(true);
@@ -84,12 +86,15 @@ public class ChestInfoManager : MonoBehaviour {
                     break;
                 }
                 case Config.H_PRICE.SHOP.COMMON: {
-                    //* Price
-                    
-
                     infoTemp = SetCommonChest(rwdDt);
                     //* 次の購入イベント登録
-                    OnClickOpenChest = () => rwdDt.OpenRewardContent(rwdDt.Rwd_ChestCommon);
+                    OnClickOpenChest = () => {
+                        //* Try Purchase
+                        bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
+                        if(!isSuccess) return;
+                        rwdDt.OpenRewardContent(rwdDt.Rwd_ChestCommon);
+                    };
+                    
                     break;
                 }
                 case Config.H_PRICE.SHOP.GOLDCHEST: {
@@ -101,7 +106,12 @@ public class ChestInfoManager : MonoBehaviour {
                     infoTemp += $"\n<sprite name=Random> x 2";
 
                     //* 次の購入イベント登録
-                    OnClickOpenChest = () => rwdDt.OpenRewardContent(chInfo);
+                    OnClickOpenChest = () => {
+                        //* Try Purchase
+                        bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
+                        if(!isSuccess) return;
+                        rwdDt.OpenRewardContent(chInfo);
+                    };
                     break;
                 }
                 case Config.H_PRICE.SHOP.PREMIUM: {
@@ -114,7 +124,12 @@ public class ChestInfoManager : MonoBehaviour {
                     infoTemp += $"\t<sprite name=Random> x 5";
 
                     //* 次の購入イベント登録
-                    OnClickOpenChest = () => rwdDt.OpenRewardContent(chInfo);
+                    OnClickOpenChest = () => {
+                        //* Try Purchase
+                        bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
+                        if(!isSuccess) return;
+                        rwdDt.OpenRewardContent(chInfo);
+                    };
                     break;
                 }
                 case Config.H_PRICE.SHOP.DIAMONDCHEST: {
@@ -129,6 +144,10 @@ public class ChestInfoManager : MonoBehaviour {
 
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => {
+                        //* Try Purchase
+                        bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
+                        if(!isSuccess) return;
+
                         //* Daily Item
                         DM._.DB.ShopDB.SetAcceptData(ShopDB.DIAMOND_CHEST);
                         HM._.shopMg.DiamondChestDim.SetActive(true);
@@ -142,21 +161,36 @@ public class ChestInfoManager : MonoBehaviour {
                     const int cnt = 1;
                     infoTemp = SetEquipChest(rwdDt, cnt);
                     //* 次の購入イベント登録
-                    OnClickOpenChest = () => rwdDt.OpenRewardContent(rwdDt.Rwd_ChestEquipment, specifiedCnt: cnt);
+                    OnClickOpenChest = () => {
+                        //* Try Purchase
+                        bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
+                        if(!isSuccess) return;
+                        rwdDt.OpenRewardContent(rwdDt.Rwd_ChestEquipment, specifiedCnt: cnt);
+                    };
                     break;
                 }
                 case Config.H_PRICE.SHOP.EQUIPx6: {
                     const int cnt = 6;
                     infoTemp = SetEquipChest(rwdDt, cnt);
                     //* 次の購入イベント登録
-                    OnClickOpenChest = () => rwdDt.OpenRewardContent(rwdDt.Rwd_ChestEquipment, specifiedCnt: cnt);
+                    OnClickOpenChest = () => {
+                        //* Try Purchase
+                        bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
+                        if(!isSuccess) return;
+                        rwdDt.OpenRewardContent(rwdDt.Rwd_ChestEquipment, specifiedCnt: cnt);
+                    };
                     break;
                 }
                 case Config.H_PRICE.SHOP.EQUIPx12: {
                     const int cnt = 12;
                     infoTemp = SetEquipChest(rwdDt, cnt);
                     //* 次の購入イベント登録
-                    OnClickOpenChest = () => rwdDt.OpenRewardContent(rwdDt.Rwd_ChestEquipment, specifiedCnt: cnt);
+                    OnClickOpenChest = () => {
+                        //* Try Purchase
+                        bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
+                        if(!isSuccess) return;
+                        rwdDt.OpenRewardContent(rwdDt.Rwd_ChestEquipment, specifiedCnt: cnt);
+                    };
                     break;
                 }
             }

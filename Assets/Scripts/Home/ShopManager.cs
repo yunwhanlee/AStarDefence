@@ -212,14 +212,15 @@ public class ShopManager : MonoBehaviour {
         RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
         ItemSO DIAMOND = rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond];
 
-        //TODO IAP 決済
-
         var rewardList = new List<RewardItem>();
         switch(diamondIdx) {
             case FREE_DIAMOND:
                 //* Daily Item
                 if(DM._.DB.ShopDB.DailyItems[ShopDB.FREE_TINY].IsAccept)
                     return;
+
+                //TODO AD
+
                 DM._.DB.ShopDB.SetAcceptData(ShopDB.FREE_TINY);
                 FreeTinyDiamondDim.SetActive(true);
 
@@ -249,26 +250,27 @@ public class ShopManager : MonoBehaviour {
     /// コイン購入
     /// </summary> <summary>
     public void OnClickCoinBtn(int coinIdx) {
-        const int COIN_TINY = 0,
-        COIN_MEDIUM = 1,
-        COIN_HUGE = 2;
-
-        //TODO ダイアモンドで購入
+        //* Try Purchase
+        bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseCoinPack(coinIdx);
+        if(!isSuccess) return;
 
         RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
         ItemSO COIN = rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin];
 
         var rewardList = new List<RewardItem>();
         switch(coinIdx) {
-            case COIN_TINY:
+            case Config.H_PRICE.SHOP.COIN_TINY: {
                 rewardList.Add(new (COIN, 600));
                 break;
-            case COIN_MEDIUM:
+            }
+            case Config.H_PRICE.SHOP.COIN_MEDIUM: {
                 rewardList.Add(new (COIN, 12000));
                 break;
-            case COIN_HUGE:
+            }
+            case Config.H_PRICE.SHOP.COIN_HUGE: {
                 rewardList.Add(new (COIN, 48000));
                 break;
+            }
         }
 
         HM._.rwlm.ShowReward(rewardList);
