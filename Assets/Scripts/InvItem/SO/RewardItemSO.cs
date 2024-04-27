@@ -131,6 +131,8 @@ public class RewardItemSO : ScriptableObject {
         int itemCnt = (specifiedCnt == 0)? rwdContentDt.Cnt : specifiedCnt; 
         List<RewardItem> rewardList = new List<RewardItem>();
 
+        Debug.Log($"OpenRewardContent():: rwdContentDt={rwdContentDt.name}, itemCnt= {itemCnt}");
+
         //* ランダムリワード
         int randMax = rwdContentDt.ItemPerTb.GetTotal();
         if(randMax != RAND_MAX) {
@@ -183,7 +185,9 @@ public class RewardItemSO : ScriptableObject {
         //* UI表示
         HM._.rwlm.ShowReward(rewardList);
         HM._.rwm.UpdateInventory(rewardList);
-        HM._.ivCtrl.InventoryData.DecreaseItem(HM._.ivm.CurItemIdx, decVal: -1);
+
+        int decreaseCnt = (specifiedCnt == 0)? 1 : specifiedCnt;
+        HM._.ivCtrl.InventoryData.DecreaseItem(HM._.ivm.CurItemIdx, decVal: -decreaseCnt);
         HM._.rwlm.UpdateChestPopUpUI();
     }
 }

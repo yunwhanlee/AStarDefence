@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using AssetKits.ParticleImage;
+using JetBrains.Annotations;
 
 public class HomeRewardListUIManager : MonoBehaviour {
     [Header("REWARD LIST POPUP")]
@@ -126,8 +127,20 @@ public class HomeRewardListUIManager : MonoBehaviour {
             : RwdItemDt.Rwd_ChestPremium;
         SetChestPopUpUI(type, quantity);
 
-        //* 次の開くイベント登録
-        OnClickOpenChest = () => RwdItemDt.OpenRewardContent(chestDt);
+        var invItemList = HM._.ivCtrl.InventoryData.ItemList;
+        //* EquipChestで有れば、最大１２個まで一緒に開く
+        if(type == Etc.ConsumableItem.ChestEquipment) {
+            //* 次の開くイベント登録
+            OnClickOpenChest = () => RwdItemDt.OpenRewardContent(
+                chestDt, 
+                Mathf.Min(invItemList.Find(item => !item.IsEmpty && item.Data.name == $"{Etc.ConsumableItem.ChestEquipment}").Quantity, Config.MAX_REWARD_SLOT) //equipChestCnt
+            );
+        }
+        else {
+            OnClickOpenChest = () => RwdItemDt.OpenRewardContent(chestDt);
+        }
+
+
     }
 #endregion
 }
