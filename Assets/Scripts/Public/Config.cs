@@ -78,6 +78,20 @@ public static class Config {
         public static readonly int[] WORKSPACE_PRICES = {
             0, 1000, 5000, 12500, 30000
         };
+
+        public readonly struct SHOP {
+            public static readonly string[] CHEST_PRICES = {
+                "Ad_FREE", // FREE COMMON
+                "Diamond_40", // COMMON
+                "Diamond_150", // GOLD CHEST
+                "Diamond_500", // PREMIUM
+                "Coin_5000", // DIAMOND CHEST
+                "Diamond_60", // EQUIP x 1
+                "Diamond_360", // EQUIP x 6
+                "Diamond_720", // EQUIP x 12
+            };
+        }
+
         public readonly struct EQUIP_UPG {
             private static readonly int[] PRICES = {
                 100, 200, 250, 300, 400, 500, 600, 800, 1000, 1300

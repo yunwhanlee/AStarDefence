@@ -126,8 +126,9 @@ public class RewardItemSO : ScriptableObject {
     /// <summary>
     /// リワードChestとPresentを開く
     /// </summary>
-    public void OpenRewardContent(RewardContentSO rwdContentDt) {
-        int itemCnt = rwdContentDt.Cnt;
+    public void OpenRewardContent(RewardContentSO rwdContentDt, int specifiedCnt = 0) {
+        //* アイテム数 (指定したカウントがあれば、これにする)
+        int itemCnt = (specifiedCnt == 0)? rwdContentDt.Cnt : specifiedCnt; 
         List<RewardItem> rewardList = new List<RewardItem>();
 
         //* ランダムリワード
@@ -141,7 +142,7 @@ public class RewardItemSO : ScriptableObject {
         List<(ItemSO item, int per, int quantity)> itemPerTableList = PrepareItemPerTable(rwdContentDt);
         var copyItemTableList = itemPerTableList.ToList();
 
-        //* 固定アイテム項目があったら、取ってリワードリストへ入れる
+        //* お先に固定アイテム項目
         for (int i = 0; i < copyItemTableList.Count; i++) {
             var (item, per, quantity) = copyItemTableList[i];
             if (per == -1) {
@@ -151,21 +152,28 @@ public class RewardItemSO : ScriptableObject {
             }
         }
 
-        //* 確率テーブルによる、ランダムアイテム選択
+        //* ランダムアイテム選択 (From 確率テーブル)
         for(int i = 0; i < itemCnt; i++) {
             int rand = Random.Range(0, randMax);
             int startRange = 0;
             foreach (var (item, per, quantity) in copyItemTableList) {  //* ToList()를 사용하여 원본 리스트를 수정하지 않고 복사본을 만듭니다.
                 int endRange = startRange + per;
                 if (rand < endRange) {
-                    Debug.Log($"<color=yellow>OpenPresent0():: {i}: {item.name} {item.Name}, rand= {rand} / {randMax}, Range: {startRange} - {endRange - 1}</color>");
+                    Debug.Log($"fileName= {rwdContentDt.name} <color=yellow>OpenPresent0():: {i}: {item.name} {item.Name}, rand= {rand} / {randMax}, Range: {startRange} - {endRange - 1}</color>");
 
                     //* ★RELICなら、ランダムで能力
                     var relicAbilities = HM._.ivCtrl.InventoryData.CheckRelicAbilitiesData(item);
-
                     rewardList.Add(new RewardItem(item, quantity, relicAbilities));
-                    copyItemTableList.Remove((item, per, quantity));  //* 이미 선택된 아이템 제거
-                    randMax -= per;
+
+                    //* 一般宝箱の開く処理
+                    if(specifiedCnt == 0) {
+                        copyItemTableList.Remove((item, per, quantity));  //* 이미 선택된 아이템 제거
+                        randMax -= per;
+                    }
+                    //* SHOPでEquipChestを購入の場合、複数を開けることの処理
+                    else
+                        copyItemTableList = PrepareItemPerTable(rwdContentDt);
+
                     break;
                 }
                 startRange = endRange;

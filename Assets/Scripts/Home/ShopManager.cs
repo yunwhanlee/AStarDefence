@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using Random = UnityEngine.Random;
+using TMPro;
 
 public class ShopManager : MonoBehaviour {
     const int TAPBTN_PACKAGE = 0, TAPBTN_CHEST = 1, TAPBTN_RSC = 2;
@@ -19,6 +20,8 @@ public class ShopManager : MonoBehaviour {
     [field:SerializeField] public GameObject[] CateGroupObjs {get; private set;}
     [field:SerializeField] public GameObject[] PackageDimObjs {get; private set;}
     [field:SerializeField] public Button[] TapBtns {get; private set;}
+
+    [field:SerializeField] public TMP_Text[] ChestPriceTxts {get; set;}
 
     void Start() {
         InitUI();
@@ -209,6 +212,12 @@ public class ShopManager : MonoBehaviour {
         int i = 0;
         //* Package購入結果 Dim表示
         Array.ForEach(PackageDimObjs, dim => dim.SetActive(DM._.DB.ShopDB.IsPruchasedPackages[i++]));
+
+        //* Chest Icon And Price
+        i = 0;
+        Array.ForEach(ChestPriceTxts, priceTxt => 
+            priceTxt.text = GetChestPriceTxtFormet(i++)
+        );
     }
     public void ActiveCateGroup(int btnIdx) {
         for(int i = 0; i < CateGroupObjs.Length; i++) {
@@ -222,6 +231,16 @@ public class ShopManager : MonoBehaviour {
             CateTitleLineObjs[COIN_GROUP].SetActive(true);
             CateGroupObjs[COIN_GROUP].SetActive(true);
         }
+    }
+    /// <summary>
+    /// SHOPの宝箱の値段と財貨アイコン情報をテキストFORMATで返す
+    /// </summary>
+    public string GetChestPriceTxtFormet(int chestIdx) {
+        string keyword = Config.H_PRICE.SHOP.CHEST_PRICES[chestIdx];
+        var splitDt = keyword.Split("_");
+        string spriteTag = splitDt[0];
+        string priceStr = splitDt[1];
+        return $"<size=70%><sprite name={spriteTag}></size> {priceStr}";
     }
 #endregion
 }
