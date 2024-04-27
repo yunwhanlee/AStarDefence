@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Inventory.Model;
+using System.Data;
+using Unity.VisualScripting;
 
 /// <summary>
 /// ステータス
@@ -132,31 +134,50 @@ public class SkillTreeDB {
     }
 }
 
+[Serializable]
+public struct ShopDailyItem {
+    [field:SerializeField] public bool IsAccept {get; set;}
+    [field:SerializeField] public int Day {get; set;}
+}
+
 /// <summary>
 /// スキルツリー Lockリストデータ
 /// </summary>
 [Serializable]
 public class ShopDB {
+    public static readonly int FREE_COMMON = 0, DIAMOND_CHEST = 1, FREE_TINY = 2;
     [field:SerializeField] public bool[] IsPruchasedPackages {get; set;} = new bool[6];
-
-    [field:SerializeField] public bool IsPruchasedDiamondChest {get; set;}
-    [field:SerializeField] public bool IsPruchasedFreeCommonChest {get; set;}
-    [field:SerializeField] public bool IsPruchasedFreeTinyDiamond {get; set;}
-    [field:SerializeField] public int PurchasedDiamondChestTime {get; set;}
-    [field:SerializeField] public int FreeCommonChestTime {get; set;}
-    [field:SerializeField] public int FreeTinyDiamondTime {get; set;}
+    [field:SerializeField] public ShopDailyItem[] DailyItems {get; set;} = new ShopDailyItem[3];
 
     public ShopDB() {
         for(int i = 0; i < IsPruchasedPackages.Length; i++)
             IsPruchasedPackages[i] = false;
         
         //* 一日制限がある アイテム
-        IsPruchasedDiamondChest = false;
-        IsPruchasedFreeCommonChest = false;
-        IsPruchasedFreeTinyDiamond = false;
-        PurchasedDiamondChestTime = 0;
-        FreeCommonChestTime = 0;
-        FreeTinyDiamondTime = 0;
+        InitDaily(FREE_COMMON);
+        InitDaily(DIAMOND_CHEST);
+        InitDaily(FREE_TINY);
+    }
+
+    private void InitDaily(int idx) {
+        DailyItems[idx].IsAccept = false;
+        DailyItems[idx].Day = 0;
+    }
+
+    public void SetAcceptData(int idx) {
+        DailyItems[idx].IsAccept = true;
+        DailyItems[idx].Day = DateTime.UtcNow.Day;
+    }
+
+    public bool TogglePassedDay(int dailyItemIdx) {
+        int passDay = HM._.CurDay - DailyItems[dailyItemIdx].Day;
+        if(passDay > 0)
+            InitDaily(dailyItemIdx);
+        else if(passDay < 0) {
+            HM._.hui.ShowMsgError("혹시 보상리셋을위해, 시간을 되돌리셨나요? 그럼 안되요ㅜ.");
+            DailyItems[dailyItemIdx].Day = HM._.CurDay;
+        }
+        return DailyItems[dailyItemIdx].IsAccept;
     }
 }
 
@@ -184,6 +205,7 @@ public class DM : MonoBehaviour {
     public static DM _ {get; private set;}
     const string DB_KEY = "DB";
     const string PASSEDTIME_KEY = "PASSED_TIME";
+    const string DAY_KEY = "DAY";
     [field: SerializeField] public bool IsReset {get; set;}
     [field: SerializeField] public bool IsInit {get; set;}
 

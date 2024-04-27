@@ -68,10 +68,18 @@ public class ChestInfoManager : MonoBehaviour {
             string infoTemp = "";
             switch(chestIdx) {
                 case FREE_COMMON_CHEST: {
-                    HM._.shopMg.FreeCommonChestDim.SetActive(true);
+                    //* Daily Item
+                    if(DM._.DB.ShopDB.DailyItems[ShopDB.FREE_COMMON].IsAccept)
+                        return;
+                    
+
                     infoTemp = SetCommonChest(rwdDt);
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => {
+                        //* Daily Item
+                        DM._.DB.ShopDB.SetAcceptData(ShopDB.FREE_COMMON);
+                        HM._.shopMg.FreeCommonChestDim.SetActive(true);
+
                         rwdDt.OpenRewardContent(rwdDt.Rwd_ChestCommon);
                         WindowObj.SetActive(false);
                     };
@@ -109,7 +117,10 @@ public class ChestInfoManager : MonoBehaviour {
                     break;
                 }
                 case DIAMOND_CHEST: {
-                    HM._.shopMg.DiamondChestDim.SetActive(true);
+                    //* Daily Item
+                    if(DM._.DB.ShopDB.DailyItems[ShopDB.DIAMOND_CHEST].IsAccept)
+                        return;
+
                     NameTxt.text = Etc.GetChestName(Etc.ConsumableItem.ChestDiamond);
                     ChestImg.sprite = rwdDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestDiamond].ItemImg;
                     RewardContentSO chInfo = rwdDt.Rwd_ChestDiamond;
@@ -117,6 +128,10 @@ public class ChestInfoManager : MonoBehaviour {
 
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => {
+                        //* Daily Item
+                        DM._.DB.ShopDB.SetAcceptData(ShopDB.DIAMOND_CHEST);
+                        HM._.shopMg.DiamondChestDim.SetActive(true);
+
                         rwdDt.OpenRewardContent(chInfo);
                         WindowObj.SetActive(false);
                     };

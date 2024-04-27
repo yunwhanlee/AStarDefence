@@ -22,8 +22,8 @@ public class ShopManager : MonoBehaviour {
     [field:SerializeField] public GameObject[] PackageDimObjs {get; private set;}
 
     //* 一日制限がある アイテム
-    [field:SerializeField] public GameObject DiamondChestDim {get; private set;}
     [field:SerializeField] public GameObject FreeCommonChestDim {get; private set;}
+    [field:SerializeField] public GameObject DiamondChestDim {get; private set;}
     [field:SerializeField] public GameObject FreeTinyDiamondDim {get; private set;}
 
     [field:SerializeField] public Button[] TapBtns {get; private set;}
@@ -32,6 +32,12 @@ public class ShopManager : MonoBehaviour {
 
     void Start() {
         InitUI();
+
+        //* Daily アイテム結果時間 チェック
+        var shopDB = DM._.DB.ShopDB;
+        FreeCommonChestDim.SetActive(shopDB.TogglePassedDay(ShopDB.FREE_COMMON));
+        DiamondChestDim.SetActive(shopDB.TogglePassedDay(ShopDB.DIAMOND_CHEST));
+        FreeTinyDiamondDim.SetActive(shopDB.TogglePassedDay(ShopDB.FREE_TINY));
     }
 
 #region EVENT
@@ -211,7 +217,12 @@ public class ShopManager : MonoBehaviour {
         var rewardList = new List<RewardItem>();
         switch(diamondIdx) {
             case FREE_DIAMOND:
+                //* Daily Item
+                if(DM._.DB.ShopDB.DailyItems[ShopDB.FREE_TINY].IsAccept)
+                    return;
+                DM._.DB.ShopDB.SetAcceptData(ShopDB.FREE_TINY);
                 FreeTinyDiamondDim.SetActive(true);
+
                 rewardList.Add(new (DIAMOND, 10));
                 break;
             case DIAMOND_TINY:

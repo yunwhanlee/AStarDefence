@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,7 @@ public class HM : MonoBehaviour {
     public Color SkyBlueColor;
     public Color RedOrangeColor;
     [field: SerializeField] public int SelectedStage {get; set;}
+    [field: SerializeField] public int CurDay {get; private set;}
 
     // [field: SerializeField] public int Lv {
     //     get => DM._.DB.StatusDB.Lv;
@@ -98,6 +100,7 @@ public class HM : MonoBehaviour {
 
         //* 初期化
         SelectedStage = 0;
+        CurDay = DateTime.UtcNow.Day;
     }
 
     void Start() {
