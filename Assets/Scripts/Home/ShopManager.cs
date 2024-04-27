@@ -184,8 +184,77 @@ public class ShopManager : MonoBehaviour {
     /// SHOPで宝箱クリック
     /// </summary>
     /// <param name="chestIdx">0 : COMMON, 1: DIAMOND, 2 : EQUIP, 3 : GOLD, 4 : PREMIUM</param>
-    public void OnClickChestBtn(int chestIdx) {
-        HM._.cim.ShowChestInfoPopUp(chestIdx);
+    public void OnClickChestBtn(int chestIdx)
+        => HM._.cim.ShowChestInfoPopUp(chestIdx);
+    /// <summary>
+    /// ダイアモンド購入
+    /// </summary> <summary>
+    public void OnClickDiamondBtn(int diamondIdx) {
+        const int FREE_DIAMOND = 0,
+            DIAMOND_TINY = 1,
+            DIAMOND_SMALL = 2,
+            DIAMOND_MEDIUM = 3,
+            DIAMOND_BIG = 4,
+            DIAMOND_HUGE = 5;
+
+        RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
+        ItemSO DIAMOND = rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond];
+
+        //TODO IAP 決済
+
+        var rewardList = new List<RewardItem>();
+        switch(diamondIdx) {
+            case FREE_DIAMOND:
+                rewardList.Add(new (DIAMOND, 10));
+                break;
+            case DIAMOND_TINY:
+                rewardList.Add(new (DIAMOND, 180));
+                break;
+            case DIAMOND_SMALL:
+                rewardList.Add(new (DIAMOND, 500));
+                break;
+            case DIAMOND_MEDIUM:
+                rewardList.Add(new (DIAMOND, 1200));
+                break;
+            case DIAMOND_BIG:
+                rewardList.Add(new (DIAMOND, 6500));
+                break;
+            case DIAMOND_HUGE:
+                rewardList.Add(new (DIAMOND, 15000));
+                break;
+        }
+
+        HM._.rwlm.ShowReward(rewardList);
+        HM._.rwm.UpdateInventory(rewardList);
+    }
+    /// <summary>
+    /// コイン購入
+    /// </summary> <summary>
+    public void OnClickCoinBtn(int coinIdx) {
+        const int COIN_TINY = 0,
+        COIN_MEDIUM = 1,
+        COIN_HUGE = 2;
+
+        //TODO ダイアモンドで購入
+
+        RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
+        ItemSO COIN = rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin];
+
+        var rewardList = new List<RewardItem>();
+        switch(coinIdx) {
+            case COIN_TINY:
+                rewardList.Add(new (COIN, 600));
+                break;
+            case COIN_MEDIUM:
+                rewardList.Add(new (COIN, 12000));
+                break;
+            case COIN_HUGE:
+                rewardList.Add(new (COIN, 48000));
+                break;
+        }
+
+        HM._.rwlm.ShowReward(rewardList);
+        HM._.rwm.UpdateInventory(rewardList);
     }
 #endregion
 #region FUNC
