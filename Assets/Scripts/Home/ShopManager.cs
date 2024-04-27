@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using Random = UnityEngine.Random;
 using TMPro;
+using Inventory.Model;
 
 public class ShopManager : MonoBehaviour {
     const int TAPBTN_PACKAGE = 0, TAPBTN_CHEST = 1, TAPBTN_RSC = 2;
@@ -152,9 +153,12 @@ public class ShopManager : MonoBehaviour {
                         : 4; // PRIME
 
                     //* リワード追加
-                    int offset = 2; //* RelicはEpicから始まるため
+                    const int offset = 2; //* RelicはEpicから始まるため
                     int relicLegendIdx = (int)Enum.Grade.Legend - offset;
-                    rewardList.Add(new (rwDt.RelicDatas[(i == lastIdx && EquipPackageCnt == 0)? relicLegendIdx : grade]));
+                    int gradeIdx = (i == lastIdx && EquipPackageCnt == 0)? relicLegendIdx : grade;
+                    ItemSO relicDt = rwDt.RelicDatas[gradeIdx];
+                    AbilityType[] relicAbilities = HM._.ivCtrl.InventoryData.CheckRelicAbilitiesData(relicDt);
+                    rewardList.Add(new (relicDt, quantity: 1, relicAbilities));
                 }
                 break;
             }
