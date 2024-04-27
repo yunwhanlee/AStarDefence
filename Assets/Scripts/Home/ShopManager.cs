@@ -43,6 +43,12 @@ public class ShopManager : MonoBehaviour {
         TapBtns[btnIdx].GetComponent<Image>().color = TapBtnActiveClr;
         ActiveCateGroup(btnIdx);
     }
+    /// <summary>
+    /// SHOPでパッケージクリック
+    /// </summary>
+    /// 
+    /// </summary>
+    /// <param name="idx"></param>
     public void OnClickPackageBtn(int idx) {
         const int AllInOne = 0, LevelUpSupport = 1, RandomEquip = 2,
             RandomRelic = 3, EquipUpgradeSupport = 4, MiningSupport = 5;
@@ -167,7 +173,13 @@ public class ShopManager : MonoBehaviour {
         HM._.rwlm.ShowReward(rewardList);
         HM._.rwm.UpdateInventory(rewardList);
     }
-
+    /// <summary>
+    /// SHOPで宝箱クリック
+    /// </summary>
+    /// <param name="chestIdx">0 : COMMON, 1: DIAMOND, 2 : EQUIP, 3 : GOLD, 4 : PREMIUM</param>
+    public void OnClickChestBtn(int chestIdx) {
+        HM._.cim.ShowChestInfoPopUp(chestIdx);
+    }
 #endregion
 #region FUNC
     private void CheckEquipPackageAction(int cnt, int packageIdx) {
@@ -195,6 +207,7 @@ public class ShopManager : MonoBehaviour {
         Array.ForEach(CateGroupObjs, groupObj => groupObj.SetActive(true));
 
         int i = 0;
+        //* Package購入結果 Dim表示
         Array.ForEach(PackageDimObjs, dim => dim.SetActive(DM._.DB.ShopDB.IsPruchasedPackages[i++]));
     }
     public void ActiveCateGroup(int btnIdx) {
