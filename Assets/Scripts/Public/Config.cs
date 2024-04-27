@@ -80,6 +80,10 @@ public static class Config {
         };
 
         public readonly struct SHOP {
+            public const int FREECOMMON = 0, COMMON = 1, GOLDCHEST = 2,
+                PREMIUM = 3, DIAMONDCHEST = 4,
+                EQUIPx1 = 5, EQUIPx6 = 6, EQUIPx12 = 7;
+
             public static readonly string[] CHEST_PRICES = {
                 "Ad_FREE", // FREE COMMON
                 "Diamond_40", // COMMON

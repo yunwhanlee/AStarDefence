@@ -50,12 +50,8 @@ public class ChestInfoManager : MonoBehaviour {
         /// <summary>
         /// 宝箱情報POPUP 表示
         /// </summary>
-        /// <param name="chestIdx">0 : COMMON, 1: DIAMOND, 2 : EQUIP, 3 : GOLD, 4 : PREMIUM</param>
+        /// <param name="chestIdx"> Config:: H_PRICE:: SHOPへある const int変数を参考</param>
         public void ShowChestInfoPopUp(int chestIdx) {
-            const int FREE_COMMON_CHEST = 0, COMMON_CHEST = 1, GOLD_CHEST = 2,
-                PREMIUM_CHEST = 3, DIAMOND_CHEST = 4, 
-                EQUIP_CHEST_X1 = 5, EQUIP_CHEST_X6 = 6, EQUIP_CHEST_X12 = 7;
-
             SM._.SfxPlay(SM.SFX.ClickSFX);
             WindowObj.SetActive(true);
             EquipGachaInfoGroup.SetActive(chestIdx >= 5);
@@ -67,7 +63,9 @@ public class ChestInfoManager : MonoBehaviour {
             RewardItemSO rwdDt = HM._.rwlm.RwdItemDt;
             string infoTemp = "";
             switch(chestIdx) {
-                case FREE_COMMON_CHEST: {
+                case Config.H_PRICE.SHOP.FREECOMMON: {
+                    //TODO AD
+
                     //* Daily Item
                     if(DM._.DB.ShopDB.DailyItems[ShopDB.FREE_COMMON].IsAccept)
                         return;
@@ -85,13 +83,16 @@ public class ChestInfoManager : MonoBehaviour {
                     };
                     break;
                 }
-                case COMMON_CHEST: {
+                case Config.H_PRICE.SHOP.COMMON: {
+                    //* Price
+                    
+
                     infoTemp = SetCommonChest(rwdDt);
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => rwdDt.OpenRewardContent(rwdDt.Rwd_ChestCommon);
                     break;
                 }
-                case GOLD_CHEST: {
+                case Config.H_PRICE.SHOP.GOLDCHEST: {
                     NameTxt.text = Etc.GetChestName(Etc.ConsumableItem.ChestGold);
                     ChestImg.sprite = rwdDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGold].ItemImg;
                     RewardContentSO chInfo = rwdDt.Rwd_ChestGold;
@@ -103,7 +104,7 @@ public class ChestInfoManager : MonoBehaviour {
                     OnClickOpenChest = () => rwdDt.OpenRewardContent(chInfo);
                     break;
                 }
-                case PREMIUM_CHEST: {
+                case Config.H_PRICE.SHOP.PREMIUM: {
                     NameTxt.text = Etc.GetChestName(Etc.ConsumableItem.ChestPremium);
                     ChestImg.sprite = rwdDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium].ItemImg;
                     RewardContentSO chInfo = rwdDt.Rwd_ChestPremium;
@@ -116,7 +117,7 @@ public class ChestInfoManager : MonoBehaviour {
                     OnClickOpenChest = () => rwdDt.OpenRewardContent(chInfo);
                     break;
                 }
-                case DIAMOND_CHEST: {
+                case Config.H_PRICE.SHOP.DIAMONDCHEST: {
                     //* Daily Item
                     if(DM._.DB.ShopDB.DailyItems[ShopDB.DIAMOND_CHEST].IsAccept)
                         return;
@@ -137,22 +138,22 @@ public class ChestInfoManager : MonoBehaviour {
                     };
                     break;
                 }
-                case EQUIP_CHEST_X1 : {
+                case Config.H_PRICE.SHOP.EQUIPx1: {
                     const int cnt = 1;
                     infoTemp = SetEquipChest(rwdDt, cnt);
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => rwdDt.OpenRewardContent(rwdDt.Rwd_ChestEquipment, specifiedCnt: cnt);
                     break;
                 }
-                case EQUIP_CHEST_X6 : {
-                    const int cnt = 1;
+                case Config.H_PRICE.SHOP.EQUIPx6: {
+                    const int cnt = 6;
                     infoTemp = SetEquipChest(rwdDt, cnt);
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => rwdDt.OpenRewardContent(rwdDt.Rwd_ChestEquipment, specifiedCnt: cnt);
                     break;
                 }
-                case EQUIP_CHEST_X12: {
-                    const int cnt = 1;
+                case Config.H_PRICE.SHOP.EQUIPx12: {
+                    const int cnt = 12;
                     infoTemp = SetEquipChest(rwdDt, cnt);
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => rwdDt.OpenRewardContent(rwdDt.Rwd_ChestEquipment, specifiedCnt: cnt);
