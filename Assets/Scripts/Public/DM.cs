@@ -139,9 +139,24 @@ public class SkillTreeDB {
 public class ShopDB {
     [field:SerializeField] public bool[] IsPruchasedPackages {get; set;} = new bool[6];
 
+    [field:SerializeField] public bool IsPruchasedDiamondChest {get; set;}
+    [field:SerializeField] public bool IsPruchasedFreeCommonChest {get; set;}
+    [field:SerializeField] public bool IsPruchasedFreeTinyDiamond {get; set;}
+    [field:SerializeField] public int PurchasedDiamondChestTime {get; set;}
+    [field:SerializeField] public int FreeCommonChestTime {get; set;}
+    [field:SerializeField] public int FreeTinyDiamondTime {get; set;}
+
     public ShopDB() {
         for(int i = 0; i < IsPruchasedPackages.Length; i++)
             IsPruchasedPackages[i] = false;
+        
+        //* 一日制限がある アイテム
+        IsPruchasedDiamondChest = false;
+        IsPruchasedFreeCommonChest = false;
+        IsPruchasedFreeTinyDiamond = false;
+        PurchasedDiamondChestTime = 0;
+        FreeCommonChestTime = 0;
+        FreeTinyDiamondTime = 0;
     }
 }
 

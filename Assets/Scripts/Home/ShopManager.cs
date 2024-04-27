@@ -20,6 +20,12 @@ public class ShopManager : MonoBehaviour {
     [field:SerializeField] public GameObject[] CateTitleLineObjs {get; private set;}
     [field:SerializeField] public GameObject[] CateGroupObjs {get; private set;}
     [field:SerializeField] public GameObject[] PackageDimObjs {get; private set;}
+
+    //* 一日制限がある アイテム
+    [field:SerializeField] public GameObject DiamondChestDim {get; private set;}
+    [field:SerializeField] public GameObject FreeCommonChestDim {get; private set;}
+    [field:SerializeField] public GameObject FreeTinyDiamondDim {get; private set;}
+
     [field:SerializeField] public Button[] TapBtns {get; private set;}
 
     [field:SerializeField] public TMP_Text[] ChestPriceTxts {get; set;}
@@ -205,6 +211,7 @@ public class ShopManager : MonoBehaviour {
         var rewardList = new List<RewardItem>();
         switch(diamondIdx) {
             case FREE_DIAMOND:
+                FreeTinyDiamondDim.SetActive(true);
                 rewardList.Add(new (DIAMOND, 10));
                 break;
             case DIAMOND_TINY:

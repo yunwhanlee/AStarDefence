@@ -25,6 +25,28 @@ public class ChestInfoManager : MonoBehaviour {
         }
     #endregion
     #region FUNC
+        private string SetCommonChest(RewardItemSO rwdDt) {
+            string infoTemp = "";
+
+            NameTxt.text = Etc.GetChestName(Etc.ConsumableItem.ChestCommon);
+            ChestImg.sprite = rwdDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon].ItemImg;
+            RewardContentSO chInfo = rwdDt.Rwd_ChestCommon;
+            infoTemp += $"<sprite name=Coin> {chInfo.CoinMin} ~ {chInfo.CoinMax}";
+            infoTemp += $"\n<sprite name=Random> x 1";
+
+            return infoTemp;
+        }
+
+        private string SetEquipChest(RewardItemSO rwdDt, int cnt) {
+            string infoTemp = "";
+
+            NameTxt.text = Etc.GetChestName(Etc.ConsumableItem.ChestEquipment) + $" {cnt}개";
+            ChestImg.sprite = rwdDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment].ItemImg;
+            infoTemp += $"<sprite name=Equip> x {cnt}";
+
+            return infoTemp;
+        }
+
         /// <summary>
         /// 宝箱情報POPUP 表示
         /// </summary>
@@ -42,19 +64,23 @@ public class ChestInfoManager : MonoBehaviour {
             PriceBtnTxt.text = HM._.shopMg.GetChestPriceTxtFormet(chestIdx);
 
             //* Info
-            var rwdDt = HM._.rwlm.RwdItemDt;
+            RewardItemSO rwdDt = HM._.rwlm.RwdItemDt;
             string infoTemp = "";
             switch(chestIdx) {
-                case FREE_COMMON_CHEST:
-                case COMMON_CHEST: {
-                    NameTxt.text = Etc.GetChestName(Etc.ConsumableItem.ChestCommon);
-                    ChestImg.sprite = rwdDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon].ItemImg;
-                    RewardContentSO chInfo = rwdDt.Rwd_ChestCommon;
-                    infoTemp += $"<sprite name=Coin> {chInfo.CoinMin} ~ {chInfo.CoinMax}";
-                    infoTemp += $"\n<sprite name=Random> x 1";
-
+                case FREE_COMMON_CHEST: {
+                    HM._.shopMg.FreeCommonChestDim.SetActive(true);
+                    infoTemp = SetCommonChest(rwdDt);
                     //* 次の購入イベント登録
-                    OnClickOpenChest = () => rwdDt.OpenRewardContent(chInfo);
+                    OnClickOpenChest = () => {
+                        rwdDt.OpenRewardContent(rwdDt.Rwd_ChestCommon);
+                        WindowObj.SetActive(false);
+                    };
+                    break;
+                }
+                case COMMON_CHEST: {
+                    infoTemp = SetCommonChest(rwdDt);
+                    //* 次の購入イベント登録
+                    OnClickOpenChest = () => rwdDt.OpenRewardContent(rwdDt.Rwd_ChestCommon);
                     break;
                 }
                 case GOLD_CHEST: {
@@ -83,43 +109,38 @@ public class ChestInfoManager : MonoBehaviour {
                     break;
                 }
                 case DIAMOND_CHEST: {
+                    HM._.shopMg.DiamondChestDim.SetActive(true);
                     NameTxt.text = Etc.GetChestName(Etc.ConsumableItem.ChestDiamond);
                     ChestImg.sprite = rwdDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestDiamond].ItemImg;
                     RewardContentSO chInfo = rwdDt.Rwd_ChestDiamond;
                     infoTemp += $"<sprite name=Diamond> {chInfo.DiamondMin} ~ {chInfo.DiamondMax}";
 
                     //* 次の購入イベント登録
-                    OnClickOpenChest = () => rwdDt.OpenRewardContent(chInfo);
+                    OnClickOpenChest = () => {
+                        rwdDt.OpenRewardContent(chInfo);
+                        WindowObj.SetActive(false);
+                    };
                     break;
                 }
                 case EQUIP_CHEST_X1 : {
-                    const int CNT = 1;
-                    NameTxt.text = Etc.GetChestName(Etc.ConsumableItem.ChestEquipment) + $" {CNT}개";
-                    ChestImg.sprite = rwdDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment].ItemImg;
-                    infoTemp += $"<sprite name=Equip> x {CNT}";
-
+                    const int cnt = 1;
+                    infoTemp = SetEquipChest(rwdDt, cnt);
                     //* 次の購入イベント登録
-                    OnClickOpenChest = () => rwdDt.OpenRewardContent(rwdDt.Rwd_ChestEquipment);
+                    OnClickOpenChest = () => rwdDt.OpenRewardContent(rwdDt.Rwd_ChestEquipment, specifiedCnt: cnt);
                     break;
                 }
                 case EQUIP_CHEST_X6 : {
-                    const int CNT = 6;
-                    NameTxt.text = Etc.GetChestName(Etc.ConsumableItem.ChestEquipment) + $" {CNT}개";
-                    ChestImg.sprite = rwdDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment].ItemImg;
-                    infoTemp += $"<sprite name=Equip> x {CNT}";
-
+                    const int cnt = 1;
+                    infoTemp = SetEquipChest(rwdDt, cnt);
                     //* 次の購入イベント登録
-                    OnClickOpenChest = () => rwdDt.OpenRewardContent(rwdDt.Rwd_ChestEquipment, specifiedCnt: CNT);
+                    OnClickOpenChest = () => rwdDt.OpenRewardContent(rwdDt.Rwd_ChestEquipment, specifiedCnt: cnt);
                     break;
                 }
                 case EQUIP_CHEST_X12: {
-                    const int CNT = 12;
-                    NameTxt.text = Etc.GetChestName(Etc.ConsumableItem.ChestEquipment) + $" {CNT}개";
-                    ChestImg.sprite = rwdDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment].ItemImg;
-                    infoTemp += $"<sprite name=Equip> x {CNT}";
-
+                    const int cnt = 1;
+                    infoTemp = SetEquipChest(rwdDt, cnt);
                     //* 次の購入イベント登録
-                    OnClickOpenChest = () => rwdDt.OpenRewardContent(rwdDt.Rwd_ChestEquipment, specifiedCnt: CNT);
+                    OnClickOpenChest = () => rwdDt.OpenRewardContent(rwdDt.Rwd_ChestEquipment, specifiedCnt: cnt);
                     break;
                 }
             }

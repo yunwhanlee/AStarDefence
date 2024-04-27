@@ -117,8 +117,7 @@ public class WorkSpace {
         if(isPassedTime) {
             int passedSec = DM._.PassedSec;
             string timeFormat = Util.ConvertTimeFormat(passedSec);
-            // int extraDecSec = Mathf.RoundToInt(passedSec * (spdPer - 1));
-            // string extraDecPer = $"<color=yellow>{extraDecSec}초 추가감소({(spdPer - 1) * 100}%)</color>";
+
             HM._.hui.ShowMsgNotice($"{timeFormat}초가 경과했습니다. ", Util.Time3);
             MiningTime -= Mathf.RoundToInt(passedSec * spdPer);
         }
