@@ -125,6 +125,7 @@ namespace Inventory
         public void HideInventory() {
             SM._.SfxPlay(SM.SFX.ClickSFX);
             ivm.Hide();
+            HM._.dailyMs.OnUpdateUI.Invoke();
         }
 
     #region EQUIP

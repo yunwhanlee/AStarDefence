@@ -44,47 +44,41 @@ public class MissionUI {
         DailyMissionDB dmDB = DM._.DB.DailyMissionDB;
         switch(Type) {
             case MissionType.COLLECT_COIN:
-                SetSlider(dmDB.CollectCoinVal, DailyMissionDB.CollectCoinMax);
-                Dim.SetActive(dmDB.IsAcceptCollectCoin);
+                SetSlider(dmDB.CollectCoinVal, DailyMissionDB.CollectCoinMax, dmDB.IsAcceptCollectCoin);
                 break;
             case MissionType.COLLECT_DIAMOND:
-                SetSlider(dmDB.CollectDiamondVal, DailyMissionDB.CollectDiamondMax);
-                Dim.SetActive(dmDB.IsAcceptCollectDiamond);
+                SetSlider(dmDB.CollectDiamondVal, DailyMissionDB.CollectDiamondMax, dmDB.IsAcceptCollectDiamond);
                 break;
             case MissionType.KILL_MONSTER:
-                SetSlider(dmDB.MonsterKillVal, DailyMissionDB.MonsterKill);
-                Dim.SetActive(dmDB.IsAcceptMonsterKill);
+                SetSlider(dmDB.MonsterKillVal, DailyMissionDB.MonsterKill, dmDB.IsAcceptMonsterKill);
                 break;
             case MissionType.KILL_BOSS:
-                SetSlider(dmDB.BossKillVal, DailyMissionDB.BossKill);
-                Dim.SetActive(dmDB.IsAcceptBossKill);
+                SetSlider(dmDB.BossKillVal, DailyMissionDB.BossKill, dmDB.IsAcceptBossKill);
                 break;
             case MissionType.CLEAR_GOBLINDUNGYEN:
-                SetSlider(dmDB.ClearGoblinDungyenVal, DailyMissionDB.ClearGoblinDungyen);
-                Dim.SetActive(dmDB.IsAcceptClearGoblinDungyen);
+                SetSlider(dmDB.ClearGoblinDungyenVal, DailyMissionDB.ClearGoblinDungyen, dmDB.IsAcceptClearGoblinDungyen);
                 break;
             case MissionType.CLEAR_STAGE:
-                SetSlider(dmDB.ClearStageVal, DailyMissionDB.ClearStage);
-                Dim.SetActive(dmDB.IsAcceptClearStage);
+                SetSlider(dmDB.ClearStageVal, DailyMissionDB.ClearStage, dmDB.IsAcceptClearStage);
                 break;
             case MissionType.CLEAR_MINING:
-                SetSlider(dmDB.ClearMiningVal, DailyMissionDB.ClearMining);
-                Dim.SetActive(dmDB.IsAcceptClearMining);
+                SetSlider(dmDB.ClearMiningVal, DailyMissionDB.ClearMining, dmDB.IsAcceptClearMining);
                 break;
             case MissionType.WATCH_ADS:
-                SetSlider(dmDB.WatchAdsVal, DailyMissionDB.WatchAds);
-                Dim.SetActive(dmDB.IsAcceptWatchAds);
+                SetSlider(dmDB.WatchAdsVal, DailyMissionDB.WatchAds, dmDB.IsAcceptWatchAds);
                 break;
             case MissionType.OPEN_ANYCHEST:
-                SetSlider(dmDB.OpenAnyChestVal, DailyMissionDB.OpenAnyChest);
-                Dim.SetActive(dmDB.IsAcceptOpenAnyChest);
+                SetSlider(dmDB.OpenAnyChestVal, DailyMissionDB.OpenAnyChest, dmDB.IsAcceptOpenAnyChest);
                 break;
         }
     }
 
     public void AcceptReward() {
+        //* UI
         Dim.SetActive(true);
+        AcceptableBg.SetActive(false);
 
+        //* リワード
         var rewardList = new List<RewardItem>();
         var rwDt = HM._.rwlm.RwdItemDt;
         switch(Type) {
@@ -132,14 +126,24 @@ public class MissionUI {
         HM._.dailyMs.UpdateCompleteCntUI();
     }
 
-    public void SetSlider(int val, int max) {
+    public void SetSlider(int val, int max, bool isAccepted) {
         Slider.value = (float)val / max;
         SliderTxt.text = $"{val} / {max}";
 
-        if(Slider.value == 1) {
+        //* 達成したが、まだ受け取っていない
+        if(Slider.value == 1 && !isAccepted) {
+            AcceptableBg.SetActive(true);
             AcceptBtn.interactable = true;
             AcceptBtnTxt.color = Color.white;
+            Obj.transform.SetAsFirstSibling(); //* 前へ整列
         }
+
+        //* 受け取ったら、目録を後ろへ移す
+        if(isAccepted)
+            Obj.transform.SetAsLastSibling(); //* 後ろへ整列
+
+        //* 受け取ったかチェック
+        Dim.SetActive(isAccepted);
     }
 }
 
@@ -148,42 +152,54 @@ public class MissionUI {
 /// </summary>
 public class DailyMissionManager : MonoBehaviour {
     public const int CompleteCntMax = 5;
+    public Action OnUpdateUI = () => {};
     public Color YellowClr;
     public Color SkyBlueClr;
 
     [field: SerializeField] public int CompleteCnt;
-    //* Home
+    //* Home Top
     [field: SerializeField] public GameObject HomeAllClearNoticeBtnObj {get; set;}
     [field: SerializeField] public Slider HomeAllClearNoticeSlider {get; set;}
     [field: SerializeField] public TMP_Text HomeAllClearNoticeSliderTxt {get; set;}
     [field: SerializeField] public GameObject HomeAllClearNoticeAlertDot {get; set;}
     [field: SerializeField] public GameObject HomeAllClearNoticeCheckIcon {get; set;}
+    //*  Home Bottom
+    [field: SerializeField] public GameObject MenuIconRedDotAlert {get; set;}
+
     //* PopUp
     [field: SerializeField] public GameObject WindowObj {get; set;}
     [field: SerializeField] public GameObject AllClearSpiceialRewardCheckIcon {get; set;}
     [field: SerializeField] public Slider CompleteCntSlider {get; set;}
     [field: SerializeField] public TMP_Text TopCompleteCntTxt {get; set;}
     [field: SerializeField] public TMP_Text CompleteCntTxt {get; set;}
+    [field: SerializeField] public Transform ContentTf {get; set;}
     [field: SerializeField] public MissionUI[] MissionUIs {get; set;}
 
     void Start() {
-        Array.ForEach(MissionUIs, missionUI => {
-            missionUI.InitElements();
-            missionUI.UpdateUI();
-        });
+        Array.ForEach(MissionUIs, missionUI => missionUI.InitElements());
 
-        UpdateCompleteCntUI();
+        //* Actionイベント購読
+        OnUpdateUI = () => {
+            Array.ForEach(MissionUIs, missionUI => missionUI.UpdateUI());
+            UpdateMenuIconRedDotAlert();
+            UpdateCompleteCntUI();
+        };
+        OnUpdateUI.Invoke(); //* コールバック
     }
 
     #region EVENT
         public void OnClickMissionIconAtHome() {
             SM._.SfxPlay(SM.SFX.ClickSFX);
             WindowObj.SetActive(true);
-            Array.ForEach(MissionUIs, missionUI => missionUI.UpdateUI());
+            OnUpdateUI.Invoke();
+            // UpdateMenuIconRedDotAlert();
+            // Array.ForEach(MissionUIs, missionUI => missionUI.UpdateUI());
         }
         public void OnClickCloseBtn() {
             SM._.SfxPlay(SM.SFX.ClickSFX);
             WindowObj.SetActive(false);
+            OnUpdateUI.Invoke();
+            // UpdateMenuIconRedDotAlert();
         }
         /// <summary>
         /// リワード受け取る
@@ -220,6 +236,18 @@ public class DailyMissionManager : MonoBehaviour {
     #endregion
 
     #region FUNC
+        public void UpdateMenuIconRedDotAlert() {
+            bool isAcceptableReward = false;
+            Array.ForEach(MissionUIs, missionUI => {
+                Debug.Log($"UpdateMenuIconRedDotAlert():: {missionUI.Name}: AcceptableBg= {missionUI.AcceptableBg.activeSelf}");
+                if(missionUI.AcceptableBg.activeSelf)
+                    isAcceptableReward = true;
+                return;
+            });
+            
+            MenuIconRedDotAlert.SetActive(isAcceptableReward);
+        }
+
         public void UpdateCompleteCntUI() {
             bool isAccepted = DM._.DB.DailyMissionDB.IsAcceptAllClearSpecialReward;
 

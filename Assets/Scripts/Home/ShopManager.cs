@@ -295,6 +295,7 @@ public class ShopManager : MonoBehaviour {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(isShow);
         HM._.hui.TopNavCanvas.sortingOrder = isShow? 101 : 99;
+        HM._.dailyMs.OnUpdateUI.Invoke();
     }
     private void InitUI() {
         Array.ForEach(IsActiveTapBtnCates, isActive => isActive = false);

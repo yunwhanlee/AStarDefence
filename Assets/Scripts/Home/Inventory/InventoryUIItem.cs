@@ -144,52 +144,5 @@ namespace Inventory.UI
             BorderImg.color = Color.red;
             BorderImg.enabled = true;
         }
-
-        // public void Draggable() => BorderImg.color = Color.green;
-
-        // private IEnumerator CoCheckPushTime() {
-        //     IsShortPush = true;
-        //     yield return Util.Time0_3;
-        //     IsShortPush = false;
-        //     Draggable();
-        // }
-
-        // public void OnPointerDown(PointerEventData eventData) { // マウス押した
-        //     if(IsEmpty) return;
-        //     CorPushTimeID = StartCoroutine(CoCheckPushTime());
-        //     OnItemClicked?.Invoke(this);
-        // }
-
-        // public void OnPointerUp(PointerEventData eventData) { // マウス離れた
-        //     Debug.Log($"OnPointerUp():: IsShortPush= {IsShortPush}");
-        //     if(IsShortPush) {
-        //         StopCoroutine(CorPushTimeID);
-        //         OnItemClickShortly?.Invoke(this);
-        //     }
-        // }
-
-        // public void OnBeginDrag(PointerEventData eventData) {
-        //     Debug.Log("OnBeginDrag():: IsShortPush= " + IsShortPush);
-        //     if(IsEmpty) return;
-        //     if(IsShortPush) return;
-        //     OnItemBeginDrag?.Invoke(this);
-        // }
-
-        // public void OnEndDrag(PointerEventData eventData) {
-        //     Debug.Log("OnEndDrag():: IsShortPush= " + IsShortPush);
-        //     if(IsShortPush) return;
-        //     OnItemEndDrag?.Invoke(this);
-        // }
-
-        // public void OnDrop(PointerEventData eventData) {
-        //     if(IsShortPush) return;
-        //     Debug.Log("OnDrop():: IsShortPush= " + IsShortPush);
-        //     OnItemDroppedOn?.Invoke(this);
-        // }
-
-        // public void OnDrag(PointerEventData eventData) {
-        //     Debug.Log("OnDrag():: IsShortPush= " + IsShortPush);
-        //     if(IsShortPush) return;
-        // }
     }
 }
