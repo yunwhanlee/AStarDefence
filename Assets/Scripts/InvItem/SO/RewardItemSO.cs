@@ -133,6 +133,8 @@ public class RewardItemSO : ScriptableObject {
 
         Debug.Log($"OpenRewardContent():: rwdContentDt={rwdContentDt.name}, itemCnt= {itemCnt}");
 
+        DM._.DB.DailyMissionDB.OpenAnyChestVal++;
+
         //* ランダムリワード
         int randMax = rwdContentDt.ItemPerTb.GetTotal();
         if(randMax != RAND_MAX) {

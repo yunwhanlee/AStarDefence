@@ -182,6 +182,72 @@ public class ShopDB {
 }
 
 /// <summary>
+/// スキルツリー Lockリストデータ
+/// </summary>
+[Serializable]
+public class DailyMissionDB {
+    [field:SerializeField] public bool IsAcceptAllClearSpecialReward {get; set;}
+
+    public const int CollectCoinMax = 5000;
+    [field:SerializeField] public int CollectCoinVal {get; set;}
+    [field:SerializeField] public bool IsAcceptCollectCoin {get; set;}
+
+    public const int CollectDiamondMax = 100;
+    [field:SerializeField] public int CollectDiamondVal {get; set;}
+    [field:SerializeField] public bool IsAcceptCollectDiamond {get; set;}
+
+    public const int MonsterKill = 500;
+    [field:SerializeField] public int MonsterKillVal {get; set;}
+    [field:SerializeField] public bool IsAcceptMonsterKill {get; set;}
+
+    public const int BossKill = 10;
+    [field:SerializeField] public int BossKillVal {get; set;}
+    [field:SerializeField] public bool IsAcceptBossKill {get; set;}
+
+    public const int ClearGoblinDungyen = 2;
+    [field:SerializeField] public int ClearGoblinDungyenVal {get; set;}
+    [field:SerializeField] public bool IsAcceptClearGoblinDungyen {get; set;}
+
+    public const int ClearStage = 2;
+    [field:SerializeField] public int ClearStageVal {get; set;}
+    [field:SerializeField] public bool IsAcceptClearStage {get; set;}
+
+    public const int ClearMining = 2;
+    [field:SerializeField] public int ClearMiningVal {get; set;}
+    [field:SerializeField] public bool IsAcceptClearMining {get; set;}
+
+    public const int WatchAds = 2; //TODO
+    [field:SerializeField] public int WatchAdsVal {get; set;}
+    [field:SerializeField] public bool IsAcceptWatchAds {get; set;}
+
+    public const int OpenAnyChest = 5;
+    [field:SerializeField] public int OpenAnyChestVal {get; set;}
+    [field:SerializeField] public bool IsAcceptOpenAnyChest {get; set;}
+
+    public DailyMissionDB() {
+        IsAcceptAllClearSpecialReward = false;
+        CollectCoinVal = 0;
+        IsAcceptCollectCoin = false;
+        CollectDiamondVal = 0;
+        IsAcceptCollectDiamond = false;
+        MonsterKillVal = 0;
+        IsAcceptMonsterKill = false;
+        BossKillVal = 0;
+        IsAcceptBossKill = false;
+        ClearGoblinDungyenVal = 0;
+        IsAcceptClearGoblinDungyen = false;
+        ClearStageVal = 0;
+        IsAcceptClearStage = false;
+        ClearMiningVal = 0;
+        IsAcceptClearMining = false;
+        WatchAdsVal = 0;
+        IsAcceptWatchAds = false;
+        OpenAnyChestVal = 0;
+        IsAcceptOpenAnyChest = false;
+    }
+}
+
+/// <summary>
 ///* 保存・読込のデータベース ★データはPlayerPrefsに保存するので、String、Float、Intのみ！！！★
 /// </summary>
 [Serializable]
@@ -192,6 +258,7 @@ public class DB {
     [field:SerializeField] public MiningDB MiningDB {get; set;}
     [field:SerializeField] public SkillTreeDB SkillTreeDB {get; set;}
     [field:SerializeField] public ShopDB ShopDB {get; set;}
+    [field:SerializeField] public DailyMissionDB DailyMissionDB {get; set;}
     
     [field:SerializeField] public List<InventoryItem> InvItemDBs {get; set;}
     [field:SerializeField] public bool IsCloverActive {get; set;}
@@ -405,6 +472,8 @@ public class DM : MonoBehaviour {
         DB.SkillTreeDB = new SkillTreeDB();
 
         DB.ShopDB = new ShopDB();
+
+        DB.DailyMissionDB = new DailyMissionDB();
 
         DB.IsCloverActive = false;
         DB.IsGoldCloverActive = false;

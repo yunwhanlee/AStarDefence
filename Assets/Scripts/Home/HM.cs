@@ -32,6 +32,8 @@ public class HM : MonoBehaviour {
     // Shop
     [HideInInspector] public ShopManager shopMg;
     [HideInInspector] public ChestInfoManager cim;
+    // DailyMittion
+    [HideInInspector] public DailyMissionManager dailyMs;
 
     //* Value
     public Color SkyBlueColor;
@@ -60,6 +62,10 @@ public class HM : MonoBehaviour {
         set {
             DM._.DB.StatusDB.Coin = value;
             hui.TopCoinTxt.text = $"{value}";
+
+            //* Daily
+            DailyMissionDB dmDB = DM._.DB.DailyMissionDB;
+            dmDB.CollectCoinVal = value;
         } 
     }
     [field: SerializeField] public int Diamond {
@@ -67,6 +73,10 @@ public class HM : MonoBehaviour {
         set {
             DM._.DB.StatusDB.Diamond = value;
             hui.TopDiamondTxt.text = $"{value}";
+
+            //* Daily
+            DailyMissionDB dmDB = DM._.DB.DailyMissionDB;
+            dmDB.CollectDiamondVal = value;
         } 
     }
     [field: SerializeField] public int SkillPoint {
@@ -97,6 +107,7 @@ public class HM : MonoBehaviour {
         tifm = GameObject.Find("TowerInfoUIManager").GetComponent<TowerInfoUIManager>();
         shopMg = GameObject.Find("ShopManager").GetComponent<ShopManager>();
         cim = GameObject.Find("ChestInfoManager").GetComponent<ChestInfoManager>();
+        dailyMs = GameObject.Find("DailyMissionManager").GetComponent<DailyMissionManager>();
 
         //* 初期化
         SelectedStage = 0;

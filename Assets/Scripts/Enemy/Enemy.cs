@@ -160,10 +160,12 @@ public abstract class Enemy : MonoBehaviour {
                 GM._.SetMoney(Config.G_PRICE.BOSS_KILL_MONEY_BONUS);
                 GM._.gef.ShowIconTxtEF(GM._.gui.MoneyTxt.transform.position, Config.G_PRICE.BOSS_KILL_MONEY_BONUS, "Meat", isDown: true);
                 GM._.esm.BossHpBarSlider.gameObject.SetActive(false);
+                DM._.DB.DailyMissionDB.BossKillVal++;
             }
             else {
                 SM._.SfxPlay(SM.SFX.EnemyDeadSFX);
                 GM._.SetMoney(+1);
+                DM._.DB.DailyMissionDB.MonsterKillVal++;
             }
         }
 

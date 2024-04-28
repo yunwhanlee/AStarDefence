@@ -341,6 +341,12 @@ public class GM : MonoBehaviour {
         int oreRand = Random.Range(0, 100);
         int oreCnt = Random.Range(1, 5 + OFFSET);
 
+        //* Daily Mission DB
+        if(DM._.SelectedStage < Config.GOBLIN_DUNGEON_STAGE)
+            DM._.DB.DailyMissionDB.ClearStageVal++;
+        else
+            DM._.DB.DailyMissionDB.ClearGoblinDungyenVal++;
+
         switch(DM._.SelectedStage) {
             case 0: // FOREST
                 if(diff == Enum.StageNum.Stage1_1) {

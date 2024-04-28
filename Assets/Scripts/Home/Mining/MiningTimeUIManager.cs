@@ -24,6 +24,7 @@ public class MiningTimeUIManager : MonoBehaviour {
         //* 採掘(仕事)が終わったら
         if(curWS.IsFinishWork) {
             HM._.wsm.AcceptReward();
+            DM._.DB.DailyMissionDB.ClearMiningVal++;
         }
         else {
             SM._.SfxPlay(SM.SFX.ClickSFX);
