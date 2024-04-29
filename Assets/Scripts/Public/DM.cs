@@ -137,7 +137,6 @@ public class SkillTreeDB {
 [Serializable]
 public struct ShopDailyItem {
     [field:SerializeField] public bool IsAccept {get; set;}
-    [field:SerializeField] public int Day {get; set;}
 }
 
 /// <summary>
@@ -161,23 +160,20 @@ public class ShopDB {
 
     private void InitDaily(int idx) {
         DailyItems[idx].IsAccept = false;
-        DailyItems[idx].Day = 0;
     }
 
     public void SetAcceptData(int idx) {
         DailyItems[idx].IsAccept = true;
-        DailyItems[idx].Day = DateTime.UtcNow.Day;
     }
 
     public bool TogglePassedDay(int dailyItemIdx) {
-        int passDay = HM._.CurDay - DailyItems[dailyItemIdx].Day;
-        if(passDay > 0)
-            InitDaily(dailyItemIdx);
-        else if(passDay < 0) {
-            HM._.hui.ShowMsgError("혹시 보상리셋을위해, 시간을 되돌리셨나요? 그럼 안되요ㅜ.");
-            DailyItems[dailyItemIdx].Day = HM._.CurDay;
-        }
         return DailyItems[dailyItemIdx].IsAccept;
+    }
+
+    public void ResetDailyItemData() {
+        for(int i = 0; i < DailyItems.Length; i++) {
+            DailyItems[i].IsAccept = false;
+        }
     }
 }
 
@@ -225,6 +221,10 @@ public class DailyMissionDB {
     [field:SerializeField] public bool IsAcceptOpenAnyChest {get; set;}
 
     public DailyMissionDB() {
+        Reset();
+    }
+
+    public void Reset() {
         IsAcceptAllClearSpecialReward = false;
         CollectCoinVal = 0;
         IsAcceptCollectCoin = false;
@@ -263,6 +263,7 @@ public class DB {
     [field:SerializeField] public List<InventoryItem> InvItemDBs {get; set;}
     [field:SerializeField] public bool IsCloverActive {get; set;}
     [field:SerializeField] public bool IsGoldCloverActive {get; set;}
+    [field:SerializeField] public long LastDateTicks {get; set;}
 }
 
 /// <summary>
@@ -290,6 +291,7 @@ public class DM : MonoBehaviour {
     //* Global Values
     [field: SerializeField] public int SelectedStage {get; set;}
     [field: SerializeField] public Enum.StageNum SelectedStageNum {get; set;}
+    [field: SerializeField] public bool IsPassedDate {get; private set;}
 
     void Awake() {
         //* SINGLETON
@@ -310,25 +312,44 @@ public class DM : MonoBehaviour {
         }
         else
             DB = Load();
+        
+        //* 日にちが過ぎたら、DAILYデータをリセット
+        if(CheckPassedDate()) {
+            Debug.Log("IsPassedDate -> Reset Daily Data");
+            DB.DailyMissionDB.Reset();
+            DB.ShopDB.ResetDailyItemData();
+        }
     }
 
     void LateUpdate() {
         IsInit = true;
     }
-
+/// -----------------------------------------------------------------------------------------------------------------
+#region PASSED DATE TIME (DAILY RESET)
+/// -----------------------------------------------------------------------------------------------------------------
+    private bool CheckPassedDate() {
+        DateTime lastDate = new DateTime(DB.LastDateTicks, DateTimeKind.Utc).Date;
+        DateTime curDate = DateTime.UtcNow.Date;
+        IsPassedDate = curDate > lastDate;
+        Debug.Log($"CheckPassedDate():: IsPassedDate= {IsPassedDate} : curDate({curDate}) > LastDay({lastDate})");
+        return IsPassedDate;
+    }
+#endregion
 /// -----------------------------------------------------------------------------------------------------------------
 #region QUIT APP EVENT
 /// -----------------------------------------------------------------------------------------------------------------
 #if UNITY_EDITOR
-    void OnApplicationQuit() {
+    private void OnApplicationQuit() {
         Debug.Log("<color=yellow>QUIT APP(PC)::OnApplicationQuit():: SAVE</color>");
+        DB.LastDateTicks = DateTime.UtcNow.Ticks; //* 終了した日にち時間データをTicks(longタイプ)で保存
         Save();
     }
 #elif UNITY_ANDROID
-    void OnApplicationPause(bool paused){
+    private void OnApplicationPause(bool paused){
         //* ゲームが開くとき（paused == true）にも起動されるので注意が必要。
         if(paused == true) {
             Debug.Log("<color=yellow>QUIT APP(Mobile)::OnApplicationPause( "+paused+" ):: Scene= " + SceneManager.GetActiveScene().name);
+            DB.LastDateTicks = DateTime.UtcNow.Ticks; //* 終了した日にち時間データをTicks(longタイプ)で保存
             Save();
         }
     }
