@@ -60,7 +60,14 @@ public static class Config {
     public const int BLIZZARDSCROLL_SLOW_SEC = 5;
     public const int LIGHTNINGSCROLL_STUN_SEC = 3;
 
-    public const int GOBLIN_DUNGEON_STAGE = 5;
+    public class Stage {
+        public const int STG1_FOREST = 0,
+        STG2_DESERT = 1,
+        STG3_SEA = 2,
+        STG4_UNDEAD = 3,
+        STG5_HELL = 4,
+        STG_GOBLIN_DUNGEON = 5;
+    }
 #endregion
 
 #region PRICE

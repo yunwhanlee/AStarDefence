@@ -79,7 +79,7 @@ public class StageUIManager : MonoBehaviour {
         }
         --HM._.GoldKey;
 
-        DM._.SelectedStage = Config.GOBLIN_DUNGEON_STAGE;
+        DM._.SelectedStage = Config.Stage.STG_GOBLIN_DUNGEON;
 
         HM._.ivCtrl.CheckActiveClover();
 
@@ -96,9 +96,7 @@ public class StageUIManager : MonoBehaviour {
         //* ➡ ゲームシーンロード
         SceneManager.LoadScene(Enum.Scene.Game.ToString());
     }
-
 #endregion
-
 #region STAGE EVENT
     private (Sprite, ItemSO) GetStageBonusRewardChestData(int stg, int stgNum) {
         var consumeItemDts = HM._.rwlm.RwdItemDt.EtcConsumableDatas;
@@ -109,29 +107,29 @@ public class StageUIManager : MonoBehaviour {
         ItemSO PremiumChest = consumeItemDts[(int)Etc.ConsumableItem.ChestPremium];
 
         switch(stg) {
-            case 0:
+            case Config.Stage.STG1_FOREST:
                 if(stgNum == 0)
                     return (commonChest.ItemImg, commonChest);
                 else if(stgNum == 1)
                     return (equipChest.ItemImg, equipChest);
                 else
                     return (goldChest.ItemImg, goldChest);
-            case 1:
+            case Config.Stage.STG2_DESERT:
                 if(stgNum == 0)
                     return (commonChest.ItemImg, commonChest);
                 else if(stgNum == 1)
                     return (equipChest.ItemImg, equipChest);
                 else
                     return (diamondChest.ItemImg, diamondChest);
-            case 2:
+            case Config.Stage.STG3_SEA:
                 if(stgNum == 0)
                     return (goldChest.ItemImg, goldChest);
                 else if(stgNum == 1)
                     return (equipChest.ItemImg, equipChest);
                 else
                     return (equipChest.ItemImg, equipChest);
-            case 3:
-            case 4:
+            case Config.Stage.STG4_UNDEAD:
+            case Config.Stage.STG5_HELL:
                 if(stgNum == 0)
                     return (equipChest.ItemImg, equipChest);
                 else if(stgNum == 1)

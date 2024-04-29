@@ -87,5 +87,14 @@ public class HomeRewardUIManager : MonoBehaviour {
                 }
             }
         }
+
+        public List<RewardItem> BuildVictoryRewardList(int exp, int coin, Etc.NoshowInvItem oreIdx, int oreCnt) {
+            RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
+            return new List<RewardItem>() {
+                new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], exp),
+                new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], coin),
+                new (rwDt.EtcNoShowInvDatas[(int)oreIdx], oreCnt)
+            };
+        }
     #endregion
 }

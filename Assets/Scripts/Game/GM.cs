@@ -246,13 +246,19 @@ public class GM : MonoBehaviour {
         Enum.StageNum diff = DM._.SelectedStageNum;
         var rewardList = new List<RewardItem>();
         int stage = DM._.SelectedStage;
-        int nextStage = Mathf.Min(stage + 1, stage); // もしIndexを超えると今のステージIndexに戻す
+        int nextStage = stage + 1;
+
+        //* もしIndexを超えると今のステージIndexに戻す
+        if(nextStage >= db.StageLockedDBs.Count()) {
+            nextStage = stage;
+        }
+
         StageLockedDB stageLockDt = db.StageLockedDBs[stage];
         StageLockedDB nextStageLockDt = db.StageLockedDBs[nextStage];
 
     #region STAGE CLEAR UNLOCK
         switch(stage) {
-            case 0: // FOREST
+            case Config.Stage.STG1_FOREST:
                 if(diff == Enum.StageNum.Stage1_1) {
                     stageLockDt.IsLockStage1_2 = false;
                     stageLockDt.StageRewards[1].IsUnlockAlert = true;
@@ -269,7 +275,7 @@ public class GM : MonoBehaviour {
                     stageLockDt.StageRewards[2].IsActiveBonusReward = true;
                 }
                 break;
-            case 1: // DESERT
+            case Config.Stage.STG2_DESERT: // DESERT
                 if(diff == Enum.StageNum.Stage1_1) {
                     stageLockDt.IsLockStage1_2 = false;
                     stageLockDt.StageRewards[1].IsUnlockAlert = true;
@@ -286,7 +292,7 @@ public class GM : MonoBehaviour {
                     stageLockDt.StageRewards[2].IsActiveBonusReward = true;
                 }
                 break;
-            case 2: // SEA
+            case Config.Stage.STG3_SEA: // SEA
                 if(diff == Enum.StageNum.Stage1_1) {
                     stageLockDt.IsLockStage1_2 = false;
                     stageLockDt.StageRewards[1].IsUnlockAlert = true;
@@ -303,7 +309,7 @@ public class GM : MonoBehaviour {
                     stageLockDt.StageRewards[2].IsActiveBonusReward = true;
                 }
                 break;
-            case 3: // UNDEAD
+            case Config.Stage.STG4_UNDEAD: // UNDEAD
                 if(diff == Enum.StageNum.Stage1_1) {
                     stageLockDt.IsLockStage1_2 = false;
                     stageLockDt.StageRewards[1].IsUnlockAlert = true;
@@ -320,7 +326,7 @@ public class GM : MonoBehaviour {
                     stageLockDt.StageRewards[2].IsActiveBonusReward = true;
                 }
                 break;
-            case 4: // HELL
+            case Config.Stage.STG5_HELL: // HELL
                 if(diff == Enum.StageNum.Stage1_1) {
                     stageLockDt.IsLockStage1_2 = false;
                     stageLockDt.StageRewards[1].IsUnlockAlert = true;
@@ -339,174 +345,182 @@ public class GM : MonoBehaviour {
         }
     #endregion
     #region REWARD LIST
-        ItemSO RWD_EXP = rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp];
-        ItemSO RWD_COIN = rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin];
+        var ORE0 = Etc.NoshowInvItem.Ore0;
+        var ORE1 = Etc.NoshowInvItem.Ore1;
+        var ORE2 = Etc.NoshowInvItem.Ore2;
+        var ORE3 = Etc.NoshowInvItem.Ore3;
+        var ORE4 = Etc.NoshowInvItem.Ore4;
+        var ORE5 = Etc.NoshowInvItem.Ore5;
+        var ORE6 = Etc.NoshowInvItem.Ore6;
+        var ORE7 = Etc.NoshowInvItem.Ore7;
+        var ORE8 = Etc.NoshowInvItem.Ore8;
         
         const int OFFSET = 1;
-        int oreRand = Random.Range(0, 100);
+        int rd = Random.Range(0, 100);
         int oreCnt = Random.Range(1, 5 + OFFSET);
 
         //* Daily Mission DB
-        if(stage < Config.GOBLIN_DUNGEON_STAGE)
+        if(stage < Config.Stage.STG_GOBLIN_DUNGEON)
             DM._.DB.DailyMissionDB.ClearStageVal++;
         else
             DM._.DB.DailyMissionDB.ClearGoblinDungyenVal++;
 
-        if(stage == 0) { // FOREST
+        if(stage == Config.Stage.STG1_FOREST) {
             switch(diff) {
                 case Enum.StageNum.Stage1_1: {
-                    rewardList.Add(new (RWD_EXP, 20));
-                    rewardList.Add(new (RWD_COIN, 1000));
-                    var rwdOreIdx = oreRand < 50? Etc.NoshowInvItem.Ore0 : Etc.NoshowInvItem.Ore1;
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    rewardList = HM._.rwm.BuildVictoryRewardList (
+                        exp: 20, 
+                        coin: 1000,
+                        rd < 50? ORE0 : ORE1,
+                        oreCnt
+                    );
                     break;
                 }
                 case Enum.StageNum.Stage1_2: {
-                    rewardList.Add(new (RWD_EXP, 30));
-                    rewardList.Add(new (RWD_COIN, 1400));
-                    var rwdOreIdx = oreRand < 60? Etc.NoshowInvItem.Ore1
-                        : oreRand < 90? Etc.NoshowInvItem.Ore2
-                        : Etc.NoshowInvItem.Ore3;
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    rewardList = HM._.rwm.BuildVictoryRewardList (
+                        exp: 30, 
+                        coin: 1400,
+                        rd < 60? ORE1 : rd < 90? ORE2 : ORE3,
+                        oreCnt
+                    );
                     break;
                 }
                 case Enum.StageNum.Stage1_3: {
-                    rewardList.Add(new (RWD_EXP, 40));
-                    rewardList.Add(new (RWD_COIN, 1800));
-                    var rwdOreIdx = oreRand < 20? Etc.NoshowInvItem.Ore1
-                        : oreRand < 70? Etc.NoshowInvItem.Ore2
-                        : Etc.NoshowInvItem.Ore3;
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    rewardList = HM._.rwm.BuildVictoryRewardList (
+                        exp: 40, 
+                        coin: 1800,
+                        rd < 20? ORE1 : rd < 70? ORE2 : ORE3,
+                        oreCnt
+                    );
                     break;
                 }
             }
         }
-        else if(stage == 1) { // DESERT
+        else if(stage == Config.Stage.STG2_DESERT) {
             switch(diff) {
                 case Enum.StageNum.Stage1_1: {
-                    rewardList.Add(new (RWD_EXP, 50));
-                    rewardList.Add(new (RWD_COIN, 2200));
-                    var rwdOreIdx = oreRand < 50? Etc.NoshowInvItem.Ore2
-                        : oreRand < 85? Etc.NoshowInvItem.Ore3
-                        : Etc.NoshowInvItem.Ore4;
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    rewardList = HM._.rwm.BuildVictoryRewardList (
+                        exp: 50, 
+                        coin: 2200,
+                        rd < 50? ORE2 : rd < 85? ORE3 : ORE4,
+                        oreCnt
+                    );
                     break;
                 }
                 case Enum.StageNum.Stage1_2: {
-                    rewardList.Add(new (RWD_EXP, 60));
-                    rewardList.Add(new (RWD_COIN, 2700));
-                    var rwdOreIdx = oreRand < 25? Etc.NoshowInvItem.Ore2
-                        : oreRand < 70? Etc.NoshowInvItem.Ore3
-                        : Etc.NoshowInvItem.Ore4;
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    rewardList = HM._.rwm.BuildVictoryRewardList (
+                        exp: 60, 
+                        coin: 2700,
+                        rd < 25? ORE2 : rd < 70? ORE3 : ORE4,
+                        oreCnt
+                    );
                     break;
                 }
                 case Enum.StageNum.Stage1_3: {
-                    rewardList.Add(new (RWD_EXP, 70));
-                    rewardList.Add(new (RWD_COIN, 3100));
-                    var rwdOreIdx = oreRand < 55? Etc.NoshowInvItem.Ore3
-                        : Etc.NoshowInvItem.Ore4;
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    rewardList = HM._.rwm.BuildVictoryRewardList (
+                        exp: 70, 
+                        coin: 3100,
+                        rd < 55? ORE3 : ORE4,
+                        oreCnt
+                    );
                     break;
                 }
             }
         }
-        else if(stage == 2) { // SEA
+        else if(stage == Config.Stage.STG3_SEA) {
             switch(diff) {
                 case Enum.StageNum.Stage1_1: {
-                    rewardList.Add(new (RWD_EXP, 85));
-                    rewardList.Add(new (RWD_COIN, 3600));
-                    var rwdOreIdx = oreRand < 50? Etc.NoshowInvItem.Ore3
-                        : oreRand < 90? Etc.NoshowInvItem.Ore4
-                        : Etc.NoshowInvItem.Ore5;
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    rewardList = HM._.rwm.BuildVictoryRewardList (
+                        exp: 85, 
+                        coin: 3600,
+                        rd < 50? ORE3 : rd < 90? ORE4 : ORE5,
+                        oreCnt
+                    );
                     break;
                 }
                 case Enum.StageNum.Stage1_2: {
-                    rewardList.Add(new (RWD_EXP, 100));
-                    rewardList.Add(new (RWD_COIN, 4200));
-                    var rwdOreIdx = oreRand < 40? Etc.NoshowInvItem.Ore3
-                        : oreRand < 80? Etc.NoshowInvItem.Ore4
-                        : Etc.NoshowInvItem.Ore5;
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    rewardList = HM._.rwm.BuildVictoryRewardList (
+                        exp: 100, 
+                        coin: 4200,
+                        rd < 40? ORE3 : rd < 80? ORE4 : ORE5,
+                        oreCnt
+                    );
                     break;
                 }
                 case Enum.StageNum.Stage1_3: {
-                    rewardList.Add(new (RWD_EXP, 125));
-                    rewardList.Add(new (RWD_COIN, 4800));
-                    var rwdOreIdx = oreRand < 20? Etc.NoshowInvItem.Ore3
-                        : oreRand < 60? Etc.NoshowInvItem.Ore4
-                        : oreRand < 95? Etc.NoshowInvItem.Ore5
-                        : Etc.NoshowInvItem.Ore6;
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    rewardList = HM._.rwm.BuildVictoryRewardList (
+                        exp: 125, 
+                        coin: 4800,
+                        rd < 20? ORE3 : rd < 60? ORE4 : rd < 95? ORE5 : ORE6,
+                        oreCnt
+                    );
                     break;
                 }
             }
         }
-        else if(stage == 3) { // UNDEAD
+        else if(stage == Config.Stage.STG4_UNDEAD) {
             switch(diff) {
                 case Enum.StageNum.Stage1_1: {
-                    rewardList.Add(new (RWD_EXP, 150));
-                    rewardList.Add(new (RWD_COIN, 5500));
-                    var rwdOreIdx = oreRand < 40? Etc.NoshowInvItem.Ore4
-                        : oreRand < 85? Etc.NoshowInvItem.Ore5
-                        : Etc.NoshowInvItem.Ore6;
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    rewardList = HM._.rwm.BuildVictoryRewardList (
+                        exp: 150, 
+                        coin: 5500,
+                        rd < 40? ORE4 : rd < 85? ORE5 : ORE6,
+                        oreCnt
+                    );
                     break;
                 }
                 case Enum.StageNum.Stage1_2: {
-                    rewardList.Add(new (RWD_EXP, 175));
-                    rewardList.Add(new (RWD_COIN, 6200));
-                    var rwdOreIdx = oreRand < 30? Etc.NoshowInvItem.Ore4
-                        : oreRand < 65? Etc.NoshowInvItem.Ore5
-                        : oreRand < 90? Etc.NoshowInvItem.Ore6
-                        : Etc.NoshowInvItem.Ore7;
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    rewardList = HM._.rwm.BuildVictoryRewardList (
+                        exp: 175, 
+                        coin: 6200,
+                        rd < 30? ORE4 : rd < 65? ORE5 : rd < 90? ORE6 : ORE7,
+                        oreCnt
+                    );
                     break;
                 }
                 case Enum.StageNum.Stage1_3: {
-                    rewardList.Add(new (RWD_EXP, 210));
-                    rewardList.Add(new (RWD_COIN, 7000));
-                    var rwdOreIdx = oreRand < 20? Etc.NoshowInvItem.Ore4
-                        : oreRand < 50? Etc.NoshowInvItem.Ore5
-                        : oreRand < 80? Etc.NoshowInvItem.Ore6
-                        : Etc.NoshowInvItem.Ore7;
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    rewardList = HM._.rwm.BuildVictoryRewardList (
+                        exp: 210, 
+                        coin: 7000,
+                        rd < 20? ORE4 : rd < 50? ORE5 : rd < 80? ORE6 : ORE7,
+                        oreCnt
+                    );
                     break;
                 }
             }
         }
-        else if(stage == 4) { // HELL
+        else if(stage == Config.Stage.STG5_HELL) {
             switch(diff) {
                 case Enum.StageNum.Stage1_1: {
-                    rewardList.Add(new (RWD_EXP, 250));
-                    rewardList.Add(new (RWD_COIN, 7800));
-                    var rwdOreIdx = oreRand < 40? Etc.NoshowInvItem.Ore5
-                        : oreRand < 70? Etc.NoshowInvItem.Ore6
-                        : oreRand < 90? Etc.NoshowInvItem.Ore7
-                        : Etc.NoshowInvItem.Ore8;
+                    rewardList = HM._.rwm.BuildVictoryRewardList (
+                        exp: 250, 
+                        coin: 7800,
+                        rd < 40? ORE5 : rd < 70? ORE6 : rd < 90? ORE7 : ORE8,
+                        oreCnt
+                    );
                     break;
                 }
                 case Enum.StageNum.Stage1_2: {
-                    rewardList.Add(new (RWD_EXP, 300));
-                    rewardList.Add(new (RWD_COIN, 8600));
-                    var rwdOreIdx = oreRand < 20? Etc.NoshowInvItem.Ore5
-                        : oreRand < 50? Etc.NoshowInvItem.Ore6
-                        : oreRand < 80? Etc.NoshowInvItem.Ore7
-                        : Etc.NoshowInvItem.Ore8;
+                    rewardList = HM._.rwm.BuildVictoryRewardList (
+                        exp: 300, 
+                        coin: 8600,
+                        rd < 20? ORE5 : rd < 50? ORE6 : rd < 80? ORE7 : ORE8,
+                        oreCnt
+                    );
                     break;
                 }
                 case Enum.StageNum.Stage1_3: {
-                    rewardList.Add(new (RWD_EXP, 350));
-                    rewardList.Add(new (RWD_COIN, 9200));
-                    var rwdOreIdx = oreRand < 30? Etc.NoshowInvItem.Ore6
-                        : oreRand < 70? Etc.NoshowInvItem.Ore7
-                        : Etc.NoshowInvItem.Ore8;
+                    rewardList = HM._.rwm.BuildVictoryRewardList (
+                        exp: 350, 
+                        coin: 9200,
+                        rd < 30? ORE6 : rd < 70? ORE7 : ORE8,
+                        oreCnt
+                    );
                     break;
                 }
             }
         }
-        else if(stage == Config.GOBLIN_DUNGEON_STAGE) { //|| stage == Config.GOBLIN_DUNGEON_STAGE + 1|| stage == Config.GOBLIN_DUNGEON_STAGE + 2 ) { //* 唯一にStageSelectedStageが＋して分けている（ゴブリン敵イメージを異なるため）
+        else if(stage == Config.Stage.STG_GOBLIN_DUNGEON) { //|| stage == Config.GOBLIN_DUNGEON_STAGE + 1|| stage == Config.GOBLIN_DUNGEON_STAGE + 2 ) { //* 唯一にStageSelectedStageが＋して分けている（ゴブリン敵イメージを異なるため）
             //* Difficultによる、リワードデータ
             int exp = (diff == Enum.StageNum.Stage1_1)? 150 : (diff == Enum.StageNum.Stage1_2)? 350 : 700;
             int coin = (diff == Enum.StageNum.Stage1_1)? 1000 : (diff == Enum.StageNum.Stage1_2)? 2500 : 5000;
