@@ -264,6 +264,7 @@ public class DB {
     [field:SerializeField] public bool IsCloverActive {get; set;}
     [field:SerializeField] public bool IsGoldCloverActive {get; set;}
     [field:SerializeField] public long LastDateTicks {get; set;}
+    [field:SerializeField] public int LuckySpinFreeAdCnt {get; set;}
 }
 
 /// <summary>
@@ -317,6 +318,7 @@ public class DM : MonoBehaviour {
             Debug.Log("IsPassedDate -> Reset Daily Data");
             DB.DailyMissionDB.Reset();
             DB.ShopDB.ResetDailyItemData();
+            DB.LuckySpinFreeAdCnt = Config.LUCKYSPIN_FREEAD_CNT;
         }
     }
 
@@ -497,6 +499,7 @@ public class DM : MonoBehaviour {
 
         DB.IsCloverActive = false;
         DB.IsGoldCloverActive = false;
+        DB.LuckySpinFreeAdCnt = 3;
     }
 #endregion
 }

@@ -34,6 +34,8 @@ public class HM : MonoBehaviour {
     [HideInInspector] public ChestInfoManager cim;
     // DailyMittion
     [HideInInspector] public DailyMissionManager dailyMs;
+    // Spin
+    [HideInInspector] public LuckySpinManager lspm;
 
     //* Value
     public Color SkyBlueColor;
@@ -54,6 +56,7 @@ public class HM : MonoBehaviour {
         set {
             DM._.DB.StatusDB.GoldKey = value;
             hui.TopGoldKeyTxt.text = $"{value}/{Config.MAX_GOBLINKEY}";
+            lspm.GoldkeyTxt.text = $"{value}/{Config.MAX_GOBLINKEY}";
             stgm.DungeonAlertDot.SetActive(value > 0);
         }
     }
@@ -108,6 +111,7 @@ public class HM : MonoBehaviour {
         shopMg = GameObject.Find("ShopManager").GetComponent<ShopManager>();
         cim = GameObject.Find("ChestInfoManager").GetComponent<ChestInfoManager>();
         dailyMs = GameObject.Find("DailyMissionManager").GetComponent<DailyMissionManager>();
+        lspm = GameObject.Find("LuckySpinManager").GetComponent<LuckySpinManager>();
 
         //* 初期化
         SelectedStage = 0;

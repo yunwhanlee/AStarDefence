@@ -30,7 +30,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
 
 #region EVENT
     public void OnClickOpenChestImgBtn() => OnClickOpenChest?.Invoke();
-    public void OnClickCloseDimBtn() {
+    public void OnClickCloseScreenBtn() {
         //* リワードスロットのアニメーションが全部終わるまで待つ
         if(IsFinishSlotsSpawn)
             return;
@@ -39,6 +39,10 @@ public class HomeRewardListUIManager : MonoBehaviour {
             HM._.shopMg.OnClickEquipPackage?.Invoke();
             return;
         }
+
+        //* LuckySpinをしたら、リセット処理をする
+        if(HM._.lspm.OnClickCloseRewardScreen != null)
+            HM._.lspm.OnClickCloseRewardScreen?.Invoke();
 
         SM._.SfxPlay(SM.SFX.ClickSFX);
         HM._.lvm.CheckLevelUp();
