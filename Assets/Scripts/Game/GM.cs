@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using Inventory.Model;
 using Random = UnityEngine.Random;
+using System.Linq;
 // using UnityEditorInternal;
 // using UnityEditor.SceneManagement;
 // using UnityEngine.Events;
@@ -91,11 +92,15 @@ public class GM : MonoBehaviour {
         state = GameState.Ready;
         CorReadyWaveID = null;
         IsReady = false;
-        Stage = DM._ == null? 0 : DM._.SelectedStage;
-        if(Stage == Config.GOBLIN_DUNGEON_STAGE) {
-            Stage += (int)DM._.SelectedStageNum;
-        }
-        Array.ForEach(StageDts, stageDt => stageDt.TileMapObj.SetActive(false)); //* 非表示 初期化
+
+        Stage = DM._.SelectedStage;
+        // if(Stage == DM._.GoblinDungeonStageNum) {
+        //     Stage += (int)DM._.SelectedStageNum;
+        // }
+
+        //* 非表示 初期化
+        Array.ForEach(StageDts, stageDt => stageDt.TileMapObj.SetActive(false));
+
         MaxWave = StageDts[Stage].EnemyDatas[(int)DM._.SelectedStageNum].Waves.Length;
         WaveCnt = 0;
         ResetCnt = Config.DEFAULT_RESET_CNT;
@@ -240,13 +245,13 @@ public class GM : MonoBehaviour {
         RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
         Enum.StageNum diff = DM._.SelectedStageNum;
         var rewardList = new List<RewardItem>();
-        int nextStage = DM._.SelectedStage + 1;
-        int selectStage = DM._.SelectedStage;
-        StageLockedDB stageLockDt = db.StageLockedDBs[selectStage];
+        int stage = DM._.SelectedStage;
+        int nextStage = Mathf.Min(stage + 1, stage); // もしIndexを超えると今のステージIndexに戻す
+        StageLockedDB stageLockDt = db.StageLockedDBs[stage];
         StageLockedDB nextStageLockDt = db.StageLockedDBs[nextStage];
 
     #region STAGE CLEAR UNLOCK
-        switch(selectStage) {
+        switch(stage) {
             case 0: // FOREST
                 if(diff == Enum.StageNum.Stage1_1) {
                     stageLockDt.IsLockStage1_2 = false;
@@ -254,7 +259,7 @@ public class GM : MonoBehaviour {
                     stageLockDt.StageRewards[0].IsActiveBonusReward = true;
                 }
                 else if(diff == Enum.StageNum.Stage1_2) {
-                    db.StageLockedDBs[selectStage].IsLockStage1_3 = false;
+                    stageLockDt.IsLockStage1_3 = false;
                     stageLockDt.StageRewards[2].IsUnlockAlert = true;
                     stageLockDt.StageRewards[1].IsActiveBonusReward = true;
                 }
@@ -342,80 +347,91 @@ public class GM : MonoBehaviour {
         int oreCnt = Random.Range(1, 5 + OFFSET);
 
         //* Daily Mission DB
-        if(DM._.SelectedStage < Config.GOBLIN_DUNGEON_STAGE)
+        if(stage < Config.GOBLIN_DUNGEON_STAGE)
             DM._.DB.DailyMissionDB.ClearStageVal++;
         else
             DM._.DB.DailyMissionDB.ClearGoblinDungyenVal++;
 
-        switch(DM._.SelectedStage) {
-            case 0: // FOREST
-                if(diff == Enum.StageNum.Stage1_1) {
+        if(stage == 0) { // FOREST
+            switch(diff) {
+                case Enum.StageNum.Stage1_1: {
                     rewardList.Add(new (RWD_EXP, 20));
                     rewardList.Add(new (RWD_COIN, 1000));
-                    var rwdOreIdx = oreRand < 50? Etc.NoshowInvItem.Ore0
-                        : Etc.NoshowInvItem.Ore1;
+                    var rwdOreIdx = oreRand < 50? Etc.NoshowInvItem.Ore0 : Etc.NoshowInvItem.Ore1;
                     rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    break;
                 }
-                else if(diff == Enum.StageNum.Stage1_2) {
+                case Enum.StageNum.Stage1_2: {
                     rewardList.Add(new (RWD_EXP, 30));
                     rewardList.Add(new (RWD_COIN, 1400));
                     var rwdOreIdx = oreRand < 60? Etc.NoshowInvItem.Ore1
                         : oreRand < 90? Etc.NoshowInvItem.Ore2
                         : Etc.NoshowInvItem.Ore3;
                     rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    break;
                 }
-                else if(diff == Enum.StageNum.Stage1_3) {
+                case Enum.StageNum.Stage1_3: {
                     rewardList.Add(new (RWD_EXP, 40));
                     rewardList.Add(new (RWD_COIN, 1800));
                     var rwdOreIdx = oreRand < 20? Etc.NoshowInvItem.Ore1
                         : oreRand < 70? Etc.NoshowInvItem.Ore2
                         : Etc.NoshowInvItem.Ore3;
                     rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    break;
                 }
-                break;
-            case 1: // DESERT
-                if(diff == Enum.StageNum.Stage1_1) {
+            }
+        }
+        else if(stage == 1) { // DESERT
+            switch(diff) {
+                case Enum.StageNum.Stage1_1: {
                     rewardList.Add(new (RWD_EXP, 50));
                     rewardList.Add(new (RWD_COIN, 2200));
                     var rwdOreIdx = oreRand < 50? Etc.NoshowInvItem.Ore2
                         : oreRand < 85? Etc.NoshowInvItem.Ore3
                         : Etc.NoshowInvItem.Ore4;
                     rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    break;
                 }
-                else if(diff == Enum.StageNum.Stage1_2) {
+                case Enum.StageNum.Stage1_2: {
                     rewardList.Add(new (RWD_EXP, 60));
                     rewardList.Add(new (RWD_COIN, 2700));
                     var rwdOreIdx = oreRand < 25? Etc.NoshowInvItem.Ore2
                         : oreRand < 70? Etc.NoshowInvItem.Ore3
                         : Etc.NoshowInvItem.Ore4;
                     rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    break;
                 }
-                else if(diff == Enum.StageNum.Stage1_3) {
+                case Enum.StageNum.Stage1_3: {
                     rewardList.Add(new (RWD_EXP, 70));
                     rewardList.Add(new (RWD_COIN, 3100));
                     var rwdOreIdx = oreRand < 55? Etc.NoshowInvItem.Ore3
                         : Etc.NoshowInvItem.Ore4;
                     rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    break;
                 }
-                break;
-            case 2: // SEA
-                if(diff == Enum.StageNum.Stage1_1) {
+            }
+        }
+        else if(stage == 2) { // SEA
+            switch(diff) {
+                case Enum.StageNum.Stage1_1: {
                     rewardList.Add(new (RWD_EXP, 85));
                     rewardList.Add(new (RWD_COIN, 3600));
                     var rwdOreIdx = oreRand < 50? Etc.NoshowInvItem.Ore3
                         : oreRand < 90? Etc.NoshowInvItem.Ore4
                         : Etc.NoshowInvItem.Ore5;
                     rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    break;
                 }
-                else if(diff == Enum.StageNum.Stage1_2) {
+                case Enum.StageNum.Stage1_2: {
                     rewardList.Add(new (RWD_EXP, 100));
                     rewardList.Add(new (RWD_COIN, 4200));
                     var rwdOreIdx = oreRand < 40? Etc.NoshowInvItem.Ore3
                         : oreRand < 80? Etc.NoshowInvItem.Ore4
                         : Etc.NoshowInvItem.Ore5;
                     rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    break;
                 }
-                else if(diff == Enum.StageNum.Stage1_3) {
+                case Enum.StageNum.Stage1_3: {
                     rewardList.Add(new (RWD_EXP, 125));
                     rewardList.Add(new (RWD_COIN, 4800));
                     var rwdOreIdx = oreRand < 20? Etc.NoshowInvItem.Ore3
@@ -423,82 +439,92 @@ public class GM : MonoBehaviour {
                         : oreRand < 95? Etc.NoshowInvItem.Ore5
                         : Etc.NoshowInvItem.Ore6;
                     rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    break;
                 }
-                break;
-            case 3: // UNDEAD
-                if(diff == Enum.StageNum.Stage1_1) {
+            }
+        }
+        else if(stage == 3) { // UNDEAD
+            switch(diff) {
+                case Enum.StageNum.Stage1_1: {
                     rewardList.Add(new (RWD_EXP, 150));
                     rewardList.Add(new (RWD_COIN, 5500));
                     var rwdOreIdx = oreRand < 40? Etc.NoshowInvItem.Ore4
                         : oreRand < 85? Etc.NoshowInvItem.Ore5
                         : Etc.NoshowInvItem.Ore6;
+                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    break;
                 }
-                else if(diff == Enum.StageNum.Stage1_2) {
+                case Enum.StageNum.Stage1_2: {
                     rewardList.Add(new (RWD_EXP, 175));
                     rewardList.Add(new (RWD_COIN, 6200));
                     var rwdOreIdx = oreRand < 30? Etc.NoshowInvItem.Ore4
                         : oreRand < 65? Etc.NoshowInvItem.Ore5
                         : oreRand < 90? Etc.NoshowInvItem.Ore6
                         : Etc.NoshowInvItem.Ore7;
+                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    break;
                 }
-                else if(diff == Enum.StageNum.Stage1_3) {
+                case Enum.StageNum.Stage1_3: {
                     rewardList.Add(new (RWD_EXP, 210));
                     rewardList.Add(new (RWD_COIN, 7000));
                     var rwdOreIdx = oreRand < 20? Etc.NoshowInvItem.Ore4
                         : oreRand < 50? Etc.NoshowInvItem.Ore5
                         : oreRand < 80? Etc.NoshowInvItem.Ore6
                         : Etc.NoshowInvItem.Ore7;
+                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)rwdOreIdx], oreCnt));
+                    break;
                 }
-                break;
-            case 4: // HELL
-                if(diff == Enum.StageNum.Stage1_1) {
+            }
+        }
+        else if(stage == 4) { // HELL
+            switch(diff) {
+                case Enum.StageNum.Stage1_1: {
                     rewardList.Add(new (RWD_EXP, 250));
                     rewardList.Add(new (RWD_COIN, 7800));
                     var rwdOreIdx = oreRand < 40? Etc.NoshowInvItem.Ore5
                         : oreRand < 70? Etc.NoshowInvItem.Ore6
                         : oreRand < 90? Etc.NoshowInvItem.Ore7
                         : Etc.NoshowInvItem.Ore8;
+                    break;
                 }
-                else if(diff == Enum.StageNum.Stage1_2) {
+                case Enum.StageNum.Stage1_2: {
                     rewardList.Add(new (RWD_EXP, 300));
                     rewardList.Add(new (RWD_COIN, 8600));
                     var rwdOreIdx = oreRand < 20? Etc.NoshowInvItem.Ore5
                         : oreRand < 50? Etc.NoshowInvItem.Ore6
                         : oreRand < 80? Etc.NoshowInvItem.Ore7
                         : Etc.NoshowInvItem.Ore8;
+                    break;
                 }
-                else if(diff == Enum.StageNum.Stage1_3) {
+                case Enum.StageNum.Stage1_3: {
                     rewardList.Add(new (RWD_EXP, 350));
                     rewardList.Add(new (RWD_COIN, 9200));
                     var rwdOreIdx = oreRand < 30? Etc.NoshowInvItem.Ore6
                         : oreRand < 70? Etc.NoshowInvItem.Ore7
                         : Etc.NoshowInvItem.Ore8;
+                    break;
                 }
-                break;
-            case Config.GOBLIN_DUNGEON_STAGE:
-            case Config.GOBLIN_DUNGEON_STAGE + 1:
-            case Config.GOBLIN_DUNGEON_STAGE + 2: //* 唯一にStageSelectedStageが＋して分けている（ゴブリン敵イメージを異なるため）
-            {
-                //* Difficultによる、リワードデータ
-                int exp = (diff == Enum.StageNum.Stage1_1)? 150 : (diff == Enum.StageNum.Stage1_2)? 350 : 700;
-                int coin = (diff == Enum.StageNum.Stage1_1)? 1000 : (diff == Enum.StageNum.Stage1_2)? 2500 : 5000;
-                int chestGoldQuantity = (diff == Enum.StageNum.Stage1_1)? 1 : (diff == Enum.StageNum.Stage1_2)? 2 : 3;
-
-                //* Difficultによる、ゴブリンリワードデータ
-                Etc.NoshowInvItem[] gblEasyRwdArr = {Etc.NoshowInvItem.Goblin0, Etc.NoshowInvItem.Goblin1, Etc.NoshowInvItem.Goblin2};
-                Etc.NoshowInvItem[] gblNormalRwdArr = {Etc.NoshowInvItem.Goblin2, Etc.NoshowInvItem.Goblin3, Etc.NoshowInvItem.Goblin4};
-                Etc.NoshowInvItem[] gblHardRwdArr = {Etc.NoshowInvItem.Goblin4, Etc.NoshowInvItem.Goblin5, Etc.NoshowInvItem.Goblin6};
-
-                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], exp));
-                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], coin));
-                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGold], chestGoldQuantity));
-
-                //* Goblin Reward
-                int rand = Random.Range(0, 100);
-                var goblinRwd = rand < 50? gblEasyRwdArr[0] : rand < 85? gblNormalRwdArr[1] : gblHardRwdArr[2];
-                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)goblinRwd], Random.Range(1, 4)));
-                break;
             }
+        }
+        else if(stage == Config.GOBLIN_DUNGEON_STAGE) { //|| stage == Config.GOBLIN_DUNGEON_STAGE + 1|| stage == Config.GOBLIN_DUNGEON_STAGE + 2 ) { //* 唯一にStageSelectedStageが＋して分けている（ゴブリン敵イメージを異なるため）
+            //* Difficultによる、リワードデータ
+            int exp = (diff == Enum.StageNum.Stage1_1)? 150 : (diff == Enum.StageNum.Stage1_2)? 350 : 700;
+            int coin = (diff == Enum.StageNum.Stage1_1)? 1000 : (diff == Enum.StageNum.Stage1_2)? 2500 : 5000;
+            int chestGoldQuantity = (diff == Enum.StageNum.Stage1_1)? 1 : (diff == Enum.StageNum.Stage1_2)? 2 : 3;
+
+            //* Difficultによる、ゴブリンリワードデータ
+            Etc.NoshowInvItem[] gblEasyRwdArr = {Etc.NoshowInvItem.Goblin0, Etc.NoshowInvItem.Goblin1, Etc.NoshowInvItem.Goblin2};
+            Etc.NoshowInvItem[] gblNormalRwdArr = {Etc.NoshowInvItem.Goblin2, Etc.NoshowInvItem.Goblin3, Etc.NoshowInvItem.Goblin4};
+            Etc.NoshowInvItem[] gblHardRwdArr = {Etc.NoshowInvItem.Goblin4, Etc.NoshowInvItem.Goblin5, Etc.NoshowInvItem.Goblin6};
+
+            rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], exp));
+            rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], coin));
+            rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGold], chestGoldQuantity));
+
+            //* Goblin Reward
+            int rand = Random.Range(0, 100);
+            var goblinRwd = rand < 50? gblEasyRwdArr[0] : rand < 85? gblNormalRwdArr[1] : gblHardRwdArr[2];
+            rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)goblinRwd], Random.Range(1, 4)));
         }
     #endregion
 

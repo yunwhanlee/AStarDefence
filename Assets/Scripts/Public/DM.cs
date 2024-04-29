@@ -288,7 +288,6 @@ public class DM : MonoBehaviour {
     [field: SerializeField] public DB DB {get; private set;}
     [field: SerializeField] public int PassedSec {get; set;}
 
-    //* Global Values
     [field: SerializeField] public int SelectedStage {get; set;}
     [field: SerializeField] public Enum.StageNum SelectedStageNum {get; set;}
     [field: SerializeField] public bool IsPassedDate {get; private set;}

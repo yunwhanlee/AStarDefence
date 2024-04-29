@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.UI;
 using Inventory.Model;
 using TMPro;
@@ -208,7 +209,6 @@ public class StageUIManager : MonoBehaviour {
 
         DM._.SelectedStage = selectStage;
     }
-
     public void OnClickStageNumBtn(int stageNumIdx) {
         HM._.ivCtrl.CheckActiveClover();
 
