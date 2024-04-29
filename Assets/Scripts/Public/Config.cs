@@ -80,6 +80,7 @@ public static class Config {
         };
 
         public readonly struct SHOP {
+        #region CHEST PURCHASE
             public const int FREECOMMON = 0, COMMON = 1, GOLDCHEST = 2,
                 PREMIUM = 3, DIAMONDCHEST = 4,
                 EQUIPx1 = 5, EQUIPx6 = 6, EQUIPx12 = 7;
@@ -94,14 +95,6 @@ public static class Config {
                 "Diamond_360", // EQUIP x 6
                 "Diamond_720", // EQUIP x 12
             };
-
-            public const int COIN_TINY = 0, COIN_MEDIUM = 1, COIN_HUGE = 2;
-            public static readonly string[] COIN_PRICES = {
-                "Diamond_30",
-                "Diamond_600",
-                "Diamond_1500",
-            };
-
             public static bool TryPurchaseChest(int chestIdx) {
                 //* キーと値段を分ける
                 string[] split = CHEST_PRICES[chestIdx].Split("_");
@@ -111,6 +104,38 @@ public static class Config {
                 //* 購入 処理
                 return SetPurchaseData(key, price);
             }
+        #endregion
+        #region ETC PURCHASE
+            public const int GOLDKEY = 0, SOULSTONE = 1, MAGICSTONE = 2,
+                RANDOM_GAME_CONSUMEITEM_X1 = 3, RANDOM_GAME_CONSUMEITEM_X5 = 4;
+
+            public static readonly string[] ETC_PRICES = {
+                "Diamond_20", // GOLDKEY
+                "Diamond_100", // SOUL STONE
+                "Diamond_100", // MAGIC STONE
+                "Coin_500", // RANDOM GAME CONSUME ITEM X1
+                "Coin_2500", // RANDOM GAME CONSUME ITEM X5
+            };
+
+
+            public static bool TryPurchaseEtc(int etcIdx) {
+                //* キーと値段を分ける
+                string[] split = ETC_PRICES[etcIdx].Split("_");
+                string key = split[0];
+                int price = int.Parse(split[1]);
+
+                //* 購入 処理
+                return SetPurchaseData(key, price);
+            }
+        #endregion
+
+        #region COIN PURCHASE
+            public const int COIN_TINY = 0, COIN_MEDIUM = 1, COIN_HUGE = 2;
+            public static readonly string[] COIN_PRICES = {
+                "Diamond_30",
+                "Diamond_600",
+                "Diamond_1500",
+            };
             public static bool TryPurchaseCoinPack(int coinIdx) {
                 //* キーと値段を分ける
                 string[] split = COIN_PRICES[coinIdx].Split("_");
@@ -120,6 +145,7 @@ public static class Config {
                 //* 購入 処理
                 return SetPurchaseData(key, price);
             }
+        #endregion
 
             private static bool SetPurchaseData(string key, int price) {
                 //* 購入 処理

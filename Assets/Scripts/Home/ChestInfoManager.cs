@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using Inventory.Model;
 
 public class ChestInfoManager : MonoBehaviour {
     [field:SerializeField] public GameObject WindowObj {get; set;}
@@ -15,6 +16,10 @@ public class ChestInfoManager : MonoBehaviour {
 
     public Action OnClickOpenChest = () => {};
 
+    void Start() {
+        EquipGachaInfoGroup.SetActive(false);
+    }
+
     #region EVENT
         public void OnClickPurchaseBtn() {
             OnClickOpenChest?.Invoke();
@@ -22,6 +27,7 @@ public class ChestInfoManager : MonoBehaviour {
         public void OnClickCloseBtn() {
             SM._.SfxPlay(SM.SFX.ClickSFX);
             WindowObj.SetActive(false);
+            EquipGachaInfoGroup.SetActive(false);
         }
     #endregion
     #region FUNC
@@ -47,6 +53,12 @@ public class ChestInfoManager : MonoBehaviour {
             return infoTemp;
         }
 
+        public void SetInfoTxtUI(string name, Sprite itemImg, string description) {
+            NameTxt.text = name;
+            ChestImg.sprite = itemImg;
+            InfoTxt.text = description;
+        }
+
         /// <summary>
         /// 宝箱情報POPUP 表示
         /// </summary>
@@ -60,18 +72,15 @@ public class ChestInfoManager : MonoBehaviour {
             PriceBtnTxt.text = HM._.shopMg.GetChestPriceTxtFormet(chestIdx);
 
             //* Info
-            RewardItemSO rwdDt = HM._.rwlm.RwdItemDt;
+            RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
             string infoTemp = "";
             switch(chestIdx) {
                 case Config.H_PRICE.SHOP.FREECOMMON: {
-                    
-
                     //* Daily Item
                     if(DM._.DB.ShopDB.DailyItems[ShopDB.FREE_COMMON].IsAccept)
                         return;
-                    
 
-                    infoTemp = SetCommonChest(rwdDt);
+                    infoTemp = SetCommonChest(rwDt);
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => {
                         //TODO AD
@@ -80,55 +89,59 @@ public class ChestInfoManager : MonoBehaviour {
                         DM._.DB.ShopDB.SetAcceptData(ShopDB.FREE_COMMON);
                         HM._.shopMg.FreeCommonChestDim.SetActive(true);
 
-                        rwdDt.OpenRewardContent(rwdDt.Rwd_ChestCommon);
+                        rwDt.OpenRewardContent(rwDt.Rwd_ChestCommon);
                         WindowObj.SetActive(false);
                     };
                     break;
                 }
                 case Config.H_PRICE.SHOP.COMMON: {
-                    infoTemp = SetCommonChest(rwdDt);
+                    infoTemp = SetCommonChest(rwDt);
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => {
                         //* Try Purchase
                         bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
                         if(!isSuccess) return;
-                        rwdDt.OpenRewardContent(rwdDt.Rwd_ChestCommon);
+                        rwDt.OpenRewardContent(rwDt.Rwd_ChestCommon);
                     };
                     
                     break;
                 }
                 case Config.H_PRICE.SHOP.GOLDCHEST: {
-                    NameTxt.text = Etc.GetChestName(Etc.ConsumableItem.ChestGold);
-                    ChestImg.sprite = rwdDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGold].ItemImg;
-                    RewardContentSO chInfo = rwdDt.Rwd_ChestGold;
+                    ItemSO chestDt = rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGold];
+
+                    RewardContentSO chInfo = rwDt.Rwd_ChestGold;
                     infoTemp += $"<sprite name=Coin> {chInfo.CoinMin} ~ {chInfo.CoinMax}";
                     infoTemp += $"\n<sprite name=Ore> x 1";
                     infoTemp += $"\n<sprite name=Random> x 2";
+
+                    SetInfoTxtUI (chestDt.Name, chestDt.ItemImg, infoTemp);
 
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => {
                         //* Try Purchase
                         bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
                         if(!isSuccess) return;
-                        rwdDt.OpenRewardContent(chInfo);
+                        rwDt.OpenRewardContent(chInfo);
                     };
                     break;
                 }
                 case Config.H_PRICE.SHOP.PREMIUM: {
-                    NameTxt.text = Etc.GetChestName(Etc.ConsumableItem.ChestPremium);
-                    ChestImg.sprite = rwdDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium].ItemImg;
-                    RewardContentSO chInfo = rwdDt.Rwd_ChestPremium;
+                    ItemSO chestDt = rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium];
+
+                    RewardContentSO chInfo = rwDt.Rwd_ChestPremium;
                     infoTemp += $"<sprite name=Coin> {chInfo.CoinMin} ~ {chInfo.CoinMax}";
                     infoTemp += $"\t<sprite name=Diamond> {chInfo.DiamondMin} ~ {chInfo.DiamondMax}";
                     infoTemp += $"\n<sprite name=Equip> x 1";
                     infoTemp += $"\t<sprite name=Random> x 5";
 
+                    SetInfoTxtUI (chestDt.Name, chestDt.ItemImg, infoTemp);
+
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => {
                         //* Try Purchase
                         bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
                         if(!isSuccess) return;
-                        rwdDt.OpenRewardContent(chInfo);
+                        rwDt.OpenRewardContent(chInfo);
                     };
                     break;
                 }
@@ -137,10 +150,12 @@ public class ChestInfoManager : MonoBehaviour {
                     if(DM._.DB.ShopDB.DailyItems[ShopDB.DIAMOND_CHEST].IsAccept)
                         return;
 
-                    NameTxt.text = Etc.GetChestName(Etc.ConsumableItem.ChestDiamond);
-                    ChestImg.sprite = rwdDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestDiamond].ItemImg;
-                    RewardContentSO chInfo = rwdDt.Rwd_ChestDiamond;
+                    ItemSO chestDt = rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestDiamond];
+
+                    RewardContentSO chInfo = rwDt.Rwd_ChestDiamond;
                     infoTemp += $"<sprite name=Diamond> {chInfo.DiamondMin} ~ {chInfo.DiamondMax}";
+
+                    SetInfoTxtUI (chestDt.Name, chestDt.ItemImg, infoTemp);
 
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => {
@@ -152,44 +167,44 @@ public class ChestInfoManager : MonoBehaviour {
                         DM._.DB.ShopDB.SetAcceptData(ShopDB.DIAMOND_CHEST);
                         HM._.shopMg.DiamondChestDim.SetActive(true);
 
-                        rwdDt.OpenRewardContent(chInfo);
+                        rwDt.OpenRewardContent(chInfo);
                         WindowObj.SetActive(false);
                     };
                     break;
                 }
                 case Config.H_PRICE.SHOP.EQUIPx1: {
                     const int cnt = 1;
-                    infoTemp = SetEquipChest(rwdDt, cnt);
+                    infoTemp = SetEquipChest(rwDt, cnt);
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => {
                         //* Try Purchase
                         bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
                         if(!isSuccess) return;
-                        rwdDt.OpenRewardContent(rwdDt.Rwd_ChestEquipment, specifiedCnt: cnt);
+                        rwDt.OpenRewardContent(rwDt.Rwd_ChestEquipment, specifiedCnt: cnt);
                     };
                     break;
                 }
                 case Config.H_PRICE.SHOP.EQUIPx6: {
                     const int cnt = 6;
-                    infoTemp = SetEquipChest(rwdDt, cnt);
+                    infoTemp = SetEquipChest(rwDt, cnt);
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => {
                         //* Try Purchase
                         bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
                         if(!isSuccess) return;
-                        rwdDt.OpenRewardContent(rwdDt.Rwd_ChestEquipment, specifiedCnt: cnt);
+                        rwDt.OpenRewardContent(rwDt.Rwd_ChestEquipment, specifiedCnt: cnt);
                     };
                     break;
                 }
                 case Config.H_PRICE.SHOP.EQUIPx12: {
                     const int cnt = 12;
-                    infoTemp = SetEquipChest(rwdDt, cnt);
+                    infoTemp = SetEquipChest(rwDt, cnt);
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => {
                         //* Try Purchase
                         bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
                         if(!isSuccess) return;
-                        rwdDt.OpenRewardContent(rwdDt.Rwd_ChestEquipment, specifiedCnt: cnt);
+                        rwDt.OpenRewardContent(rwDt.Rwd_ChestEquipment, specifiedCnt: cnt);
                     };
                     break;
                 }

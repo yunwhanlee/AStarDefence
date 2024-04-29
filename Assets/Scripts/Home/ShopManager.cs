@@ -8,13 +8,18 @@ using TMPro;
 using Inventory.Model;
 
 public class ShopManager : MonoBehaviour {
-    const int TAPBTN_PACKAGE = 0, TAPBTN_CHEST = 1, TAPBTN_RSC = 2;
+    const int TAPBTN_PACKAGE = 0, 
+        TAPBTN_CHEST = 1, 
+        ETC_CHEST = 2,
+        TAPBTN_RSC = 3;
 
     [field:SerializeField] public int EquipPackageCnt {get; set;}
     public Action OnClickEquipPackage;
 
     [SerializeField] Color TapBtnActiveClr;
     [SerializeField] Color TapBtnInActiveClr;
+    [SerializeField] Sprite GameConsumeItemsSpr;
+
     [field:SerializeField] public bool[] IsActiveTapBtnCates {get; private set;}
     [field:SerializeField] public GameObject WindowObj {get; private set;}
     [field:SerializeField] public GameObject[] CateTitleLineObjs {get; private set;}
@@ -198,6 +203,135 @@ public class ShopManager : MonoBehaviour {
     /// <param name="chestIdx">0 : COMMON, 1: DIAMOND, 2 : EQUIP, 3 : GOLD, 4 : PREMIUM</param>
     public void OnClickChestBtn(int chestIdx)
         => HM._.cim.ShowChestInfoPopUp(chestIdx);
+
+    /// <summary>
+    /// その他アイテム購入（★少し間違えたが、ChestPopUpのWindowを活用）
+    /// </summary>    
+    public void OnClickEtcItemBtn(int etcIdx) {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        ChestInfoManager cim = HM._.cim;
+        RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
+
+        cim.WindowObj.SetActive(true);
+
+        //* Icon And Price
+        cim.PriceBtnTxt.text = HM._.shopMg.GetEtcPriceTxtFormet(etcIdx);
+
+        //* Info
+        switch (etcIdx) {
+            case Config.H_PRICE.SHOP.GOLDKEY: {
+                ItemSO goldKeyDt = rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey];
+                cim.SetInfoTxtUI(goldKeyDt.Name, goldKeyDt.ItemImg, goldKeyDt.Description);
+
+                //* 次の購入イベント登録
+                cim.OnClickOpenChest = () => {
+                    //* Try Purchase
+                    bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseEtc(etcIdx);
+                    if(!isSuccess) return;
+                    //* リワード
+                    var rewardList = new List<RewardItem>() { new (goldKeyDt, 1) };
+                    HM._.rwlm.ShowReward(rewardList);
+                    HM._.rwm.UpdateInventory(rewardList);
+                };
+                break;
+            }
+            case Config.H_PRICE.SHOP.SOULSTONE: {
+                ItemSO soulStoneDt = rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone];
+                cim.SetInfoTxtUI(soulStoneDt.Name, soulStoneDt.ItemImg, soulStoneDt.Description);
+
+                //* 次の購入イベント登録
+                cim.OnClickOpenChest = () => {
+                    //* Try Purchase
+                    bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseEtc(etcIdx);
+                    if(!isSuccess) return;
+                    //* リワード
+                    var rewardList = new List<RewardItem>() { new (soulStoneDt, 1) };
+                    HM._.rwlm.ShowReward(rewardList);
+                    HM._.rwm.UpdateInventory(rewardList);
+                };
+                break;
+            }
+            case Config.H_PRICE.SHOP.MAGICSTONE: {
+                ItemSO magicStoneDt = rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone];
+                cim.SetInfoTxtUI(magicStoneDt.Name, magicStoneDt.ItemImg, magicStoneDt.Description);
+
+                //* 次の購入イベント登録
+                cim.OnClickOpenChest = () => {
+                    //* Try Purchase
+                    bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseEtc(etcIdx);
+                    if(!isSuccess) return;
+                    //* リワード
+                    var rewardList = new List<RewardItem>() { new (magicStoneDt, 1) };
+                    HM._.rwlm.ShowReward(rewardList);
+                    HM._.rwm.UpdateInventory(rewardList);
+                };
+                break;
+            }
+            case Config.H_PRICE.SHOP.RANDOM_GAME_CONSUMEITEM_X1: {
+                ItemSO[] itemDts = new ItemSO[] {
+                    rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack0],
+                    rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack1],
+                    rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.BizzardScroll],
+                    rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.LightningScroll]
+                };
+
+                string infoMsg = $"{itemDts[0].Name}: {itemDts[0].Description}"
+                    + $"\n{itemDts[1].Name}: {itemDts[1].Description}"
+                    + $"\n{itemDts[2].Name}: {itemDts[2].Description}"
+                    + $"\n{itemDts[3].Name}: {itemDts[3].Description}";
+
+                cim.SetInfoTxtUI("랜덤 소비아이템", GameConsumeItemsSpr, infoMsg);
+
+                //* 次の購入イベント登録
+                cim.OnClickOpenChest = () => {
+                    //* Try Purchase
+                    bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseEtc(etcIdx);
+                    if(!isSuccess) return;
+                    //* リワード
+                    var rewardList = new List<RewardItem>() { new (itemDts[Random.Range(0, 4)]) };
+
+                    HM._.rwlm.ShowReward(rewardList);
+                    HM._.rwm.UpdateInventory(rewardList);
+                };
+                break;
+            }
+            case Config.H_PRICE.SHOP.RANDOM_GAME_CONSUMEITEM_X5: {
+                ItemSO[] itemDts = new ItemSO[] {
+                    rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack0],
+                    rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack1],
+                    rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.BizzardScroll],
+                    rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.LightningScroll]
+                };
+
+                string infoMsg = $"{itemDts[0].Name}: {itemDts[0].Description}"
+                    + $"\n{itemDts[1].Name}: {itemDts[1].Description}"
+                    + $"\n{itemDts[2].Name}: {itemDts[2].Description}"
+                    + $"\n{itemDts[3].Name}: {itemDts[3].Description}";
+
+                cim.SetInfoTxtUI("랜덤 소비아이템", GameConsumeItemsSpr, infoMsg);
+
+                //* 次の購入イベント登録
+                cim.OnClickOpenChest = () => {
+                    //* Try Purchase
+                    bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseEtc(etcIdx);
+                    if(!isSuccess) return;
+                    //* リワード
+                    var rewardList = new List<RewardItem>() {
+                        new (itemDts[Random.Range(0, 4)]),
+                        new (itemDts[Random.Range(0, 4)]),
+                        new (itemDts[Random.Range(0, 4)]),
+                        new (itemDts[Random.Range(0, 4)]),
+                        new (itemDts[Random.Range(0, 4)])
+                    };
+
+                    HM._.rwlm.ShowReward(rewardList);
+                    HM._.rwm.UpdateInventory(rewardList);
+                };
+                break;
+            }
+        }
+    }
+
     /// <summary>
     /// ダイアモンド購入
     /// </summary> <summary>
@@ -331,6 +465,16 @@ public class ShopManager : MonoBehaviour {
     /// </summary>
     public string GetChestPriceTxtFormet(int chestIdx) {
         string keyword = Config.H_PRICE.SHOP.CHEST_PRICES[chestIdx];
+        var splitDt = keyword.Split("_");
+        string spriteTag = splitDt[0];
+        string priceStr = splitDt[1];
+        return $"<size=70%><sprite name={spriteTag}></size> {priceStr}";
+    }
+    /// <summary>
+    /// SHOPのETCの値段と財貨アイコン情報をテキストFORMATで返す
+    /// </summary>
+    public string GetEtcPriceTxtFormet(int chestIdx) {
+        string keyword = Config.H_PRICE.SHOP.ETC_PRICES[chestIdx];
         var splitDt = keyword.Split("_");
         string spriteTag = splitDt[0];
         string priceStr = splitDt[1];
