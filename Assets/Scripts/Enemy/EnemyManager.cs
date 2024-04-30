@@ -96,8 +96,11 @@ public class EnemyManager : MonoBehaviour {
         EnemyCnt = isBoss? BOSS_CNT : MONSTER_CNT;
         spawnCnt = isBoss? BOSS_CNT : EnemyCnt;
 
-        if(isBoss)
-            GM._.esm.ShowBossHpBar(GM._.GetCurEnemyData());
+        if(isBoss) {
+            EnemyData bossData = GM._.GetCurEnemyData();
+            GM._.esm.ShowBossSpawnAnim(bossData);
+            GM._.esm.ShowBossHpBar(bossData);
+        }
 
         //* 生成
         for(int i = 0; i < EnemyCnt; i++) {

@@ -47,9 +47,15 @@ public class EnemyStateUIManager : MonoBehaviour {
     public Slider BossHpBarSlider;
     [field: SerializeField] public TextMeshProUGUI BossHpBarTxt;
     [field: SerializeField] public Image BossHpBarPortraitImg;
+    [field: Header("BOSS SPAWN ANIM UI")]
+    [field: SerializeField] public GameObject BossSpawnWindowAnimObj {get; private set;}
+    [field: SerializeField] public Image BossSpawnAnimImg {get; private set;}
+    [field: SerializeField] public TMP_Text BossSpawnAnimNameTxt {get; private set;}
+    [field: SerializeField] public TMP_Text BossSpawnAnimHpTxt {get; private set;}
 
     void Start() {
         BossHpBarSlider.gameObject.SetActive(false);
+        BossSpawnWindowAnimObj.SetActive(false);
     }
 
 #region EVENT
@@ -60,6 +66,10 @@ public class EnemyStateUIManager : MonoBehaviour {
     public void OnClickCloseNextEnemyInfoPopUp() {
         GM._.gui.Play();
         NextEnemyInfoPopUpUI.Obj.SetActive(false);
+    }
+    public void OnClickCloseBossSpawnAnimWindowScreenBtn() {
+        GM._.gui.Play();
+        BossSpawnWindowAnimObj.SetActive(false);
     }
 #endregion
 
@@ -73,6 +83,7 @@ public class EnemyStateUIManager : MonoBehaviour {
         NextEnemyInfoPopUpUI.SetUI(nextEnemyDt, FrameSprs);
     }
 
+    //* BOSS HP BAR
     public void ShowBossHpBar(EnemyData bossDt) {
         BossHpBarSlider.gameObject.SetActive(true);
         BossHpBarPortraitImg.sprite = bossDt.Spr;
@@ -80,6 +91,16 @@ public class EnemyStateUIManager : MonoBehaviour {
     public void UpdateBossHpBar(int hp, int maxHp) {
         BossHpBarTxt.text = $"{hp} / {maxHp}";
         BossHpBarSlider.value = (float)hp / maxHp;
+    }
+
+    //* BOSS SPAWN ANIM
+    public void ShowBossSpawnAnim(EnemyData bossDt) {
+        GM._.gui.Pause();
+        SM._.SfxPlay(SM.SFX.BossSpawnSFX);
+        BossSpawnWindowAnimObj.SetActive(true);
+        BossSpawnAnimImg.sprite = bossDt.Spr;
+        BossSpawnAnimNameTxt.text = bossDt.Name.ToString();
+        BossSpawnAnimHpTxt.text = bossDt.Hp.ToString();
     }
 #endregion
 }

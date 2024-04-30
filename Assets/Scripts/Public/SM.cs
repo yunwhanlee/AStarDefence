@@ -78,6 +78,7 @@ public class SM : MonoBehaviour {
         InvUnEquipSFX,
         InvStoneSFX,
         LevelUpSFX,
+        BossSpawnSFX,
     }
 
     //* AudioSource
@@ -155,6 +156,7 @@ public class SM : MonoBehaviour {
     [field: SerializeField] AudioClip InvUnEquipSFX {get; set;}
     [field: SerializeField] AudioClip InvStoneSFX {get; set;}
     [field: SerializeField] AudioClip LevelUpSFX {get; set;}
+    [field: SerializeField] AudioClip BossSpawnSFX {get; set;}
 
     void Awake() => singleton();
 
@@ -279,6 +281,7 @@ public class SM : MonoBehaviour {
         if(sfx == SFX.InvUnEquipSFX) SfxPlayer.PlayOneShot(InvUnEquipSFX);
         if(sfx == SFX.InvStoneSFX) SfxPlayer.PlayOneShot(InvStoneSFX);
         if(sfx == SFX.LevelUpSFX) SfxPlayer.PlayOneShot(LevelUpSFX);
+        if(sfx == SFX.BossSpawnSFX) SfxPlayer.PlayOneShot(BossSpawnSFX);
     }
 #endregion
 }
