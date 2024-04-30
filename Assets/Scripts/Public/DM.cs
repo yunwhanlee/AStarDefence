@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 using Inventory.Model;
 using System.Data;
-using Unity.VisualScripting;
 
 /// <summary>
 /// ステータス
@@ -364,7 +364,7 @@ public class DM : MonoBehaviour {
     private void OnApplicationPause(bool paused){
         //* ゲームが開くとき（paused == true）にも起動されるので注意が必要。
         if(paused == true) {
-            Debug.Log("<color=yellow>QUIT APP(Mobile)::OnApplicationPause( "+paused+" ):: Scene= " + SceneManager.GetActiveScene().name);
+            // Debug.Log("<color=yellow>QUIT APP(Mobile)::OnApplicationPause( "+paused+" ):: Scene= " + SceneManager.GetActiveScene().name);
             DB.LastDateTicks = DateTime.UtcNow.Ticks; //* 終了した日にち時間データをTicks(longタイプ)で保存
             Save();
         }
