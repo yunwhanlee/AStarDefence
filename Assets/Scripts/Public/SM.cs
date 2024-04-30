@@ -88,6 +88,12 @@ public class SM : MonoBehaviour {
     //* BGM
     [field: Header("BGM")]
     [field: SerializeField] AudioClip HomeBGM {get; set;}
+    [field: SerializeField] AudioClip ForestBGM {get; set;}
+    [field: SerializeField] AudioClip DesertBGM {get; set;}
+    [field: SerializeField] AudioClip SeaBGM {get; set;}
+    [field: SerializeField] AudioClip UndeadBGM {get; set;}
+    [field: SerializeField] AudioClip HellBGM {get; set;}
+    [field: SerializeField] AudioClip GoblinDungeonBGM {get; set;}
 
     [field: Header("SFX")]
     //* GAME
@@ -174,6 +180,11 @@ public class SM : MonoBehaviour {
         SfxPlayer.gameObject.SetActive(isActive);
     }
 
+    private void SetBGM(AudioClip bgm, float vol = 1) {
+        BgmPlayer.clip = bgm;
+        BgmPlayer.volume = vol;
+    }
+
     public void BgmPlay(BGM bgm) {
         //* ON・OFF チェック
         if(!BgmPlayer.gameObject.activeSelf)
@@ -181,19 +192,19 @@ public class SM : MonoBehaviour {
 
         //* BGM 設定
         if(bgm == BGM.HomeBGM)
-            BgmPlayer.clip = HomeBGM;
+            SetBGM(HomeBGM, 0.5f);
         else if(bgm == BGM.ForestBGM)
-            BgmPlayer.clip = null;
+            SetBGM(ForestBGM);
         else if(bgm == BGM.DesertBGM)
-            BgmPlayer.clip = null;
+            SetBGM(DesertBGM);
         else if(bgm == BGM.SeaBGM)
-            BgmPlayer.clip = null;
+            SetBGM(SeaBGM);
         else if(bgm == BGM.UndeadBGM)
-            BgmPlayer.clip = null;
+            SetBGM(UndeadBGM);
         else if(bgm == BGM.HellBGM)
-            BgmPlayer.clip = null;
+            SetBGM(HellBGM);
         else if(bgm == BGM.GoblinDungeonBGM)
-            BgmPlayer.clip = null;
+            SetBGM(GoblinDungeonBGM);
 
         //* プレイ
         BgmPlayer.Play();

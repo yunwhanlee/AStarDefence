@@ -97,6 +97,29 @@ public class GM : MonoBehaviour {
         // if(Stage == DM._.GoblinDungeonStageNum) {
         //     Stage += (int)DM._.SelectedStageNum;
         // }
+        DM._.SelectedStage = Config.Stage.STG_GOBLIN_DUNGEON;
+
+        //* BGM
+        switch(Stage) {
+            case Config.Stage.STG1_FOREST:
+                SM._.BgmPlay(SM.BGM.ForestBGM);
+                break;
+            case Config.Stage.STG2_DESERT:
+                SM._.BgmPlay(SM.BGM.DesertBGM);
+                break;
+            case Config.Stage.STG3_SEA:
+                SM._.BgmPlay(SM.BGM.SeaBGM);
+                break;
+            case Config.Stage.STG4_UNDEAD:
+                SM._.BgmPlay(SM.BGM.UndeadBGM);
+                break;
+            case Config.Stage.STG5_HELL:
+                SM._.BgmPlay(SM.BGM.HellBGM);
+                break;
+            case Config.Stage.STG_GOBLIN_DUNGEON:
+                SM._.BgmPlay(SM.BGM.GoblinDungeonBGM);
+                break;
+        }
 
         //* 非表示 初期化
         Array.ForEach(StageDts, stageDt => stageDt.TileMapObj.SetActive(false));

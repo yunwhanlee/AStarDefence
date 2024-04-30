@@ -64,6 +64,11 @@ public class WorkSpaceUIManager : MonoBehaviour {
 
 #region EVENT
     public void OnClickPurchaseWorkSpaceBtn() {
+        int price = Config.H_PRICE.WORKSPACE_PRICES[HM._.wsm.CurIdx];
+        if(HM._.Coin < price) {
+            HM._.hui.ShowMsgError("구매할 코인이 부족합니다!");
+            return;
+        }
         SM._.SfxPlay(SM.SFX.ClickSFX);
         HM._.hui.ShowAgainAskMsg($"<sprite name=Coin>{GetPrice()}을 사용하여\n작업장{HM._.wsm.CurIdx + 1} 구매하시겠습니까?");
         HM._.hui.OnClickAskConfirmAction = () => {
