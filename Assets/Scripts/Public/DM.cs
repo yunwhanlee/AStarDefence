@@ -494,11 +494,11 @@ public class DM : MonoBehaviour {
         //* Mining
         DB.MiningDB = new MiningDB();
         DB.MiningDB.GoblinCardCnts = new int[7] {
-            5, 4, 3, 2, 1, 0, 0
+            0, 0, 0, 0, 0, 0, 0
         };
 
         DB.MiningDB.OreCardCnts = new int[9] {
-            5, 4, 3, 2, 4, 2, 0, 0, 0
+            0, 0, 0, 0, 0, 0, 0, 0, 0
         };
 
         DB.MiningDB.WorkSpaces = new WorkSpace[5];
