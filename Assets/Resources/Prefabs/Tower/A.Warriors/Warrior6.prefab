@@ -38641,8 +38641,9 @@ GameObject:
   - component: {fileID: 5944085595258554804}
   - component: {fileID: 7142479271210991409}
   - component: {fileID: 4597940008149466871}
+  - component: {fileID: 2094684601710808615}
   m_Layer: 0
-  m_Name: StarIconTxt
+  m_Name: StarIconTxtAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38801,6 +38802,27 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 7142479271210991409}
   m_maskType: 0
+--- !u!95 &2094684601710808615
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3417102277446100771}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 61121e260612ee24b823e66a6b89a114, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4061251119790554246
 GameObject:
   m_ObjectHideFlags: 0
@@ -58707,6 +58729,7 @@ MonoBehaviour:
   AtkType: 0
   BodySprRdr: {fileID: 419945187496042546}
   MissileSpr: {fileID: 0}
+  StarIconTxtAnim: {fileID: 0}
   Name: 
   Lv: 2
   SlowSec: 0
@@ -58775,6 +58798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688062fd12c644c69f54da34b81ca154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGoblinEnemy: 0
   Character: {fileID: 1631033395140482249}
   Controller: {fileID: 4824800465681214860}
   RunSpeed: 10

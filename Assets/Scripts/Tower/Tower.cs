@@ -36,6 +36,7 @@ public abstract class Tower : MonoBehaviour {
     public AttackType AtkType;
     public SpriteRenderer BodySprRdr;
     public Sprite MissileSpr;
+    public Animator StarIconTxtAnim;
     public string Name;
     [Range(1, 7)] public int Lv;
     public int LvIdx { get => Lv - 1;}

@@ -101,8 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Tower>k__BackingField: {fileID: 0}
   <SprRdr>k__BackingField: {fileID: 0}
-  TargetList: []
   <CurTarget>k__BackingField: {fileID: 0}
+  TargetList: []
 --- !u!58 &2714689933807963060
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -227,10 +227,9 @@ MonoBehaviour:
   AtkType: 0
   BodySprRdr: {fileID: 2503690717856719880}
   MissileSpr: {fileID: 643788606, guid: 58c24ccdded125944a2253fe8954a33b, type: 3}
+  StarIconTxtAnim: {fileID: 986741673550645118}
   Name: 
   Lv: 0
-  AtkRange: 2.5
-  CritDmgPer: 0
   SlowSec: 0
   StunSec: 0
   <PerfectAimAuraEF>k__BackingField: {fileID: 0}
@@ -290,6 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688062fd12c644c69f54da34b81ca154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGoblinEnemy: 0
   Character: {fileID: 8637186213431505548}
   Controller: {fileID: 5937047183772958322}
   RunSpeed: 10
@@ -15079,8 +15079,9 @@ GameObject:
   - component: {fileID: 2770475372432839109}
   - component: {fileID: 6118181840742047750}
   - component: {fileID: 5460892088524296494}
+  - component: {fileID: 986741673550645118}
   m_Layer: 0
-  m_Name: StarIconTxt
+  m_Name: StarIconTxtAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15239,3 +15240,24 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 6118181840742047750}
   m_maskType: 0
+--- !u!95 &986741673550645118
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8679427714208399179}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 61121e260612ee24b823e66a6b89a114, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

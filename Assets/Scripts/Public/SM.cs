@@ -192,7 +192,7 @@ public class SM : MonoBehaviour {
 
         //* BGM 設定
         if(bgm == BGM.HomeBGM)
-            SetBGM(HomeBGM, 0.5f);
+            SetBGM(HomeBGM);
         else if(bgm == BGM.ForestBGM)
             SetBGM(ForestBGM);
         else if(bgm == BGM.DesertBGM)

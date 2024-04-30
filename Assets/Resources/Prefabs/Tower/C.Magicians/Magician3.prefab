@@ -9729,8 +9729,9 @@ GameObject:
   - component: {fileID: 1124921867942448114}
   - component: {fileID: 4978729267011288507}
   - component: {fileID: 4235809954381482694}
+  - component: {fileID: 4804508018524284245}
   m_Layer: 0
-  m_Name: StarIconTxt
+  m_Name: StarIconTxtAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9889,6 +9890,27 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 4978729267011288507}
   m_maskType: 0
+--- !u!95 &4804508018524284245
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155421693441801727}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 61121e260612ee24b823e66a6b89a114, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2740922771781177158
 GameObject:
   m_ObjectHideFlags: 0
@@ -14995,8 +15017,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Tower>k__BackingField: {fileID: 0}
   <SprRdr>k__BackingField: {fileID: 0}
-  TargetList: []
   <CurTarget>k__BackingField: {fileID: 0}
+  TargetList: []
 --- !u!58 &8555660087310319704
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -15121,10 +15143,9 @@ MonoBehaviour:
   AtkType: 0
   BodySprRdr: {fileID: 913976414953818008}
   MissileSpr: {fileID: 1201040689, guid: 9b29567216c62fe4f98f6affd69ceb2c, type: 3}
+  StarIconTxtAnim: {fileID: 4804508018524284245}
   Name: 
   Lv: 2
-  AtkRange: 2
-  CritDmgPer: 0
   SlowSec: 0
   StunSec: 0
   BigbangEF: {fileID: 0}
@@ -15185,6 +15206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688062fd12c644c69f54da34b81ca154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGoblinEnemy: 0
   Character: {fileID: 1775603458860905316}
   Controller: {fileID: 4527853443079513836}
   RunSpeed: 10

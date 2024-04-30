@@ -4841,8 +4841,9 @@ GameObject:
   - component: {fileID: 6743297305274529861}
   - component: {fileID: 2223598108389676313}
   - component: {fileID: 4045861747034238979}
+  - component: {fileID: 5935105380506116017}
   m_Layer: 0
-  m_Name: StarIconTxt
+  m_Name: StarIconTxtAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5001,6 +5002,27 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 2223598108389676313}
   m_maskType: 0
+--- !u!95 &5935105380506116017
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2143033363011955964}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 61121e260612ee24b823e66a6b89a114, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4392422102421906409
 GameObject:
   m_ObjectHideFlags: 0
@@ -10107,8 +10129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Tower>k__BackingField: {fileID: 0}
   <SprRdr>k__BackingField: {fileID: 0}
-  TargetList: []
   <CurTarget>k__BackingField: {fileID: 0}
+  TargetList: []
 --- !u!58 &1417441894091411568
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -15121,10 +15143,9 @@ MonoBehaviour:
   AtkType: 0
   BodySprRdr: {fileID: 7354861943751270469}
   MissileSpr: {fileID: -978122909, guid: 58c24ccdded125944a2253fe8954a33b, type: 3}
+  StarIconTxtAnim: {fileID: 5935105380506116017}
   Name: 
   Lv: 2
-  AtkRange: 3
-  CritDmgPer: 0
   SlowSec: 0
   StunSec: 0
   <PerfectAimAuraEF>k__BackingField: {fileID: 0}
@@ -15184,6 +15205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688062fd12c644c69f54da34b81ca154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGoblinEnemy: 0
   Character: {fileID: 6490190752053381144}
   Controller: {fileID: 6606673126490545689}
   RunSpeed: 10

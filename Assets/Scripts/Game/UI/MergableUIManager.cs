@@ -39,6 +39,8 @@ public class MergableItem {
 }
 
 public class MergableUIManager : MonoBehaviour {
+    const string TWINCLE_ANIM = "IsTwincle";
+
     //* Resource
     [field:SerializeField] public Sprite[] BtnSprs {get; private set;}
     [field:SerializeField] public Sprite[] PlusIconSprs {get; private set;}
@@ -146,16 +148,39 @@ public class MergableUIManager : MonoBehaviour {
         var magicianList = GM._.tm.MagicianGroup.GetComponentsInChildren<Tower>().ToList();
         int[] mLvCntArr = SeperateLvToArr(magicianList); // レベル別に分ける
 
+        warriorList.ForEach(tower => tower.StarIconTxtAnim.SetBool(TWINCLE_ANIM, false));
+        archerList.ForEach(tower => tower.StarIconTxtAnim.SetBool(TWINCLE_ANIM, false));
+        magicianList.ForEach(tower => tower.StarIconTxtAnim.SetBool(TWINCLE_ANIM, false));
+
         //* マージできるタワーのみ抽出
         List<string> mergableList = new List<string>();
         for(int i = 0; i < wLvCntArr.Length; i++)
-            if(wLvCntArr[i] > 1) mergableList.Add($"w_{i}");
+            if(wLvCntArr[i] > 1) {
+                mergableList.Add($"w_{i}");
+                warriorList.ForEach(tower => {
+                    if(tower.Lv == i + 1)
+                        tower.StarIconTxtAnim.SetBool(TWINCLE_ANIM, true);
+                });
+            }
+            
 
         for(int i = 0; i < aLvCntArr.Length; i++)
-            if(aLvCntArr[i] > 1) mergableList.Add($"a_{i}");
+            if(aLvCntArr[i] > 1) {
+                mergableList.Add($"a_{i}");
+                archerList.ForEach(tower => {
+                    if(tower.Lv == i + 1)
+                        tower.StarIconTxtAnim.SetBool(TWINCLE_ANIM, true);
+                });
+            }
 
         for(int i = 0; i < mLvCntArr.Length; i++)
-            if(mLvCntArr[i] > 1) mergableList.Add($"m_{i}");
+            if(mLvCntArr[i] > 1) {
+                mergableList.Add($"m_{i}");
+                magicianList.ForEach(tower => {
+                    if(tower.Lv == i + 1)
+                        tower.StarIconTxtAnim.SetBool(TWINCLE_ANIM, true);
+                });
+            }
 
         mergableList.ForEach(list => Debug.Log("mergableList= " + list));
 

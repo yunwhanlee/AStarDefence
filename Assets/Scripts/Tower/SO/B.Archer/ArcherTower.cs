@@ -109,10 +109,11 @@ public class ArcherTower : Tower {
 
         //* 選んだタワーとTowerGroupの子リストと同じレベルの数を確認
         var towers = GM._.tm.ArcherGroup.GetComponentsInChildren<ArcherTower>();
-        var sameLvTower = Array.FindAll(towers, tower => Lv == tower.Lv);
+        ArcherTower[] sameLvTowers = Array.FindAll(towers, tower => Lv == tower.Lv && Lv < 6);
 
         //* １個以上があったら、マージ可能表示
-        if(sameLvTower.Length > 1) {
+        if(sameLvTowers.Length > 1) {
+            // Array.ForEach(sameLvTowers, mergableTower => mergableTower.StarIconTxtAnim.SetBool("IsTwincle", true));
             mergeIcon.sprite = GM._.actBar.MergeOnSpr;
             GM._.actBar.MergePossibleMark.SetActive(true);
         }

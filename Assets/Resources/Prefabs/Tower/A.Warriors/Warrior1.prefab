@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 4452579735792790579}
   - component: {fileID: 4856159945805484302}
   - component: {fileID: 206059917605436451}
+  - component: {fileID: 1333588520365080780}
   m_Layer: 0
-  m_Name: StarIconTxt
+  m_Name: StarIconTxtAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,6 +172,27 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 4856159945805484302}
   m_maskType: 0
+--- !u!95 &1333588520365080780
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388808890373548832}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 61121e260612ee24b823e66a6b89a114, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1137578057517443804
 GameObject:
   m_ObjectHideFlags: 0
@@ -10107,8 +10129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Tower>k__BackingField: {fileID: 0}
   <SprRdr>k__BackingField: {fileID: 0}
-  TargetList: []
   <CurTarget>k__BackingField: {fileID: 0}
+  TargetList: []
 --- !u!58 &418369137474669082
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -10233,10 +10255,9 @@ MonoBehaviour:
   AtkType: 0
   BodySprRdr: {fileID: 419945187496042546}
   MissileSpr: {fileID: 0}
+  StarIconTxtAnim: {fileID: 1333588520365080780}
   Name: Warrior1
   Lv: 1
-  AtkRange: 1
-  CritDmgPer: 0
   SlowSec: 0
   StunSec: 0
   RageAuraEF: {fileID: 0}
@@ -10303,6 +10324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688062fd12c644c69f54da34b81ca154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGoblinEnemy: 0
   Character: {fileID: 1631033395140482249}
   Controller: {fileID: 4824800465681214860}
   RunSpeed: 10
