@@ -120,5 +120,6 @@ public class HM : MonoBehaviour {
 
     void Start() {
         DM._.LoadDt();
+        SM._.BgmPlay(SM.BGM.HomeBGM);
     }
 }

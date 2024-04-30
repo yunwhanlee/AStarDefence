@@ -1,9 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SM : MonoBehaviour {
     static public SM _;
+
+    public enum BGM {
+        //* HOME
+        HomeBGM,
+        //* GAME
+        ForestBGM,
+        DesertBGM,
+        SeaBGM,
+        UndeadBGM,
+        HellBGM,
+        GoblinDungeonBGM,
+    }
 
     public enum SFX {
         //* GAME
@@ -67,7 +80,16 @@ public class SM : MonoBehaviour {
         LevelUpSFX,
     }
 
+    //* AudioSource
+    [field: Header("AUDIOSOURCE")]
+    [field: SerializeField] public AudioSource BgmPlayer {get; set;}
     [field: SerializeField] public AudioSource SfxPlayer {get; set;}
+
+    //* BGM
+    [field: Header("BGM")]
+    [field: SerializeField] AudioClip HomeBGM {get; set;}
+
+    [field: Header("SFX")]
     //* GAME
     [field: SerializeField] AudioClip GameStartSFX {get; set;}
     [field: SerializeField] AudioClip WaveStartSFX {get; set;}
@@ -144,12 +166,45 @@ public class SM : MonoBehaviour {
 #endregion
 
 #region FUNC
+    public void ActiveBGM(bool isActive) {
+        BgmPlayer.gameObject.SetActive(isActive);
+        BgmPlay(BGM.HomeBGM);
+    }
+    public void ActiveSFX(bool isActive) {
+        SfxPlayer.gameObject.SetActive(isActive);
+    }
+
+    public void BgmPlay(BGM bgm) {
+        //* ON・OFF チェック
+        if(!BgmPlayer.gameObject.activeSelf)
+            return;
+
+        //* BGM 設定
+        if(bgm == BGM.HomeBGM)
+            BgmPlayer.clip = HomeBGM;
+        else if(bgm == BGM.ForestBGM)
+            BgmPlayer.clip = null;
+        else if(bgm == BGM.DesertBGM)
+            BgmPlayer.clip = null;
+        else if(bgm == BGM.SeaBGM)
+            BgmPlayer.clip = null;
+        else if(bgm == BGM.UndeadBGM)
+            BgmPlayer.clip = null;
+        else if(bgm == BGM.HellBGM)
+            BgmPlayer.clip = null;
+        else if(bgm == BGM.GoblinDungeonBGM)
+            BgmPlayer.clip = null;
+
+        //* プレイ
+        BgmPlayer.Play();
+    }
+
     public void SfxPlay(SFX sfx, float delay = 0)
         => StartCoroutine(CoSfxPlay(sfx, delay));
 
     private IEnumerator CoSfxPlay(SFX sfx, float delay) {
-        //* SettingでSFXを無効にしたら、以下の処理しない
-        if(!DM._.DB.SettingDB.IsActiveSfx)
+        //* ON・OFF チェック
+        if(!SfxPlayer.gameObject.activeSelf)
             yield break;
 
         yield return new WaitForSeconds(delay);

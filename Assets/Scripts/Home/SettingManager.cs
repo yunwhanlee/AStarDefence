@@ -9,8 +9,13 @@ public class SettingManager : MonoBehaviour {
     [field: SerializeField] public GameObject SfxToogleCheckImg {get; private set;}
 
     void Start() {
-        BgmToogleCheckImg.SetActive(DM._.DB.SettingDB.IsActiveBgm);
-        SfxToogleCheckImg.SetActive(DM._.DB.SettingDB.IsActiveSfx);
+        //* BGMとSFX ON・OFFチェック
+        bool isActiveBGM = DM._.DB.SettingDB.IsActiveBgm;
+        bool isActiveSFX = DM._.DB.SettingDB.IsActiveSfx;
+        BgmToogleCheckImg.SetActive(isActiveBGM);
+        SfxToogleCheckImg.SetActive(isActiveSFX);
+        SM._.ActiveBGM(isActiveBGM);
+        SM._.ActiveSFX(isActiveSFX);
     }
 
 #region EVENT
@@ -27,10 +32,12 @@ public class SettingManager : MonoBehaviour {
     public void OnClickBgmToogleBtn() {
         DM._.DB.SettingDB.IsActiveBgm = !DM._.DB.SettingDB.IsActiveBgm;
         BgmToogleCheckImg.SetActive(DM._.DB.SettingDB.IsActiveBgm);
+        SM._.ActiveBGM(DM._.DB.SettingDB.IsActiveBgm);
     }
     public void OnClickSfxToogleBtn() {
         DM._.DB.SettingDB.IsActiveSfx = !DM._.DB.SettingDB.IsActiveSfx;
         SfxToogleCheckImg.SetActive(DM._.DB.SettingDB.IsActiveSfx);
+        SM._.ActiveSFX(DM._.DB.SettingDB.IsActiveSfx);
     }
     public void OnClickLanguageBtn() {
 
