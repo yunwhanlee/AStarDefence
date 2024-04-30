@@ -121,13 +121,4 @@ public class HM : MonoBehaviour {
     void Start() {
         DM._.LoadDt();
     }
-
-    public void OnClickResetBtn() {
-        DM._.Reset();
-        SceneManager.LoadScene($"{Enum.Scene.Home}");
-    }
-
-#region FUNC
-    
-#endregion
 }

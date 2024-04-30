@@ -248,6 +248,20 @@ public class DailyMissionDB {
 }
 
 /// <summary>
+/// セッティングデータ
+/// </summary>
+[Serializable]
+public class SettingDB {
+    [field:SerializeField] public bool IsActiveBgm {get; set;}
+    [field:SerializeField] public bool IsActiveSfx {get; set;}
+
+    public SettingDB() {
+        IsActiveBgm = true;
+        IsActiveSfx = true;
+    }
+}
+
+/// <summary>
 ///* 保存・読込のデータベース ★データはPlayerPrefsに保存するので、String、Float、Intのみ！！！★
 /// </summary>
 [Serializable]
@@ -259,6 +273,7 @@ public class DB {
     [field:SerializeField] public SkillTreeDB SkillTreeDB {get; set;}
     [field:SerializeField] public ShopDB ShopDB {get; set;}
     [field:SerializeField] public DailyMissionDB DailyMissionDB {get; set;}
+    [field:SerializeField] public SettingDB SettingDB {get; set;}
     
     [field:SerializeField] public List<InventoryItem> InvItemDBs {get; set;}
     [field:SerializeField] public bool IsCloverActive {get; set;}
@@ -496,6 +511,8 @@ public class DM : MonoBehaviour {
         DB.ShopDB = new ShopDB();
 
         DB.DailyMissionDB = new DailyMissionDB();
+
+        DB.SettingDB = new SettingDB();
 
         DB.IsCloverActive = false;
         DB.IsGoldCloverActive = false;

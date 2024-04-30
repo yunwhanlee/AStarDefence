@@ -148,6 +148,10 @@ public class SM : MonoBehaviour {
         => StartCoroutine(CoSfxPlay(sfx, delay));
 
     private IEnumerator CoSfxPlay(SFX sfx, float delay) {
+        //* SettingでSFXを無効にしたら、以下の処理しない
+        if(!DM._.DB.SettingDB.IsActiveSfx)
+            yield break;
+
         yield return new WaitForSeconds(delay);
 
         //* GAME
