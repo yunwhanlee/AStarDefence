@@ -26,6 +26,7 @@ namespace Inventory.UI
         [field:SerializeField] public GameObject WindowObj {get; private set;}
         [field:SerializeField] public GameObject EquipPopUp {get; private set;}
         [field:SerializeField] public GameObject ConsumePopUp {get; private set;}
+        [field:SerializeField] public GameObject GradeInfoPopUp {get; private set;}
 
         [field:SerializeField] public Animator EquipPopUpAnim {get; private set;}
 
@@ -55,7 +56,7 @@ namespace Inventory.UI
             InvDesc.ResetDescription();
         }
 
-    #region EVENT
+#region EVENT
     /// <summary>
     /// カテゴリーアイコンクリック
     /// </summary>
@@ -87,9 +88,17 @@ namespace Inventory.UI
     public void OnClickInventoryIconBtn() => HM._.ivCtrl.ShowInventory();
     public void OnClickInventoryPopUpBackBtn() => HM._.ivCtrl.HideInventory();
     public void OnClickInvItemAutoMergeBtn() => HM._.ivCtrl.InventoryData.AutoMergeEquipItem();
-    #endregion
+    public void OnClickGradeInfoBtn() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        GradeInfoPopUp.SetActive(true);
+    }
+    public void OnClickGradeInfoPopUpCloseBtn() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        GradeInfoPopUp.SetActive(false);
+    }
+#endregion
 
-    #region FUNC
+#region FUNC
         public void SetInvAlertIcon(int newItemCnt) {
             InvAlertIcon.SetActive(newItemCnt > 0);
             if(InvAlertIcon.activeSelf)
@@ -282,7 +291,7 @@ namespace Inventory.UI
             List<InventoryUIItem> filterItemUIs = InvUIItemList.FindAll(elem => elem.Type == type);
             filterItemUIs.ForEach(elem => elem.EquipDim.SetActive(false));
         }
-        #endregion
+#endregion
     }
 
 }
