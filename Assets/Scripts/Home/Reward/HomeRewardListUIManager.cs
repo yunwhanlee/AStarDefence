@@ -44,6 +44,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
         if(HM._.lspm.OnClickCloseRewardScreen != null)
             HM._.lspm.OnClickCloseRewardScreen?.Invoke();
 
+        HM._.hui.IsActivePopUp = false;
         SM._.SfxPlay(SM.SFX.ClickSFX);
         HM._.lvm.CheckLevelUp();
         WindowObj.SetActive(false);
@@ -99,6 +100,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
     }
     public void ShowReward(List<RewardItem> itemList) {
         SM._.SfxPlay(SM.SFX.RewardSFX);
+        HM._.hui.IsActivePopUp = true;
         WindowObj.SetActive(true);
         DeleteAll();
         DisplayRewardList(itemList);

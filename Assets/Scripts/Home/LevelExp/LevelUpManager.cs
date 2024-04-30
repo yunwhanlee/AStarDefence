@@ -53,6 +53,7 @@ public class LevelUpManager : MonoBehaviour {
             return;
 
         SM._.SfxPlay(SM.SFX.ClickSFX);
+        HM._.hui.IsActivePopUp = false;
         WindowObj.SetActive(false);
         StartCoroutine(CoReCheckLevelUp());
     }
@@ -128,6 +129,7 @@ public class LevelUpManager : MonoBehaviour {
         }
     }
     public void ShowReward(List<RewardItem> itemList) {
+        HM._.hui.IsActivePopUp = true;
         WindowObj.SetActive(true);
         DeleteAll();
         DisplayRewardList(itemList);

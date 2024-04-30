@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts;
 using UnityEngine;
 using AnimationState = Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts.AnimationState;
@@ -69,7 +70,11 @@ namespace Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts
             while(true) {
                 Debug.Log($"MiningAnim():: SLASH:: LV= {lv}");
                 Character.SetState(AnimationState.Slash);
-                SM._.SfxPlay(SM.SFX.MetalHitSFX);
+
+                //* 他のPOPUPが開いていたら、この音をしない
+                if(!HM._.hui.IsActivePopUp)
+                    SM._.SfxPlay(SM.SFX.MetalHitSFX);
+
                 HM._.wsm.MetalHitEF.Play();
                 yield return waitSec;
                 Character.SetState(AnimationState.Idle);

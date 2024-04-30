@@ -23,6 +23,7 @@ public class HomeUIManager : MonoBehaviour {
     [field: SerializeField] public Slider ExpSlider {get; set;}
     [field: SerializeField] public GameObject CloverActiveIcon {get; set;}
     [field: SerializeField] public GameObject GoldCloverActiveIcon {get; set;}
+    [field: SerializeField] public bool IsActivePopUp {get; set;}
 
     public Button PlayBtn {get; set;}
 

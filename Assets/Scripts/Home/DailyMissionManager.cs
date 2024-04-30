@@ -189,6 +189,7 @@ public class DailyMissionManager : MonoBehaviour {
 
     #region EVENT
         public void OnClickMissionIconAtHome() {
+            HM._.hui.IsActivePopUp = true;
             SM._.SfxPlay(SM.SFX.ClickSFX);
             WindowObj.SetActive(true);
             OnUpdateUI.Invoke();
@@ -196,6 +197,7 @@ public class DailyMissionManager : MonoBehaviour {
             // Array.ForEach(MissionUIs, missionUI => missionUI.UpdateUI());
         }
         public void OnClickCloseBtn() {
+            HM._.hui.IsActivePopUp = false;
             SM._.SfxPlay(SM.SFX.ClickSFX);
             WindowObj.SetActive(false);
             OnUpdateUI.Invoke();

@@ -115,6 +115,7 @@ namespace Inventory
         }
 
         public void ShowInventory() {
+            HM._.hui.IsActivePopUp = true;
             SM._.SfxPlay(SM.SFX.ClickSFX);
             ivm.Show();
             foreach (var item in InventoryData.GetCurrentInventoryState()) {
@@ -123,6 +124,7 @@ namespace Inventory
         }
 
         public void HideInventory() {
+            HM._.hui.IsActivePopUp = false;
             SM._.SfxPlay(SM.SFX.ClickSFX);
             ivm.Hide();
             HM._.dailyMs.OnUpdateUI.Invoke();

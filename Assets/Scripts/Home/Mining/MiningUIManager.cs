@@ -55,6 +55,7 @@ public class MiningUIManager : MonoBehaviour {
         SetUI(idx);
     }
     public void OnClickBackBtn() {
+        HM._.hui.IsActivePopUp = false;
         SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(false);
     }

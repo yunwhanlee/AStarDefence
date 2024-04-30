@@ -67,6 +67,7 @@ public class StageUIManager : MonoBehaviour {
 
 #region GOBLIN DUNGEON EVENT 
     public void OnClickDungeonIconBtn() {
+        HM._.hui.IsActivePopUp = true;
         SM._.SfxPlay(SM.SFX.ClickSFX);
         GoblinDungeonPopUp.SetActive(true);
         GoldKeyTxt.text = $"{HM._.GoldKey}/{Config.MAX_GOBLINKEY}";
@@ -189,6 +190,7 @@ public class StageUIManager : MonoBehaviour {
     public void OnClickStartBtn() {
         var selectStage = HM._.SelectedStage;
 
+        HM._.hui.IsActivePopUp = true;
         SM._.SfxPlay(SM.SFX.ClickSFX);
         SelectStageNumWindow.SetActive(true);
 
@@ -245,6 +247,7 @@ public class StageUIManager : MonoBehaviour {
         WholeLockedFrame.SetActive(DM._.DB.StageLockedDBs[hm.SelectedStage].IsLockStage1_1);
     }
     public void OnClickBackBtn() { //* 閉じるボタン(StageとGoblin Dungeon全て)
+        HM._.hui.IsActivePopUp = false;
         SM._.SfxPlay(SM.SFX.ClickSFX);
         if(SelectStageNumWindow.activeSelf) {
             SelectStageNumWindow.SetActive(false);

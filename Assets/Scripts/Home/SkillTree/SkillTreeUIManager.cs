@@ -77,11 +77,13 @@ public class SkillTreeUIManager : MonoBehaviour {
 
 #region EVENT
     public void OnClickSkillTreeIconBtn() {
+        HM._.hui.IsActivePopUp = true;
         SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(true);
         UpdateMyPointTxt();
     }
     public void OnClickClosePopUpBtn() {
+        HM._.hui.IsActivePopUp = false;
         SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(false);
         UpdateAlertIcon();

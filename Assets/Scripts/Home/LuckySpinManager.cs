@@ -55,10 +55,12 @@ public class LuckySpinManager : MonoBehaviour {
 
 #region EVENT
     public void OnClickLuckySpinIconBtnAtHome() {
+        HM._.hui.IsActivePopUp = true;
         SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(true);
     }
     public void OnClickBackBtn() {
+        HM._.hui.IsActivePopUp = false;
         SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(false);
     }

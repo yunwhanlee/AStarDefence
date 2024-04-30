@@ -15,10 +15,12 @@ public class SettingManager : MonoBehaviour {
 
 #region EVENT
     public void OnClickSettingIconBtn() {
+        HM._.hui.IsActivePopUp = true;
         SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(true);
     }
     public void OnClickCloseBtn() {
+        HM._.hui.IsActivePopUp = false;
         SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(false);
     }
