@@ -119,10 +119,12 @@ namespace Inventory.UI
         }
         public void Show() {
             WindowObj.SetActive(true);
+            HM._.hui.TopNavCanvas.sortingOrder = 101;
             ResetSelection();
         }
         public void Hide() {
             WindowObj.SetActive(false);
+            HM._.hui.TopNavCanvas.sortingOrder = 99;
             ResetDraggedItem();
         }
         public void ResetSelection() {
