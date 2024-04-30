@@ -64,12 +64,12 @@ public class LuckySpinManager : MonoBehaviour {
     }
     public void OnClickStopSpinBtn() {
         Debug.Log($"OnClickStopSpinBtn():: IsStopSpin= {IsStopSpin}");
-        if(HM._.GoldKey <= 0) {
+        if(HM._.GoldKey < 2) {
             HM._.hui.ShowMsgError("황금열쇠가 부족합니다.");
             return;
         }
 
-        HM._.GoldKey--;
+        HM._.GoldKey -= 2;
         StopSpin();
     }
     public void OnClickFreeAdStopSpinBtn() {

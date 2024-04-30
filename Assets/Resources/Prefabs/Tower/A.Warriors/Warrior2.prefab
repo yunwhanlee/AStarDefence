@@ -5241,7 +5241,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 4723107735738678597, guid: 09bcd987938141b99a2f1aeef9ce2651, type: 3}
+  m_Sprite: {fileID: 4723107735738678597, guid: 3bfe63dedff947d2aab2fb00964e7573, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5265,7 +5265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library: []
-  m_SpriteLibraryAsset: {fileID: 11400000, guid: 4e34ca9d5db7480bb2740f7e99258ca8, type: 2}
+  m_SpriteLibraryAsset: {fileID: 11400000, guid: 3f487abb93425f44b878a6f66f71e6b0, type: 2}
 --- !u!114 &7666224591727533160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10301,6 +10301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688062fd12c644c69f54da34b81ca154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGoblinEnemy: 0
   Character: {fileID: 1631033395140482249}
   Controller: {fileID: 4824800465681214860}
   RunSpeed: 10

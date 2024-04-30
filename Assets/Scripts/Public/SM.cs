@@ -159,11 +159,11 @@ public class SM : MonoBehaviour {
         if(sfx == SFX.DeleteTowerSFX) SfxPlayer.PlayOneShot(DeleteTowerSFX);
         if(sfx == SFX.BuildSFX) SfxPlayer.PlayOneShot(BuildSFX);
         if(sfx == SFX.BreakSFX) SfxPlayer.PlayOneShot(BreakSFX);
-        if(sfx == SFX.Merge1SFX) SfxPlayer.PlayOneShot(Merge1SFX, delay);
-        if(sfx == SFX.Merge2SFX) SfxPlayer.PlayOneShot(Merge2SFX, delay);
-        if(sfx == SFX.Merge3SFX) SfxPlayer.PlayOneShot(Merge3SFX, delay);
-        if(sfx == SFX.Merge4SFX) SfxPlayer.PlayOneShot(Merge4SFX, delay);
-        if(sfx == SFX.Merge5SFX) SfxPlayer.PlayOneShot(Merge5SFX, delay);
+        if(sfx == SFX.Merge1SFX) SfxPlayer.PlayOneShot(Merge1SFX);
+        if(sfx == SFX.Merge2SFX) SfxPlayer.PlayOneShot(Merge2SFX);
+        if(sfx == SFX.Merge3SFX) SfxPlayer.PlayOneShot(Merge3SFX);
+        if(sfx == SFX.Merge4SFX) SfxPlayer.PlayOneShot(Merge4SFX);
+        if(sfx == SFX.Merge5SFX) SfxPlayer.PlayOneShot(Merge5SFX);
         if(sfx == SFX.DecreaseLife) SfxPlayer.PlayOneShot(DecreaseLife);
         // Attack
         if(sfx == SFX.SwordSFX) SfxPlayer.PlayOneShot(SwordSFX);
