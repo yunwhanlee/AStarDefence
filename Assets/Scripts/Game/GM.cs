@@ -94,10 +94,6 @@ public class GM : MonoBehaviour {
         IsReady = false;
 
         Stage = DM._.SelectedStage;
-        // if(Stage == DM._.GoblinDungeonStageNum) {
-        //     Stage += (int)DM._.SelectedStageNum;
-        // }
-        DM._.SelectedStage = Config.Stage.STG_GOBLIN_DUNGEON;
 
         //* BGM
         switch(Stage) {

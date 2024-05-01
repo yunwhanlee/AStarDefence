@@ -32,8 +32,8 @@ public class EnemyManager : MonoBehaviour {
 
 #region OBJECT POOL
     private Enemy create() {
-        Enemy enemy = Instantiate(
-            DM._.SelectedStage == 5? goblinEnemyPf : enemyPf, 
+        Enemy enemy = Instantiate (
+            DM._.SelectedStage == Config.Stage.STG_GOBLIN_DUNGEON? goblinEnemyPf : enemyPf, 
             enemyObjGroup
         );
         return enemy;
