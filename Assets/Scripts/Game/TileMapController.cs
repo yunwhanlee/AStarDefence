@@ -72,7 +72,8 @@ public class TileMapController : MonoBehaviour {
 
         //* アクションバー上をクリックしたら、以下の処理しない
         const int ACTION_BAR_START_POS_Y = -4;
-        if(y <= ACTION_BAR_START_POS_Y) return;
+        if(y <= ACTION_BAR_START_POS_Y)
+            return;
         Debug.Log("<color=white>onClickTile():: mouse.x= " + x + ", y= " + y + "</color>");
 
         // 레이케스트에서 제외할 레이어
