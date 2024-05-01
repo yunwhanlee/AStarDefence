@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ee7d7a0ddf26d84d84647fede468360, type: 3}
   m_Name: Weapon2
   m_EditorClassIdentifier: 
-  <IsStackable>k__BackingField: 1
+  <IsNoshowInventory>k__BackingField: 0
   <MaxStackSize>k__BackingField: 99
   <Type>k__BackingField: 0
   <Grade>k__BackingField: 1
   <Name>k__BackingField: "\uCCA0\uAC80"
   <Description>k__BackingField: 
-  <ItemImg>k__BackingField: {fileID: 411245896, guid: e433c8bb469a03548ae052468f941483, type: 3}
+  <ItemImg>k__BackingField: {fileID: 2109117235, guid: 94ef4134ce5490b4c8230961b5a4d6b8, type: 3}
   <Abilities>k__BackingField:
   - Type: 0
     Val: 0.1

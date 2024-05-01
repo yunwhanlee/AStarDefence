@@ -90,14 +90,14 @@ namespace Inventory.UI
             ItemImgScaleUIEF.Stop();
             WhiteDimScaleUIEF.Stop();
             ShinyUIEF.Stop();
-            HighGradeSpawnUIEF.enabled = false; //.Stop();
-            Twincle1UIEF.enabled = false;
-            Twincle2UIEF.enabled = false;
-            HighGradeNiceUIEF.Stop();
-            HighGradeRayUIEF.Stop();
-            HighGradeHandUIEF.Stop();
-            HighGradeBurstBlueUIEF.Stop();
-            HighGradeBurstYellowUIEF.Stop();
+            if(HighGradeSpawnUIEF) HighGradeSpawnUIEF.enabled = false; //.Stop();
+            if(Twincle1UIEF) Twincle1UIEF.enabled = false;
+            if(Twincle2UIEF) Twincle2UIEF.enabled = false;
+            if(HighGradeNiceUIEF) HighGradeNiceUIEF.Stop();
+            if(HighGradeRayUIEF) HighGradeRayUIEF.Stop();
+            if(HighGradeHandUIEF) HighGradeHandUIEF.Stop();
+            if(HighGradeBurstBlueUIEF) HighGradeBurstBlueUIEF.Stop();
+            if(HighGradeBurstYellowUIEF) HighGradeBurstYellowUIEF.Stop();
         }
         public void Deselect() => BorderImg.enabled = false;
 
