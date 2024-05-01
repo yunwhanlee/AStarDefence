@@ -148,7 +148,7 @@ public class MergableUIManager : MonoBehaviour {
         var magicianList = GM._.tm.MagicianGroup.GetComponentsInChildren<Tower>().ToList();
         int[] mLvCntArr = SeperateLvToArr(magicianList); // レベル別に分ける
 
-        warriorList.ForEach(tower => tower.StarIconTxtAnim.SetBool(TWINCLE_ANIM, false));
+        warriorList.ForEach(tower => tower?.StarIconTxtAnim.SetBool(TWINCLE_ANIM, false));
         archerList.ForEach(tower => tower.StarIconTxtAnim.SetBool(TWINCLE_ANIM, false));
         magicianList.ForEach(tower => tower.StarIconTxtAnim.SetBool(TWINCLE_ANIM, false));
 

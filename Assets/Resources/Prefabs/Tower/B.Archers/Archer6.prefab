@@ -63051,7 +63051,7 @@ MonoBehaviour:
   AtkType: 0
   BodySprRdr: {fileID: 7354861943751270469}
   MissileSpr: {fileID: -270779740, guid: 58c24ccdded125944a2253fe8954a33b, type: 3}
-  StarIconTxtAnim: {fileID: 0}
+  StarIconTxtAnim: {fileID: 9084604681157307388}
   Name: 
   Lv: 2
   SlowSec: 0

@@ -9,7 +9,7 @@ public class LuckySpinManager : MonoBehaviour {
     //* Values
     private const int DivideAngle = 45; // 360° ÷ 8個
     private const int SpinPower = 700;
-    private const int DecreaseSpinVal = 2;
+    private const int DecreaseSpinVal = 500;
 
     public Action OnClickCloseRewardScreen = () => {};
     [field: SerializeField] public float CurSpeed {get; private set;}
@@ -29,7 +29,7 @@ public class LuckySpinManager : MonoBehaviour {
     void Update() {
         //* 回転のストップをかける
         if(IsStopSpin && CurSpeed > 0) {
-            CurSpeed -= DecreaseSpinVal;
+            CurSpeed -= DecreaseSpinVal * Time.deltaTime;
 
             //* 回転が完全にストップしたら
             if(CurSpeed <= 0) {
@@ -70,21 +70,26 @@ public class LuckySpinManager : MonoBehaviour {
             HM._.hui.ShowMsgError("황금열쇠가 부족합니다.");
             return;
         }
-
-        HM._.GoldKey -= 2;
+        if(IsStopSpin) {
+            // HM._.hui.ShowMsgError("이미 룰렛을 멈추고 있습니다. 끝난뒤에 다시 클릭해주세요!");
+            return;
+        }
         StopSpin();
+        HM._.GoldKey -= 2;
     }
     public void OnClickFreeAdStopSpinBtn() {
         //TODO AD
-
         if(DM._.DB.LuckySpinFreeAdCnt <= 0) {
             HM._.hui.ShowMsgError("일일룰렛광고 무료횟수를 전부 사용하였습니다.");
+            return;
+        }
+        if(IsStopSpin) {
+            // HM._.hui.ShowMsgError("이미 룰렛을 멈추고 있습니다. 끝난뒤에 다시 클릭해주세요!");
             return;
         }
         //* 無料AD数を減る
         DM._.DB.LuckySpinFreeAdCnt--;
         FreeAdBtnCntTxt.text = $"{DM._.DB.LuckySpinFreeAdCnt} / {Config.LUCKYSPIN_FREEAD_CNT}";
-
         StopSpin();
     }
 #endregion
@@ -100,11 +105,6 @@ public class LuckySpinManager : MonoBehaviour {
         FreeAdBtnCntTxt.text = $"{DM._.DB.LuckySpinFreeAdCnt} / {Config.LUCKYSPIN_FREEAD_CNT}";
     }
     private void StopSpin() {
-        //* STOPしたら、止まるまで操作できないように
-        if(IsStopSpin) {
-            HM._.hui.ShowMsgError("이미 진행중인 룰렛이 끝난뒤에 다시 클릭해주세요!");
-            return;
-        }
         //* ストップ
         SM._.SfxPlay(SM.SFX.ItemPickSFX);
         IsStopSpin = true;
