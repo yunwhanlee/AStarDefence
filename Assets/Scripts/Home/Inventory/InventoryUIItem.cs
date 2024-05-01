@@ -28,6 +28,7 @@ namespace Inventory.UI
         [field:SerializeField] public TMP_Text LvTxt {get; set;}
         [field:SerializeField] public Image BorderImg {get; set;}
         [field:SerializeField] public GameObject AlertRedDot {get; set;}
+        [field:SerializeField] public GameObject AlertGreenDot {get; set;}
         [field:SerializeField] public GameObject EquipDim {get; set;} 
         [field:SerializeField] public ParticleImage ItemImgScaleUIEF {get; set;}
         [field:SerializeField] public ParticleImage WhiteDimScaleUIEF {get; set;}
@@ -73,6 +74,7 @@ namespace Inventory.UI
 
             //* Equipスロットは対応しない（そのそのオブジェクトが付いていない）
             if(AlertRedDot) AlertRedDot.SetActive(false);
+            if(AlertRedDot) AlertGreenDot.SetActive(false);
             if(EquipDim) EquipDim.SetActive(false);
 
             IsEmpty = true;
@@ -117,7 +119,10 @@ namespace Inventory.UI
                 BgImg.sprite = HM._.ivm.GradeBgSprs[(int)grade];
                 LightImg.enabled = true;
                 if(EquipDim) EquipDim.SetActive(isEquip); //* EquipスロットはEquipDimオブジェクトがないため、合うかif文でチェック
+                
+                //* マージ可能な物 表示
                 if(quantity >= 10) {
+                    AlertGreenDot.SetActive(true);
                     QuantityTxt.text = $"<color=green>{quantity}</color>";
                     HM._.ivm.AutoMergeBtnAlertIcon.SetActive(true);
                 }

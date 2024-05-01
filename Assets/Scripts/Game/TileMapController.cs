@@ -141,10 +141,11 @@ public class TileMapController : MonoBehaviour {
         }
 
         //* 選択領域の制限
-        if(x < Config.START_POS.x) return;
-        if(x > Config.GOAL_POS.x) return;
-        if(y > Config.START_POS.y) return;
-        if(y < Config.GOAL_POS.y) return;
+        if(x < Config.START_POS.x || x > Config.GOAL_POS.x
+        || y > Config.START_POS.y || y < Config.GOAL_POS.y) {
+            Reset();
+            return;
+        }
 
         CurSelectPos = new Vector2Int(x, y);
 

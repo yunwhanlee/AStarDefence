@@ -195,21 +195,27 @@ namespace Inventory.Model
         /// <summary>
         /// インベントリーの装置アイテムをアップグレード
         /// </summary>
-        public void UpgradeEquipItem(ItemSO item, int quantity, int lv, AbilityType[] abilities, bool isEquip) {
+        public void UpgradeEquipItem(ItemSO curItem, int quantity, int lv, AbilityType[] abilities, bool isEquip) {
             for(int i = 0; i < ItemList.Count; i++) {
-                //* 同じIDを探して
-                if(ItemList[i].Data.ID == item.ID) {
-                    //* アップグレードのMAX制限
-                    int max = (item.Type == Enum.ItemType.Relic)? Config.RELIC_UPGRADE_MAX : Config.EQUIP_UPGRADE_MAX;
-                    lv = Mathf.Min(lv, max);
-                    Debug.Log($"UpgradeEquipItem({ItemList[i].Data.ID} == {item.ID}):: lv= {lv}");
-                    //* 増えたVal値を最新化
-                    ItemList[i] = ItemList[i].ChangeLevel(lv);
-                    // //* イベントリーUI アップデート
-                    // InformAboutChange();
-                    // //* 情報表示ポップアップUI アップデート
-                    // HM._.ivm.UpdateDescription(HM._.ivm.CurItemIdx, item, quantity, lv, abilities, isEquip);
-                    return;
+                try {
+                    //* 同じIDを探して
+                    if(ItemList[i].Data.ID == curItem.ID) {
+                        //* アップグレードのMAX制限
+                        int max = (curItem.Type == Enum.ItemType.Relic)? Config.RELIC_UPGRADE_MAX : Config.EQUIP_UPGRADE_MAX;
+                        lv = Mathf.Min(lv, max);
+                        Debug.Log($"UpgradeEquipItem({ItemList[i].Data.ID} == {curItem.ID}):: lv= {lv}");
+                        //* 増えたVal値を最新化
+                        ItemList[i] = ItemList[i].ChangeLevel(lv);
+                        // //* イベントリーUI アップデート
+                        // InformAboutChange();
+                        // //* 情報表示ポップアップUI アップデート
+                        // HM._.ivm.UpdateDescription(HM._.ivm.CurItemIdx, item, quantity, lv, abilities, isEquip);
+                        return;
+                    }
+                }
+                catch(Exception msg) {
+                    Debug.LogWarning("(BUG) " + msg);
+                    Debug.Log($"ItemList[{i}]= {ItemList[i]}");
                 }
             }
         }
@@ -259,7 +265,8 @@ namespace Inventory.Model
 
                     //* 数量を減る
                     int mergeCnt = item.Quantity / MERGE_UNIT;
-                    ItemList[i] = item.ChangeQuantity(item.Quantity - mergeCnt * MERGE_UNIT);
+                    int removeQuantity = mergeCnt * MERGE_UNIT;
+                    ItemList[i] = item.ChangeQuantity(item.Quantity - removeQuantity);
 
                     //* もしマージしてから、以前のアイテム数量が０なら、削除（Empty）
                     if(ItemList[i].Quantity <= 0) 
@@ -287,8 +294,11 @@ namespace Inventory.Model
                     AddStackableItem(nextItemDt, mergeCnt, lv: 1, relicAbilities, item.IsEquip, isNewAlert: true);
                 }
             }
+            //* 整列
+            SortInventory();
             //* イベントリーUI アップデート
             InformAboutChange();
+
             HM._.hui.ShowMsgNotice("자동합성 완료!");
         }
 

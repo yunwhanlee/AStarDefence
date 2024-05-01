@@ -214,30 +214,6 @@ namespace Inventory.UI
             }
         }
 
-        // private void HandleEndDrag(InventoryUIItem invItemUI)
-        //     => ResetDraggedItem();
-
-        // private void HandleSwap(InventoryUIItem invItemUI) {
-        //     int idx = InvUIItemList.IndexOf(invItemUI);
-        //     if(idx == -1) return;
-        //     if(curDraggedItemIdx == -1) return;
-        //     OnSwapItems?.Invoke(curDraggedItemIdx, idx);
-        //     HandleItemSelection(invItemUI);
-        // }
-
-        // private void HandleBeginDrag(InventoryUIItem invItemUI) {
-        //     int idx = InvUIItemList.IndexOf(invItemUI);
-        //     if(idx == -1) return;
-        //     curDraggedItemIdx = idx;
-        //     HandleItemSelection(invItemUI);
-        //     OnStartDragging?.Invoke(idx);
-        // }
-
-        // public void CreateDraggedItem(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv) {
-        //     MouseFollower.Toggle(true);
-        //     MouseFollower.SetUIData(type, grade, spr, quantity, lv);
-        // } 
-
         public void HandleItemSelection(InventoryUIItem invItemUI) {
             //* アイテムのINDEX 習得
             int idx;
