@@ -9,6 +9,7 @@ using TMPro;
 namespace Inventory.UI 
 {
     public class InventoryUIManager : MonoBehaviour {
+        [field:SerializeField] public int CurCateIdx;
         [field:SerializeField] public int CurItemIdx;
         [field:SerializeField] public InventoryItem CurInvItem;
 
@@ -63,6 +64,8 @@ namespace Inventory.UI
     /// <param name="cateIdx">０：全て、１：WEAPON、２：SHOES、３：ACCESARY、４：CROWN, 5：ETC</param>
     public void OnClickCateMenuIconBtn(int cateIdx) {
         SM._.SfxPlay(SM.SFX.ClickSFX);
+        CurCateIdx = cateIdx;
+
         //* Move Tap UnderLine
         const int ORIGIN_X = -450, MOVE_X_UNIT = 180;
         CateUnderline.anchoredPosition = new Vector2(ORIGIN_X + (cateIdx * MOVE_X_UNIT), CateUnderline.anchoredPosition.y);

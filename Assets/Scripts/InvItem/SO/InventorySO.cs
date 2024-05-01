@@ -242,6 +242,7 @@ namespace Inventory.Model
                 }
             }
 
+            //* 除外
             if(!isMergable) {
                 HM._.hui.ShowMsgError("합성할 아이템이 없습니다.");
                 return;
@@ -258,8 +259,7 @@ namespace Inventory.Model
                 InventoryItem item = ItemList[i];
                 if(item.Quantity >= MERGE_UNIT) {
                     if(item.Data.Grade == Enum.Grade.Prime) {
-                        //TODO もし、最後までできて、またマージするとしたらどうする？
-                        Debug.Log("最後の等級までしたので、もう次がない");
+                        Debug.Log("最後の等級なので、処理しない");
                         continue;
                     }
 
@@ -292,12 +292,15 @@ namespace Inventory.Model
 
                     //* アイテムマージ
                     AddStackableItem(nextItemDt, mergeCnt, lv: 1, relicAbilities, item.IsEquip, isNewAlert: true);
+                    
                 }
             }
             //* 整列
             SortInventory();
             //* イベントリーUI アップデート
             InformAboutChange();
+            //* 現在カテゴリ表示を再ロード ➝ ずれたスロットリストを正しく合わせる
+            HM._.ivm.OnClickCateMenuIconBtn(HM._.ivm.CurCateIdx);
 
             HM._.hui.ShowMsgNotice("자동합성 완료!");
         }
