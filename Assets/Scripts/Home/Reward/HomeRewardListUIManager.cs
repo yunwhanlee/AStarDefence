@@ -6,12 +6,13 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using AssetKits.ParticleImage;
-using JetBrains.Annotations;
 
 public class HomeRewardListUIManager : MonoBehaviour {
     [Header("REWARD LIST POPUP")]
     public GameObject WindowObj;
     public Transform Content;
+    public List<InventoryUIItem> rwdSlotList;
+
     public bool IsFinishSlotsSpawn = false;
 
     [Header("REWARD CHEST POPUP")]
@@ -21,12 +22,19 @@ public class HomeRewardListUIManager : MonoBehaviour {
     public TMP_Text ChestAlertCntTxt;
     public Image ChestTitleRibbonImg;
     public Image ChestImg;
-
     public Action OnClickOpenChest = () => {};
 
-    [Header("REWARD DATA")]
-    public InventoryUIItem rwdItemPf;
+    [field: Header("REWARD DATA")]
+    // public InventoryUIItem rwdItemPf;
     [field: SerializeField] public RewardItemSO RwdItemDt {get; private set;}
+
+    void Start() {
+        //* 初期化 スロットリスト
+        for(int i = 0; i < Content.childCount; i++) {
+            rwdSlotList.Add(Content.GetChild(i).GetComponent<InventoryUIItem>());
+            rwdSlotList[i].gameObject.SetActive(false);
+        }
+    }
 
 #region EVENT
     public void OnClickOpenChestImgBtn() => OnClickOpenChest?.Invoke();
@@ -52,16 +60,20 @@ public class HomeRewardListUIManager : MonoBehaviour {
 #endregion
 
 #region FUNC
-    private void DeleteAll() {
-        foreach (Transform child in Content)
-            Destroy(child.gameObject);
+    private void ReleaseAll() {
+        rwdSlotList.ForEach(rwdSlot => {
+            rwdSlot.ResetUI();
+            rwdSlot.gameObject.SetActive(false);
+        });
+        // foreach (Transform child in Content)
+        //     child.gameObject.SetActive(false); // Destroy(child.gameObject);
     }
 
     IEnumerator CoPlayRewardSlotSpawnSFX(int cnt) {
         IsFinishSlotsSpawn = true;
         yield return Util.Time0_5;
         for(int i = 0; i < cnt; i++) {
-            SM._.SfxPlay(SM.SFX.InvUnEquipSFX);
+            SM._.SfxPlay(SM.SFX.ItemPickSFX);
             yield return Util.Time0_1;
         }
         IsFinishSlotsSpawn = false;
@@ -71,30 +83,42 @@ public class HomeRewardListUIManager : MonoBehaviour {
     /// リワードリスト表示
     /// </summary>
     private void DisplayRewardList(List<RewardItem> rewardList) {
+        //* サウンド
         StartCoroutine(CoPlayRewardSlotSpawnSFX(rewardList.Count));
 
         //* リワードリストへオブジェクト生成・追加
         for(int i = 0; i < rewardList.Count; i++) {
+            float delay = 0.5f + i * 0.1f;
             RewardItem rewardItem = rewardList[i];
-            InventoryUIItem rwdItemUI = Instantiate(rwdItemPf.gameObject, Content).GetComponent<InventoryUIItem>();
-            rwdItemUI.SetUI(rewardItem.Data.Type, rewardItem.Data.Grade, rewardItem.Data.ItemImg, rewardItem.Quantity, lv: 1);
-            // rwdItemUI.IsNewAlert = true;
+            rwdSlotList[i].gameObject.SetActive(true);
+            rwdSlotList[i].SetUI(rewardItem.Data.Type, rewardItem.Data.Grade, rewardItem.Data.ItemImg, rewardItem.Quantity, lv: 1);
             //* Particle UI Effect 1
-            rwdItemUI.PlayScaleUIEF(rwdItemUI, rewardItem.Data.ItemImg);
-            rwdItemUI.ItemImgScaleUIEF.startDelay = 0.5f + i * 0.1f;
+            rwdSlotList[i].PlayScaleUIEF(rwdSlotList[i], rewardItem.Data.ItemImg);
+            rwdSlotList[i].ItemImgScaleUIEF.startDelay = delay;
             //* Particle UI Effect 2
-            rwdItemUI.WhiteDimScaleUIEF.lifetime = 0.5f + i * 0.1f;
-            rwdItemUI.WhiteDimScaleUIEF.Play();
-            //* Particle UI Equipment High Grade Effect 3
+            rwdSlotList[i].WhiteDimScaleUIEF.lifetime = delay;
+            rwdSlotList[i].WhiteDimScaleUIEF.Play();
+            
+            //* UNIQUE等級なら
             if(rewardItem.Data.Grade >= Enum.Grade.Unique) {
-                SM._.SfxPlay(SM.SFX.Merge3SFX, 0.5f + i * 0.1f);
-                rwdItemUI.HighGradeSpawnUIEF.Play();
-
+                //* 音
+                switch(rewardItem.Data.Grade) {
+                    case Enum.Grade.Unique: SM._.SfxPlay(SM.SFX.Merge2SFX, delay); break;
+                    case Enum.Grade.Legend: SM._.SfxPlay(SM.SFX.Merge3SFX, delay); break;
+                    case Enum.Grade.Myth:   SM._.SfxPlay(SM.SFX.Merge4SFX, delay); break;
+                    case Enum.Grade.Prime:  SM._.SfxPlay(SM.SFX.Merge5SFX, delay); break;
+                }
+                //* Particle UI Equipment Effect 3
+                rwdSlotList[i].HighGradeSpawnUIEF.enabled = true; //Play();
+                rwdSlotList[i].Twincle1UIEF.enabled = true;
+                rwdSlotList[i].Twincle2UIEF.enabled = true;
                 //* High Grade Nice Effect 4
-                rwdItemUI.HighGradeNiceUIEF.startDelay = 0.5f + i * 0.1f;
-                rwdItemUI.HighGradeNiceUIEF.GetComponentsInChildren<ParticleImage>()[1].startDelay = 0.5f + i * 0.1f;
-                rwdItemUI.HighGradeNiceUIEF.GetComponentsInChildren<ParticleImage>()[2].startDelay = 0.5f + i * 0.1f;
-                rwdItemUI.HighGradeNiceUIEF.Play();
+                rwdSlotList[i].HighGradeNiceUIEF.startDelay = delay;
+                rwdSlotList[i].HighGradeRayUIEF.startDelay = delay;
+                rwdSlotList[i].HighGradeHandUIEF.startDelay = delay;
+                rwdSlotList[i].HighGradeBurstBlueUIEF.startDelay = delay;
+                rwdSlotList[i].HighGradeBurstYellowUIEF.startDelay = delay;
+                rwdSlotList[i].HighGradeNiceUIEF.Play();
             }
         }
     }
@@ -102,7 +126,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
         SM._.SfxPlay(SM.SFX.RewardSFX);
         HM._.hui.IsActivePopUp = true;
         WindowObj.SetActive(true);
-        DeleteAll();
+        ReleaseAll();
         DisplayRewardList(itemList);
     }
     /// <summary>

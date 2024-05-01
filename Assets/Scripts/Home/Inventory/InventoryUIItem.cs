@@ -34,7 +34,13 @@ namespace Inventory.UI
         [field:SerializeField] public ParticleImage WhiteDimScaleUIEF {get; set;}
         [field:SerializeField] public ParticleImage ShinyUIEF {get; set;}
         [field:SerializeField] public ParticleImage HighGradeSpawnUIEF {get; set;}
+        [field:SerializeField] public ParticleImage Twincle1UIEF {get; set;}
+        [field:SerializeField] public ParticleImage Twincle2UIEF {get; set;}
         [field:SerializeField] public ParticleImage HighGradeNiceUIEF {get; set;}
+        [field:SerializeField] public ParticleImage HighGradeRayUIEF {get; set;}
+        [field:SerializeField] public ParticleImage HighGradeHandUIEF {get; set;}
+        [field:SerializeField] public ParticleImage HighGradeBurstBlueUIEF {get; set;}
+        [field:SerializeField] public ParticleImage HighGradeBurstYellowUIEF {get; set;}
         public bool IsEmpty = false;
         public event Action<InventoryUIItem> OnItemClicked, 
             OnItemDroppedOn, 
@@ -81,7 +87,17 @@ namespace Inventory.UI
             // IsNewAlert = false;
             QuantityTxt.text = "";
             LvTxt.text = "";
+            ItemImgScaleUIEF.Stop();
+            WhiteDimScaleUIEF.Stop();
             ShinyUIEF.Stop();
+            HighGradeSpawnUIEF.enabled = false; //.Stop();
+            Twincle1UIEF.enabled = false;
+            Twincle2UIEF.enabled = false;
+            HighGradeNiceUIEF.Stop();
+            HighGradeRayUIEF.Stop();
+            HighGradeHandUIEF.Stop();
+            HighGradeBurstBlueUIEF.Stop();
+            HighGradeBurstYellowUIEF.Stop();
         }
         public void Deselect() => BorderImg.enabled = false;
 
