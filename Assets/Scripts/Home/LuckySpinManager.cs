@@ -106,7 +106,7 @@ public class LuckySpinManager : MonoBehaviour {
     }
     private void StopSpin() {
         //* ストップ
-        SM._.SfxPlay(SM.SFX.ItemPickSFX);
+        SM._.SfxPlay(SM.SFX.WaveStartSFX);
         IsStopSpin = true;
         StopBtnTxt.color = Color.red;
     }
