@@ -3064,6 +3064,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Popup_OutTitle
       objectReference: {fileID: 0}
+    - target: {fileID: 140138820334645833, guid: c2ecadbcf96484b9b91c3aad1b9b9c6d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
