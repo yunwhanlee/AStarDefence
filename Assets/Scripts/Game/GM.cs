@@ -148,6 +148,9 @@ public class GM : MonoBehaviour {
         string stageInfoTxt = $"{StageDts[Stage].Name}\n<size=70%>- {difficulty} -</size>";
         gef.ActiveStageTitleAnim(stageInfoTxt);
         gui.StageInfoTxt.text = stageInfoTxt; // Pauseのステージ情報テキストにも代入
+
+        //* Tutorial PopUP
+        TM._.TutoWindowObj.SetActive(true);
     }
 
 #region EVENT
