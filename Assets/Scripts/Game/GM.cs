@@ -149,8 +149,8 @@ public class GM : MonoBehaviour {
         gef.ActiveStageTitleAnim(stageInfoTxt);
         gui.StageInfoTxt.text = stageInfoTxt; // Pauseのステージ情報テキストにも代入
 
-        //* Tutorial PopUP
-        TM._.TutoWindowObj.SetActive(true);
+        //* Tutorial Pop Up
+        TM._.ShowHowToPlayPopUp();
     }
 
 #region EVENT
