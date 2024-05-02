@@ -5,6 +5,7 @@ using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CharacterScripts;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public enum TowerType {Random, Board, CC_IceTower, CC_StunTower}
 public enum TowerKind {None = -1, Warrior, Archer, Magician}
@@ -36,7 +37,7 @@ public abstract class Tower : MonoBehaviour {
     public AttackType AtkType;
     public SpriteRenderer BodySprRdr;
     public Sprite MissileSpr;
-    public Animator StarIconTxtAnim;
+    public DOTweenAnimation StarIconDTAnim;
     public string Name;
     [Range(1, 7)] public int Lv;
     public int LvIdx { get => Lv - 1;}
@@ -128,6 +129,7 @@ public abstract class Tower : MonoBehaviour {
 
     void Awake() {
         sktDb = DM._.DB.SkillTreeDB;
+        StarIconDTAnim = GetComponentInChildren<DOTweenAnimation>();
         trc = GetComponentInChildren<TowerRangeController>();
         chara = GetComponentInChildren<Character>();
         StateUpdate(); //* Init

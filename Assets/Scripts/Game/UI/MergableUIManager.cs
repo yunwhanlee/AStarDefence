@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -148,9 +149,9 @@ public class MergableUIManager : MonoBehaviour {
         var magicianList = GM._.tm.MagicianGroup.GetComponentsInChildren<Tower>().ToList();
         int[] mLvCntArr = SeperateLvToArr(magicianList); // レベル別に分ける
 
-        warriorList.ForEach(tower => tower?.StarIconTxtAnim.SetBool(TWINCLE_ANIM, false));
-        archerList.ForEach(tower => tower.StarIconTxtAnim.SetBool(TWINCLE_ANIM, false));
-        magicianList.ForEach(tower => tower.StarIconTxtAnim.SetBool(TWINCLE_ANIM, false));
+        warriorList.ForEach(tower => tower.StarIconDTAnim.DOPause());
+        archerList.ForEach(tower => tower.StarIconDTAnim.DOPause());
+        magicianList.ForEach(tower => tower.StarIconDTAnim.DOPause());
 
         //* マージできるタワーのみ抽出
         List<string> mergableList = new List<string>();
@@ -159,7 +160,7 @@ public class MergableUIManager : MonoBehaviour {
                 mergableList.Add($"w_{i}");
                 warriorList.ForEach(tower => {
                     if(tower.Lv == i + 1)
-                        tower.StarIconTxtAnim.SetBool(TWINCLE_ANIM, true);
+                        tower.StarIconDTAnim.DOPlay();
                 });
             }
             
@@ -169,7 +170,7 @@ public class MergableUIManager : MonoBehaviour {
                 mergableList.Add($"a_{i}");
                 archerList.ForEach(tower => {
                     if(tower.Lv == i + 1)
-                        tower.StarIconTxtAnim.SetBool(TWINCLE_ANIM, true);
+                        tower.StarIconDTAnim.DOPlay();
                 });
             }
 
@@ -178,7 +179,7 @@ public class MergableUIManager : MonoBehaviour {
                 mergableList.Add($"m_{i}");
                 magicianList.ForEach(tower => {
                     if(tower.Lv == i + 1)
-                        tower.StarIconTxtAnim.SetBool(TWINCLE_ANIM, true);
+                        tower.StarIconDTAnim.DOPlay();
                 });
             }
 
