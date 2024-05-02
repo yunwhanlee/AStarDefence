@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AssetKits.ParticleImage;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -21,6 +22,8 @@ public class LuckySpinManager : MonoBehaviour {
     [field: SerializeField] public TMP_Text StopBtnTxt {get; private set;}
     [field: SerializeField] public TMP_Text GoldkeyTxt {get; private set;}
     [field: SerializeField] public TMP_Text FreeAdBtnCntTxt {get; private set;}
+    [field: SerializeField] public ParticleImage GoldKeyAttractionUIEF {get; private set;}
+    
 
     void Start() {
         ResetUI();
@@ -107,6 +110,7 @@ public class LuckySpinManager : MonoBehaviour {
     private void StopSpin() {
         //* ストップ
         SM._.SfxPlay(SM.SFX.WaveStartSFX);
+        GoldKeyAttractionUIEF.Play();
         IsStopSpin = true;
         StopBtnTxt.color = Color.red;
     }

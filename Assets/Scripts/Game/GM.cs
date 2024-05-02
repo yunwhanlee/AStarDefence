@@ -114,6 +114,7 @@ public class GM : MonoBehaviour {
                 break;
             case Config.Stage.STG_GOBLIN_DUNGEON:
                 SM._.BgmPlay(SM.BGM.GoblinDungeonBGM);
+                gef.GoldKeyAttractionUIEF.Play();
                 break;
         }
 

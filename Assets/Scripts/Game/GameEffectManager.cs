@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 using TMPro;
+using AssetKits.ParticleImage;
 
 public enum GameEF_ActiveObj {
     BlizzardScrollNovaEF,
@@ -73,6 +74,7 @@ public class GameEffectManager : MonoBehaviour {
 
     [field:Header("UI Active Type")]
     [field:SerializeField] public GameObject StageTitleAnim;
+    [field:SerializeField] public ParticleImage GoldKeyAttractionUIEF;
 
     [field:Header("Pool Type")]
     List<ObjectPool<GameObject>> pool = new List<ObjectPool<GameObject>>();
