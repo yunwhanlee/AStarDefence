@@ -46,8 +46,8 @@ public class GameUIManager : MonoBehaviour {
     [Header("PAUSE POPUP")]
     public GameObject PausePopUp;
     public TextMeshProUGUI StageInfoTxt;
-    private GameState previousState;
-    private float previousTimeScale;
+    [SerializeField] private GameState previousState;
+    [SerializeField] private float previousTimeScale;
 
     [Header("GAMEOVER POPUP")]
     public GameObject GameoverPopUp;
@@ -81,6 +81,8 @@ public class GameUIManager : MonoBehaviour {
 
     void Start() {
         CorMsgNoticeID = null;
+        previousState = GameState.Ready;
+        previousTimeScale = 1;
         TopMsgError.SetActive(false);
         ResetWallBtn.gameObject.SetActive(true);
         WaveTxt.text = $"WAVE {GM._.WaveCnt} / {GM._.MaxWave}";
@@ -219,8 +221,12 @@ public class GameUIManager : MonoBehaviour {
     /// ゲームを停止状態にする
     /// </summary>
     public void Pause() {
-        previousState = GM._.State;
-        previousTimeScale = Time.timeScale;
+        //* 現在の状態がPAUSEなら、しない。（戻してもPAUSEになるバグがあるので）
+        if(GM._.State != GameState.Pause)
+            previousState = GM._.State;
+        //* 現在のTimeScaleが０なら、しない。（戻してもTimeScaleが０になるバグがあるので）
+        if(Time.timeScale != 0)
+            previousTimeScale = Time.timeScale;
         Time.timeScale = 0;
         GM._.State = GameState.Pause;
     }

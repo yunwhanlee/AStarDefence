@@ -92,7 +92,6 @@ public class GM : MonoBehaviour {
         state = GameState.Ready;
         CorReadyWaveID = null;
         IsReady = false;
-
         Stage = DM._.SelectedStage;
 
         //* BGM
@@ -150,7 +149,7 @@ public class GM : MonoBehaviour {
         gui.StageInfoTxt.text = stageInfoTxt; // Pauseのステージ情報テキストにも代入
 
         //* Tutorial Pop Up
-        TM._.ShowHowToPlayPopUp();
+        TutoM._.ShowHowToPlayPopUp(delay: 0.3f);
     }
 
 #region EVENT
@@ -176,6 +175,12 @@ public class GM : MonoBehaviour {
     #endregion
 
     public void OnClickStartBtn() {
+        int towerCnt = tm.WarriorGroup.childCount + tm.ArcherGroup.childCount + tm.MagicianGroup.childCount;
+        if(towerCnt <= 0) {
+            gui.ShowMsgError("타워를 1개 이상 건설해주세요!");
+            return;
+        }
+
         if(!IsReady) {
             //* WAVE準備
             IsReady = true;
@@ -190,6 +195,9 @@ public class GM : MonoBehaviour {
             gui.SetStartBtnUI(IsReady);
             StartWave();
             StopCoroutine(CorReadyWaveID);
+
+            if(WaveCnt == 1)
+                TutoM._.ShowEnemyInfoPopUp(page: 0);
         }
     }
 #endregion

@@ -47,20 +47,21 @@ public class TileMapController : MonoBehaviour {
     /// <param name="_y">MergableItemのクリックイベント用としてY軸を渡す</param>
     /// <param name="col">MergableItemのクリックイベント用のコライダーを渡す</param>
     public void OnClickTile(int _x = -9999, int _y = -9999, Collider2D col = null) {
-        SM._.SfxPlay(SM.SFX.ClickSFX);
 
         //* UIに触れているなら、以下のRayCast処理しなくて終了
         // #if UNITY_EDITOR
-            if (EventSystem.current.currentSelectedGameObject && !col) {
-                Debug.Log($"OnClickTile():: Click UI Area");
-                return;
-            }
+        if (EventSystem.current.currentSelectedGameObject && !col) {
+            Debug.Log($"OnClickTile():: Click UI Area");
+            return;
+        }
         // #else
         //     if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)) return;
         // #endif
 
         if(GM._.State == GameState.Pause) return;
         if(GM._.State == GameState.Gameover) return;
+
+        SM._.SfxPlay(SM.SFX.ClickSFX);
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // 스크린 좌표를 월드 좌표로 변환
         int x = (_x == -9999)? (int)Math.Round(mousePos.x) : _x;

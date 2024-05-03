@@ -67,11 +67,19 @@ public class BossRewardUIManager : MonoBehaviour {
         GM._.actBar.SuccessionTicket++;
         UpdateData("계승권 획득");
     }
+    public void OnClickTypeSuccessionInfoIconBtn() {
+        Debug.Log("OnClickTypeSuccessionInfoIconBtn()::");
+        TutoM._.ShowEnemyInfoPopUp(page: 1);
+    }
     /// <summary>タワーのタイプ変更券</summary>
     public void OnClickChangeTypeTicket() {
         Debug.Log("OnClickChangeTypeTicket()::");
         GM._.actBar.ChangeTypeTicket++;
         UpdateData("변경권 획득");
+    }
+    public void OnClickChangeTypeInfoIconBtn() {
+        Debug.Log("OnClickChangeTypeInfoIconBtn()::");
+        TutoM._.ShowEnemyInfoPopUp(page: 2);
     }
     /// <summary>ライフの増加</summary>
     public void OnClickIncreaseLife() {
