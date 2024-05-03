@@ -148,7 +148,8 @@ public class GM : MonoBehaviour {
         gef.ActiveStageTitleAnim(stageInfoTxt);
         gui.StageInfoTxt.text = stageInfoTxt; // Pauseのステージ情報テキストにも代入
 
-        //* Tutorial Pop Up
+        //* Tutorial
+        TutoM._.InitGameBubbleElements();
         TutoM._.ShowHowToPlayPopUp(delay: 0.3f);
     }
 
@@ -196,8 +197,14 @@ public class GM : MonoBehaviour {
             StartWave();
             StopCoroutine(CorReadyWaveID);
 
-            if(WaveCnt == 1)
+            //* Tutorial
+            if(WaveCnt == 1) {
+                // EnemyInfoPopUp 表示
                 TutoM._.ShowEnemyInfoPopUp(page: 0);
+                // Bubble 非表示
+                TutoM._.G_TutoPathFindBubble.SetActive(false);
+                TutoM._.G_TutoWaveStartBubble.SetActive(false);
+            }
         }
     }
 #endregion

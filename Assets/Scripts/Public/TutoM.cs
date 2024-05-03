@@ -20,6 +20,8 @@ public class TutoM : MonoBehaviour {
 
     [field: Header("HOME")]
     [field: SerializeField] public GameObject H_TutoGameStartBubble {get; private set;}
+    [field: SerializeField] public GameObject G_TutoPathFindBubble {get; private set;}
+    [field: SerializeField] public GameObject G_TutoWaveStartBubble {get; private set;}
 
     void Awake() => singleton();
 
@@ -99,6 +101,14 @@ public class TutoM : MonoBehaviour {
 #endregion
 
 #region FUNC
+    public void InitHomeBubbleElements() {
+        H_TutoGameStartBubble = GameObject.Find("H_TutoGameStartBubble");
+    }
+    public void InitGameBubbleElements() {
+        G_TutoPathFindBubble = GameObject.Find("G_TutoPathFindBubble");
+        G_TutoWaveStartBubble = GameObject.Find("G_TutoWaveStartBubble");
+    }
+
     public void ShowHowToPlayPopUp(float delay) {
         SM._.SfxPlay(SM.SFX.ItemPickSFX, delay);
         HowToPlayPopUpObj.SetActive(true);
