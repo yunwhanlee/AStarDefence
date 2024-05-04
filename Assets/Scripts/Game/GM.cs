@@ -173,6 +173,9 @@ public class GM : MonoBehaviour {
         DestroyImmediate(tower.gameObject);
         actBar.UpdateUI(Enum.Layer.Tower);
     }
+    public void OnClickVictoryBtn() {
+        Victory();
+    }
     #endregion
 
     public void OnClickStartBtn() {
@@ -187,6 +190,7 @@ public class GM : MonoBehaviour {
             IsReady = true;
             gui.SetStartBtnUI(IsReady);
             pfm.PathFinding(true);
+            esm.ShowNextEnemyStateUI();
             CorReadyWaveID = StartCoroutine(CoReadyWave());
         }
         else {
@@ -196,6 +200,7 @@ public class GM : MonoBehaviour {
             gui.SetStartBtnUI(IsReady);
             StartWave();
             StopCoroutine(CorReadyWaveID);
+            esm.NextEnemyInfoPopUpUI.Obj.SetActive(false);
 
             //* Tutorial
             if(WaveCnt == 1) {
@@ -218,6 +223,7 @@ public class GM : MonoBehaviour {
         IsReady = false;
         CorReadyWaveID = null;
         gui.SetStartBtnUI(IsReady);
+        esm.NextEnemyInfoPopUpUI.Obj.SetActive(false);
     }
 
     /// <summary>

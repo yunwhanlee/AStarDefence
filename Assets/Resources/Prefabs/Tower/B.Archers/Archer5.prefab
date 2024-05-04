@@ -19827,7 +19827,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 4723107735738678597, guid: 6d3daa66bbfadf74faac59eacfc5fc42, type: 3}
+  m_Sprite: {fileID: 4723107735738678597, guid: e9362da2371c9cb42a0179a954910984, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -19851,7 +19851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library: []
-  m_SpriteLibraryAsset: {fileID: 11400000, guid: f5dc4c897cd5aa14f9636fae7b0f175d, type: 2}
+  m_SpriteLibraryAsset: {fileID: 11400000, guid: bc5140e78804e51458da8f10d60b29e3, type: 2}
 --- !u!114 &8975663416805615310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24984,7 +24984,6 @@ MonoBehaviour:
   AtkType: 0
   BodySprRdr: {fileID: 7354861943751270469}
   MissileSpr: {fileID: -1517995853, guid: 58c24ccdded125944a2253fe8954a33b, type: 3}
-  StarIconTxtAnim: {fileID: 0}
   StarIconDTAnim: {fileID: 0}
   Name: 
   Lv: 2

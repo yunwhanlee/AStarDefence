@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class EnemyInfoUI {
     [field: SerializeField] public GameObject Obj {get; private set;}
+    [field: SerializeField] public DOTweenAnimation DOTAnim {get; set;}
     [field: SerializeField] public Image IconFrame {get; set;}
     [field: SerializeField] public Image IconImg {get; set;}
     [field: SerializeField] public TextMeshProUGUI LvTxt {get; set;}
@@ -35,6 +37,10 @@ public class EnemyInfoUI {
         SpeedTxt.text = $"{enemy.Speed}";
 
         Obj.SetActive(true);
+
+        //* Next EnemyInfo Windowのみ 実行
+        if(DOTAnim)
+            DOTAnim.DORestart();
     }
 }
 
@@ -60,13 +66,16 @@ public class EnemyStateUIManager : MonoBehaviour {
 
 #region EVENT
     public void OnClickNextEnemyInfoFlagBtn() {
-        GM._.gui.Pause();
-        ShowNextEnemyStateUI();
+        //* 閉じる
+        if(NextEnemyInfoPopUpUI.Obj.activeSelf)
+            NextEnemyInfoPopUpUI.Obj.SetActive(false);
+        //* 開く
+        else
+            ShowNextEnemyStateUI();
     }
-    public void OnClickCloseNextEnemyInfoPopUp() {
-        GM._.gui.Play();
-        NextEnemyInfoPopUpUI.Obj.SetActive(false);
-    }
+    // public void OnClickCloseNextEnemyInfoPopUp() {
+    //     NextEnemyInfoPopUpUI.Obj.SetActive(false);
+    // }
     public void OnClickCloseBossSpawnAnimWindowScreenBtn() {
         GM._.gui.Play();
         BossSpawnWindowAnimObj.SetActive(false);

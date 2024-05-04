@@ -43,6 +43,7 @@ public class GameConsumeItemUIManager : MonoBehaviour {
 
     [field: Header("UI Elements")]
     [field: SerializeField] public Image BagIconImg {get; set;}
+    [field: SerializeField] public TMP_Text BagActiveTxt {get; set;}
     [field: SerializeField] public GameObject ConsumeItemBtnGroup {get; set;}
     [field: SerializeField] public ConsumableItemBtn[] ConsumableItemBtns {get; set;}
     [field: SerializeField] public ParticleImage StreamPack0AuraUIEF {get; set;}
@@ -57,6 +58,12 @@ public class GameConsumeItemUIManager : MonoBehaviour {
             item.IsActive = false;
             item.QuantityTxt.text = "0";
         }
+
+        // Bag
+        IsBagActive = true;
+        BagIconImg.sprite = BagIconSprs[BAG_ACTIVE];
+        BagActiveTxt.text =  "ON";
+
         //* インベントリーからの消費アイテムの数 表示
         UpdateBtnQuantityTxt();
     }
@@ -65,6 +72,7 @@ public class GameConsumeItemUIManager : MonoBehaviour {
     public void OnClickToogleBagIconBtn() {
         IsBagActive = !IsBagActive;
         BagIconImg.sprite = BagIconSprs[IsBagActive? BAG_ACTIVE : BAG_INACTIVE];
+        BagActiveTxt.text = IsBagActive? "ON" : "OFF";
         ConsumeItemBtnGroup.SetActive(IsBagActive);
     }
     /// <summary>
