@@ -69,7 +69,7 @@ public class BossRewardUIManager : MonoBehaviour {
     }
     public void OnClickTypeSuccessionInfoIconBtn() {
         Debug.Log("OnClickTypeSuccessionInfoIconBtn()::");
-        TutoM._.ShowEnemyInfoPopUp(page: 1);
+        TutoM._.ShowTutoPopUp(TutoM.ENEMY_IFNO, pageIdx: 1); //TutoM._.ShowEnemyInfoPopUp(page: 1);
     }
     /// <summary>タワーのタイプ変更券</summary>
     public void OnClickChangeTypeTicket() {
@@ -79,7 +79,7 @@ public class BossRewardUIManager : MonoBehaviour {
     }
     public void OnClickChangeTypeInfoIconBtn() {
         Debug.Log("OnClickChangeTypeInfoIconBtn()::");
-        TutoM._.ShowEnemyInfoPopUp(page: 2);
+        TutoM._.ShowTutoPopUp(TutoM.ENEMY_IFNO, pageIdx: 2); //TutoM._.ShowEnemyInfoPopUp(page: 2);
     }
     /// <summary>ライフの増加</summary>
     public void OnClickIncreaseLife() {

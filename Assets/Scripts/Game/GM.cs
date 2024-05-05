@@ -150,7 +150,7 @@ public class GM : MonoBehaviour {
 
         //* Tutorial
         TutoM._.InitGameBubbleElements();
-        TutoM._.ShowHowToPlayPopUp(delay: 0.3f);
+        TutoM._.ShowTutoPopUp(TutoM.HOWTIPLAY_INFO, pageIdx: 0, 0.3f); // TutoM._.ShowHowToPlayPopUp(delay: 0.3f);
     }
 
 #region EVENT
@@ -186,6 +186,7 @@ public class GM : MonoBehaviour {
         }
 
         if(!IsReady) {
+            SM._.SfxPlay(SM.SFX.ClickSFX);
             //* WAVE準備
             IsReady = true;
             gui.SetStartBtnUI(IsReady);
@@ -205,7 +206,7 @@ public class GM : MonoBehaviour {
             //* Tutorial
             if(WaveCnt == 1) {
                 // EnemyInfoPopUp 表示
-                TutoM._.ShowEnemyInfoPopUp(page: 0);
+                TutoM._.ShowTutoPopUp(TutoM.ENEMY_IFNO, pageIdx: 0); // TutoM._.ShowEnemyInfoPopUp(page: 0);
                 // Bubble 非表示
                 TutoM._.G_TutoPathFindBubble.SetActive(false);
                 TutoM._.G_TutoWaveStartBubble.SetActive(false);

@@ -55,6 +55,7 @@ public class PathFindManager : MonoBehaviour
 
     #region EVENT
         public void OnClickPathFindBtn() {
+            SM._.SfxPlay(SM.SFX.ClickSFX);
             PathFinding(isShowPath: true);
         }
     #endregion

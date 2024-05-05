@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SettingManager : MonoBehaviour {
     [field: SerializeField] public GameObject WindowObj {get; private set;}
+    [field: SerializeField] public GameObject LanguageWindowObj {get; private set;}
+    [field: SerializeField] public GameObject ShowTutorialWindowObj {get; private set;}
     [field: SerializeField] public GameObject BgmToogleCheckImg {get; private set;}
     [field: SerializeField] public GameObject SfxToogleCheckImg {get; private set;}
 
@@ -39,12 +41,34 @@ public class SettingManager : MonoBehaviour {
         SfxToogleCheckImg.SetActive(DM._.DB.SettingDB.IsActiveSfx);
         SM._.ActiveSFX(DM._.DB.SettingDB.IsActiveSfx);
     }
-    public void OnClickLanguageBtn() {
-
-    }
     public void OnClickGoogleLoginBtn() {
 
     }
+#region SETTING LANGUAGE
+    public void OnClickLanguageBtn() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        LanguageWindowObj.SetActive(true);
+    }
+    public void OnClickLanguageWindowCloseBtn() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        LanguageWindowObj.SetActive(false);
+    }
+    //TODO CHANGE LANGUAGE
+#endregion
+#region SHOW TUTORIAL
+    public void OnClickReplayTutorialBtn() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        ShowTutorialWindowObj.SetActive(true);
+    }
+    public void OnClickTutorialWindowCloseBtn() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        ShowTutorialWindowObj.SetActive(false);
+    }
+    public void OnClickTutorialPlayBtn(int tutoIdx) {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        TutoM._.ShowTutoPopUp(tutoIdx, pageIdx: 0);
+    }
+#endregion
     public void OnClickResetBtn() {
         HM._.hui.ShowAgainAskMsg("정말로 데이터를 리셋하시겠습니까?");
         HM._.hui.OnClickAskConfirmAction = () => {

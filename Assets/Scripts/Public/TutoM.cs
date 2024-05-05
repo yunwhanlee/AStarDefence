@@ -4,19 +4,39 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+[Serializable]
+public class TutoPopUp {
+    [field: SerializeField] public int Idx {get; set;}
+    [field: SerializeField] public GameObject WindowObj {get; private set;}
+    [field: SerializeField] public TMP_Text PageTxt {get; private set;}
+    [field: SerializeField] public GameObject[] Contents {get; private set;}
+}
+
 public class TutoM : MonoBehaviour {
     static public TutoM _;
+
+    public const int HOWTIPLAY_INFO = 0;
+    public const int ENEMY_IFNO = 1;
+    public const int MINING_INFO = 2;
 
     [field: Header("PUCLIC")]
     [field: SerializeField] public int HowToPlayIdx {get; private set;}
     [field: SerializeField] public int EnemyInfoIdx {get; private set;}
+    [field: SerializeField] public int MiningInfoIdx {get; private set;}
 
     [field: SerializeField] public GameObject HowToPlayPopUpObj {get; private set;}
     [field: SerializeField] public TMP_Text HowToPlayPageTxt {get; private set;}
     [field: SerializeField] public GameObject[] HowToPlayObjs {get; private set;}
+
     [field: SerializeField] public GameObject EnemyInfoPopUpObj {get; private set;}
     [field: SerializeField] public TMP_Text EnemyInfoPageTxt {get; private set;}
     [field: SerializeField] public GameObject[] EnemyInfoObjs {get; private set;}
+
+    [field: SerializeField] public GameObject MiningInfoPopUpObj {get; private set;}
+    [field: SerializeField] public TMP_Text MiningInfoPageTxt {get; private set;}
+    [field: SerializeField] public GameObject[] MiningInfoObjs {get; private set;}
+
+    [field: SerializeField] public TutoPopUp[] TutoPopUps {get; private set;}
 
     [field: Header("HOME")]
     [field: SerializeField] public GameObject H_TutoGameStartBubble {get; private set;}
@@ -35,7 +55,9 @@ public class TutoM : MonoBehaviour {
     }    
 
     void Start() {
-        HowToPlayPageTxt.text = $"(1/{HowToPlayObjs.Length})";
+        TutoPopUps[HOWTIPLAY_INFO].PageTxt.text = $"(1/{TutoPopUps[HOWTIPLAY_INFO].Contents.Length})";
+        TutoPopUps[ENEMY_IFNO].PageTxt.text = $"(1/{TutoPopUps[ENEMY_IFNO].Contents.Length})";
+        TutoPopUps[MINING_INFO].PageTxt.text = $"(1/{TutoPopUps[MINING_INFO].Contents.Length})";
     }
 
 #region EVENT
@@ -46,57 +68,50 @@ public class TutoM : MonoBehaviour {
             GM._.gui.Play();
         }
 
-        HowToPlayPopUpObj.SetActive(false);
-        EnemyInfoPopUpObj.SetActive(false);
+        //* 全てのPopUpを共通で非表示にする
+        TutoPopUps[HOWTIPLAY_INFO].WindowObj.SetActive(false);
+        TutoPopUps[ENEMY_IFNO].WindowObj.SetActive(false);
+        TutoPopUps[MINING_INFO].WindowObj.SetActive(false);
     }
-    public void OnClickPreviousBtn() {
+    /// <summary>
+    /// チュートリアル ← ボタン
+    /// </summary>
+    /// <param name="tutoIdx">0: HOWTIPLAY_INFO, 1:ENEMY_IFNO, 2: MINING_INFO</param>
+    public void OnClickPreviousBtn(int tutoIdx) {
         Debug.Log("TutoM:: OnClickPreviousBtn()::");
         SM._.SfxPlay(SM.SFX.ClickSFX);
-        HowToPlayIdx--;
-        if(HowToPlayIdx < 0) {
-            HowToPlayIdx = 0;
-        }
-        HowToPlayPageTxt.text = $"({HowToPlayIdx + 1}/{HowToPlayObjs.Length})";
+        int cttLen = TutoPopUps[tutoIdx].Contents.Length;
 
-        SetHowToPlayPage();
+        TutoPopUps[tutoIdx].Idx--;
+        if(TutoPopUps[tutoIdx].Idx < 0)
+            TutoPopUps[tutoIdx].Idx = 0;
+
+        TutoPopUps[tutoIdx].PageTxt.text = $"({TutoPopUps[tutoIdx].Idx + 1}/{cttLen})";
+
+        //SetHowToPlayPage();
+        //* Show Page
+        for(int i = 0; i < cttLen; i++)
+            TutoPopUps[tutoIdx].Contents[i].SetActive(i == TutoPopUps[tutoIdx].Idx);
     }
-    public void OnClickNextBtn() {
+    /// <summary>
+    /// チュートリアル → ボタン
+    /// </summary>
+    /// <param name="tutoIdx">0: HOWTIPLAY_INFO, 1:ENEMY_IFNO, 2: MINING_INFO</param>
+    public void OnClickNextBtn(int tutoIdx) {
         Debug.Log("TutoM:: OnClickNextBtn()::");
         SM._.SfxPlay(SM.SFX.ClickSFX);
-        int lastIdx = HowToPlayObjs.Length - 1;
-        HowToPlayIdx++;
-        if(HowToPlayIdx >= lastIdx) {
-            HowToPlayIdx = lastIdx;
-        }
-        HowToPlayPageTxt.text = $"({HowToPlayIdx + 1}/{HowToPlayObjs.Length})";
+        int cttLen = TutoPopUps[tutoIdx].Contents.Length;
+        int lastIdx = cttLen - 1;
 
-        for(int i = 0; i < HowToPlayObjs.Length; i++)
-            HowToPlayObjs[i].SetActive(i == HowToPlayIdx);
-        SetHowToPlayPage();
-    }
-    public void OnClickEnemyInfoPreviousBtn() {
-        Debug.Log("TutoM:: OnClickEnemyInfoPreviousBtn()::");
-        SM._.SfxPlay(SM.SFX.ClickSFX);
-        EnemyInfoIdx--;
-        if(EnemyInfoIdx < 0) {
-            EnemyInfoIdx = 0;
-        }
-        EnemyInfoPageTxt.text = $"({EnemyInfoIdx + 1}/{EnemyInfoObjs.Length})";
-        SetEnemyInfoPage();
-    }
-    public void OnClickEnemyInfoNextBtn() {
-        Debug.Log("TutoM:: OnClickEnemyInfoNextBtn()::");
-        SM._.SfxPlay(SM.SFX.ClickSFX);
-        int lastIdx = EnemyInfoObjs.Length - 1;
-        EnemyInfoIdx++;
-        if(EnemyInfoIdx >= lastIdx) {
-            EnemyInfoIdx = lastIdx;
-        }
-        EnemyInfoPageTxt.text = $"({EnemyInfoIdx + 1}/{EnemyInfoObjs.Length})";
+        TutoPopUps[tutoIdx].Idx++;
+        if(TutoPopUps[tutoIdx].Idx >= lastIdx)
+            TutoPopUps[tutoIdx].Idx = lastIdx;
 
-        for(int i = 0; i < EnemyInfoObjs.Length; i++)
-            EnemyInfoObjs[i].SetActive(i == EnemyInfoIdx);
-        SetEnemyInfoPage();
+        TutoPopUps[tutoIdx].PageTxt.text = $"({TutoPopUps[tutoIdx].Idx + 1}/{cttLen})";
+
+        //* Show Page
+        for(int i = 0; i < cttLen; i++)
+            TutoPopUps[tutoIdx].Contents[i].SetActive(i == TutoPopUps[tutoIdx].Idx);
     }
 #endregion
 
@@ -109,33 +124,28 @@ public class TutoM : MonoBehaviour {
         G_TutoWaveStartBubble = GameObject.Find("G_TutoWaveStartBubble");
     }
 
-    public void ShowHowToPlayPopUp(float delay) {
-        SM._.SfxPlay(SM.SFX.ItemPickSFX, delay);
-        HowToPlayPopUpObj.SetActive(true);
-
-        HowToPlayIdx = 0;
-        SetHowToPlayPage();
-    }
-    public void ShowEnemyInfoPopUp(int page) {
+    /// <summary>
+    /// チュートリアルPOPUP 表示
+    /// </summary>
+    /// <param name="tutoIdx"></param>
+    /// <param name="delay"></param> <summary>
+    public void ShowTutoPopUp(int tutoIdx, int pageIdx, float delay = 0) {
         if(GM._) {
-            Debug.Log($"ShowEnemyInfoPopUp():: GM:: Pause");
+            Debug.Log($"ShowTutoPopUp():: GM:: Pause");
             GM._.gui.Pause();
         }
 
-        SM._.SfxPlay(SM.SFX.ItemPickSFX);
-        EnemyInfoPopUpObj.SetActive(true);
+        int cttLen = TutoPopUps[tutoIdx].Contents.Length;
 
-        EnemyInfoIdx = page;
-        EnemyInfoPageTxt.text = $"({EnemyInfoIdx + 1}/{EnemyInfoObjs.Length})";
-        SetEnemyInfoPage();
-    }
-    public void SetHowToPlayPage() {
-        for(int i = 0; i < HowToPlayObjs.Length; i++)
-            HowToPlayObjs[i].SetActive(i == HowToPlayIdx);
-    }
-    public void SetEnemyInfoPage() {
-        for(int i = 0; i < EnemyInfoObjs.Length; i++)
-            EnemyInfoObjs[i].SetActive(i == EnemyInfoIdx);
+        SM._.SfxPlay(SM.SFX.ItemPickSFX, delay);
+        TutoPopUps[tutoIdx].WindowObj.SetActive(true);
+
+        TutoPopUps[tutoIdx].Idx = pageIdx;
+        TutoPopUps[tutoIdx].PageTxt.text = $"({pageIdx + 1}/{cttLen})";
+
+        //* Show Page
+        for(int i = 0; i < cttLen; i++)
+            TutoPopUps[tutoIdx].Contents[i].SetActive(i == pageIdx);
     }
 #endregion
 }
