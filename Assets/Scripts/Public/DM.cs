@@ -284,7 +284,6 @@ public class TutorialDB {
     public void CheckShowMiningInfo() {
         if(!IsActiveGameStart && !IsActiveEnemyInfo && IsActiveMiningInfo) {
             IsActiveMiningInfo = false;
-            TutoM._.OnClickCloseTutorial = null; //* アクション 初期化
             TutoM._.H_TutoMiningBubble.SetActive(false); //* 吹き出しOFF
             TutoM._.ShowTutoPopUp(TutoM.MINING_INFO, pageIdx: 0);
 
@@ -301,6 +300,9 @@ public class TutorialDB {
                 //* リワードデータのUI最新化
                 HM._.mnm.SetUI((int)MineCate.Goblin);
                 HM._.mnm.SetUI((int)MineCate.Ore);
+
+                //* アクション 初期化
+                TutoM._.OnClickCloseTutorial = null;
             };
         }
     }

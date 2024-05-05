@@ -134,7 +134,7 @@ public class TutoM : MonoBehaviour {
 
         int cttLen = TutoPopUps[tutoIdx].Contents.Length;
 
-        SM._.SfxPlay(SM.SFX.ItemPickSFX, delay);
+        SM._.SfxPlay(SM.SFX.ItemPickSFX);
         TutoPopUps[tutoIdx].WindowObj.SetActive(true);
 
         TutoPopUps[tutoIdx].Idx = pageIdx;

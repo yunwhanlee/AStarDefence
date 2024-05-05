@@ -152,7 +152,7 @@ public class GM : MonoBehaviour {
         TutoM._.InitGameBubbleElements();
         if(DM._.DB.TutorialDB.IsActiveGameStart) {
             DM._.DB.TutorialDB.IsActiveGameStart = false;
-            TutoM._.ShowTutoPopUp(TutoM.HOWTIPLAY_INFO, pageIdx: 0, 0.3f); // TutoM._.ShowHowToPlayPopUp(delay: 0.3f);
+            TutoM._.ShowTutoPopUp(TutoM.HOWTIPLAY_INFO, pageIdx: 0); // TutoM._.ShowHowToPlayPopUp(delay: 0.3f);
         }
     }
 
