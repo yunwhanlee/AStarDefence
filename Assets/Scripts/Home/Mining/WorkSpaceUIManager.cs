@@ -104,7 +104,7 @@ public class WorkSpaceUIManager : MonoBehaviour {
             return;
         }
 
-        HM._.hui.IsActivePopUp = true;
+        HM._.hui.IsActivePopUp = false;
         SM._.SfxPlay(SM.SFX.ClickSFX);
         HM._.mnm.WindowObj.SetActive(true);
         HM._.mnm.SetUI((int)MineCate.Goblin);
@@ -118,7 +118,7 @@ public class WorkSpaceUIManager : MonoBehaviour {
             return;
         }
 
-        HM._.hui.IsActivePopUp = true;
+        HM._.hui.IsActivePopUp = false;
         SM._.SfxPlay(SM.SFX.ClickSFX);
         HM._.mnm.WindowObj.SetActive(true);
         HM._.mnm.SetUI((int)MineCate.Ore);
