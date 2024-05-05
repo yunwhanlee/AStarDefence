@@ -324,6 +324,7 @@ public class DB {
     [field:SerializeField] public TutorialDB TutorialDB {get; set;}
     
     [field:SerializeField] public List<InventoryItem> InvItemDBs {get; set;}
+    [field:SerializeField] public bool IsRemoveAd {get; set;}
     [field:SerializeField] public bool IsCloverActive {get; set;}
     [field:SerializeField] public bool IsGoldCloverActive {get; set;}
     [field:SerializeField] public long LastDateTicks {get; set;}
@@ -564,6 +565,7 @@ public class DM : MonoBehaviour {
 
         DB.TutorialDB = new TutorialDB();
 
+        DB.IsRemoveAd = false;
         DB.IsCloverActive = false;
         DB.IsGoldCloverActive = false;
         DB.LuckySpinFreeAdCnt = 3;

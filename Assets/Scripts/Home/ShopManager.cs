@@ -90,7 +90,7 @@ public class ShopManager : MonoBehaviour {
                 rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGold], 5));
                 rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment], 16));
                 rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium], 3));
-                //TODO Remove Ads Item
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.RemoveAd]));
                 break;
             case LevelUpSupport:
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], 10));
@@ -410,6 +410,20 @@ public class ShopManager : MonoBehaviour {
         HM._.rwlm.ShowReward(rewardList);
         HM._.rwm.UpdateInventory(rewardList);
     }
+
+    /// <summary>
+    /// 広告削除
+    /// </summary>
+    public void OnClickRemoveAdBtn() {
+        RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
+        var rewardList = new List<RewardItem>() {
+            new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.RemoveAd])
+        };
+        HM._.rwlm.ShowReward(rewardList);
+        HM._.rwm.UpdateInventory(rewardList);
+    }
+
+    
 #endregion
 #region FUNC
     private void CheckEquipPackageAction(int cnt, int packageIdx) {

@@ -6,12 +6,6 @@ using System;
 using Random = UnityEngine.Random;
 using System.Linq;
 
-// public enum RWD_TBIDX {
-//     Coin, Diamond, Equip, Relic, 
-//     Goblin, Ore, GoldKey, Clover,
-//     GoldClover, CONSUME_ITEM, SoulStone, MagicStone
-// }
-
 #region リワードアイテム
 [Serializable]
 public class RewardItem {
@@ -59,6 +53,10 @@ public class RewardItem {
             case Etc.NoshowInvItem.SkillPoint:
                 if(HM._)    HM._.SkillPoint += quantity;
                 else        DM._.DB.StatusDB.SkillPoint += quantity;
+                break;
+            case Etc.NoshowInvItem.RemoveAd:
+                DM._.DB.IsRemoveAd = true;
+                HM._.hui.RemoveAdIcon.SetActive(true);
                 break;
         }
     }

@@ -21,6 +21,7 @@ public class HomeUIManager : MonoBehaviour {
     [field: SerializeField] public TextMeshProUGUI LvTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI ExpTxt {get; set;}
     [field: SerializeField] public Slider ExpSlider {get; set;}
+    [field: SerializeField] public GameObject RemoveAdIcon {get; set;}
     [field: SerializeField] public GameObject CloverActiveIcon {get; set;}
     [field: SerializeField] public GameObject GoldCloverActiveIcon {get; set;}
     [field: SerializeField] public bool IsActivePopUp {get; set;}
@@ -53,6 +54,7 @@ public class HomeUIManager : MonoBehaviour {
         TopDiamondTxt.text = $"{HM._.Diamond}";
 
         //* クロバーEXPアイテム活性化 表示
+        RemoveAdIcon.SetActive(DM._.DB.IsRemoveAd);
         CloverActiveIcon.SetActive(DM._.DB.IsCloverActive);
         GoldCloverActiveIcon.SetActive(DM._.DB.IsGoldCloverActive);
     }

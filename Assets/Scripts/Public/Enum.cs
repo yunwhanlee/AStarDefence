@@ -52,7 +52,7 @@ public class Etc {
         GoldKey, Coin, Diamond, Exp, 
         Goblin0, Goblin1, Goblin2, Goblin3, Goblin4, Goblin5, Goblin6,
         Ore0, Ore1, Ore2, Ore3, Ore4, Ore5, Ore6, Ore7, Ore8,
-        SkillPoint
+        SkillPoint, RemoveAd
     }
     public static string GetNoshowInvItemNameStr(NoshowInvItem noshowInvItemEnum) {
         return noshowInvItemEnum.ToString();
