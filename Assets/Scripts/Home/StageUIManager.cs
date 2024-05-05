@@ -29,6 +29,7 @@ public class StageUIManager : MonoBehaviour {
     [field:SerializeField] public TMP_Text StageUnlockBonusChestBtnTxt;
     [field:SerializeField] public Image StageUnlockBonusChestImg;
     [field:SerializeField] public GameObject SelectStageNumWindow;
+    [field:SerializeField] public GameObject[] StageNewLabels;
     [field:SerializeField] public TMP_Text[] StageNumBtnTxts;
     [field:SerializeField] public TMP_Text[] StageNumBtnHpRatioTxts;
     
@@ -50,6 +51,7 @@ public class StageUIManager : MonoBehaviour {
 
                 //* お知らせアンロックのトリガー OFF
                 stageDb.StageRewards[stgNumIdx].IsUnlockAlert = false;
+                StageNewLabels[stgNumIdx].SetActive(true);
                 //* お知らせステージのIndex 設定
                 StageAlertIdx = i;
 
