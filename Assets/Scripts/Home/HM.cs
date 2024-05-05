@@ -120,7 +120,7 @@ public class HM : MonoBehaviour {
 
     void Start() {
         DM._.LoadDt();
-        TutoM._.InitHomeBubbleElements();
         SM._.BgmPlay(SM.BGM.HomeBGM);
+        TutoM._.InitHomeBubbleElements();
     }
 }

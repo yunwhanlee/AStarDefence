@@ -19,27 +19,14 @@ public class TutoM : MonoBehaviour {
     public const int ENEMY_IFNO = 1;
     public const int MINING_INFO = 2;
 
-    [field: Header("PUCLIC")]
-    [field: SerializeField] public int HowToPlayIdx {get; private set;}
-    [field: SerializeField] public int EnemyInfoIdx {get; private set;}
-    [field: SerializeField] public int MiningInfoIdx {get; private set;}
+    public Action OnClickCloseTutorial = () => {};
 
-    [field: SerializeField] public GameObject HowToPlayPopUpObj {get; private set;}
-    [field: SerializeField] public TMP_Text HowToPlayPageTxt {get; private set;}
-    [field: SerializeField] public GameObject[] HowToPlayObjs {get; private set;}
-
-    [field: SerializeField] public GameObject EnemyInfoPopUpObj {get; private set;}
-    [field: SerializeField] public TMP_Text EnemyInfoPageTxt {get; private set;}
-    [field: SerializeField] public GameObject[] EnemyInfoObjs {get; private set;}
-
-    [field: SerializeField] public GameObject MiningInfoPopUpObj {get; private set;}
-    [field: SerializeField] public TMP_Text MiningInfoPageTxt {get; private set;}
-    [field: SerializeField] public GameObject[] MiningInfoObjs {get; private set;}
-
+    [field: Header("POPUP")]
     [field: SerializeField] public TutoPopUp[] TutoPopUps {get; private set;}
 
     [field: Header("HOME")]
     [field: SerializeField] public GameObject H_TutoGameStartBubble {get; private set;}
+    [field: SerializeField] public GameObject H_TutoMiningBubble {get; private set;}
     [field: SerializeField] public GameObject G_TutoPathFindBubble {get; private set;}
     [field: SerializeField] public GameObject G_TutoWaveStartBubble {get; private set;}
 
@@ -72,6 +59,8 @@ public class TutoM : MonoBehaviour {
         TutoPopUps[HOWTIPLAY_INFO].WindowObj.SetActive(false);
         TutoPopUps[ENEMY_IFNO].WindowObj.SetActive(false);
         TutoPopUps[MINING_INFO].WindowObj.SetActive(false);
+
+        OnClickCloseTutorial?.Invoke();
     }
     /// <summary>
     /// チュートリアル ← ボタン
@@ -117,11 +106,19 @@ public class TutoM : MonoBehaviour {
 
 #region FUNC
     public void InitHomeBubbleElements() {
+        //* ゲームスタート💭(吹き出し)
         H_TutoGameStartBubble = GameObject.Find("H_TutoGameStartBubble");
+        H_TutoGameStartBubble.SetActive(DM._.DB.TutorialDB.IsActiveGameStart);
+        //* マイニング情報💭(吹き出し)
+        H_TutoMiningBubble = GameObject.Find("H_TutoMiningBubble");
+        H_TutoMiningBubble.SetActive(DM._.DB.TutorialDB.ActiveMiningInfoBubble());
     }
     public void InitGameBubbleElements() {
+        //* 敵の情報💭(吹き出し)
         G_TutoPathFindBubble = GameObject.Find("G_TutoPathFindBubble");
         G_TutoWaveStartBubble = GameObject.Find("G_TutoWaveStartBubble");
+        G_TutoPathFindBubble.SetActive(DM._.DB.TutorialDB.IsActiveEnemyInfo);
+        G_TutoWaveStartBubble.SetActive(DM._.DB.TutorialDB.IsActiveEnemyInfo);
     }
 
     /// <summary>

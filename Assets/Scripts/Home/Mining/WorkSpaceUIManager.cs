@@ -96,6 +96,9 @@ public class WorkSpaceUIManager : MonoBehaviour {
 
     /// <summary> ホームの場所⊕ボタン </summary>
     public void OnClickGoblinLeftSpotBtn() {
+        //* マイニング チュートリアル表示
+        DM._.DB.TutorialDB.CheckShowMiningInfo();
+
         if(CurWorkSpace.IsFinishWork) {
             HM._.wsm.AcceptReward();
             return;
@@ -107,6 +110,9 @@ public class WorkSpaceUIManager : MonoBehaviour {
         HM._.mnm.SetUI((int)MineCate.Goblin);
     }
     public void OnClickOreSpotBtn() {
+        //* マイニング チュートリアル表示
+        DM._.DB.TutorialDB.CheckShowMiningInfo();
+
         if(CurWorkSpace.IsFinishWork) {
             HM._.wsm.AcceptReward();
             return;

@@ -262,6 +262,51 @@ public class SettingDB {
 }
 
 /// <summary>
+/// チュートリアルデータ
+/// </summary>
+[Serializable]
+public class TutorialDB {
+    [field:SerializeField] public bool IsActiveGameStart {get; set;}
+    [field:SerializeField] public bool IsActiveEnemyInfo {get; set;}
+    [field:SerializeField] public bool IsActiveMiningInfo {get; set;}
+
+    public TutorialDB() {
+        IsActiveGameStart = true;
+        IsActiveEnemyInfo = true;
+        IsActiveMiningInfo = true;
+    }
+    public bool ActiveMiningInfoBubble() {
+        return !IsActiveGameStart && !IsActiveEnemyInfo && IsActiveMiningInfo;
+    }
+    /// <summary>
+    /// 「ゲーム開始」と「敵の情報」を見せるのが終わったら、次のホームに戻った時にMining情報を見せる
+    /// </summary>
+    public void CheckShowMiningInfo() {
+        if(!IsActiveGameStart && !IsActiveEnemyInfo && IsActiveMiningInfo) {
+            IsActiveMiningInfo = false;
+            TutoM._.OnClickCloseTutorial = null; //* アクション 初期化
+            TutoM._.H_TutoMiningBubble.SetActive(false); //* 吹き出しOFF
+            TutoM._.ShowTutoPopUp(TutoM.MINING_INFO, pageIdx: 0);
+
+            //* 採掘を試すために、材料リワードをあげる
+            TutoM._.OnClickCloseTutorial = () => {
+                //* Goblin0とOre0リワード
+                var rewardList = new List<RewardItem> {
+                    new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin0]),
+                    new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore0]),
+                };
+                HM._.rwlm.ShowReward(rewardList);
+                HM._.rwm.UpdateInventory(rewardList);
+
+                //* リワードデータのUI最新化
+                HM._.mnm.SetUI((int)MineCate.Goblin);
+                HM._.mnm.SetUI((int)MineCate.Ore);
+            };
+        }
+    }
+}
+
+/// <summary>
 ///* 保存・読込のデータベース ★データはPlayerPrefsに保存するので、String、Float、Intのみ！！！★
 /// </summary>
 [Serializable]
@@ -274,6 +319,7 @@ public class DB {
     [field:SerializeField] public ShopDB ShopDB {get; set;}
     [field:SerializeField] public DailyMissionDB DailyMissionDB {get; set;}
     [field:SerializeField] public SettingDB SettingDB {get; set;}
+    [field:SerializeField] public TutorialDB TutorialDB {get; set;}
     
     [field:SerializeField] public List<InventoryItem> InvItemDBs {get; set;}
     [field:SerializeField] public bool IsCloverActive {get; set;}
@@ -513,6 +559,8 @@ public class DM : MonoBehaviour {
         DB.DailyMissionDB = new DailyMissionDB();
 
         DB.SettingDB = new SettingDB();
+
+        DB.TutorialDB = new TutorialDB();
 
         DB.IsCloverActive = false;
         DB.IsGoldCloverActive = false;

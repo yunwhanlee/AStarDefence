@@ -150,7 +150,10 @@ public class GM : MonoBehaviour {
 
         //* Tutorial
         TutoM._.InitGameBubbleElements();
-        TutoM._.ShowTutoPopUp(TutoM.HOWTIPLAY_INFO, pageIdx: 0, 0.3f); // TutoM._.ShowHowToPlayPopUp(delay: 0.3f);
+        if(DM._.DB.TutorialDB.IsActiveGameStart) {
+            DM._.DB.TutorialDB.IsActiveGameStart = false;
+            TutoM._.ShowTutoPopUp(TutoM.HOWTIPLAY_INFO, pageIdx: 0, 0.3f); // TutoM._.ShowHowToPlayPopUp(delay: 0.3f);
+        }
     }
 
 #region EVENT
@@ -206,7 +209,10 @@ public class GM : MonoBehaviour {
             //* Tutorial
             if(WaveCnt == 1) {
                 // EnemyInfoPopUp 表示
-                TutoM._.ShowTutoPopUp(TutoM.ENEMY_IFNO, pageIdx: 0); // TutoM._.ShowEnemyInfoPopUp(page: 0);
+                if(DM._.DB.TutorialDB.IsActiveEnemyInfo) {
+                    DM._.DB.TutorialDB.IsActiveEnemyInfo = false; 
+                    TutoM._.ShowTutoPopUp(TutoM.ENEMY_IFNO, pageIdx: 0); // TutoM._.ShowEnemyInfoPopUp(page: 0);
+                }
                 // Bubble 非表示
                 TutoM._.G_TutoPathFindBubble.SetActive(false);
                 TutoM._.G_TutoWaveStartBubble.SetActive(false);
