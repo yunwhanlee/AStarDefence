@@ -141,6 +141,8 @@ public class ActionBarUIManager : MonoBehaviour {
         tower.Lv--;
         Debug.Log($"OnClickChangeTypeCard():: kindIdx= {kindIdx}, tower.Lv= {tower.Lv}");
 
+        SM._.SfxPlay(SM.SFX.InvEquipSFX);
+
         //* タワーのタイプ変更
         switch(kindIdx) {
             case (int)TowerKind.Warrior:
