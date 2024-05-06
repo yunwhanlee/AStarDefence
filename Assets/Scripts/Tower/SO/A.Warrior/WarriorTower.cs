@@ -222,7 +222,10 @@ public class WarriorTower : Tower {
 
         RageAuraEF.SetActive(true);
         SM._.SfxPlay(SM.SFX.RageSFX);
-        GM._.gui.tsm.ShowTowerStateUI(InfoState());
+
+        //* 現在選択したBoardと今スキルを発動したWarriorの親Boardが同じいときのみ、タワーステータスUI最新化
+        if(GM._.tmc.HitObject == transform.parent.gameObject)
+            GM._.gui.tsm.ShowTowerStateUI(InfoState());
 
         yield return Util.Time2;
         yield return GetSkillTreeExtraRageTime();
@@ -231,7 +234,10 @@ public class WarriorTower : Tower {
         CorSkill1ID = null;
         ExtraDmgDic.Remove(RAGE);
         ExtraSpdDic.Remove(RAGE);
-        GM._.gui.tsm.ShowTowerStateUI(InfoState());
+
+        //* 現在選択したBoardと今スキルを発動したWarriorの親Boardが同じいときのみ、タワーステータスUI最新化
+        if(GM._.tmc.HitObject == transform.parent.gameObject)
+            GM._.gui.tsm.ShowTowerStateUI(InfoState());
     }
 #endregion
 

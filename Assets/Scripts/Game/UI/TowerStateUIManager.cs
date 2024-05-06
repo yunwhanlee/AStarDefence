@@ -200,7 +200,10 @@ public class TowerStateUIManager : MonoBehaviour {
         public void ShowTowerStateUI(string[] states) {
             int lv = int.Parse(states[0]);
             string type = states[1];
-            TowerKind kind = (states[2] == "Warrior")? TowerKind.Warrior : (states[2] == "Archer")? TowerKind.Archer : (states[2] == "Magician")? TowerKind.Magician : TowerKind.None;
+            TowerKind kind = (states[2] == "Warrior")? TowerKind.Warrior
+                : (states[2] == "Archer")? TowerKind.Archer
+                : (states[2] == "Magician")? TowerKind.Magician
+                : TowerKind.None;
             Debug.Log($"ShowTowerStateUI():: lv= {lv}, type= {type}, kind= {kind}");
 
             //* 非表示 初期化
