@@ -120,7 +120,7 @@ var rwDt = HM._.rwlm.RwdItemDt;
         switch (angleRewardIndex) {
             case 8: //* 真ん中からスタートするから、345° ~ 360° と
             case 0: //* 0° ~ 22.5° が０番目リワード
-                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 500));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Fame], Random.Range(1, 5 + 1)));
                 break;
             case 1:
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], 5));

@@ -52,6 +52,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 957adc885cabf9e4395da4b86fa47068, type: 2}
   - {fileID: 11400000, guid: cc20387baa9834947b297537d6f8492a, type: 2}
   - {fileID: 11400000, guid: d4565561355da5947b2abb45a5326984, type: 2}
+  - {fileID: 11400000, guid: 8e1aabf7b9795954993e9028f2890215, type: 2}
   <WeaponDatas>k__BackingField:
   - {fileID: 11400000, guid: 8a8359171e95e0146a2537f75433dfee, type: 2}
   - {fileID: 11400000, guid: b080839ff7fe27e41a6bf21a77ce5163, type: 2}

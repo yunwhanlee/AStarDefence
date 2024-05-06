@@ -20,6 +20,7 @@ public class HomeUIManager : MonoBehaviour {
     [field: SerializeField] public TextMeshProUGUI TopDiamondTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI LvTxt {get; set;}
     [field: SerializeField] public TextMeshProUGUI ExpTxt {get; set;}
+    [field: SerializeField] public TextMeshProUGUI FameTxt {get; set;}
     [field: SerializeField] public Slider ExpSlider {get; set;}
     [field: SerializeField] public GameObject RemoveAdIcon {get; set;}
     [field: SerializeField] public GameObject CloverActiveIcon {get; set;}
@@ -52,6 +53,7 @@ public class HomeUIManager : MonoBehaviour {
         TopGoldKeyTxt.text = $"{HM._.GoldKey}/{Config.MAX_GOBLINKEY}";
         TopCoinTxt.text = $"{HM._.Coin}";
         TopDiamondTxt.text = $"{HM._.Diamond}";
+        FameTxt.text = $"{DM._.DB.StatusDB.Fame}";
 
         //* クロバーEXPアイテム活性化 表示
         RemoveAdIcon.SetActive(DM._.DB.IsRemoveAd);

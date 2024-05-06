@@ -8,7 +8,7 @@ using Inventory.Model;
 using Random = UnityEngine.Random;
 using System.Linq;
 using DG.Tweening;
-using UnityEngine.Rendering.Universal.Internal;
+// using UnityEngine.Rendering.Universal.Internal;
 // using UnityEditorInternal;
 // using UnityEditor.SceneManagement;
 // using UnityEngine.Events;
@@ -427,7 +427,8 @@ public class GM : MonoBehaviour {
                         exp: 20, 
                         coin: 1000,
                         rd < 50? ORE0 : ORE1,
-                        oreCnt
+                        oreCnt,
+                        fame: 1
                     );
                     break;
                 }
@@ -436,7 +437,8 @@ public class GM : MonoBehaviour {
                         exp: 30, 
                         coin: 1400,
                         rd < 60? ORE1 : rd < 90? ORE2 : ORE3,
-                        oreCnt
+                        oreCnt,
+                        fame: 2
                     );
                     break;
                 }
@@ -445,7 +447,8 @@ public class GM : MonoBehaviour {
                         exp: 40, 
                         coin: 1800,
                         rd < 20? ORE1 : rd < 70? ORE2 : ORE3,
-                        oreCnt
+                        oreCnt,
+                        fame: 3
                     );
                     break;
                 }
@@ -458,7 +461,8 @@ public class GM : MonoBehaviour {
                         exp: 50, 
                         coin: 2200,
                         rd < 50? ORE2 : rd < 85? ORE3 : ORE4,
-                        oreCnt
+                        oreCnt,
+                        fame: 4
                     );
                     break;
                 }
@@ -467,7 +471,8 @@ public class GM : MonoBehaviour {
                         exp: 60, 
                         coin: 2700,
                         rd < 25? ORE2 : rd < 70? ORE3 : ORE4,
-                        oreCnt
+                        oreCnt,
+                        fame: 5
                     );
                     break;
                 }
@@ -476,7 +481,8 @@ public class GM : MonoBehaviour {
                         exp: 70, 
                         coin: 3100,
                         rd < 55? ORE3 : ORE4,
-                        oreCnt
+                        oreCnt,
+                        fame: 6
                     );
                     break;
                 }
@@ -489,7 +495,8 @@ public class GM : MonoBehaviour {
                         exp: 85, 
                         coin: 3600,
                         rd < 50? ORE3 : rd < 90? ORE4 : ORE5,
-                        oreCnt
+                        oreCnt,
+                        fame: 7
                     );
                     break;
                 }
@@ -498,7 +505,8 @@ public class GM : MonoBehaviour {
                         exp: 100, 
                         coin: 4200,
                         rd < 40? ORE3 : rd < 80? ORE4 : ORE5,
-                        oreCnt
+                        oreCnt,
+                        fame: 8
                     );
                     break;
                 }
@@ -507,7 +515,8 @@ public class GM : MonoBehaviour {
                         exp: 125, 
                         coin: 4800,
                         rd < 20? ORE3 : rd < 60? ORE4 : rd < 95? ORE5 : ORE6,
-                        oreCnt
+                        oreCnt,
+                        fame: 9
                     );
                     break;
                 }
@@ -520,7 +529,8 @@ public class GM : MonoBehaviour {
                         exp: 150, 
                         coin: 5500,
                         rd < 40? ORE4 : rd < 85? ORE5 : ORE6,
-                        oreCnt
+                        oreCnt,
+                        fame: 10
                     );
                     break;
                 }
@@ -529,7 +539,8 @@ public class GM : MonoBehaviour {
                         exp: 175, 
                         coin: 6200,
                         rd < 30? ORE4 : rd < 65? ORE5 : rd < 90? ORE6 : ORE7,
-                        oreCnt
+                        oreCnt,
+                        fame: 11
                     );
                     break;
                 }
@@ -538,7 +549,8 @@ public class GM : MonoBehaviour {
                         exp: 210, 
                         coin: 7000,
                         rd < 20? ORE4 : rd < 50? ORE5 : rd < 80? ORE6 : ORE7,
-                        oreCnt
+                        oreCnt,
+                        fame: 12
                     );
                     break;
                 }
@@ -551,7 +563,8 @@ public class GM : MonoBehaviour {
                         exp: 250, 
                         coin: 7800,
                         rd < 40? ORE5 : rd < 70? ORE6 : rd < 90? ORE7 : ORE8,
-                        oreCnt
+                        oreCnt,
+                        fame: 13
                     );
                     break;
                 }
@@ -560,7 +573,8 @@ public class GM : MonoBehaviour {
                         exp: 300, 
                         coin: 8600,
                         rd < 20? ORE5 : rd < 50? ORE6 : rd < 80? ORE7 : ORE8,
-                        oreCnt
+                        oreCnt,
+                        fame: 14
                     );
                     break;
                 }
@@ -569,7 +583,8 @@ public class GM : MonoBehaviour {
                         exp: 350, 
                         coin: 9200,
                         rd < 30? ORE6 : rd < 70? ORE7 : ORE8,
-                        oreCnt
+                        oreCnt,
+                        fame: 15
                     );
                     break;
                 }

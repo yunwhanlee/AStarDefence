@@ -120,6 +120,9 @@ public class MissionUI {
                 break;
         }
 
+        //* 名声＋１
+        rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Fame]));
+
         HM._.rwlm.ShowReward(rewardList);
         HM._.rwm.UpdateInventory(rewardList);
 
@@ -229,7 +232,8 @@ public class DailyMissionManager : MonoBehaviour {
             AllClearSpiceialRewardCheckIcon.SetActive(true);
 
             var rewardList = new List<RewardItem>() {
-                new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium])
+                new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium]),
+                new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Fame], 5)
             };
 
             HM._.rwlm.ShowReward(rewardList);

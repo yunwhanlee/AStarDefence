@@ -59,6 +59,10 @@ public class RewardItem {
                 HM._.hui.RemoveAdIcon.SetActive(true);
                 HM._.shopMg.RemoveAdDim.SetActive(true);
                 break;
+            case Etc.NoshowInvItem.Fame:
+                DM._.DB.StatusDB.Fame += quantity;
+                if(HM._)    HM._.hui.FameTxt.text = DM._.DB.StatusDB.Fame.ToString();
+                break;
         }
     }
 }

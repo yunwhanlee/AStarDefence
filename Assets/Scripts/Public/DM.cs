@@ -17,14 +17,16 @@ public class StatusDB {
     [field:SerializeField] public int Coin {get; set;}
     [field:SerializeField] public int Diamond {get; set;}
     [field:SerializeField] public int SkillPoint {get; set;}
+    [field:SerializeField] public int Fame {get; set;}
 
     public StatusDB() {
         Lv = 1;
         Exp = 1;
         GoldKey = 1;
         Coin = 0;
-        Diamond = 0; 
-        SkillPoint = 0; 
+        Diamond = 0;
+        SkillPoint = 0;
+        Fame = 0;
     }
 }
 

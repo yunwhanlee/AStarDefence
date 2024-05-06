@@ -77,6 +77,7 @@ public class LevelUpManager : MonoBehaviour {
             new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], Lv * 100),
             new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], 10),
             new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.SkillPoint]),
+            new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Fame], Lv / 5 + 1),
         };
 
         //* ボナース Chestリワード

@@ -4,6 +4,7 @@ using UnityEngine;
 using GooglePlayGames;
 using TMPro;
 using GooglePlayGames.BasicApi;
+using UnityEngine.SocialPlatforms;
 
 public class GPGSManager : MonoBehaviour {
 
@@ -20,5 +21,9 @@ public class GPGSManager : MonoBehaviour {
         } else {
             HM._.hui.ShowMsgNotice("로그인 실패");
         }
+    }
+
+    public void ShowLeaderBoardUI() {
+        PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard);
     }
 }
