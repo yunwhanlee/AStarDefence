@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 using System;
-using Unity.VisualScripting;
-using System.Linq;
 
 public class EnemyManager : MonoBehaviour {
     const int MONSTER_CNT = 30;
