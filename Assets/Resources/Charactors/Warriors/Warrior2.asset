@@ -18,16 +18,16 @@ MonoBehaviour:
     m_CategoryList:
     - m_Name: 0
       m_Hash: 886824737
-      m_Sprite: {fileID: -7008412969330441016, guid: 09bcd987938141b99a2f1aeef9ce2651, type: 3}
+      m_Sprite: {fileID: -1842273496, guid: 8d52df456332ebf4192d2bbfe711d908, type: 3}
     - m_Name: 1
       m_Hash: 64810935
-      m_Sprite: {fileID: -7763475090823894447, guid: 09bcd987938141b99a2f1aeef9ce2651, type: 3}
+      m_Sprite: {fileID: -1076196304, guid: 8d52df456332ebf4192d2bbfe711d908, type: 3}
     - m_Name: 2
       m_Hash: 450215437
-      m_Sprite: {fileID: 302641331129538988, guid: 09bcd987938141b99a2f1aeef9ce2651, type: 3}
+      m_Sprite: {fileID: -1107437, guid: 8d52df456332ebf4192d2bbfe711d908, type: 3}
     - m_Name: 3
       m_Hash: 768773787
-      m_Sprite: {fileID: -6329420634031446844, guid: 09bcd987938141b99a2f1aeef9ce2651, type: 3}
+      m_Sprite: {fileID: -794172119, guid: 8d52df456332ebf4192d2bbfe711d908, type: 3}
   - m_Name: Block
     m_Hash: 47888422
     m_CategoryList:
@@ -54,10 +54,10 @@ MonoBehaviour:
     m_CategoryList:
     - m_Name: 0
       m_Hash: 886824737
-      m_Sprite: {fileID: 4723107735738678597, guid: 09bcd987938141b99a2f1aeef9ce2651, type: 3}
+      m_Sprite: {fileID: -1842273496, guid: 8d52df456332ebf4192d2bbfe711d908, type: 3}
     - m_Name: 1
       m_Hash: 64810935
-      m_Sprite: {fileID: -7385789195546760866, guid: 09bcd987938141b99a2f1aeef9ce2651, type: 3}
+      m_Sprite: {fileID: 1381531885, guid: 8d52df456332ebf4192d2bbfe711d908, type: 3}
   - m_Name: Jab
     m_Hash: 488016790
     m_CategoryList:
@@ -75,13 +75,13 @@ MonoBehaviour:
     m_CategoryList:
     - m_Name: 0
       m_Hash: 886824737
-      m_Sprite: {fileID: 7460046300004610927, guid: 09bcd987938141b99a2f1aeef9ce2651, type: 3}
+      m_Sprite: {fileID: 123009726, guid: 8d52df456332ebf4192d2bbfe711d908, type: 3}
     - m_Name: 1
       m_Hash: 64810935
-      m_Sprite: {fileID: 7034338576483803127, guid: 09bcd987938141b99a2f1aeef9ce2651, type: 3}
+      m_Sprite: {fileID: -283422906, guid: 8d52df456332ebf4192d2bbfe711d908, type: 3}
     - m_Name: 2
       m_Hash: 450215437
-      m_Sprite: {fileID: 6054277451648750542, guid: 09bcd987938141b99a2f1aeef9ce2651, type: 3}
+      m_Sprite: {fileID: -321128712, guid: 8d52df456332ebf4192d2bbfe711d908, type: 3}
   - m_Name: Ready
     m_Hash: 693414571
     m_CategoryList:
