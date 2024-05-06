@@ -7,6 +7,8 @@ using UnityEngine.Tilemaps;
 using Inventory.Model;
 using Random = UnityEngine.Random;
 using System.Linq;
+using DG.Tweening;
+using UnityEngine.Rendering.Universal.Internal;
 // using UnityEditorInternal;
 // using UnityEditor.SceneManagement;
 // using UnityEngine.Events;
@@ -53,6 +55,7 @@ public class GM : MonoBehaviour {
     [field: SerializeField] public Material DefaultMt;
 
     //* Outside
+    public DOTweenAnimation CamDOTAnim;
     public GameUIManager gui;
     public GameEffectManager gef;
     public PathFindManager pfm;
@@ -73,6 +76,7 @@ public class GM : MonoBehaviour {
         _ = this;
 
         //* 外部のスクリプト 初期化
+        CamDOTAnim = Camera.main.GetComponent<DOTweenAnimation>();
         gui = GameObject.Find("GameUIManager").GetComponent<GameUIManager>();
         gef = GameObject.Find("GameEffectManager").GetComponent<GameEffectManager>();
         pfm = GameObject.Find("PathFindManager").GetComponent<PathFindManager>();
@@ -630,6 +634,8 @@ public class GM : MonoBehaviour {
         int val = (type == EnemyType.Boss)? -Enemy.LIFE_DEC_BOSS : -Enemy.LIFE_DEC_MONSTER;
         gef.ShowIconTxtEF(gui.HeartFillImg.transform.position, val, "Heart");
         Life += val; //* マイナス 計算
+
+        CamDOTAnim.DORestart();
 
         //* ゲームオーバ
         if(life <= 0) {
