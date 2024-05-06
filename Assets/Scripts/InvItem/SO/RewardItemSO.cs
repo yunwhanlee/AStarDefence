@@ -57,6 +57,7 @@ public class RewardItem {
             case Etc.NoshowInvItem.RemoveAd:
                 DM._.DB.IsRemoveAd = true;
                 HM._.hui.RemoveAdIcon.SetActive(true);
+                HM._.shopMg.RemoveAdDim.SetActive(true);
                 break;
         }
     }

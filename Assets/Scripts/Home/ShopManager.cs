@@ -31,6 +31,9 @@ public class ShopManager : MonoBehaviour {
     [field:SerializeField] public GameObject DiamondChestDim {get; private set;}
     [field:SerializeField] public GameObject FreeTinyDiamondDim {get; private set;}
 
+    //* 広告削除購入 DIM
+    [field:SerializeField] public GameObject RemoveAdDim {get; private set;}
+
     [field:SerializeField] public Button[] TapBtns {get; private set;}
 
     [field:SerializeField] public TMP_Text[] ChestPriceTxts {get; set;}

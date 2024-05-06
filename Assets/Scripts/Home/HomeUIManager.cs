@@ -55,6 +55,7 @@ public class HomeUIManager : MonoBehaviour {
 
         //* クロバーEXPアイテム活性化 表示
         RemoveAdIcon.SetActive(DM._.DB.IsRemoveAd);
+        HM._.shopMg.RemoveAdDim.SetActive(DM._.DB.IsRemoveAd);
         CloverActiveIcon.SetActive(DM._.DB.IsCloverActive);
         GoldCloverActiveIcon.SetActive(DM._.DB.IsGoldCloverActive);
     }
