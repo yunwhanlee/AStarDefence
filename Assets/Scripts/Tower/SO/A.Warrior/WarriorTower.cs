@@ -311,8 +311,9 @@ public class WarriorTower : Tower {
             tower.ExtraSpdDic.Add(CHEERUP, extraSpd);
         });
 
-        if(GM._.tmc.HitObject != null)
-            GM._.gui.tsm.ShowTowerStateUI(this.InfoState());
+        if(GM._.tmc.HitObject != null) {
+            GM._.gui.tsm.ShowTowerStateUI(GM._.tmc.HitObject.GetComponentInChildren<Tower>().InfoState());
+        }
 
         yield return Util.Time5;
         Debug.Log("CheerUp終了");
@@ -328,7 +329,7 @@ public class WarriorTower : Tower {
         });
 
         if(GM._.tmc.HitObject != null)
-            GM._.gui.tsm.ShowTowerStateUI(InfoState());
+            GM._.gui.tsm.ShowTowerStateUI(GM._.tmc.HitObject.GetComponentInChildren<Tower>().InfoState());
 
         yield return Util.Time10;
         IsCheerUpActive = true;
