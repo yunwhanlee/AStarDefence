@@ -4,6 +4,7 @@ using UnityEngine;
 using Inventory.UI;
 using UnityEngine.UI;
 using TMPro;
+using Inventory.Model;
 
 public class LevelUpManager : MonoBehaviour {
     [field: SerializeField] public int Lv {
@@ -67,14 +68,36 @@ public class LevelUpManager : MonoBehaviour {
     }
     private void LevelUp() {
         Debug.Log($"LevelUp():: Lv= {Lv}, DB.Lv= {DM._.DB.StatusDB.Lv}");
+        RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
+
         SM._.SfxPlay(SM.SFX.LevelUpSFX);
         Lv++;
+
         var rewardList = new List<RewardItem> {
-            new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 1000),
-            new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], 5),
-            new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon]),
-            new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.SkillPoint]),
+            new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], Lv * 100),
+            new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], 10),
+            new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.SkillPoint]),
         };
+
+        //* ボナース Chestリワード
+        ItemSO chestRwd = null;
+        if(Lv % 4 == 0) {
+            if(Lv <= 10)
+                chestRwd = rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon];
+            else if(Lv <= 25)
+                chestRwd = rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present0];
+            else if(Lv <= 40)
+                chestRwd = rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present1];
+            else if(Lv <= 55)
+                chestRwd = rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present2];
+            else if(Lv <= 70)
+                chestRwd = rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGold];
+            else 
+                chestRwd = rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium];
+        }
+        if(chestRwd)
+            rewardList.Add(new(chestRwd));
+
         UpdateData(Exp);
         ShowReward(rewardList);
         UpdateInventory(rewardList);
