@@ -18,10 +18,10 @@ MonoBehaviour:
     m_CategoryList:
     - m_Name: 0
       m_Hash: 886824737
-      m_Sprite: {fileID: 4723107735738678597, guid: 1a122a82263812f4bb05df69d0c2805c, type: 3}
+      m_Sprite: {fileID: -897321622, guid: e9027345f4265d843963ec4d5c581ce9, type: 3}
     - m_Name: 1
       m_Hash: 64810935
-      m_Sprite: {fileID: -7385789195546760866, guid: 1a122a82263812f4bb05df69d0c2805c, type: 3}
+      m_Sprite: {fileID: 489674591, guid: e9027345f4265d843963ec4d5c581ce9, type: 3}
   - m_Name: Block
     m_Hash: 47888422
     m_CategoryList:
@@ -90,25 +90,25 @@ MonoBehaviour:
     m_CategoryList:
     - m_Name: 0
       m_Hash: 886824737
-      m_Sprite: {fileID: 1137805138824052146, guid: 1a122a82263812f4bb05df69d0c2805c, type: 3}
+      m_Sprite: {fileID: -177990441, guid: e9027345f4265d843963ec4d5c581ce9, type: 3}
     - m_Name: 1
       m_Hash: 64810935
-      m_Sprite: {fileID: -227019496086430530, guid: 1a122a82263812f4bb05df69d0c2805c, type: 3}
+      m_Sprite: {fileID: -152247083, guid: e9027345f4265d843963ec4d5c581ce9, type: 3}
     - m_Name: 2
       m_Hash: 450215437
-      m_Sprite: {fileID: -3162778974338740330, guid: 1a122a82263812f4bb05df69d0c2805c, type: 3}
+      m_Sprite: {fileID: 1055576396, guid: e9027345f4265d843963ec4d5c581ce9, type: 3}
   - m_Name: Jump
     m_Hash: 125937960
     m_CategoryList:
     - m_Name: 0
       m_Hash: 886824737
-      m_Sprite: {fileID: 7460046300004610927, guid: 1a122a82263812f4bb05df69d0c2805c, type: 3}
+      m_Sprite: {fileID: -1650221116, guid: e9027345f4265d843963ec4d5c581ce9, type: 3}
     - m_Name: 1
       m_Hash: 64810935
-      m_Sprite: {fileID: 7034338576483803127, guid: 1a122a82263812f4bb05df69d0c2805c, type: 3}
+      m_Sprite: {fileID: -1472992929, guid: e9027345f4265d843963ec4d5c581ce9, type: 3}
     - m_Name: 2
       m_Hash: 450215437
-      m_Sprite: {fileID: 6054277451648750542, guid: 1a122a82263812f4bb05df69d0c2805c, type: 3}
+      m_Sprite: {fileID: 232789788, guid: e9027345f4265d843963ec4d5c581ce9, type: 3}
   - m_Name: Push
     m_Hash: 1057536346
     m_CategoryList:

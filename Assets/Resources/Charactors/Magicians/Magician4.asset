@@ -81,34 +81,34 @@ MonoBehaviour:
     m_CategoryList:
     - m_Name: 0
       m_Hash: 886824737
-      m_Sprite: {fileID: 4723107735738678597, guid: df2c8d87508fea44b987174edb4399ee, type: 3}
+      m_Sprite: {fileID: 973316648, guid: a3f73a7a4463f184291c7bb9d4e9b828, type: 3}
     - m_Name: 1
       m_Hash: 64810935
-      m_Sprite: {fileID: -7385789195546760866, guid: df2c8d87508fea44b987174edb4399ee, type: 3}
+      m_Sprite: {fileID: -509052201, guid: a3f73a7a4463f184291c7bb9d4e9b828, type: 3}
   - m_Name: Jab
     m_Hash: 488016790
     m_CategoryList:
     - m_Name: 0
       m_Hash: 886824737
-      m_Sprite: {fileID: 1137805138824052146, guid: df2c8d87508fea44b987174edb4399ee, type: 3}
+      m_Sprite: {fileID: -946105683, guid: a3f73a7a4463f184291c7bb9d4e9b828, type: 3}
     - m_Name: 1
       m_Hash: 64810935
-      m_Sprite: {fileID: -227019496086430530, guid: df2c8d87508fea44b987174edb4399ee, type: 3}
+      m_Sprite: {fileID: -674871951, guid: a3f73a7a4463f184291c7bb9d4e9b828, type: 3}
     - m_Name: 2
       m_Hash: 450215437
-      m_Sprite: {fileID: -3162778974338740330, guid: df2c8d87508fea44b987174edb4399ee, type: 3}
+      m_Sprite: {fileID: 1645945921, guid: a3f73a7a4463f184291c7bb9d4e9b828, type: 3}
   - m_Name: Jump
     m_Hash: 125937960
     m_CategoryList:
     - m_Name: 0
       m_Hash: 886824737
-      m_Sprite: {fileID: 7460046300004610927, guid: df2c8d87508fea44b987174edb4399ee, type: 3}
+      m_Sprite: {fileID: 1223286132, guid: a3f73a7a4463f184291c7bb9d4e9b828, type: 3}
     - m_Name: 1
       m_Hash: 64810935
-      m_Sprite: {fileID: 7034338576483803127, guid: df2c8d87508fea44b987174edb4399ee, type: 3}
+      m_Sprite: {fileID: 999900577, guid: a3f73a7a4463f184291c7bb9d4e9b828, type: 3}
     - m_Name: 2
       m_Hash: 450215437
-      m_Sprite: {fileID: 6054277451648750542, guid: df2c8d87508fea44b987174edb4399ee, type: 3}
+      m_Sprite: {fileID: -1099899980, guid: a3f73a7a4463f184291c7bb9d4e9b828, type: 3}
   - m_Name: Push
     m_Hash: 1057536346
     m_CategoryList:
