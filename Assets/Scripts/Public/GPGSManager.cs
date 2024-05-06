@@ -7,8 +7,20 @@ using GooglePlayGames.BasicApi;
 using UnityEngine.SocialPlatforms;
 
 public class GPGSManager : MonoBehaviour {
+    public static GPGSManager _;
 
+    void Start() {
+        _ = this;
+    }
 
+#region EVENT
+    public void OnClickRankIconBtnAtHome() {
+        GPGSLogin();
+        ShowLeaderBoardUI();
+    }
+#endregion
+
+#region FUNC
     public void GPGSLogin() {
         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
     }
@@ -23,7 +35,19 @@ public class GPGSManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// リーダボード閲覧
+    /// </summary>
     public void ShowLeaderBoardUI() {
+        UpdateFameToLeaderBoard();
         PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard);
     }
+
+    /// <summary>
+    /// 名声データをGoogleリーダボードへアップデート
+    /// </summary>
+    public void UpdateFameToLeaderBoard() {
+        PlayGamesPlatform.Instance.ReportScore(DM._.DB.StatusDB.Fame, GPGSIds.leaderboard, (bool success) => {});
+    }
+#endregion
 }

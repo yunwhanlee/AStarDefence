@@ -62,6 +62,7 @@ public class RewardItem {
             case Etc.NoshowInvItem.Fame:
                 DM._.DB.StatusDB.Fame += quantity;
                 if(HM._)    HM._.hui.FameTxt.text = DM._.DB.StatusDB.Fame.ToString();
+                GPGSManager._.UpdateFameToLeaderBoard();
                 break;
         }
     }
