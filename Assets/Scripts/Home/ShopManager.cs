@@ -8,7 +8,7 @@ using TMPro;
 using Inventory.Model;
 
 public class ShopManager : MonoBehaviour {
-    const int TAPBTN_PACKAGE = 0, 
+    public const int TAPBTN_PACKAGE = 0, 
         TAPBTN_CHEST = 1, 
         ETC_CHEST = 2,
         TAPBTN_RSC = 3;
@@ -446,7 +446,7 @@ public class ShopManager : MonoBehaviour {
         HM._.hui.TopNavCanvas.sortingOrder = isShow? 101 : 99;
         HM._.dailyMs.OnUpdateUI.Invoke();
     }
-    private void InitUI() {
+    public void InitUI() {
         Array.ForEach(IsActiveTapBtnCates, isActive => isActive = false);
         Array.ForEach(TapBtns, btn => btn.GetComponent<Image>().color = TapBtnInActiveClr);
         Array.ForEach(CateTitleLineObjs, titleLine => titleLine.SetActive(true));
