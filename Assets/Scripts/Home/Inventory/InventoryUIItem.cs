@@ -29,7 +29,8 @@ namespace Inventory.UI
         [field:SerializeField] public Image BorderImg {get; set;}
         [field:SerializeField] public GameObject AlertRedDot {get; set;}
         [field:SerializeField] public GameObject AlertGreenDot {get; set;}
-        [field:SerializeField] public GameObject EquipDim {get; set;} 
+        [field:SerializeField] public GameObject EquipDim {get; set;}
+        [field:SerializeField] public GameObject DoubleRewardLabel {get; set;}
         [field:SerializeField] public ParticleImage ItemImgScaleUIEF {get; set;}
         [field:SerializeField] public ParticleImage WhiteDimScaleUIEF {get; set;}
         [field:SerializeField] public ParticleImage ShinyUIEF {get; set;}
@@ -82,6 +83,7 @@ namespace Inventory.UI
             if(AlertRedDot) AlertRedDot.SetActive(false);
             if(AlertRedDot) AlertGreenDot.SetActive(false);
             if(EquipDim) EquipDim.SetActive(false);
+            if(DoubleRewardLabel) DoubleRewardLabel.SetActive(false);
 
             IsEmpty = true;
             // IsNewAlert = false;

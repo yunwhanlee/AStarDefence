@@ -8,6 +8,7 @@ using Inventory.Model;
 using Random = UnityEngine.Random;
 using System.Linq;
 using DG.Tweening;
+using Inventory.UI;
 // using UnityEngine.Rendering.Universal.Internal;
 // using UnityEditorInternal;
 // using UnityEditor.SceneManagement;
@@ -39,7 +40,6 @@ public class GM : MonoBehaviour {
     [field: SerializeField] public int MaxWave {get; set;}
     [field: SerializeField] public int WaveCnt {get; set;}
     [field: SerializeField] public int ResetCnt {get; set;}
-
     [field: SerializeField] public int MaxLife {get; set;}
     [SerializeField] int life; public int Life {
         get => life;
@@ -50,8 +50,8 @@ public class GM : MonoBehaviour {
             bossRwd.SetCurValueTxt(Enum.BossRwd.IncreaseLife, life);
         }
     }
-
     [field: SerializeField] public int Money {get; set;}
+    [field: SerializeField] List<RewardItem> VictoryRwdList {get; set;} = new List<RewardItem>();
     [field: SerializeField] public Material BlinkMt;
     [field: SerializeField] public Material DefaultMt;
 
@@ -223,6 +223,20 @@ public class GM : MonoBehaviour {
                 TutoM._.G_TutoWaveStartBubble.SetActive(false);
             }
         }
+    }
+
+    public void OnClickClaimX2AdBtn() {
+        AdmobManager._.ProcessRewardAd(() => {
+            gui.ShowMsgNotice("보상 두배 적용!");
+            SM._.SfxPlay(SM.SFX.CompleteSFX);
+            gui.Ads_ClaimX2Btn.gameObject.SetActive(false);
+            rwlm.ShowReward(VictoryRwdList);
+            HM._.rwm.UpdateInventory(VictoryRwdList);
+
+            for(int i = 0 ; i < rwlm.Content.childCount; i++) {
+                rwlm.Content.GetChild(i).GetComponent<InventoryUIItem>().DoubleRewardLabel.SetActive(true);
+            }
+        });
     }
 #endregion
 
@@ -633,6 +647,8 @@ public class GM : MonoBehaviour {
                     rwdItem.Quantity += Mathf.RoundToInt(rwdItem.Quantity * bonusExpPer);
             }
         });
+
+        VictoryRwdList = rewardList;
 
         rwlm.ShowReward(rewardList);
         HM._.rwm.UpdateInventory(rewardList);
