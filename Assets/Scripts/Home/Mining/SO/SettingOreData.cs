@@ -17,7 +17,7 @@ public class OreData {
     [field:SerializeField] public int Lv {get; private set;}
     [field:SerializeField] public Sprite[] Sprs {get; private set;}
     [field:SerializeField] public int TimeSec {get; private set;}
-    [field:SerializeField] public Reward[] Rewards;
+    [field:SerializeField] public RewardDt[] Rewards;
 }
 
 [CreateAssetMenu(fileName = "OreDataSO", menuName = "Scriptable Object/Setting OreData")]

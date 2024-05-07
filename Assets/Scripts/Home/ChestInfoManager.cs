@@ -59,6 +59,17 @@ public class ChestInfoManager : MonoBehaviour {
             InfoTxt.text = description;
         }
 
+        private void DailyFreeCommonChest() {
+            RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
+
+            //* Daily Item
+            DM._.DB.ShopDB.SetAcceptData(ShopDB.FREE_COMMON);
+            HM._.shopMg.FreeCommonChestDim.SetActive(true);
+
+            rwDt.OpenRewardContent(rwDt.Rwd_ChestCommon);
+            WindowObj.SetActive(false);
+        }
+
         /// <summary>
         /// 宝箱情報POPUP 表示
         /// </summary>
@@ -83,14 +94,8 @@ public class ChestInfoManager : MonoBehaviour {
                     infoTemp = SetCommonChest(rwDt);
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => {
-                        //TODO AD
-
-                        //* Daily Item
-                        DM._.DB.ShopDB.SetAcceptData(ShopDB.FREE_COMMON);
-                        HM._.shopMg.FreeCommonChestDim.SetActive(true);
-
-                        rwDt.OpenRewardContent(rwDt.Rwd_ChestCommon);
-                        WindowObj.SetActive(false);
+                        //* リワード広告
+                        AdmobManager._.ProcessRewardAd(DailyFreeCommonChest);
                     };
                     break;
                 }

@@ -80,20 +80,22 @@ public class LuckySpinManager : MonoBehaviour {
         StopSpin();
         HM._.GoldKey -= 2;
     }
-    public void OnClickFreeAdStopSpinBtn() {
-        //TODO AD
-        if(DM._.DB.LuckySpinFreeAdCnt <= 0) {
-            HM._.hui.ShowMsgError("일일룰렛광고 무료횟수를 전부 사용하였습니다.");
-            return;
-        }
-        if(IsStopSpin) {
-            // HM._.hui.ShowMsgError("이미 룰렛을 멈추고 있습니다. 끝난뒤에 다시 클릭해주세요!");
-            return;
-        }
+    private void SetFreeLuckySpin() {
         //* 無料AD数を減る
         DM._.DB.LuckySpinFreeAdCnt--;
         FreeAdBtnCntTxt.text = $"{DM._.DB.LuckySpinFreeAdCnt} / {Config.LUCKYSPIN_FREEAD_CNT}";
         StopSpin();
+    }
+    public void OnClickFreeAdStopSpinBtn() {
+        if(DM._.DB.LuckySpinFreeAdCnt <= 0) {
+            HM._.hui.ShowMsgError("일일룰렛광고 무료횟수를 전부 사용하였습니다.");
+            return;
+        }
+        if(IsStopSpin) // HM._.hui.ShowMsgError("이미 룰렛을 멈추고 있습니다. 끝난뒤에 다시 클릭해주세요!");
+            return; 
+
+        //* リワード広告
+        AdmobManager._.ProcessRewardAd(SetFreeLuckySpin);
     }
 #endregion
 

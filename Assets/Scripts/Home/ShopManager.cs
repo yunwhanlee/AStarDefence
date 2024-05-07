@@ -335,12 +335,30 @@ public class ShopManager : MonoBehaviour {
         }
     }
 
+    public void OnclickFreeDiamondBtn() {
+        RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
+        ItemSO DIAMOND = rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond];
+        var rewardList = new List<RewardItem>();
+
+        //* Daily Item
+        if(DM._.DB.ShopDB.DailyItems[ShopDB.FREE_TINY].IsAccept)
+            return;
+
+        AdmobManager._.ProcessRewardAd(() => {
+                DM._.DB.ShopDB.SetAcceptData(ShopDB.FREE_TINY);
+                FreeTinyDiamondDim.SetActive(true);
+
+                rewardList.Add(new (DIAMOND, 10));
+                HM._.rwlm.ShowReward(rewardList);
+                HM._.rwm.UpdateInventory(rewardList);
+        });
+    }
+
     /// <summary>
     /// ダイアモンド購入
     /// </summary> <summary>
     public void OnClickDiamondBtn(int diamondIdx) {
-        const int FREE_DIAMOND = 0,
-            DIAMOND_TINY = 1,
+        const int DIAMOND_TINY = 1,
             DIAMOND_SMALL = 2,
             DIAMOND_MEDIUM = 3,
             DIAMOND_BIG = 4,
@@ -350,19 +368,8 @@ public class ShopManager : MonoBehaviour {
         ItemSO DIAMOND = rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond];
 
         var rewardList = new List<RewardItem>();
+        
         switch(diamondIdx) {
-            case FREE_DIAMOND:
-                //* Daily Item
-                if(DM._.DB.ShopDB.DailyItems[ShopDB.FREE_TINY].IsAccept)
-                    return;
-
-                //TODO AD
-
-                DM._.DB.ShopDB.SetAcceptData(ShopDB.FREE_TINY);
-                FreeTinyDiamondDim.SetActive(true);
-
-                rewardList.Add(new (DIAMOND, 10));
-                break;
             case DIAMOND_TINY:
                 rewardList.Add(new (DIAMOND, 180));
                 break;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Reward {
+public class RewardDt {
     [field: SerializeField] public string Name;
     [field: SerializeField] public int Val;
 }
