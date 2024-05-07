@@ -25,6 +25,8 @@ public class HomeUIManager : MonoBehaviour {
     [field: SerializeField] public GameObject RemoveAdIcon {get; set;}
     [field: SerializeField] public GameObject CloverActiveIcon {get; set;}
     [field: SerializeField] public GameObject GoldCloverActiveIcon {get; set;}
+    [field: SerializeField] public GameObject SpeedUpAdBtnOffObj {get; set;}
+    [field: SerializeField] public GameObject SpeedUpAdBtnOnObj {get; set;}
     [field: SerializeField] public bool IsActivePopUp {get; set;}
 
     public Button PlayBtn {get; set;}
@@ -60,9 +62,25 @@ public class HomeUIManager : MonoBehaviour {
         HM._.shopMg.RemoveAdDim.SetActive(DM._.DB.IsRemoveAd);
         CloverActiveIcon.SetActive(DM._.DB.IsCloverActive);
         GoldCloverActiveIcon.SetActive(DM._.DB.IsGoldCloverActive);
+
+        DM._.IsActiveSpeedUp = DM._.DB.IsRemoveAd;
+        SpeedUpAdBtnOffObj.SetActive(!DM._.IsActiveSpeedUp);
+        SpeedUpAdBtnOnObj.SetActive(DM._.IsActiveSpeedUp);
     }
 
 #region EVENT
+    public void OnClickSpeedUpAdBtnOff() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        HM._.hui.ShowAgainAskMsg("광고를 시청하고 게임배속 2.5배를 추가하시겠습니까?\n<color=grey>(원래 1배, 2배속만 가능)</color>");
+        HM._.hui.OnClickAskConfirmAction = () => {
+            AdmobManager._.ProcessRewardAd(() => {
+                SM._.SfxPlay(SM.SFX.CompleteSFX);
+                SpeedUpAdBtnOffObj.SetActive(false);
+                SpeedUpAdBtnOnObj.SetActive(true);
+                DM._.IsActiveSpeedUp = true;
+            });
+        };
+    }
     public void OnClickPlayBtn() {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         HM._.stgm.StageGroup.SetActive(true);

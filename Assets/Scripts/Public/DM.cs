@@ -358,6 +358,7 @@ public class DM : MonoBehaviour {
     [field: SerializeField] public int SelectedStage {get; set;}
     [field: SerializeField] public Enum.StageNum SelectedStageNum {get; set;}
     [field: SerializeField] public bool IsPassedDate {get; private set;}
+    [field: SerializeField] public bool IsActiveSpeedUp {get; set;}
 
     void Awake() {
         //* SINGLETON

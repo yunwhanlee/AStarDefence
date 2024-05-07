@@ -124,7 +124,9 @@ public class GameUIManager : MonoBehaviour {
         Debug.Log($"OnClickPlaySpeedBtn()::");
         const int OFF = 0, ON = 1;
         var time = Time.timeScale;
-        Time.timeScale = (time == 1)? 2 : (time == 2)? 2.5f : 1;
+        Time.timeScale = (time == 1)? 2
+            : (time == 2 && DM._.IsActiveSpeedUp)? 2.5f
+            : 1;
         playSpeedBtnImg.sprite = (Time.timeScale == 1)? playSpeedBtnSprs[OFF] : playSpeedBtnSprs[ON];
         playSpeedBtnTxt.text = $"X{Time.timeScale}";
     }
