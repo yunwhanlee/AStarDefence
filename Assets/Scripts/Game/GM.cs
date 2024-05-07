@@ -33,6 +33,7 @@ public class GM : MonoBehaviour {
     [SerializeField] public InventorySO InventoryData;
     [SerializeField] GameState state;   public GameState State {get => state; set => state = value;}
     [field: SerializeField] public bool IsReady;
+    [field: SerializeField] public bool IsRevived;
     [field: SerializeField] public StageData[] StageDts;
     [field: SerializeField] public int Stage {get; set;}
     [field: SerializeField] public int MaxWave {get; set;}

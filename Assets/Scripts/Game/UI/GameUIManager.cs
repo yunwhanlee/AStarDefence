@@ -24,6 +24,7 @@ public class GameUIManager : MonoBehaviour {
     public TextMeshProUGUI StartBtnTxt;
     public Color[] StartBlueColors;
     public Color[] StartRedColors;
+    public GameObject ReviveSpawnUIEF;
 
     [Tooltip("ゲーム状況により変わるUIグループ")]
     public Button ResetWallBtn;
@@ -122,6 +123,7 @@ public class GameUIManager : MonoBehaviour {
 
     public void OnClickPlaySpeedBtn() {
         Debug.Log($"OnClickPlaySpeedBtn()::");
+        SM._.SfxPlay(SM.SFX.ClickSFX);
         const int OFF = 0, ON = 1;
         var time = Time.timeScale;
         Time.timeScale = (time == 1)? 2
@@ -177,15 +179,33 @@ public class GameUIManager : MonoBehaviour {
         //TODO Request Revive Reward Ads
         Debug.Log("REVIVE Ads");
 
-        //* 初期化
-        GameoverPopUp.SetActive(false);
-        GM._.State = GameState.Play;
-        Time.timeScale = 1;
-        GM._.Life = Config.DEFAULT_LIFE;
-        HeartFillImg.fillAmount = 1;
-        playSpeedBtnImg.sprite = playSpeedBtnSprs[OFF];
-        playSpeedBtnTxt.text = $"X1";
-        GM._.gef.ShowIconTxtEF(HeartFillImg.transform.position, GM._.MaxLife, "Heart");
+        AdmobManager._.ProcessRewardAd(() => {
+            GM._.IsRevived = true;
+            SM._.SfxPlay(SM.SFX.InvStoneSFX);
+            GM._.gui.ShowMsgNotice("부활성공!!!");
+            GM._.gui.ReviveSpawnUIEF.SetActive(true);
+
+            //* 復活したら、以前に残っているモンスターを削除（ボースはしない）
+            Transform enemyGroup = GM._.em.enemyObjGroup;
+            Enemy firstEnemy = enemyGroup.GetChild(0).GetComponent<Enemy>();
+            if(firstEnemy.Type != EnemyType.Boss) {
+                for(int i = 0; i < enemyGroup.childCount; i++) {
+                    Enemy enemy = enemyGroup.GetChild(i).GetComponent<Enemy>();
+                    enemy.DecreaseHp(999999);
+                }
+            }
+
+            //* 初期化
+            GameoverPopUp.SetActive(false);
+            GM._.State = GameState.Play;
+            Time.timeScale = 1;
+            GM._.Life = Config.DEFAULT_LIFE;
+            HeartFillImg.fillAmount = 1;
+            playSpeedBtnImg.sprite = playSpeedBtnSprs[OFF];
+            playSpeedBtnTxt.text = $"X1";
+            GM._.gef.ShowIconTxtEF(HeartFillImg.transform.position, GM._.MaxLife, "Heart");
+        });
+
     }
 
     //* VICTORY
@@ -242,6 +262,13 @@ public class GameUIManager : MonoBehaviour {
     public void Gameover() {
         SM._.SfxPlay(SM.SFX.GameoverSFX);
         GameoverPopUp.SetActive(true);
+
+        //* ゴブリンステージは復活できない
+        if(GM._.Stage == Config.Stage.STG_GOBLIN_DUNGEON)
+            Ads_ReviveBtn.gameObject.SetActive(false);
+        else
+            Ads_ReviveBtn.gameObject.SetActive(!GM._.IsRevived);
+
         GM._.Life = 0;
         Time.timeScale = 0;
         GM._.State = GameState.Gameover;

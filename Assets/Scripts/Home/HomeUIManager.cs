@@ -63,6 +63,7 @@ public class HomeUIManager : MonoBehaviour {
         CloverActiveIcon.SetActive(DM._.DB.IsCloverActive);
         GoldCloverActiveIcon.SetActive(DM._.DB.IsGoldCloverActive);
 
+        //* SpeedUpアイコン活性化 表示
         DM._.IsActiveSpeedUp = DM._.DB.IsRemoveAd;
         SpeedUpAdBtnOffObj.SetActive(!DM._.IsActiveSpeedUp);
         SpeedUpAdBtnOnObj.SetActive(DM._.IsActiveSpeedUp);
