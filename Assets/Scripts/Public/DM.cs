@@ -254,12 +254,12 @@ public class DailyMissionDB {
 /// </summary>
 [Serializable]
 public class SettingDB {
-    [field:SerializeField] public bool IsActiveBgm {get; set;}
-    [field:SerializeField] public bool IsActiveSfx {get; set;}
+    [field:SerializeField] public float BgmVolume {get; set;}
+    [field:SerializeField] public float SfxVolume {get; set;}
 
     public SettingDB() {
-        IsActiveBgm = true;
-        IsActiveSfx = true;
+        BgmVolume = 1;
+        SfxVolume = 1;
     }
 }
 

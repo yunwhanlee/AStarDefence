@@ -175,17 +175,18 @@ public class SM : MonoBehaviour {
 #endregion
 
 #region FUNC
-    public void ActiveBGM(bool isActive) {
-        BgmPlayer.gameObject.SetActive(isActive);
+    public void SetVolumeBGM(float volume) {
+        BgmPlayer.volume = volume;
+        BgmPlayer.gameObject.SetActive(volume > 0);
         BgmPlay(BGM.HomeBGM);
     }
-    public void ActiveSFX(bool isActive) {
-        SfxPlayer.gameObject.SetActive(isActive);
+    public void SetVolumeSFX(float volume) {
+        SfxPlayer.volume = volume;
+        SfxPlayer.gameObject.SetActive(volume > 0);
     }
 
-    private void SetBGM(AudioClip bgm, float vol = 1) {
+    private void SetBGM(AudioClip bgm) {
         BgmPlayer.clip = bgm;
-        BgmPlayer.volume = vol;
     }
 
     public void BgmPlay(BGM bgm) {

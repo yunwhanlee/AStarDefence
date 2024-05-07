@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SettingManager : MonoBehaviour {
     [field: SerializeField] public GameObject WindowObj {get; private set;}
     [field: SerializeField] public GameObject LanguageWindowObj {get; private set;}
     [field: SerializeField] public GameObject ShowTutorialWindowObj {get; private set;}
-    [field: SerializeField] public GameObject BgmToogleCheckImg {get; private set;}
-    [field: SerializeField] public GameObject SfxToogleCheckImg {get; private set;}
+    [field: SerializeField] public Slider BgmVolumeSlider {get; private set;}
+    [field: SerializeField] public Slider SfxVolumeSlider {get; private set;}
 
     void Start() {
-        //* BGMとSFX ON・OFFチェック
-        bool isActiveBGM = DM._.DB.SettingDB.IsActiveBgm;
-        bool isActiveSFX = DM._.DB.SettingDB.IsActiveSfx;
-        BgmToogleCheckImg.SetActive(isActiveBGM);
-        SfxToogleCheckImg.SetActive(isActiveSFX);
-        SM._.ActiveBGM(isActiveBGM);
-        SM._.ActiveSFX(isActiveSFX);
+        //* ボリュームUI
+        BgmVolumeSlider.value = DM._.DB.SettingDB.BgmVolume;
+        SfxVolumeSlider.value = DM._.DB.SettingDB.SfxVolume;
+        //* ボリュームデータ
+        SM._.SetVolumeBGM(DM._.DB.SettingDB.BgmVolume);
+        SM._.SetVolumeSFX(DM._.DB.SettingDB.SfxVolume);
     }
 
 #region EVENT
@@ -31,15 +31,13 @@ public class SettingManager : MonoBehaviour {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(false);
     }
-    public void OnClickBgmToogleBtn() {
-        DM._.DB.SettingDB.IsActiveBgm = !DM._.DB.SettingDB.IsActiveBgm;
-        BgmToogleCheckImg.SetActive(DM._.DB.SettingDB.IsActiveBgm);
-        SM._.ActiveBGM(DM._.DB.SettingDB.IsActiveBgm);
+    public void OnChangeBgmSliderHandle() {
+        DM._.DB.SettingDB.BgmVolume = BgmVolumeSlider.value;
+        SM._.SetVolumeBGM(DM._.DB.SettingDB.BgmVolume);
     }
-    public void OnClickSfxToogleBtn() {
-        DM._.DB.SettingDB.IsActiveSfx = !DM._.DB.SettingDB.IsActiveSfx;
-        SfxToogleCheckImg.SetActive(DM._.DB.SettingDB.IsActiveSfx);
-        SM._.ActiveSFX(DM._.DB.SettingDB.IsActiveSfx);
+    public void OnChangeSfxSliderHandle() {
+        DM._.DB.SettingDB.SfxVolume = SfxVolumeSlider.value;
+        SM._.SetVolumeSFX(DM._.DB.SettingDB.SfxVolume);
     }
     public void OnClickGoogleLoginBtn() {
 
