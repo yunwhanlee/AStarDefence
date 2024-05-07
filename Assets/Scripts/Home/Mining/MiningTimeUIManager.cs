@@ -31,11 +31,18 @@ public class MiningTimeUIManager : MonoBehaviour {
 
             //* 採掘(仕事)中なら
             if(curWS.GoblinSpotDt.IsActive && curWS.OreSpotDt.IsActive) {
-                // TODO) 広告 ➝ ３０分を減る
-                HM._.hui.ShowAgainAskMsg("광고시청하고 바로 완료하시겠습니까?");
+                HM._.hui.ShowAgainAskMsg("광고를 시청하고 남은시간의 절반을 줄이겠습니까?\n<color=blue><size=70%>시간이 20분 미만으로 남았다면 바로 완료합니다!");
                 HM._.hui.OnClickAskConfirmAction = () => {
-                    SM._.SfxPlay(SM.SFX.CompleteSFX);
-                    curWS.MiningTime = 0;
+                    AdmobManager._.ProcessRewardAd(() => {
+                        SM._.SfxPlay(SM.SFX.CompleteSFX);
+                        const int TWENTY_MINUTES = 6000;
+
+                        //* 採掘の時間減る
+                        if(curWS.MiningTime > TWENTY_MINUTES)
+                            curWS.MiningTime /= 2;
+                        else
+                            curWS.MiningTime = 0;
+                    });
                 };
             }
             //* 仕事していない場合
