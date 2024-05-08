@@ -72,70 +72,70 @@ public class HomeRewardListUIManager : MonoBehaviour {
         //     child.gameObject.SetActive(false); // Destroy(child.gameObject);
     }
 
-    IEnumerator CoPlayRewardSlotSpawnSFX(int cnt) {
-        IsFinishSlotsSpawn = true;
-        yield return Util.Time0_5;
-        for(int i = 0; i < cnt; i++) {
-            SM._.SfxPlay(SM.SFX.ItemPickSFX);
-            yield return Util.Time0_1;
-        }
-        IsFinishSlotsSpawn = false;
-    }
-
     /// <summary>
     /// リワードリスト表示
     /// </summary>
-    private void DisplayRewardList(List<RewardItem> rewardList) {
+    private IEnumerator CoDisplayRewardList(List<RewardItem> rewardList) {
         //* 数量によって、スロットサイズ
         bool isUnder10 = rewardList.Count <= 10;
         ContentGrid.constraintCount = isUnder10? 5 : 10;
         Content.localScale = Vector3.one * (isUnder10? 1 : 0.8f);
 
-        //* サウンド
-        StartCoroutine(CoPlayRewardSlotSpawnSFX(rewardList.Count));
-
-        //* リワードリストへオブジェクト生成・追加
         for(int i = 0; i < rewardList.Count; i++) {
-            float delay = 0.5f + i * 0.1f;
-            RewardItem rewardItem = rewardList[i];
             rwdSlotList[i].gameObject.SetActive(true);
+        }
+
+        IsFinishSlotsSpawn = true;
+        yield return Util.Time0_2;
+        for(int i = 0; i < rewardList.Count; i++) {
+            SM._.SfxPlay(SM.SFX.ItemPickSFX);
+
+            RewardItem rewardItem = rewardList[i];
             rwdSlotList[i].SetUI(rewardItem.Data.Type, rewardItem.Data.Grade, rewardItem.Data.ItemImg, rewardItem.Quantity, lv: 1);
             //* Particle UI Effect 1
             rwdSlotList[i].PlayScaleUIEF(rwdSlotList[i], rewardItem.Data.ItemImg);
-            rwdSlotList[i].ItemImgScaleUIEF.startDelay = delay;
             //* Particle UI Effect 2
-            rwdSlotList[i].WhiteDimScaleUIEF.lifetime = delay;
             rwdSlotList[i].WhiteDimScaleUIEF.Play();
             
             //* UNIQUE等級なら
             if(rewardItem.Data.Grade >= Enum.Grade.Unique) {
                 //* 音
                 switch(rewardItem.Data.Grade) {
-                    case Enum.Grade.Unique: SM._.SfxPlay(SM.SFX.Merge2SFX, delay); break;
-                    case Enum.Grade.Legend: SM._.SfxPlay(SM.SFX.Merge3SFX, delay); break;
-                    case Enum.Grade.Myth:   SM._.SfxPlay(SM.SFX.Merge4SFX, delay); break;
-                    case Enum.Grade.Prime:  SM._.SfxPlay(SM.SFX.Merge5SFX, delay); break;
+                    case Enum.Grade.Unique: SM._.SfxPlay(SM.SFX.Merge2SFX); break;
+                    case Enum.Grade.Legend:
+                        SM._.SfxPlay(SM.SFX.Merge3SFX);
+                        rwdSlotList[i].LegendSpawnUIEF.Play();
+                        break;
+                    case Enum.Grade.Myth:
+                        SM._.SfxPlay(SM.SFX.Merge4SFX);
+                        SM._.SfxPlay(SM.SFX.RoarASFX);
+                        rwdSlotList[i].MythSpawnUIEF.Play();
+                        break;
+                    case Enum.Grade.Prime:
+                        SM._.SfxPlay(SM.SFX.Merge5SFX);
+                        SM._.SfxPlay(SM.SFX.RoarASFX);
+                        SM._.SfxPlay(SM.SFX.InvStoneSFX);
+                        rwdSlotList[i].PrimeSpawnUIEF.Play();
+                        break;
                 }
                 //* Particle UI Equipment Effect 3
                 rwdSlotList[i].HighGradeSpawnUIEF.enabled = true; //Play();
                 rwdSlotList[i].Twincle1UIEF.enabled = true;
                 rwdSlotList[i].Twincle2UIEF.enabled = true;
                 //* High Grade Nice Effect 4
-                rwdSlotList[i].HighGradeNiceUIEF.startDelay = delay;
-                rwdSlotList[i].HighGradeRayUIEF.startDelay = delay;
-                rwdSlotList[i].HighGradeHandUIEF.startDelay = delay;
-                rwdSlotList[i].HighGradeBurstBlueUIEF.startDelay = delay;
-                rwdSlotList[i].HighGradeBurstYellowUIEF.startDelay = delay;
                 rwdSlotList[i].HighGradeNiceUIEF.Play();
             }
+
+            yield return Util.Time0_05;
         }
+        IsFinishSlotsSpawn = false;
     }
     public void ShowReward(List<RewardItem> itemList) {
         SM._.SfxPlay(SM.SFX.RewardSFX);
         HM._.hui.IsActivePopUp = true;
         WindowObj.SetActive(true);
         ReleaseAll();
-        DisplayRewardList(itemList);
+        StartCoroutine(CoDisplayRewardList(itemList));
     }
     /// <summary>
     /// Chestを開いた後、カウント減った状況 最新化

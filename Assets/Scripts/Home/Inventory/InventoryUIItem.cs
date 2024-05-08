@@ -42,6 +42,9 @@ namespace Inventory.UI
         [field:SerializeField] public ParticleImage HighGradeHandUIEF {get; set;}
         [field:SerializeField] public ParticleImage HighGradeBurstBlueUIEF {get; set;}
         [field:SerializeField] public ParticleImage HighGradeBurstYellowUIEF {get; set;}
+        [field:SerializeField] public ParticleImage LegendSpawnUIEF {get; set;}
+        [field:SerializeField] public ParticleImage MythSpawnUIEF {get; set;}
+        [field:SerializeField] public ParticleImage PrimeSpawnUIEF {get; set;}
         public bool IsEmpty = false;
         public event Action<InventoryUIItem> OnItemClicked, 
             OnItemDroppedOn, 
@@ -100,6 +103,9 @@ namespace Inventory.UI
             if(HighGradeHandUIEF) HighGradeHandUIEF.Stop();
             if(HighGradeBurstBlueUIEF) HighGradeBurstBlueUIEF.Stop();
             if(HighGradeBurstYellowUIEF) HighGradeBurstYellowUIEF.Stop();
+            if(LegendSpawnUIEF) LegendSpawnUIEF.Stop();
+            if(MythSpawnUIEF) MythSpawnUIEF.Stop();
+            if(PrimeSpawnUIEF) PrimeSpawnUIEF.Stop();
         }
         public void Deselect() => BorderImg.enabled = false;
 
