@@ -59,18 +59,18 @@ public class HomeRewardUIManager : MonoBehaviour {
 
             };
             HM._.rwlm.ShowReward(rewardList);
-            UpdateInventory(rewardList);
+            // CoUpdateInventoryAsync(rewardList);
         }
     }
 
     #region FUNC
-        public void UpdateInventory(List<RewardItem> rewardList) {
+        public IEnumerator CoUpdateInventoryAsync(List<RewardItem> rewardList) {
             if(rewardList.Count > 0) {
                 foreach (RewardItem rwdItem in rewardList) {
                     //* リワード処理：インベントリーへ表示しないアイテム
                     if(rwdItem.Data.IsNoshowInventory) {
                         Etc.NoshowInvItem enumVal = Util.FindEnumVal(rwdItem.Data.name);
-                        rwdItem.UpdateItemData(enumVal, rwdItem.Quantity);
+                        rwdItem.UpdateNoShowItemData(enumVal, rwdItem.Quantity);
                     }
                     //* リワード処理：インベントリーへ表示する物
                     else {
@@ -84,6 +84,7 @@ public class HomeRewardUIManager : MonoBehaviour {
                         );
                         rwdItem.Quantity = reminder;
                     }
+                    yield return null;
                 }
             }
         }

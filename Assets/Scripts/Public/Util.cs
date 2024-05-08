@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,8 +44,19 @@ public class Util : MonoBehaviour {
     [field:SerializeField] public Material BlinkMt {get; private set;}
     [field:SerializeField] public Material DefaultMt {get; private set;}
     [field:SerializeField] public Material RedMt {get; private set;}
+    public static Dictionary<string, Etc.NoshowInvItem> enumNoShowStrDic;
 
-    void Awake() => _ = this;
+    void Awake() {
+        _ = this;
+
+        //* FindEnumValメソッドへ使うCaching変数
+        enumNoShowStrDic = new Dictionary<string, Etc.NoshowInvItem>();
+        Etc.NoshowInvItem[] enumValArr = (Etc.NoshowInvItem[])System.Enum.GetValues(typeof(Etc.NoshowInvItem));
+        for(int i = 0; i < enumValArr.Length; i++) {
+            var enumVal = enumValArr[i];
+            enumNoShowStrDic.Add(enumVal.ToString(), enumVal);
+        }
+    }
 
     public static string ConvertTimeFormat(int timeSec) {
         int sec = timeSec % 60;
@@ -111,10 +123,17 @@ public class Util : MonoBehaviour {
         return string.Join("", starStrArr);
     }
 
+    
+
     public static Etc.NoshowInvItem FindEnumVal(string name) {
-        Etc.NoshowInvItem[] enumValArr = (Etc.NoshowInvItem[])System.Enum.GetValues(typeof(Etc.NoshowInvItem));
-        Etc.NoshowInvItem enumVal = System.Array.Find(enumValArr, @enum => $"{@enum}" == name);
-        return enumVal;
+        // Etc.NoshowInvItem[] enumValArr = (Etc.NoshowInvItem[])System.Enum.GetValues(typeof(Etc.NoshowInvItem));
+        if(enumNoShowStrDic.ContainsKey(name)) {
+            Debug.Log($"FindEnumVal():: enumNoShowStrDic[{name}]= {enumNoShowStrDic[name]}");
+            return enumNoShowStrDic[name];
+        }
+        return Etc.NoshowInvItem.NULL;
+        // Etc.NoshowInvItem enumVal = System.Array.Find(enumValArr, @enum => $"{@enum}" == name);
+        // return enumVal;
     }
 
     public static int GetSize_AbilityType() 

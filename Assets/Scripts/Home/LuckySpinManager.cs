@@ -161,7 +161,7 @@ var rwDt = HM._.rwlm.RwdItemDt;
             }
         }
         HM._.rwlm.ShowReward(rewardList);
-        HM._.rwm.UpdateInventory(rewardList);
+        // HM._.rwm.CoUpdateInventoryAsync(rewardList);
 
         //* リワードPopUpを閉じると実行するイベント購読
         OnClickCloseRewardScreen = ResetUI;

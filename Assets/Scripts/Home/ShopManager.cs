@@ -212,7 +212,7 @@ public class ShopManager : MonoBehaviour {
         }
 
         HM._.rwlm.ShowReward(rewardList);
-        HM._.rwm.UpdateInventory(rewardList);
+        // HM._.rwm.UpdateInventory(rewardList);
     }
     /// <summary>
     /// SHOPで宝箱クリック
@@ -255,7 +255,7 @@ public class ShopManager : MonoBehaviour {
                     //* リワード
                     var rewardList = new List<RewardItem>() {new (goldKeyDt, quantity) };
                     HM._.rwlm.ShowReward(rewardList);
-                    HM._.rwm.UpdateInventory(rewardList);
+                    // HM._.rwm.CoUpdateInventoryAsync(rewardList);
                 };
                 break;
             }
@@ -278,7 +278,7 @@ public class ShopManager : MonoBehaviour {
                     //* リワード
                     var rewardList = new List<RewardItem>() { new (soulStoneDt, quantity) };
                     HM._.rwlm.ShowReward(rewardList);
-                    HM._.rwm.UpdateInventory(rewardList);
+                    // HM._.rwm.CoUpdateInventoryAsync(rewardList);
                 };
                 break;
             }
@@ -301,7 +301,7 @@ public class ShopManager : MonoBehaviour {
                     //* リワード
                     var rewardList = new List<RewardItem>() { new (magicStoneDt, quantity) };
                     HM._.rwlm.ShowReward(rewardList);
-                    HM._.rwm.UpdateInventory(rewardList);
+                    // HM._.rwm.CoUpdateInventoryAsync(rewardList);
                 };
                 break;
             }
@@ -339,7 +339,7 @@ public class ShopManager : MonoBehaviour {
                     for(int i = 0; i < quantity; i++) 
                         rewardList.Add(new (itemDts[Random.Range(0, 4)]));
                     HM._.rwlm.ShowReward(rewardList);
-                    HM._.rwm.UpdateInventory(rewardList);
+                    // HM._.rwm.CoUpdateInventoryAsync(rewardList);
                 };
                 break;
             }
@@ -361,7 +361,7 @@ public class ShopManager : MonoBehaviour {
 
                 rewardList.Add(new (DIAMOND, 10));
                 HM._.rwlm.ShowReward(rewardList);
-                HM._.rwm.UpdateInventory(rewardList);
+                // HM._.rwm.CoUpdateInventoryAsync(rewardList);
         });
     }
 
@@ -399,7 +399,7 @@ public class ShopManager : MonoBehaviour {
         }
 
         HM._.rwlm.ShowReward(rewardList);
-        HM._.rwm.UpdateInventory(rewardList);
+        // HM._.rwm.CoUpdateInventoryAsync(rewardList);
     }
     /// <summary>
     /// コイン購入
@@ -429,7 +429,7 @@ public class ShopManager : MonoBehaviour {
         }
 
         HM._.rwlm.ShowReward(rewardList);
-        HM._.rwm.UpdateInventory(rewardList);
+        // HM._.rwm.CoUpdateInventoryAsync(rewardList);
     }
 
     /// <summary>
@@ -441,7 +441,7 @@ public class ShopManager : MonoBehaviour {
             new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.RemoveAd])
         };
         HM._.rwlm.ShowReward(rewardList);
-        HM._.rwm.UpdateInventory(rewardList);
+        // HM._.rwm.CoUpdateInventoryAsync(rewardList);
     }
 
     

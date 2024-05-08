@@ -182,7 +182,7 @@ public class StageUIManager : MonoBehaviour {
             new (GetStageBonusRewardChestData(stgIdx, stgNumIdx).Item2)
         };
         HM._.rwlm.ShowReward(rewardList);
-        HM._.rwm.UpdateInventory(rewardList);
+        // HM._.rwm.CoUpdateInventoryAsync(rewardList);
     }
     public void OnClickNewStageAlertBtn() {
         Debug.Log($"OnClickNewStageAlertBtn():: NewStageAlertIdx= {StageAlertIdx}");

@@ -148,7 +148,12 @@ public class HomeRewardListUIManager : MonoBehaviour {
         }
         IsFinishSlotsSpawn = false;
     }
-    public void ShowReward(List<RewardItem> itemList) {
+    /// <summary>
+    /// リワードスロットUIリスト 表示
+    /// </summary>
+    /// <param name="itemList">リワードでもらえるアイテムリスト</param> <summary>
+    public void ShowReward(List<RewardItem> itemList) => StartCoroutine(CoShowRewardProccess(itemList));
+    IEnumerator CoShowRewardProccess(List<RewardItem> itemList) {
         for(int i = 0; i < itemList.Count; i++)
             Debug.Log($"ShowReward():: itemList[{i}].quantity= {itemList[i].Quantity}");
 
@@ -156,7 +161,8 @@ public class HomeRewardListUIManager : MonoBehaviour {
         HM._.hui.IsActivePopUp = true;
         WindowObj.SetActive(true);
         ReleaseAll();
-        StartCoroutine(CoDisplayRewardList(itemList));
+        yield return CoDisplayRewardList(itemList);
+        yield return HM._.rwm.CoUpdateInventoryAsync(itemList);
     }
     /// <summary>
     /// Chestを開いた後、カウント減った状況 最新化

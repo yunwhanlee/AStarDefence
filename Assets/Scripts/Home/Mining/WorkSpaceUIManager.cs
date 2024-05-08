@@ -240,7 +240,7 @@ public class WorkSpaceUIManager : MonoBehaviour {
 
             //* リワード表示
             HM._.rwlm.ShowReward(rewardList);
-            HM._.rwm.UpdateInventory(rewardList);
+            // HM._.rwm.CoUpdateInventoryAsync(rewardList);
     }
 
 #endregion

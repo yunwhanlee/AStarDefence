@@ -231,7 +231,7 @@ public class GM : MonoBehaviour {
             SM._.SfxPlay(SM.SFX.CompleteSFX);
             gui.Ads_ClaimX2Btn.gameObject.SetActive(false);
             rwlm.ShowReward(VictoryRwdList);
-            HM._.rwm.UpdateInventory(VictoryRwdList);
+            // HM._.rwm.CoUpdateInventoryAsync(VictoryRwdList);
 
             for(int i = 0 ; i < rwlm.Content.childCount; i++) {
                 rwlm.Content.GetChild(i).GetComponent<InventoryUIItem>().DoubleRewardLabel.SetActive(true);
@@ -651,7 +651,7 @@ public class GM : MonoBehaviour {
         VictoryRwdList = rewardList;
 
         rwlm.ShowReward(rewardList);
-        HM._.rwm.UpdateInventory(rewardList);
+        // HM._.rwm.CoUpdateInventoryAsync(rewardList);
     }
 
     /// <summary>

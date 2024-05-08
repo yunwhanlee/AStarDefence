@@ -48,7 +48,7 @@ public class GameRewardUIManager : MonoBehaviour {
                 //* リワード処理：インベントリーへ表示しないアイテム
                 if(rwdItem.Data.IsNoshowInventory) {
                     Etc.NoshowInvItem enumVal = Util.FindEnumVal(rwdItem.Data.name);
-                    rwdItem.UpdateItemData(enumVal, rwdItem.Quantity);
+                    rwdItem.UpdateNoShowItemData(enumVal, rwdItem.Quantity);
                 }
                 //* リワード処理：インベントリーへ表示する物
                 else {

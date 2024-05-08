@@ -297,7 +297,7 @@ public class TutorialDB {
                     new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore0]),
                 };
                 HM._.rwlm.ShowReward(rewardList);
-                HM._.rwm.UpdateInventory(rewardList);
+                // HM._.rwm.CoUpdateInventoryAsync(rewardList);
 
                 //* リワードデータのUI最新化
                 HM._.mnm.SetUI((int)MineCate.Goblin);

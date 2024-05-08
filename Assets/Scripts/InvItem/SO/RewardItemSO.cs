@@ -22,7 +22,7 @@ public class RewardItem {
     /// <summary>
     /// インベントリへ表示されないアイテム 最新化
     /// </summary>
-    public void UpdateItemData(Etc.NoshowInvItem noShowInvItem, int quantity) {
+    public void UpdateNoShowItemData(Etc.NoshowInvItem noShowInvItem, int quantity) {
         switch (noShowInvItem) {
             case Etc.NoshowInvItem.GoldKey:
                 if(HM._)    HM._.GoldKey += quantity;
@@ -190,7 +190,7 @@ public class RewardItemSO : ScriptableObject {
 
         //* UI表示
         HM._.rwlm.ShowReward(rewardList);
-        HM._.rwm.UpdateInventory(rewardList);
+        // HM._.rwm.CoUpdateInventoryAsync(rewardList);
 
         int decreaseCnt = (specifiedCnt == 0)? 1 : specifiedCnt;
         HM._.ivCtrl.InventoryData.DecreaseItem(HM._.ivm.CurItemIdx, decVal: -decreaseCnt);

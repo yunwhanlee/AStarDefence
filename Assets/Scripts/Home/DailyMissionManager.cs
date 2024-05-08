@@ -124,7 +124,7 @@ public class MissionUI {
         rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Fame]));
 
         HM._.rwlm.ShowReward(rewardList);
-        HM._.rwm.UpdateInventory(rewardList);
+        // HM._.rwm.CoUpdateInventoryAsync(rewardList);
 
         HM._.dailyMs.UpdateCompleteCntUI();
     }
@@ -237,7 +237,7 @@ public class DailyMissionManager : MonoBehaviour {
             };
 
             HM._.rwlm.ShowReward(rewardList);
-            HM._.rwm.UpdateInventory(rewardList);
+            // HM._.rwm.CoUpdateInventoryAsync(rewardList);
         }
     #endregion
 
