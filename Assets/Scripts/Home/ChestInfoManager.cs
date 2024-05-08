@@ -166,7 +166,7 @@ public class ChestInfoManager : MonoBehaviour {
                     infoTemp += $"\n<sprite name=Equip> x 1";
                     infoTemp += $"\t<sprite name=Random> x 5";
 
-                    SetInfoTxtUI (chestDt.Name, chestDt.ItemImg, infoTemp);
+                    SetInfoTxtUI(chestDt.Name, chestDt.ItemImg, infoTemp);
 
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => {

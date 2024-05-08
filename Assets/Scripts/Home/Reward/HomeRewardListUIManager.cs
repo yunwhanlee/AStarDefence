@@ -11,6 +11,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
     [Header("REWARD LIST POPUP")]
     public GameObject WindowObj;
     public Transform Content;
+    public GridLayoutGroup ContentGrid;
     public List<InventoryUIItem> rwdSlotList;
 
     public bool IsFinishSlotsSpawn = false;
@@ -29,6 +30,8 @@ public class HomeRewardListUIManager : MonoBehaviour {
     [field: SerializeField] public RewardItemSO RwdItemDt {get; private set;}
 
     void Start() {
+        ContentGrid = Content.GetComponent<GridLayoutGroup>();
+
         //* 初期化 スロットリスト
         for(int i = 0; i < Content.childCount; i++) {
             rwdSlotList.Add(Content.GetChild(i).GetComponent<InventoryUIItem>());
@@ -83,6 +86,11 @@ public class HomeRewardListUIManager : MonoBehaviour {
     /// リワードリスト表示
     /// </summary>
     private void DisplayRewardList(List<RewardItem> rewardList) {
+        //* 数量によって、スロットサイズ
+        bool isUnder10 = rewardList.Count <= 10;
+        ContentGrid.constraintCount = isUnder10? 5 : 10;
+        Content.localScale = Vector3.one * (isUnder10? 1 : 0.8f);
+
         //* サウンド
         StartCoroutine(CoPlayRewardSlotSpawnSFX(rewardList.Count));
 

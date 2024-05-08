@@ -108,7 +108,7 @@ public class ShopManager : MonoBehaviour {
             case RandomEquip: {
                 //* リワードでもらえるアイテム数（最大表示数を超えたら、閉じると続けて再実行するため）
                 if(EquipPackageCnt == 0)
-                    EquipPackageCnt = 24;
+                    EquipPackageCnt = 40;
 
                 List<int> gradePerList = rwDt.Rwd_ChestEquipment.RwdGradeTb.EquipPerList;
 
@@ -149,7 +149,7 @@ public class ShopManager : MonoBehaviour {
             case RandomRelic: {
                 //* リワードでもらえるアイテム数（最大表示数を超えたら、閉じると続けて再実行するため）
                 if(EquipPackageCnt == 0)
-                    EquipPackageCnt = 18;
+                    EquipPackageCnt = 30;
 
                 List<int> gradePerList = rwDt.Rwd_ChestEquipment.RwdGradeTb.RelicPerList;
 

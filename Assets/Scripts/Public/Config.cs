@@ -6,7 +6,7 @@ using UnityEngine;
 
 public static class Config {
 #region HOME
-    public const int MAX_REWARD_SLOT = 30; //* リワードで表示できる最大のスロット数
+    public const int MAX_REWARD_SLOT = 40; //* リワードで表示できる最大のスロット数
     public const int MAX_GOBLINKEY = 5;
     public const int EQUIP_UPGRADE_MAX = 11;
     public const int RELIC_UPGRADE_MAX = 6;
