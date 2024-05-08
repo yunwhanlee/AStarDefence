@@ -236,7 +236,10 @@ public class ShopManager : MonoBehaviour {
 
         //* Info
         switch (etcIdx) {
-            case Config.H_PRICE.SHOP.GOLDKEY: {
+            case Config.H_PRICE.SHOP.GOLDKEY:
+            case Config.H_PRICE.SHOP.GOLDKEY_5:
+            case Config.H_PRICE.SHOP.GOLDKEY_10:
+            {
                 ItemSO goldKeyDt = rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey];
                 cim.SetInfoTxtUI(goldKeyDt.Name, goldKeyDt.ItemImg, goldKeyDt.Description);
 
@@ -245,14 +248,21 @@ public class ShopManager : MonoBehaviour {
                     //* Try Purchase
                     bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseEtc(etcIdx);
                     if(!isSuccess) return;
+                    //* 数量
+                    int quantity = (etcIdx == Config.H_PRICE.SHOP.GOLDKEY)? 1
+                        : (etcIdx == Config.H_PRICE.SHOP.GOLDKEY_5)? 5
+                        : (etcIdx == Config.H_PRICE.SHOP.GOLDKEY_10)? 10 : 0;
                     //* リワード
-                    var rewardList = new List<RewardItem>() { new (goldKeyDt, 1) };
+                    var rewardList = new List<RewardItem>() {new (goldKeyDt, quantity) };
                     HM._.rwlm.ShowReward(rewardList);
                     HM._.rwm.UpdateInventory(rewardList);
                 };
                 break;
             }
-            case Config.H_PRICE.SHOP.SOULSTONE: {
+            case Config.H_PRICE.SHOP.SOULSTONE:
+            case Config.H_PRICE.SHOP.SOULSTONE_5:
+            case Config.H_PRICE.SHOP.SOULSTONE_10:
+            {
                 ItemSO soulStoneDt = rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone];
                 cim.SetInfoTxtUI(soulStoneDt.Name, soulStoneDt.ItemImg, soulStoneDt.Description);
 
@@ -261,14 +271,21 @@ public class ShopManager : MonoBehaviour {
                     //* Try Purchase
                     bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseEtc(etcIdx);
                     if(!isSuccess) return;
+                    //* 数量
+                    int quantity = (etcIdx == Config.H_PRICE.SHOP.SOULSTONE)? 1
+                        : (etcIdx == Config.H_PRICE.SHOP.SOULSTONE_5)? 5
+                        : (etcIdx == Config.H_PRICE.SHOP.SOULSTONE_10)? 10 : 0;
                     //* リワード
-                    var rewardList = new List<RewardItem>() { new (soulStoneDt, 1) };
+                    var rewardList = new List<RewardItem>() { new (soulStoneDt, quantity) };
                     HM._.rwlm.ShowReward(rewardList);
                     HM._.rwm.UpdateInventory(rewardList);
                 };
                 break;
             }
-            case Config.H_PRICE.SHOP.MAGICSTONE: {
+            case Config.H_PRICE.SHOP.MAGICSTONE:
+            case Config.H_PRICE.SHOP.MAGICSTONE_5:
+            case Config.H_PRICE.SHOP.MAGICSTONE_10:
+            {
                 ItemSO magicStoneDt = rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone];
                 cim.SetInfoTxtUI(magicStoneDt.Name, magicStoneDt.ItemImg, magicStoneDt.Description);
 
@@ -277,14 +294,21 @@ public class ShopManager : MonoBehaviour {
                     //* Try Purchase
                     bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseEtc(etcIdx);
                     if(!isSuccess) return;
+                    //* 数量
+                    int quantity = (etcIdx == Config.H_PRICE.SHOP.MAGICSTONE)? 1
+                        : (etcIdx == Config.H_PRICE.SHOP.MAGICSTONE_5)? 5
+                        : (etcIdx == Config.H_PRICE.SHOP.MAGICSTONE_10)? 10 : 0;
                     //* リワード
-                    var rewardList = new List<RewardItem>() { new (magicStoneDt, 1) };
+                    var rewardList = new List<RewardItem>() { new (magicStoneDt, quantity) };
                     HM._.rwlm.ShowReward(rewardList);
                     HM._.rwm.UpdateInventory(rewardList);
                 };
                 break;
             }
-            case Config.H_PRICE.SHOP.RANDOM_GAME_CONSUMEITEM_X1: {
+            case Config.H_PRICE.SHOP.RANDOM_CONSUMEITEM:
+            case Config.H_PRICE.SHOP.RANDOM_CONSUMEITEM_5:
+            case Config.H_PRICE.SHOP.RANDOM_CONSUMEITEM_10:
+            {
                 ItemSO[] itemDts = new ItemSO[] {
                     rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack0],
                     rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack1],
@@ -304,43 +328,16 @@ public class ShopManager : MonoBehaviour {
                     //* Try Purchase
                     bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseEtc(etcIdx);
                     if(!isSuccess) return;
+
+                    //* 数量
+                    int quantity = (etcIdx == Config.H_PRICE.SHOP.RANDOM_CONSUMEITEM)? 1
+                        : (etcIdx == Config.H_PRICE.SHOP.RANDOM_CONSUMEITEM_5)? 5
+                        : (etcIdx == Config.H_PRICE.SHOP.RANDOM_CONSUMEITEM_10)? 10 : 0;
+
                     //* リワード
-                    var rewardList = new List<RewardItem>() { new (itemDts[Random.Range(0, 4)]) };
-
-                    HM._.rwlm.ShowReward(rewardList);
-                    HM._.rwm.UpdateInventory(rewardList);
-                };
-                break;
-            }
-            case Config.H_PRICE.SHOP.RANDOM_GAME_CONSUMEITEM_X5: {
-                ItemSO[] itemDts = new ItemSO[] {
-                    rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack0],
-                    rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack1],
-                    rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.BizzardScroll],
-                    rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.LightningScroll]
-                };
-
-                string infoMsg = $"{itemDts[0].Name}: {itemDts[0].Description}"
-                    + $"\n{itemDts[1].Name}: {itemDts[1].Description}"
-                    + $"\n{itemDts[2].Name}: {itemDts[2].Description}"
-                    + $"\n{itemDts[3].Name}: {itemDts[3].Description}";
-
-                cim.SetInfoTxtUI("랜덤 소비아이템", GameConsumeItemsSpr, infoMsg);
-
-                //* 次の購入イベント登録
-                cim.OnClickOpenChest = () => {
-                    //* Try Purchase
-                    bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseEtc(etcIdx);
-                    if(!isSuccess) return;
-                    //* リワード
-                    var rewardList = new List<RewardItem>() {
-                        new (itemDts[Random.Range(0, 4)]),
-                        new (itemDts[Random.Range(0, 4)]),
-                        new (itemDts[Random.Range(0, 4)]),
-                        new (itemDts[Random.Range(0, 4)]),
-                        new (itemDts[Random.Range(0, 4)])
-                    };
-
+                    var rewardList = new List<RewardItem>();
+                    for(int i = 0; i < quantity; i++) 
+                        rewardList.Add(new (itemDts[Random.Range(0, 4)]));
                     HM._.rwlm.ShowReward(rewardList);
                     HM._.rwm.UpdateInventory(rewardList);
                 };

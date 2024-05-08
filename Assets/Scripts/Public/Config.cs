@@ -114,15 +114,20 @@ public static class Config {
             }
         #endregion
         #region ETC PURCHASE
-            public const int GOLDKEY = 0, SOULSTONE = 1, MAGICSTONE = 2,
-                RANDOM_GAME_CONSUMEITEM_X1 = 3, RANDOM_GAME_CONSUMEITEM_X5 = 4;
+            public const int GOLDKEY = 0, GOLDKEY_5 = 1, GOLDKEY_10 = 2,
+                SOULSTONE = 3, SOULSTONE_5 = 4, SOULSTONE_10 = 5,
+                MAGICSTONE = 6, MAGICSTONE_5 = 7, MAGICSTONE_10 = 8,
+                RANDOM_CONSUMEITEM = 9, RANDOM_CONSUMEITEM_5 = 10, RANDOM_CONSUMEITEM_10 = 11;
 
             public static readonly string[] ETC_PRICES = {
-                "Diamond_20", // GOLDKEY
-                "Diamond_100", // SOUL STONE
-                "Diamond_100", // MAGIC STONE
-                "Coin_500", // RANDOM GAME CONSUME ITEM X1
-                "Coin_2500", // RANDOM GAME CONSUME ITEM X5
+                // GOLDKEY
+                "Diamond_20", "Diamond_100", "Diamond_200",
+                // SOUL STONE
+                "Diamond_100", "Diamond_500", "Diamond_1000",
+                // MAGIC STONE
+                "Diamond_100", "Diamond_500", "Diamond_1000",
+                // RANDOM CONSUME ITEM
+                "Coin_500", "Coin_2500", "Coin_5000",
             };
 
 
