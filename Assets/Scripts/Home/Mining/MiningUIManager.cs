@@ -61,13 +61,16 @@ public class MiningUIManager : MonoBehaviour {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(false);
     }
-    public void OnClickWrokSpaceLeftBtn() {
-        HM._.wsm.OnClickWorkSpacePageBtn(-1);
-        HM._.wsm.OnClickGoblinLeftSpotBtn();
-    }
-    public void OnClickWrokSpaceRightBtn() {
-        HM._.wsm.OnClickWorkSpacePageBtn(1);
-        HM._.wsm.OnClickGoblinLeftSpotBtn();
+    /// <summary>
+    /// MINING POPUPでの作業場の切り替え矢印ボタン
+    /// </summary>
+    /// <param name="dir">-1: ←(左)、+1: →(右)</param> <summary>
+    public void OnClickWrokSpaceArrowPageBtn(int dir) {
+        HM._.wsm.OnClickWorkSpacePageBtn(dir);
+        if(CurCategory == MineCate.Goblin)
+            HM._.wsm.OnClickGoblinLeftSpotBtn();
+        else
+            HM._.wsm.OnClickOreSpotBtn();
     }
     /// <summary>
     /// カードボタン
@@ -76,10 +79,12 @@ public class MiningUIManager : MonoBehaviour {
     public void OnClickGoblinCard(int idx) {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         SelectCard(MineCate.Goblin, idx);
+        OnClickArrangeBtn();
     } 
     public void OnClickOreCard(int idx) {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         SelectCard(MineCate.Ore, idx);
+        OnClickArrangeBtn();
     } 
 
     /// <summary>
@@ -90,7 +95,7 @@ public class MiningUIManager : MonoBehaviour {
         if(CurCategory == MineCate.Ore) {
             if(HM._.wsm.CurWorkSpace.OreSpotDt.IsActive) {
                 SM._.SfxPlay(SM.SFX.ClickSFX);
-                HM._.hui.ShowAgainAskMsg("(주의)\n현재 배치된 광석이 사라집니다.");
+                HM._.hui.ShowAgainAskMsg("배치된 광석을 교체하시겠습니까?\n<color=red>(주의)현재 광석은 제거됩니다.</color>");
                 HM._.hui.OnClickAskConfirmAction = () => {
                     Arrange(CurCategory);
                     CanStartMining(isSwitchOre: true);
@@ -124,11 +129,11 @@ public class MiningUIManager : MonoBehaviour {
     }
     public void OnClickArrangeCancelBtn() {
         if(CurCategory == MineCate.Goblin) {
-            HM._.hui.ShowAgainAskMsg("고블린을 교체하시겠습니까?");
+            HM._.hui.ShowAgainAskMsg("배치된 고블린을 회수합니까?");
             HM._.hui.OnClickAskConfirmAction = () => Remove(MineCate.Goblin);
         }
         else {
-            HM._.hui.ShowAgainAskMsg("(주의)\n현재 배치된 광석이 사라집니다.");
+            HM._.hui.ShowAgainAskMsg("배치된 광석을 취소하시겠습니까?\n<color=red>(주의)현재 광석은 제거됩니다.</color>");
             HM._.hui.OnClickAskConfirmAction = () => Remove(MineCate.Ore);
         }
     }
@@ -214,8 +219,6 @@ public class MiningUIManager : MonoBehaviour {
             SetArrangeBtn(isActive: true);
         else 
             SetArrangeBtn(isActive: false);
-
-        Arrange(cate);
     }
     /// <summary>
     /// 配置
