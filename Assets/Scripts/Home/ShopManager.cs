@@ -142,7 +142,7 @@ public class ShopManager : MonoBehaviour {
                         : rwDt.RingDatas;
                     
                     //* リワード追加
-                    rewardList.Add(new (randItemDts[(i == lastIdx && EquipPackageCnt == 0)? (int)Enum.Grade.Myth : grade]));
+                    rewardList.Add(new (randItemDts[(i == lastIdx && EquipPackageCnt == 0)? (int)Enum.Grade.Myth : grade], 1));
                 }
                 break;
             }

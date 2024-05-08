@@ -76,30 +76,49 @@ public class HomeRewardListUIManager : MonoBehaviour {
     /// リワードリスト表示
     /// </summary>
     private IEnumerator CoDisplayRewardList(List<RewardItem> rewardList) {
+        for(int i = 0; i < rewardList.Count; i++)
+            Debug.Log($"ShowReward():: itemList[{i}].quantity= {rewardList[i].Quantity}");
+
         //* 数量によって、スロットサイズ
         bool isUnder10 = rewardList.Count <= 10;
         ContentGrid.constraintCount = isUnder10? 5 : 10;
         Content.localScale = Vector3.one * (isUnder10? 1 : 0.8f);
 
+        //* 事前 Set UI
         for(int i = 0; i < rewardList.Count; i++) {
+            RewardItem rewardItem = rewardList[i];
             rwdSlotList[i].gameObject.SetActive(true);
+            rwdSlotList[i].SetUI(rewardList[i].Data.Type, rewardItem.Data.Grade, rewardItem.Data.ItemImg, rewardItem.Quantity, lv: 1);
+            //* アイテム 表示 OFF
+            rwdSlotList[i].BgImg.enabled = false;
+            rwdSlotList[i].ItemImg.enabled = false;
+            rwdSlotList[i].LvTxt.enabled = false;
+            rwdSlotList[i].QuantityTxt.enabled = false;
+            rwdSlotList[i].TypeBgImg.enabled = false;
+            rwdSlotList[i].TypeIconImg.enabled = false;
         }
 
         IsFinishSlotsSpawn = true;
         yield return Util.Time0_2;
+        //* UI EF
         for(int i = 0; i < rewardList.Count; i++) {
-            SM._.SfxPlay(SM.SFX.ItemPickSFX);
-
             RewardItem rewardItem = rewardList[i];
-            rwdSlotList[i].SetUI(rewardItem.Data.Type, rewardItem.Data.Grade, rewardItem.Data.ItemImg, rewardItem.Quantity, lv: 1);
+
+            SM._.SfxPlay(SM.SFX.ItemPickSFX);
             //* Particle UI Effect 1
             rwdSlotList[i].PlayScaleUIEF(rwdSlotList[i], rewardItem.Data.ItemImg);
             //* Particle UI Effect 2
             rwdSlotList[i].WhiteDimScaleUIEF.Play();
+            //* アイテム 表示 ON
+            rwdSlotList[i].BgImg.enabled = true;
+            rwdSlotList[i].ItemImg.enabled = true;
+            rwdSlotList[i].LvTxt.enabled = true;
+            rwdSlotList[i].QuantityTxt.enabled = true;
+            rwdSlotList[i].TypeBgImg.enabled = !(rewardItem.Data.Type == Enum.ItemType.Etc);
+            rwdSlotList[i].TypeIconImg.enabled = !(rewardItem.Data.Type == Enum.ItemType.Etc);
             
             //* UNIQUE等級なら
             if(rewardItem.Data.Grade >= Enum.Grade.Unique) {
-                //* 音
                 switch(rewardItem.Data.Grade) {
                     case Enum.Grade.Unique: SM._.SfxPlay(SM.SFX.Merge2SFX); break;
                     case Enum.Grade.Legend:
@@ -125,12 +144,14 @@ public class HomeRewardListUIManager : MonoBehaviour {
                 //* High Grade Nice Effect 4
                 rwdSlotList[i].HighGradeNiceUIEF.Play();
             }
-
             yield return Util.Time0_05;
         }
         IsFinishSlotsSpawn = false;
     }
     public void ShowReward(List<RewardItem> itemList) {
+        for(int i = 0; i < itemList.Count; i++)
+            Debug.Log($"ShowReward():: itemList[{i}].quantity= {itemList[i].Quantity}");
+
         SM._.SfxPlay(SM.SFX.RewardSFX);
         HM._.hui.IsActivePopUp = true;
         WindowObj.SetActive(true);

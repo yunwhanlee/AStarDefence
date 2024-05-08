@@ -117,7 +117,7 @@ namespace Inventory.UI
         /// インベントリアイテムUIとデータ設定
         /// </summary>
         public void SetUI (Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv, AbilityType[] relicAbilities = null, bool isEquip = false, bool isNewAlert = false) {
-            // Debug.Log($"SetUI(ItemImg.name={ItemImg.sprite.name}, type={type}, grade={grade})::");
+            Debug.Log($"SetUI(ItemImg.name={ItemImg.sprite.name}, type={type}, grade={grade}, quantity= {quantity})::");
             Type = type;
             QuantityTxt.text = $"{quantity}";
 
