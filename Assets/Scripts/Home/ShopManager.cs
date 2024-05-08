@@ -75,7 +75,8 @@ public class ShopManager : MonoBehaviour {
     /// <param name="idx"></param>
     public void OnClickPackageBtn(int idx) {
         const int AllInOne = 0, LevelUpSupport = 1, RandomEquip = 2,
-            RandomRelic = 3, EquipUpgradeSupport = 4, MiningSupport = 5;
+            RandomRelic = 3, EquipUpgradeSupport = 4, MiningSupportGoblin = 5,
+            GoldPackage = 6, MiningSupportOre = 7;
 
         RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
 
@@ -185,15 +186,28 @@ public class ShopManager : MonoBehaviour {
             case EquipUpgradeSupport:
                 rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone], 15));
                 rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone], 25));
-                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 50000));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 48000));
                 break;
-            case MiningSupport:
+            case GoldPackage:
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], 30));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 100000));
+                break;
+            case MiningSupportGoblin:
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin0], 100));
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin1], 50));
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin2], 25));
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin3], 10));
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin4], 5));
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin5], 1));
+                break;
+            case MiningSupportOre:
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore1], 200));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore2], 100));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore3], 50));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore4], 25));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore5], 10));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore6], 5));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore7], 1));
                 break;
         }
 

@@ -147,7 +147,7 @@ public struct ShopDailyItem {
 [Serializable]
 public class ShopDB {
     public static readonly int FREE_COMMON = 0, DIAMOND_CHEST = 1, FREE_TINY = 2;
-    [field:SerializeField] public bool[] IsPruchasedPackages {get; set;} = new bool[6];
+    [field:SerializeField] public bool[] IsPruchasedPackages {get; set;} = new bool[8];
     [field:SerializeField] public ShopDailyItem[] DailyItems {get; set;} = new ShopDailyItem[3];
 
     public ShopDB() {
