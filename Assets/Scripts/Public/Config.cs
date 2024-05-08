@@ -6,7 +6,7 @@ using UnityEngine;
 
 public static class Config {
 #region HOME
-    public const int MAX_REWARD_SLOT = 12; //* リワードで表示できる最大のスロット数
+    public const int MAX_REWARD_SLOT = 30; //* リワードで表示できる最大のスロット数
     public const int MAX_GOBLINKEY = 5;
     public const int EQUIP_UPGRADE_MAX = 11;
     public const int RELIC_UPGRADE_MAX = 6;
@@ -89,19 +89,20 @@ public static class Config {
 
         public readonly struct SHOP {
         #region CHEST PURCHASE
-            public const int FREECOMMON = 0, COMMON = 1, GOLDCHEST = 2,
-                PREMIUM = 3, DIAMONDCHEST = 4,
-                EQUIPx1 = 5, EQUIPx6 = 6, EQUIPx12 = 7;
+            public const int FREECOMMON = 0, DIAMONDCHEST = 1, COMMON = 2, GOLDCHEST = 3, PREMIUM = 4,
+                EQUIP1 = 5, EQUIP5 = 6, EQUIP10 = 7, EQUIP20 = 8, EQUIP40 = 9;
 
             public static readonly string[] CHEST_PRICES = {
                 "Ad_FREE", // FREE COMMON
+                "Coin_5000", // DIAMOND CHEST
                 "Diamond_40", // COMMON
                 "Diamond_150", // GOLD CHEST
                 "Diamond_500", // PREMIUM
-                "Coin_5000", // DIAMOND CHEST
-                "Diamond_60", // EQUIP x 1
-                "Diamond_360", // EQUIP x 6
-                "Diamond_720", // EQUIP x 12
+                "Diamond_50", // EQUIP x 1
+                "Diamond_250", // EQUIP x 5
+                "Diamond_475", // EQUIP x 10
+                "Diamond_950", // EQUIP x 20
+                "Diamond_1900", // EQUIP x 40
             };
             public static bool TryPurchaseChest(int chestIdx) {
                 //* キーと値段を分ける
