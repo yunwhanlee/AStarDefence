@@ -32,6 +32,7 @@ public class MiningUIManager : MonoBehaviour {
     [field: SerializeField] public GameObject OreScrollRect {get; set;}
     [field: SerializeField] public GameObject[] ArrangeBtns {get; set;}
     [field: SerializeField] public GameObject LockedDim {get; set;}
+    [field: SerializeField] public GameObject GreenAlertDot {get; set;}
 
     void Awake() {
         Array.ForEach(GoblinCards, card => card.InitOutline()); 
@@ -45,6 +46,8 @@ public class MiningUIManager : MonoBehaviour {
 
         if(WindowObj.activeSelf)
             WindowObj.SetActive(false);
+
+        GreenAlertDot.SetActive(false);
     }
 
 #region EVENT
@@ -173,9 +176,10 @@ public class MiningUIManager : MonoBehaviour {
 
     private void SetArrangeBtn(bool isActive) {
         const int ON = 0, CANCEL = 1;
-        ArrangeBtns[ON].SetActive(!isActive);
-        ArrangeBtns[CANCEL].SetActive(isActive);
+        // ArrangeBtns[ON].SetActive(!isActive);
+        // ArrangeBtns[CANCEL].SetActive(isActive);
     }
+
     /// <summary>
     /// カテゴリによるUI表示
     /// </summary>
@@ -187,15 +191,27 @@ public class MiningUIManager : MonoBehaviour {
         if(idx == (int)MineCate.Goblin) {
             CurCategory = MineCate.Goblin;
             SetArrangeBtn(HM._.wsm.CurWorkSpace.GoblinSpotDt.IsActive);
+
+            //* データ アップデート
+            Array.ForEach(GoblinCards, card => card.Update());
+            bool isGoblinMergable = Array.Exists(GoblinCards, card => card.Cnt >= 5);
+            Debug.Log($"SetUI():: isGoblinMergable= {isGoblinMergable}");
+            GreenAlertDot.SetActive(isGoblinMergable);
         }
         else {
             CurCategory = MineCate.Ore;
             SetArrangeBtn(HM._.wsm.CurWorkSpace.OreSpotDt.IsActive);
+
+            //* データ アップデート
+            Array.ForEach(OreCards, card => card.Update());
+            bool isOreMergable = Array.Exists(OreCards, card => card.Cnt >= 5);
+            GreenAlertDot.SetActive(isOreMergable);
+            Debug.Log($"SetUI():: isOreMergable= {isOreMergable}");
         }
 
-        //* データ アップデート
-        Array.ForEach(GoblinCards, card => card.Update());
-        Array.ForEach(OreCards, card => card.Update());
+
+    
+
 
         //* カテゴリ
         Array.ForEach(CategoryUnderLines, underline => underline.SetActive(false));
@@ -341,6 +357,7 @@ public class MiningUIManager : MonoBehaviour {
                 cards[nextIdx].Cnt++;
             }
             cards[i].Update();
+            GreenAlertDot.SetActive(false);
         }
 
         SM._.SfxPlay(SM.SFX.Merge3SFX);
