@@ -26,10 +26,12 @@ public class MiningUIManager : MonoBehaviour {
     [field: Header("PopUp")]
     [field: SerializeField] public TextMeshProUGUI PopUpTitleTxt {get; set;}
     [field: SerializeField] public GameObject[] CategoryUnderLines {get; set;}
+
     [field: SerializeField] public GameObject WindowObj {get; set;}
     [field: SerializeField] public GameObject GoblinScrollRect {get; set;}
     [field: SerializeField] public GameObject OreScrollRect {get; set;}
     [field: SerializeField] public GameObject[] ArrangeBtns {get; set;}
+    [field: SerializeField] public GameObject LockedDim {get; set;}
 
     void Awake() {
         Array.ForEach(GoblinCards, card => card.InitOutline()); 
@@ -59,7 +61,14 @@ public class MiningUIManager : MonoBehaviour {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(false);
     }
-
+    public void OnClickWrokSpaceLeftBtn() {
+        HM._.wsm.OnClickWorkSpacePageBtn(-1);
+        HM._.wsm.OnClickGoblinLeftSpotBtn();
+    }
+    public void OnClickWrokSpaceRightBtn() {
+        HM._.wsm.OnClickWorkSpacePageBtn(1);
+        HM._.wsm.OnClickGoblinLeftSpotBtn();
+    }
     /// <summary>
     /// カードボタン
     /// </summary>
@@ -205,6 +214,8 @@ public class MiningUIManager : MonoBehaviour {
             SetArrangeBtn(isActive: true);
         else 
             SetArrangeBtn(isActive: false);
+
+        Arrange(cate);
     }
     /// <summary>
     /// 配置

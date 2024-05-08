@@ -67,6 +67,7 @@ public class WorkSpace {
         workSpotGroupObj.SetActive(!IsLock);
         purchaseBtnObj.SetActive(IsLock);
         HM._.mtm.SliderBtn.SetActive(!IsLock);
+        HM._.mnm.LockedDim.SetActive(IsLock);
 
         //* アンロックされたら、値段表示
         if(IsLock && price != -1)
