@@ -176,8 +176,8 @@ public class MiningUIManager : MonoBehaviour {
 
     private void SetArrangeBtn(bool isActive) {
         const int ON = 0, CANCEL = 1;
-        // ArrangeBtns[ON].SetActive(!isActive);
-        // ArrangeBtns[CANCEL].SetActive(isActive);
+        ArrangeBtns[ON].SetActive(!isActive);
+        ArrangeBtns[CANCEL].SetActive(isActive);
     }
 
     /// <summary>
@@ -190,7 +190,7 @@ public class MiningUIManager : MonoBehaviour {
         //* 配置ボタン 表示
         if(idx == (int)MineCate.Goblin) {
             CurCategory = MineCate.Goblin;
-            SetArrangeBtn(HM._.wsm.CurWorkSpace.GoblinSpotDt.IsActive);
+            // SetArrangeBtn(HM._.wsm.CurWorkSpace.GoblinSpotDt.IsActive);
 
             //* データ アップデート
             Array.ForEach(GoblinCards, card => card.Update());
@@ -200,7 +200,7 @@ public class MiningUIManager : MonoBehaviour {
         }
         else {
             CurCategory = MineCate.Ore;
-            SetArrangeBtn(HM._.wsm.CurWorkSpace.OreSpotDt.IsActive);
+            // SetArrangeBtn(HM._.wsm.CurWorkSpace.OreSpotDt.IsActive);
 
             //* データ アップデート
             Array.ForEach(OreCards, card => card.Update());
@@ -231,10 +231,11 @@ public class MiningUIManager : MonoBehaviour {
         Array.ForEach(cards, card => card.InitOutline());
         //* UI
         cards[idx].Select();
-        if(spotData.IsActive && spotData.LvIdx == idx)
-            SetArrangeBtn(isActive: true);
-        else 
-            SetArrangeBtn(isActive: false);
+
+        // if(spotData.IsActive && spotData.LvIdx == idx)
+        //     SetArrangeBtn(isActive: true);
+        // else 
+        //     SetArrangeBtn(isActive: false);
     }
     /// <summary>
     /// 配置
