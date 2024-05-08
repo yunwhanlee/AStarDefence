@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using AssetKits.ParticleImage;
+using DG.Tweening;
 using Inventory.Model;
 using TMPro;
 using UnityEngine;
@@ -45,6 +46,7 @@ public class GameConsumeItemUIManager : MonoBehaviour {
     [field: SerializeField] public Image BagIconImg {get; set;}
     [field: SerializeField] public TMP_Text BagActiveTxt {get; set;}
     [field: SerializeField] public GameObject ConsumeItemBtnGroup {get; set;}
+    private DOTweenAnimation ConsumeItemBtnGroupDOTAnim {get; set;}
     [field: SerializeField] public ConsumableItemBtn[] ConsumableItemBtns {get; set;}
     [field: SerializeField] public ParticleImage StreamPack0AuraUIEF {get; set;}
     [field: SerializeField] public ParticleImage StreamPack1AuraUIEF {get; set;}
@@ -52,6 +54,8 @@ public class GameConsumeItemUIManager : MonoBehaviour {
     [field: SerializeField] public bool IsBagActive {get; set;}
 
     void Start() {
+        ConsumeItemBtnGroupDOTAnim = ConsumeItemBtnGroup.GetComponent<DOTweenAnimation>();
+
         //* 初期化
         foreach(var item in ConsumableItemBtns) {
             item.WaitTurnNum = 0;
@@ -74,6 +78,9 @@ public class GameConsumeItemUIManager : MonoBehaviour {
         BagIconImg.sprite = BagIconSprs[IsBagActive? BAG_ACTIVE : BAG_INACTIVE];
         BagActiveTxt.text = IsBagActive? "ON" : "OFF";
         ConsumeItemBtnGroup.SetActive(IsBagActive);
+        if(IsBagActive) {
+            ConsumeItemBtnGroupDOTAnim.DORestart();
+        }
     }
     /// <summary>
     /// 消費アイテムをクリックして使うイベント
