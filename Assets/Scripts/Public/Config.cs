@@ -41,9 +41,6 @@ public static class Config {
 #endregion
 
 #region GAME
-    public readonly static Vector2Int START_POS = new Vector2Int(-8, 3);
-    public readonly static Vector2Int GOAL_POS = new Vector2Int(8, -3);
-
     public const int FREE_BOARD_CNT = 5;
     public const int FREE_BREAKROCK_CNT = 2;
 

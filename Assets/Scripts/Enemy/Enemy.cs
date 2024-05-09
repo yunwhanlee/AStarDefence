@@ -57,12 +57,12 @@ public abstract class Enemy : MonoBehaviour {
     void Update() {
         //* 飛ぶタイプ
         if(Type == EnemyType.Flight) {
-            Vector2 goalDir = GM._.pfm.targetPos;
+            Vector2 goalDir = GM._.pfm.goalPos;
             transform.Translate(Speed * Time.deltaTime * goalDir.normalized);
 
             //* 敵がゴールへ届いた
-            if(transform.position.x > GM._.pfm.targetPos.x
-            && transform.position.y > GM._.pfm.targetPos.y) {
+            if(transform.position.x > GM._.pfm.goalPos.x
+            && transform.position.y > GM._.pfm.goalPos.y) {
                 Release();
                 GM._.DecreaseLife(Type);
             }

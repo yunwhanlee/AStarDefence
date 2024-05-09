@@ -26,7 +26,7 @@ public class PathFindManager : MonoBehaviour
     public GameObject startPosObj;
     public GameObject targetPosObj;
     public GameObject pathIconPf;
-    public Vector2Int bottomLeft, topRight, startPos, targetPos;
+    public Vector2Int bottomLeft, topRight, startPos, goalPos;
     [field: SerializeField] public List<Node> FinalNodeList {get; private set;}
 
     int sizeX, sizeY;
@@ -43,7 +43,7 @@ public class PathFindManager : MonoBehaviour
         bottomLeft = start;
         startPos = start;
         topRight = goal;
-        targetPos = goal;
+        goalPos = goal;
 
         //* 以前にルート表示のアイコン 生成
         for(int i = 0; i < PATH_ICON_CREATE_CNT; i ++)
@@ -85,7 +85,7 @@ public class PathFindManager : MonoBehaviour
 
         // 시작과 끝 노드, 열린리스트와 닫힌리스트, 마지막리스트 초기화
         StartNode = NodeArray[startPos.x - bottomLeft.x, startPos.y - bottomLeft.y];
-        TargetNode = NodeArray[targetPos.x - bottomLeft.x, targetPos.y - bottomLeft.y];
+        TargetNode = NodeArray[goalPos.x - bottomLeft.x, goalPos.y - bottomLeft.y];
         Debug.Log("StartNode= " + StartNode.x + "," + StartNode.y + ", TargetNode= " + TargetNode.x + "," + TargetNode.y);
 
         OpenList = new List<Node>() { StartNode };
@@ -104,7 +104,7 @@ public class PathFindManager : MonoBehaviour
             // 마지막
             if (CurNode == TargetNode) {
                 Node TargetCurNode = TargetNode;
-                var goal = new Node(false, Config.GOAL_POS.x, Config.GOAL_POS.y);
+                var goal = new Node(false, goalPos.x, goalPos.y);
                 FinalNodeList.Add(goal);
                 while (TargetCurNode != StartNode) {
                     FinalNodeList.Add(TargetCurNode);

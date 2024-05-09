@@ -11,6 +11,9 @@ using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
 public class TileMapController : MonoBehaviour {
+    public readonly static Vector2Int START_POS = new Vector2Int(-6, 2);
+    public readonly static Vector2Int GOAL_POS = new Vector2Int(6, -2);
+
     [Header("Wall Tile Map")]
     public Tilemap WallTileMap;
     [field: SerializeField] public int WallSpawnPer {get; private set;} = 5;  // 壁の生成確率
@@ -69,7 +72,7 @@ public class TileMapController : MonoBehaviour {
 
         //* スタートとゴール地点なら、以下処理しない
         if(new Vector2(x,y) == GM._.pfm.startPos) return;
-        if(new Vector2(x,y) == GM._.pfm.targetPos) return;
+        if(new Vector2(x,y) == GM._.pfm.goalPos) return;
 
         //* アクションバー上をクリックしたら、以下の処理しない
         const int ACTION_BAR_START_POS_Y = -4;
@@ -142,8 +145,8 @@ public class TileMapController : MonoBehaviour {
         }
 
         //* 選択領域の制限
-        if(x < Config.START_POS.x || x > Config.GOAL_POS.x
-        || y > Config.START_POS.y || y < Config.GOAL_POS.y) {
+        if(x < START_POS.x || x > GOAL_POS.x
+        || y > START_POS.y || y < GOAL_POS.y) {
             Reset();
             return;
         }
@@ -218,8 +221,8 @@ public class TileMapController : MonoBehaviour {
     /// </summary>
     public void SpawnWall() {
         List<Vector2Int> posList = new List<Vector2Int>();
-        var sp = Config.START_POS;
-        var gp = Config.GOAL_POS;
+        var sp = START_POS;
+        var gp = GOAL_POS;
 
         WallTileMap.ClearAllTiles();
 
