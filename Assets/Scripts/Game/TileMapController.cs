@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CollectionScripts;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;

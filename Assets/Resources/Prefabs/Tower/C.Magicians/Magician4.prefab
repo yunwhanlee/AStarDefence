@@ -10082,7 +10082,7 @@ SpriteRenderer:
   m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &7200639685796870215
@@ -15201,7 +15201,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1124921867942448114}
@@ -15231,7 +15231,6 @@ MonoBehaviour:
   AtkType: 0
   BodySprRdr: {fileID: 913976414953818008}
   MissileSpr: {fileID: -1827723533, guid: 9b29567216c62fe4f98f6affd69ceb2c, type: 3}
-  StarIconTxtAnim: {fileID: 0}
   StarIconDTAnim: {fileID: 0}
   Name: 
   Lv: 2
