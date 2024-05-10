@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +19,7 @@ public class Node
 
 public class PathFindManager : MonoBehaviour
 {
-    const int PATH_ICON_CREATE_CNT = 80;
+    const int PATH_ICON_CREATE_CNT = 50;
 
     Coroutine corShowPathIconID;
     public Transform pathIconObjGroup;
@@ -50,7 +51,7 @@ public class PathFindManager : MonoBehaviour
             Instantiate(pathIconPf, pathIconObjGroup);
 
         //* 以前にルート表示のアイコン 初期化
-        initPathIconsPos();
+        InitPathIconsPos();
     }
 
     #region EVENT
@@ -156,18 +157,19 @@ public class PathFindManager : MonoBehaviour
     #endregion
 
     #region SHOW PATH ICONS
-    private void initPathIconsPos() {
+    private void InitPathIconsPos() {
         foreach(Transform iconTf in pathIconObjGroup) {
             iconTf.gameObject.SetActive(false);
             iconTf.localPosition = new Vector2(-999, -999);
         }
     }
-    private void activePathIconPos(int idx, Vector2 pos) {
+    private void ActivePathIconPos(int idx, Vector2 pos) {
         var iconTf = pathIconObjGroup.GetChild(idx);
         iconTf.transform.position = pos;
         iconTf.gameObject.SetActive(true);
+        iconTf.GetComponent<DOTweenAnimation>().DORestart();
     }
-    private IEnumerator coShowPathIconsPos() {
+    private IEnumerator CoShowPathIconsPos() {
         pathCntUI.SetActive(true);
         pathCntUI.GetComponentInChildren<TextMeshProUGUI>().text = FinalNodeList.Count.ToString();
         for (int i = 1; i < FinalNodeList.Count; i++) { // i를 1부터 시작하도록 수정
@@ -175,20 +177,21 @@ public class PathFindManager : MonoBehaviour
             if (i > 0 && i < FinalNodeList.Count) {
                 //* A*アルゴリズムのルート 表示
                 Vector2 pos = new Vector2(FinalNodeList[i - 1].x, FinalNodeList[i - 1].y);
-                activePathIconPos(i, pos);
+                yield return Util.Time0_05;
+                ActivePathIconPos(i, pos);
             }
         }
 
         yield return Util.RealTime1;
         pathCntUI.SetActive(false);
-        initPathIconsPos();
+        InitPathIconsPos();
     }
 
     private void showPathIcons() {
         Debug.Log("showPathIcons()::");
         if (FinalNodeList.Count >= 2) { // FinalNodeList에 최소 2개 이상의 요소가 있어야 함
             if(corShowPathIconID != null) StopCoroutine(corShowPathIconID);
-            corShowPathIconID = StartCoroutine(coShowPathIconsPos());
+            corShowPathIconID = StartCoroutine(CoShowPathIconsPos());
         }
     }
     #endregion

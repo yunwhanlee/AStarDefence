@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.UI;
+using DG.Tweening;
 using Inventory.Model;
 using TMPro;
 using UnityEngine;
@@ -11,7 +12,9 @@ using UnityEngine.UI;
 
 public class StageUIManager : MonoBehaviour {
     [Header("GOBLIN DUNGEON")]
-    [field:SerializeField] public GameObject GoblinDungeonPopUp;
+    [field:SerializeField] public GameObject DungeonSelectPopUp;
+    [field:SerializeField] public GameObject GoblinDungeonWindow;
+    [field:SerializeField] public GameObject InfiniteDungeonWindow;
     [field:SerializeField] public TMP_Text GoldKeyTxt;
     [field:SerializeField] public GameObject DungeonAlertDot;
 
@@ -70,9 +73,18 @@ public class StageUIManager : MonoBehaviour {
 #region GOBLIN DUNGEON EVENT 
     public void OnClickDungeonIconBtn() {
         HM._.hui.IsActivePopUp = true;
-        SM._.SfxPlay(SM.SFX.ClickSFX);
-        GoblinDungeonPopUp.SetActive(true);
+        SM._.SfxPlay(SM.SFX.ItemPickSFX);
+
+        DungeonSelectPopUp.SetActive(true);
+        DungeonSelectPopUp.GetComponent<DOTweenAnimation>().DORestart();
         GoldKeyTxt.text = $"{HM._.GoldKey}/{Config.MAX_GOBLINKEY}";
+    }
+    public void OnClickOpenSelectDungeonWindow(int idx) {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        if(idx == 0)
+            GoblinDungeonWindow.SetActive(true);
+        if(idx == 1)
+            InfiniteDungeonWindow.SetActive(true);
     }
 
     public void OnClickDungeonDifficultyBtn(int diffIdx) {
@@ -257,7 +269,9 @@ public class StageUIManager : MonoBehaviour {
         }
 
         StageGroup.SetActive(false);
-        GoblinDungeonPopUp.SetActive(false);
+        GoblinDungeonWindow.SetActive(false);
+        InfiniteDungeonWindow.SetActive(false);
+        DungeonSelectPopUp.SetActive(false);
         Array.ForEach(StagePopUps, popUp => popUp.SetActive(false));
     }
 #endregion
