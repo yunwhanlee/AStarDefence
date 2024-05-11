@@ -10,8 +10,8 @@ using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
 public class TileMapController : MonoBehaviour {
-    public readonly static Vector2Int START_POS = new Vector2Int(-6, 2);
-    public readonly static Vector2Int GOAL_POS = new Vector2Int(6, -2);
+    public static Vector2Int GOAL_POS;
+    public static Vector2Int START_POS;
 
     [Header("Wall Tile Map")]
     public Tilemap WallTileMap;
@@ -30,6 +30,12 @@ public class TileMapController : MonoBehaviour {
     [field: SerializeField] public GameObject SwitchBefHitObject {get; set;}
 
     void Start() {
+        //! なぜかこのY軸は逆にしないとエラーになる
+        int x = (GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON)? 7 : 6;
+        int topY = (GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON)? 3 : 2;
+        GOAL_POS = new Vector2Int(-x, 2);
+        START_POS = new Vector2Int(x, -topY);
+
         SpawnWall();
     }
 
@@ -144,8 +150,8 @@ public class TileMapController : MonoBehaviour {
         }
 
         //* 選択領域の制限
-        if(x < START_POS.x || x > GOAL_POS.x
-        || y > START_POS.y || y < GOAL_POS.y) {
+        if(x < GOAL_POS.x || x > START_POS.x
+        || y > GOAL_POS.y || y < START_POS.y) {
             Reset();
             return;
         }
@@ -220,8 +226,8 @@ public class TileMapController : MonoBehaviour {
     /// </summary>
     public void SpawnWall() {
         List<Vector2Int> posList = new List<Vector2Int>();
-        var sp = START_POS;
-        var gp = GOAL_POS;
+        var sp = GOAL_POS;
+        var gp = START_POS;
 
         WallTileMap.ClearAllTiles();
 

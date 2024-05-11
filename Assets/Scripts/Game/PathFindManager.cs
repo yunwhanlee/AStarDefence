@@ -19,13 +19,15 @@ public class Node
 
 public class PathFindManager : MonoBehaviour
 {
-    const int PATH_ICON_CREATE_CNT = 50;
+    const int PATH_ICON_CREATE_CNT = 60;
 
     Coroutine corShowPathIconID;
     public Transform pathIconObjGroup;
     public GameObject pathCntUI;
     public GameObject startPosObj;
+    public GameObject infiniteStartPosObj;
     public GameObject targetPosObj;
+    public GameObject infiniteTargetPosObj;
     public GameObject pathIconPf;
     public Vector2Int bottomLeft, topRight, startPos, goalPos;
     [field: SerializeField] public List<Node> FinalNodeList {get; private set;}
@@ -38,9 +40,30 @@ public class PathFindManager : MonoBehaviour
     void Start() {
         pathCntUI.SetActive(false);
 
+        int sPosX;
+        int sPosY;
+        int tPosX;
+        int tPosY;
+        if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON) {
+            sPosX = (int)infiniteStartPosObj.transform.position.x;
+            sPosY = (int)infiniteStartPosObj.transform.position.y;
+            tPosX = (int)infiniteTargetPosObj.transform.position.x;
+            tPosY = (int)infiniteTargetPosObj.transform.position.y;
+            startPosObj.SetActive(false);
+            targetPosObj.SetActive(false);
+        }
+        else {
+            sPosX = (int)startPosObj.transform.position.x;
+            sPosY = (int)startPosObj.transform.position.y;
+            tPosX = (int)targetPosObj.transform.position.x;
+            tPosY = (int)targetPosObj.transform.position.y;
+            infiniteStartPosObj.SetActive(false);
+            infiniteTargetPosObj.SetActive(false);
+        }
+
         //* Set Position
-        Vector2Int start = new Vector2Int((int)Mathf.Round(startPosObj.transform.position.x), (int)Mathf.Round(startPosObj.transform.position.y));
-        Vector2Int goal = new Vector2Int((int)Mathf.Round(targetPosObj.transform.position.x), (int)Mathf.Round(targetPosObj.transform.position.y));
+        Vector2Int start = new Vector2Int(sPosX, sPosY);
+        Vector2Int goal = new Vector2Int(tPosX, tPosY);
         bottomLeft = start;
         startPos = start;
         topRight = goal;
