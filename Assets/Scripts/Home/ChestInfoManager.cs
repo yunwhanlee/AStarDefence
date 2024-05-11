@@ -8,7 +8,8 @@ using Inventory.Model;
 
 public class ChestInfoManager : MonoBehaviour {
     [field:SerializeField] public GameObject WindowObj {get; set;}
-    [field:SerializeField] public GameObject EquipGachaInfoGroup {get; set;}
+    [field:SerializeField] public GameObject EquipGachaPercentInfoIcon {get; set;}
+    [field:SerializeField] public GameObject EquipGachaPercentInfoPopUp {get; set;}
     [field:SerializeField] public Image ChestImg {get; set;}
     [field:SerializeField] public TMP_Text NameTxt {get; set;}
     [field:SerializeField] public TMP_Text InfoTxt {get; set;}
@@ -17,7 +18,7 @@ public class ChestInfoManager : MonoBehaviour {
     public Action OnClickOpenChest = () => {};
 
     void Start() {
-        EquipGachaInfoGroup.SetActive(false);
+        EquipGachaPercentInfoIcon.SetActive(false);
     }
 
     #region EVENT
@@ -27,7 +28,15 @@ public class ChestInfoManager : MonoBehaviour {
         public void OnClickCloseBtn() {
             SM._.SfxPlay(SM.SFX.ClickSFX);
             WindowObj.SetActive(false);
-            EquipGachaInfoGroup.SetActive(false);
+            EquipGachaPercentInfoIcon.SetActive(false);
+        }
+        public void OnClickEquipGachaPercentInfoIcon() {
+            SM._.SfxPlay(SM.SFX.ClickSFX);
+            EquipGachaPercentInfoPopUp.SetActive(true);
+        }
+        public void OnClickEquipGachaPercentInfoPopUpDim() {
+            SM._.SfxPlay(SM.SFX.ClickSFX);
+            EquipGachaPercentInfoPopUp.SetActive(false);
         }
     #endregion
     #region FUNC
@@ -77,7 +86,7 @@ public class ChestInfoManager : MonoBehaviour {
         public void ShowChestInfoPopUp(int chestIdx) {
             SM._.SfxPlay(SM.SFX.ClickSFX);
             WindowObj.SetActive(true);
-            EquipGachaInfoGroup.SetActive(chestIdx >= 5);
+            EquipGachaPercentInfoIcon.SetActive(chestIdx >= 5);
 
             //* Icon And Price
             PriceBtnTxt.text = HM._.shopMg.GetChestPriceTxtFormet(chestIdx);

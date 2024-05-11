@@ -90,8 +90,8 @@ MonoBehaviour:
     m_Unicode: 65534
     m_GlyphIndex: 1
     m_Scale: 1
-    m_Name: StarIconAsset-sheet_1
-    m_HashCode: -713302429
+    m_Name: OrangeStar
+    m_HashCode: -816082204
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 2
@@ -102,14 +102,14 @@ MonoBehaviour:
     m_Unicode: 65534
     m_GlyphIndex: 3
     m_Scale: 1
-    m_Name: StarIconAsset-sheet_3
-    m_HashCode: -713302431
+    m_Name: GreenStar
+    m_HashCode: 1447086159
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 4
     m_Scale: 1
-    m_Name: StarIconAsset-sheet_4
-    m_HashCode: -713302426
+    m_Name: PurpleStar
+    m_HashCode: -1696898918
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 5
@@ -120,8 +120,8 @@ MonoBehaviour:
     m_Unicode: 65534
     m_GlyphIndex: 6
     m_Scale: 1
-    m_Name: StarIconAsset-sheet_6
-    m_HashCode: -713302428
+    m_Name: GrayStar
+    m_HashCode: 2137835353
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 7
@@ -197,8 +197,8 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 64
       m_Height: 64
-      m_HorizontalBearingX: -32
-      m_HorizontalBearingY: 32
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 64
       m_HorizontalAdvance: 64
     m_GlyphRect:
       m_X: 64
@@ -229,8 +229,8 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 64
       m_Height: 64
-      m_HorizontalBearingX: -32
-      m_HorizontalBearingY: 32
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 64
       m_HorizontalAdvance: 64
     m_GlyphRect:
       m_X: 0
@@ -245,8 +245,8 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 64
       m_Height: 64
-      m_HorizontalBearingX: -32
-      m_HorizontalBearingY: 32
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 64
       m_HorizontalAdvance: 64
     m_GlyphRect:
       m_X: 64
@@ -277,8 +277,8 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 64
       m_Height: 64
-      m_HorizontalBearingX: -32
-      m_HorizontalBearingY: 32
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 64
       m_HorizontalAdvance: 64
     m_GlyphRect:
       m_X: 0
