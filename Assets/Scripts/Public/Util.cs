@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class Util : MonoBehaviour {
     public static Util _;
-
+    public static WaitForSeconds Time0_025 = new WaitForSeconds(0.025f);
     public static WaitForSeconds Time0_05 = new WaitForSeconds(0.05f);
     public static WaitForSeconds Time0_075 = new WaitForSeconds(0.075f);
     public static WaitForSeconds Time0_1 = new WaitForSeconds(0.1f);

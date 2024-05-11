@@ -200,7 +200,7 @@ public class PathFindManager : MonoBehaviour
             if (i > 0 && i < FinalNodeList.Count) {
                 //* A*アルゴリズムのルート 表示
                 Vector2 pos = new Vector2(FinalNodeList[i - 1].x, FinalNodeList[i - 1].y);
-                yield return Util.Time0_05;
+                yield return Util.Time0_025;
                 ActivePathIconPos(i, pos);
             }
         }
