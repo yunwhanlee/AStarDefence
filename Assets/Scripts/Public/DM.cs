@@ -94,7 +94,7 @@ public class StageLockedDB {
 public class MiningDB {
     [field:SerializeField] public int[] GoblinCardCnts {get; set;} = new int[7];
     [field:SerializeField] public int[] OreCardCnts {get; set;} = new int[9];
-    [field:SerializeField] public WorkSpace[] WorkSpaces {get; set;} = new WorkSpace[5];
+    [field:SerializeField] public WorkSpace[] WorkSpaces {get; set;} = new WorkSpace[3];
 }
 
 /// <summary>
@@ -553,7 +553,7 @@ public class DM : MonoBehaviour {
             0, 0, 0, 0, 0, 0, 0, 0, 0
         };
 
-        DB.MiningDB.WorkSpaces = new WorkSpace[5];
+        DB.MiningDB.WorkSpaces = new WorkSpace[3];
         for(int i = 0; i < DB.MiningDB.WorkSpaces.Length; i++) {
             DB.MiningDB.WorkSpaces[i] = new WorkSpace(i, i > 0, -1); // WorkSpace의 각 요소를 새로운 인스턴스로 만듭니다.
         }

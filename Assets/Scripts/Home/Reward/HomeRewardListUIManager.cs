@@ -123,26 +123,27 @@ public class HomeRewardListUIManager : MonoBehaviour {
                     case Enum.Grade.Unique: SM._.SfxPlay(SM.SFX.Merge2SFX); break;
                     case Enum.Grade.Legend:
                         SM._.SfxPlay(SM.SFX.Merge3SFX);
-                        rwdSlotList[i].LegendSpawnUIEF.Play();
+                        if(rwdSlotList[i].LegendSpawnUIEF) rwdSlotList[i].LegendSpawnUIEF.Play();
+                        if(rwdSlotList[i].DOTAnim) rwdSlotList[i].DOTAnim.DORestart();
                         break;
                     case Enum.Grade.Myth:
                         SM._.SfxPlay(SM.SFX.Merge4SFX);
                         SM._.SfxPlay(SM.SFX.RoarASFX);
-                        rwdSlotList[i].MythSpawnUIEF.Play();
+                        if(rwdSlotList[i].MythSpawnUIEF) rwdSlotList[i].MythSpawnUIEF.Play();
+                        if(rwdSlotList[i].DOTAnim) rwdSlotList[i].DOTAnim.DORestart();
                         break;
                     case Enum.Grade.Prime:
                         SM._.SfxPlay(SM.SFX.Merge5SFX);
                         SM._.SfxPlay(SM.SFX.RoarASFX);
                         SM._.SfxPlay(SM.SFX.InvStoneSFX);
-                        rwdSlotList[i].PrimeSpawnUIEF.Play();
+                        if(rwdSlotList[i].PrimeSpawnUIEF) rwdSlotList[i].PrimeSpawnUIEF.Play();
+                        if(rwdSlotList[i].DOTAnim) rwdSlotList[i].DOTAnim.DORestart();
                         break;
                 }
                 //* Particle UI Equipment Effect 3
                 rwdSlotList[i].HighGradeSpawnUIEF.enabled = true; //Play();
                 rwdSlotList[i].Twincle1UIEF.enabled = true;
                 rwdSlotList[i].Twincle2UIEF.enabled = true;
-                //* High Grade Nice Effect 4
-                rwdSlotList[i].HighGradeNiceUIEF.Play();
             }
             yield return Util.Time0_05;
         }

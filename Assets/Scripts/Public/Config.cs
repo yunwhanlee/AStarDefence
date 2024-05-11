@@ -82,7 +82,7 @@ public static class Config {
     }
     public class H_PRICE {
         public static readonly int[] WORKSPACE_PRICES = {
-            0, 1000, 5000, 12500, 30000
+            0, 15000, 50000
         };
 
         public readonly struct SHOP {

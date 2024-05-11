@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using AssetKits.ParticleImage;
+using DG.Tweening;
 
 namespace Inventory.UI
 {
@@ -31,20 +32,20 @@ namespace Inventory.UI
         [field:SerializeField] public GameObject AlertGreenDot {get; set;}
         [field:SerializeField] public GameObject EquipDim {get; set;}
         [field:SerializeField] public GameObject DoubleRewardLabel {get; set;}
+        [field:SerializeField] public DOTweenAnimation DOTAnim {get; set;}
         [field:SerializeField] public ParticleImage ItemImgScaleUIEF {get; set;}
         [field:SerializeField] public ParticleImage WhiteDimScaleUIEF {get; set;}
         [field:SerializeField] public ParticleImage ShinyUIEF {get; set;}
         [field:SerializeField] public ParticleImage HighGradeSpawnUIEF {get; set;}
         [field:SerializeField] public ParticleImage Twincle1UIEF {get; set;}
         [field:SerializeField] public ParticleImage Twincle2UIEF {get; set;}
-        [field:SerializeField] public ParticleImage HighGradeNiceUIEF {get; set;}
         [field:SerializeField] public ParticleImage HighGradeRayUIEF {get; set;}
         [field:SerializeField] public ParticleImage HighGradeHandUIEF {get; set;}
         [field:SerializeField] public ParticleImage HighGradeBurstBlueUIEF {get; set;}
         [field:SerializeField] public ParticleImage HighGradeBurstYellowUIEF {get; set;}
-        [field:SerializeField] public ParticleImage LegendSpawnUIEF {get; set;}
-        [field:SerializeField] public ParticleImage MythSpawnUIEF {get; set;}
-        [field:SerializeField] public ParticleImage PrimeSpawnUIEF {get; set;}
+        [field:SerializeField] public ParticleSystem LegendSpawnUIEF {get; set;}
+        [field:SerializeField] public ParticleSystem MythSpawnUIEF {get; set;}
+        [field:SerializeField] public ParticleSystem PrimeSpawnUIEF {get; set;}
         public bool IsEmpty = false;
         public event Action<InventoryUIItem> OnItemClicked, 
             OnItemDroppedOn, 
@@ -98,7 +99,6 @@ namespace Inventory.UI
             if(HighGradeSpawnUIEF) HighGradeSpawnUIEF.enabled = false; //.Stop();
             if(Twincle1UIEF) Twincle1UIEF.enabled = false;
             if(Twincle2UIEF) Twincle2UIEF.enabled = false;
-            if(HighGradeNiceUIEF) HighGradeNiceUIEF.Stop();
             if(HighGradeRayUIEF) HighGradeRayUIEF.Stop();
             if(HighGradeHandUIEF) HighGradeHandUIEF.Stop();
             if(HighGradeBurstBlueUIEF) HighGradeBurstBlueUIEF.Stop();
@@ -143,7 +143,7 @@ namespace Inventory.UI
                 BgImg.sprite = HM._.ivm.GradeBgSprs[(int)grade];
                 LightImg.enabled = true;
                 if(EquipDim) EquipDim.SetActive(isEquip); //* EquipスロットはEquipDimオブジェクトがないため、合うかif文でチェック
-                
+
                 //* マージ可能な物 表示
                 if(quantity >= 10) {
                     AlertGreenDot.SetActive(true);
