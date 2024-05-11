@@ -93,7 +93,6 @@ public class StageUIManager : MonoBehaviour {
             return;
         }
         --HM._.GoldKey;
-
         DM._.SelectedStage = Config.Stage.STG_GOBLIN_DUNGEON;
 
         HM._.ivCtrl.CheckActiveClover();
@@ -107,6 +106,25 @@ public class StageUIManager : MonoBehaviour {
         DM._.SelectedStageNum = (diffIdx == 0)? Enum.StageNum.Stage1_1
             : (diffIdx == 1)? Enum.StageNum.Stage1_2
             : Enum.StageNum.Stage1_3;
+
+        //* ➡ ゲームシーンロード
+        SceneManager.LoadScene(Enum.Scene.Game.ToString());
+    }
+
+    public void OnClickInfiniteDungeonEnterBtn() {
+        if(HM._.GoldKey <= 0) {
+            HM._.hui.ShowMsgError("황금열쇠가 있어야 입장가능합니다.");
+            return;
+        }
+        --HM._.GoldKey;
+        DM._.SelectedStage = Config.Stage.STG_INFINITE_DUNGEON;
+
+        //* ホーム ➡ ゲームシーン移動の時、インベントリのデータを保存
+        DM._.Save();
+
+        SM._.SfxPlay(SM.SFX.StageSelectSFX);
+
+        DM._.SelectedStageNum = 0;
 
         //* ➡ ゲームシーンロード
         SceneManager.LoadScene(Enum.Scene.Game.ToString());

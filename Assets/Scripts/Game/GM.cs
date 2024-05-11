@@ -41,6 +41,7 @@ public class GM : MonoBehaviour {
     [field: SerializeField] public int WaveCnt {get; set;}
     [field: SerializeField] public int ResetCnt {get; set;}
     [field: SerializeField] public int MaxLife {get; set;}
+
     [SerializeField] int life; public int Life {
         get => life;
         set {
@@ -120,6 +121,10 @@ public class GM : MonoBehaviour {
                 SM._.BgmPlay(SM.BGM.GoblinDungeonBGM);
                 gef.GoldKeyAttractionUIEF.Play();
                 break;
+            case Config.Stage.STG_INFINITE_DUNGEON:
+                SM._.BgmPlay(SM.BGM.GoblinDungeonBGM);
+                gef.GoldKeyAttractionUIEF.Play();
+                break;
         }
 
         //* 非表示 初期化
@@ -145,7 +150,7 @@ public class GM : MonoBehaviour {
         gui.SwitchGameStateUI(state);
 
         //* ステージタイトルと難易度 表示 アニメーション
-        string difficulty = (DM._ == null)? "TEST"
+        string difficulty = (DM._ == null)? ""
             : (DM._.SelectedStageNum == Enum.StageNum.Stage1_1)? "1-1"
             : (DM._.SelectedStageNum == Enum.StageNum.Stage1_2)? "1-2"
             : "1-3";
@@ -241,8 +246,12 @@ public class GM : MonoBehaviour {
 #endregion
 
 #region FUNC
-    public EnemyData GetCurEnemyData() => StageDts[Stage].EnemyDatas[(int)DM._.SelectedStageNum].Waves[WaveCnt - 1];
-    public EnemyData GetNextEnemyData() => StageDts[Stage].EnemyDatas[(int)DM._.SelectedStageNum].Waves[WaveCnt];
+    public EnemyData GetCurEnemyData() {
+        return StageDts[Stage].EnemyDatas[(int)DM._.SelectedStageNum].Waves[WaveCnt - 1];
+    } 
+    public EnemyData GetNextEnemyData() {
+        return StageDts[Stage].EnemyDatas[(int)DM._.SelectedStageNum].Waves[WaveCnt];
+    } 
 
     IEnumerator CoReadyWave() {
         yield return Util.RealTime1;
