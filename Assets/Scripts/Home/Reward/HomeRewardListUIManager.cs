@@ -43,7 +43,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
     public void OnClickOpenChestImgBtn() => OnClickOpenChest?.Invoke();
     public void OnClickCloseScreenBtn() {
         //* リワードスロットのアニメーションが全部終わるまで待つ
-        if(IsFinishSlotsSpawn)
+        if(!IsFinishSlotsSpawn)
             return;
         
         if(HM._.shopMg.OnClickEquipPackage != null) {
@@ -98,8 +98,9 @@ public class HomeRewardListUIManager : MonoBehaviour {
             rwdSlotList[i].TypeIconImg.enabled = false;
         }
 
-        IsFinishSlotsSpawn = true;
+        IsFinishSlotsSpawn = false;
         yield return Util.Time0_2;
+
         //* UI EF
         for(int i = 0; i < rewardList.Count; i++) {
             RewardItem rewardItem = rewardList[i];
@@ -147,7 +148,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
             }
             yield return Util.Time0_05;
         }
-        IsFinishSlotsSpawn = false;
+        IsFinishSlotsSpawn = true;
     }
     /// <summary>
     /// リワードスロットUIリスト 表示
