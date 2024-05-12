@@ -182,8 +182,8 @@ public class ActionBarUIManager : MonoBehaviour {
 
         SM._.SfxPlay(SM.SFX.BreakSFX);
         GM._.tmc.BreakWallTile();
-        GM._.tmc.SelectedTileMap.ClearAllTiles();
-        PanelObj.SetActive(false);
+        //* 壊してから、タイル初期選択
+        UpdateUI(Enum.Layer.Default);
     }
 
     public void OnClickBoardIconBtn() {
