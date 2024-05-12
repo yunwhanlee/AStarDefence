@@ -86,8 +86,9 @@ public class TileMapController : MonoBehaviour {
         Debug.Log("<color=white>onClickTile():: mouse.x= " + x + ", y= " + y + "</color>");
 
         // 레이케스트에서 제외할 레이어
-        int layerMask = 1 << Enum.Layer.TowerRange;
-        int exceptLayerMask = ~layerMask;
+        int towerLayerMask = 1 << Enum.Layer.TowerRange;
+        int enemyLayerMask = 1 << Enum.Layer.Enemy; //! (BUG)特にFlight敵などがタワーの上にあれば、タワークリックができなくて、Default選択として空のタイル選択になること対応
+        int exceptLayerMask = ~(towerLayerMask | enemyLayerMask);
 
         RaycastHit2D hit;
         // 방향은 일단 임시로 0 벡터를 사용하거나, 필요한 방향으로 설정할 수 있습니다.
