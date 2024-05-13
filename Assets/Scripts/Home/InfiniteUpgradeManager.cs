@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using AssetKits.ParticleImage;
 using DG.Tweening;
@@ -57,6 +57,7 @@ public class InfiniteUpgradeManager : MonoBehaviour {
     public const int ATK = 0, CRITDMG = 1, BOSSDMG = 2;
     [field: SerializeField] public GameObject WindowObj {get; set;}
     [field: SerializeField] public TMP_Text CurCrackTxt;
+
     [field: SerializeField] public DOTweenAnimation BgImgDOTAnim;
 
     [field:Header("ID[0]: DMG, ID[1]: CRITDMG, ID[2]: BOSSDMG")]
@@ -64,6 +65,7 @@ public class InfiniteUpgradeManager : MonoBehaviour {
 
     void Start() {
         CurCrackTxt.text = $"{HM._.Crack}";
+
         foreach(var upgradeBtn in InfiniteUpgBtns) {
             upgradeBtn.SetDataUI();
         }

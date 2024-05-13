@@ -317,6 +317,8 @@ public class TutorialDB {
 /// </summary>
 [Serializable]
 public class InfiniteUpgradeDB {
+    [field:SerializeField] public int MyBestWaveScore {get; set;}
+
     public const float DmgUpgUnit = 0.05f;
     [field:SerializeField] public int DmgUpgLv {get; set;}
     public const float CritDmgUpgUnit = 0.1f;
@@ -325,6 +327,7 @@ public class InfiniteUpgradeDB {
     [field:SerializeField] public int BossDmgUpgLv {get; set;}
 
     public InfiniteUpgradeDB() {
+        MyBestWaveScore = 0;
         DmgUpgLv = 0;
         CritDmgUpgLv = 0;
         BossDmgUpgLv = 0;
@@ -332,7 +335,12 @@ public class InfiniteUpgradeDB {
 
     public float GetExtraDmgPercent() => DmgUpgLv * DmgUpgUnit; // -> Warrior, Archer, Magician Tower
     public float GetExtraCritDmgPercent() => CritDmgUpgLv * CritDmgUpgUnit; // -> Warrior, Archer, Magician Tower
-    public float GetExtraBossDmgPercent() => BossDmgUpgLv * BossDmgUpgUnit;
+    public float GetExtraBossDmgPercent() => BossDmgUpgLv * BossDmgUpgUnit; // -> Enemy
+    public void UpdateBestScore(int waveCnt) {
+        if(waveCnt > MyBestWaveScore)
+            MyBestWaveScore = waveCnt;
+        GM._.gui.ShowMsgNotice("축하합니다. 최고기록 달성!");
+    }
 }
 
 /// <summary>

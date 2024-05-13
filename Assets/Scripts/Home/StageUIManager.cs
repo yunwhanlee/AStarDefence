@@ -14,8 +14,10 @@ public class StageUIManager : MonoBehaviour {
     [Header("GOBLIN DUNGEON")]
     [field:SerializeField] public GameObject DungeonSelectPopUp;
     [field:SerializeField] public GameObject GoblinDungeonWindow;
-    [field:SerializeField] public GameObject InfiniteDungeonWindow;
     [field:SerializeField] public TMP_Text GoldKeyTxt;
+    [field:SerializeField] public GameObject InfiniteDungeonWindow;
+    [field:SerializeField] public TMP_Text InfiniteDungeonGoldKeyTxt;
+    [field: SerializeField] public TMP_Text InfiniteBestWaveScoreTxt;
     [field:SerializeField] public GameObject DungeonAlertDot;
 
     [field: Header("STAGE")]
@@ -43,6 +45,7 @@ public class StageUIManager : MonoBehaviour {
     void Start() {
         DungeonAlertDot.SetActive(HM._.GoldKey > 0);
         NewStageAlertBtnObj.SetActive(false);
+        InfiniteBestWaveScoreTxt.text =  $"최대돌파: {DM._.DB.InfiniteUpgradeDB.MyBestWaveScore}층";
 
         //* New Stage Alert 表示
         for(int i = 0; i < DM._.DB.StageLockedDBs.Length; i++) {
@@ -77,14 +80,19 @@ public class StageUIManager : MonoBehaviour {
 
         DungeonSelectPopUp.SetActive(true);
         DungeonSelectPopUp.GetComponent<DOTweenAnimation>().DORestart();
-        GoldKeyTxt.text = $"{HM._.GoldKey}/{Config.MAX_GOBLINKEY}";
+        
     }
     public void OnClickOpenSelectDungeonWindow(int idx) {
         SM._.SfxPlay(SM.SFX.ClickSFX);
-        if(idx == 0)
+        if(idx == 0) {
             GoblinDungeonWindow.SetActive(true);
-        if(idx == 1)
+            GoldKeyTxt.text = $"{HM._.GoldKey}/{Config.MAX_GOBLINKEY}";
+        }
+
+        if(idx == 1) {
             InfiniteDungeonWindow.SetActive(true);
+            InfiniteDungeonGoldKeyTxt.text = $"{HM._.GoldKey}/{Config.MAX_GOBLINKEY}";
+        }
     }
 
     public void OnClickInfiniteUpgradeIcon() {

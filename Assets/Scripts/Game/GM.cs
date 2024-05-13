@@ -641,8 +641,6 @@ public class GM : MonoBehaviour {
             rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)goblinRwd], Random.Range(1, 4)));
         }
         else if(stage == Config.Stage.STG_INFINITE_DUNGEON) {
-            //* UI
-
             //* Reward
             int exp = WaveCnt;
             int fame = Mathf.FloorToInt(WaveCnt * 0.05f);
@@ -654,6 +652,9 @@ public class GM : MonoBehaviour {
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Fame], fame));
             if(crack > 0)
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Crack], crack));
+
+            //* ベストスコア
+            DM._.DB.InfiniteUpgradeDB.UpdateBestScore(WaveCnt);
         }
     #endregion
 
