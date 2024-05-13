@@ -52126,7 +52126,7 @@ MonoBehaviour:
   _bursts:
   - time: 0
     count: 5
-    used: 1
+    used: 0
   _particleTrailRenderer: {fileID: 0}
   _trailModule:
     enabled: 0
@@ -53521,7 +53521,7 @@ MonoBehaviour:
   _bursts:
   - time: 0
     count: 5
-    used: 1
+    used: 0
   _particleTrailRenderer: {fileID: 0}
   _trailModule:
     enabled: 0
@@ -54962,7 +54962,7 @@ MonoBehaviour:
   _bursts:
   - time: 0
     count: 1
-    used: 1
+    used: 0
   _particleTrailRenderer: {fileID: 0}
   _trailModule:
     enabled: 0
@@ -58169,7 +58169,7 @@ MonoBehaviour:
   _bursts:
   - time: 0
     count: 25
-    used: 1
+    used: 0
   _particleTrailRenderer: {fileID: 0}
   _trailModule:
     enabled: 0

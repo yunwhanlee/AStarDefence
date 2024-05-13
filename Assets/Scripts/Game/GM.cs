@@ -236,7 +236,8 @@ public class GM : MonoBehaviour {
             SM._.SfxPlay(SM.SFX.CompleteSFX);
             gui.Ads_ClaimX2Btn.gameObject.SetActive(false);
             rwlm.ShowReward(VictoryRwdList);
-            // HM._.rwm.CoUpdateInventoryAsync(VictoryRwdList);
+            StartCoroutine(HM._.rwm.CoUpdateInventoryAsync(VictoryRwdList));
+            HM._.rwm.CoUpdateInventoryAsync(VictoryRwdList);
 
             for(int i = 0 ; i < rwlm.Content.childCount; i++) {
                 rwlm.Content.GetChild(i).GetComponent<InventoryUIItem>().DoubleRewardLabel.SetActive(true);
@@ -327,102 +328,106 @@ public class GM : MonoBehaviour {
         int stage = DM._.SelectedStage;
         int nextStage = stage + 1;
 
+    #region STAGE CLEAR UNLOCK
         //* もしIndexを超えると今のステージIndexに戻す
         if(nextStage >= db.StageLockedDBs.Count()) {
             nextStage = stage;
         }
 
-        StageLockedDB stageLockDt = db.StageLockedDBs[stage];
-        StageLockedDB nextStageLockDt = db.StageLockedDBs[nextStage];
+        //* 一般のステージのみ
+        if(stage != Config.Stage.STG_GOBLIN_DUNGEON && stage != Config.Stage.STG_INFINITE_DUNGEON) {
+            StageLockedDB stageLockDt = db.StageLockedDBs[stage];
+            StageLockedDB nextStageLockDt = db.StageLockedDBs[nextStage];
 
-    #region STAGE CLEAR UNLOCK
-        switch(stage) {
-            case Config.Stage.STG1_FOREST:
-                if(diff == Enum.StageNum.Stage1_1) {
-                    stageLockDt.IsLockStage1_2 = false;
-                    stageLockDt.StageRewards[1].IsUnlockAlert = true;
-                    stageLockDt.StageRewards[0].IsActiveBonusReward = true;
-                }
-                else if(diff == Enum.StageNum.Stage1_2) {
-                    stageLockDt.IsLockStage1_3 = false;
-                    stageLockDt.StageRewards[2].IsUnlockAlert = true;
-                    stageLockDt.StageRewards[1].IsActiveBonusReward = true;
-                }
-                else if(diff == Enum.StageNum.Stage1_3) {
-                    nextStageLockDt.IsLockStage1_1 = false;
-                    nextStageLockDt.StageRewards[0].IsUnlockAlert = true;
-                    stageLockDt.StageRewards[2].IsActiveBonusReward = true;
-                }
-                break;
-            case Config.Stage.STG2_DESERT: // DESERT
-                if(diff == Enum.StageNum.Stage1_1) {
-                    stageLockDt.IsLockStage1_2 = false;
-                    stageLockDt.StageRewards[1].IsUnlockAlert = true;
-                    stageLockDt.StageRewards[0].IsActiveBonusReward = true;
-                }
-                else if(diff == Enum.StageNum.Stage1_2) {
-                    stageLockDt.IsLockStage1_3 = false;
-                    stageLockDt.StageRewards[2].IsUnlockAlert = true;
-                    stageLockDt.StageRewards[1].IsActiveBonusReward = true;
-                }
-                else if(diff == Enum.StageNum.Stage1_3) {
-                    nextStageLockDt.IsLockStage1_1 = false;
-                    nextStageLockDt.StageRewards[0].IsUnlockAlert = true;
-                    stageLockDt.StageRewards[2].IsActiveBonusReward = true;
-                }
-                break;
-            case Config.Stage.STG3_SEA: // SEA
-                if(diff == Enum.StageNum.Stage1_1) {
-                    stageLockDt.IsLockStage1_2 = false;
-                    stageLockDt.StageRewards[1].IsUnlockAlert = true;
-                    stageLockDt.StageRewards[0].IsActiveBonusReward = true;
-                }
-                else if(diff == Enum.StageNum.Stage1_2) {
-                    stageLockDt.IsLockStage1_3 = false;
-                    stageLockDt.StageRewards[2].IsUnlockAlert = true;
-                    stageLockDt.StageRewards[1].IsActiveBonusReward = true;
-                }
-                else if(diff == Enum.StageNum.Stage1_3) {
-                    nextStageLockDt.IsLockStage1_1 = false;
-                    nextStageLockDt.StageRewards[0].IsUnlockAlert = true;
-                    stageLockDt.StageRewards[2].IsActiveBonusReward = true;
-                }
-                break;
-            case Config.Stage.STG4_UNDEAD: // UNDEAD
-                if(diff == Enum.StageNum.Stage1_1) {
-                    stageLockDt.IsLockStage1_2 = false;
-                    stageLockDt.StageRewards[1].IsUnlockAlert = true;
-                    stageLockDt.StageRewards[0].IsActiveBonusReward = true;
-                }
-                else if(diff == Enum.StageNum.Stage1_2) {
-                    stageLockDt.IsLockStage1_3 = false;
-                    stageLockDt.StageRewards[2].IsUnlockAlert = true;
-                    stageLockDt.StageRewards[1].IsActiveBonusReward = true;
-                }
-                else if(diff == Enum.StageNum.Stage1_3) {
-                    nextStageLockDt.IsLockStage1_1 = false;
-                    nextStageLockDt.StageRewards[0].IsUnlockAlert = true;
-                    stageLockDt.StageRewards[2].IsActiveBonusReward = true;
-                }
-                break;
-            case Config.Stage.STG5_HELL: // HELL
-                if(diff == Enum.StageNum.Stage1_1) {
-                    stageLockDt.IsLockStage1_2 = false;
-                    stageLockDt.StageRewards[1].IsUnlockAlert = true;
-                    stageLockDt.StageRewards[0].IsActiveBonusReward = true;
-                }
-                else if(diff == Enum.StageNum.Stage1_2) {
-                    stageLockDt.IsLockStage1_3 = false;
-                    stageLockDt.StageRewards[2].IsUnlockAlert = true;
-                    stageLockDt.StageRewards[1].IsActiveBonusReward = true;
-                }
-                else if(diff == Enum.StageNum.Stage1_3) {
-                    gui.ShowMsgNotice("모든 스테이지 클리어!!");
-                    stageLockDt.StageRewards[2].IsActiveBonusReward = true;
-                }
-                break;
+            switch(stage) {
+                case Config.Stage.STG1_FOREST:
+                    if(diff == Enum.StageNum.Stage1_1) {
+                        stageLockDt.IsLockStage1_2 = false;
+                        stageLockDt.StageRewards[1].IsUnlockAlert = true;
+                        stageLockDt.StageRewards[0].IsActiveBonusReward = true;
+                    }
+                    else if(diff == Enum.StageNum.Stage1_2) {
+                        stageLockDt.IsLockStage1_3 = false;
+                        stageLockDt.StageRewards[2].IsUnlockAlert = true;
+                        stageLockDt.StageRewards[1].IsActiveBonusReward = true;
+                    }
+                    else if(diff == Enum.StageNum.Stage1_3) {
+                        nextStageLockDt.IsLockStage1_1 = false;
+                        nextStageLockDt.StageRewards[0].IsUnlockAlert = true;
+                        stageLockDt.StageRewards[2].IsActiveBonusReward = true;
+                    }
+                    break;
+                case Config.Stage.STG2_DESERT: // DESERT
+                    if(diff == Enum.StageNum.Stage1_1) {
+                        stageLockDt.IsLockStage1_2 = false;
+                        stageLockDt.StageRewards[1].IsUnlockAlert = true;
+                        stageLockDt.StageRewards[0].IsActiveBonusReward = true;
+                    }
+                    else if(diff == Enum.StageNum.Stage1_2) {
+                        stageLockDt.IsLockStage1_3 = false;
+                        stageLockDt.StageRewards[2].IsUnlockAlert = true;
+                        stageLockDt.StageRewards[1].IsActiveBonusReward = true;
+                    }
+                    else if(diff == Enum.StageNum.Stage1_3) {
+                        nextStageLockDt.IsLockStage1_1 = false;
+                        nextStageLockDt.StageRewards[0].IsUnlockAlert = true;
+                        stageLockDt.StageRewards[2].IsActiveBonusReward = true;
+                    }
+                    break;
+                case Config.Stage.STG3_SEA: // SEA
+                    if(diff == Enum.StageNum.Stage1_1) {
+                        stageLockDt.IsLockStage1_2 = false;
+                        stageLockDt.StageRewards[1].IsUnlockAlert = true;
+                        stageLockDt.StageRewards[0].IsActiveBonusReward = true;
+                    }
+                    else if(diff == Enum.StageNum.Stage1_2) {
+                        stageLockDt.IsLockStage1_3 = false;
+                        stageLockDt.StageRewards[2].IsUnlockAlert = true;
+                        stageLockDt.StageRewards[1].IsActiveBonusReward = true;
+                    }
+                    else if(diff == Enum.StageNum.Stage1_3) {
+                        nextStageLockDt.IsLockStage1_1 = false;
+                        nextStageLockDt.StageRewards[0].IsUnlockAlert = true;
+                        stageLockDt.StageRewards[2].IsActiveBonusReward = true;
+                    }
+                    break;
+                case Config.Stage.STG4_UNDEAD: // UNDEAD
+                    if(diff == Enum.StageNum.Stage1_1) {
+                        stageLockDt.IsLockStage1_2 = false;
+                        stageLockDt.StageRewards[1].IsUnlockAlert = true;
+                        stageLockDt.StageRewards[0].IsActiveBonusReward = true;
+                    }
+                    else if(diff == Enum.StageNum.Stage1_2) {
+                        stageLockDt.IsLockStage1_3 = false;
+                        stageLockDt.StageRewards[2].IsUnlockAlert = true;
+                        stageLockDt.StageRewards[1].IsActiveBonusReward = true;
+                    }
+                    else if(diff == Enum.StageNum.Stage1_3) {
+                        nextStageLockDt.IsLockStage1_1 = false;
+                        nextStageLockDt.StageRewards[0].IsUnlockAlert = true;
+                        stageLockDt.StageRewards[2].IsActiveBonusReward = true;
+                    }
+                    break;
+                case Config.Stage.STG5_HELL: // HELL
+                    if(diff == Enum.StageNum.Stage1_1) {
+                        stageLockDt.IsLockStage1_2 = false;
+                        stageLockDt.StageRewards[1].IsUnlockAlert = true;
+                        stageLockDt.StageRewards[0].IsActiveBonusReward = true;
+                    }
+                    else if(diff == Enum.StageNum.Stage1_2) {
+                        stageLockDt.IsLockStage1_3 = false;
+                        stageLockDt.StageRewards[2].IsUnlockAlert = true;
+                        stageLockDt.StageRewards[1].IsActiveBonusReward = true;
+                    }
+                    else if(diff == Enum.StageNum.Stage1_3) {
+                        gui.ShowMsgNotice("모든 스테이지 클리어!!");
+                        stageLockDt.StageRewards[2].IsActiveBonusReward = true;
+                    }
+                    break;
+        }
         }
     #endregion
+
     #region REWARD LIST
         var ORE0 = Etc.NoshowInvItem.Ore0;
         var ORE1 = Etc.NoshowInvItem.Ore1;
@@ -444,6 +449,7 @@ public class GM : MonoBehaviour {
         else
             DM._.DB.DailyMissionDB.ClearGoblinDungyenVal++;
 
+        //* リワード
         if(stage == Config.Stage.STG1_FOREST) {
             switch(diff) {
                 case Enum.StageNum.Stage1_1: {
@@ -634,6 +640,18 @@ public class GM : MonoBehaviour {
             var goblinRwd = rand < 50? gblEasyRwdArr[0] : rand < 85? gblNormalRwdArr[1] : gblHardRwdArr[2];
             rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)goblinRwd], Random.Range(1, 4)));
         }
+        else if(stage == Config.Stage.STG_INFINITE_DUNGEON) {
+            //* UI
+
+            //* Reward
+            int exp = WaveCnt;
+            int fame = Mathf.FloorToInt(WaveCnt * 0.05f);
+            int crack = Mathf.FloorToInt(WaveCnt * 0.165f);
+
+            rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], exp));
+            rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Fame], fame));
+            rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Crack], crack));
+        }
     #endregion
 
         //* 追加コイン＆EXP 適用
@@ -658,9 +676,8 @@ public class GM : MonoBehaviour {
         });
 
         VictoryRwdList = rewardList;
-
         rwlm.ShowReward(rewardList);
-        // HM._.rwm.CoUpdateInventoryAsync(rewardList);
+        StartCoroutine(HM._.rwm.CoUpdateInventoryAsync(rewardList));
     }
 
     /// <summary>

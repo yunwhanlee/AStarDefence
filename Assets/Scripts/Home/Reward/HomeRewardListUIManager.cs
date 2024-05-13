@@ -75,7 +75,8 @@ public class HomeRewardListUIManager : MonoBehaviour {
     /// <summary>
     /// リワードリスト表示
     /// </summary>
-    private IEnumerator CoDisplayRewardList(List<RewardItem> rewardList) {
+    private IEnumerator 
+    CoDisplayRewardList(List<RewardItem> rewardList) {
         for(int i = 0; i < rewardList.Count; i++)
             Debug.Log($"ShowReward():: itemList[{i}].quantity= {rewardList[i].Quantity}");
 

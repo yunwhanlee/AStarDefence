@@ -70,7 +70,7 @@ public class StageUIManager : MonoBehaviour {
         UpdateStageBonusChestIcon();
     }
 
-#region GOBLIN DUNGEON EVENT 
+#region DUNGEON EVENT 
     public void OnClickDungeonIconBtn() {
         HM._.hui.IsActivePopUp = true;
         SM._.SfxPlay(SM.SFX.ItemPickSFX);
@@ -85,6 +85,12 @@ public class StageUIManager : MonoBehaviour {
             GoblinDungeonWindow.SetActive(true);
         if(idx == 1)
             InfiniteDungeonWindow.SetActive(true);
+    }
+
+    public void OnClickInfiniteUpgradeIcon() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        InfiniteDungeonWindow.SetActive(false);
+        HM._.ifum.WindowObj.SetActive(true);
     }
 
     public void OnClickDungeonDifficultyBtn(int diffIdx) {

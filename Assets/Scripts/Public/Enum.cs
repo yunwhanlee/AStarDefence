@@ -49,7 +49,7 @@ public enum AbilityType {
 public class Etc {
     public enum NoshowInvItem {
         Goblin = -2, Ore = -1,
-        GoldKey, Coin, Diamond, Exp, 
+        GoldKey, Coin, Diamond, Exp, Crack,
         Goblin0, Goblin1, Goblin2, Goblin3, Goblin4, Goblin5, Goblin6,
         Ore0, Ore1, Ore2, Ore3, Ore4, Ore5, Ore6, Ore7, Ore8,
         SkillPoint, RemoveAd,

@@ -36,6 +36,8 @@ public class HM : MonoBehaviour {
     [HideInInspector] public DailyMissionManager dailyMs;
     // Spin
     [HideInInspector] public LuckySpinManager lspm;
+    // InfiniteUpgrade
+    [HideInInspector] public InfiniteUpgradeManager ifum;
 
     //* Value
     public Color SkyBlueColor;
@@ -89,6 +91,13 @@ public class HM : MonoBehaviour {
             stm.MySkillPointTxt.text = $"{value}";
         } 
     }
+    [field: SerializeField] public int Crack {
+        get => DM._.DB.StatusDB.Crack;
+        set {
+            DM._.DB.StatusDB.Crack = value;
+            if(HM._) ifum.CurCrackTxt.text = $"{value}";
+        } 
+    }
 
     void Awake() {
         //* Global化 値 代入
@@ -112,6 +121,7 @@ public class HM : MonoBehaviour {
         cim = GameObject.Find("ChestInfoManager").GetComponent<ChestInfoManager>();
         dailyMs = GameObject.Find("DailyMissionManager").GetComponent<DailyMissionManager>();
         lspm = GameObject.Find("LuckySpinManager").GetComponent<LuckySpinManager>();
+        ifum = GameObject.Find("InfiniteUpgradeManager").GetComponent<InfiniteUpgradeManager>();
 
         //* 初期化
         SelectedStage = 0;

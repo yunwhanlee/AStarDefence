@@ -17,6 +17,7 @@ public class StatusDB {
     [field:SerializeField] public int Coin {get; set;}
     [field:SerializeField] public int Diamond {get; set;}
     [field:SerializeField] public int SkillPoint {get; set;}
+    [field:SerializeField] public int Crack {get; set;}
     [field:SerializeField] public int Fame {get; set;}
 
     public StatusDB() {
@@ -26,6 +27,7 @@ public class StatusDB {
         Coin = 0;
         Diamond = 0;
         SkillPoint = 0;
+        Crack = 0;
         Fame = 0;
     }
 }
@@ -311,6 +313,22 @@ public class TutorialDB {
 }
 
 /// <summary>
+/// きれつダンジョンのアップグレードDB
+/// </summary>
+[Serializable]
+public class InfiniteUpgradeDB {
+    [field:SerializeField] public int DmgUpgLv {get; set;}
+    [field:SerializeField] public int CritDmgUpgLv {get; set;}
+    [field:SerializeField] public int BossDmgUpgLv {get; set;}
+
+    public InfiniteUpgradeDB() {
+        DmgUpgLv = 0;
+        CritDmgUpgLv = 0;
+        BossDmgUpgLv = 0;
+    }
+}
+
+/// <summary>
 ///* 保存・読込のデータベース ★データはPlayerPrefsに保存するので、String、Float、Intのみ！！！★
 /// </summary>
 [Serializable]
@@ -324,6 +342,7 @@ public class DB {
     [field:SerializeField] public DailyMissionDB DailyMissionDB {get; set;}
     [field:SerializeField] public SettingDB SettingDB {get; set;}
     [field:SerializeField] public TutorialDB TutorialDB {get; set;}
+    [field:SerializeField] public InfiniteUpgradeDB InfiniteUpgradeDB {get; set;}
     
     [field:SerializeField] public List<InventoryItem> InvItemDBs {get; set;}
     [field:SerializeField] public bool IsRemoveAd {get; set;}
@@ -567,6 +586,8 @@ public class DM : MonoBehaviour {
         DB.SettingDB = new SettingDB();
 
         DB.TutorialDB = new TutorialDB();
+        
+        DB.InfiniteUpgradeDB = new InfiniteUpgradeDB();
 
         DB.IsRemoveAd = false;
         DB.IsCloverActive = false;

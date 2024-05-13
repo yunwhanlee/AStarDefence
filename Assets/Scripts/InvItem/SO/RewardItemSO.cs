@@ -54,6 +54,10 @@ public class RewardItem {
                 if(HM._)    HM._.SkillPoint += quantity;
                 else        DM._.DB.StatusDB.SkillPoint += quantity;
                 break;
+            case Etc.NoshowInvItem.Crack:
+                if(HM._)    HM._.Crack += quantity;
+                else        DM._.DB.StatusDB.Crack += quantity;
+                break;
             case Etc.NoshowInvItem.RemoveAd:
                 DM._.DB.IsRemoveAd = true;
                 HM._.hui.RemoveAdIcon.SetActive(true);

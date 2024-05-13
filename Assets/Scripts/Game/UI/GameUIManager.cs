@@ -52,10 +52,12 @@ public class GameUIManager : MonoBehaviour {
 
     [Header("GAMEOVER POPUP")]
     public GameObject GameoverPopUp;
+    public TMP_Text GameoverExitBtnTxt;
     public Button Ads_ReviveBtn;
 
     [Header("VICTORY POPUP")]
     public GameObject VictoryPopUp;
+    public TMP_Text VictoryTitleTxt;
     public Transform RewardsGroup;
     public Button Ads_ClaimX2Btn;
 
@@ -156,6 +158,16 @@ public class GameUIManager : MonoBehaviour {
         PausePopUp.SetActive(false);
     }
     public void OnClickPausePopUp_ExitGameBtn() {
+        //* きれつダンジョンの時、出るボタンをリワード得ることにする
+        if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON) {
+            GameoverPopUp.SetActive(false);
+            GM._.Victory();
+            Ads_ClaimX2Btn.gameObject.SetActive(false);
+            VictoryTitleTxt.text = $"돌파한 층수: {GM._.WaveCnt}층";
+            // Time.timeScale = 0;
+            return;
+        }
+
         PausePopUp.SetActive(false);
         AgainAskPopUp.SetActive(true);
     }
@@ -266,6 +278,8 @@ public class GameUIManager : MonoBehaviour {
         //* ゴブリンステージは復活できない
         if(GM._.Stage == Config.Stage.STG_GOBLIN_DUNGEON)
             Ads_ReviveBtn.gameObject.SetActive(false);
+        else if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON)
+            GameoverExitBtnTxt.text = "보상받기";
         else
             Ads_ReviveBtn.gameObject.SetActive(!GM._.IsRevived);
 
