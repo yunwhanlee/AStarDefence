@@ -52,9 +52,13 @@ public class WarriorTower : Tower {
             extraPer += sktDb.GetWarriorVal((int)SKT_WR.EXTRA_DMG_A);
         if(!sktDb.IsLockWarriorSTs[(int)SKT_WR.EXTRA_DMG_B])
             extraPer += sktDb.GetWarriorVal((int)SKT_WR.EXTRA_DMG_B);
+
         //* Euqip 追加ダメージ
         extraPer += DM._.DB.EquipDB.AttackPer;
         extraPer += DM._.DB.EquipDB.WarriorAttackPer;
+
+        //* Infinite強化ダメージ
+        extraPer += DM._.DB.InfiniteUpgradeDB.GetExtraDmgPercent();
 
         //* DICIONARYへ追加
         if(extraPer > 0) {
@@ -109,8 +113,12 @@ public class WarriorTower : Tower {
 
         //* SkillTree 追加ダメージ
         // なし
+
         //* Euqip 追加ダメージ
         extraPer += DM._.DB.EquipDB.CritDmgPer;
+
+        //* Infinite強化ダメージ
+        extraPer += DM._.DB.InfiniteUpgradeDB.GetExtraCritDmgPercent();
 
         //* DICIONARYへ追加
         if(extraPer > 0)

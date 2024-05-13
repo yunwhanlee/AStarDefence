@@ -140,6 +140,13 @@ public abstract class Enemy : MonoBehaviour {
             if(!gameObject.activeSelf) {
                 return;
             }
+
+            //* ボース追加ダメージ
+            InfiniteUpgradeDB infiniteUpgDB = DM._.DB.InfiniteUpgradeDB;
+            if(Type == EnemyType.Boss && infiniteUpgDB.BossDmgUpgLv > 0) {
+                int extraBossDmg = Mathf.RoundToInt(val * infiniteUpgDB.GetExtraBossDmgPercent());
+                val += extraBossDmg;
+            }
             
             //* Dmg Txt EF
             GM._.gef.ShowDmgTxtEF(transform.position, val, isCritical);

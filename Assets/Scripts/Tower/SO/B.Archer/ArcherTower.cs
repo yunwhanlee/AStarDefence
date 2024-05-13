@@ -35,9 +35,13 @@ public class ArcherTower : Tower {
             extraPer += sktDb.GetArcherVal((int)SKT_AC.EXTRA_DMG_A);
         if(!sktDb.IsLockArcherSTs[(int)SKT_AC.EXTRA_DMG_B])
             extraPer += sktDb.GetArcherVal((int)SKT_AC.EXTRA_DMG_B);
+
         //* Euqip 追加ダメージ
         extraPer += DM._.DB.EquipDB.AttackPer;
         extraPer += DM._.DB.EquipDB.ArcherAttackPer;
+
+        //* Infinite強化ダメージ
+        extraPer += DM._.DB.InfiniteUpgradeDB.GetExtraDmgPercent();
 
         //* DICIONARYへ追加
         if(extraPer > 0) {
@@ -95,8 +99,12 @@ public class ArcherTower : Tower {
             extraPer += sktDb.GetArcherVal((int)SKT_AC.CIRT_DMG_PER_A);
         if(!sktDb.IsLockArcherSTs[(int)SKT_AC.CIRT_DMG_PER_B])
             extraPer += sktDb.GetArcherVal((int)SKT_AC.CIRT_DMG_PER_B);
+
         //* Euqip 追加ダメージ
         extraPer += DM._.DB.EquipDB.CritDmgPer;
+
+        //* Infinite強化ダメージ
+        extraPer += DM._.DB.InfiniteUpgradeDB.GetExtraCritDmgPercent();
 
         //* DICIONARYへ追加
         if(extraPer > 0)

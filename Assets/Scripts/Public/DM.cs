@@ -317,8 +317,11 @@ public class TutorialDB {
 /// </summary>
 [Serializable]
 public class InfiniteUpgradeDB {
+    public const float DmgUpgUnit = 0.05f;
     [field:SerializeField] public int DmgUpgLv {get; set;}
+    public const float CritDmgUpgUnit = 0.1f;
     [field:SerializeField] public int CritDmgUpgLv {get; set;}
+    public const float BossDmgUpgUnit = 0.1f;
     [field:SerializeField] public int BossDmgUpgLv {get; set;}
 
     public InfiniteUpgradeDB() {
@@ -326,6 +329,10 @@ public class InfiniteUpgradeDB {
         CritDmgUpgLv = 0;
         BossDmgUpgLv = 0;
     }
+
+    public float GetExtraDmgPercent() => DmgUpgLv * DmgUpgUnit; // -> Warrior, Archer, Magician Tower
+    public float GetExtraCritDmgPercent() => CritDmgUpgLv * CritDmgUpgUnit; // -> Warrior, Archer, Magician Tower
+    public float GetExtraBossDmgPercent() => BossDmgUpgLv * BossDmgUpgUnit;
 }
 
 /// <summary>

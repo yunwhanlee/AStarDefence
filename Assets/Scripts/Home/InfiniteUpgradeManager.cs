@@ -24,7 +24,6 @@ public class InfiniteUpgBtn {
             SetDataUI();
         }
     }
-    [field: SerializeField] public float UpgUnit {get; set;}
     [field: SerializeField] public int NeedCrackCnt {get; set;}
     [field: SerializeField] public int SuccessPer {get; set;}
 
@@ -37,7 +36,11 @@ public class InfiniteUpgBtn {
     public void SetDataUI() {
         LvTxt.text = $"LV {Lv}";
 
-        float upgVal = Lv * UpgUnit * 100;
+        float upgradeUnit = (Id == 0)? InfiniteUpgradeDB.DmgUpgUnit
+            :(Id == 1)? InfiniteUpgradeDB.CritDmgUpgUnit
+            :InfiniteUpgradeDB.BossDmgUpgUnit;
+
+        float upgVal = Lv * upgradeUnit * 100;
         ValTxt.text = (Id == 0)? $"공격력 <color=green>{upgVal}</color>% 증가"
                 :(Id == 1)? $"치명타피해 <color=green>{upgVal}</color>% 증가"
                 :$"보스추가피해 <color=green>{upgVal}</color>% 증가";
