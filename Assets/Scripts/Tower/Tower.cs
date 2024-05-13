@@ -136,9 +136,9 @@ public abstract class Tower : MonoBehaviour {
     }
 
     void Update() {
-        if(GM._.State == GameState.Ready) {
+        if(GM._.State == GameState.Pause) return;
+        if(GM._.State == GameState.Ready) return;
 
-        }
         else if(GM._.State == GameState.Play) {
             if(trc.CurTarget && CorAttack == null) {
                 var enemy = trc.CurTarget.GetComponent<Enemy>();

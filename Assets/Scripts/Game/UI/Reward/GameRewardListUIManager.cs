@@ -24,10 +24,10 @@ public class GameRewardListUIManager : MonoBehaviour {
 
     IEnumerator CoPlayRewardSlotSpawnSFX(int cnt) {
         IsFinishSlotsSpawn = true;
-        yield return Util.Time0_5;
+        yield return Util.RealTime0_5;
         for(int i = 0; i < cnt; i++) {
             SM._.SfxPlay(SM.SFX.InvUnEquipSFX);
-            yield return Util.Time0_1;
+            yield return Util.RealTime0_1;
         }
         IsFinishSlotsSpawn = false;
     }

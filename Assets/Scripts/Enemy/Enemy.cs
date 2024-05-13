@@ -55,6 +55,9 @@ public abstract class Enemy : MonoBehaviour {
     // }
 
     void Update() {
+        if(GM._.State == GameState.Ready) 
+            return;
+
         //* 飛ぶタイプ
         if(Type == EnemyType.Flight) {
             Vector2 goalDir = GM._.pfm.goalPos;

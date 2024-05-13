@@ -164,7 +164,7 @@ public class GameUIManager : MonoBehaviour {
             GM._.Victory();
             Ads_ClaimX2Btn.gameObject.SetActive(false);
             VictoryTitleTxt.text = $"돌파한 층수: {GM._.WaveCnt}층";
-            // Time.timeScale = 0;
+            Time.timeScale = 0;
             return;
         }
 

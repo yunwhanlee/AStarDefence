@@ -81,6 +81,7 @@ public class InfiniteUpgradeManager : MonoBehaviour {
         }
         public void OnClickUpgradeBtn(int idx) {
             if(HM._.Crack < InfiniteUpgBtns[idx].NeedCrackCnt) {
+                SM._.SfxPlay(SM.SFX.ErrorSFX);
                 HM._.hui.ShowMsgNotice("균열조각이 부족합니다!", y: 650);
                 return;
             }

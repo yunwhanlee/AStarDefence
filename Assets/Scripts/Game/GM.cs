@@ -648,9 +648,12 @@ public class GM : MonoBehaviour {
             int fame = Mathf.FloorToInt(WaveCnt * 0.05f);
             int crack = Mathf.FloorToInt(WaveCnt * 0.165f);
 
-            rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], exp));
-            rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Fame], fame));
-            rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Crack], crack));
+            if(exp > 0)
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], exp));
+            if(fame > 0)
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Fame], fame));
+            if(crack > 0)
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Crack], crack));
         }
     #endregion
 
