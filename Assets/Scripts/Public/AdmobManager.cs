@@ -102,11 +102,14 @@ public class AdmobManager : MonoBehaviour {
     public void ProcessRewardAd(Action rewardCallbackPrecess) {
         OnGetRewardAd = rewardCallbackPrecess;
         //* 広告削除が有ったら
-        if(DM._.DB.IsRemoveAd)
+        if(DM._.DB.IsRemoveAd) {
             OnGetRewardAd?.Invoke();
+            OnGetRewardAd = null;
+        }
         //* 広告再生
-        else
+        else {
             ShowRewardedAd();
+        }
     }
 #endregion
 }

@@ -46,14 +46,25 @@ public class GPGSManager : MonoBehaviour {
     /// </summary>
     public void ShowLeaderBoardUI() {
         UpdateFameToLeaderBoard();
+        UpdateCrackDungeonBestWaveToLeaderBoard();
         PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard);
     }
 
     /// <summary>
-    /// 名声データをGoogleリーダボードへアップデート
+    /// 「名声」データをGoogleリーダボードへアップデート
     /// </summary>
     public void UpdateFameToLeaderBoard() {
-        PlayGamesPlatform.Instance.ReportScore(DM._.DB.StatusDB.Fame, GPGSIds.leaderboard, (bool success) => {});
+        PlayGamesPlatform.Instance.ReportScore(
+            DM._.DB.StatusDB.Fame, GPGSIds.leaderboard, (bool success) => {}
+        );
+    }
+    /// <summary>
+    /// 「きれつダンジョン突破」データをGoogleリーダボードへアップデート
+    /// </summary>
+    public void UpdateCrackDungeonBestWaveToLeaderBoard() {
+        PlayGamesPlatform.Instance.ReportScore(
+            DM._.DB.InfiniteUpgradeDB.MyBestWaveScore, GPGSIds.leaderboard_2, (bool success) => {}
+        );
     }
 #endregion
 }

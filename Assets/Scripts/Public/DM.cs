@@ -337,9 +337,11 @@ public class InfiniteUpgradeDB {
     public float GetExtraCritDmgPercent() => CritDmgUpgLv * CritDmgUpgUnit; // -> Warrior, Archer, Magician Tower
     public float GetExtraBossDmgPercent() => BossDmgUpgLv * BossDmgUpgUnit; // -> Enemy
     public void UpdateBestScore(int waveCnt) {
-        if(waveCnt > MyBestWaveScore)
+        if(waveCnt > MyBestWaveScore) {
             MyBestWaveScore = waveCnt;
-        GM._.gui.ShowMsgNotice("축하합니다. 최고기록 달성!");
+            GM._.gui.ShowMsgNotice("축하합니다. 최고기록 달성!");
+            GPGSManager._.UpdateCrackDungeonBestWaveToLeaderBoard();
+        }
     }
 }
 
