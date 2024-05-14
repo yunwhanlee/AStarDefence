@@ -47,7 +47,7 @@ public class GPGSManager : MonoBehaviour {
     public void ShowLeaderBoardUI() {
         UpdateFameToLeaderBoard();
         UpdateCrackDungeonBestWaveToLeaderBoard();
-        PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard);
+        PlayGamesPlatform.Instance.ShowLeaderboardUI();
     }
 
     /// <summary>
