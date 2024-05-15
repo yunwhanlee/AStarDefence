@@ -19,6 +19,7 @@ public class StatusDB {
     [field:SerializeField] public int SkillPoint {get; set;}
     [field:SerializeField] public int Crack {get; set;}
     [field:SerializeField] public int Fame {get; set;}
+    [field:SerializeField] public int Mileage {get; set;}
 
     public StatusDB() {
         Lv = 1;
@@ -29,6 +30,7 @@ public class StatusDB {
         SkillPoint = 0;
         Crack = 0;
         Fame = 0;
+        Mileage = 0;
     }
 }
 
@@ -343,6 +345,14 @@ public class InfiniteUpgradeDB {
             GPGSManager._.UpdateCrackDungeonBestWaveToLeaderBoard();
         }
     }
+}
+
+/// <summary>
+/// きれつダンジョンのアップグレードDB
+/// </summary>
+[Serializable]
+public class MileageBonusDB {
+    
 }
 
 /// <summary>

@@ -10,6 +10,7 @@ public class ChestInfoManager : MonoBehaviour {
     [field:SerializeField] public GameObject WindowObj {get; set;}
     [field:SerializeField] public GameObject EquipGachaPercentInfoIcon {get; set;}
     [field:SerializeField] public GameObject EquipGachaPercentInfoPopUp {get; set;}
+    [field:SerializeField] public TMP_Text MileageAddPointTxt {get; set;}
     [field:SerializeField] public Image ChestImg {get; set;}
     [field:SerializeField] public TMP_Text NameTxt {get; set;}
     [field:SerializeField] public TMP_Text InfoTxt {get; set;}
@@ -58,6 +59,7 @@ public class ChestInfoManager : MonoBehaviour {
             NameTxt.text = Etc.GetChestName(Etc.ConsumableItem.ChestEquipment) + $" {cnt}개";
             ChestImg.sprite = rwdDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment].ItemImg;
             infoTemp += $"<sprite name=Equip> x {cnt}";
+            MileageAddPointTxt.text = $"X{cnt}";
 
             return infoTemp;
         }
@@ -204,6 +206,7 @@ public class ChestInfoManager : MonoBehaviour {
                         bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
                         if(!isSuccess) return;
                         rwDt.OpenRewardContent(rwDt.Rwd_ChestEquipment, specifiedCnt: cnt);
+                        HM._.mlgm.MileagePoint += cnt;
                     };
                     break;
                 }

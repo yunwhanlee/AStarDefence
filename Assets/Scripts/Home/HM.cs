@@ -38,6 +38,8 @@ public class HM : MonoBehaviour {
     [HideInInspector] public LuckySpinManager lspm;
     // InfiniteUpgrade
     [HideInInspector] public InfiniteUpgradeManager ifum;
+    // Bonus Mileage
+    [HideInInspector] public MileageRewardUIManager mlgm;
 
     //* Value
     public Color SkyBlueColor;
@@ -122,6 +124,7 @@ public class HM : MonoBehaviour {
         dailyMs = GameObject.Find("DailyMissionManager").GetComponent<DailyMissionManager>();
         lspm = GameObject.Find("LuckySpinManager").GetComponent<LuckySpinManager>();
         ifum = GameObject.Find("InfiniteUpgradeManager").GetComponent<InfiniteUpgradeManager>();
+        mlgm = GameObject.Find("MileageRewardUIManager").GetComponent<MileageRewardUIManager>();
 
         //* 初期化
         SelectedStage = 0;
