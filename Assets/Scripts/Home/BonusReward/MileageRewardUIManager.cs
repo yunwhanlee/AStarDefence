@@ -69,7 +69,7 @@ public class MileageRewardUIManager : MonoBehaviour {
             RwdBubbleStatus status = (MileagePoint >= bubbleDt.UnlockCnt)? RwdBubbleStatus.Unlocked : RwdBubbleStatus.Locked;
 
             // 適用
-            RwdBubbleUIs[i].SetData(i, typeName, 1, bubbleDt.UnlockCnt, status);
+            RwdBubbleUIs[i].SetData(i, typeName, 1, bubbleDt.UnlockCnt);
             RwdBubbleUIs[i].SetUI(gradeClr);
 
 

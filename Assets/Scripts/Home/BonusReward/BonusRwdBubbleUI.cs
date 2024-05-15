@@ -22,7 +22,12 @@ public class BonusRwdBubbleUI : MonoBehaviour {
     [field: SerializeField] public int Quantity {get; set;}
     [field: SerializeField] public int UnlockCnt {get; set;}
     [field: SerializeField] public Button Btn {get; set;}
-    [field: SerializeField] public RwdBubbleStatus Status {get; set;}
+    [field: SerializeField] public RwdBubbleStatus Status {
+        get => DM._.DB.MileageRewardDB.Statuses[Id];
+        set {
+            DM._.DB.MileageRewardDB.Statuses[Id] = value;
+        }
+    }
     [field: SerializeField] public Image PointMarkImg {get; set;}
     [field: SerializeField] public Image UnlockCntFrameImg {get; set;}
     [field: SerializeField] public Image BubbleFrameImg {get; set;}
@@ -33,12 +38,11 @@ public class BonusRwdBubbleUI : MonoBehaviour {
     [field: SerializeField] public GameObject CheckMark {get; set;}
     [field: SerializeField] public GameObject LockMark {get; set;}
 
-    public void SetData(int id, string name, int quantity, int unlockCnt, RwdBubbleStatus status) {
+    public void SetData(int id, string name, int quantity, int unlockCnt) {
         Id = id;
         Name = name;
         Quantity = quantity;
         UnlockCnt = unlockCnt;
-        Status = status;
     }
 
     private void SetUIStyle(Color txtClr, Sprite pointMarkSpr, Color unlockFrameClr) {
@@ -56,6 +60,7 @@ public class BonusRwdBubbleUI : MonoBehaviour {
     }
 
     public void SetStatusUI(RwdBubbleStatus status = RwdBubbleStatus.NULL) {
+        Debug.Log($"SetStatusUI(status= {Status}):: ");
         //* パラメーターで状態を渡したら、状態 変更
         if(status != RwdBubbleStatus.NULL)
             Status = status;

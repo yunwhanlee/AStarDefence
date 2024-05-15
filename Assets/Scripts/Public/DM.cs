@@ -348,11 +348,17 @@ public class InfiniteUpgradeDB {
 }
 
 /// <summary>
-/// きれつダンジョンのアップグレードDB
+/// マイレージリワードステータスDB
 /// </summary>
 [Serializable]
-public class MileageBonusDB {
-    
+public class MileageRewardDB {
+    [field:SerializeField] public RwdBubbleStatus[] Statuses {get; set;} = new RwdBubbleStatus[16];
+
+    public MileageRewardDB() {
+        for(int i = 0; i < Statuses.Length; i++) {
+            Statuses[i] = RwdBubbleStatus.Locked;
+        }
+    }
 }
 
 /// <summary>
@@ -370,6 +376,7 @@ public class DB {
     [field:SerializeField] public SettingDB SettingDB {get; set;}
     [field:SerializeField] public TutorialDB TutorialDB {get; set;}
     [field:SerializeField] public InfiniteUpgradeDB InfiniteUpgradeDB {get; set;}
+    [field:SerializeField] public MileageRewardDB MileageRewardDB {get; set;}
     
     [field:SerializeField] public List<InventoryItem> InvItemDBs {get; set;}
     [field:SerializeField] public bool IsRemoveAd {get; set;}
@@ -615,6 +622,8 @@ public class DM : MonoBehaviour {
         DB.TutorialDB = new TutorialDB();
         
         DB.InfiniteUpgradeDB = new InfiniteUpgradeDB();
+
+        DB.MileageRewardDB = new MileageRewardDB();
 
         DB.IsRemoveAd = false;
         DB.IsCloverActive = false;
