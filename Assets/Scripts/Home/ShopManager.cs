@@ -86,7 +86,7 @@ public class ShopManager : MonoBehaviour {
         DM._.DB.ShopDB.IsPruchasedPackages[idx] = true;
         PackageDimObjs[idx].SetActive(true);
 
-        var rewardList = new List<RewardItem>();
+        List<RewardItem> rewardList = new List<RewardItem>();
         switch(idx) {
             case AllInOne:
                 rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon], 10));

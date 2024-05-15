@@ -71,6 +71,7 @@ MonoBehaviour:
   <Id>k__BackingField: 0
   <Quantity>k__BackingField: 0
   <UnlockCnt>k__BackingField: 0
+  <Btn>k__BackingField: {fileID: 7473802982994403334}
   <Status>k__BackingField: 0
   <PointMarkImg>k__BackingField: {fileID: 5947010439919911820}
   <UnlockCntFrameImg>k__BackingField: {fileID: 2095699009156987113}

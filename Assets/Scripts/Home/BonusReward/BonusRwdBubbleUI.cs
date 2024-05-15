@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum RwdBubbleStatus {
-    Locked, Unlocked, Accepted
+    Locked, Unlocked, Accepted, NULL
 }
 
 public class BonusRwdBubbleUI : MonoBehaviour {
@@ -21,6 +21,7 @@ public class BonusRwdBubbleUI : MonoBehaviour {
     [field: SerializeField] public int Id {get; set;}
     [field: SerializeField] public int Quantity {get; set;}
     [field: SerializeField] public int UnlockCnt {get; set;}
+    [field: SerializeField] public Button Btn {get; set;}
     [field: SerializeField] public RwdBubbleStatus Status {get; set;}
     [field: SerializeField] public Image PointMarkImg {get; set;}
     [field: SerializeField] public Image UnlockCntFrameImg {get; set;}
@@ -51,8 +52,13 @@ public class BonusRwdBubbleUI : MonoBehaviour {
         BubbleFrameImg.color = gradeClr;
         BubbleArrowImg.color = gradeClr;
         ItemNameTxt.text = $"{Name}";
-        // ItemNameTxt.color = gradeClr;
         UnlockCntTxt.text = $"{UnlockCnt}";
+    }
+
+    public void SetStatusUI(RwdBubbleStatus status = RwdBubbleStatus.NULL) {
+        //* パラメーターで状態を渡したら、状態 変更
+        if(status != RwdBubbleStatus.NULL)
+            Status = status;
 
         //* 状態によって
         if(Status == RwdBubbleStatus.Locked) {
