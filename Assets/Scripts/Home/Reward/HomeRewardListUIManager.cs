@@ -15,6 +15,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
     public List<InventoryUIItem> rwdSlotList;
 
     public bool IsFinishSlotsSpawn = false;
+    public bool IsSkip = false;
 
     [Header("REWARD CHEST POPUP")]
     public Sprite[] TitleRibbonSprs;
@@ -43,8 +44,10 @@ public class HomeRewardListUIManager : MonoBehaviour {
     public void OnClickOpenChestImgBtn() => OnClickOpenChest?.Invoke();
     public void OnClickCloseScreenBtn() {
         //* リワードスロットのアニメーションが全部終わるまで待つ
-        if(!IsFinishSlotsSpawn)
+        if(!IsFinishSlotsSpawn) {
+            IsSkip = true;
             return;
+        }
         
         if(HM._.shopMg.OnClickEquipPackage != null) {
             HM._.shopMg.OnClickEquipPackage?.Invoke();
@@ -106,7 +109,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
         for(int i = 0; i < rewardList.Count; i++) {
             RewardItem rewardItem = rewardList[i];
 
-            SM._.SfxPlay(SM.SFX.ItemPickSFX);
+            if(!IsSkip) SM._.SfxPlay(SM.SFX.ItemPickSFX);
             //* Particle UI Effect 1
             rwdSlotList[i].PlayScaleUIEF(rwdSlotList[i], rewardItem.Data.ItemImg);
             //* Particle UI Effect 2
@@ -122,7 +125,9 @@ public class HomeRewardListUIManager : MonoBehaviour {
             //* UNIQUE等級なら
             if(rewardItem.Data.Grade >= Enum.Grade.Unique) {
                 switch(rewardItem.Data.Grade) {
-                    case Enum.Grade.Unique: SM._.SfxPlay(SM.SFX.Merge2SFX); break;
+                    case Enum.Grade.Unique:
+                        SM._.SfxPlay(SM.SFX.Merge2SFX);
+                        break;
                     case Enum.Grade.Legend:
                         SM._.SfxPlay(SM.SFX.Merge3SFX);
                         if(rwdSlotList[i].LegendSpawnUIEF) rwdSlotList[i].LegendSpawnUIEF.Play();
@@ -147,9 +152,14 @@ public class HomeRewardListUIManager : MonoBehaviour {
                 rwdSlotList[i].Twincle1UIEF.enabled = true;
                 rwdSlotList[i].Twincle2UIEF.enabled = true;
             }
-            yield return Util.Time0_05;
+
+            if(!IsSkip)
+                yield return Util.Time0_05;
+            else
+                yield return null;
         }
         IsFinishSlotsSpawn = true;
+        IsSkip = false;
     }
     /// <summary>
     /// リワードスロットUIリスト 表示
