@@ -18,11 +18,19 @@ public class AdmobManager : MonoBehaviour {
     RewardedAd RewardAd;
 
     void Awake() {
-        _ = this;
-
+        Singleton();
         MobileAds.Initialize((InitializationStatus initStatus) => 
             LoadRewardedAd()
         );
+    }
+
+    private void Singleton(){
+        if(_ == null) {
+            _ = this;
+            DontDestroyOnLoad(_);
+        }
+        else
+            Destroy(gameObject);
     }
 
     /// <summary>

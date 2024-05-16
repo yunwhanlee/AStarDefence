@@ -188,13 +188,11 @@ public class GameUIManager : MonoBehaviour {
     //* GAME OVER
     public void OnClickAdsReviveBtn() {
         const int OFF = 0;
-        //TODO Request Revive Reward Ads
-        Debug.Log("REVIVE Ads");
-
+        //* リワード広告
         AdmobManager._.ProcessRewardAd(() => {
             GM._.IsRevived = true;
             SM._.SfxPlay(SM.SFX.InvStoneSFX);
-            GM._.gui.ShowMsgNotice("부활성공!!!");
+            GM._.gui.ShowMsgNotice("부활!!!");
             GM._.gui.ReviveSpawnUIEF.SetActive(true);
 
             //* 復活したら、以前に残っているモンスターを削除（ボースはしない）
