@@ -31,6 +31,8 @@ public class ShopManager : MonoBehaviour {
     [field:SerializeField] public GameObject DiamondChestDim {get; private set;}
     [field:SerializeField] public GameObject FreeTinyDiamondDim {get; private set;}
     [field:SerializeField] public TMP_Text FreeTinyDiamondTxt {get; private set;}
+    [field:SerializeField] public GameObject FreeTinyCoinDim {get; private set;}
+    [field:SerializeField] public TMP_Text FreeTinyCoinTxt {get; private set;}
 
     //* 広告削除購入 DIM
     [field:SerializeField] public GameObject RemoveAdDim {get; private set;}
@@ -46,7 +48,8 @@ public class ShopManager : MonoBehaviour {
         var shopDB = DM._.DB.ShopDB;
         FreeCommonChestDim.SetActive(shopDB.TogglePassedDay(ShopDB.FREE_COMMON));
         DiamondChestDim.SetActive(shopDB.TogglePassedDay(ShopDB.DIAMOND_CHEST));
-        FreeTinyDiamondDim.SetActive(shopDB.TogglePassedDay(ShopDB.FREE_TINY));
+        FreeTinyDiamondDim.SetActive(shopDB.TogglePassedDay(ShopDB.FREE_TINYDIAMOND));
+        FreeTinyCoinDim.SetActive(shopDB.TogglePassedDay(ShopDB.FREE_TINYCOIN));
     }
 
 #region EVENT
@@ -358,19 +361,19 @@ public class ShopManager : MonoBehaviour {
         // if(DM._.DB.ShopDB.DailyItems[ShopDB.FREE_TINY].IsAccept)
         //     return;
 
-        FreeTinyDiamondTxt.text = !DM._.DB.ShopDB.DailyItems[ShopDB.FREE_TINY].IsOnetimeFree? "무료"
+        FreeTinyDiamondTxt.text = !DM._.DB.ShopDB.DailyItems[ShopDB.FREE_TINYDIAMOND].IsOnetimeFree? "무료"
             : "<sprite name=Ad>광고";
 
         //* 一回無料
-        if(!DM._.DB.ShopDB.DailyItems[ShopDB.FREE_TINY].IsOnetimeFree) {
-            DM._.DB.ShopDB.SetOneTimeFreeTriggerOn(ShopDB.FREE_TINY);
+        if(!DM._.DB.ShopDB.DailyItems[ShopDB.FREE_TINYDIAMOND].IsOnetimeFree) {
+            DM._.DB.ShopDB.SetOneTimeFreeTriggerOn(ShopDB.FREE_TINYDIAMOND);
             HM._.rwlm.ShowReward(new List<RewardItem>() {new (DIAMOND, 10)});
             FreeTinyDiamondTxt.text = "<sprite name=Ad>광고";
         }
         //* 広告見る
         else {
             AdmobManager._.ProcessRewardAd(() => {
-                DM._.DB.ShopDB.SetAcceptTriggerOn(ShopDB.FREE_TINY);
+                DM._.DB.ShopDB.SetAcceptTriggerOn(ShopDB.FREE_TINYDIAMOND);
                 FreeTinyDiamondDim.SetActive(true);
                 HM._.rwlm.ShowReward(new List<RewardItem>() {new (DIAMOND, 10)});
             });
@@ -413,6 +416,30 @@ public class ShopManager : MonoBehaviour {
         HM._.rwlm.ShowReward(rewardList);
         // HM._.rwm.CoUpdateInventoryAsync(rewardList);
     }
+
+    public void OnclickFreeCoinBtn() {
+        RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
+        ItemSO COIN = rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin];
+        var rewardList = new List<RewardItem>();
+
+        FreeTinyCoinTxt.text = !DM._.DB.ShopDB.DailyItems[ShopDB.FREE_TINYCOIN].IsOnetimeFree? "무료"
+            : "<sprite name=Ad>광고";
+
+        //* 一回無料
+        if(!DM._.DB.ShopDB.DailyItems[ShopDB.FREE_TINYCOIN].IsOnetimeFree) {
+            DM._.DB.ShopDB.SetOneTimeFreeTriggerOn(ShopDB.FREE_TINYCOIN);
+            HM._.rwlm.ShowReward(new List<RewardItem>() {new (COIN, 600)});
+            FreeTinyCoinTxt.text = "<sprite name=Ad>광고";
+        }
+        //* 広告見る
+        else {
+            AdmobManager._.ProcessRewardAd(() => {
+                DM._.DB.ShopDB.SetAcceptTriggerOn(ShopDB.FREE_TINYCOIN);
+                FreeTinyCoinDim.SetActive(true);
+                HM._.rwlm.ShowReward(new List<RewardItem>() {new (COIN, 600)});
+            });
+        }
+    }
     /// <summary>
     /// コイン購入
     /// </summary> <summary>
@@ -453,6 +480,7 @@ public class ShopManager : MonoBehaviour {
             new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.RemoveAd])
         };
         HM._.rwlm.ShowReward(rewardList);
+        RemoveAdDim.SetActive(true);
         // HM._.rwm.CoUpdateInventoryAsync(rewardList);
     }
 
