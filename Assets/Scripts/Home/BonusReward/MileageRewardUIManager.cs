@@ -7,22 +7,13 @@ using TMPro;
 using UnityEngine;
 
 /// <summary>
-//* ボーナスリワードのアイテム表示💭(吹き出し)データ : 「マイレージ」と「名声」システムに使う
-/// </summary>
-[System.Serializable]
-public class RwdBubbleDt {
-    [field:SerializeField] public int UnlockCnt {get; set;}
-    [field:SerializeField] public ItemSO ItemDt {get; set;}
-}
-
-/// <summary>
 //* マイレージリワードUIマネジャークラス
 /// </summary>
 public class MileageRewardUIManager : MonoBehaviour {
     [field:Header("ICON AT SHOP")]
     [field:SerializeField] public GameObject IconAlertRedDot {get; private set;}
 
-    [field:Header("MILEAGE POINT FROM DB")]
+    [field:Header("POINT FROM DB")]
     [field:SerializeField] public int MileagePoint {
         get => DM._.DB.StatusDB.Mileage;
         set {
