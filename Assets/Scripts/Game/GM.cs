@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 using System.Linq;
 using DG.Tweening;
 using Inventory.UI;
+using UnityEngine.Rendering.Universal.Internal;
 // using UnityEngine.Rendering.Universal.Internal;
 // using UnityEditorInternal;
 // using UnityEditor.SceneManagement;
@@ -100,6 +101,10 @@ public class GM : MonoBehaviour {
         IsReady = false;
         Stage = DM._.SelectedStage;
 
+#region STAGE DATA SET
+        //* Camera Projection Size
+        Camera.main.orthographicSize = (Stage == Config.Stage.STG_INFINITE_DUNGEON)? 4.5f : 4.1f;
+
         //* BGM
         switch(Stage) {
             case Config.Stage.STG1_FOREST:
@@ -165,6 +170,7 @@ public class GM : MonoBehaviour {
             TutoM._.ShowTutoPopUp(TutoM.HOWTIPLAY_INFO, pageIdx: 0); // TutoM._.ShowHowToPlayPopUp(delay: 0.3f);
         }
     }
+#endregion
 
 #region EVENT
     #region DEBUG

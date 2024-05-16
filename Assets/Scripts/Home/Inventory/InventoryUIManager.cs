@@ -130,13 +130,13 @@ namespace Inventory.UI
             }
         }
         public void Show() {
+            HM._.hui.SetTopNavOrderInLayer(isLocateFront: true);
             WindowObj.SetActive(true);
-            HM._.hui.TopNavCanvas.sortingOrder = 101;
             ResetSelection();
         }
         public void Hide() {
             WindowObj.SetActive(false);
-            HM._.hui.TopNavCanvas.sortingOrder = 99;
+            HM._.hui.SetTopNavOrderInLayer(isLocateFront: false);
             ResetDraggedItem();
         }
         public void ResetSelection() {

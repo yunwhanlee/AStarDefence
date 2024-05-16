@@ -123,11 +123,13 @@ public class MileageRewardUIManager : MonoBehaviour {
         RwdBubbleUIs[idx].SetStatusUI(RwdBubbleStatus.Accepted);
     }
     public void OnClickMileageIconAtShop() {
+        HM._.hui.SetTopNavOrderInLayer(isLocateFront: false);
         SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(true);
         UpdateBubbleStatusUI();
     }
     public void OnClickCloseBtn() {
+        HM._.hui.SetTopNavOrderInLayer(isLocateFront: true);
         SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(false);
     }

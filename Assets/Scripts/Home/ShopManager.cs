@@ -466,7 +466,7 @@ public class ShopManager : MonoBehaviour {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(isShow);
         HM._.hui.IsActivePopUp = isShow;
-        HM._.hui.TopNavCanvas.sortingOrder = isShow? 101 : 99;
+        HM._.hui.SetTopNavOrderInLayer(isShow);
         HM._.dailyMs.OnUpdateUI.Invoke();
     }
     public void InitUI() {

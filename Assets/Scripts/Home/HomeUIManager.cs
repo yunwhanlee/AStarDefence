@@ -110,6 +110,13 @@ public class HomeUIManager : MonoBehaviour {
 #endregion
 
 #region FUNC
+    /// <summary>
+    /// トップ右の財貨NavBarのレイアー変更
+    /// </summary>
+    /// <param name="isLocateFront"></param> <summary>
+    public void SetTopNavOrderInLayer(bool isLocateFront) {
+        TopNavCanvas.sortingOrder = isLocateFront? 101 : 99;
+    }
     /// <summary> 上にへエラーメッセージバー表示（自動OFF）</summary>
     public void ShowMsgError(string msg) {
         if(CorMsgErrorID != null) 

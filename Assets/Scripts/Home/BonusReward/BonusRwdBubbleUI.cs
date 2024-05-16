@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,6 +34,7 @@ public class BonusRwdBubbleUI : MonoBehaviour {
     [field: SerializeField] public Image BubbleFrameImg {get; set;}
     [field: SerializeField] public Image BubbleArrowImg {get; set;}
     [field: SerializeField] public Image ItemIconImg {get; set;}
+    [field: SerializeField] public DOTweenAnimation ItemIconDOTAnim {get; set;}
     [field: SerializeField] public TMP_Text ItemNameTxt {get; set;}
     [field: SerializeField] public TMP_Text UnlockCntTxt {get; set;}
     [field: SerializeField] public GameObject CheckMark {get; set;}
@@ -75,11 +77,13 @@ public class BonusRwdBubbleUI : MonoBehaviour {
             SetUIStyle(OriginClr, PointMarkYellowSpr, UnlockOrangeFrameClr);
             CheckMark.SetActive(false);
             LockMark.SetActive(false);
+            ItemIconDOTAnim.DOPlay();
         }
         else if(Status == RwdBubbleStatus.Accepted) {
             SetUIStyle(HalfTransparentClr, PointMarkYellowSpr, UnlockOrangeFrameClr);
             CheckMark.SetActive(true);
             LockMark.SetActive(false);
+            ItemIconDOTAnim.DOKill();
         }
     }
 }
