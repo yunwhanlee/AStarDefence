@@ -25172,7 +25172,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_ConstantMin: 0
-    m_ConstantMax: 0.5
+    m_ConstantMax: 0.3
   _startSpeed:
     m_Mode: 0
     m_CurveMultiplier: 0

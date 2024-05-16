@@ -81,11 +81,17 @@ public class LuckySpinManager : MonoBehaviour {
         HM._.GoldKey -= 2;
     }
     private void SetFreeLuckySpin() {
-        //* 無料AD数を減る
-        DM._.DB.LuckySpinFreeAdCnt--;
-        FreeAdBtnCntTxt.text = $"{DM._.DB.LuckySpinFreeAdCnt} / {Config.LUCKYSPIN_FREEAD_CNT}";
-        StopSpin();
+        try {
+            //* 無料AD数を減る
+            DM._.DB.LuckySpinFreeAdCnt--;
+            FreeAdBtnCntTxt.text = $"{DM._.DB.LuckySpinFreeAdCnt} / {Config.LUCKYSPIN_FREEAD_CNT}";
+            StopSpin();
+        }
+        catch(Exception ex) {
+            Debug.LogError("SetFreeLuckySpin Exception: " + ex.Message);
+        }
     }
+
     public void OnClickFreeAdStopSpinBtn() {
         if(DM._.DB.LuckySpinFreeAdCnt <= 0) {
             HM._.hui.ShowMsgError("일일룰렛광고 무료횟수를 전부 사용하였습니다.");
@@ -95,7 +101,7 @@ public class LuckySpinManager : MonoBehaviour {
             return; 
 
         //* リワード広告
-        AdmobManager._.ProcessRewardAd(SetFreeLuckySpin);
+        AdmobManager._.ProcessRewardAd(() => SetFreeLuckySpin());
     }
 #endregion
 

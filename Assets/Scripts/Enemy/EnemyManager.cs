@@ -19,9 +19,10 @@ public class EnemyManager : MonoBehaviour {
     [field:SerializeField] public int EnemyCnt {get; set;}
     [field:SerializeField] public int KillCnt {get; set;}
     [SerializeField] int spawnCnt;
-    SkillTreeDB sktDb = DM._.DB.SkillTreeDB;
+    SkillTreeDB sktDb;
 
     void Awake() {
+        sktDb = DM._.DB.SkillTreeDB;
         EnemyCnt = MONSTER_CNT;
         pool = new ObjectPool<Enemy>(
             create, onGet, onRelease, onDestroyBlock, maxSize: 20
