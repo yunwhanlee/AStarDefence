@@ -9,6 +9,10 @@ public enum RwdBubbleStatus {
     Locked, Unlocked, Accepted, NULL
 }
 
+public enum BubbleType {
+    Mileage, Fame
+}
+
 public class BonusRwdBubbleUI : MonoBehaviour {
     [field: SerializeField] public Sprite PointMarkBlueSpr {get; set;}
     [field: SerializeField] public Sprite PointMarkYellowSpr {get; set;}
@@ -19,14 +23,25 @@ public class BonusRwdBubbleUI : MonoBehaviour {
     [field: SerializeField] public Color UnlockOrangeFrameClr {get; set;}
 
     [field: SerializeField] public string Name {get; set;}
+    [field: SerializeField] public BubbleType Type {get; set;}
     [field: SerializeField] public int Id {get; set;}
     [field: SerializeField] public int Quantity {get; set;}
     [field: SerializeField] public int UnlockCnt {get; set;}
     [field: SerializeField] public Button Btn {get; set;}
     [field: SerializeField] public RwdBubbleStatus Status {
-        get => DM._.DB.MileageRewardDB.Statuses[Id];
+        get {
+            if(Type == BubbleType.Mileage)
+                return DM._.DB.MileageRewardDB.Statuses[Id];
+            else if(Type == BubbleType.Fame)
+                return DM._.DB.FameRewardDB.Statuses[Id];
+            else
+                return RwdBubbleStatus.NULL;
+        } 
         set {
-            DM._.DB.MileageRewardDB.Statuses[Id] = value;
+            if(Type == BubbleType.Mileage)
+                DM._.DB.MileageRewardDB.Statuses[Id] = value;
+            else if(Type == BubbleType.Fame)
+                DM._.DB.FameRewardDB.Statuses[Id] = value;
         }
     }
     [field: SerializeField] public Image PointMarkImg {get; set;}
@@ -40,11 +55,12 @@ public class BonusRwdBubbleUI : MonoBehaviour {
     [field: SerializeField] public GameObject CheckMark {get; set;}
     [field: SerializeField] public GameObject LockMark {get; set;}
 
-    public void SetData(int id, string name, int quantity, int unlockCnt) {
+    public void SetData(int id, string name, int quantity, int unlockCnt, BubbleType type) {
         Id = id;
         Name = name;
         Quantity = quantity;
         UnlockCnt = unlockCnt;
+        Type = type;
     }
 
     private void SetUIStyle(Color txtClr, Sprite pointMarkSpr, Color unlockFrameClr) {
@@ -54,6 +70,9 @@ public class BonusRwdBubbleUI : MonoBehaviour {
         UnlockCntFrameImg.color = unlockFrameClr;
     }
 
+    public void SetUI() {
+        SetUI(Color.white);
+    }
     public void SetUI(Color gradeClr) {
         BubbleFrameImg.color = gradeClr;
         BubbleArrowImg.color = gradeClr;

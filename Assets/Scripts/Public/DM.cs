@@ -4,6 +4,7 @@ using UnityEngine;
 // using UnityEngine.SceneManagement;
 using System;
 using Inventory.Model;
+using GoogleMobileAds.Api;
 // using System.Data;
 
 /// <summary>
@@ -352,12 +353,26 @@ public class InfiniteUpgradeDB {
 /// </summary>
 [Serializable]
 public class MileageRewardDB {
-    [field:SerializeField] public RwdBubbleStatus[] Statuses {get; set;} = new RwdBubbleStatus[16];
+    const int MAXCNT = 16;
+    public RwdBubbleStatus[] Statuses {get; set;} = new RwdBubbleStatus[MAXCNT];
 
     public MileageRewardDB() {
-        for(int i = 0; i < Statuses.Length; i++) {
+        for(int i = 0; i < Statuses.Length; i++)
             Statuses[i] = RwdBubbleStatus.Locked;
-        }
+    }
+}
+
+/// <summary>
+/// 名声リワードステータスDB
+/// </summary>
+[Serializable]
+public class FameRewardDB {
+    const int MAXCNT = 50;
+    public RwdBubbleStatus[] Statuses {get; set;} = new RwdBubbleStatus[MAXCNT];
+
+    public FameRewardDB() {
+        for(int i = 0; i < Statuses.Length; i++)
+            Statuses[i] = RwdBubbleStatus.Locked;
     }
 }
 
@@ -377,6 +392,7 @@ public class DB {
     [field:SerializeField] public TutorialDB TutorialDB {get; set;}
     [field:SerializeField] public InfiniteUpgradeDB InfiniteUpgradeDB {get; set;}
     [field:SerializeField] public MileageRewardDB MileageRewardDB {get; set;}
+    [field:SerializeField] public FameRewardDB FameRewardDB {get; set;}
     
     [field:SerializeField] public List<InventoryItem> InvItemDBs {get; set;}
     [field:SerializeField] public bool IsRemoveAd {get; set;}
@@ -624,6 +640,8 @@ public class DM : MonoBehaviour {
         DB.InfiniteUpgradeDB = new InfiniteUpgradeDB();
 
         DB.MileageRewardDB = new MileageRewardDB();
+
+        DB.FameRewardDB = new FameRewardDB();
 
         DB.IsRemoveAd = false;
         DB.IsCloverActive = false;

@@ -5,6 +5,7 @@ using System.Diagnostics.Tracing;
 using Inventory.Model;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 //* マイレージリワードUIマネジャークラス
@@ -26,6 +27,7 @@ public class MileageRewardUIManager : MonoBehaviour {
     [field:SerializeField] public RwdBubbleDt[] RwdBubbleDts {get; private set;} // データ
     [field:SerializeField] public GameObject WindowObj {get; private set;}
     [field:SerializeField] public TMP_Text MileagePointTxt {get; private set;}
+    [field:SerializeField] public Slider StepSlider {get; private set;}
     [field:SerializeField] public Transform BubbleGroupTf {get; private set;}
 
     [field:SerializeField] public GameObject RwdItemBubblePf {get; private set;}
@@ -36,9 +38,18 @@ public class MileageRewardUIManager : MonoBehaviour {
         MileagePointTxt.text = $"{MileagePoint}";
         CreateBubbleUI();
         UpdateBubbleStatusUI();
+        UpdateSliderVal();
     }
 
 #region FUNC
+    /// <summary>
+    /// 現在まで習得したポイントの値をスライダーで埋める表示
+    /// </summary>
+    private void UpdateSliderVal() {
+        int lastIdx = RwdBubbleDts.Length - 1;
+        int max = RwdBubbleDts[lastIdx].UnlockCnt;
+        StepSlider.value = (float)MileagePoint / max;
+    }
     /// <summary>
     /// リワードBubbleUI生成
     /// </summary>
@@ -71,7 +82,7 @@ public class MileageRewardUIManager : MonoBehaviour {
             RwdBubbleStatus status = (MileagePoint >= bubbleDt.UnlockCnt)? RwdBubbleStatus.Unlocked : RwdBubbleStatus.Locked;
 
             // 適用
-            RwdBubbleUIs[i].SetData(i, typeName, 1, bubbleDt.UnlockCnt);
+            RwdBubbleUIs[i].SetData(i, typeName, 1, bubbleDt.UnlockCnt, BubbleType.Mileage);
             RwdBubbleUIs[i].SetUI(gradeClr);
 
             //! C#의 람다 표현식과 클로저의 작동 방식 때문에 발생하는 전형적인 문제입니다. for 루프 내에서 람다 표현식을 사용하여 이벤트 핸들러를 등록할 때, 람다 표현식이 참조하는 변수 i가 루프가 끝날 때의 최종 값만을 참조
@@ -94,6 +105,7 @@ public class MileageRewardUIManager : MonoBehaviour {
             }
         }
         UpdateAlertRedDot();
+        UpdateSliderVal();
     }
     /// <summary>
     /// アンロックしたリワード項目があったら、お知らせの🔴を表示
@@ -114,6 +126,7 @@ public class MileageRewardUIManager : MonoBehaviour {
     public void OnClickDebugMileagePointUp() { //! DEBUG
         SM._.SfxPlay(SM.SFX.UpgradeSFX);
         MileagePoint += 50;
+        UpdateBubbleStatusUI();
     }
     public void OnClickRewardBubbleBtn(int idx) {
         Debug.Log($"OnClickRewardBubbleBtn({idx}):: Status= {RwdBubbleUIs[idx].Status}");

@@ -38,8 +38,10 @@ public class HM : MonoBehaviour {
     [HideInInspector] public LuckySpinManager lspm;
     // InfiniteUpgrade
     [HideInInspector] public InfiniteUpgradeManager ifum;
-    // Bonus Mileage
+    // Bonus Reward Systems
     [HideInInspector] public MileageRewardUIManager mlgm;
+    [HideInInspector] public FameRewardUIManager frm;
+
 
     //* Value
     public Color SkyBlueColor;
@@ -100,6 +102,13 @@ public class HM : MonoBehaviour {
             if(HM._) ifum.CurCrackTxt.text = $"{value}";
         } 
     }
+    [field: SerializeField] public int Fame {
+        get => DM._.DB.StatusDB.Fame;
+        set {
+            DM._.DB.StatusDB.Fame = value;
+            if(HM._) frm.FamePointTxt.text = $"{value}";
+        } 
+    }
 
     void Awake() {
         //* Global化 値 代入
@@ -125,6 +134,7 @@ public class HM : MonoBehaviour {
         lspm = GameObject.Find("LuckySpinManager").GetComponent<LuckySpinManager>();
         ifum = GameObject.Find("InfiniteUpgradeManager").GetComponent<InfiniteUpgradeManager>();
         mlgm = GameObject.Find("MileageRewardUIManager").GetComponent<MileageRewardUIManager>();
+        frm = GameObject.Find("FameRewardUIManager").GetComponent<FameRewardUIManager>();
 
         //* 初期化
         SelectedStage = 0;
