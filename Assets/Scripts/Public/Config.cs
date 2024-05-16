@@ -7,10 +7,11 @@ using UnityEngine;
 public static class Config {
 #region HOME
     public const int MAX_REWARD_SLOT = 40; //* リワードで表示できる最大のスロット数
-    public const int MAX_GOBLINKEY = 5;
+    // public const int MAX_GOBLINKEY = 5;
     public const int EQUIP_UPGRADE_MAX = 11;
     public const int RELIC_UPGRADE_MAX = 6;
-    public const int LUCKYSPIN_FREEAD_CNT = 3;
+    public const int LUCKYSPIN_FREE_AD_CNT = 3;
+    public const int GOLDKEY_FREE_AD_CNT = 2;
     public const float CLOVER_BONUS_EXP_PER = 0.2f;
     public const float GOLDCLOVER_BONUS_EXP_PER = 0.5f;
 

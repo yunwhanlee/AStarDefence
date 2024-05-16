@@ -61,8 +61,8 @@ public class HM : MonoBehaviour {
         get => DM._.DB.StatusDB.GoldKey;
         set {
             DM._.DB.StatusDB.GoldKey = value;
-            hui.TopGoldKeyTxt.text = $"{value}/{Config.MAX_GOBLINKEY}";
-            lspm.GoldkeyTxt.text = $"{value}/{Config.MAX_GOBLINKEY}";
+            hui.TopGoldKeyTxt.text = $"{value}";
+            lspm.GoldkeyTxt.text = $"{value}";
             stgm.DungeonAlertDot.SetActive(value > 0);
         }
     }

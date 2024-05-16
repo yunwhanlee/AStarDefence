@@ -52,7 +52,7 @@ public class HomeUIManager : MonoBehaviour {
         CorMsgErrorID = null;
 
         //* Init Status Text UI
-        TopGoldKeyTxt.text = $"{HM._.GoldKey}/{Config.MAX_GOBLINKEY}";
+        TopGoldKeyTxt.text = $"{HM._.GoldKey}";
         TopCoinTxt.text = $"{HM._.Coin}";
         TopDiamondTxt.text = $"{HM._.Diamond}";
         FameTxt.text = $"{DM._.DB.StatusDB.Fame}";
@@ -72,8 +72,8 @@ public class HomeUIManager : MonoBehaviour {
 #region EVENT
     public void OnClickSpeedUpAdBtnOff() {
         SM._.SfxPlay(SM.SFX.ClickSFX);
-        HM._.hui.ShowAgainAskMsg("광고를 시청하고 게임배속 2.5배를 추가하시겠습니까?\n<color=grey>(원래 1배, 2배속만 가능)</color>");
-        HM._.hui.OnClickAskConfirmAction = () => {
+        ShowAgainAskMsg("광고를 시청하고 게임배속 2.5배를 추가하시겠습니까?\n<color=grey>(원래 1배, 2배속만 가능)</color>");
+        OnClickAskConfirmAction = () => {
             AdmobManager._.ProcessRewardAd(() => {
                 SM._.SfxPlay(SM.SFX.CompleteSFX);
                 SpeedUpAdBtnOffObj.SetActive(false);
@@ -93,9 +93,38 @@ public class HomeUIManager : MonoBehaviour {
     //     Application.OpenURL(NOTION_URL);
     // }
     public void OnClickTopNavGoldKeyPlusBtn() {
-        HM._.shopMg.InitUI();
-        HM._.shopMg.OnClickShopIconBtnAtHome();
-        HM._.shopMg.OnClickTapBtn(ShopManager.ETC_CHEST);
+        //* 広告閲覧数が残ったら
+        if(DM._.DB.GoldkeyFreeAdCnt > 0) {
+            ShowAgainAskMsg(
+                "쉿! <color=yellow>황금열쇠</color>가 필요하신가요?"
+                + "\n<sprite name=Ad>광고시청 후 <color=yellow>무료 3개</color> 지급!"
+                + $"\n(현재 {DM._.DB.GoldkeyFreeAdCnt}회 가능)"
+                + "\n<color=red><size=60%>*상점에서도 구매가 가능합니다.</size></color>"
+            );
+
+            //* 確認ボタン イベント登録
+            OnClickAskConfirmAction = () => {
+                //* リワード広告
+                AdmobManager._.ProcessRewardAd(() => {
+                    HM._.rwlm.ShowReward(new List<RewardItem>() {
+                        new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], 3)
+                    });
+                });
+                DM._.DB.GoldkeyFreeAdCnt--;
+            };
+        }
+        //* 一日広告を全部見たら
+        else {
+            ShowAgainAskMsg("1일치 무료광고를 다봤습니다.\n상점구매로 이동하시겠습니까?");
+
+            //* 確認ボタン イベント登録
+            OnClickAskConfirmAction = () => {
+                //* SHOPに移動
+                HM._.shopMg.InitUI();
+                HM._.shopMg.OnClickShopIconBtnAtHome();
+                HM._.shopMg.OnClickTapBtn(ShopManager.ETC_CHEST);
+            };
+        }
     }
     public void OnClickTopNavDiamondPlusBtn() {
         HM._.shopMg.InitUI();

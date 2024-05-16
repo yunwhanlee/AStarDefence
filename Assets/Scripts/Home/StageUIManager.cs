@@ -86,12 +86,12 @@ public class StageUIManager : MonoBehaviour {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         if(idx == 0) {
             GoblinDungeonWindow.SetActive(true);
-            GoldKeyTxt.text = $"{HM._.GoldKey}/{Config.MAX_GOBLINKEY}";
+            GoldKeyTxt.text = $"{HM._.GoldKey}";
         }
 
         if(idx == 1) {
             InfiniteDungeonWindow.SetActive(true);
-            InfiniteDungeonGoldKeyTxt.text = $"{HM._.GoldKey}/{Config.MAX_GOBLINKEY}";
+            InfiniteDungeonGoldKeyTxt.text = $"{HM._.GoldKey}";
         }
     }
 

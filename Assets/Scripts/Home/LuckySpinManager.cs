@@ -84,7 +84,7 @@ public class LuckySpinManager : MonoBehaviour {
         try {
             //* 無料AD数を減る
             DM._.DB.LuckySpinFreeAdCnt--;
-            FreeAdBtnCntTxt.text = $"{DM._.DB.LuckySpinFreeAdCnt} / {Config.LUCKYSPIN_FREEAD_CNT}";
+            FreeAdBtnCntTxt.text = $"{DM._.DB.LuckySpinFreeAdCnt} / {Config.LUCKYSPIN_FREE_AD_CNT}";
             StopSpin();
         }
         catch(Exception ex) {
@@ -112,8 +112,8 @@ public class LuckySpinManager : MonoBehaviour {
 
         IsStopSpin = false;
         StopBtnTxt.color = Color.white;
-        GoldkeyTxt.text = $"{HM._.GoldKey}/{Config.MAX_GOBLINKEY}";
-        FreeAdBtnCntTxt.text = $"{DM._.DB.LuckySpinFreeAdCnt} / {Config.LUCKYSPIN_FREEAD_CNT}";
+        GoldkeyTxt.text = $"{HM._.GoldKey}";
+        FreeAdBtnCntTxt.text = $"{DM._.DB.LuckySpinFreeAdCnt} / {Config.LUCKYSPIN_FREE_AD_CNT}";
     }
     private void StopSpin() {
         //* ストップ

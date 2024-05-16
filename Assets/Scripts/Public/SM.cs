@@ -159,9 +159,9 @@ public class SM : MonoBehaviour {
     [field: SerializeField] AudioClip LevelUpSFX {get; set;}
     [field: SerializeField] AudioClip BossSpawnSFX {get; set;}
 
-    void Awake() => singleton();
+    void Awake() => Singleton();
 
-    private void singleton(){
+    private void Singleton(){
         if(_ == null) {
             _ = this;
             DontDestroyOnLoad(_);
