@@ -214,7 +214,7 @@ public class ShopManager : MonoBehaviour {
         HM._.rwlm.ShowReward(rewardList);
         // HM._.rwm.UpdateInventory(rewardList);
 
-        HM._.mlgm.MileagePoint += 100;
+        HM._.Mileage += 100;
     }
     /// <summary>
     /// SHOPで宝箱クリック

@@ -22,6 +22,7 @@ public class FameRewardUIManager : MonoBehaviour {
 
     [field:SerializeField] public GameObject RwdItemBubblePf {get; private set;}
     private BonusRwdBubbleUI[] RwdBubbleUIs; //* Prefabで生成した💭(吹き出し)リスト
+    [SerializeField] private float spacingRatio = 1.02f; //? 単位を割っても、隙間があるため、比率を直接にかけて調整。
 
     void Start() {
         RwdBubbleUIs = new BonusRwdBubbleUI[RwdBubbleDts.Length];
@@ -43,6 +44,8 @@ public class FameRewardUIManager : MonoBehaviour {
         int lastIdx = RwdBubbleDts.Length - 1;
         int maxVal = RwdBubbleDts[lastIdx].UnlockCnt;
         float unit = maxVal / RwdBubbleDts.Length;
+        unit *= spacingRatio; //? 単位を割っても、隙間があるため、比率を直接にかけて調整。
+
         int cnt = (UnlockLastIdx == -1)? 0 : UnlockLastIdx;
         float val = unit * cnt;
 
@@ -126,16 +129,9 @@ public class FameRewardUIManager : MonoBehaviour {
             return;
         }
 
-        //* Equipアイテム リワード (異物と分けて処理)
+        //* アイテム リワード
         List<RewardItem> rewardList = new List<RewardItem>();
-        if(RwdBubbleDts[idx].ItemDt.Type == Enum.ItemType.Relic) {
-            ItemSO relicDt = RwdBubbleDts[idx].ItemDt;
-            AbilityType[] relicAbilities = HM._.ivCtrl.InventoryData.CheckRelicAbilitiesData(relicDt);
-            rewardList.Add(new (relicDt, quantity: 1, relicAbilities));
-        }
-        else {
-            rewardList.Add(new (RwdBubbleDts[idx].ItemDt));
-        }
+        rewardList.Add(new (RwdBubbleDts[idx].ItemDt, RwdBubbleDts[idx].Quantity));
         HM._.rwlm.ShowReward(rewardList);
 
         //* Accept状態に変更

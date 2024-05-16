@@ -206,7 +206,7 @@ public class ChestInfoManager : MonoBehaviour {
                         bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
                         if(!isSuccess) return;
                         rwDt.OpenRewardContent(rwDt.Rwd_ChestEquipment, specifiedCnt: cnt);
-                        HM._.mlgm.MileagePoint += cnt;
+                        HM._.Mileage += cnt;
                     };
                     break;
                 }

@@ -13,15 +13,6 @@ using UnityEngine.UI;
 public class MileageRewardUIManager : MonoBehaviour {
     [field:Header("ICON AT SHOP")]
     [field:SerializeField] public GameObject IconAlertRedDot {get; private set;}
-
-    [field:Header("POINT FROM DB")]
-    [field:SerializeField] public int MileagePoint {
-        get => DM._.DB.StatusDB.Mileage;
-        set {
-            DM._.DB.StatusDB.Mileage = value;
-            MileagePointTxt.text = $"{value}";
-        }
-    }
     
     [field:Header("POPUP ELEMENTS")]
     [field:SerializeField] public RwdBubbleDt[] RwdBubbleDts {get; private set;} // データ
@@ -32,10 +23,11 @@ public class MileageRewardUIManager : MonoBehaviour {
 
     [field:SerializeField] public GameObject RwdItemBubblePf {get; private set;}
     private BonusRwdBubbleUI[] RwdBubbleUIs; //* Prefabで生成した💭(吹き出し)リスト
+    [SerializeField] private float spacingRatio = 1.0625f; //? 単位を割っても、隙間があるため、比率を直接にかけて調整。
 
     void Start() {
         RwdBubbleUIs = new BonusRwdBubbleUI[RwdBubbleDts.Length];
-        MileagePointTxt.text = $"{MileagePoint}";
+        MileagePointTxt.text = $"{HM._.Mileage}";
         CreateBubbleUI();
         UpdateBubbleStatusUI();
         UpdateSliderVal();
@@ -46,9 +38,21 @@ public class MileageRewardUIManager : MonoBehaviour {
     /// 現在まで習得したポイントの値をスライダーで埋める表示
     /// </summary>
     private void UpdateSliderVal() {
+        //* リワード項目の間が徐々に大きくなり、違くなるので、目標のポイントまで集まったら、スライダー上げる
+        int UnlockLastIdx = Array.FindLastIndex (
+            RwdBubbleUIs, bubbleUI => bubbleUI.Status != RwdBubbleStatus.Locked
+        );
+
         int lastIdx = RwdBubbleDts.Length - 1;
-        int max = RwdBubbleDts[lastIdx].UnlockCnt;
-        StepSlider.value = (float)MileagePoint / max;
+        int maxVal = RwdBubbleDts[lastIdx].UnlockCnt;
+        float unit = (float)maxVal / RwdBubbleDts.Length;
+        unit *= spacingRatio; //? 単位を割っても、隙間があるため、比率を直接にかけて調整。
+
+        int cnt = (UnlockLastIdx == -1)? 0 : UnlockLastIdx;
+        float val = unit * cnt;
+
+        Debug.Log($"UpdateSliderVal():: unit= {unit}, lastUnlockRwdBubble.UnlockCnt= {val} / {maxVal}");
+        StepSlider.value = (float)val / maxVal;
     }
     /// <summary>
     /// リワードBubbleUI生成
@@ -79,7 +83,7 @@ public class MileageRewardUIManager : MonoBehaviour {
                 : Color.white; // null
 
             // アンロック
-            RwdBubbleStatus status = (MileagePoint >= bubbleDt.UnlockCnt)? RwdBubbleStatus.Unlocked : RwdBubbleStatus.Locked;
+            RwdBubbleStatus status = (HM._.Mileage >= bubbleDt.UnlockCnt)? RwdBubbleStatus.Unlocked : RwdBubbleStatus.Locked;
 
             // 適用
             RwdBubbleUIs[i].SetData(i, typeName, 1, bubbleDt.UnlockCnt, BubbleType.Mileage);
@@ -97,7 +101,7 @@ public class MileageRewardUIManager : MonoBehaviour {
     private void UpdateBubbleStatusUI() {
         for(int i = 0; i < RwdBubbleDts.Length; i++) {
             BonusRwdBubbleUI bubbleUI = RwdBubbleUIs[i];
-            if(bubbleUI.Status == RwdBubbleStatus.Locked && MileagePoint >= bubbleUI.UnlockCnt) {
+            if(bubbleUI.Status == RwdBubbleStatus.Locked && HM._.Mileage >= bubbleUI.UnlockCnt) {
                 RwdBubbleUIs[i].SetStatusUI(RwdBubbleStatus.Unlocked);
             }
             else {
@@ -125,7 +129,7 @@ public class MileageRewardUIManager : MonoBehaviour {
 #region EVENT
     public void OnClickDebugMileagePointUp() { //! DEBUG
         SM._.SfxPlay(SM.SFX.UpgradeSFX);
-        MileagePoint += 50;
+        HM._.Mileage += 50;
         UpdateBubbleStatusUI();
     }
     public void OnClickRewardBubbleBtn(int idx) {
@@ -135,7 +139,7 @@ public class MileageRewardUIManager : MonoBehaviour {
             HM._.hui.ShowMsgError("이미 보상수령을 완료했습니다.");
             return;
         }
-        else if(MileagePoint < RwdBubbleUIs[idx].UnlockCnt) {
+        else if(HM._.Mileage < RwdBubbleUIs[idx].UnlockCnt) {
             HM._.hui.ShowMsgError("천장 마일리지가 부족합니다!");
             return;
         }

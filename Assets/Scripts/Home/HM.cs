@@ -109,6 +109,13 @@ public class HM : MonoBehaviour {
             if(HM._) frm.FamePointTxt.text = $"{value}";
         } 
     }
+    [field: SerializeField] public int Mileage {
+        get => DM._.DB.StatusDB.Mileage;
+        set {
+            DM._.DB.StatusDB.Mileage = value;
+            if(HM._) mlgm.MileagePointTxt.text = $"{value}";
+        } 
+    }
 
     void Awake() {
         //* Global化 値 代入
