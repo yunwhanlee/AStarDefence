@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
@@ -5,13 +6,23 @@ using Inventory.Model;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+//* ボーナスリワードのアイテム表示💭(吹き出し)データ : 「マイレージ」と「名声」システムに使う
+/// </summary>
 [System.Serializable]
 public class RwdBubbleDt {
     [field:SerializeField] public int UnlockCnt {get; set;}
     [field:SerializeField] public ItemSO ItemDt {get; set;}
 }
 
+/// <summary>
+//* マイレージリワードUIマネジャークラス
+/// </summary>
 public class MileageRewardUIManager : MonoBehaviour {
+    [field:Header("ICON AT SHOP")]
+    [field:SerializeField] public GameObject IconAlertRedDot {get; private set;}
+
+    [field:Header("MILEAGE POINT FROM DB")]
     [field:SerializeField] public int MileagePoint {
         get => DM._.DB.StatusDB.Mileage;
         set {
@@ -19,15 +30,15 @@ public class MileageRewardUIManager : MonoBehaviour {
             MileagePointTxt.text = $"{value}";
         }
     }
-
-    [field:SerializeField] public RwdBubbleDt[] RwdBubbleDts {get; private set;}
-
+    
+    [field:Header("POPUP ELEMENTS")]
+    [field:SerializeField] public RwdBubbleDt[] RwdBubbleDts {get; private set;} // データ
     [field:SerializeField] public GameObject WindowObj {get; private set;}
     [field:SerializeField] public TMP_Text MileagePointTxt {get; private set;}
     [field:SerializeField] public Transform BubbleGroupTf {get; private set;}
-    [field:SerializeField] public GameObject RwdItemBubblePf {get; private set;}
 
-    private BonusRwdBubbleUI[] RwdBubbleUIs;
+    [field:SerializeField] public GameObject RwdItemBubblePf {get; private set;}
+    private BonusRwdBubbleUI[] RwdBubbleUIs; //* Prefabで生成した💭(吹き出し)リスト
 
     void Start() {
         RwdBubbleUIs = new BonusRwdBubbleUI[RwdBubbleDts.Length];
@@ -42,27 +53,27 @@ public class MileageRewardUIManager : MonoBehaviour {
     /// </summary>
     private void CreateBubbleUI() {
         for(int i = 0; i < RwdBubbleDts.Length; i++) {
-            //* 生成
             RwdBubbleDt bubbleDt = RwdBubbleDts[i];
+            ItemSO itemDt = bubbleDt.ItemDt;
+
+            //* 生成
             RwdBubbleUIs[i] = Instantiate(RwdItemBubblePf, BubbleGroupTf).GetComponent<BonusRwdBubbleUI>();
 
-            //* 初期化
+            //* 初期化 *//
             // アイコン 画像
-            RwdBubbleUIs[i].ItemIconImg.sprite = bubbleDt.ItemDt.ItemImg;
-            
+            RwdBubbleUIs[i].ItemIconImg.sprite = itemDt.ItemImg;
+
             // タイプ名
-            string typeName = (bubbleDt.ItemDt.Type == Enum.ItemType.Weapon)? "무기"
-                : (bubbleDt.ItemDt.Type == Enum.ItemType.Shoes)? "신발"
-                : (bubbleDt.ItemDt.Type == Enum.ItemType.Ring)? "반지"
+            string typeName = (itemDt.Type == Enum.ItemType.Weapon)? "무기"
+                : (itemDt.Type == Enum.ItemType.Shoes)? "신발"
+                : (itemDt.Type == Enum.ItemType.Ring)? "반지"
                 :  "유물";
 
             // 等級色
-            Enum.Grade itemGrade = bubbleDt.ItemDt.Grade;
-            Color[] gradeClrs = HM._.ivm.GradeClrs;
-            Color gradeClr = (itemGrade == Enum.Grade.Unique)? gradeClrs[(int)Enum.Grade.Unique]
-                : (itemGrade == Enum.Grade.Legend)? gradeClrs[(int)Enum.Grade.Legend]
-                : (itemGrade == Enum.Grade.Myth)? gradeClrs[(int)Enum.Grade.Myth]
-                : (itemGrade == Enum.Grade.Prime)? gradeClrs[(int)Enum.Grade.Prime]
+            Color gradeClr = (itemDt.Grade == Enum.Grade.Unique)? HM._.ivm.GradeClrs[(int)Enum.Grade.Unique]
+                : (itemDt.Grade == Enum.Grade.Legend)? HM._.ivm.GradeClrs[(int)Enum.Grade.Legend]
+                : (itemDt.Grade == Enum.Grade.Myth)? HM._.ivm.GradeClrs[(int)Enum.Grade.Myth]
+                : (itemDt.Grade == Enum.Grade.Prime)? HM._.ivm.GradeClrs[(int)Enum.Grade.Prime]
                 : Color.white; // null
 
             // アンロック
@@ -71,7 +82,6 @@ public class MileageRewardUIManager : MonoBehaviour {
             // 適用
             RwdBubbleUIs[i].SetData(i, typeName, 1, bubbleDt.UnlockCnt);
             RwdBubbleUIs[i].SetUI(gradeClr);
-
 
             //! C#의 람다 표현식과 클로저의 작동 방식 때문에 발생하는 전형적인 문제입니다. for 루프 내에서 람다 표현식을 사용하여 이벤트 핸들러를 등록할 때, 람다 표현식이 참조하는 변수 i가 루프가 끝날 때의 최종 값만을 참조
             int copyIdx = i; // 새로운 변수에 현재의 i 값을 저장
@@ -88,12 +98,32 @@ public class MileageRewardUIManager : MonoBehaviour {
             if(bubbleUI.Status == RwdBubbleStatus.Locked && MileagePoint >= bubbleUI.UnlockCnt) {
                 RwdBubbleUIs[i].SetStatusUI(RwdBubbleStatus.Unlocked);
             }
-            RwdBubbleUIs[i].SetStatusUI();
+            else {
+                RwdBubbleUIs[i].SetStatusUI();
+            }
         }
+        UpdateAlertRedDot();
+    }
+    /// <summary>
+    /// アンロックしたリワード項目があったら、お知らせの🔴を表示
+    /// </summary>
+    private void UpdateAlertRedDot() {
+        bool isExistUnlock = Array.Exists(RwdBubbleUIs, bubbleUI => bubbleUI.Status == RwdBubbleStatus.Unlocked);
+        IconAlertRedDot.SetActive(isExistUnlock);
+    }
+    private void SetPopUpUI(bool isShow) {
+        HM._.hui.SetTopNavOrderInLayer(isLocateFront: !isShow);
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        WindowObj.SetActive(isShow);
+        UpdateBubbleStatusUI();
     }
 #endregion
 
 #region EVENT
+    public void OnClickDebugMileagePointUp() { //! DEBUG
+        SM._.SfxPlay(SM.SFX.UpgradeSFX);
+        MileagePoint += 50;
+    }
     public void OnClickRewardBubbleBtn(int idx) {
         Debug.Log($"OnClickRewardBubbleBtn({idx}):: Status= {RwdBubbleUIs[idx].Status}");
 
@@ -101,13 +131,12 @@ public class MileageRewardUIManager : MonoBehaviour {
             HM._.hui.ShowMsgError("이미 보상수령을 완료했습니다.");
             return;
         }
-
-        if(MileagePoint < RwdBubbleUIs[idx].UnlockCnt) {
+        else if(MileagePoint < RwdBubbleUIs[idx].UnlockCnt) {
             HM._.hui.ShowMsgError("천장 마일리지가 부족합니다!");
             return;
         }
 
-        //* リワード
+        //* Equipアイテム リワード (異物と分けて処理)
         List<RewardItem> rewardList = new List<RewardItem>();
         if(RwdBubbleDts[idx].ItemDt.Type == Enum.ItemType.Relic) {
             ItemSO relicDt = RwdBubbleDts[idx].ItemDt;
@@ -123,15 +152,10 @@ public class MileageRewardUIManager : MonoBehaviour {
         RwdBubbleUIs[idx].SetStatusUI(RwdBubbleStatus.Accepted);
     }
     public void OnClickMileageIconAtShop() {
-        HM._.hui.SetTopNavOrderInLayer(isLocateFront: false);
-        SM._.SfxPlay(SM.SFX.ClickSFX);
-        WindowObj.SetActive(true);
-        UpdateBubbleStatusUI();
+        SetPopUpUI(isShow: true);
     }
     public void OnClickCloseBtn() {
-        HM._.hui.SetTopNavOrderInLayer(isLocateFront: true);
-        SM._.SfxPlay(SM.SFX.ClickSFX);
-        WindowObj.SetActive(false);
+        SetPopUpUI(isShow: false);
     }
 #endregion
 }
