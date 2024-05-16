@@ -72,13 +72,7 @@ public class ChestInfoManager : MonoBehaviour {
 
         private void DailyFreeCommonChest() {
             RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
-
-            //* Daily Item
-            DM._.DB.ShopDB.SetAcceptData(ShopDB.FREE_COMMON);
-            HM._.shopMg.FreeCommonChestDim.SetActive(true);
-
             rwDt.OpenRewardContent(rwDt.Rwd_ChestCommon);
-            WindowObj.SetActive(false);
         }
 
         /// <summary>
@@ -99,14 +93,31 @@ public class ChestInfoManager : MonoBehaviour {
             switch(chestIdx) {
                 case Config.H_PRICE.SHOP.FREECOMMON: {
                     //* Daily Item
-                    if(DM._.DB.ShopDB.DailyItems[ShopDB.FREE_COMMON].IsAccept)
-                        return;
+                    // if(DM._.DB.ShopDB.DailyItems[ShopDB.FREE_COMMON].IsAccept)
+                    //     return;
 
                     infoTemp = SetCommonChest(rwDt);
+                    PriceBtnTxt.text = !DM._.DB.ShopDB.DailyItems[ShopDB.FREE_COMMON].IsOnetimeFree? "무료"
+                        : "<sprite name=Ad>광고";
+
                     //* 次の購入イベント登録
                     OnClickOpenChest = () => {
-                        //* リワード広告
-                        AdmobManager._.ProcessRewardAd(DailyFreeCommonChest);
+                        //* 一回無料
+                        if(!DM._.DB.ShopDB.DailyItems[ShopDB.FREE_COMMON].IsOnetimeFree) {
+                            DM._.DB.ShopDB.SetOneTimeFreeTriggerOn(ShopDB.FREE_COMMON);
+                            DailyFreeCommonChest();
+                            PriceBtnTxt.text = "<sprite name=Ad>광고";
+                        }
+                        //* 広告見る
+                        else {
+                            //* Daily Item
+                            DM._.DB.ShopDB.SetAcceptTriggerOn(ShopDB.FREE_COMMON);
+                            HM._.shopMg.FreeCommonChestDim.SetActive(true);
+                            WindowObj.SetActive(false);
+
+                            //* リワード広告
+                            AdmobManager._.ProcessRewardAd(DailyFreeCommonChest);
+                        }
                     };
                     break;
                 }
@@ -129,7 +140,7 @@ public class ChestInfoManager : MonoBehaviour {
                         if(!isSuccess) return;
 
                         //* Daily Item
-                        DM._.DB.ShopDB.SetAcceptData(ShopDB.DIAMOND_CHEST);
+                        DM._.DB.ShopDB.SetAcceptTriggerOn(ShopDB.DIAMOND_CHEST);
                         HM._.shopMg.DiamondChestDim.SetActive(true);
 
                         rwDt.OpenRewardContent(chInfo);

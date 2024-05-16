@@ -143,6 +143,7 @@ public class SkillTreeDB {
 
 [Serializable]
 public struct ShopDailyItem {
+    [field:SerializeField] public bool IsOnetimeFree {get; set;}
     [field:SerializeField] public bool IsAccept {get; set;}
 }
 
@@ -151,7 +152,9 @@ public struct ShopDailyItem {
 /// </summary>
 [Serializable]
 public class ShopDB {
-    public static readonly int FREE_COMMON = 0, DIAMOND_CHEST = 1, FREE_TINY = 2;
+    public static readonly int FREE_COMMON = 0, 
+        DIAMOND_CHEST = 1,
+        FREE_TINY = 2;
     [field:SerializeField] public bool[] IsPruchasedPackages {get; set;} = new bool[8];
     [field:SerializeField] public ShopDailyItem[] DailyItems {get; set;} = new ShopDailyItem[3];
 
@@ -166,12 +169,14 @@ public class ShopDB {
     }
 
     private void InitDaily(int idx) {
+        DailyItems[idx].IsOnetimeFree = false;
         DailyItems[idx].IsAccept = false;
     }
 
-    public void SetAcceptData(int idx) {
-        DailyItems[idx].IsAccept = true;
-    }
+    public void SetOneTimeFreeTriggerOn(int idx)
+        => DailyItems[idx].IsOnetimeFree = true;
+    public void SetAcceptTriggerOn(int idx)
+        => DailyItems[idx].IsAccept = true;
 
     public bool TogglePassedDay(int dailyItemIdx) {
         return DailyItems[dailyItemIdx].IsAccept;
@@ -179,6 +184,7 @@ public class ShopDB {
 
     public void ResetDailyItemData() {
         for(int i = 0; i < DailyItems.Length; i++) {
+            DailyItems[i].IsOnetimeFree = false;
             DailyItems[i].IsAccept = false;
         }
     }
