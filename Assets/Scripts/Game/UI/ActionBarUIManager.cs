@@ -311,14 +311,7 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
     public void OnClickExitIconBtn() {
-        GM._.tmc.SelectedTileMap.ClearAllTiles();
-        PanelObj.SetActive(false);
-        GM._.tmc.Reset();
-
-        //* 位置変更モードキャンセルなら
-        if(IsSwitchMode) {
-            SwitchModeOff();
-        }
+        HideUI();
     }
 #endregion
 
@@ -368,9 +361,18 @@ public class ActionBarUIManager : MonoBehaviour {
         }
     }
 
-    private void clearIcons() {
+    private void ClearAllIconBtns() {
         for(int i = 0; i < IconBtns.Length - 1; i++)
             IconBtns[i].gameObject.SetActive(false);
+    }
+
+    public void HideUI() {
+        GM._.tmc.SelectedTileMap.ClearAllTiles();
+        PanelObj.SetActive(false);
+        GM._.tmc.Reset();
+
+        //* 位置変更モードキャンセルなら
+        if(IsSwitchMode) SwitchModeOff();
     }
 
     public void SwitchModeOff() {
@@ -424,7 +426,7 @@ public class ActionBarUIManager : MonoBehaviour {
     /// <param name="layer">選択したタイルのレイアタイプ</param>
     public void UpdateUI(int layer) {
         //* リセット
-        clearIcons();
+        ClearAllIconBtns();
         GM._.gui.tsm.WindowObj.SetActive(false);
         SuccessionIconBtn.gameObject.SetActive(false);
         ChangeTypeIconBtn.gameObject.SetActive(false);

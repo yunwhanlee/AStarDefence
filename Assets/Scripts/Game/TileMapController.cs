@@ -55,7 +55,6 @@ public class TileMapController : MonoBehaviour {
     /// <param name="_y">MergableItemのクリックイベント用としてY軸を渡す</param>
     /// <param name="col">MergableItemのクリックイベント用のコライダーを渡す</param>
     public void OnClickTile(int _x = -9999, int _y = -9999, Collider2D col = null) {
-
         //* UIに触れているなら、以下のRayCast処理しなくて終了
         // #if UNITY_EDITOR
         if (EventSystem.current.currentSelectedGameObject && !col) {
@@ -71,7 +70,8 @@ public class TileMapController : MonoBehaviour {
 
         SM._.SfxPlay(SM.SFX.ClickSFX);
 
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // 스크린 좌표를 월드 좌표로 변환
+        // 스크린 좌표를 월드 좌표로 변환
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
         int x = (_x == -9999)? (int)Math.Round(mousePos.x) : _x;
         int y = (_y == -9999)?  (int)Math.Round(mousePos.y) : _y;
 
@@ -79,26 +79,23 @@ public class TileMapController : MonoBehaviour {
         if(new Vector2(x,y) == GM._.pfm.startPos) return;
         if(new Vector2(x,y) == GM._.pfm.goalPos) return;
 
-        //* アクションバー上をクリックしたら、以下の処理しない
-        const int ACTION_BAR_START_POS_Y = -4;
-        if(y <= ACTION_BAR_START_POS_Y)
-            return;
+        //* アクションバー領域をクリックしたら、以下の処理しない
+        const int ACTION_BAR_BEGIN_POS_Y = -4;
+        if(y <= ACTION_BAR_BEGIN_POS_Y) return;
         Debug.Log("<color=white>onClickTile():: mouse.x= " + x + ", y= " + y + "</color>");
 
-        // 레이케스트에서 제외할 레이어
+        // Raycast場外するオブジェクトのレイア
         int towerLayerMask = 1 << Enum.Layer.TowerRange;
         int enemyLayerMask = 1 << Enum.Layer.Enemy; //! (BUG)特にFlight敵などがタワーの上にあれば、タワークリックができなくて、Default選択として空のタイル選択になること対応
-        int exceptLayerMask = ~(towerLayerMask | enemyLayerMask);
+        int exceptLayerMasks = ~(towerLayerMask | enemyLayerMask);
 
         RaycastHit2D hit;
         // 방향은 일단 임시로 0 벡터를 사용하거나, 필요한 방향으로 설정할 수 있습니다.
         Ray2D ray = new Ray2D(new Vector2(x, y), Vector2.zero); 
-        hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, exceptLayerMask);
+        hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, exceptLayerMasks);
         Collider2D HitCollider = (col == null)? hit.collider : col;
 
-        if(hit)
-            Debug.Log("hit=" + hit.collider.name);
-
+        if(hit) Debug.Log("hit=" + hit.collider.name);
         if(HitCollider != null && HitCollider.gameObject.layer == Enum.Layer.UI) {
             Debug.Log("OnClickTile():: Hitcollider -> UI。 そのまま終了。");
             Reset();
@@ -140,20 +137,39 @@ public class TileMapController : MonoBehaviour {
             }
         }
 
-        //* 選択OFF リセット
+
+        //* 先に初期化 (選択OFFの状態)
         SelectedTileMap.ClearAllTiles();
         GM._.actBar.PanelObj.SetActive(false);
 
-        //* 同じ場所のまたクリック、そのまま終了
+        GameObject prevHitObj = HitObject;
+        GameObject currHitObj = HitCollider? HitCollider.gameObject : null;
+        Debug.Log($"OnClickTile():: SelectLayer= {SelectLayer}, befHitObj= {prevHitObj}, curHitObj= {currHitObj}");
+
+        //* 以前に選択した領域のレイアがタワーであり
+        if(SelectLayer != 0) {
+            //* 以前に選択された物と現在選択した物があったら
+            if(prevHitObj && currHitObj) {
+                // そのまま、領域表示を続く
+            }
+            //* 以前とか現在に選択した物がなければ
+            else {
+                // リセット ➝ 終了
+                Reset();
+                return;
+            }
+        }
+
+        //* また同じ場所のクリック
         if(CurSelectPos == new Vector2Int(x, y)) {
+            // リセット ➝ 終了
             Reset();
             return;
         }
 
-        //* 選択領域の制限
-        if(x < GOAL_POS.x || x > START_POS.x
-        || y > GOAL_POS.y || y < START_POS.y) {
-            Reset();
+        //* 制限した領域のクリック
+        if(x < GOAL_POS.x || x > START_POS.x || y > GOAL_POS.y || y < START_POS.y) {
+            Reset(); // リセット ➝ 終了
             return;
         }
 
@@ -173,8 +189,10 @@ public class TileMapController : MonoBehaviour {
             Reset(isClearPos: false);
         }
         else {
+            //* Set HitObj & Layer
             HitObject = HitCollider.gameObject;
             SelectLayer = HitCollider.gameObject.layer;
+
             switch(SelectLayer) {
                 case Enum.Layer.Wall:
                     actBar.UpdateUI(SelectLayer);
