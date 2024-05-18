@@ -7,6 +7,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class TileMapController : MonoBehaviour {
@@ -141,6 +142,10 @@ public class TileMapController : MonoBehaviour {
         //* 先に初期化 (選択OFFの状態)
         SelectedTileMap.ClearAllTiles();
         GM._.actBar.PanelObj.SetActive(false);
+        //* DeleteトリガーとUI初期化
+        GM._.actBar.IsDeleteTrigger = false;
+        GM._.actBar.IconBtns[(int)ActionBarUIManager.ICON.Delete].GetComponent<Image>().color = Color.white;
+        
 
         GameObject prevHitObj = HitObject;
         GameObject currHitObj = HitCollider? HitCollider.gameObject : null;
@@ -286,6 +291,10 @@ public class TileMapController : MonoBehaviour {
 
         SelectLayer = 0;
         HitObject = null;
+
+        // //* DeleteトリガーとUI初期化
+        // GM._.actBar.IsDeleteTrigger = false;
+        // GM._.actBar.IconBtns[(int)ActionBarUIManager.ICON.Delete].GetComponent<Image>().color = Color.white;
     }
 
     public void BreakWallTile() {

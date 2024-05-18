@@ -14,6 +14,7 @@ public class ActionBarUIManager : MonoBehaviour {
     const int ICON_PRICE_IDX = 1;
 
     //* Value
+    [field: SerializeField] public bool IsDeleteTrigger {get; set;}
     [field: SerializeField] public bool IsSwitchMode {get; set;}
     [SerializeField] int switchCnt; public int SwitchCnt {
         get => switchCnt;
@@ -306,8 +307,12 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
     public void OnClickDeleteIconBtn() {
-        SM._.SfxPlay(SM.SFX.DeleteTowerSFX);
-        GM._.tmc.DeleteTile();
+        IsDeleteTrigger = !IsDeleteTrigger;
+
+        SM._.SfxPlay(IsDeleteTrigger? SM.SFX.ItemPickSFX : SM.SFX.DeleteTowerSFX);
+        IconBtns[(int)ICON.Delete].GetComponent<Image>().color = IsDeleteTrigger? Color.red : Color.white;
+        if (!IsDeleteTrigger)
+            GM._.tmc.DeleteTile();
     }
 
     public void OnClickExitIconBtn() {
@@ -342,7 +347,7 @@ public class ActionBarUIManager : MonoBehaviour {
                 GM._.SetMoney(Config.G_PRICE.CCTOWER); // 返金
                 SetCCTowerCntTxt(-1); 
             }
-            
+
             Destroy(GM._.tmc.HitObject);
         }
         //* アクションバー切り替え
