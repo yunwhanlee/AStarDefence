@@ -289,6 +289,7 @@ public class GM : MonoBehaviour {
         state = GameState.Ready;
         gui.WaveTxt.text = $"WAVE {WaveCnt} / {MaxWave}";
         gui.SwitchGameStateUI(state);
+        actBar.HideUI();
 
         //* Next Enemy Info UI
         if(WaveCnt < MaxWave)
