@@ -55,7 +55,7 @@ public abstract class Enemy : MonoBehaviour {
     // }
 
     void Update() {
-        if(GM._.State == GameState.Ready) 
+        if(GM._.State == GameState.Ready || GM._.State == GameState.Gameover) 
             return;
 
         //* 飛ぶタイプ

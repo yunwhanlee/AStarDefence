@@ -90,9 +90,9 @@ public class AdmobManager : MonoBehaviour {
 /// <summary>
 /// 広告閲覧
 /// </summary>
-/// <param name="rewardCallbackPrecess">リワード処理の中身</param>
-    public void ProcessRewardAd(Action rewardCallbackPrecess) {
-        OnGetRewardAd = rewardCallbackPrecess;
+/// <param name="rewardCallbackProcess">リワード処理の中身</param>
+    public void ProcessRewardAd(Action rewardCallbackProcess) {
+        OnGetRewardAd = rewardCallbackProcess;
         //* 広告削除が有ったら
         if(DM._.DB.IsRemoveAd) {
             OnGetRewardAd?.Invoke();

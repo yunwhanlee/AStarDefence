@@ -190,10 +190,11 @@ public class GameUIManager : MonoBehaviour {
         const int OFF = 0;
         //* リワード広告
         AdmobManager._.ProcessRewardAd(() => {
+            Debug.Log("AD: 부활");
             GM._.IsRevived = true;
             SM._.SfxPlay(SM.SFX.InvStoneSFX);
-            GM._.gui.ShowMsgNotice("부활!!!");
-            GM._.gui.ReviveSpawnUIEF.SetActive(true);
+            ShowMsgNotice("부활!!!");
+            ReviveSpawnUIEF.SetActive(true);
 
             //* 復活したら、以前に残っているモンスターを削除（ボースはしない）
             Transform enemyGroup = GM._.em.enemyObjGroup;
@@ -215,7 +216,6 @@ public class GameUIManager : MonoBehaviour {
             playSpeedBtnTxt.text = $"X1";
             GM._.gef.ShowIconTxtEF(HeartFillImg.transform.position, GM._.MaxLife, "Heart");
         });
-
     }
 
     //* VICTORY
@@ -270,6 +270,11 @@ public class GameUIManager : MonoBehaviour {
         GM._.State = previousState;
     }
     public void Gameover() {
+        // GM._.Life = 0;
+        // Time.timeScale = 0;
+        Time.timeScale = 1;
+        GM._.State = GameState.Gameover;
+
         SM._.SfxPlay(SM.SFX.GameoverSFX);
         GameoverPopUp.SetActive(true);
 
@@ -281,9 +286,7 @@ public class GameUIManager : MonoBehaviour {
         else
             Ads_ReviveBtn.gameObject.SetActive(!GM._.IsRevived);
 
-        GM._.Life = 0;
-        Time.timeScale = 0;
-        GM._.State = GameState.Gameover;
+
     }
     private void GoHome() {
         Time.timeScale = 1;
