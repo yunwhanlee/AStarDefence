@@ -12,6 +12,7 @@ public static class Config {
     public const int RELIC_UPGRADE_MAX = 6;
     public const int LUCKYSPIN_FREE_AD_CNT = 3;
     public const int GOLDKEY_FREE_AD_CNT = 2;
+    public const int MINING_FREE_AD_CNT = 5;
     public const float CLOVER_BONUS_EXP_PER = 0.2f;
     public const float GOLDCLOVER_BONUS_EXP_PER = 0.5f;
 

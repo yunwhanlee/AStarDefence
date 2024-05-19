@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using System;
 
 public class MiningTimeUIManager : MonoBehaviour {
+    const int PRICE_UNIT = 10;
+
     [field: SerializeField] public GameObject SliderBtn {get; set;}
     [field: SerializeField] public Slider Slider {get; set;}
     [field: SerializeField] public Animator SliderBtnAnim {get; set;}
@@ -14,11 +16,18 @@ public class MiningTimeUIManager : MonoBehaviour {
     [field: SerializeField] public Image IconFrameImg {get; set;}
     [field: SerializeField] public GameObject RewardAuraEF {get; set;}
 
+    [field: Header("Finish Ask PopUp")]
+    [field: SerializeField] int FinishPrice {get; set;}
+    [field: SerializeField] public GameObject MiningFinishAskPopUp {get; set;}
+    [field: SerializeField] public TMP_Text FinishPriceTxt {get; set;}
+    [field: SerializeField] public TMP_Text AdLimitCntTxt {get; set;}
+
 #region EVENT
     /// <summary>
     /// 時間がたったら、Miningリワード習得
     /// </summary>
     public void OnClickTimerSliderBtn() {
+        FinishPrice = 0; //* 初期化
         WorkSpace curWS = HM._.wsm.CurWorkSpace;
 
         //* 採掘(仕事)が終わったら
@@ -27,29 +36,61 @@ public class MiningTimeUIManager : MonoBehaviour {
             DM._.DB.DailyMissionDB.ClearMiningVal++;
         }
         else {
-            SM._.SfxPlay(SM.SFX.ClickSFX);
-
             //* 採掘(仕事)中なら
             if(curWS.GoblinSpotDt.IsActive && curWS.OreSpotDt.IsActive) {
-                HM._.hui.ShowAgainAskMsg("광고를 시청하고 남은시간의 절반을 줄이겠습니까?\n<color=blue><size=70%>시간이 20분 미만으로 남았다면 바로 완료합니다!");
-                HM._.hui.OnClickAskConfirmAction = () => {
-                    AdmobManager._.ProcessRewardAd(() => {
-                        SM._.SfxPlay(SM.SFX.CompleteSFX);
-                        const int TWENTY_MINUTES = 6000;
+                SM._.SfxPlay(SM.SFX.ClickSFX);
+                MiningFinishAskPopUp.SetActive(true);
 
-                        //* 採掘の時間減る
-                        if(curWS.MiningTime > TWENTY_MINUTES)
-                            curWS.MiningTime /= 2;
-                        else
-                            curWS.MiningTime = 0;
-                    });
-                };
+                int divideToMiniteCnt = curWS.MiningTime / 60;
+                FinishPrice = divideToMiniteCnt * PRICE_UNIT;
+                FinishPriceTxt.text = $"<sprite name=Diamond>{FinishPrice}";
+                AdLimitCntTxt.text = $"하루 남은 횟수 : {DM._.DB.MiningFreeAdCnt}";
             }
             //* 仕事していない場合
             else { 
-                HM._.wsm.OnClickOreSpotBtn();
+                HM._.wsm.OnClickGoblinLeftSpotBtn();
             }
         }
+    }
+
+    public void OnClickFinishWorkBtn() {
+        if(HM._.Diamond < FinishPrice) {
+            HM._.hui.ShowMsgError("다이아몬드가 부족합니다.");
+            return;
+        }
+        WorkSpace curWS = HM._.wsm.CurWorkSpace;
+
+        //* 採掘完了
+        MiningFinishAskPopUp.SetActive(false);
+        SM._.SfxPlay(SM.SFX.CompleteSFX);
+        HM._.Diamond -= FinishPrice;
+        curWS.MiningTime = 0;
+    }
+
+    public void OnClickCooldownAdBtn() {
+        if(DM._.DB.MiningFreeAdCnt <= 0) {
+            HM._.hui.ShowMsgError("1일 광고횟수를 다 사용했습니다.");
+            return;
+        }
+
+        DM._.DB.MiningFreeAdCnt--;
+
+        //* AD
+        WorkSpace curWS = HM._.wsm.CurWorkSpace;
+        AdmobManager._.ProcessRewardAd(() => {
+            const int HALF_HOUR = 1800;
+            //* 採掘の時間減る
+            if(curWS.MiningTime > HALF_HOUR) {
+                SM._.SfxPlay(SM.SFX.LevelUpSFX);
+                curWS.MiningTime -= HALF_HOUR;
+            }
+            else {
+                SM._.SfxPlay(SM.SFX.CompleteSFX);
+                curWS.MiningTime = 0;
+            }
+
+            MiningFinishAskPopUp.SetActive(false);
+        });
     }
 #endregion
 

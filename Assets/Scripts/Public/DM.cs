@@ -410,6 +410,7 @@ public class DB {
     [field:SerializeField] public long LastDateTicks {get; set;}
     [field:SerializeField] public int LuckySpinFreeAdCnt {get; set;}
     [field:SerializeField] public int GoldkeyFreeAdCnt {get; set;}
+    [field:SerializeField] public int MiningFreeAdCnt {get; set;}
 }
 
 /// <summary>
@@ -466,6 +467,7 @@ public class DM : MonoBehaviour {
             DB.ShopDB.ResetDailyItemData();
             DB.LuckySpinFreeAdCnt = Config.LUCKYSPIN_FREE_AD_CNT;
             DB.GoldkeyFreeAdCnt = Config.GOLDKEY_FREE_AD_CNT;
+            DB.MiningFreeAdCnt = Config.MINING_FREE_AD_CNT;
         }
     }
 
@@ -659,6 +661,7 @@ public class DM : MonoBehaviour {
         DB.IsGoldCloverActive = false;
         DB.LuckySpinFreeAdCnt = Config.LUCKYSPIN_FREE_AD_CNT;
         DB.GoldkeyFreeAdCnt = Config.GOLDKEY_FREE_AD_CNT;
+        DB.MiningFreeAdCnt = Config.MINING_FREE_AD_CNT;
     }
 #endregion
 }

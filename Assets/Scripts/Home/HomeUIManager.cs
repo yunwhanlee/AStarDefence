@@ -96,7 +96,7 @@ public class HomeUIManager : MonoBehaviour {
         //* 広告閲覧数が残ったら
         if(DM._.DB.GoldkeyFreeAdCnt > 0) {
             ShowAgainAskMsg(
-                "쉿! <color=yellow>황금열쇠</color>가 필요하신가요?"
+                "<color=yellow>황금열쇠</color>가 필요하신가요?"
                 + "\n<sprite name=Ad>광고시청 후 <color=yellow>무료 3개</color> 지급!"
                 + $"\n(현재 {DM._.DB.GoldkeyFreeAdCnt}회 가능)"
                 + "\n<color=red><size=60%>*상점에서도 구매가 가능합니다.</size></color>"
