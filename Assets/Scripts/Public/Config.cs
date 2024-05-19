@@ -62,12 +62,12 @@ public static class Config {
 
     public class Stage {
         public const int STG1_FOREST = 0,
-        STG2_DESERT = 1,
-        STG3_SEA = 2,
-        STG4_UNDEAD = 3,
-        STG5_HELL = 4,
-        STG_GOBLIN_DUNGEON = 5,
-        STG_INFINITE_DUNGEON = 6;
+            STG2_DESERT = 1,
+            STG3_SEA = 2,
+            STG4_UNDEAD = 3,
+            STG5_HELL = 4,
+            STG_GOBLIN_DUNGEON = 5,
+            STG_INFINITE_DUNGEON = 6;
     }
 #endregion
 

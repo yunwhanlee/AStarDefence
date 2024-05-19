@@ -90,6 +90,7 @@ public class HomeRewardUIManager : MonoBehaviour {
         }
 
         public List<RewardItem> BuildVictoryRewardList(int exp, int coin, Etc.NoshowInvItem oreIdx, int oreCnt, int fame) {
+            Debug.Log($"BuildVictoryRewardList():: HM._.rwlm.RwdItemDt= {HM._.rwlm.RwdItemDt}");
             RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
             return new List<RewardItem>() {
                 new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], exp),
