@@ -127,7 +127,7 @@ public class GM : MonoBehaviour {
                 gef.GoldKeyAttractionUIEF.Play();
                 break;
             case Config.Stage.STG_INFINITE_DUNGEON:
-                SM._.BgmPlay(SM.BGM.GoblinDungeonBGM);
+                SM._.BgmPlay(SM.BGM.HellBGM);
                 gef.GoldKeyAttractionUIEF.Play();
                 break;
         }
@@ -462,7 +462,7 @@ public class GM : MonoBehaviour {
         if(stage == Config.Stage.STG1_FOREST) {
             switch(diff) {
                 case Enum.StageNum.Stage1_1: {
-                    int rewardCnt = rwDt.Rwd_StageClear1_1.Cnt;
+                    // int rewardCnt = rwDt.Rwd_StageClear1_1.Cnt;
                     var itemPerTableList = rwDt.PrepareItemPerTable(rwDt.Rwd_StageClear1_1);
                     var fixRwdList = itemPerTableList.FindAll(list => list.percent == FIX_REWARD);
                     // * お先に固定アイテム項目
@@ -472,41 +472,46 @@ public class GM : MonoBehaviour {
                             rewardList.Add(new RewardItem(item, quantity));
                             Debug.Log($"<color=yellow>Victory():: i({i}): fixItemTblist -> rewardList.Add( name= {item.Name}, per= {per}, quantity= {quantity})</color=yellow>");
                             itemPerTableList.Remove(fixRwdList[i]); // テーブルからこのアイテムを除く
-                            rewardCnt--;
+                            // rewardCnt--;
                         }
                     }
 
-                    //* Bonus
+                    //TODO RANDOM PERCENT ボーナス
                     rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon], 1));
-
-                    // rewardList = ;
-                    // rewardList = HM._.rwm.BuildVictoryRewardList (
-                    //     exp: 20, 
-                    //     coin: 1000,
-                    //     rd < 50? ORE0 : ORE1,
-                    //     oreCnt,
-                    //     fame: 1
-                    // );
                     break;
                 }
                 case Enum.StageNum.Stage1_2: {
-                    rewardList = HM._.rwm.BuildVictoryRewardList (
-                        exp: 30, 
-                        coin: 1400,
-                        rd < 60? ORE1 : rd < 90? ORE2 : ORE3,
-                        oreCnt,
-                        fame: 2
-                    );
+                    var itemPerTableList = rwDt.PrepareItemPerTable(rwDt.Rwd_StageClear1_2);
+                    var fixRwdList = itemPerTableList.FindAll(list => list.percent == FIX_REWARD);
+                    // * お先に固定アイテム項目
+                    for (int i = 0; i < fixRwdList.Count; i++) {
+                        var (item, per, quantity) = fixRwdList[i];
+                        if (per == FIX_REWARD) {
+                            rewardList.Add(new RewardItem(item, quantity));
+                            Debug.Log($"<color=yellow>Victory():: i({i}): fixItemTblist -> rewardList.Add( name= {item.Name}, per= {per}, quantity= {quantity})</color=yellow>");
+                            itemPerTableList.Remove(fixRwdList[i]); // テーブルからこのアイテムを除く
+                        }
+                    }
+
+                    //TODO RANDOM PERCENT ボーナス
+                    rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon], 1));
                     break;
                 }
                 case Enum.StageNum.Stage1_3: {
-                    rewardList = HM._.rwm.BuildVictoryRewardList (
-                        exp: 40, 
-                        coin: 1800,
-                        rd < 20? ORE1 : rd < 70? ORE2 : ORE3,
-                        oreCnt,
-                        fame: 3
-                    );
+                    var itemPerTableList = rwDt.PrepareItemPerTable(rwDt.Rwd_StageClear1_3);
+                    var fixRwdList = itemPerTableList.FindAll(list => list.percent == FIX_REWARD);
+                    // * お先に固定アイテム項目
+                    for (int i = 0; i < fixRwdList.Count; i++) {
+                        var (item, per, quantity) = fixRwdList[i];
+                        if (per == FIX_REWARD) {
+                            rewardList.Add(new RewardItem(item, quantity));
+                            Debug.Log($"<color=yellow>Victory():: i({i}): fixItemTblist -> rewardList.Add( name= {item.Name}, per= {per}, quantity= {quantity})</color=yellow>");
+                            itemPerTableList.Remove(fixRwdList[i]); // テーブルからこのアイテムを除く
+                        }
+                    }
+
+                    //TODO RANDOM PERCENT ボーナス
+                    rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon], 1));
                     break;
                 }
             }

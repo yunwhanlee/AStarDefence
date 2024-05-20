@@ -10,6 +10,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[Serializable]
+public struct StageClearOreUI {
+    public GameObject Obj;
+    public Image OreImg;
+    public TMP_Text OreNameTxt;
+}
+
 public class StageUIManager : MonoBehaviour {
     [Header("GOBLIN DUNGEON")]
     [field:SerializeField] public GameObject DungeonSelectPopUp;
@@ -41,6 +48,14 @@ public class StageUIManager : MonoBehaviour {
     [field:SerializeField] public GameObject WholeLockedFrame;
     [field:SerializeField] public GameObject Stage1_2LockedFrame;
     [field:SerializeField] public GameObject Stage1_3LockedFrame;
+
+    [field: Header("STAGE INFO POPUP")]
+
+    [field:SerializeField] public GameObject ClearRewardInfoPopUp;
+    [field:SerializeField] public TMP_Text ClearRewawrdInfoTitleTxt;
+    [field:SerializeField] public TMP_Text ClearRewardInfoStageNumTxt;
+    [field:SerializeField] public TMP_Text[] ClearRewardInfoCttQuantityTxts;
+    [field:SerializeField] public StageClearOreUI[] ClearRewardOreIconUIs;
 
     void Start() {
         DungeonAlertDot.SetActive(HM._.GoldKey > 0);
@@ -305,6 +320,56 @@ public class StageUIManager : MonoBehaviour {
         InfiniteDungeonWindow.SetActive(false);
         DungeonSelectPopUp.SetActive(false);
         Array.ForEach(StagePopUps, popUp => popUp.SetActive(false));
+    }
+#endregion
+#region STAGE CLEAR INFO EVENT
+    public void OnClickStageClearInfoIconBtn(int idxNum) {
+        int stageIdx = HM._.SelectedStage;
+
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        ClearRewardInfoPopUp.SetActive(true);
+        ClearRewawrdInfoTitleTxt.text = (stageIdx == Config.Stage.STG1_FOREST)? "초원맵 클리어 보상"
+            : (stageIdx == Config.Stage.STG2_DESERT)? "사막맵 클리어 보상"
+            : (stageIdx == Config.Stage.STG3_SEA)? "바다맵 클리어 보상"
+            : (stageIdx == Config.Stage.STG4_UNDEAD)? "언데드맵 클리어 보상"
+            : (stageIdx == Config.Stage.STG5_HELL)? "지옥맵 클리어 보상"
+            : "";
+        ClearRewardInfoStageNumTxt.text = $"{stageIdx + 1} - {idxNum + 1}";
+        
+        var rwDt = HM._.rwlm.RwdItemDt;
+        RewardContentSO clearRwdDt = rwDt.Rwd_StageClearDts[stageIdx / 3 + idxNum];
+
+        //* リワード 数量UI表示
+        for(int i = 0; i < ClearRewardInfoCttQuantityTxts.Length; i++) {
+            
+            if(i == 0)
+                ClearRewardInfoCttQuantityTxts[i].text = $"{clearRwdDt.ExpMax}";
+            else if(i == 1)
+                ClearRewardInfoCttQuantityTxts[i].text = $"{clearRwdDt.CoinMax}";
+            else if(i == 2)
+                ClearRewardInfoCttQuantityTxts[i].text = $"{clearRwdDt.OreMin}~{clearRwdDt.OreMax}";
+            else if(i == 3)
+                ClearRewardInfoCttQuantityTxts[i].text = $"{clearRwdDt.FameMax}";
+        }
+
+        //* 出る ORE-UI表示
+        var orePerList = clearRwdDt.RwdGradeTb.OrePerList;
+        const int OFFSET_OREIDX = (int)Etc.NoshowInvItem.Ore0;
+
+        for(int i = 0; i < orePerList.Count; i++) {
+            if(orePerList[i] != 0) {
+                ClearRewardOreIconUIs[i].Obj.SetActive(true);
+                ClearRewardOreIconUIs[i].OreImg.sprite = rwDt.EtcNoShowInvDatas[i + OFFSET_OREIDX].ItemImg;
+                ClearRewardOreIconUIs[i].OreNameTxt.text = rwDt.EtcNoShowInvDatas[i + OFFSET_OREIDX].Name;
+            }
+            else {
+                ClearRewardOreIconUIs[i].Obj.SetActive(false);
+            }
+        }
+    }
+    public void OnClickStageClearInfoPopUpCloseBtn() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        ClearRewardInfoPopUp.SetActive(false);
     }
 #endregion
 }
