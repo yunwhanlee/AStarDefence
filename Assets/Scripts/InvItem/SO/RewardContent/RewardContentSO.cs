@@ -24,6 +24,14 @@ using Random = UnityEngine.Random;
         [field: SerializeField] public int MagicStone {get; private set;}
         [field: SerializeField] public int Fame {get; private set;}
 
+        [field: Header("★ステージクリアー専用CHEST")]
+        [field: SerializeField] public int ChestCommon {get; private set;}
+        [field: SerializeField] public int ChestDiamond {get; private set;}
+        [field: SerializeField] public int ChestEquipment {get; private set;}
+        [field: SerializeField] public int ChestGold {get; private set;}
+        [field: SerializeField] public int ChestPremium {get; private set;}
+
+
         /// <summary>
         /// 全ての合計が１０００なのかを検査。 ただし、-1値は固定(必ず出る)なので、-1を0にして切り替えて計算
         /// </summary>
@@ -41,7 +49,12 @@ using Random = UnityEngine.Random;
                 + (ConsumeItem == -1? 0 :ConsumeItem) 
                 + (SoulStone == -1? 0 :SoulStone) 
                 + (MagicStone == -1? 0 : MagicStone)
-                + (Fame == -1? 0 : Fame);
+                + (Fame == -1? 0 : Fame)
+                + (ChestCommon == -1? 0 : ChestCommon)
+                + (ChestDiamond == -1? 0 : ChestDiamond)
+                + (ChestEquipment == -1? 0 : ChestEquipment)
+                + (ChestGold == -1? 0 : ChestGold)
+                + (ChestPremium == -1? 0 : ChestPremium);
         }
     }
 #endregion
@@ -80,11 +93,24 @@ public class RewardContentSO : ScriptableObject {
     [field: SerializeField] public int OreMin {get; private set;}
     [field: SerializeField] public int OreMax {get; private set;}
 
-    [field: Header("アイテムランダム習得数")]
+    [field: Header("GoldKey")]
+    [field: SerializeField] public int GoldKeyMin {get; private set;}
     [field: SerializeField] public int GoldKeyMax {get; private set;}
+    [field: Header("消費アイテム")]
+    [field: SerializeField] public int ConsumeItemMin {get; private set;}
     [field: SerializeField] public int ConsumeItemMax {get; private set;}
+    [field: Header("SoulStone")]
+    [field: SerializeField] public int SoulStoneMin {get; private set;}
     [field: SerializeField] public int SoulStoneMax {get; private set;}
+    [field: Header("MagicStone")]
+    [field: SerializeField] public int MagicStoneMin {get; private set;}
     [field: SerializeField] public int MagicStoneMax {get; private set;}
+    [field: Header("Chest Common")]
+    [field: SerializeField] public int ChestCommonMin {get; private set;}
+    [field: SerializeField] public int ChestCommonMax {get; private set;}
+    [field: Header("Chest Equipment")]
+    [field: SerializeField] public int ChestEquipmentMin {get; private set;}
+    [field: SerializeField] public int ChestEquipmentMax {get; private set;}
 
     [field: Header("Fame 範囲")]
     [field: SerializeField] public int FameMin {get; private set;}
@@ -128,16 +154,32 @@ public class RewardContentSO : ScriptableObject {
         return 0;
     }
 
+    public string GetChestCommonQuantityTxt() 
+        => (ChestCommonMin == ChestCommonMax)? $"{ChestCommonMax}" : $"{ChestCommonMin}~{ChestCommonMax}";
+    public string GetConsumeItemQuantityTxt()
+        => (ConsumeItemMin == ConsumeItemMax)? $"{ConsumeItemMax}" : $"{ConsumeItemMin}~{ConsumeItemMax}";
+    public string GetChestEquipmentQuantityTxt()
+        => (ChestEquipmentMin == ChestEquipmentMax)? $"{ChestEquipmentMax}" : $"{ChestEquipmentMin}~{ChestEquipmentMax}";
+    public string GetGoldKeyQuantityTxt()
+        => (GoldKeyMin == GoldKeyMax)? $"{GoldKeyMax}" : $"{GoldKeyMin}~{GoldKeyMax}";
+    public string GetMagicStoneQuantityTxt()
+        => (MagicStoneMin == MagicStoneMax)? $"{MagicStoneMax}" : $"{MagicStoneMin}~{MagicStoneMax}";
+    public string GetSoulStoneQuantityTxt()
+        => (SoulStoneMin == SoulStoneMax)? $"{SoulStoneMax}" : $"{SoulStoneMin}~{SoulStoneMax}";
+
     #region RANDOM ITEM SELECT
     public int GetRandomExp() => Mathf.RoundToInt(Random.Range(ExpMin, ExpMax + 1));
     public int GetRandomCoin() => Mathf.RoundToInt(Random.Range(CoinMin, CoinMax + 1) / 5) * 5; //* ５倍数
     public int GetRandomDiamond() => Mathf.RoundToInt(Random.Range(DiamondMin, DiamondMax + 1) / 5) * 5; //* ５倍数
     public int GetRandomOre() => Mathf.RoundToInt(Random.Range(OreMin, OreMax + 1));
     public int GetRandomFame() => Random.Range(FameMin, FameMax + 1);
-    public int GetRandomGoldKeyCnt() => Random.Range(1, GoldKeyMax + 1);
-    public int GetRandomConsumeItemCnt() => Random.Range(1, ConsumeItemMax + 1);
-    public int GetRandomSoulStoneMaxCnt() => Random.Range(1, SoulStoneMax + 1);
-    public int GetRandomMagicStoneCnt() => Random.Range(1, MagicStoneMax + 1);
+    public int GetRandomGoldKeyCnt() => Random.Range(GoldKeyMin, GoldKeyMax + 1);
+    public int GetRandomConsumeItemCnt() => Random.Range(ConsumeItemMin, ConsumeItemMax + 1);
+    public int GetRandomSoulStoneMaxCnt() => Random.Range(SoulStoneMin, SoulStoneMax + 1);
+    public int GetRandomMagicStoneCnt() => Random.Range(MagicStoneMin, MagicStoneMax + 1);
+    public int GetRandomChestCommonCnt() => Random.Range(ChestCommonMin, ChestCommonMax + 1);
+    public int GetRandomChestEquipmentCnt() => Random.Range(ChestEquipmentMin, ChestEquipmentMax + 1);
+
     public ItemSO[] GetRandomEquipDatas() {
         var rwdDt = HM._.rwlm.RwdItemDt;
         int rand = Random.Range(0, 2 + 1);

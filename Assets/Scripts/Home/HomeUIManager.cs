@@ -98,8 +98,8 @@ public class HomeUIManager : MonoBehaviour {
             ShowAgainAskMsg(
                 "<color=yellow>황금열쇠</color>가 필요하신가요?"
                 + "\n<sprite name=Ad>광고시청 후 <color=yellow>무료 3개</color> 지급!"
-                + $"\n(현재 {DM._.DB.GoldkeyFreeAdCnt}회 가능)"
-                + "\n<color=red><size=60%>*상점에서도 구매가 가능합니다.</size></color>"
+                + $"\n<color=green>(하루 남은 횟수 : {DM._.DB.GoldkeyFreeAdCnt})</color>"
+                + "\n<color=blue><size=65%>*상점에서도 구매가 가능합니다.</size></color>"
             );
 
             //* 確認ボタン イベント登録

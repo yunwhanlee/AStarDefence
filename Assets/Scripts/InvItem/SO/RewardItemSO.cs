@@ -107,35 +107,32 @@ public class RewardItemSO : ScriptableObject {
     /// </summary>
     public List<(ItemSO item, int percent, int quantity)> PrepareItemPerTable(RewardContentSO rwdContentDt) {
         //* ランダム確率でアイテムや容量選択
-        int expAmount = rwdContentDt.GetRandomExp();
-        int coinAmount = rwdContentDt.GetRandomCoin();
-        int diaAmount = rwdContentDt.GetRandomDiamond();
-        int fameAmount = rwdContentDt.GetRandomFame();
         var equipItem = rwdContentDt.GetRandomEquipDatas(); //* 装置種類
-        int equipGradeIdx = rwdContentDt.GetRandomEquipGrade(); //* 装置等級
         int relicGradeIdx = rwdContentDt.GetRandomRelicGrade(); //* 異物等級
+        int equipGradeIdx = rwdContentDt.GetRandomEquipGrade(); //* 装置等級
         int goblinGradeIdx = (int)rwdContentDt.GetRandomGoblinGrade(); //* ゴブリン等級
-        int oreAmount = rwdContentDt.GetRandomOre(); //* 鉱石 数量
         int oreGradeIdx = (int)rwdContentDt.GetRandomOreGrade(); //* 鉱石 等級
         int randConsumeIdx = (int)rwdContentDt.GetRandomConsumeItem(); //* 消費アイテム
 
         //* 夫々アイテム確率テーブルリスト生成 (Tuple方式)
         RewardPercentTable  itemPerTb = rwdContentDt.ItemPerTb;
         List<(ItemSO item, int percent, int quantity)> itemPerTableList = new List<(ItemSO, int, int)> {
-            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], itemPerTb.Exp, expAmount),
-            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], itemPerTb.Coin, coinAmount),
-            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], itemPerTb.Diamond, diaAmount),
-            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Fame], itemPerTb.Fame, fameAmount),
+            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], itemPerTb.Exp, rwdContentDt.GetRandomExp()),
+            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], itemPerTb.Coin, rwdContentDt.GetRandomCoin()),
+            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], itemPerTb.Diamond, rwdContentDt.GetRandomDiamond()),
+            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Fame], itemPerTb.Fame, rwdContentDt.GetRandomFame()),
             (equipItem[equipGradeIdx], itemPerTb.Equip, 1),
             (RelicDatas[relicGradeIdx], itemPerTb.Relic, 1),
             (EtcNoShowInvDatas[goblinGradeIdx], itemPerTb.Goblin, 1),
-            (EtcNoShowInvDatas[oreGradeIdx], itemPerTb.Ore, oreAmount),
+            (EtcNoShowInvDatas[oreGradeIdx], itemPerTb.Ore, rwdContentDt.GetRandomOre()),
             (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], itemPerTb.GoldKey, rwdContentDt.GetRandomGoldKeyCnt()),
             (EtcConsumableDatas[(int)Etc.ConsumableItem.Clover], itemPerTb.Clover, 1),
             (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover], itemPerTb.GoldClover, 1),
             (EtcConsumableDatas[randConsumeIdx], itemPerTb.ConsumeItem, rwdContentDt.GetRandomConsumeItemCnt()),
             (EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone], itemPerTb.SoulStone, rwdContentDt.GetRandomSoulStoneMaxCnt()),
-            (EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone], itemPerTb.MagicStone, rwdContentDt.GetRandomMagicStoneCnt())
+            (EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone], itemPerTb.MagicStone, rwdContentDt.GetRandomMagicStoneCnt()),
+            (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon], itemPerTb.ChestCommon, rwdContentDt.GetRandomChestCommonCnt()),
+            (EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment], itemPerTb.ChestEquipment, rwdContentDt.GetRandomChestEquipmentCnt())
         };
 
         //* ログ
