@@ -92,3 +92,6 @@ MonoBehaviour:
   <Rwd_ChestEquipment>k__BackingField: {fileID: 11400000, guid: e718dfd056d640845a7c163e275c1f7d, type: 2}
   <Rwd_ChestGold>k__BackingField: {fileID: 11400000, guid: ecb290fc839e5a24eb9f4944e432f22b, type: 2}
   <Rwd_ChestPremium>k__BackingField: {fileID: 11400000, guid: 04079ab95827d2f4d8c32fc9d5aaf768, type: 2}
+  <Rwd_StageClear1_1>k__BackingField: {fileID: 11400000, guid: 97767fbe665312741b862dd3ce2c3621, type: 2}
+  <Rwd_StageClear1_2>k__BackingField: {fileID: 0}
+  <Rwd_StageClear1_3>k__BackingField: {fileID: 0}

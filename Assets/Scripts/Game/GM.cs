@@ -458,16 +458,35 @@ public class GM : MonoBehaviour {
             DM._.DB.DailyMissionDB.ClearGoblinDungyenVal++;
 
         //* リワード
+        const int FIX_REWARD = -1;
         if(stage == Config.Stage.STG1_FOREST) {
             switch(diff) {
                 case Enum.StageNum.Stage1_1: {
-                    rewardList = HM._.rwm.BuildVictoryRewardList (
-                        exp: 20, 
-                        coin: 1000,
-                        rd < 50? ORE0 : ORE1,
-                        oreCnt,
-                        fame: 1
-                    );
+                    int rewardCnt = rwDt.Rwd_StageClear1_1.Cnt;
+                    var itemPerTableList = rwDt.PrepareItemPerTable(rwDt.Rwd_StageClear1_1);
+                    var fixRwdList = itemPerTableList.FindAll(list => list.percent == FIX_REWARD);
+                    // * お先に固定アイテム項目
+                    for (int i = 0; i < fixRwdList.Count; i++) {
+                        var (item, per, quantity) = fixRwdList[i];
+                        if (per == FIX_REWARD) {
+                            rewardList.Add(new RewardItem(item, quantity));
+                            Debug.Log($"<color=yellow>Victory():: i({i}): fixItemTblist -> rewardList.Add( name= {item.Name}, per= {per}, quantity= {quantity})</color=yellow>");
+                            itemPerTableList.Remove(fixRwdList[i]); // テーブルからこのアイテムを除く
+                            rewardCnt--;
+                        }
+                    }
+
+                    //* Bonus
+                    rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon], 1));
+
+                    // rewardList = ;
+                    // rewardList = HM._.rwm.BuildVictoryRewardList (
+                    //     exp: 20, 
+                    //     coin: 1000,
+                    //     rd < 50? ORE0 : ORE1,
+                    //     oreCnt,
+                    //     fame: 1
+                    // );
                     break;
                 }
                 case Enum.StageNum.Stage1_2: {

@@ -87,7 +87,6 @@ public class RewardItemSO : ScriptableObject {
     [field: SerializeField] public ItemSO[] RelicDatas {get; private set;}
 
     [field: Header("RewardContentSO LIST")]
-
     [field: SerializeField] public RewardContentSO Rwd_Present0 {get; private set;}
     [field: SerializeField] public RewardContentSO Rwd_Present1 {get; private set;}
     [field: SerializeField] public RewardContentSO Rwd_Present2 {get; private set;}
@@ -97,29 +96,39 @@ public class RewardItemSO : ScriptableObject {
     [field: SerializeField] public RewardContentSO Rwd_ChestGold {get; private set;}
     [field: SerializeField] public RewardContentSO Rwd_ChestPremium {get; private set;}
 
+    [field: Header("Stage Clear Data LIST")]
+    [field: SerializeField] public RewardContentSO Rwd_StageClear1_1 {get; private set;}
+    [field: SerializeField] public RewardContentSO Rwd_StageClear1_2 {get; private set;}
+    [field: SerializeField] public RewardContentSO Rwd_StageClear1_3 {get; private set;}
+
     /// <summary>
     /// アイテム確率テーブルリスト
     /// </summary>
-    private List<(ItemSO item, int percent, int quantity)> PrepareItemPerTable(RewardContentSO rwdContentDt) {
+    public List<(ItemSO item, int percent, int quantity)> PrepareItemPerTable(RewardContentSO rwdContentDt) {
         //* ランダム確率でアイテムや容量選択
+        int expAmount = rwdContentDt.GetRandomExp();
         int coinAmount = rwdContentDt.GetRandomCoin();
         int diaAmount = rwdContentDt.GetRandomDiamond();
+        int fameAmount = rwdContentDt.GetRandomFame();
         var equipItem = rwdContentDt.GetRandomEquipDatas(); //* 装置種類
         int equipGradeIdx = rwdContentDt.GetRandomEquipGrade(); //* 装置等級
         int relicGradeIdx = rwdContentDt.GetRandomRelicGrade(); //* 異物等級
         int goblinGradeIdx = (int)rwdContentDt.GetRandomGoblinGrade(); //* ゴブリン等級
-        int oreGradeIdx = (int)rwdContentDt.GetRandomOreGrade(); //* 鉱石等
+        int oreAmount = rwdContentDt.GetRandomOre(); //* 鉱石 数量
+        int oreGradeIdx = (int)rwdContentDt.GetRandomOreGrade(); //* 鉱石 等級
         int randConsumeIdx = (int)rwdContentDt.GetRandomConsumeItem(); //* 消費アイテム
 
         //* 夫々アイテム確率テーブルリスト生成 (Tuple方式)
         RewardPercentTable  itemPerTb = rwdContentDt.ItemPerTb;
         List<(ItemSO item, int percent, int quantity)> itemPerTableList = new List<(ItemSO, int, int)> {
+            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], itemPerTb.Exp, expAmount),
             (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], itemPerTb.Coin, coinAmount),
             (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], itemPerTb.Diamond, diaAmount),
+            (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Fame], itemPerTb.Fame, fameAmount),
             (equipItem[equipGradeIdx], itemPerTb.Equip, 1),
             (RelicDatas[relicGradeIdx], itemPerTb.Relic, 1),
             (EtcNoShowInvDatas[goblinGradeIdx], itemPerTb.Goblin, 1),
-            (EtcNoShowInvDatas[oreGradeIdx], itemPerTb.Ore, 1),
+            (EtcNoShowInvDatas[oreGradeIdx], itemPerTb.Ore, oreAmount),
             (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], itemPerTb.GoldKey, rwdContentDt.GetRandomGoldKeyCnt()),
             (EtcConsumableDatas[(int)Etc.ConsumableItem.Clover], itemPerTb.Clover, 1),
             (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover], itemPerTb.GoldClover, 1),
@@ -127,6 +136,12 @@ public class RewardItemSO : ScriptableObject {
             (EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone], itemPerTb.SoulStone, rwdContentDt.GetRandomSoulStoneMaxCnt()),
             (EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone], itemPerTb.MagicStone, rwdContentDt.GetRandomMagicStoneCnt())
         };
+
+        //* ログ
+        itemPerTableList.ForEach(list => {
+            string colorTag = list.percent == -1? "<color=white>FIX " : "<color=grey>";
+            Debug.Log($"{colorTag}PrepareItemPerTable():: itemPerTableList -> name= {list.item.Name}, per= {list.percent}, quantity= {list.quantity}</color>");
+        });
 
         return itemPerTableList;
     }
