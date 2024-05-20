@@ -15,6 +15,12 @@ public struct StageClearOreUI {
     public GameObject Obj;
     public Image OreImg;
     public TMP_Text OreNameTxt;
+
+    public void SetUI(Sprite oreSpr, string oreName) {
+        Obj.SetActive(true);
+        OreImg.sprite = oreSpr;
+        OreNameTxt.text = oreName;
+    }
 }
 
 public class StageUIManager : MonoBehaviour {
@@ -50,8 +56,20 @@ public class StageUIManager : MonoBehaviour {
     [field:SerializeField] public GameObject Stage1_3LockedFrame;
 
     [field: Header("STAGE INFO POPUP")]
+    [field:SerializeField] public Color[] TopColors;
+    [field:SerializeField] public Color[] TopLabelOutsideColors;
+    [field:SerializeField] public Color[] TopLabelInsideColors;
+    [field:SerializeField] public Color[] MiddleColors;
+    [field:SerializeField] public Color[] BgColors;
+
 
     [field:SerializeField] public GameObject ClearRewardInfoPopUp;
+    [field:SerializeField] public DOTweenAnimation ClearRewardInfoBodyDOTAnim;
+    [field:SerializeField] public Image ClearRewardInfoTopImg;
+    [field:SerializeField] public Image ClearRewardInfoTopLabelOutsideImg;
+    [field:SerializeField] public Image ClearRewardInfoTopLabelInsideImg;
+    [field:SerializeField] public Image ClearRewardInfoMiddleImg;
+    [field:SerializeField] public Image ClearRewardInfoBgImg;
     [field:SerializeField] public TMP_Text ClearRewawrdInfoTitleTxt;
     [field:SerializeField] public TMP_Text ClearRewardInfoStageNumTxt;
     [field:SerializeField] public TMP_Text[] ClearRewardInfoCttQuantityTxts;
@@ -326,8 +344,17 @@ public class StageUIManager : MonoBehaviour {
     public void OnClickStageClearInfoIconBtn(int idxNum) {
         int stageIdx = HM._.SelectedStage;
 
-        SM._.SfxPlay(SM.SFX.ClickSFX);
+        SM._.SfxPlay(SM.SFX.StageSelectSFX);
         ClearRewardInfoPopUp.SetActive(true);
+        ClearRewardInfoBodyDOTAnim.DORestart();
+
+        //* UI色
+        ClearRewardInfoTopImg.color = TopColors[idxNum];
+        ClearRewardInfoTopLabelOutsideImg.color = TopLabelOutsideColors[idxNum];
+        ClearRewardInfoTopLabelInsideImg.color = TopLabelInsideColors[idxNum];
+        ClearRewardInfoMiddleImg.color = MiddleColors[idxNum];
+        ClearRewardInfoBgImg.color = BgColors[idxNum];
+
         ClearRewawrdInfoTitleTxt.text = (stageIdx == Config.Stage.STG1_FOREST)? "초원맵 클리어 보상"
             : (stageIdx == Config.Stage.STG2_DESERT)? "사막맵 클리어 보상"
             : (stageIdx == Config.Stage.STG3_SEA)? "바다맵 클리어 보상"
@@ -356,15 +383,18 @@ public class StageUIManager : MonoBehaviour {
         var orePerList = clearRwdDt.RwdGradeTb.OrePerList;
         const int OFFSET_OREIDX = (int)Etc.NoshowInvItem.Ore0;
 
-        for(int i = 0; i < orePerList.Count; i++) {
-            if(orePerList[i] != 0) {
-                ClearRewardOreIconUIs[i].Obj.SetActive(true);
-                ClearRewardOreIconUIs[i].OreImg.sprite = rwDt.EtcNoShowInvDatas[i + OFFSET_OREIDX].ItemImg;
-                ClearRewardOreIconUIs[i].OreNameTxt.text = rwDt.EtcNoShowInvDatas[i + OFFSET_OREIDX].Name;
-            }
-            else {
-                ClearRewardOreIconUIs[i].Obj.SetActive(false);
-            }
+        var oreList = orePerList.FindAll(orePer => orePer != 0);
+
+        //* OREリスト非表示初期化
+        for(int i = 0; i < ClearRewardOreIconUIs.Length; i++)
+            ClearRewardOreIconUIs[i].Obj.SetActive(false);
+
+        //* Set UI
+        for(int i = 0; i < oreList.Count; i++) {
+            ClearRewardOreIconUIs[i].SetUI(
+                rwDt.EtcNoShowInvDatas[i + OFFSET_OREIDX].ItemImg
+                , rwDt.EtcNoShowInvDatas[i + OFFSET_OREIDX].Name
+            );
         }
     }
     public void OnClickStageClearInfoPopUpCloseBtn() {

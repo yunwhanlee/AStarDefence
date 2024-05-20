@@ -435,18 +435,8 @@ public class GM : MonoBehaviour {
         }
         }
     #endregion
-
     #region REWARD LIST
-        var ORE0 = Etc.NoshowInvItem.Ore0;
-        var ORE1 = Etc.NoshowInvItem.Ore1;
-        var ORE2 = Etc.NoshowInvItem.Ore2;
-        var ORE3 = Etc.NoshowInvItem.Ore3;
-        var ORE4 = Etc.NoshowInvItem.Ore4;
-        var ORE5 = Etc.NoshowInvItem.Ore5;
-        var ORE6 = Etc.NoshowInvItem.Ore6;
-        var ORE7 = Etc.NoshowInvItem.Ore7;
-        var ORE8 = Etc.NoshowInvItem.Ore8;
-        
+        // var ORE0 = Etc.NoshowInvItem.Ore0;
         const int OFFSET = 1;
         int rd = Random.Range(0, 100);
         int oreCnt = Random.Range(1, 5 + OFFSET);
@@ -459,198 +449,27 @@ public class GM : MonoBehaviour {
 
         //* リワード
         const int FIX_REWARD = -1;
-        if(stage == Config.Stage.STG1_FOREST) {
-            switch(diff) {
-                case Enum.StageNum.Stage1_1: {
-                    // int rewardCnt = rwDt.Rwd_StageClear1_1.Cnt;
-                    var itemPerTableList = rwDt.PrepareItemPerTable(rwDt.Rwd_StageClear1_1);
-                    var fixRwdList = itemPerTableList.FindAll(list => list.percent == FIX_REWARD);
-                    // * お先に固定アイテム項目
-                    for (int i = 0; i < fixRwdList.Count; i++) {
-                        var (item, per, quantity) = fixRwdList[i];
-                        if (per == FIX_REWARD) {
-                            rewardList.Add(new RewardItem(item, quantity));
-                            Debug.Log($"<color=yellow>Victory():: i({i}): fixItemTblist -> rewardList.Add( name= {item.Name}, per= {per}, quantity= {quantity})</color=yellow>");
-                            itemPerTableList.Remove(fixRwdList[i]); // テーブルからこのアイテムを除く
-                            // rewardCnt--;
-                        }
-                    }
+        if(stage == Config.Stage.STG1_FOREST
+        || stage == Config.Stage.STG2_DESERT
+        || stage == Config.Stage.STG3_SEA
+        || stage == Config.Stage.STG4_UNDEAD
+        || stage == Config.Stage.STG5_HELL) {
+            // int rewardCnt = rwDt.Rwd_StageClear1_1.Cnt;
+            var itemPerTableList = rwDt.PrepareItemPerTable(rwDt.Rwd_StageClearDts[stage / 3 + (int)diff]);
+            var fixRwdList = itemPerTableList.FindAll(list => list.percent == FIX_REWARD);
+            // * お先に固定アイテム項目
+            for (int i = 0; i < fixRwdList.Count; i++) {
+                var (item, per, quantity) = fixRwdList[i];
+                if (per == FIX_REWARD) {
+                    rewardList.Add(new RewardItem(item, quantity));
+                    Debug.Log($"<color=yellow>Victory():: i({i}): fixItemTblist -> rewardList.Add( name= {item.Name}, per= {per}, quantity= {quantity})</color=yellow>");
+                    itemPerTableList.Remove(fixRwdList[i]); // テーブルからこのアイテムを除く
+                    // rewardCnt--;
+                }
+            }
 
-                    //TODO RANDOM PERCENT ボーナス
-                    rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon], 1));
-                    break;
-                }
-                case Enum.StageNum.Stage1_2: {
-                    var itemPerTableList = rwDt.PrepareItemPerTable(rwDt.Rwd_StageClear1_2);
-                    var fixRwdList = itemPerTableList.FindAll(list => list.percent == FIX_REWARD);
-                    // * お先に固定アイテム項目
-                    for (int i = 0; i < fixRwdList.Count; i++) {
-                        var (item, per, quantity) = fixRwdList[i];
-                        if (per == FIX_REWARD) {
-                            rewardList.Add(new RewardItem(item, quantity));
-                            Debug.Log($"<color=yellow>Victory():: i({i}): fixItemTblist -> rewardList.Add( name= {item.Name}, per= {per}, quantity= {quantity})</color=yellow>");
-                            itemPerTableList.Remove(fixRwdList[i]); // テーブルからこのアイテムを除く
-                        }
-                    }
-
-                    //TODO RANDOM PERCENT ボーナス
-                    rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon], 1));
-                    break;
-                }
-                case Enum.StageNum.Stage1_3: {
-                    var itemPerTableList = rwDt.PrepareItemPerTable(rwDt.Rwd_StageClear1_3);
-                    var fixRwdList = itemPerTableList.FindAll(list => list.percent == FIX_REWARD);
-                    // * お先に固定アイテム項目
-                    for (int i = 0; i < fixRwdList.Count; i++) {
-                        var (item, per, quantity) = fixRwdList[i];
-                        if (per == FIX_REWARD) {
-                            rewardList.Add(new RewardItem(item, quantity));
-                            Debug.Log($"<color=yellow>Victory():: i({i}): fixItemTblist -> rewardList.Add( name= {item.Name}, per= {per}, quantity= {quantity})</color=yellow>");
-                            itemPerTableList.Remove(fixRwdList[i]); // テーブルからこのアイテムを除く
-                        }
-                    }
-
-                    //TODO RANDOM PERCENT ボーナス
-                    rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon], 1));
-                    break;
-                }
-            }
-        }
-        else if(stage == Config.Stage.STG2_DESERT) {
-            switch(diff) {
-                case Enum.StageNum.Stage1_1: {
-                    rewardList = HM._.rwm.BuildVictoryRewardList (
-                        exp: 50, 
-                        coin: 2200,
-                        rd < 50? ORE2 : rd < 85? ORE3 : ORE4,
-                        oreCnt,
-                        fame: 4
-                    );
-                    break;
-                }
-                case Enum.StageNum.Stage1_2: {
-                    rewardList = HM._.rwm.BuildVictoryRewardList (
-                        exp: 60, 
-                        coin: 2700,
-                        rd < 25? ORE2 : rd < 70? ORE3 : ORE4,
-                        oreCnt,
-                        fame: 5
-                    );
-                    break;
-                }
-                case Enum.StageNum.Stage1_3: {
-                    rewardList = HM._.rwm.BuildVictoryRewardList (
-                        exp: 70, 
-                        coin: 3100,
-                        rd < 55? ORE3 : ORE4,
-                        oreCnt,
-                        fame: 6
-                    );
-                    break;
-                }
-            }
-        }
-        else if(stage == Config.Stage.STG3_SEA) {
-            switch(diff) {
-                case Enum.StageNum.Stage1_1: {
-                    rewardList = HM._.rwm.BuildVictoryRewardList (
-                        exp: 85, 
-                        coin: 3600,
-                        rd < 50? ORE3 : rd < 90? ORE4 : ORE5,
-                        oreCnt,
-                        fame: 7
-                    );
-                    break;
-                }
-                case Enum.StageNum.Stage1_2: {
-                    rewardList = HM._.rwm.BuildVictoryRewardList (
-                        exp: 100, 
-                        coin: 4200,
-                        rd < 40? ORE3 : rd < 80? ORE4 : ORE5,
-                        oreCnt,
-                        fame: 8
-                    );
-                    break;
-                }
-                case Enum.StageNum.Stage1_3: {
-                    rewardList = HM._.rwm.BuildVictoryRewardList (
-                        exp: 125, 
-                        coin: 4800,
-                        rd < 20? ORE3 : rd < 60? ORE4 : rd < 95? ORE5 : ORE6,
-                        oreCnt,
-                        fame: 9
-                    );
-                    break;
-                }
-            }
-        }
-        else if(stage == Config.Stage.STG4_UNDEAD) {
-            switch(diff) {
-                case Enum.StageNum.Stage1_1: {
-                    rewardList = HM._.rwm.BuildVictoryRewardList (
-                        exp: 150, 
-                        coin: 5500,
-                        rd < 40? ORE4 : rd < 85? ORE5 : ORE6,
-                        oreCnt,
-                        fame: 10
-                    );
-                    break;
-                }
-                case Enum.StageNum.Stage1_2: {
-                    rewardList = HM._.rwm.BuildVictoryRewardList (
-                        exp: 175, 
-                        coin: 6200,
-                        rd < 30? ORE4 : rd < 65? ORE5 : rd < 90? ORE6 : ORE7,
-                        oreCnt,
-                        fame: 11
-                    );
-                    break;
-                }
-                case Enum.StageNum.Stage1_3: {
-                    rewardList = HM._.rwm.BuildVictoryRewardList (
-                        exp: 210, 
-                        coin: 7000,
-                        rd < 20? ORE4 : rd < 50? ORE5 : rd < 80? ORE6 : ORE7,
-                        oreCnt,
-                        fame: 12
-                    );
-                    break;
-                }
-            }
-        }
-        else if(stage == Config.Stage.STG5_HELL) {
-            switch(diff) {
-                case Enum.StageNum.Stage1_1: {
-                    rewardList = HM._.rwm.BuildVictoryRewardList (
-                        exp: 250, 
-                        coin: 7800,
-                        rd < 40? ORE5 : rd < 70? ORE6 : rd < 90? ORE7 : ORE8,
-                        oreCnt,
-                        fame: 13
-                    );
-                    break;
-                }
-                case Enum.StageNum.Stage1_2: {
-                    rewardList = HM._.rwm.BuildVictoryRewardList (
-                        exp: 300, 
-                        coin: 8600,
-                        rd < 20? ORE5 : rd < 50? ORE6 : rd < 80? ORE7 : ORE8,
-                        oreCnt,
-                        fame: 14
-                    );
-                    break;
-                }
-                case Enum.StageNum.Stage1_3: {
-                    rewardList = HM._.rwm.BuildVictoryRewardList (
-                        exp: 350, 
-                        coin: 9200,
-                        rd < 30? ORE6 : rd < 70? ORE7 : ORE8,
-                        oreCnt,
-                        fame: 15
-                    );
-                    break;
-                }
-            }
+            //TODO RANDOM PERCENT ボーナス
+            rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon], 1));
         }
         else if(stage == Config.Stage.STG_GOBLIN_DUNGEON) { //|| stage == Config.GOBLIN_DUNGEON_STAGE + 1|| stage == Config.GOBLIN_DUNGEON_STAGE + 2 ) { //* 唯一にStageSelectedStageが＋して分けている（ゴブリン敵イメージを異なるため）
             //* Difficultによる、リワードデータ

@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bfdc2e6cb60e644db583700af3f5a05, type: 3}
+  m_Name: StageClear5_1
+  m_EditorClassIdentifier: 
+  <Cnt>k__BackingField: 5
+  <ItemPerTb>k__BackingField:
+    <Exp>k__BackingField: -1
+    <Coin>k__BackingField: -1
+    <Diamond>k__BackingField: 0
+    <Equip>k__BackingField: 0
+    <Relic>k__BackingField: 0
+    <Goblin>k__BackingField: 0
+    <Ore>k__BackingField: -1
+    <GoldKey>k__BackingField: 0
+    <Clover>k__BackingField: 0
+    <GoldClover>k__BackingField: 0
+    <ConsumeItem>k__BackingField: 0
+    <SoulStone>k__BackingField: 0
+    <MagicStone>k__BackingField: 0
+    <Fame>k__BackingField: -1
+  <ExpMin>k__BackingField: 250
+  <ExpMax>k__BackingField: 250
+  <CoinMin>k__BackingField: 7800
+  <CoinMax>k__BackingField: 7800
+  <DiamondMin>k__BackingField: 0
+  <DiamondMax>k__BackingField: 0
+  <OreMin>k__BackingField: 1
+  <OreMax>k__BackingField: 5
+  <GoldKeyMax>k__BackingField: 0
+  <ConsumeItemMax>k__BackingField: 0
+  <SoulStoneMax>k__BackingField: 0
+  <MagicStoneMax>k__BackingField: 0
+  <FameMin>k__BackingField: 13
+  <FameMax>k__BackingField: 13
+  <RwdGradeTb>k__BackingField:
+    <EquipPerList>k__BackingField: 
+    <RelicPerList>k__BackingField: 
+    <GoblinPerList>k__BackingField: 
+    <OrePerList>k__BackingField: 0000000000000000000000000000000000000000900100002c010000c800000064000000
