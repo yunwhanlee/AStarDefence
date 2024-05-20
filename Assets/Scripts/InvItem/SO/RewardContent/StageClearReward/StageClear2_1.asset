@@ -24,10 +24,15 @@ MonoBehaviour:
     <GoldKey>k__BackingField: 0
     <Clover>k__BackingField: 0
     <GoldClover>k__BackingField: 0
-    <ConsumeItem>k__BackingField: 0
+    <ConsumeItem>k__BackingField: 330
     <SoulStone>k__BackingField: 0
     <MagicStone>k__BackingField: 0
     <Fame>k__BackingField: -1
+    <ChestCommon>k__BackingField: 330
+    <ChestDiamond>k__BackingField: 0
+    <ChestEquipment>k__BackingField: 340
+    <ChestGold>k__BackingField: 0
+    <ChestPremium>k__BackingField: 0
   <ExpMin>k__BackingField: 50
   <ExpMax>k__BackingField: 50
   <CoinMin>k__BackingField: 2200
@@ -36,10 +41,18 @@ MonoBehaviour:
   <DiamondMax>k__BackingField: 0
   <OreMin>k__BackingField: 1
   <OreMax>k__BackingField: 5
+  <GoldKeyMin>k__BackingField: 0
   <GoldKeyMax>k__BackingField: 0
-  <ConsumeItemMax>k__BackingField: 0
+  <ConsumeItemMin>k__BackingField: 1
+  <ConsumeItemMax>k__BackingField: 2
+  <SoulStoneMin>k__BackingField: 0
   <SoulStoneMax>k__BackingField: 0
+  <MagicStoneMin>k__BackingField: 0
   <MagicStoneMax>k__BackingField: 0
+  <ChestCommonMin>k__BackingField: 1
+  <ChestCommonMax>k__BackingField: 1
+  <ChestEquipmentMin>k__BackingField: 1
+  <ChestEquipmentMax>k__BackingField: 2
   <FameMin>k__BackingField: 4
   <FameMax>k__BackingField: 4
   <RwdGradeTb>k__BackingField:
