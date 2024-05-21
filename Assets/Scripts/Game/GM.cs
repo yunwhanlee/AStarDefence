@@ -236,16 +236,15 @@ public class GM : MonoBehaviour {
 
     public void OnClickClaimX2AdBtn() {
         AdmobManager._.ProcessRewardAd(() => {
-            Debug.Log("AD: 보상 두배");
             gui.ShowMsgNotice("보상 두배 적용!");
             SM._.SfxPlay(SM.SFX.CompleteSFX);
             gui.Ads_ClaimX2Btn.gameObject.SetActive(false);
-            rwlm.ShowReward(VictoryRwdList);
+            // rwlm.ShowReward(VictoryRwdList);
             StartCoroutine(HM._.rwm.CoUpdateInventoryAsync(VictoryRwdList));
-            HM._.rwm.CoUpdateInventoryAsync(VictoryRwdList);
 
             for(int i = 0 ; i < rwlm.Content.childCount; i++) {
-                rwlm.Content.GetChild(i).GetComponent<InventoryUIItem>().DoubleRewardLabel.SetActive(true);
+                InventoryUIItem rwdItemUI = rwlm.Content.GetChild(i).GetComponent<InventoryUIItem>();
+                rwdItemUI.DoubleRewardLabel.SetActive(true);
             }
         });
     }

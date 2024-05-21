@@ -39,13 +39,13 @@ public class GameRewardListUIManager : MonoBehaviour {
         StartCoroutine(CoPlayRewardSlotSpawnSFX(rewardList.Count));
         //* リワードリストへオブジェクト生成・追加
         for(int i = 0; i < rewardList.Count; i++) {
-            RewardItem rewardItem = rewardList[i];
+            RewardItem rwdItem = rewardList[i];
             InventoryUIItem rwdItemUI = Instantiate(rwdItemPf.gameObject, Content).GetComponent<InventoryUIItem>();
-            rwdItemUI.SetUI(rewardItem.Data.Type, rewardItem.Data.Grade, rewardItem.Data.ItemImg, rewardItem.Quantity, lv: 1);
-            if(rewardItem.Data.name.Contains("Chest"))
+            rwdItemUI.SetUI(rwdItem.Data.Type, rwdItem.Data.Grade, rwdItem.Data.ItemImg, rwdItem.Quantity, lv: 1);
+            if(rwdItem.Data.name.Contains("Chest"))
                 rwdItemUI.BonusRewardLabel.SetActive(true);
             //* Particle UI Effect 1
-            rwdItemUI.PlayScaleUIEF(rwdItemUI, rewardItem.Data.ItemImg);
+            rwdItemUI.PlayScaleUIEF(rwdItemUI, rwdItem.Data.ItemImg);
             rwdItemUI.ItemImgScaleUIEF.startDelay = 0.5f + i * 0.1f;
             //* Particle UI Effect 2
             rwdItemUI.WhiteDimScaleUIEF.lifetime = 0.5f + i * 0.1f;

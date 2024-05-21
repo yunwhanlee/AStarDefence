@@ -70,10 +70,7 @@ public class MileageRewardUIManager : MonoBehaviour {
             RwdBubbleUIs[i].ItemIconImg.sprite = itemDt.ItemImg;
 
             // タイプ名
-            string typeName = (itemDt.Type == Enum.ItemType.Weapon)? "무기"
-                : (itemDt.Type == Enum.ItemType.Shoes)? "신발"
-                : (itemDt.Type == Enum.ItemType.Ring)? "반지"
-                :  "유물";
+            string typeName = Enum.GetItemTypeName(itemDt.Type);
 
             // 等級色
             Color gradeClr = (itemDt.Grade == Enum.Grade.Unique)? HM._.ivm.GradeClrs[(int)Enum.Grade.Unique]
