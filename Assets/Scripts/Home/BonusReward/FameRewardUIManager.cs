@@ -104,7 +104,6 @@ public class FameRewardUIManager : MonoBehaviour {
         IconAlertRedDot.SetActive(isExistUnlock);
     }
     private void SetPopUpUI(bool isShow) {
-        HM._.hui.SetTopNavOrderInLayer(isLocateFront: !isShow);
         SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(isShow);
         UpdateBubbleStatusUI();
