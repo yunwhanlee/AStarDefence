@@ -228,6 +228,7 @@ namespace Inventory.Model
 
             bool isMergable = false;
             bool isMustUnEquip = false;
+            string typeName = "";
 
             //* マージできるか状況 確認
             foreach(var item in ItemList) {
@@ -238,6 +239,7 @@ namespace Inventory.Model
                     isMergable = true;
                     if(item.IsEquip) {
                         isMustUnEquip = true;
+                        typeName = Enum.GetItemTypeName(item.Data.Type);
                     }
                 }
             }
@@ -248,7 +250,8 @@ namespace Inventory.Model
                 return;
             }
             else if(isMustUnEquip) {
-                HM._.hui.ShowMsgError("장착중인 아이템은 합성이 불가능합니다. 장착을 해제해주세요!");
+                
+                HM._.hui.ShowMsgError($"{typeName}의 장착을 해제해주세요! (장착한 아이템 중 합성대상이 있어 불가)");
                 return;
             }
 

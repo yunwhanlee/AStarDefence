@@ -426,18 +426,22 @@ public class GM : MonoBehaviour {
                 Debug.Log($"Victory():: BonusRwdList[{i}].Name= {bonusRwdList[i].item.Name}, per= {bonusRwdList[i].percent}, quantity= {bonusRwdList[i].quantity}");
             }
 
+            int randMax = stgClearDt.ItemPerTb.GetTotal();
+
             //* ボーナスカウントほど、ランダムでリワード追加
             for(int i = 0; i < bonusItemCnt; i++) {
-                int randPer = Random.Range(0, 1000);
-                for (int j = 0; j < bonusRwdList.Count; j++) {
-                    var (item, per, quantity) = bonusRwdList[j];
-                    if(randPer < per) {
+                int rand = Random.Range(0, randMax);
+                int startRange = 0;
+                foreach (var (item, per, quantity) in bonusRwdList) {
+                    int endRange = startRange + per;
+                    if(rand < endRange) {
+                        Debug.Log($"<color=yellow>Victory():: i= [{i}/{bonusItemCnt}]: randPer({rand}) < per({per}):: BonusRwdList.Name= {item.Name} quantity= {quantity}</color>");
                         rewardList.Add(new RewardItem(item, quantity));
-                        Debug.Log($"<color=yellow>Victory():: i= [{i}/{bonusItemCnt}]: randPer({randPer}) < per({per}):: BonusRwdList[{j}].Name= {item.Name} quantity= {quantity}</color>");
-                        bonusRwdList.RemoveAt(j);
+                        bonusRwdList.Remove((item, per, quantity));
+                        randMax -= per;
                         break;
                     }
-                    randPer -= per;
+                    startRange = endRange;
                 }
             }
         }

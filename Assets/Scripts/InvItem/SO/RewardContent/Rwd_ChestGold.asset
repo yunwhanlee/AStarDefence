@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Cnt>k__BackingField: 4
   <ItemPerTb>k__BackingField:
+    <Exp>k__BackingField: 0
     <Coin>k__BackingField: -1
     <Diamond>k__BackingField: 60
     <Equip>k__BackingField: 0
@@ -26,14 +27,34 @@ MonoBehaviour:
     <ConsumeItem>k__BackingField: 100
     <SoulStone>k__BackingField: 20
     <MagicStone>k__BackingField: 20
+    <Fame>k__BackingField: 0
+    <ChestCommon>k__BackingField: 0
+    <ChestDiamond>k__BackingField: 0
+    <ChestEquipment>k__BackingField: 0
+    <ChestGold>k__BackingField: 0
+    <ChestPremium>k__BackingField: 0
+  <ExpMin>k__BackingField: 0
+  <ExpMax>k__BackingField: 0
   <CoinMin>k__BackingField: 200
   <CoinMax>k__BackingField: 1000
   <DiamondMin>k__BackingField: 20
   <DiamondMax>k__BackingField: 100
-  <GoldKeyMax>k__BackingField: 2
+  <OreMin>k__BackingField: 1
+  <OreMax>k__BackingField: 3
+  <GoldKeyMin>k__BackingField: 1
+  <GoldKeyMax>k__BackingField: 5
+  <ConsumeItemMin>k__BackingField: 0
   <ConsumeItemMax>k__BackingField: 2
+  <SoulStoneMin>k__BackingField: 0
   <SoulStoneMax>k__BackingField: 1
+  <MagicStoneMin>k__BackingField: 0
   <MagicStoneMax>k__BackingField: 1
+  <ChestCommonMin>k__BackingField: 0
+  <ChestCommonMax>k__BackingField: 0
+  <ChestEquipmentMin>k__BackingField: 0
+  <ChestEquipmentMax>k__BackingField: 0
+  <FameMin>k__BackingField: 0
+  <FameMax>k__BackingField: 0
   <RwdGradeTb>k__BackingField:
     <EquipPerList>k__BackingField: 
     <RelicPerList>k__BackingField: 8403000050000000140000000000000000000000

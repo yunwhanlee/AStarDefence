@@ -98,9 +98,6 @@ public class RewardItemSO : ScriptableObject {
 
     [field: Header("Stage Clear Data LIST")]
     [field: SerializeField] public RewardContentSO[] Rwd_StageClearDts {get; private set;}
-    [field: SerializeField] public RewardContentSO Rwd_StageClear1_1 {get; private set;}
-    [field: SerializeField] public RewardContentSO Rwd_StageClear1_2 {get; private set;}
-    [field: SerializeField] public RewardContentSO Rwd_StageClear1_3 {get; private set;}
 
     /// <summary>
     /// アイテム確率テーブルリスト

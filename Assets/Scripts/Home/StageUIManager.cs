@@ -386,7 +386,9 @@ public class StageUIManager : MonoBehaviour {
         ClearRewardInfoStageNumTxt.text = $"{stageIdx + 1} - {idxNum + 1}";
         
         var rwDt = HM._.rwlm.RwdItemDt;
-        RewardContentSO stgClrRwDt = rwDt.Rwd_StageClearDts[Config.Stage.GetCurStageDtIdx(stageIdx, idxNum)];
+        int stgDtIdx = Config.Stage.GetCurStageDtIdx(stageIdx, idxNum);
+        Debug.Log($"OnClickStageClearInfoIconBtn():: StageDtIdx= {stgDtIdx}");
+        RewardContentSO stgClrRwDt = rwDt.Rwd_StageClearDts[stgDtIdx];
 
         //* 固定の４つリワードの数量 表示
         for(int i = 0; i < ClearRewardInfoCttQuantityTxts.Length; i++) {
@@ -414,7 +416,7 @@ public class StageUIManager : MonoBehaviour {
         for(int i = 0; i < orePercentList.Count; i++) {
             // 用意したIcon数を超えたら、For文終了
             if(oreIconIdx == MAX_ORE_ICON_CNT)
-                return;
+                break;
 
             // UI 設定
             if(orePercentList[i] != 0) {

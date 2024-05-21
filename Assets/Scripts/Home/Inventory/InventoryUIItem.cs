@@ -148,7 +148,7 @@ namespace Inventory.UI
 
                 //* マージ可能な物 表示
                 if(quantity >= 10) {
-                    AlertGreenDot.SetActive(true);
+                    if(AlertGreenDot) AlertGreenDot.SetActive(true);
                     QuantityTxt.text = $"<color=green>{quantity}</color>";
                     HM._.ivm.AutoMergeBtnAlertIcon.SetActive(true);
                 }
