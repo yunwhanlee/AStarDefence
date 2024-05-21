@@ -108,6 +108,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 754f7ebbbceb3f048835d7f7ef7382f2, type: 2}
   - {fileID: 11400000, guid: d87436cda993c454dbf8fb54936ef873, type: 2}
   - {fileID: 11400000, guid: 3d8ac5628e405864e8a4abf669e86000, type: 2}
-  <Rwd_StageClear1_1>k__BackingField: {fileID: 11400000, guid: 97767fbe665312741b862dd3ce2c3621, type: 2}
-  <Rwd_StageClear1_2>k__BackingField: {fileID: 11400000, guid: 2b24ea8b6c32a2146bc45963efa0f4e6, type: 2}
-  <Rwd_StageClear1_3>k__BackingField: {fileID: 11400000, guid: c3d28b837a06cd948903210174121241, type: 2}
+  <Rwd_GoblinDungeonClearDts>k__BackingField:
+  - {fileID: 11400000, guid: 0d5eba6185413934092f682fb56afe6a, type: 2}
+  - {fileID: 11400000, guid: ca9d4d0a80a6da24882f0b9c5c138dcc, type: 2}
+  - {fileID: 11400000, guid: 612b6fe1cb4415641bf592689d589beb, type: 2}

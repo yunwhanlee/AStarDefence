@@ -65,7 +65,10 @@ public class StageUIManager : MonoBehaviour {
 
     [field:SerializeField] public GameObject ClearRewardInfoPopUp;
     [field:SerializeField] public DOTweenAnimation ClearRewardInfoBodyDOTAnim;
-    [field:SerializeField] public Button ClearRewardInfoPlayBtn;
+
+    [field:SerializeField] public Button ClearRewardInfoStagePlayBtn;
+    [field:SerializeField] public Button ClearRewardInfoGoblinDungeonPlayBtn;
+
     [field:SerializeField] public Image ClearRewardInfoTopImg;
     [field:SerializeField] public Image ClearRewardInfoTopLabelOutsideImg;
     [field:SerializeField] public Image ClearRewardInfoTopLabelInsideImg;
@@ -73,9 +76,15 @@ public class StageUIManager : MonoBehaviour {
     [field:SerializeField] public Image ClearRewardInfoBgImg;
     [field:SerializeField] public TMP_Text ClearRewawrdInfoTitleTxt;
     [field:SerializeField] public TMP_Text ClearRewardInfoStageNumTxt;
-    [field:SerializeField] public TMP_Text ClearRewardInfoBonusRewardTitleCntTxt;
+    [field:SerializeField] public Image FixedRwdIcon3Img;
+    [field:SerializeField] public TMP_Text FixedRwdIcon3NameTxt;
+    [field:SerializeField] public Image FixedRwdIcon4Img;
     [field:SerializeField] public TMP_Text[] ClearRewardInfoCttQuantityTxts;
-    [field:SerializeField] public StageClearRewardItemUI[] ClearRewardOreIconUIs;
+
+    [field:SerializeField] public TMP_Text ClearRewardInfoMiningRwdDetailTitleTxt;
+    [field:SerializeField] public StageClearRewardItemUI[] ClearRewardMiningItemIconUIs;
+
+    [field:SerializeField] public TMP_Text ClearRewardInfoBonusRewardTitleCntTxt;
     [field:SerializeField] public StageClearRewardItemUI[] ClearRewardBonusItemIconUIs;
 
     void Start() {
@@ -136,13 +145,17 @@ public class StageUIManager : MonoBehaviour {
         InfiniteDungeonWindow.SetActive(false);
         HM._.ifum.WindowObj.SetActive(true);
     }
+    /// <summary>
+    /// ゴブリンダンジョン
+    /// </summary>
+    public void OnClickGoblinDungeonEnterBtn() {
+        int neededGoldKey = 1;
 
-    public void OnClickDungeonDifficultyBtn(int diffIdx) {
-        if(HM._.GoldKey <= 0) {
-            HM._.hui.ShowMsgError("황금열쇠가 있어야 입장가능합니다.");
+        if(HM._.GoldKey < neededGoldKey) {
+            HM._.hui.ShowMsgError("황금열쇠가 부족합니다.");
             return;
         }
-        --HM._.GoldKey;
+        HM._.GoldKey -= neededGoldKey;
         DM._.SelectedStage = Config.Stage.STG_GOBLIN_DUNGEON;
 
         HM._.ivCtrl.CheckActiveClover();
@@ -152,21 +165,20 @@ public class StageUIManager : MonoBehaviour {
 
         SM._.SfxPlay(SM.SFX.StageSelectSFX);
 
-        //* 難易度 データ設定
-        DM._.SelectedStageNum = (diffIdx == 0)? Enum.StageNum.Stage1_1
-            : (diffIdx == 1)? Enum.StageNum.Stage1_2
-            : Enum.StageNum.Stage1_3;
-
         //* ➡ ゲームシーンロード
         SceneManager.LoadScene(Enum.Scene.Game.ToString());
     }
 
+    /// <summary>
+    /// 無限ダンジョン
+    /// </summary>
     public void OnClickInfiniteDungeonEnterBtn() {
-        if(HM._.GoldKey <= 0) {
-            HM._.hui.ShowMsgError("황금열쇠가 있어야 입장가능합니다.");
+        int neededGoldKey = 1;
+        if(HM._.GoldKey < neededGoldKey) {
+            HM._.hui.ShowMsgError("황금열쇠가 부족합니다.");
             return;
         }
-        --HM._.GoldKey;
+        HM._.GoldKey -= neededGoldKey;
         DM._.SelectedStage = Config.Stage.STG_INFINITE_DUNGEON;
 
         //* ホーム ➡ ゲームシーン移動の時、インベントリのデータを保存
@@ -180,6 +192,7 @@ public class StageUIManager : MonoBehaviour {
         SceneManager.LoadScene(Enum.Scene.Game.ToString());
     }
 #endregion
+
 #region STAGE EVENT
     private (Sprite, ItemSO) GetStageBonusRewardChestData(int stg, int stgNum) {
         var consumeItemDts = HM._.rwlm.RwdItemDt.EtcConsumableDatas;
@@ -352,14 +365,16 @@ public class StageUIManager : MonoBehaviour {
     public void OnClickStageClearInfoIconBtn(int idxNum) {
         Debug.Log($"OnClickStageClearInfoIconBtn(SelectedStage= {HM._.SelectedStageIdx}):: idxNum= {idxNum}");
         SM._.SfxPlay(SM.SFX.StageSelectSFX);
+        ClearRewardInfoStagePlayBtn.gameObject.SetActive(true);
+        ClearRewardInfoGoblinDungeonPlayBtn.gameObject.SetActive(false);
         ClearRewardInfoPopUp.SetActive(true);
         ClearRewardInfoBodyDOTAnim.DORestart();
 
         //* プレイボタンの活性化
-        ClearRewardInfoPlayBtn.interactable = true;
+        ClearRewardInfoStagePlayBtn.interactable = true;
         if((idxNum == 1 && Stage1_2LockedFrame.activeSelf)
         || (idxNum == 2 && Stage1_3LockedFrame.activeSelf)) {
-            ClearRewardInfoPlayBtn.interactable = false;
+            ClearRewardInfoStagePlayBtn.interactable = false;
         }
 
         //* ステージ
@@ -390,43 +405,49 @@ public class StageUIManager : MonoBehaviour {
         Debug.Log($"OnClickStageClearInfoIconBtn():: StageDtIdx= {stgDtIdx}");
         RewardContentSO stgClrRwdDt = rwDt.Rwd_StageClearDts[stgDtIdx];
 
-        //* 固定の４つリワードの数量 表示
+        //* 固定の４つリワードアイコン
+        ClearRewardInfoMiningRwdDetailTitleTxt.text = "광석 종류";
         for(int i = 0; i < ClearRewardInfoCttQuantityTxts.Length; i++) {
-            if(i == 0)
+            if(i == 0) // EXP
                 ClearRewardInfoCttQuantityTxts[i].text = $"{stgClrRwdDt.ExpMax}";
-            else if(i == 1)
+            else if(i == 1) // COIN
                 ClearRewardInfoCttQuantityTxts[i].text = $"{stgClrRwdDt.CoinMax}";
-            else if(i == 2)
+            else if(i == 2) { // MINING : ORE
+                FixedRwdIcon3Img.sprite = rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore3].ItemImg;
+                FixedRwdIcon3NameTxt.text = "광석";
                 ClearRewardInfoCttQuantityTxts[i].text = $"{stgClrRwdDt.OreMin}~{stgClrRwdDt.OreMax}";
-            else if(i == 3)
+            }
+            else if(i == 3) { // FAME
+                FixedRwdIcon4Img.sprite = rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Fame].ItemImg;
                 ClearRewardInfoCttQuantityTxts[i].text = $"{stgClrRwdDt.FameMax}";
+            }
         }
-    #region ORE ICON UI
-        //* もらえる ORE UI
-        const int MAX_ORE_ICON_CNT = 4;
-        const int OFFSET_OREIDX = (int)Etc.NoshowInvItem.Ore0;
+    
+        //* 習得できるORE Detail UI
+        const int DETAIL_ICON_MAX_CNT = 4;
+        const int OFFSET_ORE_IDX = (int)Etc.NoshowInvItem.Ore0;
         var orePercentList = stgClrRwdDt.RwdGradeTb.OrePerList;
 
         //* 初期化
-        for(int i = 0; i < ClearRewardOreIconUIs.Length; i++)
-            ClearRewardOreIconUIs[i].Obj.SetActive(false);
+        for(int i = 0; i < ClearRewardMiningItemIconUIs.Length; i++)
+            ClearRewardMiningItemIconUIs[i].Obj.SetActive(false);
 
         //* Ore アイコン
         int oreIconIdx = 0;
         for(int i = 0; i < orePercentList.Count; i++) {
             // 用意したIcon数を超えたら、For文終了
-            if(oreIconIdx == MAX_ORE_ICON_CNT)
+            if(oreIconIdx == DETAIL_ICON_MAX_CNT)
                 break;
 
             // UI 設定
             if(orePercentList[i] != 0) {
-                ItemSO oreDt = rwDt.EtcNoShowInvDatas[i + OFFSET_OREIDX];
+                ItemSO oreDt = rwDt.EtcNoShowInvDatas[i + OFFSET_ORE_IDX];
                 string name = oreDt.Name.Split("광석")[0]; //* 名前短縮
-                ClearRewardOreIconUIs[oreIconIdx++].SetUI(oreDt.ItemImg, name);
+                ClearRewardMiningItemIconUIs[oreIconIdx++].SetUI(oreDt.ItemImg, name);
             }
         }
-    #endregion
-    #region BONUS REWAWR ICON UI
+
+        //* ボーナスリワードアイコン UI *//
         const int CHEST_COMMON = (int)Etc.ConsumableItem.ChestCommon;
         const int CHEST_EQUIP = (int)Etc.ConsumableItem.ChestEquipment;
         const int GOLDKEY = (int)Etc.NoshowInvItem.GoldKey;
@@ -439,6 +460,7 @@ public class StageUIManager : MonoBehaviour {
         ClearRewardInfoBonusRewardTitleCntTxt.text = $"보너스 보상 (랜덤 {cnt}종류)";
 
         //* 初期化
+        ClearRewardInfoBonusRewardTitleCntTxt.gameObject.SetActive(true);
         for(int i = 0; i < ClearRewardBonusItemIconUIs.Length; i++)
             ClearRewardBonusItemIconUIs[i].Obj.SetActive(false);
 
@@ -462,7 +484,6 @@ public class StageUIManager : MonoBehaviour {
             ClearRewardBonusItemIconUIs[bonusIconIdx++].SetUI(consumeDts[SOUL_STONE].ItemImg, stgClrRwdDt.GetSoulStoneQuantityTxt());
         if(tb.ChestPremium > 0)
             ClearRewardBonusItemIconUIs[bonusIconIdx++].SetUI(consumeDts[PREMIUM_CHEST].ItemImg, "1");
-    #endregion
     }
 
     /// <summary>
@@ -470,13 +491,14 @@ public class StageUIManager : MonoBehaviour {
     /// </summary>
     /// <param name="idxNum">ステージ EASY, NORMAL, HARD</param>
     public void OnClickGoblinDungeonStageBtn(int idxNum) {
+        HM._.SelectedStageIdx = Config.Stage.STG_GOBLIN_DUNGEON;
         Debug.Log($"OnClickGoblinDungeonStageBtn(SelectedStage= {HM._.SelectedStageIdx}):: diffIdx= {idxNum}");
         SM._.SfxPlay(SM.SFX.StageSelectSFX);
+        ClearRewardInfoStagePlayBtn.gameObject.SetActive(false);
+        ClearRewardInfoGoblinDungeonPlayBtn.gameObject.SetActive(true);
         ClearRewardInfoPopUp.SetActive(true);
         ClearRewardInfoBodyDOTAnim.DORestart();
 
-        //* ステージ
-        int stageIdx = HM._.SelectedStageIdx;
         //* ステージ 難易度
         DM._.SelectedStageNum = (idxNum == 0)? Enum.StageNum.Stage1_1
             : (idxNum == 1)? Enum.StageNum.Stage1_2
@@ -493,7 +515,54 @@ public class StageUIManager : MonoBehaviour {
         ClearRewardInfoStageNumTxt.text = $"1 - {idxNum + 1}";
 
         var rwDt = HM._.rwlm.RwdItemDt;
-        RewardContentSO gdClrRwdDt = HM._.rwlm.RwdItemDt.Rwd_GoblinDungeonClearDts[idxNum];
+        RewardContentSO stgClrRwdDt = rwDt.Rwd_GoblinDungeonClearDts[idxNum];
+
+        //* 固定の４つリワードアイコン
+        ClearRewardInfoMiningRwdDetailTitleTxt.text = "고블린 종류";
+        for(int i = 0; i < ClearRewardInfoCttQuantityTxts.Length; i++) {
+            if(i == 0) // EXP
+                ClearRewardInfoCttQuantityTxts[i].text = $"{stgClrRwdDt.ExpMax}";
+            else if(i == 1) // COIN
+                ClearRewardInfoCttQuantityTxts[i].text = $"{stgClrRwdDt.CoinMax}";
+            else if(i == 2) { // MINING : GOBLIN
+                FixedRwdIcon3Img.sprite = rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin0].ItemImg;
+                FixedRwdIcon3NameTxt.text = "고블린";
+                ClearRewardInfoCttQuantityTxts[i].text = $"{stgClrRwdDt.GoblinMin}~{stgClrRwdDt.GoblinMax}";
+            }
+            else if(i == 3) { // CHEST GOLD
+                FixedRwdIcon4Img.sprite = rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGold].ItemImg;
+                ClearRewardInfoCttQuantityTxts[i].text = $"{stgClrRwdDt.ChestGoldMin}~{stgClrRwdDt.ChestGoldMax}";
+            }
+        }
+
+        //* 習得できるGOBLIN Detail UI
+        const int DETAIL_ICON_MAX_CNT = 4;
+        const int OFFSET_GOBLIN_IDX = (int)Etc.NoshowInvItem.Goblin0;
+        var goblinPercentList = stgClrRwdDt.RwdGradeTb.GoblinPerList;
+
+        //* 初期化
+        for(int i = 0; i < ClearRewardMiningItemIconUIs.Length; i++)
+            ClearRewardMiningItemIconUIs[i].Obj.SetActive(false);
+
+        //* Goblin アイコン
+        int oreIconIdx = 0;
+        for(int i = 0; i < goblinPercentList.Count; i++) {
+            // 用意したIcon数を超えたら、For文終了
+            if(oreIconIdx == DETAIL_ICON_MAX_CNT)
+                break;
+
+            // UI 設定
+            if(goblinPercentList[i] != 0) {
+                ItemSO goblinDt = rwDt.EtcNoShowInvDatas[i + OFFSET_GOBLIN_IDX];
+                string name = goblinDt.Name.Split("고블린")[0]; //* 名前短縮
+                ClearRewardMiningItemIconUIs[oreIconIdx++].SetUI(goblinDt.ItemImg, name);
+            }
+        }
+
+        //* ボーナスリワード 非表示
+        ClearRewardInfoBonusRewardTitleCntTxt.gameObject.SetActive(false);
+        for(int i = 0; i < ClearRewardBonusItemIconUIs.Length; i++)
+            ClearRewardBonusItemIconUIs[i].Obj.SetActive(false);
     }
 
     public void OnClickStageClearInfoPopUpCloseBtn() {
