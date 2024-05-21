@@ -68,6 +68,9 @@ public static class Config {
             STG5_HELL = 4,
             STG_GOBLIN_DUNGEON = 5,
             STG_INFINITE_DUNGEON = 6;
+        const int STAGE_IDX_MAX = 3;
+        public static int GetCurStageDtIdx(int stageIdx, int idxNum)
+            => stageIdx * STAGE_IDX_MAX + idxNum;
     }
 #endregion
 

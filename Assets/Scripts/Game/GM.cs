@@ -192,9 +192,7 @@ public class GM : MonoBehaviour {
         DestroyImmediate(tower.gameObject);
         actBar.UpdateUI(Enum.Layer.Tower);
     }
-    public void OnClickVictoryBtn() {
-        Victory();
-    }
+    public void OnClickVictoryBtn() => Victory();
     #endregion
 
     public void OnClickStartBtn() {
@@ -320,6 +318,36 @@ public class GM : MonoBehaviour {
 
     }
 
+    private void UnLockStageDB(bool isLastStage = false) {
+        int stage = DM._.SelectedStage;
+        int nextStage = stage + 1;
+        Enum.StageNum diff = DM._.SelectedStageNum;
+        StageLockedDB stageLockDt = DM._.DB.StageLockedDBs[stage];
+        StageLockedDB nextStageLockDt = DM._.DB.StageLockedDBs[nextStage];
+
+        if(diff == Enum.StageNum.Stage1_1) {
+            stageLockDt.IsLockStage1_2 = false;
+            stageLockDt.StageRewards[1].IsUnlockAlert = true;
+            stageLockDt.StageRewards[0].IsActiveBonusReward = true;
+        }
+        else if(diff == Enum.StageNum.Stage1_2) {
+            stageLockDt.IsLockStage1_3 = false;
+            stageLockDt.StageRewards[2].IsUnlockAlert = true;
+            stageLockDt.StageRewards[1].IsActiveBonusReward = true;
+        }
+        else if(diff == Enum.StageNum.Stage1_3) {
+            if(!isLastStage) {
+                nextStageLockDt.IsLockStage1_1 = false;
+                nextStageLockDt.StageRewards[0].IsUnlockAlert = true;
+                stageLockDt.StageRewards[2].IsActiveBonusReward = true;
+            }
+            else {
+                gui.ShowMsgNotice("모든 스테이지 클리어!!");
+                stageLockDt.StageRewards[2].IsActiveBonusReward = true;
+            }
+        }
+    }
+
     public void Victory() {
         // gui.Pause();
         Time.timeScale = 1;
@@ -331,151 +359,73 @@ public class GM : MonoBehaviour {
         //* リワード
         DB db = DM._.DB;
         RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
-        Enum.StageNum diff = DM._.SelectedStageNum;
+        Enum.StageNum idxNum = DM._.SelectedStageNum;
         var rewardList = new List<RewardItem>();
-        int stage = DM._.SelectedStage;
-        int nextStage = stage + 1;
+        int stageIdx = DM._.SelectedStage;
+        int nextStage = stageIdx + 1;
 
     #region STAGE CLEAR UNLOCK
         //* もしIndexを超えると今のステージIndexに戻す
-        if(nextStage >= db.StageLockedDBs.Count()) {
-            nextStage = stage;
-        }
+        if(nextStage >= db.StageLockedDBs.Count())
+            nextStage = stageIdx;
 
         //* 一般のステージのみ
-        if(stage != Config.Stage.STG_GOBLIN_DUNGEON && stage != Config.Stage.STG_INFINITE_DUNGEON) {
-            StageLockedDB stageLockDt = db.StageLockedDBs[stage];
+        if(stageIdx != Config.Stage.STG_GOBLIN_DUNGEON && stageIdx != Config.Stage.STG_INFINITE_DUNGEON) {
+            StageLockedDB stageLockDt = db.StageLockedDBs[stageIdx];
             StageLockedDB nextStageLockDt = db.StageLockedDBs[nextStage];
 
-            switch(stage) {
+            switch(stageIdx) {
                 case Config.Stage.STG1_FOREST:
-                    if(diff == Enum.StageNum.Stage1_1) {
-                        stageLockDt.IsLockStage1_2 = false;
-                        stageLockDt.StageRewards[1].IsUnlockAlert = true;
-                        stageLockDt.StageRewards[0].IsActiveBonusReward = true;
-                    }
-                    else if(diff == Enum.StageNum.Stage1_2) {
-                        stageLockDt.IsLockStage1_3 = false;
-                        stageLockDt.StageRewards[2].IsUnlockAlert = true;
-                        stageLockDt.StageRewards[1].IsActiveBonusReward = true;
-                    }
-                    else if(diff == Enum.StageNum.Stage1_3) {
-                        nextStageLockDt.IsLockStage1_1 = false;
-                        nextStageLockDt.StageRewards[0].IsUnlockAlert = true;
-                        stageLockDt.StageRewards[2].IsActiveBonusReward = true;
-                    }
+                case Config.Stage.STG2_DESERT:
+                case Config.Stage.STG3_SEA:
+                case Config.Stage.STG4_UNDEAD:
+                    UnLockStageDB();
                     break;
-                case Config.Stage.STG2_DESERT: // DESERT
-                    if(diff == Enum.StageNum.Stage1_1) {
-                        stageLockDt.IsLockStage1_2 = false;
-                        stageLockDt.StageRewards[1].IsUnlockAlert = true;
-                        stageLockDt.StageRewards[0].IsActiveBonusReward = true;
-                    }
-                    else if(diff == Enum.StageNum.Stage1_2) {
-                        stageLockDt.IsLockStage1_3 = false;
-                        stageLockDt.StageRewards[2].IsUnlockAlert = true;
-                        stageLockDt.StageRewards[1].IsActiveBonusReward = true;
-                    }
-                    else if(diff == Enum.StageNum.Stage1_3) {
-                        nextStageLockDt.IsLockStage1_1 = false;
-                        nextStageLockDt.StageRewards[0].IsUnlockAlert = true;
-                        stageLockDt.StageRewards[2].IsActiveBonusReward = true;
-                    }
-                    break;
-                case Config.Stage.STG3_SEA: // SEA
-                    if(diff == Enum.StageNum.Stage1_1) {
-                        stageLockDt.IsLockStage1_2 = false;
-                        stageLockDt.StageRewards[1].IsUnlockAlert = true;
-                        stageLockDt.StageRewards[0].IsActiveBonusReward = true;
-                    }
-                    else if(diff == Enum.StageNum.Stage1_2) {
-                        stageLockDt.IsLockStage1_3 = false;
-                        stageLockDt.StageRewards[2].IsUnlockAlert = true;
-                        stageLockDt.StageRewards[1].IsActiveBonusReward = true;
-                    }
-                    else if(diff == Enum.StageNum.Stage1_3) {
-                        nextStageLockDt.IsLockStage1_1 = false;
-                        nextStageLockDt.StageRewards[0].IsUnlockAlert = true;
-                        stageLockDt.StageRewards[2].IsActiveBonusReward = true;
-                    }
-                    break;
-                case Config.Stage.STG4_UNDEAD: // UNDEAD
-                    if(diff == Enum.StageNum.Stage1_1) {
-                        stageLockDt.IsLockStage1_2 = false;
-                        stageLockDt.StageRewards[1].IsUnlockAlert = true;
-                        stageLockDt.StageRewards[0].IsActiveBonusReward = true;
-                    }
-                    else if(diff == Enum.StageNum.Stage1_2) {
-                        stageLockDt.IsLockStage1_3 = false;
-                        stageLockDt.StageRewards[2].IsUnlockAlert = true;
-                        stageLockDt.StageRewards[1].IsActiveBonusReward = true;
-                    }
-                    else if(diff == Enum.StageNum.Stage1_3) {
-                        nextStageLockDt.IsLockStage1_1 = false;
-                        nextStageLockDt.StageRewards[0].IsUnlockAlert = true;
-                        stageLockDt.StageRewards[2].IsActiveBonusReward = true;
-                    }
-                    break;
-                case Config.Stage.STG5_HELL: // HELL
-                    if(diff == Enum.StageNum.Stage1_1) {
-                        stageLockDt.IsLockStage1_2 = false;
-                        stageLockDt.StageRewards[1].IsUnlockAlert = true;
-                        stageLockDt.StageRewards[0].IsActiveBonusReward = true;
-                    }
-                    else if(diff == Enum.StageNum.Stage1_2) {
-                        stageLockDt.IsLockStage1_3 = false;
-                        stageLockDt.StageRewards[2].IsUnlockAlert = true;
-                        stageLockDt.StageRewards[1].IsActiveBonusReward = true;
-                    }
-                    else if(diff == Enum.StageNum.Stage1_3) {
-                        gui.ShowMsgNotice("모든 스테이지 클리어!!");
-                        stageLockDt.StageRewards[2].IsActiveBonusReward = true;
-                    }
+                case Config.Stage.STG5_HELL:
+                    UnLockStageDB(isLastStage: true);
                     break;
         }
         }
     #endregion
     #region REWARD LIST
-        // var ORE0 = Etc.NoshowInvItem.Ore0;
         const int OFFSET = 1;
+        const int FIXED_REWARD = -1;
         int rd = Random.Range(0, 100);
         int oreCnt = Random.Range(1, 5 + OFFSET);
 
         //* Daily Mission DB
-        if(stage < Config.Stage.STG_GOBLIN_DUNGEON)
+        if(stageIdx < Config.Stage.STG_GOBLIN_DUNGEON)
             DM._.DB.DailyMissionDB.ClearStageVal++;
         else
             DM._.DB.DailyMissionDB.ClearGoblinDungyenVal++;
 
         //* リワード
-        const int FIX_REWARD = -1;
-        if(stage == Config.Stage.STG1_FOREST
-        || stage == Config.Stage.STG2_DESERT
-        || stage == Config.Stage.STG3_SEA
-        || stage == Config.Stage.STG4_UNDEAD
-        || stage == Config.Stage.STG5_HELL) {
-            // int rewardCnt = rwDt.Rwd_StageClear1_1.Cnt;
-            var itemPerTableList = rwDt.PrepareItemPerTable(rwDt.Rwd_StageClearDts[stage / 3 + (int)diff]);
-            var fixRwdList = itemPerTableList.FindAll(list => list.percent == FIX_REWARD);
+        if(stageIdx == Config.Stage.STG1_FOREST
+        || stageIdx == Config.Stage.STG2_DESERT
+        || stageIdx == Config.Stage.STG3_SEA
+        || stageIdx == Config.Stage.STG4_UNDEAD
+        || stageIdx == Config.Stage.STG5_HELL)
+        {
+            var itemPerTbList = rwDt.PrepareItemPerTable(rwDt.Rwd_StageClearDts[Config.Stage.GetCurStageDtIdx(stageIdx, (int)idxNum)]);
+            var fixRwdList = itemPerTbList.FindAll(list => list.percent == FIXED_REWARD);
             // * お先に固定アイテム項目
             for (int i = 0; i < fixRwdList.Count; i++) {
                 var (item, per, quantity) = fixRwdList[i];
-                if (per == FIX_REWARD) {
+                // if (per == FIXED_REWARD) {
                     rewardList.Add(new RewardItem(item, quantity));
                     Debug.Log($"<color=yellow>Victory():: i({i}): fixItemTblist -> rewardList.Add( name= {item.Name}, per= {per}, quantity= {quantity})</color=yellow>");
-                    itemPerTableList.Remove(fixRwdList[i]); // テーブルからこのアイテムを除く
-                    // rewardCnt--;
-                }
+                    // itemPerTbList.Remove(fixRwdList[i]); // テーブルからこのアイテムを除く
+                // }
             }
 
             //TODO RANDOM PERCENT ボーナス
             rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon], 1));
         }
-        else if(stage == Config.Stage.STG_GOBLIN_DUNGEON) { //|| stage == Config.GOBLIN_DUNGEON_STAGE + 1|| stage == Config.GOBLIN_DUNGEON_STAGE + 2 ) { //* 唯一にStageSelectedStageが＋して分けている（ゴブリン敵イメージを異なるため）
-            //* Difficultによる、リワードデータ
-            int exp = (diff == Enum.StageNum.Stage1_1)? 150 : (diff == Enum.StageNum.Stage1_2)? 350 : 700;
-            int coin = (diff == Enum.StageNum.Stage1_1)? 1000 : (diff == Enum.StageNum.Stage1_2)? 2500 : 5000;
-            int chestGoldQuantity = (diff == Enum.StageNum.Stage1_1)? 1 : (diff == Enum.StageNum.Stage1_2)? 2 : 3;
+        else if(stageIdx == Config.Stage.STG_GOBLIN_DUNGEON) { //|| stage == Config.GOBLIN_DUNGEON_STAGE + 1|| stage == Config.GOBLIN_DUNGEON_STAGE + 2 ) { //* 唯一にStageSelectedStageが＋して分けている（ゴブリン敵イメージを異なるため）
+            //* idxNumによる、リワードデータ
+            int exp = (idxNum == Enum.StageNum.Stage1_1)? 150 : (idxNum == Enum.StageNum.Stage1_2)? 350 : 700;
+            int coin = (idxNum == Enum.StageNum.Stage1_1)? 1000 : (idxNum == Enum.StageNum.Stage1_2)? 2500 : 5000;
+            int chestGoldQuantity = (idxNum == Enum.StageNum.Stage1_1)? 1 : (idxNum == Enum.StageNum.Stage1_2)? 2 : 3;
 
             //* Difficultによる、ゴブリンリワードデータ
             Etc.NoshowInvItem[] gblEasyRwdArr = {Etc.NoshowInvItem.Goblin0, Etc.NoshowInvItem.Goblin1, Etc.NoshowInvItem.Goblin2};
@@ -491,7 +441,7 @@ public class GM : MonoBehaviour {
             var goblinRwd = rand < 50? gblEasyRwdArr[0] : rand < 85? gblNormalRwdArr[1] : gblHardRwdArr[2];
             rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)goblinRwd], Random.Range(1, 4)));
         }
-        else if(stage == Config.Stage.STG_INFINITE_DUNGEON) {
+        else if(stageIdx == Config.Stage.STG_INFINITE_DUNGEON) {
             //* Reward
             int exp = WaveCnt;
             int fame = Mathf.FloorToInt(WaveCnt * 0.05f);

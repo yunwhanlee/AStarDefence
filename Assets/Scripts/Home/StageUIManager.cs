@@ -386,7 +386,7 @@ public class StageUIManager : MonoBehaviour {
         ClearRewardInfoStageNumTxt.text = $"{stageIdx + 1} - {idxNum + 1}";
         
         var rwDt = HM._.rwlm.RwdItemDt;
-        RewardContentSO stgClrRwDt = rwDt.Rwd_StageClearDts[stageIdx * 3 + idxNum];
+        RewardContentSO stgClrRwDt = rwDt.Rwd_StageClearDts[Config.Stage.GetCurStageDtIdx(stageIdx, idxNum)];
 
         //* 固定の４つリワードの数量 表示
         for(int i = 0; i < ClearRewardInfoCttQuantityTxts.Length; i++) {
@@ -419,7 +419,7 @@ public class StageUIManager : MonoBehaviour {
             if(orePer != 0) {
                 ClearRewardOreIconUIs[oreIconIdx++].SetUI(
                     rwDt.EtcNoShowInvDatas[i + OFFSET_OREIDX].ItemImg
-                    , rwDt.EtcNoShowInvDatas[i + OFFSET_OREIDX].Name.Split("광석")[0]
+                    , rwDt.EtcNoShowInvDatas[i + OFFSET_OREIDX].Name.Split("광석")[0] //* 名前短縮
                 );
             }
         }
