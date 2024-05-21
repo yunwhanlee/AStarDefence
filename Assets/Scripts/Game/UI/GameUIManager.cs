@@ -54,6 +54,7 @@ public class GameUIManager : MonoBehaviour {
     public GameObject GameoverPopUp;
     public TMP_Text GameoverExitBtnTxt;
     public Button Ads_ReviveBtn;
+    public Button RetryBtn;
 
     [Header("VICTORY POPUP")]
     public GameObject VictoryPopUp;
@@ -279,8 +280,10 @@ public class GameUIManager : MonoBehaviour {
         GameoverPopUp.SetActive(true);
 
         //* ゴブリンステージは復活できない
-        if(GM._.Stage == Config.Stage.STG_GOBLIN_DUNGEON)
+        if(GM._.Stage == Config.Stage.STG_GOBLIN_DUNGEON) {
             Ads_ReviveBtn.gameObject.SetActive(false);
+            RetryBtn.gameObject.SetActive(false);
+        }
         else if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON)
             GameoverExitBtnTxt.text = "보상받기";
         else
