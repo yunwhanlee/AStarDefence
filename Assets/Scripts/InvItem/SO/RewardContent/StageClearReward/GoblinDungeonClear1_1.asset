@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bfdc2e6cb60e644db583700af3f5a05, type: 3}
+  m_Name: GoblinDungeonClear1_1
+  m_EditorClassIdentifier: 
+  <Cnt>k__BackingField: 4
+  <ItemPerTb>k__BackingField:
+    <Exp>k__BackingField: -1
+    <Coin>k__BackingField: -1
+    <Diamond>k__BackingField: 0
+    <Equip>k__BackingField: 0
+    <Relic>k__BackingField: 0
+    <Goblin>k__BackingField: -1
+    <Ore>k__BackingField: 0
+    <GoldKey>k__BackingField: 0
+    <Clover>k__BackingField: 0
+    <GoldClover>k__BackingField: 0
+    <ConsumeItem>k__BackingField: 0
+    <SoulStone>k__BackingField: 0
+    <MagicStone>k__BackingField: 0
+    <Fame>k__BackingField: 0
+    <ChestCommon>k__BackingField: 0
+    <ChestDiamond>k__BackingField: 0
+    <ChestEquipment>k__BackingField: 0
+    <ChestGold>k__BackingField: -1
+    <ChestPremium>k__BackingField: 0
+  <ExpMin>k__BackingField: 40
+  <ExpMax>k__BackingField: 40
+  <CoinMin>k__BackingField: 1500
+  <CoinMax>k__BackingField: 1500
+  <DiamondMin>k__BackingField: 0
+  <DiamondMax>k__BackingField: 0
+  <GoblinMin>k__BackingField: 1
+  <GoblinMax>k__BackingField: 2
+  <OreMin>k__BackingField: 1
+  <OreMax>k__BackingField: 5
+  <GoldKeyMin>k__BackingField: 0
+  <GoldKeyMax>k__BackingField: 0
+  <ConsumeItemMin>k__BackingField: 0
+  <ConsumeItemMax>k__BackingField: 0
+  <SoulStoneMin>k__BackingField: 0
+  <SoulStoneMax>k__BackingField: 0
+  <MagicStoneMin>k__BackingField: 0
+  <MagicStoneMax>k__BackingField: 0
+  <ChestCommonMin>k__BackingField: 0
+  <ChestCommonMax>k__BackingField: 0
+  <ChestEquipmentMin>k__BackingField: 0
+  <ChestEquipmentMax>k__BackingField: 0
+  <ChestGoldMin>k__BackingField: 1
+  <ChestGoldMax>k__BackingField: 1
+  <FameMin>k__BackingField: 0
+  <FameMax>k__BackingField: 0
+  <RwdGradeTb>k__BackingField:
+    <EquipPerList>k__BackingField: 
+    <RelicPerList>k__BackingField: 
+    <GoblinPerList>k__BackingField: f40100005e0100009600000000000000000000000000000000000000
+    <OrePerList>k__BackingField: 

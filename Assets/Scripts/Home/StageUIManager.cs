@@ -351,6 +351,10 @@ public class StageUIManager : MonoBehaviour {
     /// <param name="idxNum">ステージINDEX 1-1, 1-2, 1-3</param>
     public void OnClickStageClearInfoIconBtn(int idxNum) {
         Debug.Log($"OnClickStageClearInfoIconBtn(SelectedStage= {HM._.SelectedStageIdx}):: idxNum= {idxNum}");
+        SM._.SfxPlay(SM.SFX.StageSelectSFX);
+        ClearRewardInfoPopUp.SetActive(true);
+        ClearRewardInfoBodyDOTAnim.DORestart();
+
         //* プレイボタンの活性化
         ClearRewardInfoPlayBtn.interactable = true;
         if((idxNum == 1 && Stage1_2LockedFrame.activeSelf)
@@ -365,10 +369,6 @@ public class StageUIManager : MonoBehaviour {
         DM._.SelectedStageNum = (idxNum == 0)? Enum.StageNum.Stage1_1
             : (idxNum == 1)? Enum.StageNum.Stage1_2
             : Enum.StageNum.Stage1_3;
-
-        SM._.SfxPlay(SM.SFX.StageSelectSFX);
-        ClearRewardInfoPopUp.SetActive(true);
-        ClearRewardInfoBodyDOTAnim.DORestart();
 
         //* UI色
         ClearRewardInfoTopImg.color = TopColors[idxNum];
@@ -388,24 +388,24 @@ public class StageUIManager : MonoBehaviour {
         var rwDt = HM._.rwlm.RwdItemDt;
         int stgDtIdx = Config.Stage.GetCurStageDtIdx(stageIdx, idxNum);
         Debug.Log($"OnClickStageClearInfoIconBtn():: StageDtIdx= {stgDtIdx}");
-        RewardContentSO stgClrRwDt = rwDt.Rwd_StageClearDts[stgDtIdx];
+        RewardContentSO stgClrRwdDt = rwDt.Rwd_StageClearDts[stgDtIdx];
 
         //* 固定の４つリワードの数量 表示
         for(int i = 0; i < ClearRewardInfoCttQuantityTxts.Length; i++) {
             if(i == 0)
-                ClearRewardInfoCttQuantityTxts[i].text = $"{stgClrRwDt.ExpMax}";
+                ClearRewardInfoCttQuantityTxts[i].text = $"{stgClrRwdDt.ExpMax}";
             else if(i == 1)
-                ClearRewardInfoCttQuantityTxts[i].text = $"{stgClrRwDt.CoinMax}";
+                ClearRewardInfoCttQuantityTxts[i].text = $"{stgClrRwdDt.CoinMax}";
             else if(i == 2)
-                ClearRewardInfoCttQuantityTxts[i].text = $"{stgClrRwDt.OreMin}~{stgClrRwDt.OreMax}";
+                ClearRewardInfoCttQuantityTxts[i].text = $"{stgClrRwdDt.OreMin}~{stgClrRwdDt.OreMax}";
             else if(i == 3)
-                ClearRewardInfoCttQuantityTxts[i].text = $"{stgClrRwDt.FameMax}";
+                ClearRewardInfoCttQuantityTxts[i].text = $"{stgClrRwdDt.FameMax}";
         }
     #region ORE ICON UI
         //* もらえる ORE UI
         const int MAX_ORE_ICON_CNT = 4;
         const int OFFSET_OREIDX = (int)Etc.NoshowInvItem.Ore0;
-        var orePercentList = stgClrRwDt.RwdGradeTb.OrePerList;
+        var orePercentList = stgClrRwdDt.RwdGradeTb.OrePerList;
 
         //* 初期化
         for(int i = 0; i < ClearRewardOreIconUIs.Length; i++)
@@ -435,7 +435,7 @@ public class StageUIManager : MonoBehaviour {
         const int PREMIUM_CHEST = (int)Etc.ConsumableItem.ChestPremium;
 
         //* ボーナスリワード数
-        int cnt = stgClrRwDt.Cnt - Config.Stage.CLEAR_REWARD_FIX_CNT;
+        int cnt = stgClrRwdDt.Cnt - Config.Stage.CLEAR_REWARD_FIX_CNT;
         ClearRewardInfoBonusRewardTitleCntTxt.text = $"보너스 보상 (랜덤 {cnt}종류)";
 
         //* 初期化
@@ -443,52 +443,59 @@ public class StageUIManager : MonoBehaviour {
             ClearRewardBonusItemIconUIs[i].Obj.SetActive(false);
 
         //* Bonus アイコン
-        RewardPercentTable tb = stgClrRwDt.ItemPerTb;
+        RewardPercentTable tb = stgClrRwdDt.ItemPerTb;
+        var consumeDts = rwDt.EtcConsumableDatas;
+        var noShowDts = rwDt.EtcNoShowInvDatas;
         int bonusIconIdx = 0;
-        if(tb.ChestCommon > 0) {
-            ClearRewardBonusItemIconUIs[bonusIconIdx++].SetUI(
-                rwDt.EtcConsumableDatas[CHEST_COMMON].ItemImg
-                , stgClrRwDt.GetChestCommonQuantityTxt()
-            );
-        }
-        if(tb.ConsumeItem > 0) {
-            ClearRewardBonusItemIconUIs[bonusIconIdx++].SetUI(
-                ConsumeItemsSpr
-                , stgClrRwDt.GetConsumeItemQuantityTxt()
-            );
-        }
-        if(tb.ChestEquipment > 0) {
-            ClearRewardBonusItemIconUIs[bonusIconIdx++].SetUI(
-                rwDt.EtcConsumableDatas[CHEST_EQUIP].ItemImg
-                , stgClrRwDt.GetChestEquipmentQuantityTxt()
-            );
-        }
-        if(tb.GoldKey > 0) {
-            ClearRewardBonusItemIconUIs[bonusIconIdx++].SetUI(
-                rwDt.EtcNoShowInvDatas[GOLDKEY].ItemImg
-                , stgClrRwDt.GetGoldKeyQuantityTxt()
-            );
-        }
-        if(tb.MagicStone > 0) {
-            ClearRewardBonusItemIconUIs[bonusIconIdx++].SetUI(
-                rwDt.EtcConsumableDatas[MAGIC_STONE].ItemImg
-                , stgClrRwDt.GetMagicStoneQuantityTxt()
-            );
-        }
-        if(tb.SoulStone > 0) {
-            ClearRewardBonusItemIconUIs[bonusIconIdx++].SetUI(
-                rwDt.EtcConsumableDatas[SOUL_STONE].ItemImg
-                , stgClrRwDt.GetSoulStoneQuantityTxt()
-            );
-        }
-        if(tb.ChestPremium > 0) {
-            ClearRewardBonusItemIconUIs[bonusIconIdx++].SetUI(
-                rwDt.EtcConsumableDatas[PREMIUM_CHEST].ItemImg
-                , $"{1}"
-            );
-        }
+
+        if(tb.ChestCommon > 0)
+            ClearRewardBonusItemIconUIs[bonusIconIdx++].SetUI(consumeDts[CHEST_COMMON].ItemImg, stgClrRwdDt.GetChestCommonQuantityTxt());
+        if(tb.ConsumeItem > 0)
+            ClearRewardBonusItemIconUIs[bonusIconIdx++].SetUI(ConsumeItemsSpr, stgClrRwdDt.GetConsumeItemQuantityTxt());
+        if(tb.ChestEquipment > 0)
+            ClearRewardBonusItemIconUIs[bonusIconIdx++].SetUI(consumeDts[CHEST_EQUIP].ItemImg, stgClrRwdDt.GetChestEquipmentQuantityTxt());
+        if(tb.GoldKey > 0)
+            ClearRewardBonusItemIconUIs[bonusIconIdx++].SetUI(noShowDts[GOLDKEY].ItemImg, stgClrRwdDt.GetGoldKeyQuantityTxt());
+        if(tb.MagicStone > 0)
+            ClearRewardBonusItemIconUIs[bonusIconIdx++].SetUI(consumeDts[MAGIC_STONE].ItemImg, stgClrRwdDt.GetMagicStoneQuantityTxt());
+        if(tb.SoulStone > 0)
+            ClearRewardBonusItemIconUIs[bonusIconIdx++].SetUI(consumeDts[SOUL_STONE].ItemImg, stgClrRwdDt.GetSoulStoneQuantityTxt());
+        if(tb.ChestPremium > 0)
+            ClearRewardBonusItemIconUIs[bonusIconIdx++].SetUI(consumeDts[PREMIUM_CHEST].ItemImg, "1");
     #endregion
     }
+
+    /// <summary>
+    /// ゴブリンダンジョンのクリアー情報POPUP 表示
+    /// </summary>
+    /// <param name="idxNum">ステージ EASY, NORMAL, HARD</param>
+    public void OnClickGoblinDungeonStageBtn(int idxNum) {
+        Debug.Log($"OnClickGoblinDungeonStageBtn(SelectedStage= {HM._.SelectedStageIdx}):: diffIdx= {idxNum}");
+        SM._.SfxPlay(SM.SFX.StageSelectSFX);
+        ClearRewardInfoPopUp.SetActive(true);
+        ClearRewardInfoBodyDOTAnim.DORestart();
+
+        //* ステージ
+        int stageIdx = HM._.SelectedStageIdx;
+        //* ステージ 難易度
+        DM._.SelectedStageNum = (idxNum == 0)? Enum.StageNum.Stage1_1
+            : (idxNum == 1)? Enum.StageNum.Stage1_2
+            : Enum.StageNum.Stage1_3;
+        
+        //* UI色
+        ClearRewardInfoTopImg.color = TopColors[idxNum];
+        ClearRewardInfoTopLabelOutsideImg.color = TopLabelOutsideColors[idxNum];
+        ClearRewardInfoTopLabelInsideImg.color = TopLabelInsideColors[idxNum];
+        ClearRewardInfoMiddleImg.color = MiddleColors[idxNum];
+        ClearRewardInfoBgImg.color = BgColors[idxNum];
+
+        ClearRewawrdInfoTitleTxt.text = "고블린던젼 클리어 보상";
+        ClearRewardInfoStageNumTxt.text = $"1 - {idxNum + 1}";
+
+        var rwDt = HM._.rwlm.RwdItemDt;
+        RewardContentSO gdClrRwdDt = HM._.rwlm.RwdItemDt.Rwd_GoblinDungeonClearDts[idxNum];
+    }
+
     public void OnClickStageClearInfoPopUpCloseBtn() {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         ClearRewardInfoPopUp.SetActive(false);

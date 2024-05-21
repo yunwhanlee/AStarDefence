@@ -115,6 +115,9 @@ public class RewardContentSO : ScriptableObject {
     [field: Header("Chest Equipment")]
     [field: SerializeField] public int ChestEquipmentMin {get; private set;}
     [field: SerializeField] public int ChestEquipmentMax {get; private set;}
+    [field: Header("Chest Gold")]
+    [field: SerializeField] public int ChestGoldMin {get; private set;}
+    [field: SerializeField] public int ChestGoldMax {get; private set;}
 
     [field: Header("Fame 範囲")]
     [field: SerializeField] public int FameMin {get; private set;}

@@ -383,7 +383,7 @@ public class GM : MonoBehaviour {
                 case Config.Stage.STG5_HELL:
                     UnLockStageDB(isLastStage: true);
                     break;
-        }
+            }
         }
     #endregion
     #region REWARD LIST
