@@ -46,7 +46,7 @@ public class HM : MonoBehaviour {
     //* Value
     public Color SkyBlueColor;
     public Color RedOrangeColor;
-    [field: SerializeField] public int SelectedStage {get; set;}
+    [field: SerializeField] public int SelectedStageIdx {get; set;}
     [field: SerializeField] public int CurDay {get; private set;}
 
     // [field: SerializeField] public int Lv {
@@ -144,7 +144,7 @@ public class HM : MonoBehaviour {
         frm = GameObject.Find("FameRewardUIManager").GetComponent<FameRewardUIManager>();
 
         //* 初期化
-        SelectedStage = 0;
+        SelectedStageIdx = 0;
         CurDay = DateTime.UtcNow.Day;
     }
 

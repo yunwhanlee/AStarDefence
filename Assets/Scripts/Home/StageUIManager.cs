@@ -63,9 +63,9 @@ public class StageUIManager : MonoBehaviour {
     [field:SerializeField] public Color[] BgColors;
     [field:SerializeField] public Sprite ConsumeItemsSpr;
 
-
     [field:SerializeField] public GameObject ClearRewardInfoPopUp;
     [field:SerializeField] public DOTweenAnimation ClearRewardInfoBodyDOTAnim;
+    [field:SerializeField] public Button ClearRewardInfoPlayBtn;
     [field:SerializeField] public Image ClearRewardInfoTopImg;
     [field:SerializeField] public Image ClearRewardInfoTopLabelOutsideImg;
     [field:SerializeField] public Image ClearRewardInfoTopLabelInsideImg;
@@ -73,6 +73,7 @@ public class StageUIManager : MonoBehaviour {
     [field:SerializeField] public Image ClearRewardInfoBgImg;
     [field:SerializeField] public TMP_Text ClearRewawrdInfoTitleTxt;
     [field:SerializeField] public TMP_Text ClearRewardInfoStageNumTxt;
+    [field:SerializeField] public TMP_Text ClearRewardInfoBonusRewardTitleCntTxt;
     [field:SerializeField] public TMP_Text[] ClearRewardInfoCttQuantityTxts;
     [field:SerializeField] public StageClearRewardItemUI[] ClearRewardOreIconUIs;
     [field:SerializeField] public StageClearRewardItemUI[] ClearRewardBonusItemIconUIs;
@@ -265,11 +266,14 @@ public class StageUIManager : MonoBehaviour {
     }
     public void OnClickNewStageAlertBtn() {
         Debug.Log($"OnClickNewStageAlertBtn():: NewStageAlertIdx= {StageAlertIdx}");
-        HM._.SelectedStage = StageAlertIdx;
+        HM._.SelectedStageIdx = StageAlertIdx;
         HM._.hui.OnClickPlayBtn();
     }
-    public void OnClickStartBtn() {
-        var selectStage = HM._.SelectedStage;
+    /// <summary>
+    /// ステージ選択
+    /// </summary>
+    public void OnClickSelectStageBtn() {
+        var selectStage = HM._.SelectedStageIdx;
 
         HM._.hui.IsActivePopUp = true;
         SM._.SfxPlay(SM.SFX.ClickSFX);
@@ -290,9 +294,11 @@ public class StageUIManager : MonoBehaviour {
 
         DM._.SelectedStage = selectStage;
     }
+    /// <summary>
+    /// 選んだステージをプレイ From StageClearInfoPopUp
+    /// </summary>
     public void OnClickPlayBtn() {
         SM._.SfxPlay(SM.SFX.StageSelectSFX);
-
         HM._.ivCtrl.CheckActiveClover();
 
         //* ホーム ➡ ゲームシーン移動の時、インベントリのデータを保存
@@ -309,19 +315,19 @@ public class StageUIManager : MonoBehaviour {
     public void OnClickArrowBtn(int dir) {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         var hm = HM._;
-        hm.SelectedStage += dir;
+        hm.SelectedStageIdx += dir;
 
         //* ページ Min & Max 繰り返す
-        if(hm.SelectedStage < 0) hm.SelectedStage = StagePopUps.Length - 1;
-        else if(hm.SelectedStage > StagePopUps.Length - 1) hm.SelectedStage = 0;
+        if(hm.SelectedStageIdx < 0) hm.SelectedStageIdx = StagePopUps.Length - 1;
+        else if(hm.SelectedStageIdx > StagePopUps.Length - 1) hm.SelectedStageIdx = 0;
 
         //* UI表示
         // 初期化(全て非表示)
         Array.ForEach(StagePopUps, popUp => popUp.SetActive(false)); 
         // 選択したステージ 表示
-        StagePopUps[hm.SelectedStage].SetActive(true);
+        StagePopUps[hm.SelectedStageIdx].SetActive(true);
         //　ロック状況 表示
-        WholeLockedFrame.SetActive(DM._.DB.StageLockedDBs[hm.SelectedStage].IsLockStage1_1);
+        WholeLockedFrame.SetActive(DM._.DB.StageLockedDBs[hm.SelectedStageIdx].IsLockStage1_1);
     }
     public void OnClickBackBtn() { //* 閉じるボタン(StageとGoblin Dungeon全て)
         HM._.hui.IsActivePopUp = false;
@@ -344,10 +350,16 @@ public class StageUIManager : MonoBehaviour {
     /// </summary>
     /// <param name="idxNum">ステージINDEX 1-1, 1-2, 1-3</param>
     public void OnClickStageClearInfoIconBtn(int idxNum) {
-    #region BONUS REWAWR ICON UI
-        Debug.Log($"OnClickStageClearInfoIconBtn(SelectedStage= {HM._.SelectedStage}):: idxNum= {idxNum}");
+        Debug.Log($"OnClickStageClearInfoIconBtn(SelectedStage= {HM._.SelectedStageIdx}):: idxNum= {idxNum}");
+        //* プレイボタンの活性化
+        ClearRewardInfoPlayBtn.interactable = true;
+        if((idxNum == 1 && Stage1_2LockedFrame.activeSelf)
+        || (idxNum == 2 && Stage1_3LockedFrame.activeSelf)) {
+            ClearRewardInfoPlayBtn.interactable = false;
+        }
+
         //* ステージ
-        int stageIdx = HM._.SelectedStage;
+        int stageIdx = HM._.SelectedStageIdx;
 
         //* ステージ 難易度
         DM._.SelectedStageNum = (idxNum == 0)? Enum.StageNum.Stage1_1
@@ -369,15 +381,14 @@ public class StageUIManager : MonoBehaviour {
             : (stageIdx == Config.Stage.STG2_DESERT)? "사막맵 클리어 보상"
             : (stageIdx == Config.Stage.STG3_SEA)? "바다맵 클리어 보상"
             : (stageIdx == Config.Stage.STG4_UNDEAD)? "언데드맵 클리어 보상"
-            : (stageIdx == Config.Stage.STG5_HELL)? "지옥맵 클리어 보상"
-            : "";
+            : (stageIdx == Config.Stage.STG5_HELL)? "지옥맵 클리어 보상" : "";
 
         ClearRewardInfoStageNumTxt.text = $"{stageIdx + 1} - {idxNum + 1}";
         
         var rwDt = HM._.rwlm.RwdItemDt;
         RewardContentSO stgClrRwDt = rwDt.Rwd_StageClearDts[stageIdx * 3 + idxNum];
 
-        //* リワード 数量UI表示
+        //* 固定の４つリワードの数量 表示
         for(int i = 0; i < ClearRewardInfoCttQuantityTxts.Length; i++) {
             if(i == 0)
                 ClearRewardInfoCttQuantityTxts[i].text = $"{stgClrRwDt.ExpMax}";
@@ -388,7 +399,7 @@ public class StageUIManager : MonoBehaviour {
             else if(i == 3)
                 ClearRewardInfoCttQuantityTxts[i].text = $"{stgClrRwDt.FameMax}";
         }
-
+    #region ORE ICON UI
         //* もらえる ORE UI
         const int MAX_ORE_ICON_CNT = 4;
         const int OFFSET_OREIDX = (int)Etc.NoshowInvItem.Ore0;
@@ -408,12 +419,11 @@ public class StageUIManager : MonoBehaviour {
             if(orePer != 0) {
                 ClearRewardOreIconUIs[oreIconIdx++].SetUI(
                     rwDt.EtcNoShowInvDatas[i + OFFSET_OREIDX].ItemImg
-                    , rwDt.EtcNoShowInvDatas[i + OFFSET_OREIDX].Name
+                    , rwDt.EtcNoShowInvDatas[i + OFFSET_OREIDX].Name.Split("광석")[0]
                 );
             }
         }
     #endregion
-
     #region BONUS REWAWR ICON UI
         const int CHEST_COMMON = (int)Etc.ConsumableItem.ChestCommon;
         const int CHEST_EQUIP = (int)Etc.ConsumableItem.ChestEquipment;
@@ -421,6 +431,13 @@ public class StageUIManager : MonoBehaviour {
         const int MAGIC_STONE = (int)Etc.ConsumableItem.MagicStone;
         const int SOUL_STONE = (int)Etc.ConsumableItem.SoulStone;
         const int PREMIUM_CHEST = (int)Etc.ConsumableItem.ChestPremium;
+
+        //* ボーナスリワード数
+        const int FIXED_RWDITEM_CNT = 4;
+        int cnt = stgClrRwDt.Cnt;
+        cnt -= FIXED_RWDITEM_CNT;
+
+        ClearRewardInfoBonusRewardTitleCntTxt.text = $"보너스 보상 (랜덤 {cnt}종류)";
 
         //* 初期化
         for(int i = 0; i < ClearRewardBonusItemIconUIs.Length; i++)
