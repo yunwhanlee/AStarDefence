@@ -405,7 +405,7 @@ public class GM : MonoBehaviour {
         || stageIdx == Config.Stage.STG4_UNDEAD
         || stageIdx == Config.Stage.STG5_HELL)
         {
-            RewardContentSO  stgClearDt = rwDt.Rwd_StageClearDts[Config.Stage.GetCurStageDtIdx(stageIdx, (int)idxNum)];
+            RewardContentSO stgClearDt = rwDt.Rwd_StageClearDts[Config.Stage.GetCurStageDtIdx(stageIdx, (int)idxNum)];
             var rwdTbList = rwDt.PrepareItemPerTable(stgClearDt);
             var fixRwdList = rwdTbList.FindAll(list => list.percent == FIXED_REWARD);
 
@@ -445,24 +445,36 @@ public class GM : MonoBehaviour {
             }
         }
         else if(stageIdx == Config.Stage.STG_GOBLIN_DUNGEON) { //|| stage == Config.GOBLIN_DUNGEON_STAGE + 1|| stage == Config.GOBLIN_DUNGEON_STAGE + 2 ) { //* 唯一にStageSelectedStageが＋して分けている（ゴブリン敵イメージを異なるため）
-            //* idxNumによる、リワードデータ
-            int exp = (idxNum == Enum.StageNum.Stage1_1)? 150 : (idxNum == Enum.StageNum.Stage1_2)? 350 : 700;
-            int coin = (idxNum == Enum.StageNum.Stage1_1)? 1000 : (idxNum == Enum.StageNum.Stage1_2)? 2500 : 5000;
-            int chestGoldQuantity = (idxNum == Enum.StageNum.Stage1_1)? 1 : (idxNum == Enum.StageNum.Stage1_2)? 2 : 3;
+            RewardContentSO stgClearDt = rwDt.Rwd_GoblinDungeonClearDts[(int)DM._.SelectedStageNum];
+            Debug.Log($"<color=yellow>Victory():: stgClearDt= {stgClearDt.name}</color>");
+            var rwdTbList = rwDt.PrepareItemPerTable(stgClearDt);
+            var fixRwdList = rwdTbList.FindAll(list => list.percent == FIXED_REWARD);
 
-            //* Difficultによる、ゴブリンリワードデータ
-            Etc.NoshowInvItem[] gblEasyRwdArr = {Etc.NoshowInvItem.Goblin0, Etc.NoshowInvItem.Goblin1, Etc.NoshowInvItem.Goblin2};
-            Etc.NoshowInvItem[] gblNormalRwdArr = {Etc.NoshowInvItem.Goblin2, Etc.NoshowInvItem.Goblin3, Etc.NoshowInvItem.Goblin4};
-            Etc.NoshowInvItem[] gblHardRwdArr = {Etc.NoshowInvItem.Goblin4, Etc.NoshowInvItem.Goblin5, Etc.NoshowInvItem.Goblin6};
+            // * 固定リワード
+            for (int i = 0; i < fixRwdList.Count; i++) {
+                var (item, per, quantity) = fixRwdList[i];
+                rewardList.Add(new RewardItem(item, quantity));
+                Debug.Log($"<color=yellow>Victory():: i({i}): fixItemTblist -> rewardList.Add( name= {item.Name}, per= {per}, quantity= {quantity})</color=yellow>");
+            }
 
-            rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], exp));
-            rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], coin));
-            rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGold], chestGoldQuantity));
+            // //* idxNumによる、リワードデータ
+            // int exp = (idxNum == Enum.StageNum.Stage1_1)? 150 : (idxNum == Enum.StageNum.Stage1_2)? 350 : 700;
+            // int coin = (idxNum == Enum.StageNum.Stage1_1)? 1000 : (idxNum == Enum.StageNum.Stage1_2)? 2500 : 5000;
+            // int chestGoldQuantity = (idxNum == Enum.StageNum.Stage1_1)? 1 : (idxNum == Enum.StageNum.Stage1_2)? 2 : 3;
 
-            //* Goblin Reward
-            int rand = Random.Range(0, 100);
-            var goblinRwd = rand < 50? gblEasyRwdArr[0] : rand < 85? gblNormalRwdArr[1] : gblHardRwdArr[2];
-            rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)goblinRwd], Random.Range(1, 4)));
+            // //* Difficultによる、ゴブリンリワードデータ
+            // Etc.NoshowInvItem[] gblEasyRwdArr = {Etc.NoshowInvItem.Goblin0, Etc.NoshowInvItem.Goblin1, Etc.NoshowInvItem.Goblin2};
+            // Etc.NoshowInvItem[] gblNormalRwdArr = {Etc.NoshowInvItem.Goblin2, Etc.NoshowInvItem.Goblin3, Etc.NoshowInvItem.Goblin4};
+            // Etc.NoshowInvItem[] gblHardRwdArr = {Etc.NoshowInvItem.Goblin4, Etc.NoshowInvItem.Goblin5, Etc.NoshowInvItem.Goblin6};
+
+            // rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], exp));
+            // rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], coin));
+            // rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGold], chestGoldQuantity));
+
+            // //* Goblin Reward
+            // int rand = Random.Range(0, 100);
+            // var goblinRwd = rand < 50? gblEasyRwdArr[0] : rand < 85? gblNormalRwdArr[1] : gblHardRwdArr[2];
+            // rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)goblinRwd], Random.Range(1, 4)));
         }
         else if(stageIdx == Config.Stage.STG_INFINITE_DUNGEON) {
             //* Reward
