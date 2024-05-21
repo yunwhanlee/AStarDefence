@@ -61,6 +61,8 @@ public static class Config {
     public const int LIGHTNINGSCROLL_STUN_SEC = 3;
 
     public class Stage {
+        public const int CLEAR_REWARD_FIX_CNT = 4;
+        const int STAGE_IDX_MAX = 3;
         public const int STG1_FOREST = 0,
             STG2_DESERT = 1,
             STG3_SEA = 2,
@@ -68,7 +70,6 @@ public static class Config {
             STG5_HELL = 4,
             STG_GOBLIN_DUNGEON = 5,
             STG_INFINITE_DUNGEON = 6;
-        const int STAGE_IDX_MAX = 3;
         public static int GetCurStageDtIdx(int stageIdx, int idxNum)
             => stageIdx * STAGE_IDX_MAX + idxNum;
     }

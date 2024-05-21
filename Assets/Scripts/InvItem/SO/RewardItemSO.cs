@@ -76,7 +76,7 @@ public class RewardItem {
 #region リワードアイテムのデータベース
 [CreateAssetMenu]
 public class RewardItemSO : ScriptableObject {
-    const int RAND_MAX = 1000;
+    public const int RAND_MAX = 1000;
 
     [field: Header("ItemSO LIST")]
     [field: SerializeField] public ItemSO[] EtcConsumableDatas {get; private set;}
@@ -124,7 +124,7 @@ public class RewardItemSO : ScriptableObject {
             (equipItem[equipGradeIdx], itemPerTb.Equip, 1),
             (RelicDatas[relicGradeIdx], itemPerTb.Relic, 1),
             (EtcNoShowInvDatas[goblinGradeIdx], itemPerTb.Goblin, 1),
-            (EtcNoShowInvDatas[oreGradeIdx], itemPerTb.Ore, rwdContentDt.GetRandomOre()),
+            (EtcNoShowInvDatas[oreGradeIdx], itemPerTb.Ore, rwdContentDt.GetRandomOreCnt()),
             (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], itemPerTb.GoldKey, rwdContentDt.GetRandomGoldKeyCnt()),
             (EtcConsumableDatas[(int)Etc.ConsumableItem.Clover], itemPerTb.Clover, 1),
             (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover], itemPerTb.GoldClover, 1),

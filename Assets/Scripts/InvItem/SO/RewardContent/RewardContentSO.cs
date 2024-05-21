@@ -138,17 +138,18 @@ public class RewardContentSO : ScriptableObject {
         return gradeIdx;
     }
     /// <summary>
-    /// ゴブリン・鉱石アイテムの確率テーブルから、ランダム選択処理のフォーマット
+    /// ゴブリン・鉱石の確率テーブルから、ランダム選択の結果を返す
     /// </summary>
     private Etc.NoshowInvItem GetMiningItemRandomGradePer(Etc.NoshowInvItem type, List<int> miningItemPerList) {
-        int rand = Random.Range(0, 1000);
+        int randPer = Random.Range(0, 1000);
         int idx = 0;
         foreach(int per in miningItemPerList) {
-            if(rand < per) {
+            Debug.Log($"GetMiningItemRandomGradeResult():: idx= {idx}, randPer({randPer}) < per({per}) -> {randPer < per}");
+            if(randPer < per) {
                 return (type == Etc.NoshowInvItem.Goblin)? Etc.GetGoblinInvItem(idx)
-                    : Etc.GetOreInvItem(idx); // (type == Etc.NoshowInvItem.Ore)?
+                    : Etc.GetOreInvItem(idx);
             }
-            rand -= per;
+            randPer -= per;
             idx++;
         }
         return 0;
@@ -171,7 +172,7 @@ public class RewardContentSO : ScriptableObject {
     public int GetRandomExp() => Mathf.RoundToInt(Random.Range(ExpMin, ExpMax + 1));
     public int GetRandomCoin() => Mathf.RoundToInt(Random.Range(CoinMin, CoinMax + 1) / 5) * 5; //* ５倍数
     public int GetRandomDiamond() => Mathf.RoundToInt(Random.Range(DiamondMin, DiamondMax + 1) / 5) * 5; //* ５倍数
-    public int GetRandomOre() => Mathf.RoundToInt(Random.Range(OreMin, OreMax + 1));
+    public int GetRandomOreCnt() => Mathf.RoundToInt(Random.Range(OreMin, OreMax + 1));
     public int GetRandomFame() => Random.Range(FameMin, FameMax + 1);
     public int GetRandomGoldKeyCnt() => Random.Range(GoldKeyMin, GoldKeyMax + 1);
     public int GetRandomConsumeItemCnt() => Random.Range(ConsumeItemMin, ConsumeItemMax + 1);

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bfdc2e6cb60e644db583700af3f5a05, type: 3}
   m_Name: StageClear4_3
   m_EditorClassIdentifier: 
-  <Cnt>k__BackingField: 6
+  <Cnt>k__BackingField: 7
   <ItemPerTb>k__BackingField:
     <Exp>k__BackingField: -1
     <Coin>k__BackingField: -1

@@ -406,20 +406,40 @@ public class GM : MonoBehaviour {
         || stageIdx == Config.Stage.STG4_UNDEAD
         || stageIdx == Config.Stage.STG5_HELL)
         {
-            var itemPerTbList = rwDt.PrepareItemPerTable(rwDt.Rwd_StageClearDts[Config.Stage.GetCurStageDtIdx(stageIdx, (int)idxNum)]);
-            var fixRwdList = itemPerTbList.FindAll(list => list.percent == FIXED_REWARD);
-            // * お先に固定アイテム項目
+            RewardContentSO  stgClearDt = rwDt.Rwd_StageClearDts[Config.Stage.GetCurStageDtIdx(stageIdx, (int)idxNum)];
+            var rwdTbList = rwDt.PrepareItemPerTable(stgClearDt);
+            var fixRwdList = rwdTbList.FindAll(list => list.percent == FIXED_REWARD);
+
+            // * お先に固定リワード
             for (int i = 0; i < fixRwdList.Count; i++) {
                 var (item, per, quantity) = fixRwdList[i];
-                // if (per == FIXED_REWARD) {
-                    rewardList.Add(new RewardItem(item, quantity));
-                    Debug.Log($"<color=yellow>Victory():: i({i}): fixItemTblist -> rewardList.Add( name= {item.Name}, per= {per}, quantity= {quantity})</color=yellow>");
-                    // itemPerTbList.Remove(fixRwdList[i]); // テーブルからこのアイテムを除く
-                // }
+                rewardList.Add(new RewardItem(item, quantity));
+                // Debug.Log($"<color=yellow>Victory():: i({i}): fixItemTblist -> rewardList.Add( name= {item.Name}, per= {per}, quantity= {quantity})</color=yellow>");
             }
 
-            //TODO RANDOM PERCENT ボーナス
-            rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon], 1));
+            //* ボーナスリワード
+            int bonusItemCnt = stgClearDt.Cnt - Config.Stage.CLEAR_REWARD_FIX_CNT;
+            var bonusRwdList = rwdTbList.FindAll(list => list.percent > 0);
+
+            //? ログ
+            for(int i = 0; i < bonusRwdList.Count; i++) {
+                Debug.Log($"Victory():: BonusRwdList[{i}].Name= {bonusRwdList[i].item.Name}, per= {bonusRwdList[i].percent}, quantity= {bonusRwdList[i].quantity}");
+            }
+
+            //* ボーナスカウントほど、ランダムでリワード追加
+            for(int i = 0; i < bonusItemCnt; i++) {
+                int randPer = Random.Range(0, 1000);
+                for (int j = 0; j < bonusRwdList.Count; j++) {
+                    var (item, per, quantity) = bonusRwdList[j];
+                    if(randPer < per) {
+                        rewardList.Add(new RewardItem(item, quantity));
+                        Debug.Log($"<color=yellow>Victory():: i= [{i}/{bonusItemCnt}]: randPer({randPer}) < per({per}):: BonusRwdList[{j}].Name= {item.Name} quantity= {quantity}</color>");
+                        bonusRwdList.RemoveAt(j);
+                        break;
+                    }
+                    randPer -= per;
+                }
+            }
         }
         else if(stageIdx == Config.Stage.STG_GOBLIN_DUNGEON) { //|| stage == Config.GOBLIN_DUNGEON_STAGE + 1|| stage == Config.GOBLIN_DUNGEON_STAGE + 2 ) { //* 唯一にStageSelectedStageが＋して分けている（ゴブリン敵イメージを異なるため）
             //* idxNumによる、リワードデータ

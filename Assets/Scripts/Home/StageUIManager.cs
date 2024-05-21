@@ -413,14 +413,14 @@ public class StageUIManager : MonoBehaviour {
         int oreIconIdx = 0;
         for(int i = 0; i < orePercentList.Count; i++) {
             // 用意したIcon数を超えたら、For文終了
-            if(oreIconIdx == MAX_ORE_ICON_CNT) return;
+            if(oreIconIdx == MAX_ORE_ICON_CNT)
+                return;
+
             // UI 設定
-            var orePer = orePercentList[i];
-            if(orePer != 0) {
-                ClearRewardOreIconUIs[oreIconIdx++].SetUI(
-                    rwDt.EtcNoShowInvDatas[i + OFFSET_OREIDX].ItemImg
-                    , rwDt.EtcNoShowInvDatas[i + OFFSET_OREIDX].Name.Split("광석")[0] //* 名前短縮
-                );
+            if(orePercentList[i] != 0) {
+                ItemSO oreDt = rwDt.EtcNoShowInvDatas[i + OFFSET_OREIDX];
+                string name = oreDt.Name.Split("광석")[0]; //* 名前短縮
+                ClearRewardOreIconUIs[oreIconIdx++].SetUI(oreDt.ItemImg, name);
             }
         }
     #endregion
@@ -433,10 +433,7 @@ public class StageUIManager : MonoBehaviour {
         const int PREMIUM_CHEST = (int)Etc.ConsumableItem.ChestPremium;
 
         //* ボーナスリワード数
-        const int FIXED_RWDITEM_CNT = 4;
-        int cnt = stgClrRwDt.Cnt;
-        cnt -= FIXED_RWDITEM_CNT;
-
+        int cnt = stgClrRwDt.Cnt - Config.Stage.CLEAR_REWARD_FIX_CNT;
         ClearRewardInfoBonusRewardTitleCntTxt.text = $"보너스 보상 (랜덤 {cnt}종류)";
 
         //* 初期化
