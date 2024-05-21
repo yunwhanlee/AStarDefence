@@ -39,6 +39,8 @@ MonoBehaviour:
   <CoinMax>k__BackingField: 500
   <DiamondMin>k__BackingField: 10
   <DiamondMax>k__BackingField: 20
+  <GoblinMin>k__BackingField: 1
+  <GoblinMax>k__BackingField: 2
   <OreMin>k__BackingField: 1
   <OreMax>k__BackingField: 1
   <GoldKeyMin>k__BackingField: 1

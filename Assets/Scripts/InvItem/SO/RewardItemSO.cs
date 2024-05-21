@@ -120,7 +120,7 @@ public class RewardItemSO : ScriptableObject {
             (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Fame], itemPerTb.Fame, rwdContentDt.GetRandomFame()),
             (equipItem[equipGradeIdx], itemPerTb.Equip, 1),
             (RelicDatas[relicGradeIdx], itemPerTb.Relic, 1),
-            (EtcNoShowInvDatas[goblinGradeIdx], itemPerTb.Goblin, 1),
+            (EtcNoShowInvDatas[goblinGradeIdx], itemPerTb.Goblin, rwdContentDt.GetRandomGoblinCnt()),
             (EtcNoShowInvDatas[oreGradeIdx], itemPerTb.Ore, rwdContentDt.GetRandomOreCnt()),
             (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], itemPerTb.GoldKey, rwdContentDt.GetRandomGoldKeyCnt()),
             (EtcConsumableDatas[(int)Etc.ConsumableItem.Clover], itemPerTb.Clover, 1),

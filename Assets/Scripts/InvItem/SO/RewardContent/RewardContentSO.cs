@@ -89,6 +89,10 @@ public class RewardContentSO : ScriptableObject {
     [field: SerializeField] public int DiamondMin {get; private set;}
     [field: SerializeField] public int DiamondMax {get; private set;}
 
+    [field: Header("ゴブリン 範囲")]
+    [field: SerializeField] public int GoblinMin {get; private set;}
+    [field: SerializeField] public int GoblinMax {get; private set;}
+
     [field: Header("Ore 範囲")]
     [field: SerializeField] public int OreMin {get; private set;}
     [field: SerializeField] public int OreMax {get; private set;}
@@ -172,6 +176,7 @@ public class RewardContentSO : ScriptableObject {
     public int GetRandomExp() => Mathf.RoundToInt(Random.Range(ExpMin, ExpMax + 1));
     public int GetRandomCoin() => Mathf.RoundToInt(Random.Range(CoinMin, CoinMax + 1) / 5) * 5; //* ５倍数
     public int GetRandomDiamond() => Mathf.RoundToInt(Random.Range(DiamondMin, DiamondMax + 1) / 5) * 5; //* ５倍数
+    public int GetRandomGoblinCnt() => Mathf.RoundToInt(Random.Range(GoblinMin, GoblinMax + 1));
     public int GetRandomOreCnt() => Mathf.RoundToInt(Random.Range(OreMin, OreMax + 1));
     public int GetRandomFame() => Random.Range(FameMin, FameMax + 1);
     public int GetRandomGoldKeyCnt() => Random.Range(GoldKeyMin, GoldKeyMax + 1);

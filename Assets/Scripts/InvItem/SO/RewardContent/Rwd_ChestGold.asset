@@ -39,15 +39,17 @@ MonoBehaviour:
   <CoinMax>k__BackingField: 1000
   <DiamondMin>k__BackingField: 20
   <DiamondMax>k__BackingField: 100
+  <GoblinMin>k__BackingField: 1
+  <GoblinMax>k__BackingField: 2
   <OreMin>k__BackingField: 1
   <OreMax>k__BackingField: 3
   <GoldKeyMin>k__BackingField: 1
   <GoldKeyMax>k__BackingField: 5
-  <ConsumeItemMin>k__BackingField: 0
-  <ConsumeItemMax>k__BackingField: 2
-  <SoulStoneMin>k__BackingField: 0
+  <ConsumeItemMin>k__BackingField: 1
+  <ConsumeItemMax>k__BackingField: 3
+  <SoulStoneMin>k__BackingField: 1
   <SoulStoneMax>k__BackingField: 1
-  <MagicStoneMin>k__BackingField: 0
+  <MagicStoneMin>k__BackingField: 1
   <MagicStoneMax>k__BackingField: 1
   <ChestCommonMin>k__BackingField: 0
   <ChestCommonMax>k__BackingField: 0
