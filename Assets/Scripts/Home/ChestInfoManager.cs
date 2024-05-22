@@ -43,19 +43,17 @@ public class ChestInfoManager : MonoBehaviour {
     #region FUNC
         private string SetCommonChest(RewardItemSO rwdDt) {
             string infoTemp = "";
-
-            NameTxt.text = Etc.GetChestName(Etc.ConsumableItem.ChestCommon);
+            NameTxt.text = $"{Etc.GetChestName(Etc.ConsumableItem.ChestCommon)} 2개";
             ChestImg.sprite = rwdDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon].ItemImg;
-            RewardContentSO chInfo = rwdDt.Rwd_ChestCommon;
-            infoTemp += $"<sprite name=Coin> {chInfo.CoinMin} ~ {chInfo.CoinMax}";
-            infoTemp += $"\n<sprite name=Random> x 1";
+            infoTemp += $"<sprite name=Random> x 2";
+            // RewardContentSO chInfo = rwdDt.Rwd_ChestCommon;
+            // infoTemp += $"<sprite name=Coin> {chInfo.CoinMin} ~ {chInfo.CoinMax}";
 
             return infoTemp;
         }
 
         private string SetEquipChest(RewardItemSO rwdDt, int cnt) {
             string infoTemp = "";
-
             NameTxt.text = Etc.GetChestName(Etc.ConsumableItem.ChestEquipment) + $" {cnt}개";
             ChestImg.sprite = rwdDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment].ItemImg;
             infoTemp += $"<sprite name=Equip> x {cnt}";
@@ -216,7 +214,7 @@ public class ChestInfoManager : MonoBehaviour {
                         //* Try Purchase
                         bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
                         if(!isSuccess) return;
-                        rwDt.OpenRewardContent(rwDt.Rwd_ChestEquipment, specifiedCnt: cnt);
+                        rwDt.OpenRewardContent(rwDt.Rwd_ChestEquipment, chestGatherOpenCnt: cnt);
                         HM._.Mileage += cnt;
                     };
                     break;

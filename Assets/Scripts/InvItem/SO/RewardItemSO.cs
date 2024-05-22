@@ -144,14 +144,16 @@ public class RewardItemSO : ScriptableObject {
         return itemPerTableList;
     }
 
+    /// 
     /// <summary>
     /// リワードChestとPresentを開く
     /// </summary>
-    public void OpenRewardContent(RewardContentSO rwdContentDt, int specifiedCnt = 0) {
+    /// <param name="rwdContentDt">リワードSOデータ</param>
+    /// <param name="chestGatherOpenCnt">箱を同時に開くカウント(ex. EQUIP CHSET 5個、10個、20個、40個...)</param>
+    public void OpenRewardContent(RewardContentSO rwdContentDt, int chestGatherOpenCnt = 0) {
         //* アイテム数 (指定したカウントがあれば、これにする)
-        int itemCnt = (specifiedCnt == 0)? rwdContentDt.Cnt : specifiedCnt; 
+        int itemCnt = (chestGatherOpenCnt == 0)? rwdContentDt.Cnt : chestGatherOpenCnt; 
         List<RewardItem> rewardList = new List<RewardItem>();
-
         Debug.Log($"OpenRewardContent():: rwdContentDt={rwdContentDt.name}, itemCnt= {itemCnt}");
 
         DM._.DB.DailyMissionDB.OpenAnyChestVal++;
@@ -191,14 +193,13 @@ public class RewardItemSO : ScriptableObject {
                     rewardList.Add(new RewardItem(item, quantity, relicAbilities));
 
                     //* 一般宝箱の開く処理
-                    if(specifiedCnt == 0) {
+                    if(chestGatherOpenCnt == 0) {
                         copyItemTableList.Remove((item, per, quantity));  //* 이미 선택된 아이템 제거
                         randMax -= per;
                     }
                     //* SHOPでEquipChestを購入の場合、複数を開けることの処理
                     else
                         copyItemTableList = PrepareItemPerTable(rwdContentDt);
-
                     break;
                 }
                 startRange = endRange;
@@ -209,7 +210,7 @@ public class RewardItemSO : ScriptableObject {
         HM._.rwlm.ShowReward(rewardList);
         // HM._.rwm.CoUpdateInventoryAsync(rewardList);
 
-        int decreaseCnt = (specifiedCnt == 0)? 1 : specifiedCnt;
+        int decreaseCnt = (chestGatherOpenCnt == 0)? 1 : chestGatherOpenCnt;
         HM._.ivCtrl.InventoryData.DecreaseItem(HM._.ivm.CurItemIdx, decVal: -decreaseCnt);
         HM._.rwlm.UpdateChestPopUpUI();
     }

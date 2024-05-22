@@ -206,12 +206,23 @@ public class HomeRewardListUIManager : MonoBehaviour {
         SetChestPopUpUI(type, quantity);
 
         var invItemList = HM._.ivCtrl.InventoryData.ItemList;
-        //* EquipChestで有れば、最大１２個まで一緒に開く
+        //* EquipChestで有れば、最大40個まで一緒に開く
         if(type == Etc.ConsumableItem.ChestEquipment) {
             //* 次の開くイベント登録
             OnClickOpenChest = () => RwdItemDt.OpenRewardContent(
                 chestDt, 
-                Mathf.Min(invItemList.Find(item => !item.IsEmpty && item.Data.name == $"{Etc.ConsumableItem.ChestEquipment}").Quantity, Config.MAX_REWARD_SLOT) //equipChestCnt
+                Mathf.Min(invItemList.Find(item => !item.IsEmpty &&
+                    item.Data.name == $"{Etc.ConsumableItem.ChestEquipment}").Quantity
+                    , Config.MAX_REWARD_SLOT) //equipChestCnt
+            );
+        }
+        else if(type == Etc.ConsumableItem.ChestCommon) {
+            //* 次の開くイベント登録
+            OnClickOpenChest = () => RwdItemDt.OpenRewardContent(
+                chestDt, 
+                Mathf.Min(invItemList.Find(item => !item.IsEmpty && 
+                    item.Data.name == $"{Etc.ConsumableItem.ChestCommon}").Quantity
+                    , Config.MAX_REWARD_SLOT) //equipChestCnt
             );
         }
         else {

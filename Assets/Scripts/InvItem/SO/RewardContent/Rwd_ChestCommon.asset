@@ -15,16 +15,16 @@ MonoBehaviour:
   <Cnt>k__BackingField: 2
   <ItemPerTb>k__BackingField:
     <Exp>k__BackingField: 0
-    <Coin>k__BackingField: -1
+    <Coin>k__BackingField: 225
     <Diamond>k__BackingField: 50
-    <Equip>k__BackingField: 400
+    <Equip>k__BackingField: 200
     <Relic>k__BackingField: 0
     <Goblin>k__BackingField: 50
     <Ore>k__BackingField: 50
     <GoldKey>k__BackingField: 100
     <Clover>k__BackingField: 80
     <GoldClover>k__BackingField: 20
-    <ConsumeItem>k__BackingField: 250
+    <ConsumeItem>k__BackingField: 225
     <SoulStone>k__BackingField: 0
     <MagicStone>k__BackingField: 0
     <Fame>k__BackingField: 0
@@ -36,9 +36,9 @@ MonoBehaviour:
   <ExpMin>k__BackingField: 0
   <ExpMax>k__BackingField: 0
   <CoinMin>k__BackingField: 50
-  <CoinMax>k__BackingField: 500
+  <CoinMax>k__BackingField: 750
   <DiamondMin>k__BackingField: 10
-  <DiamondMax>k__BackingField: 20
+  <DiamondMax>k__BackingField: 40
   <GoblinMin>k__BackingField: 1
   <GoblinMax>k__BackingField: 2
   <OreMin>k__BackingField: 1
@@ -46,7 +46,7 @@ MonoBehaviour:
   <GoldKeyMin>k__BackingField: 1
   <GoldKeyMax>k__BackingField: 1
   <ConsumeItemMin>k__BackingField: 1
-  <ConsumeItemMax>k__BackingField: 1
+  <ConsumeItemMax>k__BackingField: 2
   <SoulStoneMin>k__BackingField: 0
   <SoulStoneMax>k__BackingField: 0
   <MagicStoneMin>k__BackingField: 0
@@ -55,6 +55,8 @@ MonoBehaviour:
   <ChestCommonMax>k__BackingField: 0
   <ChestEquipmentMin>k__BackingField: 0
   <ChestEquipmentMax>k__BackingField: 0
+  <ChestGoldMin>k__BackingField: 0
+  <ChestGoldMax>k__BackingField: 0
   <FameMin>k__BackingField: 0
   <FameMax>k__BackingField: 0
   <RwdGradeTb>k__BackingField:
