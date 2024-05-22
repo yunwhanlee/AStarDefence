@@ -47,7 +47,7 @@ public class MiningCard {
     }
     public void Update() {
         Dim.SetActive(Cnt <= 0);
-        CntTxt.text = $"보유: {Cnt} / 5";
+        CntTxt.text = $"{Cnt} / 5";
         CntTxt.color = Cnt > 5? Color.green : Color.white;
     }
 }
