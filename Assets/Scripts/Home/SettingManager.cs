@@ -16,7 +16,7 @@ public class SettingManager : MonoBehaviour {
 
     void Start() {
         //* バージョン
-        VersionTxt.text = $"Ver{Application.version}.{PlayerSettings.Android.bundleVersionCode}";
+        VersionTxt.text = $"Ver{Version._.Major}.{Version._.Minor}.{Version._.Revision}";
         //* ボリュームUI
         BgmVolumeSlider.value = DM._.DB.SettingDB.BgmVolume;
         SfxVolumeSlider.value = DM._.DB.SettingDB.SfxVolume;
