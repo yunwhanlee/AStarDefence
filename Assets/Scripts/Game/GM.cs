@@ -209,6 +209,10 @@ public class GM : MonoBehaviour {
             gui.SetStartBtnUI(IsReady);
             pfm.PathFinding(true);
             esm.ShowNextEnemyStateUI();
+            if(CorReadyWaveID != null) {
+                StopCoroutine(CorReadyWaveID);
+                CorReadyWaveID = null;
+            }
             CorReadyWaveID = StartCoroutine(CoReadyWave());
         }
         else {
@@ -259,9 +263,14 @@ public class GM : MonoBehaviour {
     } 
 
     IEnumerator CoReadyWave() {
-        yield return Util.RealTime1;
+        WaitForSeconds waitForSec = (Time.timeScale == 1)? Util.Time1
+            :(Time.timeScale == 2)? Util.Time2
+            :(Time.timeScale == 3)? Util.Time3
+            : Util.Time1;
+
+        yield return waitForSec;
+        Debug.Log("CoReadyWave()::");
         IsReady = false;
-        CorReadyWaveID = null;
         gui.SetStartBtnUI(IsReady);
         esm.NextEnemyInfoPopUpUI.Obj.SetActive(false);
     }
