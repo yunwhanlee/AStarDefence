@@ -263,12 +263,7 @@ public class GM : MonoBehaviour {
     } 
 
     IEnumerator CoReadyWave() {
-        WaitForSeconds waitForSec = (Time.timeScale == 1)? Util.Time1
-            :(Time.timeScale == 2)? Util.Time2
-            :(Time.timeScale == 3)? Util.Time3
-            : Util.Time1;
-
-        yield return waitForSec;
+        yield return Util._.Get1SecByTimeScale();
         Debug.Log("CoReadyWave()::");
         IsReady = false;
         gui.SetStartBtnUI(IsReady);

@@ -138,7 +138,9 @@ public class PathFindManager : MonoBehaviour
                 FinalNodeList.Reverse();
 
                 // for (int i = 0; i < FinalNodeList.Count; i++) print(i + "번째는 " + FinalNodeList[i].x + ", " + FinalNodeList[i].y);
-                if(isShowPath) showPathIcons();
+                if(isShowPath)
+                    ShowPathIcons();
+
                 return true;
             }
 
@@ -205,15 +207,17 @@ public class PathFindManager : MonoBehaviour
             }
         }
 
-        yield return Util.RealTime1;
+        //* 経路表示アイコンを消す
+        yield return Util._.Get1SecByTimeScale();
         pathCntUI.SetActive(false);
         InitPathIconsPos();
     }
 
-    private void showPathIcons() {
+    private void ShowPathIcons() {
         Debug.Log("showPathIcons()::");
         if (FinalNodeList.Count >= 2) { // FinalNodeList에 최소 2개 이상의 요소가 있어야 함
-            if(corShowPathIconID != null) StopCoroutine(corShowPathIconID);
+            if(corShowPathIconID != null)
+                StopCoroutine(corShowPathIconID);
             corShowPathIconID = StartCoroutine(CoShowPathIconsPos());
         }
     }

@@ -146,6 +146,12 @@ public class Util : MonoBehaviour {
         AbilityType[] abilities = (AbilityType[])System.Enum.GetValues(typeof(AbilityType));
         // 3番INDEXから、最後までランダムで選択
         return abilities[Random.Range(3, abilities.Length)];
-        
+    }
+
+    public WaitForSeconds Get1SecByTimeScale() {
+        return (Time.timeScale == 1)? Time1
+            :(Time.timeScale == 2)? Time2
+            :(Time.timeScale == 3)? Time3
+            : Time1;
     }
 }
