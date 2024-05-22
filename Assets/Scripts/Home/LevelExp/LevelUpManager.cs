@@ -5,6 +5,7 @@ using Inventory.UI;
 using UnityEngine.UI;
 using TMPro;
 using Inventory.Model;
+using DG.Tweening;
 
 public class LevelUpManager : MonoBehaviour {
     [field: SerializeField] public int Lv {
@@ -13,6 +14,8 @@ public class LevelUpManager : MonoBehaviour {
             DM._.DB.StatusDB.Lv = value;
             HM._.hui.LvTxt.text = $"{value}";
             LevelMarkTxt.text = $"{value}";
+            string extraDmgTxt = $"<size=80%><color=#3cff00>+{Config.USER_LV_EXTRA_DMG_PER * 100}%</color></size>";
+            ExraDmgValTxt.text = $"{DM._.DB.StatusDB.GetUserLvExtraDmgPercent() * 100}% {extraDmgTxt}";
         } 
     }
     [field: SerializeField] public int Exp {
@@ -23,7 +26,12 @@ public class LevelUpManager : MonoBehaviour {
         get => ExpDt.Datas[Lv - 1].Max;
     }
     public GameObject WindowObj;
+    public TMP_Text LevelUpTitleTxt;
     public TMP_Text LevelMarkTxt;
+    public TMP_Text ExraDmgValTxt;
+    public DOTweenAnimation ArrowUpDOTAnim;
+    public GameObject ContentGroupObj;
+    public GameObject UIEFGroupObj;
     public Transform Content;
     public bool IsFinishSlotsSpawn = false;
 
@@ -36,7 +44,11 @@ public class LevelUpManager : MonoBehaviour {
         yield return Util.Time0_1;
         UpdateData(Exp);
         CheckLevelUp();
+
+        //* UI 初期化
         HM._.hui.LvTxt.text = $"{Lv}";
+        LevelMarkTxt.text = $"{Lv}";
+        ExraDmgValTxt.text = $"{DM._.DB.StatusDB.GetUserLvExtraDmgPercent() * 100}%";
     }
 
     void Update() {
@@ -47,6 +59,15 @@ public class LevelUpManager : MonoBehaviour {
     }
 
 #region EVENT
+    public void OnClickLevelUpIconAtHome() {
+        SM._.SfxPlay(SM.SFX.StageSelectSFX);
+        WindowObj.SetActive(true);
+        LevelUpTitleTxt.text = "레벨";
+        ExraDmgValTxt.text = $"{DM._.DB.StatusDB.GetUserLvExtraDmgPercent() * 100}%";
+        UIEFGroupObj.SetActive(false);
+        ContentGroupObj.SetActive(false);
+        ArrowUpDOTAnim.gameObject.SetActive(false);
+    }
     public void OnClickCloseLevelUpPopUp() {
         Debug.Log("OnClickCloseLevelUpPopUp()::");
         //* リワードスロットのアニメーションが全部終わるまで待つ
@@ -71,6 +92,11 @@ public class LevelUpManager : MonoBehaviour {
         RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
 
         SM._.SfxPlay(SM.SFX.LevelUpSFX);
+        LevelUpTitleTxt.text = "레벨 UP!";
+        UIEFGroupObj.SetActive(true);
+        ContentGroupObj.SetActive(true);
+        ArrowUpDOTAnim.gameObject.SetActive(true);
+
         Lv++;
 
         var rewardList = new List<RewardItem> {

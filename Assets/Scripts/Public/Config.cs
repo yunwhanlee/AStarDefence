@@ -60,6 +60,8 @@ public static class Config {
     public const int BLIZZARDSCROLL_SLOW_SEC = 5;
     public const int LIGHTNINGSCROLL_STUN_SEC = 3;
 
+    public const float USER_LV_EXTRA_DMG_PER = 0.04f;
+
     public class Stage {
         public const int CLEAR_REWARD_FIX_CNT = 4;
         const int STAGE_IDX_MAX = 3;

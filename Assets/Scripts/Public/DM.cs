@@ -33,6 +33,9 @@ public class StatusDB {
         Fame = 0;
         Mileage = 0;
     }
+
+    public float GetUserLvExtraDmgPercent()
+        => Config.USER_LV_EXTRA_DMG_PER * (Lv - 1);
 }
 
 /// <summary>
@@ -330,7 +333,6 @@ public class TutorialDB {
 [Serializable]
 public class InfiniteUpgradeDB {
     [field:SerializeField] public int MyBestWaveScore {get; set;}
-
     public const float DmgUpgUnit = 0.05f;
     [field:SerializeField] public int DmgUpgLv {get; set;}
     public const float CritDmgUpgUnit = 0.1f;

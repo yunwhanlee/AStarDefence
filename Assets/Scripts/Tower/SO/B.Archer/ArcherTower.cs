@@ -40,6 +40,9 @@ public class ArcherTower : Tower {
         extraPer += DM._.DB.EquipDB.AttackPer;
         extraPer += DM._.DB.EquipDB.ArcherAttackPer;
 
+        //* ユーザLVの追加ダメージ
+        extraPer += DM._.DB.StatusDB.GetUserLvExtraDmgPercent();
+
         //* Infinite強化ダメージ
         extraPer += DM._.DB.InfiniteUpgradeDB.GetExtraDmgPercent();
 

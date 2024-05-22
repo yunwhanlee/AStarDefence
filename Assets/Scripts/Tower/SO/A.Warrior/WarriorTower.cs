@@ -57,6 +57,9 @@ public class WarriorTower : Tower {
         extraPer += DM._.DB.EquipDB.AttackPer;
         extraPer += DM._.DB.EquipDB.WarriorAttackPer;
 
+        //* ユーザLVの追加ダメージ
+        extraPer += DM._.DB.StatusDB.GetUserLvExtraDmgPercent();
+
         //* Infinite強化ダメージ
         extraPer += DM._.DB.InfiniteUpgradeDB.GetExtraDmgPercent();
 

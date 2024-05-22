@@ -47,13 +47,15 @@ public abstract class Tower : MonoBehaviour {
     public Dictionary<string, int> ExtraDmgDic = new Dictionary<string, int>();
     public virtual int Dmg {
         get {
-            //* SkillTree 追加タメージ
+            int extraDmg = 0;
+
+            //* 追加タメージ設定
             SetExtraDmgDic();
 
             //* 追加ダメージ 
-            int extraDmg = 0;
             foreach(var dic in ExtraDmgDic)
                 extraDmg += dic.Value;
+
             //* 合計
             return TowerData.Dmg + extraDmg;
         }
@@ -63,11 +65,12 @@ public abstract class Tower : MonoBehaviour {
     public Dictionary<string, float> ExtraSpdDic = new Dictionary<string, float>();
     public float AtkSpeed {
         get {
-            //* SkillTree 追加速度
+            float extraSpd = 0;
+
+            //* 追加速度設定
             SetExtraSpdDic();
 
             //* 追加速度
-            float extraSpd = 0;
             foreach(var dic in ExtraSpdDic)
                 extraSpd += dic.Value;
             //* 合計
@@ -79,11 +82,12 @@ public abstract class Tower : MonoBehaviour {
     public Dictionary<string, float> ExtraRangeDic = new Dictionary<string, float>();
     [field:Range(0, 10)] public float AtkRange {
         get {
-            //* SkillTree 追加範囲
+            float extraRange = 0;
+
+            //* 追加範囲設定
             SetExtraRangeDic();
 
             //* 追加範囲
-            float extraRange = 0;
             foreach(var dic in ExtraRangeDic)
                 extraRange += dic.Value;
             //* 合計
@@ -95,11 +99,12 @@ public abstract class Tower : MonoBehaviour {
     public Dictionary<string, float> ExtraCritDic = new Dictionary<string, float>();
     public float CritPer {
         get {
-            //* SkillTree 追加クリティカル
+            float extraCrit = 0;
+
+            //* 追加クリティカル設定
             SetExtraCritDic();
 
             //* 追加クリティカル
-            float extraCrit = 0;
             foreach(var dic in ExtraCritDic)
                 extraCrit += dic.Value;
             //* 合計
@@ -111,11 +116,12 @@ public abstract class Tower : MonoBehaviour {
     public Dictionary<string, float> ExtraCritDmgDic = new Dictionary<string, float>();
     public float CritDmgPer {
         get {
-            //* SkillTree 追加クリティカルダメージ
+            float extraCritDmgPer = 0;
+
+            //* 追加クリティカルダメージ設定
             SetExtraCritDmgDic();
 
             //* 追加クリティカルダメージ
-            float extraCritDmgPer = 0;
             foreach(var dic in ExtraCritDmgDic)
                 extraCritDmgPer += dic.Value;
             //* 合計
