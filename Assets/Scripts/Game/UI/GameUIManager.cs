@@ -171,8 +171,9 @@ public class GameUIManager : MonoBehaviour {
             return;
         }
 
-        PausePopUp.SetActive(false);
-        AgainAskPopUp.SetActive(true);
+        GoHome();
+        // PausePopUp.SetActive(false);
+        // AgainAskPopUp.SetActive(true);
     }
 
     //* AGAIN ASK
@@ -223,11 +224,6 @@ public class GameUIManager : MonoBehaviour {
 
     //* VICTORY
     public void OnClickVictoryPopUpConfirmBtn() => GoHome();
-
-    public void OnClickAdsClaimX2Btn() {
-        //TODO Request ClaimX2 Reward Ads
-        Debug.Log("CLAIM X2 Ads");
-    }
     #endregion
 
     #region UPGRADE TOWER CARDS

@@ -147,19 +147,17 @@ public abstract class Tower : MonoBehaviour {
         if(GM._.State == GameState.Victory) return;
         if(GM._.State == GameState.Gameover) return;
 
-        else if(GM._.State == GameState.Play) {
-            if(trc.CurTarget && CorAttack == null) {
-                var enemy = trc.CurTarget.GetComponent<Enemy>();
-                Debug.Log($"ATTACK START! enemy.Hp= {enemy.Hp}");
-                CorAttack = StartCoroutine(CoAttack());
-            }
-            //TODO ステージ終わったら、STOP処理
-            // else {
-            //     StopCoroutine(CorAttack);
-            //     CorAttack = null;
-            //     Debug.Log("STOP!");
-            // }
+        if(trc.CurTarget && CorAttack == null) {
+            var enemy = trc.CurTarget.GetComponent<Enemy>();
+            Debug.Log($"ATTACK START! enemy.Hp= {enemy.Hp}");
+            CorAttack = StartCoroutine(CoAttack());
         }
+        //TODO ステージ終わったら、STOP処理
+        // else {
+        //     StopCoroutine(CorAttack);
+        //     CorAttack = null;
+        //     Debug.Log("STOP!");
+        // }
     }
 
 #region ABSTRACT FUNC
@@ -290,8 +288,11 @@ public abstract class Tower : MonoBehaviour {
     /// </summary>
     private IEnumerator CoAttack() {
         while(true) {
-            if(GM._.State == GameState.Victory || GM._.State == GameState.Gameover)
-                yield break;
+            if(GM._.State == GameState.Victory || GM._.State == GameState.Gameover){
+                StopCoroutine(CorAttack);
+                CorAttack = null;
+                break;
+            }
 
             if(trc.CurTarget == null) {
                 Debug.Log("アタック終了");
