@@ -72,7 +72,7 @@ public class HomeUIManager : MonoBehaviour {
 #region EVENT
     public void OnClickSpeedUpAdBtnOff() {
         SM._.SfxPlay(SM.SFX.ClickSFX);
-        ShowAgainAskMsg("광고를 시청하고 게임배속 2.5배를 추가하시겠습니까?\n<color=green>(원래 1배, 2배속만 가능)</color>");
+        ShowAgainAskMsg("광고를 시청하고 게임배속 3배를 추가하시겠습니까?\n<color=green>(원래 1배, 2배속만 가능)</color>");
         OnClickAskConfirmAction = () => {
             AdmobManager._.ProcessRewardAd(() => {
                 SM._.SfxPlay(SM.SFX.CompleteSFX);
