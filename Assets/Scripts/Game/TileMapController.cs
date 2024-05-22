@@ -67,6 +67,7 @@ public class TileMapController : MonoBehaviour {
         // #endif
 
         if(GM._.State == GameState.Pause) return;
+        if(GM._.State == GameState.Victory) return;
         if(GM._.State == GameState.Gameover) return;
 
         SM._.SfxPlay(SM.SFX.ClickSFX);

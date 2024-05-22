@@ -144,6 +144,7 @@ public abstract class Tower : MonoBehaviour {
     void Update() {
         if(GM._.State == GameState.Pause) return;
         if(GM._.State == GameState.Ready) return;
+        if(GM._.State == GameState.Victory) return;
         if(GM._.State == GameState.Gameover) return;
 
         else if(GM._.State == GameState.Play) {
@@ -289,7 +290,7 @@ public abstract class Tower : MonoBehaviour {
     /// </summary>
     private IEnumerator CoAttack() {
         while(true) {
-            if(GM._.State == GameState.Gameover)
+            if(GM._.State == GameState.Victory || GM._.State == GameState.Gameover)
                 yield break;
 
             if(trc.CurTarget == null) {

@@ -26,7 +26,7 @@ public class StageData {
     [field: SerializeField] public SettingEnemyData[] EnemyDatas {get; set;}
 }
 
-public enum GameState {Ready, Play, Pause, Gameover};
+public enum GameState {Ready, Play, Pause, Gameover, Victory};
 
 public class GM : MonoBehaviour {
     Coroutine CorReadyWaveID;
@@ -246,8 +246,8 @@ public class GM : MonoBehaviour {
             // rwlm.ShowReward(VictoryRwdList);
             StartCoroutine(HM._.rwm.CoUpdateInventoryAsync(VictoryRwdList));
 
-            for(int i = 0 ; i < rwlm.Content.childCount; i++) {
-                InventoryUIItem rwdItemUI = rwlm.Content.GetChild(i).GetComponent<InventoryUIItem>();
+            for(int i = 0 ; i < rwlm.VictoryContent.childCount; i++) {
+                InventoryUIItem rwdItemUI = rwlm.VictoryContent.GetChild(i).GetComponent<InventoryUIItem>();
                 rwdItemUI.DoubleRewardLabel.SetActive(true);
             }
         });
@@ -354,7 +354,7 @@ public class GM : MonoBehaviour {
     public void Victory() {
         // gui.Pause();
         Time.timeScale = 1;
-        State = GameState.Pause;
+        State = GameState.Victory;
 
         SM._.SfxPlay(SM.SFX.CompleteSFX);
         gui.VictoryPopUp.SetActive(true);
@@ -431,7 +431,7 @@ public class GM : MonoBehaviour {
 
             int randMax = stgClearDt.ItemPerTb.GetTotal();
 
-            //* ボーナスカウントほど、ランダムでリワード追加
+            //* ボーナスのカウントほど、ランダムでリワード追加
             for(int i = 0; i < bonusItemCnt; i++) {
                 int rand = Random.Range(0, randMax);
                 int startRange = 0;
@@ -461,6 +461,7 @@ public class GM : MonoBehaviour {
                 Debug.Log($"<color=yellow>Victory():: i({i}): fixItemTblist -> rewardList.Add( name= {item.Name}, per= {per}, quantity= {quantity})</color=yellow>");
             }
 
+            /*
             // //* idxNumによる、リワードデータ
             // int exp = (idxNum == Enum.StageNum.Stage1_1)? 150 : (idxNum == Enum.StageNum.Stage1_2)? 350 : 700;
             // int coin = (idxNum == Enum.StageNum.Stage1_1)? 1000 : (idxNum == Enum.StageNum.Stage1_2)? 2500 : 5000;
@@ -479,6 +480,7 @@ public class GM : MonoBehaviour {
             // int rand = Random.Range(0, 100);
             // var goblinRwd = rand < 50? gblEasyRwdArr[0] : rand < 85? gblNormalRwdArr[1] : gblHardRwdArr[2];
             // rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)goblinRwd], Random.Range(1, 4)));
+            */
         }
         else if(stageIdx == Config.Stage.STG_INFINITE_DUNGEON) {
             //* Reward
@@ -524,6 +526,59 @@ public class GM : MonoBehaviour {
         StartCoroutine(HM._.rwm.CoUpdateInventoryAsync(rewardList));
     }
 
+    public void Gameover() {
+        const int FIXED_REWARD = -1;
+        Time.timeScale = 1;
+        State = GameState.Gameover;
+
+        SM._.SfxPlay(SM.SFX.GameoverSFX);
+        gui.GameoverPopUp.SetActive(true);
+
+        //* ゴブリンダンジョン
+        if(Stage == Config.Stage.STG_GOBLIN_DUNGEON) {
+            // ステージは復活できない
+            gui.Ads_ReviveBtn.gameObject.SetActive(false);
+            gui.RetryBtn.gameObject.SetActive(false);
+        }
+        //* 無限ダンジョン
+        else if(Stage == Config.Stage.STG_INFINITE_DUNGEON)
+            gui.GameoverExitBtnTxt.text = "보상받기";
+        //* 一般ステージ
+        else {
+            int stageIdx = DM._.SelectedStage;
+            RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
+            Enum.StageNum idxNum = DM._.SelectedStageNum;
+
+            RewardContentSO stgClearDt = rwDt.Rwd_StageClearDts[Config.Stage.GetCurStageDtIdx(stageIdx, (int)idxNum)];
+            var rwdTbList = rwDt.PrepareItemPerTable(stgClearDt);
+            var fixRwdList = rwdTbList.FindAll(list => list.percent == FIXED_REWARD);
+            var goodsList = fixRwdList.FindAll(list => list.item.name == $"{Etc.NoshowInvItem.Coin}" || list.item.name == $"{Etc.NoshowInvItem.Exp}");
+            var rewardList = new List<RewardItem>();
+
+            gui.Ads_ReviveBtn.gameObject.SetActive(!IsRevived);
+
+            //* 進んだステージによる結果％
+            float rewardPercent = (WaveCnt < 7)? 0
+                : (WaveCnt < MaxWave * 0.25f)? 0.1f
+                : (WaveCnt < MaxWave / 0.333f)? 0.15f
+                : (WaveCnt < MaxWave / 0.5f)? 0.225f
+                : (WaveCnt < MaxWave * 0.75f)? 0.3f
+                : (WaveCnt < MaxWave * 0.875f)? 0.35f
+                : 0.4f;
+
+            // * 固定リワード 追加
+            for (int i = 0; i < goodsList.Count; i++) {
+                var (item, per, quantity) = goodsList[i];
+                rewardList.Add(new RewardItem(item, Mathf.RoundToInt(quantity * rewardPercent)));
+                Debug.Log($"<color=red>Gameover():: i({i}): fixItemTblist -> rewardList.Add( name= {item.Name}, per= {per}, quantity= {quantity})</color=red>");
+            }
+
+            //* リワード結果 表示
+            rwlm.ShowReward(rewardList);
+            StartCoroutine(HM._.rwm.CoUpdateInventoryAsync(rewardList));
+        }
+    }
+
     /// <summary>
     /// ライフ減る
     /// </summary>
@@ -541,7 +596,7 @@ public class GM : MonoBehaviour {
 
         //* ゲームオーバ
         if(life <= 0) {
-            gui.Gameover();
+            Gameover();
         }
     }
     public void SetMoney(int value) {

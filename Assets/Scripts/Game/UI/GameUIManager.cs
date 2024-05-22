@@ -272,27 +272,6 @@ public class GameUIManager : MonoBehaviour {
         Time.timeScale = previousTimeScale;
         GM._.State = previousState;
     }
-    public void Gameover() {
-        // GM._.Life = 0;
-        // Time.timeScale = 0;
-        Time.timeScale = 1;
-        GM._.State = GameState.Gameover;
-
-        SM._.SfxPlay(SM.SFX.GameoverSFX);
-        GameoverPopUp.SetActive(true);
-
-        //* ゴブリンステージは復活できない
-        if(GM._.Stage == Config.Stage.STG_GOBLIN_DUNGEON) {
-            Ads_ReviveBtn.gameObject.SetActive(false);
-            RetryBtn.gameObject.SetActive(false);
-        }
-        else if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON)
-            GameoverExitBtnTxt.text = "보상받기";
-        else
-            Ads_ReviveBtn.gameObject.SetActive(!GM._.IsRevived);
-
-
-    }
     private void GoHome() {
         Time.timeScale = 1;
         DM._.Save(); //* Victoryでもらったリワードを保存 (ホームに戻ったら、データをロードするから、この前にリワードと変わったデータを保存する必要がある)

@@ -9,7 +9,9 @@ using Inventory.UI;
 public class GameRewardListUIManager : MonoBehaviour {
     [Header("REWARD LIST POPUP")]
     public GameObject VictoryPopUpObj;
-    public Transform Content;
+    public Transform VictoryContent;
+    public Transform GameoverContent;
+
     public bool IsFinishSlotsSpawn = false;
 
     [Header("REWARD DATA")]
@@ -18,7 +20,9 @@ public class GameRewardListUIManager : MonoBehaviour {
 
 #region FUNC
     private void DeleteAll() {
-        foreach (Transform child in Content)
+        Transform contentTf = (GM._.State == GameState.Victory)? VictoryContent
+            : GameoverContent;
+        foreach (Transform child in contentTf)
             Destroy(child.gameObject);
     }
 
@@ -36,11 +40,14 @@ public class GameRewardListUIManager : MonoBehaviour {
     /// リワードリスト表示
     /// </summary>
     private void DisplayRewardList(List<RewardItem> rewardList) {
+        Transform contentTf = (GM._.State == GameState.Victory)? VictoryContent
+            : GameoverContent;
+
         StartCoroutine(CoPlayRewardSlotSpawnSFX(rewardList.Count));
         //* リワードリストへオブジェクト生成・追加
         for(int i = 0; i < rewardList.Count; i++) {
             RewardItem rwdItem = rewardList[i];
-            InventoryUIItem rwdItemUI = Instantiate(rwdItemPf.gameObject, Content).GetComponent<InventoryUIItem>();
+            InventoryUIItem rwdItemUI = Instantiate(rwdItemPf.gameObject, contentTf).GetComponent<InventoryUIItem>();
             rwdItemUI.SetUI(rwdItem.Data.Type, rwdItem.Data.Grade, rwdItem.Data.ItemImg, rwdItem.Quantity, lv: 1);
             if(rwdItem.Data.name.Contains("Chest"))
                 rwdItemUI.BonusRewardLabel.SetActive(true);
@@ -53,7 +60,6 @@ public class GameRewardListUIManager : MonoBehaviour {
         }
     }
     public void ShowReward(List<RewardItem> itemList) {
-        VictoryPopUpObj.SetActive(true);
         DeleteAll();
         DisplayRewardList(itemList);
     }
