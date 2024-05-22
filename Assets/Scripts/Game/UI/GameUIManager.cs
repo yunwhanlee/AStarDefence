@@ -126,12 +126,14 @@ public class GameUIManager : MonoBehaviour {
 
     public void OnClickPlaySpeedBtn() {
         Debug.Log($"OnClickPlaySpeedBtn()::");
-        SM._.SfxPlay(SM.SFX.ClickSFX);
         const int OFF = 0, ON = 1;
+        SM._.SfxPlay(SM.SFX.ClickSFX);
         var time = Time.timeScale;
+        //* タイム速度
         Time.timeScale = (time == 1)? 2
-            : (time == 2 && DM._.IsActiveSpeedUp)? 2.5f
+            :(time == 2 && DM._.IsActiveSpeedUp)? 3
             : 1;
+        //* UI
         playSpeedBtnImg.sprite = (Time.timeScale == 1)? playSpeedBtnSprs[OFF] : playSpeedBtnSprs[ON];
         playSpeedBtnTxt.text = $"X{Time.timeScale}";
     }
