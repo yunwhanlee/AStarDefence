@@ -409,6 +409,7 @@ public class DB {
     [field:SerializeField] public bool IsRemoveAd {get; set;}
     [field:SerializeField] public bool IsCloverActive {get; set;}
     [field:SerializeField] public bool IsGoldCloverActive {get; set;}
+    [field:SerializeField] public bool IsThanksForPlaying {get; set;}
     [field:SerializeField] public long LastDateTicks {get; set;}
     [field:SerializeField] public int LuckySpinFreeAdCnt {get; set;}
     [field:SerializeField] public int GoldkeyFreeAdCnt {get; set;}
@@ -661,6 +662,7 @@ public class DM : MonoBehaviour {
         DB.IsRemoveAd = false;
         DB.IsCloverActive = false;
         DB.IsGoldCloverActive = false;
+        DB.IsThanksForPlaying = false;
         DB.LuckySpinFreeAdCnt = Config.LUCKYSPIN_FREE_AD_CNT;
         DB.GoldkeyFreeAdCnt = Config.GOLDKEY_FREE_AD_CNT;
         DB.MiningFreeAdCnt = Config.MINING_FREE_AD_CNT;

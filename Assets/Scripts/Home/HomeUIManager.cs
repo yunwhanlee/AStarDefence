@@ -47,6 +47,9 @@ public class HomeUIManager : MonoBehaviour {
     public GameObject AgainAskPopUp;
     public TextMeshProUGUI AgainAskMsgTxt;
 
+    [Header("THANKS FOR PLAYING POPUP")]
+    public GameObject ThanksForPlayingPopUp;
+
     void Start() {
         CorMsgNoticeID = null;
         CorMsgErrorID = null;
@@ -67,9 +70,22 @@ public class HomeUIManager : MonoBehaviour {
         DM._.IsActiveSpeedUp = DM._.DB.IsRemoveAd;
         SpeedUpAdBtnOffObj.SetActive(!DM._.IsActiveSpeedUp);
         SpeedUpAdBtnOnObj.SetActive(DM._.IsActiveSpeedUp);
+
+        //* アプリのコメント要求
+        if(HM._.Fame >= 3 && !DM._.DB.IsThanksForPlaying) {
+            DM._.DB.IsThanksForPlaying = true;
+            ThanksForPlayingPopUp.SetActive(true);
+        }
+
     }
 
 #region EVENT
+    public void OnClickThanksForPlayingConfirmBtn() {
+        const string NOTION_URL = "https://www.notion.so/A-Defence-2a40adca8a77420c80a6db623a89083f?pvs=4";
+        Application.OpenURL(NOTION_URL);
+        ThanksForPlayingPopUp.SetActive(false);
+    }
+
     public void OnClickSpeedUpAdBtnOff() {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         ShowAgainAskMsg("광고를 시청하고 게임배속 3배를 추가하시겠습니까?\n<color=green>(원래 1배, 2배속만 가능)</color>");
@@ -97,10 +113,7 @@ public class HomeUIManager : MonoBehaviour {
             HM._.stgm.StagePopUps[0].SetActive(true);
         }
     }
-    // public void OnClickMenuBtn() {
-    //     const string NOTION_URL = "https://www.notion.so/A-Defence-2a40adca8a77420c80a6db623a89083f?pvs=4";
-    //     Application.OpenURL(NOTION_URL);
-    // }
+
     public void OnClickTopNavGoldKeyPlusBtn() {
         //* 広告閲覧数が残ったら
         if(DM._.DB.GoldkeyFreeAdCnt > 0) {
