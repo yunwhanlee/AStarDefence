@@ -46,6 +46,7 @@ public class StageUIManager : MonoBehaviour {
     [field:SerializeField] public GameObject StageUnlockBonusChestBtnObj;
     [field:SerializeField] public TMP_Text StageUnlockBonusChestBtnTxt;
     [field:SerializeField] public Image StageUnlockBonusChestImg;
+    [field:SerializeField] public TMP_Text StageUnlockBonusChestQuantityTxt;
     [field:SerializeField] public GameObject SelectStageNumWindow;
     [field:SerializeField] public GameObject[] StageNewLabels;
     [field:SerializeField] public TMP_Text[] StageNumBtnTxts;
@@ -194,7 +195,7 @@ public class StageUIManager : MonoBehaviour {
 #endregion
 
 #region STAGE EVENT
-    private (Sprite, ItemSO) GetStageBonusRewardChestData(int stg, int stgNum) {
+    private (Sprite, ItemSO, int) GetStageBonusRewardChestData(int stg, int stgNum) {
         var consumeItemDts = HM._.rwlm.RwdItemDt.EtcConsumableDatas;
         ItemSO commonChest = consumeItemDts[(int)Etc.ConsumableItem.ChestCommon];
         ItemSO equipChest = consumeItemDts[(int)Etc.ConsumableItem.ChestEquipment];
@@ -205,35 +206,35 @@ public class StageUIManager : MonoBehaviour {
         switch(stg) {
             case Config.Stage.STG1_FOREST:
                 if(stgNum == 0)
-                    return (commonChest.ItemImg, commonChest);
+                    return (commonChest.ItemImg, commonChest, 1);
                 else if(stgNum == 1)
-                    return (equipChest.ItemImg, equipChest);
+                    return (equipChest.ItemImg, equipChest, 1);
                 else
-                    return (goldChest.ItemImg, goldChest);
+                    return (goldChest.ItemImg, goldChest, 1);
             case Config.Stage.STG2_DESERT:
                 if(stgNum == 0)
-                    return (commonChest.ItemImg, commonChest);
+                    return (commonChest.ItemImg, commonChest, 2);
                 else if(stgNum == 1)
-                    return (equipChest.ItemImg, equipChest);
+                    return (equipChest.ItemImg, equipChest, 2);
                 else
-                    return (diamondChest.ItemImg, diamondChest);
+                    return (diamondChest.ItemImg, diamondChest, 1);
             case Config.Stage.STG3_SEA:
                 if(stgNum == 0)
-                    return (goldChest.ItemImg, goldChest);
+                    return (goldChest.ItemImg, goldChest, 1);
                 else if(stgNum == 1)
-                    return (equipChest.ItemImg, equipChest);
+                    return (equipChest.ItemImg, equipChest, 3);
                 else
-                    return (equipChest.ItemImg, equipChest);
+                    return (equipChest.ItemImg, equipChest, 4);
             case Config.Stage.STG4_UNDEAD:
             case Config.Stage.STG5_HELL:
                 if(stgNum == 0)
-                    return (equipChest.ItemImg, equipChest);
+                    return (equipChest.ItemImg, equipChest, 5);
                 else if(stgNum == 1)
-                    return (equipChest.ItemImg, equipChest);
+                    return (equipChest.ItemImg, equipChest, 6);
                 else
-                    return (PremiumChest.ItemImg, PremiumChest);
+                    return (PremiumChest.ItemImg, PremiumChest, 1);
             default:
-                return (null, null); // 기본값으로 리턴할 값 지정
+                return (null, null, 1); // 기본값으로 리턴할 값 지정
         }
     }
     private void UpdateStageBonusChestIcon() {
@@ -247,11 +248,13 @@ public class StageUIManager : MonoBehaviour {
             if(stgNumIdx != -1) {
                 int stage = i + 1;
                 int stgNum = stgNumIdx + 1;
-
+                
+                (Sprite, ItemSO, int) rwd = GetStageBonusRewardChestData(i, stgNumIdx);
                 //* Bonus Reward Chest UI
                 StageUnlockBonusChestBtnObj.SetActive(true);
                 StageUnlockBonusChestBtnTxt.text = $"클리어 보너스:{stage}-{stgNum}";
                 StageUnlockBonusChestImg.sprite = GetStageBonusRewardChestData(i, stgNumIdx).Item1;
+                StageUnlockBonusChestQuantityTxt.text = $"X{rwd.Item3}";
                 return;
             }
             i++;
@@ -271,11 +274,12 @@ public class StageUIManager : MonoBehaviour {
         UpdateStageBonusChestIcon();
 
         //* Reward Chest
-        var rewardList = new List<RewardItem> {
-            new (GetStageBonusRewardChestData(stgIdx, stgNumIdx).Item2)
-        };
+        (Sprite, ItemSO, int) rwd = GetStageBonusRewardChestData(stgIdx, stgNumIdx);
+        ItemSO itemDt = rwd.Item2;
+        int quantity = rwd.Item3;
+
+        var rewardList = new List<RewardItem> { new (itemDt, quantity) };
         HM._.rwlm.ShowReward(rewardList);
-        // HM._.rwm.CoUpdateInventoryAsync(rewardList);
     }
     public void OnClickNewStageAlertBtn() {
         Debug.Log($"OnClickNewStageAlertBtn():: NewStageAlertIdx= {StageAlertIdx}");
