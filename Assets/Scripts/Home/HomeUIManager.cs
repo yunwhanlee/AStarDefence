@@ -85,8 +85,17 @@ public class HomeUIManager : MonoBehaviour {
     public void OnClickPlayBtn() {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         HM._.stgm.StageGroup.SetActive(true);
-        int i = 0;
-        Array.ForEach(HM._.stgm.StagePopUps, popUp => popUp.SetActive(HM._.SelectedStageIdx == i++));
+        for(int i = 0; i < HM._.stgm.StagePopUps.Length; i++) {
+            HM._.stgm.StagePopUps[i].SetActive(HM._.SelectedStageIdx == i);
+        }
+
+        //! ステージPopUpが表示しないバグあり対応
+        //* 全てのステージが非表示なら
+        if(Array.TrueForAll(HM._.stgm.StagePopUps, popUp => popUp.activeSelf == false)) {
+            //* 最初のステージを表示
+            HM._.SelectedStageIdx = 0;
+            HM._.stgm.StagePopUps[0].SetActive(true);
+        }
     }
     // public void OnClickMenuBtn() {
     //     const string NOTION_URL = "https://www.notion.so/A-Defence-2a40adca8a77420c80a6db623a89083f?pvs=4";
