@@ -365,7 +365,7 @@ public class InfiniteUpgradeDB {
 [Serializable]
 public class MileageRewardDB {
     const int MAXCNT = 16;
-    public RwdBubbleStatus[] Statuses {get; set;} = new RwdBubbleStatus[MAXCNT];
+    [field:SerializeField] public RwdBubbleStatus[] Statuses {get; set;} = new RwdBubbleStatus[MAXCNT];
 
     public MileageRewardDB() {
         for(int i = 0; i < Statuses.Length; i++)
@@ -379,7 +379,7 @@ public class MileageRewardDB {
 [Serializable]
 public class FameRewardDB {
     const int MAXCNT = 50;
-    public RwdBubbleStatus[] Statuses {get; set;} = new RwdBubbleStatus[MAXCNT];
+    [field:SerializeField] public RwdBubbleStatus[] Statuses {get; set;} = new RwdBubbleStatus[MAXCNT];
 
     public FameRewardDB() {
         for(int i = 0; i < Statuses.Length; i++)
