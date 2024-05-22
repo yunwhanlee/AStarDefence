@@ -1,17 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SettingManager : MonoBehaviour {
     [field: SerializeField] public GameObject WindowObj {get; private set;}
+    [field: SerializeField] public TMP_Text VersionTxt {get; private set;}
     [field: SerializeField] public GameObject LanguageWindowObj {get; private set;}
     [field: SerializeField] public GameObject ShowTutorialWindowObj {get; private set;}
     [field: SerializeField] public Slider BgmVolumeSlider {get; private set;}
     [field: SerializeField] public Slider SfxVolumeSlider {get; private set;}
 
     void Start() {
+        //* バージョン
+        VersionTxt.text = $"Ver{Application.version}.{PlayerSettings.Android.bundleVersionCode}";
         //* ボリュームUI
         BgmVolumeSlider.value = DM._.DB.SettingDB.BgmVolume;
         SfxVolumeSlider.value = DM._.DB.SettingDB.SfxVolume;
