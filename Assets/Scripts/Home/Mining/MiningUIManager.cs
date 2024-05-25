@@ -11,7 +11,6 @@ public enum MineCate {
 };
 
 public class MiningUIManager : MonoBehaviour {
-    const int MERGE_CNT = 5;
     public Coroutine[] CorTimerIDs = new Coroutine[5];
 
     [field: SerializeField] public MineCate CurCategory {get; set;}
@@ -194,7 +193,7 @@ public class MiningUIManager : MonoBehaviour {
 
             //* データ アップデート
             Array.ForEach(GoblinCards, card => card.Update());
-            bool isGoblinMergable = Array.Exists(GoblinCards, card => card.Cnt >= 5);
+            bool isGoblinMergable = Array.Exists(GoblinCards, card => card.Cnt >= Config.MINING_MERGE_CNT);
             Debug.Log($"SetUI():: isGoblinMergable= {isGoblinMergable}");
             GreenAlertDot.SetActive(isGoblinMergable);
         }
@@ -204,7 +203,7 @@ public class MiningUIManager : MonoBehaviour {
 
             //* データ アップデート
             Array.ForEach(OreCards, card => card.Update());
-            bool isOreMergable = Array.Exists(OreCards, card => card.Cnt >= 5);
+            bool isOreMergable = Array.Exists(OreCards, card => card.Cnt >= Config.MINING_MERGE_CNT);
             GreenAlertDot.SetActive(isOreMergable);
             Debug.Log($"SetUI():: isOreMergable= {isOreMergable}");
         }
@@ -326,9 +325,9 @@ public class MiningUIManager : MonoBehaviour {
         }
 
         int lvIdx = Array.FindIndex(cards, card => card.Selected());
-        if(cards[lvIdx].Cnt >= MERGE_CNT) {
+        if(cards[lvIdx].Cnt >= Config.MINING_MERGE_CNT) {
             int nextIdx = lvIdx + 1;
-            cards[lvIdx].Cnt -= MERGE_CNT;
+            cards[lvIdx].Cnt -= Config.MINING_MERGE_CNT;
             cards[nextIdx].Cnt++;
             cards[lvIdx].Update();
             cards[nextIdx].Update();
@@ -353,8 +352,8 @@ public class MiningUIManager : MonoBehaviour {
 
         for(int i = 0; i < cards.Length - 1; i++) {
             int nextIdx = i + 1;
-            while(cards[i].Cnt >= MERGE_CNT) {
-                cards[i].Cnt -= MERGE_CNT;
+            while(cards[i].Cnt >= Config.MINING_MERGE_CNT) {
+                cards[i].Cnt -= Config.MINING_MERGE_CNT;
                 cards[nextIdx].Cnt++;
             }
             cards[i].Update();

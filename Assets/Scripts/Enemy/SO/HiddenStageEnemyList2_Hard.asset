@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3e7b3a9d9a82ab4481c34b2140fe2a9, type: 3}
   m_Name: HiddenStageEnemyList2_Hard
   m_EditorClassIdentifier: 
+  <ApplyInfiniteEnemyDts>k__BackingField: []
   <Waves>k__BackingField:
   - <Name>k__BackingField: "\uC740\uACE0\uBE14\uB9B0"
     <Type>k__BackingField: 0
@@ -41,116 +42,88 @@ MonoBehaviour:
     <Lv>k__BackingField: 4
     <Hp>k__BackingField: 217
     <Speed>k__BackingField: 1.5
-  - <Name>k__BackingField: "\uC740\uACE0\uBE14\uB9B0"
+  - <Name>k__BackingField: "\uAE08\uACE0\uBE14\uB9B0"
     <Type>k__BackingField: 0
-    <Spr>k__BackingField: {fileID: 332625925, guid: 7113d1a82109f9149a72560925103256, type: 3}
-    <SprLibAst>k__BackingField: {fileID: 11400000, guid: 71944b4f917b4a84ca46576f3d61d202, type: 2}
+    <Spr>k__BackingField: {fileID: -1807962244, guid: 7113d1a82109f9149a72560925103256, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 11400000, guid: d94994578a5471b4f9c48eb51e425e8b, type: 2}
     <Lv>k__BackingField: 5
     <Hp>k__BackingField: 301
     <Speed>k__BackingField: 1.5
-  - <Name>k__BackingField: "\uC740\uACE0\uBE14\uB9B0"
+  - <Name>k__BackingField: "\uAE08\uACE0\uBE14\uB9B0"
     <Type>k__BackingField: 0
-    <Spr>k__BackingField: {fileID: 332625925, guid: 7113d1a82109f9149a72560925103256, type: 3}
-    <SprLibAst>k__BackingField: {fileID: 11400000, guid: 71944b4f917b4a84ca46576f3d61d202, type: 2}
+    <Spr>k__BackingField: {fileID: -1807962244, guid: 7113d1a82109f9149a72560925103256, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 11400000, guid: d94994578a5471b4f9c48eb51e425e8b, type: 2}
     <Lv>k__BackingField: 6
-    <Hp>k__BackingField: 385
+    <Hp>k__BackingField: 371
     <Speed>k__BackingField: 1.5
   - <Name>k__BackingField: "\uAE08\uACE0\uBE14\uB9B0"
     <Type>k__BackingField: 0
     <Spr>k__BackingField: {fileID: -1807962244, guid: 7113d1a82109f9149a72560925103256, type: 3}
     <SprLibAst>k__BackingField: {fileID: 11400000, guid: d94994578a5471b4f9c48eb51e425e8b, type: 2}
     <Lv>k__BackingField: 7
-    <Hp>k__BackingField: 497
-    <Speed>k__BackingField: 1.5
-  - <Name>k__BackingField: "\uAE08\uACE0\uBE14\uB9B0"
-    <Type>k__BackingField: 0
-    <Spr>k__BackingField: {fileID: -1807962244, guid: 7113d1a82109f9149a72560925103256, type: 3}
-    <SprLibAst>k__BackingField: {fileID: 11400000, guid: d94994578a5471b4f9c48eb51e425e8b, type: 2}
-    <Lv>k__BackingField: 8
-    <Hp>k__BackingField: 609
-    <Speed>k__BackingField: 1.5
-  - <Name>k__BackingField: "\uAE08\uACE0\uBE14\uB9B0"
-    <Type>k__BackingField: 0
-    <Spr>k__BackingField: {fileID: -1807962244, guid: 7113d1a82109f9149a72560925103256, type: 3}
-    <SprLibAst>k__BackingField: {fileID: 11400000, guid: d94994578a5471b4f9c48eb51e425e8b, type: 2}
-    <Lv>k__BackingField: 9
-    <Hp>k__BackingField: 749
+    <Hp>k__BackingField: 476
     <Speed>k__BackingField: 1.5
   - <Name>k__BackingField: "\uAE08\uACE0\uBE14\uB9B0\uD0B9"
     <Type>k__BackingField: 2
     <Spr>k__BackingField: {fileID: -1807962244, guid: 7113d1a82109f9149a72560925103256, type: 3}
     <SprLibAst>k__BackingField: {fileID: 11400000, guid: d94994578a5471b4f9c48eb51e425e8b, type: 2}
-    <Lv>k__BackingField: 10
-    <Hp>k__BackingField: 26670
+    <Lv>k__BackingField: 8
+    <Hp>k__BackingField: 14280
     <Speed>k__BackingField: 1.2
   - <Name>k__BackingField: "\uAE08\uACE0\uBE14\uB9B0"
     <Type>k__BackingField: 0
     <Spr>k__BackingField: {fileID: -1807962244, guid: 7113d1a82109f9149a72560925103256, type: 3}
     <SprLibAst>k__BackingField: {fileID: 11400000, guid: d94994578a5471b4f9c48eb51e425e8b, type: 2}
+    <Lv>k__BackingField: 9
+    <Hp>k__BackingField: 616
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uAE08\uACE0\uBE14\uB9B0"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: -1807962244, guid: 7113d1a82109f9149a72560925103256, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 11400000, guid: d94994578a5471b4f9c48eb51e425e8b, type: 2}
+    <Lv>k__BackingField: 10
+    <Hp>k__BackingField: 756
+    <Speed>k__BackingField: 1.5
+  - <Name>k__BackingField: "\uAE08\uACE0\uBE14\uB9B0"
+    <Type>k__BackingField: 0
+    <Spr>k__BackingField: {fileID: -1807962244, guid: 7113d1a82109f9149a72560925103256, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 11400000, guid: d94994578a5471b4f9c48eb51e425e8b, type: 2}
     <Lv>k__BackingField: 11
-    <Hp>k__BackingField: 910
+    <Hp>k__BackingField: 896
     <Speed>k__BackingField: 1.5
-  - <Name>k__BackingField: "\uAE08\uACE0\uBE14\uB9B0"
+  - <Name>k__BackingField: "\uC545\uB9C8\uACE0\uBE14\uB9B0"
     <Type>k__BackingField: 0
-    <Spr>k__BackingField: {fileID: -1807962244, guid: 7113d1a82109f9149a72560925103256, type: 3}
-    <SprLibAst>k__BackingField: {fileID: 11400000, guid: d94994578a5471b4f9c48eb51e425e8b, type: 2}
+    <Spr>k__BackingField: {fileID: 1973698925, guid: 7113d1a82109f9149a72560925103256, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 11400000, guid: 350bac1a78e07f646b434ea026721c4f, type: 2}
     <Lv>k__BackingField: 12
-    <Hp>k__BackingField: 1001
+    <Hp>k__BackingField: 1043
     <Speed>k__BackingField: 1.5
-  - <Name>k__BackingField: "\uAE08\uACE0\uBE14\uB9B0"
+  - <Name>k__BackingField: "\uC545\uB9C8\uACE0\uBE14\uB9B0"
     <Type>k__BackingField: 0
-    <Spr>k__BackingField: {fileID: -1807962244, guid: 7113d1a82109f9149a72560925103256, type: 3}
-    <SprLibAst>k__BackingField: {fileID: 11400000, guid: d94994578a5471b4f9c48eb51e425e8b, type: 2}
+    <Spr>k__BackingField: {fileID: 1973698925, guid: 7113d1a82109f9149a72560925103256, type: 3}
+    <SprLibAst>k__BackingField: {fileID: 11400000, guid: 350bac1a78e07f646b434ea026721c4f, type: 2}
     <Lv>k__BackingField: 13
-    <Hp>k__BackingField: 1106
+    <Hp>k__BackingField: 1204
     <Speed>k__BackingField: 1.5
   - <Name>k__BackingField: "\uC545\uB9C8\uACE0\uBE14\uB9B0"
     <Type>k__BackingField: 0
     <Spr>k__BackingField: {fileID: 1973698925, guid: 7113d1a82109f9149a72560925103256, type: 3}
     <SprLibAst>k__BackingField: {fileID: 11400000, guid: 350bac1a78e07f646b434ea026721c4f, type: 2}
     <Lv>k__BackingField: 14
-    <Hp>k__BackingField: 1218
+    <Hp>k__BackingField: 1365
     <Speed>k__BackingField: 1.5
   - <Name>k__BackingField: "\uC545\uB9C8\uACE0\uBE14\uB9B0"
     <Type>k__BackingField: 0
     <Spr>k__BackingField: {fileID: 1973698925, guid: 7113d1a82109f9149a72560925103256, type: 3}
     <SprLibAst>k__BackingField: {fileID: 11400000, guid: 350bac1a78e07f646b434ea026721c4f, type: 2}
     <Lv>k__BackingField: 15
-    <Hp>k__BackingField: 1344
-    <Speed>k__BackingField: 1.5
-  - <Name>k__BackingField: "\uC545\uB9C8\uACE0\uBE14\uB9B0"
-    <Type>k__BackingField: 0
-    <Spr>k__BackingField: {fileID: 1973698925, guid: 7113d1a82109f9149a72560925103256, type: 3}
-    <SprLibAst>k__BackingField: {fileID: 11400000, guid: 350bac1a78e07f646b434ea026721c4f, type: 2}
-    <Lv>k__BackingField: 16
-    <Hp>k__BackingField: 1484
-    <Speed>k__BackingField: 1.5
-  - <Name>k__BackingField: "\uC545\uB9C8\uACE0\uBE14\uB9B0"
-    <Type>k__BackingField: 0
-    <Spr>k__BackingField: {fileID: 1973698925, guid: 7113d1a82109f9149a72560925103256, type: 3}
-    <SprLibAst>k__BackingField: {fileID: 11400000, guid: 350bac1a78e07f646b434ea026721c4f, type: 2}
-    <Lv>k__BackingField: 17
-    <Hp>k__BackingField: 1638
-    <Speed>k__BackingField: 1.5
-  - <Name>k__BackingField: "\uC545\uB9C8\uACE0\uBE14\uB9B0"
-    <Type>k__BackingField: 0
-    <Spr>k__BackingField: {fileID: 1973698925, guid: 7113d1a82109f9149a72560925103256, type: 3}
-    <SprLibAst>k__BackingField: {fileID: 11400000, guid: 350bac1a78e07f646b434ea026721c4f, type: 2}
-    <Lv>k__BackingField: 18
-    <Hp>k__BackingField: 1806
-    <Speed>k__BackingField: 1.5
-  - <Name>k__BackingField: "\uC545\uB9C8\uACE0\uBE14\uB9B0"
-    <Type>k__BackingField: 0
-    <Spr>k__BackingField: {fileID: 1973698925, guid: 7113d1a82109f9149a72560925103256, type: 3}
-    <SprLibAst>k__BackingField: {fileID: 11400000, guid: 350bac1a78e07f646b434ea026721c4f, type: 2}
-    <Lv>k__BackingField: 19
-    <Hp>k__BackingField: 1988
+    <Hp>k__BackingField: 1561
     <Speed>k__BackingField: 1.5
   - <Name>k__BackingField: "\uC545\uB9C8\uACE0\uBE14\uB9B0\uD0B9"
     <Type>k__BackingField: 2
     <Spr>k__BackingField: {fileID: 1973698925, guid: 7113d1a82109f9149a72560925103256, type: 3}
     <SprLibAst>k__BackingField: {fileID: 11400000, guid: 350bac1a78e07f646b434ea026721c4f, type: 2}
-    <Lv>k__BackingField: 20
-    <Hp>k__BackingField: 88480
+    <Lv>k__BackingField: 16
+    <Hp>k__BackingField: 62440
     <Speed>k__BackingField: 1.2
   <HpRatio>k__BackingField: 7

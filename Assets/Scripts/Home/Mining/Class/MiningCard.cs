@@ -47,7 +47,7 @@ public class MiningCard {
     }
     public void Update() {
         Dim.SetActive(Cnt <= 0);
-        CntTxt.text = $"{Cnt} / 5";
-        CntTxt.color = Cnt > 5? Color.green : Color.white;
+        CntTxt.text = $"{Cnt} / {Config.MINING_MERGE_CNT}";
+        CntTxt.color = Cnt > Config.MINING_MERGE_CNT? Color.green : Color.white;
     }
 }
