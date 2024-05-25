@@ -212,7 +212,7 @@ public class GameUIManager : MonoBehaviour {
 
             //* 初期化
             GameoverPopUp.SetActive(false);
-            GM._.State = GameState.Play;
+            GM._.State = GameState.Ready;
             Time.timeScale = 1;
             GM._.Life = Config.DEFAULT_LIFE;
             HeartFillImg.fillAmount = 1;

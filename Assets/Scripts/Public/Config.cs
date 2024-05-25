@@ -43,9 +43,10 @@ public static class Config {
 #endregion
 
 #region GAME
-    public const int FREE_BOARD_CNT = 5;
+    public const int FREE_BOARD_CNT = 4;
     public const int FREE_BREAKROCK_CNT = 2;
 
+    public const int WALL_SPAWN_MAX = 12; // 壁のMAX数
     public const int DEFAULT_MONEY = 100;
     public const int DEFAULT_LIFE = 10;
     public const int DEFAULT_RESET_CNT = 10;

@@ -17,7 +17,6 @@ public class TileMapController : MonoBehaviour {
     [Header("Wall Tile Map")]
     public Tilemap WallTileMap;
     [field: SerializeField] public int WallSpawnPer {get; private set;} = 5;  // 壁の生成確率
-    [field: SerializeField] public int WallSpawnMax {get; private set;} = 15; // 壁のMAX数
     [field: SerializeField] public int WallSpawnCnt {get; private set;}
 
     [Header("Selected Tile Map")]
@@ -274,7 +273,7 @@ public class TileMapController : MonoBehaviour {
         posList = mixedList; // 結果
 
         //* 壁を設置
-        for(WallSpawnCnt = 0; WallSpawnCnt < WallSpawnMax; WallSpawnCnt++) {
+        for(WallSpawnCnt = 0; WallSpawnCnt < Config.WALL_SPAWN_MAX; WallSpawnCnt++) {
             var pos = new Vector3Int(posList[WallSpawnCnt].y, posList[WallSpawnCnt].x, 0);
             var walls = GM._.StageDts[GM._.Stage].Walls;
             WallTileMap.SetTile(pos, walls[Random.Range(0, walls.Length)]);

@@ -6,7 +6,7 @@ using System;
 
 public class EnemyManager : MonoBehaviour {
     const int MONSTER_CNT = 30;
-    const int BOSS_CNT = 1;
+    public const int BOSS_SPAWN_CNT = 8;
 
     [Header("STAGE ENEMY DATA LIST")]
     public SettingEnemyData[] StageDatas;
@@ -48,7 +48,7 @@ public class EnemyManager : MonoBehaviour {
         KillCnt++;
 
         //* Utilityスキル Lv３と５効果
-        if(KillCnt % 10 == 0) {
+        if(KillCnt % BOSS_SPAWN_CNT == 0) {
             int extraMoney = 0;
             if(!sktDb.IsLockUtilitySTs[(int)SKT_UT.TEN_KILL_1MONEY])
                 extraMoney += (int)sktDb.GetUtilityVal((int)SKT_UT.TEN_KILL_1MONEY);
@@ -92,8 +92,8 @@ public class EnemyManager : MonoBehaviour {
         //* スポーンカウント リセット
         Debug.Log($"GM._.em.GetCurEnemyData().Type= {GM._.GetCurEnemyData().Type}");
         bool isBoss = GM._.GetCurEnemyData().Type == EnemyType.Boss;
-        EnemyCnt = isBoss? BOSS_CNT : MONSTER_CNT;
-        spawnCnt = isBoss? BOSS_CNT : EnemyCnt;
+        EnemyCnt = isBoss? 1 : MONSTER_CNT;
+        spawnCnt = isBoss? 1 : EnemyCnt;
 
         if(isBoss) {
             EnemyData bossData = GM._.GetCurEnemyData();
