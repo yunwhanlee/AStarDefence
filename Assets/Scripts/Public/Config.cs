@@ -106,15 +106,15 @@ public static class Config {
 
             public static readonly string[] CHEST_PRICES = {
                 "Ad_FREE", // FREE COMMON
-                "Coin_5000", // DIAMOND CHEST
+                "Coin_9500", // DIAMOND CHEST
                 "Diamond_40", // COMMON
-                "Diamond_150", // GOLD CHEST
+                "Diamond_250", // GOLD CHEST
                 "Diamond_500", // PREMIUM
-                "Diamond_50", // EQUIP x 1
-                "Diamond_250", // EQUIP x 5
-                "Diamond_475", // EQUIP x 10
-                "Diamond_950", // EQUIP x 20
-                "Diamond_1900", // EQUIP x 40
+                "Diamond_30", // EQUIP x 1
+                "Diamond_150", // EQUIP x 5
+                "Diamond_290", // EQUIP x 10
+                "Diamond_570", // EQUIP x 20
+                "Diamond_1100", // EQUIP x 40
             };
             public static bool TryPurchaseChest(int chestIdx) {
                 //* キーと値段を分ける
@@ -134,15 +134,14 @@ public static class Config {
 
             public static readonly string[] ETC_PRICES = {
                 // GOLDKEY
-                "Diamond_20", "Diamond_100", "Diamond_200",
+                "Diamond_20", "Diamond_100", "Diamond_180",
                 // SOUL STONE
-                "Diamond_100", "Diamond_500", "Diamond_1000",
+                "Diamond_80", "Diamond_400", "Diamond_720",
                 // MAGIC STONE
-                "Diamond_100", "Diamond_500", "Diamond_1000",
+                "Diamond_80", "Diamond_400", "Diamond_720",
                 // RANDOM CONSUME ITEM
                 "Coin_500", "Coin_2500", "Coin_5000",
             };
-
 
             public static bool TryPurchaseEtc(int etcIdx) {
                 //* キーと値段を分ける
@@ -160,8 +159,9 @@ public static class Config {
             public static readonly string[] COIN_PRICES = {
                 "Diamond_30",
                 "Diamond_600",
-                "Diamond_1500",
+                "Diamond_2150",
             };
+
             public static bool TryPurchaseCoinPack(int coinIdx) {
                 //* キーと値段を分ける
                 string[] split = COIN_PRICES[coinIdx].Split("_");

@@ -93,12 +93,13 @@ public class ShopManager : MonoBehaviour {
         List<RewardItem> rewardList = new List<RewardItem>();
         switch(idx) {
             case AllInOne:
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestDiamond], 1));
                 rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon], 10));
-                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestDiamond], 3));
-                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGold], 7));
-                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment], 24));
-                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium], 5));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium], 1));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGold], 2));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment], 20));
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.RemoveAd]));
+                HM._.Mileage += 99;
                 break;
             case LevelUpSupport:
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], 15));
@@ -108,6 +109,7 @@ public class ShopManager : MonoBehaviour {
                 rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack1], 10));
                 rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.BizzardScroll], 10));
                 rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.LightningScroll], 10));
+                HM._.Mileage += 55;
                 break;
             case RandomEquip: {
                 //* リワードでもらえるアイテム数（最大表示数を超えたら、閉じると続けて再実行するため）
@@ -148,6 +150,7 @@ public class ShopManager : MonoBehaviour {
                     //* リワード追加
                     rewardList.Add(new (randItemDts[(i == lastIdx && EquipPackageCnt == 0)? (int)Enum.Grade.Myth : grade], 1));
                 }
+                HM._.Mileage += 89;
                 break;
             }
             case RandomRelic: {
@@ -185,16 +188,14 @@ public class ShopManager : MonoBehaviour {
                     AbilityType[] relicAbilities = HM._.ivCtrl.InventoryData.CheckRelicAbilitiesData(relicDt);
                     rewardList.Add(new (relicDt, quantity: 1, relicAbilities));
                 }
+                HM._.Mileage += 99;
                 break;
             }
             case EquipUpgradeSupport:
-                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone], 25));
-                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone], 25));
-                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 100000));
-                break;
-            case GoldPackage:
-                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], 30));
-                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 300000));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone], 10));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone], 10));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 55000));
+                HM._.Mileage += 180;
                 break;
             case MiningSupportGoblin:
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin0], 100));
@@ -203,6 +204,12 @@ public class ShopManager : MonoBehaviour {
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin3], 10));
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin4], 5));
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin5], 1));
+                HM._.Mileage += 79;
+                break;
+            case GoldPackage:
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], 25));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 100000));
+                HM._.Mileage += 220;
                 break;
             case MiningSupportOre:
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore1], 200));
@@ -212,13 +219,11 @@ public class ShopManager : MonoBehaviour {
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore5], 10));
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore6], 5));
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore7], 1));
+                HM._.Mileage += 79;
                 break;
         }
 
         HM._.rwlm.ShowReward(rewardList);
-        // HM._.rwm.UpdateInventory(rewardList);
-
-        HM._.Mileage += 100;
     }
     /// <summary>
     /// SHOPで宝箱クリック
@@ -400,13 +405,13 @@ public class ShopManager : MonoBehaviour {
                 rewardList.Add(new (DIAMOND, 180));
                 break;
             case DIAMOND_SMALL:
-                rewardList.Add(new (DIAMOND, 500));
+                rewardList.Add(new (DIAMOND, 540));
                 break;
             case DIAMOND_MEDIUM:
-                rewardList.Add(new (DIAMOND, 1200));
+                rewardList.Add(new (DIAMOND, 1260));
                 break;
             case DIAMOND_BIG:
-                rewardList.Add(new (DIAMOND, 6500));
+                rewardList.Add(new (DIAMOND, 5000));
                 break;
             case DIAMOND_HUGE:
                 rewardList.Add(new (DIAMOND, 15000));
@@ -454,15 +459,15 @@ public class ShopManager : MonoBehaviour {
         var rewardList = new List<RewardItem>();
         switch(coinIdx) {
             case Config.H_PRICE.SHOP.COIN_TINY: {
-                rewardList.Add(new (COIN, 600));
+                rewardList.Add(new (COIN, 900));
                 break;
             }
             case Config.H_PRICE.SHOP.COIN_MEDIUM: {
-                rewardList.Add(new (COIN, 12000));
+                rewardList.Add(new (COIN, 18000));
                 break;
             }
             case Config.H_PRICE.SHOP.COIN_HUGE: {
-                rewardList.Add(new (COIN, 48000));
+                rewardList.Add(new (COIN, 72000));
                 break;
             }
         }
