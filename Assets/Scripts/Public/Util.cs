@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Util : MonoBehaviour {
     public static Util _;
@@ -144,8 +146,45 @@ public class Util : MonoBehaviour {
 
     public static AbilityType PickRandomAbilityType() {
         AbilityType[] abilities = (AbilityType[])System.Enum.GetValues(typeof(AbilityType));
-        // 3番INDEXから、最後までランダムで選択
-        return abilities[Random.Range(3, abilities.Length)];
+        //* Potential専用能力と以前の能力を除外したリストを作成
+        List<AbilityType> filterList = new List<AbilityType>();
+        foreach (AbilityType abt in abilities) {
+            //* 除外
+            if(abt == AbilityType.Attack) continue;
+            if(abt == AbilityType.Speed) continue;
+            if(abt == AbilityType.Range) continue;
+
+            filterList.Add(abt);
+        }
+        filterList.ForEach(filterAbt => {
+            Debug.Log($"PickRandomAbilityType():: FirstTime <color=yellow>filterList={filterAbt}</color>");
+        });
+        // ランダムで選択
+        int rand = Random.Range(0, filterList.Count);
+        int findIndex = Array.FindIndex(abilities, enumAbt => enumAbt == filterList[rand]);
+        return abilities[findIndex];
+    }
+    public static AbilityType PickRandomAbilityType(AbilityType curType) {
+        AbilityType[] abilities = (AbilityType[])System.Enum.GetValues(typeof(AbilityType));
+        //* Potential専用能力と以前の能力を除外したリストを作成
+        List<AbilityType> filterList = new List<AbilityType>();
+        foreach (var abt in abilities) {
+            //* 除外
+            if(abt == AbilityType.Attack) continue;
+            if(abt == AbilityType.Speed) continue;
+            if(abt == AbilityType.Range) continue;
+            if(abt == curType) continue;
+
+            filterList.Add(abt);
+        }
+        filterList.ForEach(filterAbt => {
+            Debug.Log($"PickRandomAbilityType(curType({curType})):: <color=red>filterList={filterAbt}</color>");
+        });
+        
+        // ランダムで選択
+        int rand = Random.Range(0, filterList.Count);
+        int findIndex = Array.FindIndex(abilities, enumAbt => enumAbt == filterList[rand]);
+        return abilities[findIndex];
     }
 
     public WaitForSeconds Get1SecByTimeScale() {

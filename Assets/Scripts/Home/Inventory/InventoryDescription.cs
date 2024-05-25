@@ -191,6 +191,8 @@ namespace Inventory.UI {
         /// </summary>
         /// <param name="idx">0: SoulStone, 1: MagicStone</param>
         public void OnClickStoneBtn(int idx) {
+            const int SOULSTONE = 0, MAGICSTONE = 1;
+
             SM._.SfxPlay(SM.SFX.ClickSFX);
             //* パラメーター１
             Etc.ConsumableItem[] stoneItemEnumList = {
@@ -200,12 +202,14 @@ namespace Inventory.UI {
             //* パラメーター２
             var relicAbilities = HM._.ivm.CurInvItem.RelicAbilities;
             string potentialStatusWord = "";
-            if(idx == 0 && relicAbilities != null)
-                potentialStatusWord = relicAbilities.Length == 0? "개방" : "변경";
+            if(idx == SOULSTONE) {
+                if(relicAbilities != null)
+                    potentialStatusWord = relicAbilities.Length == 0? "개방" : "변경";
+            }
 
             string[] againAskMsgs = {
-                $"소울스톤을 사용하여 잠재능력을 {potentialStatusWord}하시겠습니까?",
-                "매직스톤을 사용하여 유물의 능력을 바꾸시겠습니까?"
+                $"소울스톤을 사용하여 잠재능력을\n{potentialStatusWord}하시겠습니까?",
+                "매직스톤을 사용하여 유물능력을\n변경하시겠습니까?"
             };
 
             //* ストーンアイテムが有るか 確認
@@ -215,7 +219,7 @@ namespace Inventory.UI {
             //* AgainAskPopUpクリックボタンイベント登録
             HM._.hui.OnClickAskConfirmAction = () => {
                 switch(idx) {
-                    case 0: {
+                    case SOULSTONE: {
                         //* インベントリデータから、残る量を減る
                         int invItemIdx = HM._.ivCtrl.InventoryData.ItemList.FindIndex (itemDt
                             => !itemDt.IsEmpty && itemDt.Data.name == stoneItemEnumList[idx].ToString());
@@ -225,7 +229,7 @@ namespace Inventory.UI {
                         OpenEquipPotentialAbility();
                         break;
                     }
-                    case 1: {
+                    case MAGICSTONE: {
                         //* インベントリデータから、残る量を減る
                         int invItemIdx = HM._.ivCtrl.InventoryData.ItemList.FindIndex (itemDt
                             => !itemDt.IsEmpty && itemDt.Data.name == stoneItemEnumList[idx].ToString());
@@ -428,7 +432,7 @@ namespace Inventory.UI {
 
                         AbilityData[] relicAllAbilityDatas = item.Abilities;
                         AbilityData relicAbility = Array.Find(relicAllAbilityDatas, rAbility => rAbility.Type == rType);
-                        Debug.Log("rType=" + rType + ", relicAbility= " + relicAbility);
+                        Debug.Log("<color=red>rType=" + rType + ", relicAbility= " + relicAbility + "</color>");
 
                         float val = Util.RoundDecimal(relicAbility.Val + (lvIdx * relicAbility.UpgradeVal));
 
@@ -444,8 +448,9 @@ namespace Inventory.UI {
                 }
                 //* Equip 能力
                 else {
+                    //* 基本アイテムの能力
                     for(int i = 0; i < item.Abilities.Length; i++) {
-                        var ability = item.Abilities[i];
+                        AbilityData ability = item.Abilities[i];
                         string msg = Config.ABILITY_DECS[(int)ability.Type];
                         float val = Util.RoundDecimal(ability.Val + (lvIdx * ability.UpgradeVal));
                         //* V{N} → 能力数値変換(実際のアイテムデータ)
@@ -456,7 +461,7 @@ namespace Inventory.UI {
                         resMsg += $"{abilityMsg} {upgradeToogleMsg}\n";
                     }
 
-                    //* Potential Ability
+                    //* Potential Ability有れば、表示
                     if(relicAbilities != null && relicAbilities.Length == 1) {
                         AbilityType rType = relicAbilities[0];
 

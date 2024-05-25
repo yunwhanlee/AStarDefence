@@ -176,14 +176,23 @@ namespace Inventory
         }
 
         public InventoryItem OpenCurrentEquipPotentialAbility() {
-            Debug.Log("OpenCurrentEquipPotentialAbility()::");
-            //* 新しいRelic能力を一つランダム選択 -> InventoryDtへ反映
-            InventoryData.ItemList[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(
-                new AbilityType[1] {Util.PickRandomAbilityType()}
-            );
+            if(ivm.CurInvItem.RelicAbilities != null && ivm.CurInvItem.RelicAbilities.Length > 0) {
+                Debug.Log($"OpenCurrentEquipPotentialAbility():: 既にある");
+                //* 能力がもう有ったら、同じものが出ない処理のため、引数を渡す
+                InventoryData.ItemList[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(
+                    new AbilityType[1] {Util.PickRandomAbilityType(ivm.CurInvItem.RelicAbilities[0])}
+                );
+            }
+            else {
+                Debug.Log($"OpenCurrentEquipPotentialAbility():: 新しく生成");
+                //* 新しいRelic能力を一つランダム選択 -> InventoryDtへ反映
+                InventoryData.ItemList[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(
+                    new AbilityType[1] {Util.PickRandomAbilityType()}
+                );
+            }
             //* ★ CurInvItemDtへも反映(EquipPopUpが開いたままであれば、CurInvItemで表示するため、最新化必要)
             ivm.CurInvItem = InventoryData.ItemList[ivm.CurItemIdx];
-
+            Debug.Log($"OpenCurrentEquipPotentialAbility():: Ability Type= {ivm.CurInvItem.RelicAbilities[0]}");
             return ivm.CurInvItem;
         }
 

@@ -136,9 +136,9 @@ public static class Config {
                 // GOLDKEY
                 "Diamond_20", "Diamond_100", "Diamond_180",
                 // SOUL STONE
-                "Diamond_80", "Diamond_400", "Diamond_720",
+                "Diamond_80", "Diamond_400", "Diamond_750",
                 // MAGIC STONE
-                "Diamond_80", "Diamond_400", "Diamond_720",
+                "Diamond_80", "Diamond_400", "Diamond_750",
                 // RANDOM CONSUME ITEM
                 "Coin_500", "Coin_2500", "Coin_5000",
             };
