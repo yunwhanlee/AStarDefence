@@ -302,9 +302,9 @@ public class GM : MonoBehaviour {
         }
 
         //* ボスリワード 表示
-        if(WaveCnt % EnemyManager.BOSS_SPAWN_CNT == 0) {
+        if(WaveCnt % Config.BOSS_SPAWN_CNT == 0) {
             int rwdSelectCnt = 0;
-            int bossNum = WaveCnt / EnemyManager.BOSS_SPAWN_CNT;
+            int bossNum = WaveCnt / Config.BOSS_SPAWN_CNT;
             switch(bossNum) {
                 case 1: case 2:
                     rwdSelectCnt = 2;

@@ -101,7 +101,7 @@ public class SettingEnemyDataEditor : Editor {
             }
         }
 
-        //* 무한 1000층 던전 데이터 설정
+        //* 무한던전 데이터 설정
         if (GUILayout.Button("無限ダンジョンWaveList設定")) {
             List<EnemyData> infiniteEnemyWaveDtList = new List<EnemyData>();
 
@@ -115,7 +115,7 @@ public class SettingEnemyDataEditor : Editor {
             Debug.Log("infiniteEnemyWaveDtList.Count= " + infiniteEnemyWaveDtList.Count);
             
             //* InfiniteWaveへまとめたリストを元に設定
-            const int WaveCnt = 600;
+            const int WaveCnt = 400;
             const int StartHp = 7;
             const int StartBossHpTime = 30;
             int hp = StartHp;
@@ -185,14 +185,15 @@ public class SettingEnemyDataEditor : Editor {
 
                 int enemyIdx = i + 1;
                 //* Type & Speed
-                if(enemyIdx % 10 == 7) {
+                const int OneCycle = Config.BOSS_SPAWN_CNT;
+                if(enemyIdx % OneCycle == Config.FLIGHT_SPAWN_CNT) {
                     dt.Waves[i].Type = EnemyType.Flight;
                     dt.Waves[i].Hp = hp / 3;
                     dt.Waves[i].Speed = 1.5f;
                 }
-                else if(enemyIdx % 10 == 0) {
+                else if(enemyIdx % OneCycle == 0) {
                     dt.Waves[i].Type = EnemyType.Boss;
-                    dt.Waves[i].Hp = hp * (StartBossHpTime + (enemyIdx % 10 * 5));
+                    dt.Waves[i].Hp = hp * (StartBossHpTime + (enemyIdx % Config.BOSS_SPAWN_CNT * 5));
                     dt.Waves[i].Speed = 1;
                 }
                 else {

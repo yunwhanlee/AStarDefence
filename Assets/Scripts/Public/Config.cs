@@ -44,6 +44,10 @@ public static class Config {
 #endregion
 
 #region GAME
+    public const int MONSTER_CNT = 30;
+    public const int BOSS_SPAWN_CNT = 8;
+    public const int FLIGHT_SPAWN_CNT = 5;
+
     public const int FREE_BOARD_CNT = 4;
     public const int FREE_BREAKROCK_CNT = 2;
 
