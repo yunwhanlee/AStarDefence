@@ -179,6 +179,15 @@ public class MiningUIManager : MonoBehaviour {
         ArrangeBtns[CANCEL].SetActive(isActive);
     }
 
+    public void UpdateMiningUIAfterTuto()
+        => StartCoroutine(CoUpdateMiningUIAfterTuto());
+
+    IEnumerator CoUpdateMiningUIAfterTuto() {
+        yield return Util.Time0_5;
+        HM._.mnm.SetUI((int)MineCate.Ore);
+        HM._.mnm.SetUI((int)MineCate.Goblin);
+    }
+
     /// <summary>
     /// カテゴリによるUI表示
     /// </summary>
