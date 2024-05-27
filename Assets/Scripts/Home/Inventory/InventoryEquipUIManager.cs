@@ -156,6 +156,10 @@ public class InventoryEquipUIManager : MonoBehaviour {
             invItem.IsEquip
         );
 
+        //* Euqipスロットは数量 表示しない
+        foreach (var equipSlot in EquipItemSlotUIs)
+            equipSlot.QuantityTxt.text = "";
+
         SetEquipEmptyIcon(type, false);
 
         if(isEffect)

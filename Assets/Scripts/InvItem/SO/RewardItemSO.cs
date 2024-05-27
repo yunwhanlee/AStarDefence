@@ -150,7 +150,7 @@ public class RewardItemSO : ScriptableObject {
     /// </summary>
     /// <param name="rwdContentDt">リワードSOデータ</param>
     /// <param name="chestGatherOpenCnt">箱を同時に開くカウント(ex. EQUIP CHSET 5個、10個、20個、40個...)</param>
-    public void OpenRewardContent(bool isOpenByInv ,RewardContentSO rwdContentDt, int chestGatherOpenCnt = -1) {
+    public void OpenRewardContent(bool isOpenByInv ,RewardContentSO rwdContentDt, int chestGatherOpenCnt = 0) {
         //* アイテム数 (指定したカウントがあれば、これにする)
         int itemCnt = (chestGatherOpenCnt == 0)? rwdContentDt.Cnt : chestGatherOpenCnt; 
         List<RewardItem> rewardList = new List<RewardItem>();
