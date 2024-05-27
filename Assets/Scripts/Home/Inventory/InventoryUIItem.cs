@@ -148,7 +148,7 @@ namespace Inventory.UI
                 if(EquipDim) EquipDim.SetActive(isEquip); //* EquipスロットはEquipDimオブジェクトがないため、合うかif文でチェック
 
                 //* マージ可能な物 表示
-                if(quantity >= 10) {
+                if(quantity >= Config.EQUIPITEM_MERGE_CNT) {
                     if(AlertGreenDot) AlertGreenDot.SetActive(true);
                     QuantityTxt.text = $"<color=green>{quantity}</color>";
                     HM._.ivm.AutoMergeBtnAlertIcon.SetActive(true);

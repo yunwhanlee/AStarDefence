@@ -6,6 +6,7 @@ using UnityEngine;
 
 public static class Config {
 #region HOME
+    public const int EQUIPITEM_MERGE_CNT = 10;
     public const int MINING_MERGE_CNT = 10;
     public const int MAX_REWARD_SLOT = 40; //* リワードで表示できる最大のスロット数
     // public const int MAX_GOBLINKEY = 5;
