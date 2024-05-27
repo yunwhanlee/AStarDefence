@@ -199,7 +199,7 @@ namespace Inventory.UI
             //* 選択したら、NewAlertアイコン 非表示
             if(invItemUI.AlertRedDot) {
                 invItemUI.AlertRedDot.SetActive(false);
-                HM._.ivCtrl.InventoryData.ItemList[CurItemIdx] = CurInvItem.ChangeIsNewAlert(false);
+                HM._.ivCtrl.InventoryData.invList[CurItemIdx] = CurInvItem.ChangeIsNewAlert(false);
             }
 
             if(CurInvItem.Data.Type == Enum.ItemType.Etc) {

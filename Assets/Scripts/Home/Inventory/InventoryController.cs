@@ -30,19 +30,19 @@ namespace Inventory
         ///  EXPクロバーが活性化したら、一個減る
         /// </summary>
         public void CheckActiveClover() {
-            for(int i = 0; i < InventoryData.ItemList.Count; i++) {
-                var itemList = InventoryData.ItemList[i];
+            for(int i = 0; i < InventoryData.invList.Count; i++) {
+                var itemList = InventoryData.invList[i];
                 if(itemList.IsEmpty)
                     continue;
 
                 if(itemList.Data.name == $"{Etc.ConsumableItem.Clover}") {
-                    InventoryData.ItemList[i] = itemList.ChangeQuantity(itemList.Quantity - 1);
-                    if(InventoryData.ItemList[i].Quantity <= 0)
+                    InventoryData.invList[i] = itemList.ChangeQuantity(itemList.Quantity - 1);
+                    if(InventoryData.invList[i].Quantity <= 0)
                         DM._.DB.IsCloverActive = false;
                 }
                 else if(itemList.Data.name == $"{Etc.ConsumableItem.GoldClover}") {
-                    InventoryData.ItemList[i] = itemList.ChangeQuantity(itemList.Quantity - 1);
-                    if(InventoryData.ItemList[i].Quantity <= 0)
+                    InventoryData.invList[i] = itemList.ChangeQuantity(itemList.Quantity - 1);
+                    if(InventoryData.invList[i].Quantity <= 0)
                         DM._.DB.IsGoldCloverActive = false;
                 }
             }
@@ -55,7 +55,7 @@ namespace Inventory
             int newItemCnt;
             while(true) {
                 newItemCnt = 0;
-                foreach (InventoryItem itemDt in InventoryData.ItemList)
+                foreach (InventoryItem itemDt in InventoryData.invList)
                     if (itemDt.IsNewAlert) newItemCnt++;
                 HM._.ivm.SetInvAlertIcon(newItemCnt);
                 yield return Util.Time0_5;
@@ -132,7 +132,7 @@ namespace Inventory
 
     #region EQUIP
         public int FindCurEquipItemIdx(Enum.ItemType type) {
-            return InventoryData.ItemList.FindIndex(item
+            return InventoryData.invList.FindIndex(item
                 => !item.IsEmpty
                 && item.IsEquip
                 && item.Data.Type == type
@@ -142,7 +142,7 @@ namespace Inventory
         public void UnEquipSlotUI() {
             SM._.SfxPlay(SM.SFX.InvUnEquipSFX);
             InventoryEquipUIManager ivEqu = HM._.ivEqu;
-            InventoryItem curInvItem = InventoryData.ItemList[HM._.ivm.CurItemIdx];
+            InventoryItem curInvItem = InventoryData.invList[HM._.ivm.CurItemIdx];
             Enum.ItemType type = curInvItem.Data.Type;
 
             //* インベントリ 初期化
@@ -158,7 +158,7 @@ namespace Inventory
         public void EquipItemSlotUI() {
             SM._.SfxPlay(SM.SFX.InvEquipSFX);
             var ivEqu = HM._.ivEqu;
-            InventoryItem  curInvItem = InventoryData.ItemList[HM._.ivm.CurItemIdx];
+            InventoryItem  curInvItem = InventoryData.invList[HM._.ivm.CurItemIdx];
             Enum.ItemType type = curInvItem.Data.Type;
 
             //* 初期化
@@ -166,7 +166,7 @@ namespace Inventory
             HM._.ivm.InitEquipDimUI(curInvItem.Data.Type); // ItemDt
 
             //* アップデート (現在着用したアイテム)
-            InventoryData.ItemList[HM._.ivm.CurItemIdx] = curInvItem.ChangeIsEquip(true); // IsEquip：True
+            InventoryData.invList[HM._.ivm.CurItemIdx] = curInvItem.ChangeIsEquip(true); // IsEquip：True
             HM._.ivm.InvUIItemList[HM._.ivm.CurItemIdx].EquipDim.SetActive(true); // DimUI 表示
 
             //* 装置スロットUI
@@ -179,19 +179,19 @@ namespace Inventory
             if(ivm.CurInvItem.RelicAbilities != null && ivm.CurInvItem.RelicAbilities.Length > 0) {
                 Debug.Log($"OpenCurrentEquipPotentialAbility():: 既にある");
                 //* 能力がもう有ったら、同じものが出ない処理のため、引数を渡す
-                InventoryData.ItemList[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(
+                InventoryData.invList[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(
                     new AbilityType[1] {Util.PickRandomAbilityType(ivm.CurInvItem.RelicAbilities[0])}
                 );
             }
             else {
                 Debug.Log($"OpenCurrentEquipPotentialAbility():: 新しく生成");
                 //* 新しいRelic能力を一つランダム選択 -> InventoryDtへ反映
-                InventoryData.ItemList[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(
+                InventoryData.invList[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(
                     new AbilityType[1] {Util.PickRandomAbilityType()}
                 );
             }
             //* ★ CurInvItemDtへも反映(EquipPopUpが開いたままであれば、CurInvItemで表示するため、最新化必要)
-            ivm.CurInvItem = InventoryData.ItemList[ivm.CurItemIdx];
+            ivm.CurInvItem = InventoryData.invList[ivm.CurItemIdx];
             Debug.Log($"OpenCurrentEquipPotentialAbility():: Ability Type= {ivm.CurInvItem.RelicAbilities[0]}");
             return ivm.CurInvItem;
         }
@@ -203,7 +203,7 @@ namespace Inventory
             //* 新しい能力
             AbilityType[] newRelicAbilities = InventoryData.CheckRelicAbilitiesData(itemDt);
             //* Relicの能力 変更
-            return InventoryData.ItemList[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(newRelicAbilities);
+            return InventoryData.invList[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(newRelicAbilities);
         }
     #endregion
     }

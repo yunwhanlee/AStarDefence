@@ -518,8 +518,8 @@ public class DM : MonoBehaviour {
 
         //* 空に初期化してから、InventorySOデータを上書き
         DB.InvItemDBs = new List<InventoryItem>();
-        for(int i = 0; i < HM._.ivCtrl.InventoryData.ItemList.Count; i++) {
-            var invItem = HM._.ivCtrl.InventoryData.ItemList[i];
+        for(int i = 0; i < HM._.ivCtrl.InventoryData.invList.Count; i++) {
+            var invItem = HM._.ivCtrl.InventoryData.invList[i];
             DB.InvItemDBs.Add(InventoryItem.GetEmptyItem());
             DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeQuantity(invItem.Quantity);
             DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeLevel(invItem.Lv);

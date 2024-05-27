@@ -92,10 +92,10 @@ public class GameConsumeItemUIManager : MonoBehaviour {
         if(CheckAvailable(itemEnumIdx) == false) return;
 
         //* インベントリデータから、残る量を減る
-        int invItemIdx = GM._.InventoryData.ItemList.FindIndex (itemDt
+        int invItemIdx = GM._.InventoryData.invList.FindIndex (itemDt
             => !itemDt.IsEmpty && itemDt.Data.name == itemEnumIdx.ToString());
-        var invItemDt = GM._.InventoryData.ItemList[invItemIdx];        
-        GM._.InventoryData.ItemList[invItemIdx] = invItemDt.ChangeQuantity(invItemDt.Quantity - 1);
+        var invItemDt = GM._.InventoryData.invList[invItemIdx];        
+        GM._.InventoryData.invList[invItemIdx] = invItemDt.ChangeQuantity(invItemDt.Quantity - 1);
 
         //* 能力 反映
         switch(itemEnumIdx) {
@@ -117,7 +117,7 @@ public class GameConsumeItemUIManager : MonoBehaviour {
 
 #region FUNC
     private void UpdateBtnQuantityTxt() {
-        foreach(var itemDt in GM._.InventoryData.ItemList) {
+        foreach(var itemDt in GM._.InventoryData.invList) {
             if(itemDt.IsEmpty)
                 continue;
             if(itemDt.Data.name == $"{Etc.ConsumableItem.SteamPack0}")
@@ -133,7 +133,7 @@ public class GameConsumeItemUIManager : MonoBehaviour {
 
     private bool CheckAvailable(Etc.ConsumableItem itemEnumIdx) {
         ConsumableItemBtn iconBtn = ConsumableItemBtns[(int)itemEnumIdx];
-        InventoryItem findInvItem = GM._.InventoryData.ItemList.Find ( itemDt
+        InventoryItem findInvItem = GM._.InventoryData.invList.Find ( itemDt
             => !itemDt.IsEmpty && itemDt.Data.name == itemEnumIdx.ToString());
 
         if(findInvItem.Quantity <= 0) {

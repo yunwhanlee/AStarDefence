@@ -104,29 +104,29 @@ namespace Inventory.Model
     [CreateAssetMenu]
     public class InventorySO : ScriptableObject {
         [field:Header("インベントリリスト")]
-        [field: SerializeField] public List<InventoryItem> ItemList;
+        [field: SerializeField] public List<InventoryItem> invList;
 
         [field: SerializeField] public static int Size {get; private set;} = 50;
         public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated;
 
         public void Init() {
             Debug.Log("InventorySO:: Init():: (インベントリデータ) 初期化");
-            ItemList = new List<InventoryItem>();
+            invList = new List<InventoryItem>();
             for(int i = 0; i < Size; i++)
-                ItemList.Add(InventoryItem.GetEmptyItem());
+                invList.Add(InventoryItem.GetEmptyItem());
         }
 
         public void InitIsEquipData(Enum.ItemType type) {
-            for(int i = 0; i < ItemList.Count; i++) {
-                if(ItemList[i].IsEmpty)
+            for(int i = 0; i < invList.Count; i++) {
+                if(invList[i].IsEmpty)
                     continue;
-                if(ItemList[i].Data.Type == type)
-                    ItemList[i] = ItemList[i].ChangeIsEquip(false);
+                if(invList[i].Data.Type == type)
+                    invList[i] = invList[i].ChangeIsEquip(false);
             }
         }
 
         public int AddItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip = false, bool isNewAlert = false) {
-            Debug.Log($"AddItem:: AddStackableItem():: ItemList[0].Empty= {ItemList[0].IsEmpty}");
+            Debug.Log($"AddItem:: AddStackableItem():: ItemList[0].Empty= {invList[0].IsEmpty}");
             quantity = AddStackableItem(item, quantity, lv, relicAbilities, isEquip, isNewAlert);
             InformAboutChange();
             return quantity;
@@ -146,9 +146,9 @@ namespace Inventory.Model
             };
 
             Debug.Log($"newItem.RelicAbilities.Length= {newItem}");
-            for(int i = 0; i < ItemList.Count; i++) {
-                if(ItemList[i].IsEmpty) {
-                    ItemList[i] = newItem;
+            for(int i = 0; i < invList.Count; i++) {
+                if(invList[i].IsEmpty) {
+                    invList[i] = newItem;
                     return quantity;
                 }
             }
@@ -159,40 +159,57 @@ namespace Inventory.Model
         /// 一つでも空スロットがあったら、インベントリーがFullではない => False
         /// </summary>
         private bool IsInventoryFull()
-            => ItemList.Where(item => item.IsEmpty).Any() == false;
+            => invList.Where(item => item.IsEmpty).Any() == false;
 
         /// <summary>
         /// 数えるアイテムとして追加 (自動マージしたときも使う)
         /// </summary>
         private int AddStackableItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip, bool isNewAlert) {
-            for(int i = 0; i < ItemList.Count; i++) {
-                Debug.Log($"AddStackableItem():: ItemList[{i}].Empty= {ItemList[i].IsEmpty}");
-                //* アイテム生成 (最初の初期化にも使う)
-                if(ItemList[i].IsEmpty) {
-                    if(quantity > 0 && !IsInventoryFull()) {
-                        AddItemToFirstFreeSlot(item, quantity, lv, relicAbilities, isEquip, isNewAlert);
-                    }
-                    break;
-                }
-                else {
-                    //* 同じアイテムが有ったら
-                    if(ItemList[i].Data.ID == item.ID) {
-                        Debug.Log($"AddStackableItem():: ItemList.Count= {ItemList.Count}");
-                        int amountPossibleToTake = ItemList[i].Data.MaxStackSize - ItemList[i].Quantity;
+            //* 全てのインベントリースロットを回す
+            for(int i = 0; i < invList.Count; i++) {
+                Debug.Log($"AddStackableItem():: ItemList[{i}].Empty= {invList[i].IsEmpty}");
+                //* スロットにアイテムが有り、
+                if(!invList[i].IsEmpty) {
+                    //* 同じアイテムなら、
+                    if(invList[i].Data.ID == item.ID) {
+                        //* アイテム数量 増加
+                        Debug.Log($"AddStackableItem():: EACH SAME {invList[i].Data.Name}(ID={invList[i].Data.ID}) == {item.Name}(ID={item.ID}), ItemList.Count= {invList.Count}");
+                        int amountPossibleToTake = invList[i].Data.MaxStackSize - invList[i].Quantity;
 
                         if(quantity > amountPossibleToTake) {
-                            ItemList[i] = ItemList[i].ChangeQuantity(ItemList[i].Data.MaxStackSize);
+                            invList[i] = invList[i].ChangeQuantity(invList[i].Data.MaxStackSize);
                             quantity -= amountPossibleToTake;
                         }
                         else {
-                            ItemList[i] = ItemList[i].ChangeQuantity(ItemList[i].Quantity + quantity);
+                            invList[i] = invList[i].ChangeQuantity(invList[i].Quantity + quantity);
                             InformAboutChange();
                             return 0;
                         }
                         break;
                     }
                 }
+                //* スロットが空いていて
+                else {
+                    //* インベントリーがいっぱい
+                    if(quantity > 0 && IsInventoryFull()) {
+                        HM._.hui.ShowMsgError("インベントリーに空いているスロットがないです。");
+                        continue; //* 次に進む
+                    }
 
+                    //! (BUG) アイテムの数量が０になる(Emptyスロット)と、Emptyスロットを埋めるのが優先になって同じ物が重複するバグがある
+                    //* そのため、ループで全てを回しながら、新しく生成する前に同じ物があるのかを検査する
+                    if(invList.FindIndex(invSlot => !invSlot.IsEmpty && invSlot.Data.ID == item.ID) != -1) {
+                        Debug.Log($"<color=red>AddStackableItem():: EACH NEW ALREADY EXIST {item.Name}(ID={item.ID})</color>");
+                        //* もしあったら、数量を上げて終了
+                        invList[i] = invList[i].ChangeQuantity(invList[i].Quantity + quantity);
+                        continue; //* 次に進む
+                    }
+
+                    //* 新しくアイテム生成 (最初の初期化にも使う)
+                    Debug.Log($"AddStackableItem():: EACH NEW {item.Name}(ID={item.ID}), ItemList.Count= {invList.Count}");
+                    AddItemToFirstFreeSlot(item, quantity, lv, relicAbilities, isEquip, isNewAlert);
+                    break;
+                }
             }
 
             //* アイテム生成 (最初の初期化にも使う)
@@ -210,16 +227,16 @@ namespace Inventory.Model
         /// インベントリーの装置アイテムをアップグレード
         /// </summary>
         public void UpgradeEquipItem(ItemSO curItem, int quantity, int lv, AbilityType[] abilities, bool isEquip) {
-            for(int i = 0; i < ItemList.Count; i++) {
+            for(int i = 0; i < invList.Count; i++) {
                 try {
                     //* 同じIDを探して
-                    if(ItemList[i].Data.ID == curItem.ID) {
+                    if(invList[i].Data.ID == curItem.ID) {
                         //* アップグレードのMAX制限
                         int max = (curItem.Type == Enum.ItemType.Relic)? Config.RELIC_UPGRADE_MAX : Config.EQUIP_UPGRADE_MAX;
                         lv = Mathf.Min(lv, max);
-                        Debug.Log($"UpgradeEquipItem({ItemList[i].Data.ID} == {curItem.ID}):: lv= {lv}");
+                        Debug.Log($"UpgradeEquipItem({invList[i].Data.ID} == {curItem.ID}):: lv= {lv}");
                         //* 増えたVal値を最新化
-                        ItemList[i] = ItemList[i].ChangeLevel(lv);
+                        invList[i] = invList[i].ChangeLevel(lv);
                         // //* イベントリーUI アップデート
                         // InformAboutChange();
                         // //* 情報表示ポップアップUI アップデート
@@ -229,7 +246,7 @@ namespace Inventory.Model
                 }
                 catch(Exception msg) {
                     Debug.LogWarning("(BUG) " + msg);
-                    Debug.Log($"ItemList[{i}]= {ItemList[i]}");
+                    Debug.Log($"ItemList[{i}]= {invList[i]}");
                 }
             }
         }
@@ -238,18 +255,16 @@ namespace Inventory.Model
         /// インベントリーの装置アイテムを次のレベルに自動マージ
         /// </summary>
         public void AutoMergeEquipItem() {
-            const int MERGE_UNIT = 10;
-
             bool isMergable = false;
             bool isMustUnEquip = false;
             string typeName = "";
 
             //* マージできるか状況 確認
-            foreach(var item in ItemList) {
+            foreach(var item in invList) {
                 if(item.IsEmpty) continue;
                 if(item.Data.Type == Enum.ItemType.Etc) continue;
 
-                if(item.Quantity >= 10) {
+                if(item.Quantity >= Config.EQUIPITEM_MERGE_CNT) {
                     isMergable = true;
                     if(item.IsEquip) {
                         isMustUnEquip = true;
@@ -264,30 +279,30 @@ namespace Inventory.Model
                 return;
             }
             else if(isMustUnEquip) {
-                
-                HM._.hui.ShowMsgError($"{typeName}의 장착을 해제해주세요! (장착한 아이템 중 합성대상이 있어 불가)");
+                HM._.hui.ShowMsgError($"{typeName}장착을 해제해주세요! (장착한 아이템 중 합성대상이 있어 불가)");
                 return;
             }
 
             SM._.SfxPlay(SM.SFX.Merge3SFX);
 
             //* マージ
-            for(int i = 0; i < ItemList.Count; i++) {
-                InventoryItem item = ItemList[i];
-                if(item.Quantity >= MERGE_UNIT) {
+            for(int i = 0; i < invList.Count; i++) {
+                InventoryItem item = invList[i];
+                if(item.Quantity >= Config.EQUIPITEM_MERGE_CNT) {
                     if(item.Data.Grade == Enum.Grade.Prime) {
                         Debug.Log("最後の等級なので、処理しない");
                         continue;
                     }
 
-                    //* 数量を減る
-                    int mergeCnt = item.Quantity / MERGE_UNIT;
-                    int removeQuantity = mergeCnt * MERGE_UNIT;
-                    ItemList[i] = item.ChangeQuantity(item.Quantity - removeQuantity);
+                    int mergeCnt = item.Quantity / Config.EQUIPITEM_MERGE_CNT;
+                    int removeQuantity = mergeCnt * Config.EQUIPITEM_MERGE_CNT;
 
-                    //* もしマージしてから、以前のアイテム数量が０なら、削除（Empty）
-                    if(ItemList[i].Quantity <= 0) 
-                        ItemList[i] = InventoryItem.GetEmptyItem();
+                    //* 数量 減る
+                    invList[i] = item.ChangeQuantity(item.Quantity - removeQuantity);
+
+                    //* マージしてアイテム数量が０なら、削除（Empty）
+                    if(invList[i].Quantity <= 0) 
+                        invList[i] = InventoryItem.GetEmptyItem();
 
                     //* 次のレベルアイテム生成
                     var type = item.Data.Type;
@@ -307,13 +322,13 @@ namespace Inventory.Model
                     //* Relicなら、ランダムで能力
                     var relicAbilities = CheckRelicAbilitiesData(nextItemDt);
 
-                    //* アイテムマージ
+                    //* 次の等級アイテム生成
                     AddStackableItem(nextItemDt, mergeCnt, lv: 1, relicAbilities, item.IsEquip, isNewAlert: true);
-                    
                 }
             }
             //* 整列
             SortInventory();
+
             //* イベントリーUI アップデート
             InformAboutChange();
             //* 現在カテゴリ表示を再ロード ➝ ずれたスロットリストを正しく合わせる
@@ -343,13 +358,13 @@ namespace Inventory.Model
         }
 
         public void DecreaseItem(int tgIdx, int decVal = -1) {
-            ItemList[tgIdx] = ItemList[tgIdx].ChangeQuantity(ItemList[tgIdx].Quantity + decVal);
+            invList[tgIdx] = invList[tgIdx].ChangeQuantity(invList[tgIdx].Quantity + decVal);
             // Debug.Log($"DecreaseItem():: ItemList[{tgIdx}]= {ItemList[tgIdx].Data.Name}, Quantity= {ItemList[tgIdx].Quantity}");
 
             //* アイテム数量が０なら、削除（Empty）
-            if(ItemList[tgIdx].Quantity <= 0) {
+            if(invList[tgIdx].Quantity <= 0) {
                 //* インベントリースロットのデータとUIリセット
-                ItemList[tgIdx] = InventoryItem.GetEmptyItem();
+                invList[tgIdx] = InventoryItem.GetEmptyItem();
                 HM._.ivm.InvUIItemList[tgIdx].ResetUI();
                 //* アイテムがないので、開いたPopUpに可能性があることを全て非表示
                 HM._.rwlm.RewardChestPopUp.SetActive(false);
@@ -370,7 +385,7 @@ namespace Inventory.Model
         public void SortInventory() {
             Debug.Log("SortInventory()::");
             //* 整列
-            ItemList.Sort((a, b) => {
+            invList.Sort((a, b) => {
                 if (a.IsEmpty && b.IsEmpty)
                     return 0; 
                 if (a.IsEmpty)
@@ -395,10 +410,10 @@ namespace Inventory.Model
 
         public Dictionary<int, InventoryItem> GetCurrentInventoryState() {
             Dictionary<int, InventoryItem> invItemDic = new Dictionary<int, InventoryItem>();
-            for(int i = 0; i < ItemList.Count; i++) {
-                if(ItemList[i].IsEmpty)
+            for(int i = 0; i < invList.Count; i++) {
+                if(invList[i].IsEmpty)
                     continue;
-                invItemDic[i] = ItemList[i];
+                invItemDic[i] = invList[i];
             }
             return invItemDic;
         }
@@ -408,12 +423,12 @@ namespace Inventory.Model
         /// </summary>
         /// <param name="itemIdx"></param>
         public InventoryItem GetItemAt(int itemIdx)
-            => ItemList[itemIdx];
+            => invList[itemIdx];
 
         public void SwapItems(int itemIdx1, int itemIdx2) {
-            InventoryItem item1 = ItemList[itemIdx1];
-            ItemList[itemIdx1] = ItemList[itemIdx2];
-            ItemList[itemIdx2] = item1;
+            InventoryItem item1 = invList[itemIdx1];
+            invList[itemIdx1] = invList[itemIdx2];
+            invList[itemIdx2] = item1;
             InformAboutChange();
         }
 

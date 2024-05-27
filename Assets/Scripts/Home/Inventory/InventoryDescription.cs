@@ -174,7 +174,7 @@ namespace Inventory.UI {
         }
 
         private bool CheckStoneItemQuantity(Etc.ConsumableItem itemEnumIdx, string againAskMsg) {
-            InventoryItem stoneItem = HM._.ivCtrl.InventoryData.ItemList.Find( item
+            InventoryItem stoneItem = HM._.ivCtrl.InventoryData.invList.Find( item
                 => !item.IsEmpty && item.Data.name == itemEnumIdx.ToString());
             if(stoneItem.IsEmpty) {
                 HM._.hui.ShowMsgError("사용할 아이템이 없습니다.");
@@ -221,7 +221,7 @@ namespace Inventory.UI {
                 switch(idx) {
                     case SOULSTONE: {
                         //* インベントリデータから、残る量を減る
-                        int invItemIdx = HM._.ivCtrl.InventoryData.ItemList.FindIndex (itemDt
+                        int invItemIdx = HM._.ivCtrl.InventoryData.invList.FindIndex (itemDt
                             => !itemDt.IsEmpty && itemDt.Data.name == stoneItemEnumList[idx].ToString());
                         HM._.ivCtrl.InventoryData.DecreaseItem(invItemIdx, -1);
 
@@ -231,7 +231,7 @@ namespace Inventory.UI {
                     }
                     case MAGICSTONE: {
                         //* インベントリデータから、残る量を減る
-                        int invItemIdx = HM._.ivCtrl.InventoryData.ItemList.FindIndex (itemDt
+                        int invItemIdx = HM._.ivCtrl.InventoryData.invList.FindIndex (itemDt
                             => !itemDt.IsEmpty && itemDt.Data.name == stoneItemEnumList[idx].ToString());
                         HM._.ivCtrl.InventoryData.DecreaseItem(invItemIdx, -1);
 
@@ -501,7 +501,7 @@ namespace Inventory.UI {
                 Debug.Log($"ePrices.Length= {ePrices.Length}, lvIdx= {lvIdx}");
                 MagicStoneBtnObj.SetActive(isRelic);
                 SoulStoneBtnObj.SetActive(!isRelic);
-                var invItemList = HM._.ivCtrl.InventoryData.ItemList;
+                var invItemList = HM._.ivCtrl.InventoryData.invList;
                 MagicStoneBtnTxt.text = $"{invItemList.Find(item => !item.IsEmpty && item.Data.name == $"{Etc.ConsumableItem.MagicStone}").Quantity}";
                 SoulStoneBtnTxt.text = $"{invItemList.Find(item => !item.IsEmpty && item.Data.name == $"{Etc.ConsumableItem.SoulStone}").Quantity}";
                 EquipBtnTxt.text = isEquip? "해제" : "장비";

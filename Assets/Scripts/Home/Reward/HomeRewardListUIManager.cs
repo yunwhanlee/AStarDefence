@@ -205,7 +205,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
             : RwdItemDt.Rwd_ChestPremium;
         SetChestPopUpUI(type, quantity);
 
-        var invItemList = HM._.ivCtrl.InventoryData.ItemList;
+        var invItemList = HM._.ivCtrl.InventoryData.invList;
         //* EquipChestで有れば、最大40個まで一緒に開く
         if(type == Etc.ConsumableItem.ChestEquipment) {
             //* 次の開くイベント登録
