@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Relic 5
   m_EditorClassIdentifier: 
   <IsNoshowInventory>k__BackingField: 0
-  <MaxStackSize>k__BackingField: 99
+  <MaxStackSize>k__BackingField: 9999
   <Type>k__BackingField: 3
   <Grade>k__BackingField: 6
   <Name>k__BackingField: "\uCC3D\uC870\uC758\uC2E0 \uC655\uAD00"

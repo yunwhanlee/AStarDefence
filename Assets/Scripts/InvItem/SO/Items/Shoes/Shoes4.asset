@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shoes4
   m_EditorClassIdentifier: 
   <IsNoshowInventory>k__BackingField: 0
-  <MaxStackSize>k__BackingField: 99
+  <MaxStackSize>k__BackingField: 9999
   <Type>k__BackingField: 1
   <Grade>k__BackingField: 3
   <Name>k__BackingField: "\uD574\uACE8\uC7A5\uD654"

@@ -74,6 +74,7 @@ public class HomeRewardUIManager : MonoBehaviour {
                     }
                     //* リワード処理：インベントリーへ表示する物
                     else {
+                        Debug.Log($"<color=green>CoUpdateInventoryAsync():: AddItem() -> {rwdItem.Data.name}</color>");
                         int reminder = HM._.ivCtrl.InventoryData.AddItem (
                             rwdItem.Data, 
                             rwdItem.Quantity, 

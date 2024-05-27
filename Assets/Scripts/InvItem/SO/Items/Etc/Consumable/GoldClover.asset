@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GoldClover
   m_EditorClassIdentifier: 
   <IsNoshowInventory>k__BackingField: 0
-  <MaxStackSize>k__BackingField: 100
+  <MaxStackSize>k__BackingField: 9999
   <Type>k__BackingField: 4
   <Grade>k__BackingField: 4
   <Name>k__BackingField: "\uD669\uAE08\uD074\uB85C\uBC84"

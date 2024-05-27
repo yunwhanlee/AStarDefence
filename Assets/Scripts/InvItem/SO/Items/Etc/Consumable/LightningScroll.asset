@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LightningScroll
   m_EditorClassIdentifier: 
   <IsNoshowInventory>k__BackingField: 0
-  <MaxStackSize>k__BackingField: 100
+  <MaxStackSize>k__BackingField: 9999
   <Type>k__BackingField: 4
   <Grade>k__BackingField: 2
   <Name>k__BackingField: "\uBC88\uAC1C\uC8FC\uBB38\uC11C"

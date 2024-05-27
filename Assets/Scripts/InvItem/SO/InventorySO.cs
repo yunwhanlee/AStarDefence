@@ -27,7 +27,7 @@ namespace Inventory.Model
         public int Lv;
         public ItemSO Data;
         public AbilityType[] RelicAbilities;
-        public bool IsEmpty => Data == null;
+        public bool IsEmpty => Data == null; //* ItemSOがNull(登録されていない)なら、true
         public bool IsEquip;
         public bool IsNewAlert;
 
@@ -103,7 +103,9 @@ namespace Inventory.Model
     #region INVENTORY SO (DATA)
     [CreateAssetMenu]
     public class InventorySO : ScriptableObject {
-        [SerializeField] public List<InventoryItem> ItemList;
+        [field:Header("インベントリリスト")]
+        [field: SerializeField] public List<InventoryItem> ItemList;
+
         [field: SerializeField] public static int Size {get; private set;} = 50;
         public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated;
 
@@ -124,6 +126,7 @@ namespace Inventory.Model
         }
 
         public int AddItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip = false, bool isNewAlert = false) {
+            Debug.Log($"AddItem:: AddStackableItem():: ItemList[0].Empty= {ItemList[0].IsEmpty}");
             quantity = AddStackableItem(item, quantity, lv, relicAbilities, isEquip, isNewAlert);
             InformAboutChange();
             return quantity;
@@ -163,31 +166,42 @@ namespace Inventory.Model
         /// </summary>
         private int AddStackableItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip, bool isNewAlert) {
             for(int i = 0; i < ItemList.Count; i++) {
-                if(ItemList[i].IsEmpty)
-                    continue;
-
-                //* 同じアイテムが有ったら
-                if(ItemList[i].Data.ID == item.ID) {
-                    int amountPossibleToTake = ItemList[i].Data.MaxStackSize - ItemList[i].Quantity;
-
-                    if(quantity > amountPossibleToTake) {
-                        ItemList[i] = ItemList[i].ChangeQuantity(ItemList[i].Data.MaxStackSize);
-                        quantity -= amountPossibleToTake;
+                Debug.Log($"AddStackableItem():: ItemList[{i}].Empty= {ItemList[i].IsEmpty}");
+                //* アイテム生成 (最初の初期化にも使う)
+                if(ItemList[i].IsEmpty) {
+                    if(quantity > 0 && !IsInventoryFull()) {
+                        AddItemToFirstFreeSlot(item, quantity, lv, relicAbilities, isEquip, isNewAlert);
                     }
-                    else {
-                        ItemList[i] = ItemList[i].ChangeQuantity(ItemList[i].Quantity + quantity);
-                        InformAboutChange();
-                        return 0;
+                    break;
+                }
+                else {
+                    //* 同じアイテムが有ったら
+                    if(ItemList[i].Data.ID == item.ID) {
+                        Debug.Log($"AddStackableItem():: ItemList.Count= {ItemList.Count}");
+                        int amountPossibleToTake = ItemList[i].Data.MaxStackSize - ItemList[i].Quantity;
+
+                        if(quantity > amountPossibleToTake) {
+                            ItemList[i] = ItemList[i].ChangeQuantity(ItemList[i].Data.MaxStackSize);
+                            quantity -= amountPossibleToTake;
+                        }
+                        else {
+                            ItemList[i] = ItemList[i].ChangeQuantity(ItemList[i].Quantity + quantity);
+                            InformAboutChange();
+                            return 0;
+                        }
+                        break;
                     }
                 }
+
             }
 
             //* アイテム生成 (最初の初期化にも使う)
-            while(quantity > 0 && IsInventoryFull() == false) {
-                int newQuantity = Mathf.Clamp(quantity, 0, item.MaxStackSize);
-                quantity -= newQuantity;
-                AddItemToFirstFreeSlot(item, newQuantity, lv, relicAbilities, isEquip, isNewAlert);
-            }
+            // while(quantity > 0 && IsInventoryFull() == false) {
+            //     Debug.Log($"AddStackableItem():: アイテム生成= {item.name}");
+            //     int newQuantity = Mathf.Clamp(quantity, 0, item.MaxStackSize);
+            //     quantity -= newQuantity;
+            //     AddItemToFirstFreeSlot(item, newQuantity, lv, relicAbilities, isEquip, isNewAlert);
+            // }
 
             return quantity;
         }

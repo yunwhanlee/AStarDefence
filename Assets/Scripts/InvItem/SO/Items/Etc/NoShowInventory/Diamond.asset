@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Diamond
   m_EditorClassIdentifier: 
   <IsNoshowInventory>k__BackingField: 1
-  <MaxStackSize>k__BackingField: 100
+  <MaxStackSize>k__BackingField: 9999
   <Type>k__BackingField: 4
   <Grade>k__BackingField: 3
   <Name>k__BackingField: "\uB2E4\uC774\uC544\uBAAC\uB4DC"

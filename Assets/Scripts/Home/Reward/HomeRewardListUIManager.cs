@@ -66,11 +66,12 @@ public class HomeRewardListUIManager : MonoBehaviour {
 #endregion
 
 #region FUNC
-    private void ReleaseAll() {
+    IEnumerator CoReleaseAll() {
         rwdSlotList.ForEach(rwdSlot => {
             rwdSlot.ResetUI();
             rwdSlot.gameObject.SetActive(false);
         });
+        yield return null;
         // foreach (Transform child in Content)
         //     child.gameObject.SetActive(false); // Destroy(child.gameObject);
     }
@@ -78,15 +79,14 @@ public class HomeRewardListUIManager : MonoBehaviour {
     /// <summary>
     /// リワードリスト表示
     /// </summary>
-    private IEnumerator 
-    CoDisplayRewardList(List<RewardItem> rewardList) {
+    private IEnumerator CoDisplayRewardList(List<RewardItem> rewardList) {
         for(int i = 0; i < rewardList.Count; i++)
-            Debug.Log($"ShowReward():: itemList[{i}].quantity= {rewardList[i].Quantity}");
+            Debug.Log($"CoDisplayRewardList():: itemList[{i}].quantity= {rewardList[i].Quantity}");
 
         //* 数量によって、スロットサイズ
         bool isUnder10 = rewardList.Count <= 10;
         ContentGrid.constraintCount = isUnder10? 5 : 10;
-        Content.localScale = Vector3.one * (isUnder10? 1 : 0.8f);
+        Content.localScale = Vector3.one * (isUnder10? 1 : 0.8f);        
 
         //* 事前 Set UI
         for(int i = 0; i < rewardList.Count; i++) {
@@ -100,10 +100,10 @@ public class HomeRewardListUIManager : MonoBehaviour {
             rwdSlotList[i].QuantityTxt.enabled = false;
             rwdSlotList[i].TypeBgImg.enabled = false;
             rwdSlotList[i].TypeIconImg.enabled = false;
-        }
+        }        
 
         IsFinishSlotsSpawn = false;
-        yield return Util.Time0_2;
+        yield return Util.Time0_2;        
 
         //* UI EF
         for(int i = 0; i < rewardList.Count; i++) {
@@ -170,13 +170,13 @@ public class HomeRewardListUIManager : MonoBehaviour {
         for(int i = 0; i < itemList.Count; i++)
             Debug.Log($"ShowReward():: itemList[{i}].quantity= {itemList[i].Quantity}");
 
-        SM._.SfxPlay(SM.SFX.RewardSFX);
-        HM._.hui.IsActivePopUp = true;
-        WindowObj.SetActive(true);
-        ReleaseAll();
-        yield return CoDisplayRewardList(itemList);
-        yield return HM._.rwm.CoUpdateInventoryAsync(itemList);
-    }
+            SM._.SfxPlay(SM.SFX.RewardSFX);
+            HM._.hui.IsActivePopUp = true;
+            WindowObj.SetActive(true);
+            yield return CoReleaseAll();
+            yield return CoDisplayRewardList(itemList);
+            yield return HM._.rwm.CoUpdateInventoryAsync(itemList);
+        }
     /// <summary>
     /// Chestを開いた後、カウント減った状況 最新化
     /// </summary>
@@ -194,7 +194,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
         ChestAlertCntTxt.text = quantity.ToString();
     }
     /// <summary>
-    /// ChestをTapして開くPopUp 表示
+    /// インベントリー　ChestをTapして開くPopUp 表示
     /// </summary>  
     public void ShowChestPopUp(Etc.ConsumableItem type, int quantity) {
         SM._.SfxPlay(SM.SFX.CreateTowerSFX);
@@ -210,6 +210,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
         if(type == Etc.ConsumableItem.ChestEquipment) {
             //* 次の開くイベント登録
             OnClickOpenChest = () => RwdItemDt.OpenRewardContent(
+                isOpenByInv: true,
                 chestDt, 
                 Mathf.Min(invItemList.Find(item => !item.IsEmpty &&
                     item.Data.name == $"{Etc.ConsumableItem.ChestEquipment}").Quantity
@@ -219,6 +220,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
         else if(type == Etc.ConsumableItem.ChestCommon) {
             //* 次の開くイベント登録
             OnClickOpenChest = () => RwdItemDt.OpenRewardContent(
+                isOpenByInv: true,
                 chestDt, 
                 Mathf.Min(invItemList.Find(item => !item.IsEmpty && 
                     item.Data.name == $"{Etc.ConsumableItem.ChestCommon}").Quantity
@@ -226,7 +228,10 @@ public class HomeRewardListUIManager : MonoBehaviour {
             );
         }
         else {
-            OnClickOpenChest = () => RwdItemDt.OpenRewardContent(chestDt);
+            OnClickOpenChest = () => RwdItemDt.OpenRewardContent(
+                isOpenByInv: true,
+                chestDt
+            );
         }
 
 

@@ -150,7 +150,7 @@ public class RewardItemSO : ScriptableObject {
     /// </summary>
     /// <param name="rwdContentDt">リワードSOデータ</param>
     /// <param name="chestGatherOpenCnt">箱を同時に開くカウント(ex. EQUIP CHSET 5個、10個、20個、40個...)</param>
-    public void OpenRewardContent(RewardContentSO rwdContentDt, int chestGatherOpenCnt = 0) {
+    public void OpenRewardContent(bool isOpenByInv ,RewardContentSO rwdContentDt, int chestGatherOpenCnt = -1) {
         //* アイテム数 (指定したカウントがあれば、これにする)
         int itemCnt = (chestGatherOpenCnt == 0)? rwdContentDt.Cnt : chestGatherOpenCnt; 
         List<RewardItem> rewardList = new List<RewardItem>();
@@ -208,10 +208,13 @@ public class RewardItemSO : ScriptableObject {
 
         //* UI表示
         HM._.rwlm.ShowReward(rewardList);
-        // HM._.rwm.CoUpdateInventoryAsync(rewardList);
 
-        int decreaseCnt = (chestGatherOpenCnt == 0)? 1 : chestGatherOpenCnt;
-        HM._.ivCtrl.InventoryData.DecreaseItem(HM._.ivm.CurItemIdx, decVal: -decreaseCnt);
+        //* 複数の箱を開く(インベントリーからCOMMON & EQUIP箱のみ)
+        if(isOpenByInv) { //! SHOPで購入するときには、以前に箱がインベントリーにないから、DecreaseItem処理するとだめ
+            int decreaseCnt = (chestGatherOpenCnt == 0)? 1 : chestGatherOpenCnt;
+            HM._.ivCtrl.InventoryData.DecreaseItem(HM._.ivm.CurItemIdx, decVal: -decreaseCnt);
+        }
+
         HM._.rwlm.UpdateChestPopUpUI();
     }
 }

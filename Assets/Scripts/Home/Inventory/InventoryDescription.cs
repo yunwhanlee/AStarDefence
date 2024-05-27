@@ -119,7 +119,7 @@ namespace Inventory.UI {
                 SM._.SfxPlay(SM.SFX.EnemyDeadSFX);
                 UpgradeFailUIEF.Play();
                 HM._.ivm.EquipPopUpAnim.SetTrigger("DoShake");
-                HM._.hui.ShowMsgNotice($"<color=red>업그레이드 실패..{randPer} / {perDts[lvIdx]}</color>");
+                HM._.hui.ShowMsgNotice($"<color=red>업그레이드 실패."); //.{randPer} / {perDts[lvIdx]}</color>");
                 return false;
             }
         }
@@ -309,13 +309,13 @@ namespace Inventory.UI {
             OnClickConfirmBtn = () => {
                 switch(type) {
                     case Etc.ConsumableItem.Present0:
-                        rwdItemDt.OpenRewardContent(rwdItemDt.Rwd_Present0);
+                        rwdItemDt.OpenRewardContent(isOpenByInv: true, rwdItemDt.Rwd_Present0);
                         break;
                     case Etc.ConsumableItem.Present1:
-                        rwdItemDt.OpenRewardContent(rwdItemDt.Rwd_Present1);
+                        rwdItemDt.OpenRewardContent(isOpenByInv: true, rwdItemDt.Rwd_Present1);
                         break;
                     case Etc.ConsumableItem.Present2:
-                        rwdItemDt.OpenRewardContent(rwdItemDt.Rwd_Present2);
+                        rwdItemDt.OpenRewardContent(isOpenByInv: true, rwdItemDt.Rwd_Present2);
                         break;
                 }
             };

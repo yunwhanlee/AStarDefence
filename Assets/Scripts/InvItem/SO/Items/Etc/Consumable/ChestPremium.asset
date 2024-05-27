@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ChestPremium
   m_EditorClassIdentifier: 
   <IsNoshowInventory>k__BackingField: 0
-  <MaxStackSize>k__BackingField: 100
+  <MaxStackSize>k__BackingField: 9999
   <Type>k__BackingField: 4
   <Grade>k__BackingField: 6
   <Name>k__BackingField: "\uD504\uB9AC\uBBF8\uC5C4\uC0C1\uC790"

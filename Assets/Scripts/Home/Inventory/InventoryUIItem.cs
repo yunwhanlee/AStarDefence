@@ -93,6 +93,7 @@ namespace Inventory.UI
 
             IsEmpty = true;
             // IsNewAlert = false;
+            
             QuantityTxt.text = "";
             LvTxt.text = "";
             ItemImgScaleUIEF.Stop();

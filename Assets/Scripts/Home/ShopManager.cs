@@ -525,7 +525,7 @@ public class ShopManager : MonoBehaviour {
         //* Chest Icon And Price
         i = 0;
         Array.ForEach(ChestPriceTxts, priceTxt => 
-            priceTxt.text = GetChestPriceTxtFormet(i++)
+            priceTxt.text = GetChestPriceTxtFormat(i++)
         );
     }
     public void ActiveCateGroup(int btnIdx) {
@@ -544,7 +544,7 @@ public class ShopManager : MonoBehaviour {
     /// <summary>
     /// SHOPの宝箱の値段と財貨アイコン情報をテキストFORMATで返す
     /// </summary>
-    public string GetChestPriceTxtFormet(int chestIdx) {
+    public string GetChestPriceTxtFormat(int chestIdx) {
         string keyword = Config.H_PRICE.SHOP.CHEST_PRICES[chestIdx];
         var splitDt = keyword.Split("_");
         string spriteTag = splitDt[0];

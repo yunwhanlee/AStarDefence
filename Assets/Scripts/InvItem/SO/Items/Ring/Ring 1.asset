@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ring 1
   m_EditorClassIdentifier: 
   <IsNoshowInventory>k__BackingField: 0
-  <MaxStackSize>k__BackingField: 99
+  <MaxStackSize>k__BackingField: 9999
   <Type>k__BackingField: 2
   <Grade>k__BackingField: 0
   <Name>k__BackingField: "\uBAA9\uAC01\uBC18\uC9C0"

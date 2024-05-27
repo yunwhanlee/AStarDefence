@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ChestDiamond
   m_EditorClassIdentifier: 
   <IsNoshowInventory>k__BackingField: 0
-  <MaxStackSize>k__BackingField: 100
+  <MaxStackSize>k__BackingField: 9999
   <Type>k__BackingField: 4
   <Grade>k__BackingField: 3
   <Name>k__BackingField: "\uB2E4\uC774\uC544\uC0C1\uC790"

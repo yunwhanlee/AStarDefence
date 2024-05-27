@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Present2
   m_EditorClassIdentifier: 
   <IsNoshowInventory>k__BackingField: 0
-  <MaxStackSize>k__BackingField: 100
+  <MaxStackSize>k__BackingField: 9999
   <Type>k__BackingField: 4
   <Grade>k__BackingField: 5
   <Name>k__BackingField: "\uC120\uBB3C\uC0C1\uC790"

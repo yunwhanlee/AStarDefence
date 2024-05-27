@@ -70,7 +70,7 @@ public class ChestInfoManager : MonoBehaviour {
 
         private void DailyFreeCommonChest() {
             RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
-            rwDt.OpenRewardContent(rwDt.Rwd_ChestCommon);
+            rwDt.OpenRewardContent(isOpenByInv: false, rwDt.Rwd_ChestCommon);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ public class ChestInfoManager : MonoBehaviour {
             EquipGachaPercentInfoIcon.SetActive(chestIdx >= 5);
 
             //* Icon And Price
-            PriceBtnTxt.text = HM._.shopMg.GetChestPriceTxtFormet(chestIdx);
+            PriceBtnTxt.text = HM._.shopMg.GetChestPriceTxtFormat(chestIdx);
 
             //* Info
             RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
@@ -141,7 +141,7 @@ public class ChestInfoManager : MonoBehaviour {
                         DM._.DB.ShopDB.SetAcceptTriggerOn(ShopDB.DIAMOND_CHEST);
                         HM._.shopMg.DiamondChestDim.SetActive(true);
 
-                        rwDt.OpenRewardContent(chInfo);
+                        rwDt.OpenRewardContent(isOpenByInv: false, chInfo);
                         WindowObj.SetActive(false);
                     };
                     break;
@@ -153,9 +153,8 @@ public class ChestInfoManager : MonoBehaviour {
                         //* Try Purchase
                         bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
                         if(!isSuccess) return;
-                        rwDt.OpenRewardContent(rwDt.Rwd_ChestCommon);
+                        rwDt.OpenRewardContent(isOpenByInv: false, rwDt.Rwd_ChestCommon);
                     };
-                    
                     break;
                 }
                 case Config.H_PRICE.SHOP.GOLDCHEST: {
@@ -173,7 +172,7 @@ public class ChestInfoManager : MonoBehaviour {
                         //* Try Purchase
                         bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
                         if(!isSuccess) return;
-                        rwDt.OpenRewardContent(chInfo);
+                        rwDt.OpenRewardContent(isOpenByInv: false, chInfo);
                     };
                     break;
                 }
@@ -193,7 +192,7 @@ public class ChestInfoManager : MonoBehaviour {
                         //* Try Purchase
                         bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
                         if(!isSuccess) return;
-                        rwDt.OpenRewardContent(chInfo);
+                        rwDt.OpenRewardContent(isOpenByInv: false, chInfo);
                     };
                     break;
                 }
@@ -214,7 +213,7 @@ public class ChestInfoManager : MonoBehaviour {
                         //* Try Purchase
                         bool isSuccess = Config.H_PRICE.SHOP.TryPurchaseChest(chestIdx);
                         if(!isSuccess) return;
-                        rwDt.OpenRewardContent(rwDt.Rwd_ChestEquipment, chestGatherOpenCnt: cnt);
+                        rwDt.OpenRewardContent(isOpenByInv: false, rwDt.Rwd_ChestEquipment, chestGatherOpenCnt: cnt);
                         HM._.Mileage += cnt;
                     };
                     break;
