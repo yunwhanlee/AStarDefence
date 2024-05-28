@@ -470,6 +470,10 @@ public class DM : MonoBehaviour {
             DB.GoldkeyFreeAdCnt = Config.GOLDKEY_FREE_AD_CNT;
             DB.MiningFreeAdCnt = Config.MINING_FREE_AD_CNT;
         }
+
+        //* アプリを最初起動したのみ、タイトル画面 表示
+        if(HM._)
+            HM._.hui.TitlePopUp.SetActive(true);
     }
 
     void LateUpdate() {
