@@ -102,7 +102,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
             rwdSlotList[i].TypeIconImg.enabled = false;
         }        
 
-        IsFinishSlotsSpawn = false;
+        // IsFinishSlotsSpawn = false;
         yield return Util.Time0_2;        
 
         //* UI EF
@@ -158,6 +158,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
             else
                 yield return null;
         }
+        yield return Util.Time0_5;
         IsFinishSlotsSpawn = true;
         IsSkip = false;
     }
@@ -172,6 +173,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
 
             SM._.SfxPlay(SM.SFX.RewardSFX);
             HM._.hui.IsActivePopUp = true;
+            IsFinishSlotsSpawn = false;
             WindowObj.SetActive(true);
             yield return CoReleaseAll();
             yield return CoDisplayRewardList(itemList);
