@@ -73,15 +73,22 @@ public class SettingManager : MonoBehaviour {
     }
 #endregion
     public void OnClickResetBtn() {
-        HM._.hui.ShowAgainAskMsg("정말로 데이터를 리셋하시겠습니까?");
+        HM._.hui.ShowAgainAskMsg("정말로 데이터를 리셋하시겠습니까?\n<size=80%><color=red>(주의!)모든 데이터가 사라집니다.</color></size>");
         HM._.hui.OnClickAskConfirmAction = () => {
             SM._.SfxPlay(SM.SFX.CompleteSFX);
             DM._.Reset();
             SceneManager.LoadScene($"{Enum.Scene.Home}");
         };
     }
-#endregion
-#region FUNC
-
+    public void OnClickAppClose() {
+        HM._.hui.ShowAgainAskMsg("게임을 종료하시겠습니까?");
+        HM._.hui.OnClickAskConfirmAction = () => {
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+            #else
+                Application.Quit();
+            #endif
+        };
+    }
 #endregion
 }
