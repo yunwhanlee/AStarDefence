@@ -1,3 +1,5 @@
+using Google.Play.AppUpdate;
+using Google.Play.Common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,12 +10,20 @@ using UnityEngine.SocialPlatforms;
 
 public class GPGSManager : MonoBehaviour {
     public static GPGSManager _;
-
     bool isLogin = false;
+    AppUpdateManager appUpdateManager;
 
-    void Start() {
+    void Awake() {
         _ = this;
+
+    #if UNITY_EDITOR
+
+    #else 
+        StartCoroutine(CheckForUpdate());
+    #endif
     }
+
+
 
 #region EVENT
     public void OnClickRankIconBtnAtHome() {
@@ -25,6 +35,57 @@ public class GPGSManager : MonoBehaviour {
 #endregion
 
 #region FUNC
+    IEnumerator CheckForUpdate() {
+        appUpdateManager = new AppUpdateManager();
+
+        PlayAsyncOperation<AppUpdateInfo, AppUpdateErrorCode> appUpdateInfoOperation =
+            appUpdateManager.GetAppUpdateInfo();
+
+        // Wait until the asynchronous operation completes.
+        yield return appUpdateInfoOperation;
+
+        if (appUpdateInfoOperation.IsSuccessful)
+        {
+            var appUpdateInfoResult = appUpdateInfoOperation.GetResult();
+            
+            //* アップデート可能なのかを確認
+            if(appUpdateInfoResult.UpdateAvailability == UpdateAvailability.UpdateAvailable) {
+                var appUpdateOptions = AppUpdateOptions.ImmediateAppUpdateOptions();
+                var startUpdateRequest = appUpdateManager.StartUpdate(appUpdateInfoResult, appUpdateOptions);
+
+                while(!startUpdateRequest.IsDone) {
+                    if(startUpdateRequest.Status == AppUpdateStatus.Downloading) {
+                        Debug.Log("업데이트 다운로드 진행 중");
+                    }
+                    else if(startUpdateRequest.Status == AppUpdateStatus.Downloaded) {
+                        Debug.Log("다운로드 완료");
+                    }
+                    yield return null;
+                }
+
+                var result = appUpdateManager.CompleteUpdate();
+
+                //* 完了できたら、最後に確認
+                while(!result.IsDone) {
+                    yield return new WaitForEndOfFrame();
+                }
+
+                yield return (int)startUpdateRequest.Status;
+            }
+            else if(appUpdateInfoResult.UpdateAvailability == UpdateAvailability.UpdateNotAvailable){
+                Debug.Log("업데이트가 없음");
+                yield return (int)UpdateAvailability.UpdateNotAvailable;
+            }
+            else {
+                Debug.Log("업데이트 가능여부 알수 없음");
+                yield return (int)UpdateAvailability.Unknown;
+            }
+        }
+        else {
+            Debug.Log("업데이트 오류");
+        }
+    }
+
     public void GPGSLogin() {
         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
     }
