@@ -32,6 +32,9 @@ public class HomeUIManager : MonoBehaviour {
     public Button PlayBtn {get; set;}
 
     [Header("ERROR MSG POPUP")]
+    public GameObject TitlePopUp;
+
+    [Header("ERROR MSG POPUP")]
     public GameObject TopMsgError;
     public TextMeshProUGUI MsgErrorTxt;
 
@@ -80,6 +83,10 @@ public class HomeUIManager : MonoBehaviour {
     }
 
 #region EVENT
+    public void OnClickTitleGamePlayBtn() {
+        SM._.SfxPlay(SM.SFX.Merge1SFX);
+        TitlePopUp.gameObject.SetActive(false);
+    }
     public void OnClickThanksForPlayingConfirmBtn() {
         const string NOTION_URL = "https://www.notion.so/A-Defence-2a40adca8a77420c80a6db623a89083f?pvs=4";
         Application.OpenURL(NOTION_URL);
