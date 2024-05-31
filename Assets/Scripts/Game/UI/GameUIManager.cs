@@ -227,6 +227,10 @@ public class GameUIManager : MonoBehaviour {
 
     public void OnClickResetWallBtn() {
         Debug.Log("OnClickResetRockBtn()");
+        if(DM._.DB.TutorialDB.IsActiveEnemyInfo) {
+            ShowMsgError("튜토리얼 중에는 불가능합니다.");
+            return;
+        }
         if(GM._.ResetCnt <= 0) {
             ShowMsgError("벽 리셋횟수가 다 소진되었습니다.");
             return;

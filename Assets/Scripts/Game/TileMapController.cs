@@ -262,6 +262,32 @@ public class TileMapController : MonoBehaviour {
     /// 壁をランダムで設置
     /// </summary>
     public void SpawnWall() {
+        //* チュートリアルなら、WALL固定！
+        if(DM._.DB.TutorialDB.IsActiveEnemyInfo) {
+            const int OFS_Y = -2, OFS_X = -6;
+            var walls = GM._.StageDts[GM._.Stage].Walls;
+            // 1 Colume
+            WallTileMap.SetTile(new Vector3Int(OFS_Y + 1, OFS_X + 1, 0), walls[1]);
+            WallTileMap.SetTile(new Vector3Int(OFS_Y + 3, OFS_X + 1, 0), walls[0]);
+            // 3 Colume
+            WallTileMap.SetTile(new Vector3Int(OFS_Y + 3, OFS_X + 3, 0), walls[2]);
+            // 4 Colume
+            WallTileMap.SetTile(new Vector3Int(OFS_Y + 1, OFS_X + 4, 0), walls[4]);
+            WallTileMap.SetTile(new Vector3Int(OFS_Y + 2, OFS_X + 4, 0), walls[0]);
+            // 5 Colume
+            WallTileMap.SetTile(new Vector3Int(OFS_Y + 4, OFS_X + 5, 0), walls[6]);
+            // 7 Colume
+            WallTileMap.SetTile(new Vector3Int(OFS_Y + 1, OFS_X + 7, 0), walls[5]);
+            WallTileMap.SetTile(new Vector3Int(OFS_Y + 3, OFS_X + 7, 0), walls[4]);
+            // 8 Colume
+            WallTileMap.SetTile(new Vector3Int(OFS_Y + 3, OFS_X + 8, 0), walls[1]);
+            // 9 Colume
+            WallTileMap.SetTile(new Vector3Int(OFS_Y + 0, OFS_X + 9, 0), walls[3]);
+            // 10 Colume
+            WallTileMap.SetTile(new Vector3Int(OFS_Y + 2, OFS_X + 10, 0), walls[1]);
+            return;
+        }
+
         List<Vector2Int> posList = new List<Vector2Int>();
         var sp = GOAL_POS;
         var gp = START_POS;
