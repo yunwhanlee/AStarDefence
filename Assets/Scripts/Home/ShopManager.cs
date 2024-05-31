@@ -10,7 +10,7 @@ using Inventory.Model;
 public class ShopManager : MonoBehaviour {
     public const int TAPBTN_PACKAGE = 0, 
         TAPBTN_CHEST = 1, 
-        ETC_CHEST = 2,
+        TAPBTN_ETC = 2,
         TAPBTN_RSC = 3;
 
     [field:SerializeField] public int EquipPackageCnt {get; set;}
@@ -83,8 +83,6 @@ public class ShopManager : MonoBehaviour {
             GoldPackage = 6, MiningSupportOre = 7;
 
         RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
-
-        //TODO IAP PURCHASE
 
         //* 購入完了DIM 表示
         DM._.DB.ShopDB.IsPruchasedPackages[idx] = true;
@@ -492,6 +490,12 @@ public class ShopManager : MonoBehaviour {
     
 #endregion
 #region FUNC
+    public void ShowShopAtTapBtn(int tapBtnIdx) {
+        HM._.shopMg.InitUI();
+        HM._.shopMg.OnClickShopIconBtnAtHome();
+        HM._.shopMg.OnClickTapBtn(tapBtnIdx);
+    }
+
     private void CheckEquipPackageAction(int cnt, int packageIdx) {
         //* 表示したアイテム数を引く
         EquipPackageCnt -= cnt;

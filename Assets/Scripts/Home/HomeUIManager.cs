@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using JetBrains.Annotations;
+using Inventory.Model;
 
 /// <summary>
 /// Lobby
@@ -23,8 +25,8 @@ public class HomeUIManager : MonoBehaviour {
     [field: SerializeField] public TextMeshProUGUI FameTxt {get; set;}
     [field: SerializeField] public Slider ExpSlider {get; set;}
     [field: SerializeField] public GameObject RemoveAdIcon {get; set;}
-    [field: SerializeField] public GameObject CloverActiveIcon {get; set;}
-    [field: SerializeField] public GameObject GoldCloverActiveIcon {get; set;}
+    [field: SerializeField] public GameObject[] CloverActiveIconArr {get; set;}
+    [field: SerializeField] public GameObject[] GoldCloverActiveIconArr {get; set;}
     [field: SerializeField] public bool IsActivePopUp {get; set;}
 
     public Button PlayBtn {get; set;}
@@ -64,8 +66,12 @@ public class HomeUIManager : MonoBehaviour {
         //* クロバーEXPアイテム活性化 表示
         RemoveAdIcon.SetActive(DM._.DB.IsRemoveAd);
         HM._.shopMg.RemoveAdDim.SetActive(DM._.DB.IsRemoveAd);
-        CloverActiveIcon.SetActive(DM._.DB.IsCloverActive);
-        GoldCloverActiveIcon.SetActive(DM._.DB.IsGoldCloverActive);
+
+        const int OFF = 0, ON = 1;
+        CloverActiveIconArr[OFF].SetActive(!DM._.DB.IsCloverActive);
+        CloverActiveIconArr[ON].SetActive(DM._.DB.IsCloverActive);
+        GoldCloverActiveIconArr[OFF].SetActive(!DM._.DB.IsGoldCloverActive);
+        GoldCloverActiveIconArr[ON].SetActive(DM._.DB.IsGoldCloverActive);
 
         //* アプリのコメント要求
         if(HM._.Fame >= 3 && !DM._.DB.IsThanksForPlaying) {
@@ -84,6 +90,51 @@ public class HomeUIManager : MonoBehaviour {
         const string NOTION_URL = "https://www.notion.so/A-Defence-2a40adca8a77420c80a6db623a89083f?pvs=4";
         Application.OpenURL(NOTION_URL);
         ThanksForPlayingPopUp.SetActive(false);
+    }
+
+    public void OnClickCloverToggleIconBtn() {
+        InventorySO invDt = HM._.ivCtrl.InventoryData;
+        int findIndex = invDt.invList.FindIndex(item => item.Data?.name == Etc.ConsumableItem.Clover.ToString());
+        Debug.Log($"OnClickCloverToggleIconBtn():: find Index= {findIndex}");
+
+        //* クロバー活性化
+        if(findIndex != -1) {
+            HM._.ivm.ConsumePopUp.SetActive(true);
+            InventoryItem invItem = invDt.GetItemAt(findIndex);
+            ItemSO item = invItem.Data;
+            HM._.ivm.UpdateDescription(findIndex, item, invItem.Quantity, invItem.Lv, invItem.RelicAbilities, invItem.IsEquip);
+        }
+        else {
+            ShowAgainAskMsg("클로버가 없습니다.\n일반 및 황금상자에서 획득합니다.\n<color=blue>상점으로 이동하시겠습니까?");
+
+            //* 確認ボタン イベント登録
+            OnClickAskConfirmAction = () => {
+                //* SHOPに移動
+                HM._.shopMg.ShowShopAtTapBtn(ShopManager.TAPBTN_CHEST);
+            };
+        }
+    }
+    public void OnClickGoldCloverToggleIconBtn() {
+        InventorySO invDt = HM._.ivCtrl.InventoryData;
+        int findIndex = invDt.invList.FindIndex(item => item.Data?.name == Etc.ConsumableItem.GoldClover.ToString());
+        Debug.Log($"OnClickGoldCloverToggleIconBtn():: find Index= {findIndex}");
+
+        //* クロバー活性化
+        if(findIndex != -1) {
+            HM._.ivm.ConsumePopUp.SetActive(true);
+            InventoryItem invItem = invDt.GetItemAt(findIndex);
+            ItemSO item = invItem.Data;
+            HM._.ivm.UpdateDescription(findIndex, item, invItem.Quantity, invItem.Lv, invItem.RelicAbilities, invItem.IsEquip);
+        }
+        else {
+            ShowAgainAskMsg("골드클로버가 없습니다.\n일반 및 황금상자에서 획득합니다.\n<color=blue>상점으로 이동하시겠습니까?");
+
+            //* 確認ボタン イベント登録
+            OnClickAskConfirmAction = () => {
+                //* SHOPに移動
+                HM._.shopMg.ShowShopAtTapBtn(ShopManager.TAPBTN_CHEST);
+            };
+        }
     }
 
     public void OnClickPlayBtn() {
@@ -130,21 +181,15 @@ public class HomeUIManager : MonoBehaviour {
             //* 確認ボタン イベント登録
             OnClickAskConfirmAction = () => {
                 //* SHOPに移動
-                HM._.shopMg.InitUI();
-                HM._.shopMg.OnClickShopIconBtnAtHome();
-                HM._.shopMg.OnClickTapBtn(ShopManager.ETC_CHEST);
+                HM._.shopMg.ShowShopAtTapBtn(ShopManager.TAPBTN_ETC);
             };
         }
     }
     public void OnClickTopNavDiamondPlusBtn() {
-        HM._.shopMg.InitUI();
-        HM._.shopMg.OnClickShopIconBtnAtHome();
-        HM._.shopMg.OnClickTapBtn(ShopManager.TAPBTN_RSC);
+        HM._.shopMg.ShowShopAtTapBtn(ShopManager.TAPBTN_RSC);
     }
     public void OnClickTopNavCoinPlusBtn() {
-        HM._.shopMg.InitUI();
-        HM._.shopMg.OnClickShopIconBtnAtHome();
-        HM._.shopMg.OnClickTapBtn(ShopManager.TAPBTN_RSC);
+        HM._.shopMg.ShowShopAtTapBtn(ShopManager.TAPBTN_RSC);
     }
 #endregion
 

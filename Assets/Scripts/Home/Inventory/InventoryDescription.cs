@@ -69,7 +69,7 @@ namespace Inventory.UI {
 
 #region EVENT
         public void OnClickConsumableItemConfirm() {
-            Debug.Log($"OnClickConsumableItemConfirm():: CurInvItem.Name= {HM._.ivm.CurInvItem.Data.Name}");
+            Debug.Log($"OnClickConsumableItemConfirm():: CurInvItem.Name= {HM._.ivm.CurInvItem.Data?.Name}");
             SM._.SfxPlay(SM.SFX.ClickSFX);
             OnClickConfirmBtn?.Invoke();
         }
@@ -294,15 +294,19 @@ namespace Inventory.UI {
             SoulStoneBtnTxt.text = "0";
         }
 
-        private void ActiveCloverItem(GameObject icon, bool isActive, Color ActiveColor) {
+        public void ActiveCloverItem(GameObject[] icon, bool isActive, Color ActiveColor) {
+            Debug.Log("ActiveCloverItem()::");
+            const int OFF = 0, ON = 1;
+
             if(isActive)
                 SM._.SfxPlay(SM.SFX.ItemPickSFX);
-            icon.SetActive(isActive);
+            icon[OFF].SetActive(!isActive);
+            icon[ON].SetActive(isActive);
             EtcConfirmBtnTxt.text = isActive? "활성화" : "비활성화";
             EtcConfirmBtnTxt.color = isActive? ActiveColor: Color.gray;
         }
 
-        private void SetConsumePopUpUI(string btnTxt, Etc.ConsumableItem type) {
+        public void SetConsumePopUpUI(string btnTxt, Etc.ConsumableItem type) {
             RewardItemSO rwdItemDt = HM._.rwlm.RwdItemDt;
             EtcConfirmBtnTxt.text = btnTxt;
             //* Actionボタン 購読
@@ -337,19 +341,19 @@ namespace Inventory.UI {
                 
                 //* Active (Gold) Clover EXP Bonus
                 if(item.name == $"{Etc.ConsumableItem.Clover}") {
-                    ActiveCloverItem(hui.CloverActiveIcon, db.IsCloverActive, Color.green);
+                    ActiveCloverItem(hui.CloverActiveIconArr, db.IsCloverActive, Color.green);
                     //* Actionボタン 購読
                     OnClickConfirmBtn = () => {
                         db.IsCloverActive = !db.IsCloverActive;
-                        ActiveCloverItem(hui.CloverActiveIcon, db.IsCloverActive, Color.green);
+                        ActiveCloverItem(hui.CloverActiveIconArr, db.IsCloverActive, Color.green);
                     };
                 }
                 else if(item.name == $"{Etc.ConsumableItem.GoldClover}") {
-                    ActiveCloverItem(hui.GoldCloverActiveIcon, db.IsGoldCloverActive, Color.yellow);
+                    ActiveCloverItem(hui.GoldCloverActiveIconArr, db.IsGoldCloverActive, Color.yellow);
                     //* Actionボタン 購読
                     OnClickConfirmBtn = () => {
                         db.IsGoldCloverActive = !db.IsGoldCloverActive;
-                        ActiveCloverItem(hui.GoldCloverActiveIcon, db.IsGoldCloverActive, Color.yellow);
+                        ActiveCloverItem(hui.GoldCloverActiveIconArr, db.IsGoldCloverActive, Color.yellow);
                     };
                 }
                 //* Ingameで使えるアイテムの情報 表示
