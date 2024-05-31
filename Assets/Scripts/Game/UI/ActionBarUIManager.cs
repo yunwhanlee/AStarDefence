@@ -294,7 +294,7 @@ public class ActionBarUIManager : MonoBehaviour {
     public void OnClickSwitchIconBtn() {
         if(SwitchCnt > 0) {
             IsSwitchMode = true;
-            GM._.gui.ShowMsgInfo(isActive: true, "위치를 바꿀 타워를 선택해주세요!");
+            GM._.gui.ShowMsgInfo(isActive: true, "위치를 바꿀 타워를 선택해주세요! (취소시 타워 재클릭)");
 
             //* 現在の選択したObjectを保存
             GM._.tmc.SwitchBefHitObject = GM._.tmc.HitObject;

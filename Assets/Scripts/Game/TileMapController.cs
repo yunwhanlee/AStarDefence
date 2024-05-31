@@ -112,11 +112,24 @@ public class TileMapController : MonoBehaviour {
             }
             //* エラー２
             else if(SwitchBefHitObject == HitCollider.gameObject) {
-                GM._.gui.ShowMsgError("자기 이외에 타워를 선택해주세요!");
+                SM._.SfxPlay(SM.SFX.ClickSFX);
+                GM._.gui.ShowMsgNotice("위치변경 취소");
+                //* トリガーOFF・メッセージOFF
+                GM._.actBar.PanelObj.SetActive(false);
+                GM._.actBar.SwitchModeOff();
+
+                //* 選択OFF リセット
+                SelectedTileMap.ClearAllTiles();
+                GM._.actBar.PanelObj.SetActive(false);
+
+                Reset();
                 return;
             }
             //* 位置切り替え
             else if(HitCollider && SwitchBefHitObject != HitCollider) {
+                SM._.SfxPlay(SM.SFX.ItemPickSFX);
+                GM._.gui.ShowMsgNotice("위치변경 완료");
+
                 //* カウント減る
                 GM._.actBar.SwitchCntTxt.text = $"{--GM._.actBar.SwitchCnt}";
 
