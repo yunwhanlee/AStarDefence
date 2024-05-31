@@ -9,6 +9,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour {
+    Action OnClickAskConfirmAction = () => {};  //* もう一度聞く Confirmボタンイベント
+    Action OnClickAskCloseAction = () => {}; //* もう一度聞く Closeボタンイベント
+
     //* Outside
     public TowerStateUIManager tsm;
     public EnemyStateUIManager esm;
@@ -124,18 +127,102 @@ public class GameUIManager : MonoBehaviour {
     }
     #endregion
 
+    /// <summary> もう一度確認するPOPUP：★OnClickAskConfirmActionへ確認ボタン押してから、処理するメソッドを購読すること！</summary>
+    public void ShowAgainAskMsg(string msg = "") {
+        AgainAskPopUp.SetActive(true);
+        AgainAskMsgTxt.text = msg;
+    }
+
+    public void OnClickAgainAskPopUp_ConfirmBtn() {
+        OnClickAskConfirmAction?.Invoke();
+    }
+    public void OnClickAgainAskPopUp_CloseBtn() {
+        OnClickAskCloseAction?.Invoke();
+    }
+
+    public void OnClickPausePopUp_ContinueBtn() {
+        Play();
+        PausePopUp.SetActive(false);
+    }
+    public void OnClickPausePopUp_ExitGameBtn() {
+        //* きれつダンジョンの時、出るボタンをリワード得ることにする
+        if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON) {
+            SM._.SfxPlay(SM.SFX.ClickSFX);
+            GameoverPopUp.SetActive(false);
+            GM._.Victory();
+            Ads_ClaimX2Btn.gameObject.SetActive(false);
+            VictoryTitleTxt.text = $"돌파한 층수: {GM._.WaveCnt}층";
+            Time.timeScale = 0;
+        }
+        else {
+            ShowAgainAskMsg("정말로 게임을 나가시겠습니까?");
+            OnClickAskConfirmAction = () => {
+                SM._.SfxPlay(SM.SFX.ClickSFX);
+                Debug.Log("게임 나가기");
+                GoHome();
+            };
+            OnClickAskCloseAction = () => {
+                SM._.SfxPlay(SM.SFX.ClickSFX);
+                Play();
+                AgainAskPopUp.SetActive(false);
+                PausePopUp.SetActive(false);
+            };
+        }
+    }
+
     public void OnClickPlaySpeedBtn() {
         Debug.Log($"OnClickPlaySpeedBtn()::");
-        const int OFF = 0, ON = 1;
         SM._.SfxPlay(SM.SFX.ClickSFX);
+        const int OFF = 0, ON = 1;
+
         var time = Time.timeScale;
         //* タイム速度
-        Time.timeScale = (time == 1)? 2
-            :(time == 2 && DM._.IsActiveSpeedUp)? 3
-            : 1;
+        if(time == 1) {
+            Time.timeScale = 2;
+            SetPlaySpeedBtnUI(playSpeedBtnSprs[ON], Time.timeScale);
+        }
+        else if(time == 2) {
+            if(DM._.IsActiveSpeedUp) {
+                Time.timeScale = 3;
+                SetPlaySpeedBtnUI(playSpeedBtnSprs[ON], Time.timeScale);
+            }
+            else {
+                //* 以前の状態とタイムスケール保存
+                previousTimeScale = Time.timeScale;
+                previousState = GM._.State;
+
+                //* 停止
+                Time.timeScale = 0;
+                GM._.State = GameState.Pause;
+                ShowAgainAskMsg("광고시청 후 게임배속 3배를\n추가하시겠습니까?");
+
+                OnClickAskConfirmAction = () => {
+                    AgainAskPopUp.SetActive(false);
+                    AdmobManager._.ProcessRewardAd(() => {
+                        SM._.SfxPlay(SM.SFX.CompleteSFX);
+                        Time.timeScale = 3;
+                        GM._.State = GameState.Play;
+                        SetPlaySpeedBtnUI(playSpeedBtnSprs[ON], Time.timeScale);
+                        DM._.IsActiveSpeedUp = true;
+                    });
+                };
+                OnClickAskCloseAction = () => {
+                    AgainAskPopUp.SetActive(false);
+                    SM._.SfxPlay(SM.SFX.ClickSFX);
+                    Time.timeScale = 1;
+                    GM._.State = previousState;
+                    SetPlaySpeedBtnUI(playSpeedBtnSprs[OFF], Time.timeScale);
+                };
+            }
+        }
+        else {
+            Time.timeScale = 1;
+            SetPlaySpeedBtnUI(playSpeedBtnSprs[OFF], Time.timeScale);
+        }
+
         //* UI
-        playSpeedBtnImg.sprite = (Time.timeScale == 1)? playSpeedBtnSprs[OFF] : playSpeedBtnSprs[ON];
-        playSpeedBtnTxt.text = $"X{Time.timeScale}";
+        // playSpeedBtnImg.sprite = (Time.timeScale == 1)? playSpeedBtnSprs[OFF] : playSpeedBtnSprs[ON];
+        // playSpeedBtnTxt.text = $"X{Time.timeScale}";
     }
 
     public void OnClickResetWallBtn() {
@@ -155,35 +242,6 @@ public class GameUIManager : MonoBehaviour {
     public void OnClickPauseBtn() {
         Pause();
         PausePopUp.SetActive(true);
-    }
-    public void OnClickPausePopUp_ContinueBtn() {
-        Play();
-        PausePopUp.SetActive(false);
-    }
-    public void OnClickPausePopUp_ExitGameBtn() {
-        //* きれつダンジョンの時、出るボタンをリワード得ることにする
-        if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON) {
-            GameoverPopUp.SetActive(false);
-            GM._.Victory();
-            Ads_ClaimX2Btn.gameObject.SetActive(false);
-            VictoryTitleTxt.text = $"돌파한 층수: {GM._.WaveCnt}층";
-            Time.timeScale = 0;
-            return;
-        }
-
-        GoHome();
-        // PausePopUp.SetActive(false);
-        // AgainAskPopUp.SetActive(true);
-    }
-
-    //* AGAIN ASK
-    public void OnClickAgainAskPopUp_ConfirmBtn() {
-        GoHome();
-    }
-    public void OnClickAgainAskPopUp_CloseBtn() {
-        Time.timeScale = previousTimeScale;
-        GM._.State = previousState;
-        AgainAskPopUp.SetActive(false);
     }
 
     //* PUBLIC
@@ -290,6 +348,11 @@ public class GameUIManager : MonoBehaviour {
             disCountPrice = disCountPer > 0? (int)(resultPrice * disCountPer) : 1;
         }
         return disCountPrice;
+    }
+
+    private void SetPlaySpeedBtnUI(Sprite spr, float  timeScaleStr) {
+        playSpeedBtnImg.sprite = spr;
+        playSpeedBtnTxt.text = $"X{timeScaleStr}";
     }
 
     public void SetStartBtnUI(bool isReady) {
