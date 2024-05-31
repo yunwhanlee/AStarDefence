@@ -182,7 +182,7 @@ public class GameUIManager : MonoBehaviour {
             SetPlaySpeedBtnUI(playSpeedBtnSprs[ON], Time.timeScale);
         }
         else if(time == 2) {
-            if(DM._.IsActiveSpeedUp) {
+            if(GM._.IsActiveSpeedUp) {
                 Time.timeScale = 3;
                 SetPlaySpeedBtnUI(playSpeedBtnSprs[ON], Time.timeScale);
             }
@@ -203,7 +203,7 @@ public class GameUIManager : MonoBehaviour {
                         Time.timeScale = 3;
                         GM._.State = GameState.Play;
                         SetPlaySpeedBtnUI(playSpeedBtnSprs[ON], Time.timeScale);
-                        DM._.IsActiveSpeedUp = true;
+                        GM._.IsActiveSpeedUp = true;
                     });
                 };
                 OnClickAskCloseAction = () => {
@@ -332,6 +332,9 @@ public class GameUIManager : MonoBehaviour {
         SceneManager.LoadScene(Enum.Scene.Home.ToString());
     }
     private void Retry() {
+        if(!DM._.DB.IsRemoveAd) {
+
+        }
         Time.timeScale = 1;
         SceneManager.LoadScene(Enum.Scene.Game.ToString());
     }

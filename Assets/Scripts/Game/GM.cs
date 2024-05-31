@@ -36,6 +36,7 @@ public class GM : MonoBehaviour {
     [SerializeField] GameState state;   public GameState State {get => state; set => state = value;}
     [field: SerializeField] public bool IsReady;
     [field: SerializeField] public bool IsRevived;
+    [field: SerializeField] public bool IsActiveSpeedUp {get; set;}
     [field: SerializeField] public StageData[] StageDts;
     [field: SerializeField] public int Stage {get; set;}
     [field: SerializeField] public int MaxWave {get; set;}
@@ -99,6 +100,7 @@ public class GM : MonoBehaviour {
         state = GameState.Ready;
         CorReadyWaveID = null;
         IsReady = false;
+        IsActiveSpeedUp = DM._.DB.IsRemoveAd;
         Stage = DM._.SelectedStage;
 
 #region STAGE DATA SET
