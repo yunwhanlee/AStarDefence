@@ -96,6 +96,7 @@ public class WorkSpaceUIManager : MonoBehaviour {
 
     /// <summary> ホームの場所⊕ボタン </summary>
     public void OnClickGoblinLeftSpotBtn() {
+        Debug.Log("OnClickGoblinLeftSpotBtn()::");
         //* マイニング チュートリアル表示
         DM._.DB.TutorialDB.CheckShowMiningInfo();
 

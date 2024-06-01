@@ -166,7 +166,9 @@ public class HomeRewardListUIManager : MonoBehaviour {
     /// リワードスロットUIリスト 表示
     /// </summary>
     /// <param name="itemList">リワードでもらえるアイテムリスト</param> <summary>
-    public void ShowReward(List<RewardItem> itemList) => StartCoroutine(CoShowRewardProccess(itemList));
+    public void ShowReward(List<RewardItem> itemList)
+        => StartCoroutine(CoShowRewardProccess(itemList));
+
     IEnumerator CoShowRewardProccess(List<RewardItem> itemList) {
         for(int i = 0; i < itemList.Count; i++)
             Debug.Log($"ShowReward():: itemList[{i}].quantity= {itemList[i].Quantity}");
@@ -179,6 +181,23 @@ public class HomeRewardListUIManager : MonoBehaviour {
             yield return CoDisplayRewardList(itemList);
             yield return HM._.rwm.CoUpdateInventoryAsync(itemList);
         }
+
+    public void ShowRewardMiningTuto(List<RewardItem> itemList)
+        => StartCoroutine(CoUpdateMiningTutoRewardUI(itemList));
+
+    IEnumerator CoUpdateMiningTutoRewardUI(List<RewardItem> itemList) {
+        SM._.SfxPlay(SM.SFX.RewardSFX);
+        HM._.hui.IsActivePopUp = true;
+        IsFinishSlotsSpawn = false;
+        WindowObj.SetActive(true);
+        yield return CoReleaseAll();
+        yield return CoDisplayRewardList(itemList);
+        yield return HM._.rwm.CoUpdateInventoryAsync(itemList);
+
+        //* Update Mining UI
+        HM._.mnm.SetUI((int)MineCate.Goblin);
+    }
+
     /// <summary>
     /// Chestを開いた後、カウント減った状況 最新化
     /// </summary>

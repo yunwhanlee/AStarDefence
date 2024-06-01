@@ -313,10 +313,7 @@ public class TutorialDB {
                     new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin0]),
                     new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore0]),
                 };
-                HM._.rwlm.ShowReward(rewardList);
-
-                //* リワードデータのUI最新化
-                HM._.mnm.UpdateMiningUIAfterTuto();
+                HM._.rwlm.ShowRewardMiningTuto(rewardList);
 
                 //* アクション 初期化
                 TutoM._.OnClickCloseTutorial = null;
