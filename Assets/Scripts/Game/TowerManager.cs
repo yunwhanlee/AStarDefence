@@ -194,6 +194,7 @@ public class TowerManager : MonoBehaviour {
             case TowerType.Random:
                 //* 種類の選択 (種類がパラメータで設定されたら、そのタイプに固定して生成)
                 int randKind = (kind != TowerKind.None)? (int)kind : Random.Range(0, 3);
+                Debug.Log($"CreateTower():: Random Tower:: tmc.TutoSeqIdx={tmc.TutoSeqIdx} randKind= {randKind}");
                 switch(randKind) {
                     case (int)TowerKind.Warrior: 
                         InstantiateTower(warriors[lvIdx], WarriorGroup);

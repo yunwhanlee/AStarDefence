@@ -169,6 +169,14 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
     public void OnClickBreakIconBtn() {
+        //* RealTiem Tuto
+        TileMapController tmc = GM._.tmc;
+        if(tmc.TutoSeqIdx == 14) {
+            bool isClickAnotherArea = tmc.ActionTutoSequence();
+            if(isClickAnotherArea)
+                return;
+        }
+
         if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
             return;
         else if(FreeBreakRockCnt > 0) { //* 無料カウント
@@ -188,8 +196,22 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
     public void OnClickBoardIconBtn() {
+        //* RealTiem Tuto
+        if(GM._.tmc.TutoSeqIdx == 1
+        || GM._.tmc.TutoSeqIdx == 4
+        || GM._.tmc.TutoSeqIdx == 7
+        || GM._.tmc.TutoSeqIdx == 10) {
+            bool isClickAnotherArea = GM._.tmc.ActionTutoSequence();
+            if(isClickAnotherArea)
+                return;
+        }
+        else if(GM._.tmc.TutoSeqIdx == 15) {
+            return;
+        }
+
         if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
             return;
+
         //* 無料カウント減る
         else if(FreeBoardCnt > 0) { 
             FreeBoardCnt--;
@@ -205,20 +227,63 @@ public class ActionBarUIManager : MonoBehaviour {
         GM._.tm.InstallBoard(); // ボード生成
         GM._.gui.InActiveResetWallBtn();
         StartCoroutine(CoCheckPathFind(Enum.Layer.Board));
+
     }
 
     public void OnClickRandomTowerIconBtn() {
+        //* RealTiem Tuto
+        TileMapController tmc = GM._.tmc;
+        if(tmc.TutoSeqIdx == 2
+        || tmc.TutoSeqIdx == 5
+        || tmc.TutoSeqIdx == 8
+        || tmc.TutoSeqIdx == 11) {
+            bool isClickAnotherArea = tmc.ActionTutoSequence();
+            if(isClickAnotherArea)
+                return;
+        }
+
         if(!GM._.CheckMoney(Config.G_PRICE.TOWER))
             return;
 
         SM._.SfxPlay(SM.SFX.CreateTowerSFX);
-        GM._.tm.CreateTower(TowerType.Random); // CCタワー生成
+        const int SEQ_OFS = 1;
+        if(tmc.TutoSeqIdx == 2 + SEQ_OFS) {
+            GM._.tm.CreateTower(TowerType.Random, 0, TowerKind.Warrior); // CCタワー生成
+        }
+        else if(tmc.TutoSeqIdx == 5 + SEQ_OFS) {
+            GM._.tm.CreateTower(TowerType.Random, 0, TowerKind.Archer); // CCタワー生成
+        }
+        else if(tmc.TutoSeqIdx == 8 + SEQ_OFS) {
+            GM._.tm.CreateTower(TowerType.Random, 0, TowerKind.Magician); // CCタワー生成
+        }
+        else if(tmc.TutoSeqIdx == 11 + SEQ_OFS) {
+            GM._.tm.CreateTower(TowerType.Random, 0, TowerKind.Archer); // CCタワー生成
+        }
+        else
+            GM._.tm.CreateTower(TowerType.Random); // CCタワー生成
 
         UpdateUI(Enum.Layer.Tower);
+
     }
 
     public void OnClickIceTowerIconBtn() {
-        if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
+        //* RealTiem Tuto
+        TileMapController tmc = GM._.tmc;
+        if(tmc.IsRealTimeTutoTrigger) {
+            Debug.Log($"OnClickIceTowerIconBtn():: tmc.TutoSeqIdx= {tmc.TutoSeqIdx}");
+            if(tmc.TutoSeqIdx != 15) {
+                return;
+            }
+            else {
+                //* RealTiem Tuto
+                if(tmc.TutoSeqIdx == 15) {
+                    bool isClickAnotherArea = tmc.ActionTutoSequence();
+                    if(isClickAnotherArea)
+                        return;
+                }
+            }
+        }
+        else if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
             return;
         else if(GM._.gui.ShowErrMsgCCTowerLimit())
             return;
@@ -233,7 +298,9 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
     public void OnClickStunTowerIconBtn() {
-        if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
+        if(GM._.tmc.IsRealTimeTutoTrigger)
+            return;
+        else if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
             return;
         else if(GM._.gui.ShowErrMsgCCTowerLimit())
             return;
@@ -271,6 +338,14 @@ public class ActionBarUIManager : MonoBehaviour {
     public void OnClickMergeIconBtn() {
         if(!GM._.CheckMoney(Config.G_PRICE.MERGE))
             return;
+        
+        //* RealTiem Tuto
+        TileMapController tmc = GM._.tmc;
+        if(tmc.TutoSeqIdx == 12) {
+            bool isClickAnotherArea = tmc.ActionTutoSequence();
+            if(isClickAnotherArea)
+                return;
+        }
 
         //* マージ
         bool isSuccess = MergeTower();
@@ -292,6 +367,8 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
     public void OnClickSwitchIconBtn() {
+        if(GM._.tmc.IsRealTimeTutoTrigger)
+            return;
         if(SwitchCnt > 0) {
             IsSwitchMode = true;
             GM._.gui.ShowMsgInfo(isActive: true, "위치를 바꿀 타워를 선택해주세요! (취소시 타워 재클릭)");
@@ -307,6 +384,9 @@ public class ActionBarUIManager : MonoBehaviour {
     }
 
     public void OnClickDeleteIconBtn() {
+        if(GM._.tmc.IsRealTimeTutoTrigger)
+            return;
+
         IsDeleteTrigger = !IsDeleteTrigger;
 
         SM._.SfxPlay(IsDeleteTrigger? SM.SFX.ItemPickSFX : SM.SFX.DeleteTowerSFX);
@@ -477,6 +557,7 @@ public class ActionBarUIManager : MonoBehaviour {
 
                 //* タワー情報UI 表示
                 Tower tower = GM._.tmc.HitObject.GetComponentInChildren<Tower>();
+                Debug.Log($"tower= {tower}");
                 Debug.Log($"HitObject.name= {GM._.tmc.HitObject}, tower.name= {tower.name}");
                 GM._.gui.tsm.ShowTowerStateUI(tower.InfoState());
 

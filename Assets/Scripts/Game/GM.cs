@@ -167,6 +167,7 @@ public class GM : MonoBehaviour {
 
         //* Tutorial
         TutoM._.InitGameBubbleElements();
+        TutoM._.ShowGameBubbles(false);
         if(DM._.DB.TutorialDB.IsActiveGameStart) {
             DM._.DB.TutorialDB.IsActiveGameStart = false;
             TutoM._.ShowTutoPopUp(TutoM.HOWTIPLAY_INFO, pageIdx: 0); // TutoM._.ShowHowToPlayPopUp(delay: 0.3f);
@@ -236,6 +237,7 @@ public class GM : MonoBehaviour {
                 // Bubble 非表示
                 TutoM._.G_TutoPathFindBubble.SetActive(false);
                 TutoM._.G_TutoWaveStartBubble.SetActive(false);
+                TutoM._.G_TutoUpgradeMsgBubble.SetActive(false);
             }
         }
     }

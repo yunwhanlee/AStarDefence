@@ -130,6 +130,7 @@ public static class Enum {
             Tower = 9,
             TowerRange = 10,
             Enemy = 11,
+            RealtimeTuto = 12,
             SwitchTower = -1;
     }
 

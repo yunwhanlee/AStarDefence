@@ -29,7 +29,20 @@ public class TileMapController : MonoBehaviour {
     [field: SerializeField] public GameObject HitObject {get; set;}
     [field: SerializeField] public GameObject SwitchBefHitObject {get; set;}
 
+    [field: Header("TUTORIAL SEQUENCE")]
+    [field: SerializeField] public GameObject TutoSeqGroup {get; set;}
+    [field: SerializeField] public bool IsRealTimeTutoTrigger {get; set;}
+    [field: SerializeField] public int TutoSeqLastIdx {get; set;}
+    [field: SerializeField] public int TutoSeqIdx {get; set;}
+    [field: SerializeField] public GameObject[] TutoSeqObjs {get; set;}
+
     void Start() {
+        IsRealTimeTutoTrigger = DM._.DB.TutorialDB.IsActiveEnemyInfo;
+        TutoSeqGroup.SetActive(IsRealTimeTutoTrigger);
+        if(IsRealTimeTutoTrigger) {
+            TutoSeqLastIdx = TutoSeqObjs.Length - 1;
+            TutoSeqIdx = 0;
+        }
         //! なぜかこのY軸は逆にしないとエラーになる
         int x = (GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON)? 7 : 6;
         int topY = (GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON)? 3 : 2;
@@ -37,6 +50,12 @@ public class TileMapController : MonoBehaviour {
         START_POS = new Vector2Int(x, -topY);
 
         SpawnWall();
+
+        //* Realtime Tuto
+        if(IsRealTimeTutoTrigger) {
+            Array.ForEach(TutoSeqObjs, obj => obj.SetActive(false));
+            TutoSeqObjs[TutoSeqIdx].SetActive(true);
+        }
     }
 
     void Update() {
@@ -101,6 +120,19 @@ public class TileMapController : MonoBehaviour {
             Debug.Log("OnClickTile():: Hitcollider -> UI。 そのまま終了。");
             Reset();
             return;
+        }
+
+        //* RealTiem Tuto
+        const int SEQ_OFS = 1;
+        bool isClickAnotherArea = ActionTutoSequence();
+        Debug.Log($"OnClickTile():: TutoSeqIdx= {TutoSeqIdx} isClickAnotherArea= {isClickAnotherArea}");
+        if(isClickAnotherArea)
+            return;
+        //* TutoDimが活性化するため、実際にWallがクリックできないから、わざとUI変更
+        else if(TutoSeqIdx == 13 + SEQ_OFS) {
+            HitCollider = WallTileMap.GetComponent<Collider2D>();
+            HitObject = HitCollider.gameObject;
+            Debug.Log($"OnClickTile():: WALL CLICK! TutoSeqIdx= {TutoSeqIdx} HitObject= {HitObject}");
         }
 
         //* お互いにタワー位置変更 (Switch-Icon)
@@ -251,6 +283,36 @@ public class TileMapController : MonoBehaviour {
 #endregion
 
 #region FUNC
+    public bool ActionTutoSequence() {
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
+        Ray2D ray = new Ray2D(new Vector2(mousePos.x, mousePos.y), Vector2.zero); 
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+
+        Debug.Log($"ActionTutoSequence():: rayHit.collider.name= {hit.collider?.name}");
+
+        if(IsRealTimeTutoTrigger) {
+            if(hit.collider.name == "TutoDim") {
+                GM._.gui.ShowMsgError("손가락이 가리키는 곳을 클릭하세요.");
+                return true;
+            }
+            else if(hit.collider.name == "ClickArea") {
+                TutoSeqIdx++;
+                Array.ForEach(TutoSeqObjs, obj => obj.SetActive(false));
+                TutoSeqObjs[TutoSeqIdx].SetActive(true);
+            }
+
+            //* Tutorial 終了
+            if(TutoSeqIdx == TutoSeqLastIdx) {
+                Debug.Log("ActionTutoSequence():: 終了");
+                TutoSeqGroup.SetActive(false);
+                IsRealTimeTutoTrigger = false;
+                Array.ForEach(TutoSeqObjs, obj => obj.SetActive(false));
+                TutoM._.ShowGameBubbles(true);
+            }
+        }
+        return false;
+    }
+
     public Vector3Int getCurSelectedPos(bool isTile = false) {
         if(isTile) //* タイルなら、YとXが反転されている
             return new(CurSelectPos.y, CurSelectPos.x, 0);

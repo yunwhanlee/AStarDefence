@@ -29,6 +29,7 @@ public class TutoM : MonoBehaviour {
     [field: SerializeField] public GameObject H_TutoMiningBubble {get; private set;}
     [field: SerializeField] public GameObject G_TutoPathFindBubble {get; private set;}
     [field: SerializeField] public GameObject G_TutoWaveStartBubble {get; private set;}
+    [field: SerializeField] public GameObject G_TutoUpgradeMsgBubble {get; private set;}
 
     void Awake() => singleton();
 
@@ -117,8 +118,13 @@ public class TutoM : MonoBehaviour {
         //* 敵の情報💭(吹き出し)
         G_TutoPathFindBubble = GameObject.Find("G_TutoPathFindBubble");
         G_TutoWaveStartBubble = GameObject.Find("G_TutoWaveStartBubble");
-        G_TutoPathFindBubble.SetActive(DM._.DB.TutorialDB.IsActiveEnemyInfo);
-        G_TutoWaveStartBubble.SetActive(DM._.DB.TutorialDB.IsActiveEnemyInfo);
+        G_TutoUpgradeMsgBubble = GameObject.Find("G_TutoUpgradeMsgBubble");
+
+    }
+    public void ShowGameBubbles(bool isActive) { // DM._.DB.TutorialDB.IsActiveEnemyInfo
+        G_TutoPathFindBubble.SetActive(isActive);
+        G_TutoWaveStartBubble.SetActive(isActive);
+        G_TutoUpgradeMsgBubble.SetActive(isActive);
     }
 
     /// <summary>
