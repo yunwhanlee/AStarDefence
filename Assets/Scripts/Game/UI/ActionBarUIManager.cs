@@ -171,7 +171,7 @@ public class ActionBarUIManager : MonoBehaviour {
     public void OnClickBreakIconBtn() {
         //* RealTiem Tuto
         TileMapController tmc = GM._.tmc;
-        if(tmc.TutoSeqIdx == 14) {
+        if(tmc.TutoSeqIdx == (int)TutoM.RT.WALL_BREAK) {
             bool isClickAnotherArea = tmc.ActionTutoSequence();
             if(isClickAnotherArea)
                 return;
@@ -197,15 +197,15 @@ public class ActionBarUIManager : MonoBehaviour {
 
     public void OnClickBoardIconBtn() {
         //* RealTiem Tuto
-        if(GM._.tmc.TutoSeqIdx == 1
-        || GM._.tmc.TutoSeqIdx == 4
-        || GM._.tmc.TutoSeqIdx == 7
-        || GM._.tmc.TutoSeqIdx == 10) {
+        if(GM._.tmc.TutoSeqIdx == (int)TutoM.RT.FIRST_BOARD
+        || GM._.tmc.TutoSeqIdx == (int)TutoM.RT.SECOND_BOARD
+        || GM._.tmc.TutoSeqIdx == (int)TutoM.RT.THIRD_BOARD
+        || GM._.tmc.TutoSeqIdx == (int)TutoM.RT.FOURTH_BOARD) {
             bool isClickAnotherArea = GM._.tmc.ActionTutoSequence();
             if(isClickAnotherArea)
                 return;
         }
-        else if(GM._.tmc.TutoSeqIdx == 15) {
+        else if(GM._.tmc.TutoSeqIdx == (int)TutoM.RT.CCTOWER_BUILD) {
             return;
         }
 
@@ -233,10 +233,10 @@ public class ActionBarUIManager : MonoBehaviour {
     public void OnClickRandomTowerIconBtn() {
         //* RealTiem Tuto
         TileMapController tmc = GM._.tmc;
-        if(tmc.TutoSeqIdx == 2
-        || tmc.TutoSeqIdx == 5
-        || tmc.TutoSeqIdx == 8
-        || tmc.TutoSeqIdx == 11) {
+        if(tmc.TutoSeqIdx == (int)TutoM.RT.FIRST_TOWER
+        || tmc.TutoSeqIdx == (int)TutoM.RT.SECOND_TOWER
+        || tmc.TutoSeqIdx == (int)TutoM.RT.THIRD_TOWER
+        || tmc.TutoSeqIdx == (int)TutoM.RT.FOURTH_TOWER) {
             bool isClickAnotherArea = tmc.ActionTutoSequence();
             if(isClickAnotherArea)
                 return;
@@ -247,16 +247,16 @@ public class ActionBarUIManager : MonoBehaviour {
 
         SM._.SfxPlay(SM.SFX.CreateTowerSFX);
         const int SEQ_OFS = 1;
-        if(tmc.TutoSeqIdx == 2 + SEQ_OFS) {
+        if(tmc.TutoSeqIdx == (int)TutoM.RT.FIRST_TOWER + SEQ_OFS) {
             GM._.tm.CreateTower(TowerType.Random, 0, TowerKind.Warrior); // CCタワー生成
         }
-        else if(tmc.TutoSeqIdx == 5 + SEQ_OFS) {
+        else if(tmc.TutoSeqIdx == (int)TutoM.RT.SECOND_TOWER + SEQ_OFS) {
             GM._.tm.CreateTower(TowerType.Random, 0, TowerKind.Archer); // CCタワー生成
         }
-        else if(tmc.TutoSeqIdx == 8 + SEQ_OFS) {
+        else if(tmc.TutoSeqIdx == (int)TutoM.RT.THIRD_TOWER + SEQ_OFS) {
             GM._.tm.CreateTower(TowerType.Random, 0, TowerKind.Magician); // CCタワー生成
         }
-        else if(tmc.TutoSeqIdx == 11 + SEQ_OFS) {
+        else if(tmc.TutoSeqIdx == (int)TutoM.RT.FOURTH_TOWER + SEQ_OFS) {
             GM._.tm.CreateTower(TowerType.Random, 0, TowerKind.Archer); // CCタワー生成
         }
         else
@@ -271,12 +271,12 @@ public class ActionBarUIManager : MonoBehaviour {
         TileMapController tmc = GM._.tmc;
         if(tmc.IsRealTimeTutoTrigger) {
             Debug.Log($"OnClickIceTowerIconBtn():: tmc.TutoSeqIdx= {tmc.TutoSeqIdx}");
-            if(tmc.TutoSeqIdx != 15) {
+            if(tmc.TutoSeqIdx != (int)TutoM.RT.CCTOWER_BUILD) {
                 return;
             }
             else {
                 //* RealTiem Tuto
-                if(tmc.TutoSeqIdx == 15) {
+                if(tmc.TutoSeqIdx == (int)TutoM.RT.CCTOWER_BUILD) {
                     bool isClickAnotherArea = tmc.ActionTutoSequence();
                     if(isClickAnotherArea)
                         return;
@@ -341,7 +341,7 @@ public class ActionBarUIManager : MonoBehaviour {
         
         //* RealTiem Tuto
         TileMapController tmc = GM._.tmc;
-        if(tmc.TutoSeqIdx == 12) {
+        if(tmc.TutoSeqIdx == (int)TutoM.RT.FOURTH_MERGE) {
             bool isClickAnotherArea = tmc.ActionTutoSequence();
             if(isClickAnotherArea)
                 return;

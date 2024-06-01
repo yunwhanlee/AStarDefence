@@ -15,6 +15,26 @@ public class TutoPopUp {
 public class TutoM : MonoBehaviour {
     static public TutoM _;
 
+    public enum RT {
+        FIRST_AREACLICK,
+        FIRST_BOARD,
+        FIRST_TOWER,
+        SECOND_AREACLICK,
+        SECOND_BOARD,
+        SECOND_TOWER,
+        THIRD_AREACLICK,
+        THIRD_BOARD,
+        THIRD_TOWER,
+        FOURTH_AREACLICK,
+        FOURTH_BOARD,
+        FOURTH_TOWER,
+        FOURTH_MERGE,
+        WALL_CLICK,
+        WALL_BREAK,
+        CCTOWER_BUILD,
+        CCTOWER_CLOSE,
+    }
+
     public const int HOWTIPLAY_INFO = 0;
     public const int ENEMY_IFNO = 1;
     public const int MINING_INFO = 2;

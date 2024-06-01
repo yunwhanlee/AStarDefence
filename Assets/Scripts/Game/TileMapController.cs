@@ -41,7 +41,7 @@ public class TileMapController : MonoBehaviour {
         TutoSeqWindow.SetActive(IsRealTimeTutoTrigger);
         if(IsRealTimeTutoTrigger) {
             TutoSeqLen = TutoSeqObjs.Length;
-            TutoSeqIdx = 0;
+            TutoSeqIdx = (int)TutoM.RT.FIRST_AREACLICK;
         }
         //! なぜかこのY軸は逆にしないとエラーになる
         int x = (GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON)? 7 : 6;
@@ -129,7 +129,7 @@ public class TileMapController : MonoBehaviour {
         if(isClickAnotherArea)
             return;
         //* TutoDimが活性化するため、実際にWallがクリックできないから、わざとUI変更
-        else if(TutoSeqIdx == 13 + SEQ_OFS) {
+        else if(TutoSeqIdx == (int)TutoM.RT.WALL_CLICK + SEQ_OFS) {
             HitCollider = WallTileMap.GetComponent<Collider2D>();
             HitObject = HitCollider.gameObject;
             Debug.Log($"OnClickTile():: WALL CLICK! TutoSeqIdx= {TutoSeqIdx} HitObject= {HitObject}");
