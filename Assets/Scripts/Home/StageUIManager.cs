@@ -91,7 +91,7 @@ public class StageUIManager : MonoBehaviour {
     void Start() {
         DungeonAlertDot.SetActive(HM._.GoldKey > 0);
         NewStageAlertBtnObj.SetActive(false);
-        InfiniteBestWaveScoreTxt.text =  $"최대돌파: {DM._.DB.InfiniteUpgradeDB.MyBestWaveScore}층";
+        InfiniteBestWaveScoreTxt.text =  $"최대 돌파웨이브 : {DM._.DB.InfiniteUpgradeDB.MyBestWaveScore}층";
 
         //* New Stage Alert 表示
         for(int i = 0; i < DM._.DB.StageLockedDBs.Length; i++) {
