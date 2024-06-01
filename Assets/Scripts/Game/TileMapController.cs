@@ -291,11 +291,11 @@ public class TileMapController : MonoBehaviour {
         Debug.Log($"ActionTutoSequence():: rayHit.collider.name= {hit.collider?.name}");
 
         if(IsRealTimeTutoTrigger) {
-            if(hit.collider.name == "TutoDim") {
+            if(hit.collider.gameObject.layer == Enum.Layer.RealtimeTutoDim) {
                 GM._.gui.ShowMsgError("손가락이 가리키는 곳을 클릭하세요.");
                 return true;
             }
-            else if(hit.collider.name == "ClickArea") {
+            else if(hit.collider.gameObject.layer == Enum.Layer.RealtimeTutoClickArea) {
                 TutoSeqIdx++;
                 Array.ForEach(TutoSeqObjs, obj => obj.SetActive(false));
                 TutoSeqObjs[TutoSeqIdx].SetActive(true);
