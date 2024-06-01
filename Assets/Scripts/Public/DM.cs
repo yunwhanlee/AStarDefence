@@ -95,6 +95,19 @@ public class StageLockedDB {
     }
 }
 
+[Serializable]
+public class DungeonLockedDB {
+    [field:SerializeField] public bool IsLockGoblinNormal {get; set;}
+    [field:SerializeField] public bool IsLockGoblinHard {get; set;}
+    [field:SerializeField] public bool IsLockInfinite {get; set;}
+
+    public DungeonLockedDB() {
+        IsLockGoblinNormal = false;
+        IsLockGoblinHard = false;
+        IsLockInfinite = false;
+    }
+}
+
 /// <summary>
 /// 採掘システムの保存データ
 /// </summary>
@@ -390,6 +403,7 @@ public class DB {
     [field:SerializeField] public StatusDB StatusDB {get; set;}
     [field:SerializeField] public EquipDB EquipDB {get; set;}
     [field:SerializeField] public StageLockedDB[] StageLockedDBs {get; set;}
+    [field:SerializeField] public DungeonLockedDB DungeonLockedDB {get; set;}
     [field:SerializeField] public MiningDB MiningDB {get; set;}
     [field:SerializeField] public SkillTreeDB SkillTreeDB {get; set;}
     [field:SerializeField] public ShopDB ShopDB {get; set;}
@@ -625,6 +639,9 @@ public class DM : MonoBehaviour {
             new ("스테이지5. 불타는 지옥", true, true, true, new StageReward[] {new (false, false), new (false, false), new (false, false)}),
             new ("히든스테이지. 고블린 던전", false, false, false, new StageReward[] {new (false, false), new (false, false), new (false, false)}),
         };
+
+        //* Dungeon
+        DB.DungeonLockedDB = new DungeonLockedDB();
 
         //* Mining
         DB.MiningDB = new MiningDB();

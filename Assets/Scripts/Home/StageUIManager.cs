@@ -24,11 +24,16 @@ public struct StageClearRewardItemUI {
 }
 
 public class StageUIManager : MonoBehaviour {
-    [Header("GOBLIN DUNGEON")]
+    [Header("DUNGEON")]
     [field:SerializeField] public GameObject DungeonSelectPopUp;
+
     [field:SerializeField] public GameObject GoblinDungeonWindow;
+    [field:SerializeField] public GameObject GoblinDungeonNormalLockedFrame;
+    [field:SerializeField] public GameObject GoblinDungeonHardLockedFrame;
     [field:SerializeField] public TMP_Text GoldKeyTxt;
+
     [field:SerializeField] public GameObject InfiniteDungeonWindow;
+    [field:SerializeField] public GameObject InfiniteDungeonLockedFrame;
     [field:SerializeField] public TMP_Text InfiniteDungeonGoldKeyTxt;
     [field: SerializeField] public TMP_Text InfiniteBestWaveScoreTxt;
     [field:SerializeField] public GameObject DungeonAlertDot;
@@ -93,6 +98,11 @@ public class StageUIManager : MonoBehaviour {
         NewStageAlertBtnObj.SetActive(false);
         InfiniteBestWaveScoreTxt.text =  $"최대 돌파웨이브 : {DM._.DB.InfiniteUpgradeDB.MyBestWaveScore}층";
 
+        //* ダンジョンのアンロック状態
+        GoblinDungeonNormalLockedFrame.SetActive(!DM._.DB.DungeonLockedDB.IsLockGoblinNormal);
+        InfiniteDungeonLockedFrame.SetActive(!DM._.DB.DungeonLockedDB.IsLockInfinite);
+        GoblinDungeonHardLockedFrame.SetActive(!DM._.DB.DungeonLockedDB.IsLockGoblinHard);
+
         //* New Stage Alert 表示
         for(int i = 0; i < DM._.DB.StageLockedDBs.Length; i++) {
             StageLockedDB stageDb = DM._.DB.StageLockedDBs[i];
@@ -110,8 +120,13 @@ public class StageUIManager : MonoBehaviour {
                 //* Alert UI
                 NewStageAlertBtnObj.SetActive(true);
                 NewStageAlertMapImg.sprite = MapIconSprs[StageAlertIdx];
-                NewStageAlertTxt.text = $"스테이지{stageStr}-{stgNumStr} 가능!";
-                HM._.hui.ShowMsgNotice($"축하합니다! 새로운 스테이지{stageStr}-{stgNumStr}가 열렸습니다!");
+                string newStageStr = $"{stageStr}-{stgNumStr}";
+                string dungeinUnlockMsg = (newStageStr == "1-3")? " 및 고블린던전 노말"
+                    : (newStageStr == "2-3")? " 및 무한균열던전"
+                    : (newStageStr == "3-3")? " 및 고블린던전 하드"
+                    : "";
+                NewStageAlertTxt.text = $"스테이지{newStageStr} 플레이!";
+                HM._.hui.ShowMsgNotice($"스테이지{newStageStr}{dungeinUnlockMsg} 플레이 가능!");
                 break;
             }
         }
@@ -495,6 +510,11 @@ public class StageUIManager : MonoBehaviour {
     /// </summary>
     /// <param name="idxNum">ステージ EASY, NORMAL, HARD</param>
     public void OnClickGoblinDungeonStageBtn(int idxNum) {
+        if(DM._.DB.TutorialDB.IsActiveEnemyInfo) {
+            HM._.hui.ShowMsgError("먼저 게임플레이 튜토리얼을 완료해주세요.");
+            return;
+        }
+
         HM._.SelectedStageIdx = Config.Stage.STG_GOBLIN_DUNGEON;
         Debug.Log($"OnClickGoblinDungeonStageBtn(SelectedStage= {HM._.SelectedStageIdx}):: diffIdx= {idxNum}");
         SM._.SfxPlay(SM.SFX.StageSelectSFX);

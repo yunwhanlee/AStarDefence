@@ -292,7 +292,7 @@ public class TileMapController : MonoBehaviour {
 
         if(IsRealTimeTutoTrigger) {
             if(hit.collider.gameObject.layer == Enum.Layer.RealtimeTutoDim) {
-                GM._.gui.ShowMsgError("손가락이 가리키는 곳을 클릭하세요.");
+                GM._.gui.ShowMsgError("손가락이 가리키는 곳을 클릭해주세요.");
                 return true;
             }
             else if(hit.collider.gameObject.layer == Enum.Layer.RealtimeTutoClickArea) {

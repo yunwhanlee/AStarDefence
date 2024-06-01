@@ -345,6 +345,17 @@ public class GM : MonoBehaviour {
             stageLockDt.IsLockStage1_3 = false;
             stageLockDt.StageRewards[2].IsUnlockAlert = true;
             stageLockDt.StageRewards[1].IsActiveBonusReward = true;
+
+            //* ダンジョンのアンロック
+            if(stage == Config.Stage.STG1_FOREST) {
+                DM._.DB.DungeonLockedDB.IsLockGoblinNormal = true;
+            }
+            else if(stage == Config.Stage.STG2_DESERT) {
+                DM._.DB.DungeonLockedDB.IsLockInfinite = true;
+            }
+            else if(stage == Config.Stage.STG3_SEA) {
+                DM._.DB.DungeonLockedDB.IsLockGoblinHard = true;
+            }
         }
         else if(diff == Enum.StageNum.Stage1_3) {
             if(!isLastStage) {
