@@ -238,6 +238,7 @@ public class GM : MonoBehaviour {
                 TutoM._.G_TutoPathFindBubble.SetActive(false);
                 TutoM._.G_TutoWaveStartBubble.SetActive(false);
                 TutoM._.G_TutoUpgradeMsgBubble.SetActive(false);
+                TutoM._.G_TutoGameStartFinger.SetActive(false);
             }
         }
     }

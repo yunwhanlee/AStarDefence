@@ -30,6 +30,7 @@ public class TutoM : MonoBehaviour {
     [field: SerializeField] public GameObject G_TutoPathFindBubble {get; private set;}
     [field: SerializeField] public GameObject G_TutoWaveStartBubble {get; private set;}
     [field: SerializeField] public GameObject G_TutoUpgradeMsgBubble {get; private set;}
+    [field: SerializeField] public GameObject G_TutoGameStartFinger {get; private set;}
 
     void Awake() => singleton();
 
@@ -119,12 +120,14 @@ public class TutoM : MonoBehaviour {
         G_TutoPathFindBubble = GameObject.Find("G_TutoPathFindBubble");
         G_TutoWaveStartBubble = GameObject.Find("G_TutoWaveStartBubble");
         G_TutoUpgradeMsgBubble = GameObject.Find("G_TutoUpgradeMsgBubble");
+        G_TutoGameStartFinger = GameObject.Find("G_TutoGameStartFinger");
 
     }
     public void ShowGameBubbles(bool isActive) { // DM._.DB.TutorialDB.IsActiveEnemyInfo
         G_TutoPathFindBubble.SetActive(isActive);
         G_TutoWaveStartBubble.SetActive(isActive);
         G_TutoUpgradeMsgBubble.SetActive(isActive);
+        G_TutoGameStartFinger.SetActive(isActive);
     }
 
     /// <summary>

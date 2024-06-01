@@ -30,17 +30,17 @@ public class TileMapController : MonoBehaviour {
     [field: SerializeField] public GameObject SwitchBefHitObject {get; set;}
 
     [field: Header("TUTORIAL SEQUENCE")]
-    [field: SerializeField] public GameObject TutoSeqGroup {get; set;}
+    [field: SerializeField] public GameObject TutoSeqWindow {get; set;}
     [field: SerializeField] public bool IsRealTimeTutoTrigger {get; set;}
-    [field: SerializeField] public int TutoSeqLastIdx {get; set;}
+    [field: SerializeField] public int TutoSeqLen {get; set;}
     [field: SerializeField] public int TutoSeqIdx {get; set;}
     [field: SerializeField] public GameObject[] TutoSeqObjs {get; set;}
 
     void Start() {
         IsRealTimeTutoTrigger = DM._.DB.TutorialDB.IsActiveEnemyInfo;
-        TutoSeqGroup.SetActive(IsRealTimeTutoTrigger);
+        TutoSeqWindow.SetActive(IsRealTimeTutoTrigger);
         if(IsRealTimeTutoTrigger) {
-            TutoSeqLastIdx = TutoSeqObjs.Length - 1;
+            TutoSeqLen = TutoSeqObjs.Length;
             TutoSeqIdx = 0;
         }
         //! なぜかこのY軸は逆にしないとエラーになる
@@ -298,13 +298,14 @@ public class TileMapController : MonoBehaviour {
             else if(hit.collider.gameObject.layer == Enum.Layer.RealtimeTutoClickArea) {
                 TutoSeqIdx++;
                 Array.ForEach(TutoSeqObjs, obj => obj.SetActive(false));
-                TutoSeqObjs[TutoSeqIdx].SetActive(true);
+                if(TutoSeqIdx < TutoSeqLen)
+                    TutoSeqObjs[TutoSeqIdx].SetActive(true);
             }
 
             //* Tutorial 終了
-            if(TutoSeqIdx == TutoSeqLastIdx) {
+            if(TutoSeqIdx == TutoSeqLen) {
                 Debug.Log("ActionTutoSequence():: 終了");
-                TutoSeqGroup.SetActive(false);
+                TutoSeqWindow.SetActive(false);
                 IsRealTimeTutoTrigger = false;
                 Array.ForEach(TutoSeqObjs, obj => obj.SetActive(false));
                 TutoM._.ShowGameBubbles(true);
