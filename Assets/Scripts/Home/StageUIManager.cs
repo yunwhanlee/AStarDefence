@@ -61,6 +61,8 @@ public class StageUIManager : MonoBehaviour {
     [field:SerializeField] public GameObject Stage1_2LockedFrame;
     [field:SerializeField] public GameObject Stage1_3LockedFrame;
 
+    [field:SerializeField] public Transform[] StageUnlockSigns;
+
     [field: Header("STAGE INFO POPUP")]
     [field:SerializeField] public Color[] TopColors;
     [field:SerializeField] public Color[] TopLabelOutsideColors;
@@ -358,6 +360,8 @@ public class StageUIManager : MonoBehaviour {
         Array.ForEach(StagePopUps, popUp => popUp.SetActive(false)); 
         // 選択したステージ 表示
         StagePopUps[hm.SelectedStageIdx].SetActive(true);
+        // StageSignGroup表示
+        UpdateStageUnlockSignGroup();
         //　ロック状況 表示
         WholeLockedFrame.SetActive(DM._.DB.StageLockedDBs[hm.SelectedStageIdx].IsLockStage1_1);
     }
@@ -593,5 +597,23 @@ public class StageUIManager : MonoBehaviour {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         ClearRewardInfoPopUp.SetActive(false);
     }
+
+#region FUNC
+    public void UpdateStageUnlockSignGroup() {
+        const int FIRST_STG = 0, SECOND_STG = 1, THIRD_STG = 2;
+        const int STG_SIGN_ICON = 0, LOCK_ICON = 1;
+
+        var selectStage = HM._.SelectedStageIdx;
+        var isLockStage1_1 = DM._.DB.StageLockedDBs[selectStage].IsLockStage1_1;
+        var isLockStage1_2 = DM._.DB.StageLockedDBs[selectStage].IsLockStage1_2;
+        var isLockStage1_3 = DM._.DB.StageLockedDBs[selectStage].IsLockStage1_3;
+        StageUnlockSigns[FIRST_STG].GetChild(STG_SIGN_ICON).gameObject.SetActive(!isLockStage1_1);
+        StageUnlockSigns[FIRST_STG].GetChild(LOCK_ICON).gameObject.SetActive(isLockStage1_1);
+        StageUnlockSigns[SECOND_STG].GetChild(STG_SIGN_ICON).gameObject.SetActive(!isLockStage1_2);
+        StageUnlockSigns[SECOND_STG].GetChild(LOCK_ICON).gameObject.SetActive(isLockStage1_2);
+        StageUnlockSigns[THIRD_STG].GetChild(STG_SIGN_ICON).gameObject.SetActive(!isLockStage1_3);
+        StageUnlockSigns[THIRD_STG].GetChild(LOCK_ICON).gameObject.SetActive(isLockStage1_3);
+    }
+#endregion
 #endregion
 }

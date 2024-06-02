@@ -144,6 +144,9 @@ public class HomeUIManager : MonoBehaviour {
             HM._.stgm.StagePopUps[i].SetActive(HM._.SelectedStageIdx == i);
         }
 
+        //* StageSignGroup表示
+        HM._.stgm.UpdateStageUnlockSignGroup();
+
         //! ステージPopUpが表示しないバグあり対応
         //* 全てのステージが非表示なら
         if(Array.TrueForAll(HM._.stgm.StagePopUps, popUp => popUp.activeSelf == false)) {
