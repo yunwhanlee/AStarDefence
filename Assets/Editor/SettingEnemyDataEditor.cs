@@ -115,7 +115,7 @@ public class SettingEnemyDataEditor : Editor {
             Debug.Log("infiniteEnemyWaveDtList.Count= " + infiniteEnemyWaveDtList.Count);
             
             //* InfiniteWaveへまとめたリストを元に設定
-            const int WaveCnt = 400;
+            const int WaveCnt = 1000;
             const int StartHp = 7;
             const int StartBossHpTime = 30;
             int hp = StartHp;
@@ -128,7 +128,17 @@ public class SettingEnemyDataEditor : Editor {
                 EnemyData enemyDt = infiniteEnemyWaveDtList[i % infiniteEnemyWaveDtList.Count];
                 Debug.Log($"enemyDt[{i}]= " + enemyDt.Name);
                 dt.Waves[i] = new EnemyData(); // 각 요소에 EnemyData 객체를 생성하여 할당
-                dt.Waves[i].Name = enemyDt.Name + (i >= infiniteEnemyWaveDtList.Count? "(정예)" : "");
+                string simbolTxt = "";
+                if(i >= infiniteEnemyWaveDtList.Count) {
+                    Debug.Log($"{i} Infinite Set HP Wave Cycle={i / infiniteEnemyWaveDtList.Count}");
+                    switch(i / infiniteEnemyWaveDtList.Count) {
+                        case 1: simbolTxt = "(정예)"; break;
+                        case 2: simbolTxt = "(유니크)"; break;
+                        case 3: simbolTxt = "(전설)"; break;
+                        case 4: simbolTxt = "(신화)"; break;
+                    }
+                }
+                dt.Waves[i].Name = enemyDt.Name + simbolTxt;
                 dt.Waves[i].Spr = enemyDt.Spr;
                 dt.Waves[i].Lv = i + 1;
 
