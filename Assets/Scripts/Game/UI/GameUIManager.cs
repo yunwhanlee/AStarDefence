@@ -219,14 +219,11 @@ public class GameUIManager : MonoBehaviour {
             Time.timeScale = 1;
             SetPlaySpeedBtnUI(playSpeedBtnSprs[OFF], Time.timeScale);
         }
-
-        //* UI
-        // playSpeedBtnImg.sprite = (Time.timeScale == 1)? playSpeedBtnSprs[OFF] : playSpeedBtnSprs[ON];
-        // playSpeedBtnTxt.text = $"X{Time.timeScale}";
     }
 
     public void OnClickResetWallBtn() {
         Debug.Log("OnClickResetRockBtn()");
+        SM._.SfxPlay(SM.SFX.InvEquipSFX);
         if(DM._.DB.TutorialDB.IsActiveEnemyInfo) {
             ShowMsgError("튜토리얼 중에는 불가능합니다.");
             return;
@@ -265,7 +262,7 @@ public class GameUIManager : MonoBehaviour {
             //* 復活したら、以前に残っているモンスターを削除（ボースはしない）
             Transform enemyGroup = GM._.em.enemyObjGroup;
             Enemy firstEnemy = enemyGroup.GetChild(0).GetComponent<Enemy>();
-            if(firstEnemy.Type != EnemyType.Boss) {
+            if(firstEnemy.Type != EnemyType.Boss && enemyGroup.childCount > 0) {
                 for(int i = 0; i < enemyGroup.childCount; i++) {
                     Enemy enemy = enemyGroup.GetChild(i).GetComponent<Enemy>();
                     enemy.DecreaseHp(999999);

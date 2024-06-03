@@ -308,17 +308,20 @@ public class GM : MonoBehaviour {
 
         //* ボスリワード 表示
         if(WaveCnt % Config.BOSS_SPAWN_CNT == 0) {
-            int rwdSelectCnt = 0;
+            int rwdSelectCnt;
             int bossNum = WaveCnt / Config.BOSS_SPAWN_CNT;
             switch(bossNum) {
-                case 1: case 2:
+                case 1: 
+                    rwdSelectCnt = 1;
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                case 5:
                     rwdSelectCnt = 2;
                     break;
-                case 3: case 4: case 5:
-                    rwdSelectCnt = 3;
-                    break;
                 default:
-                    rwdSelectCnt = 4;
+                    rwdSelectCnt = 3;
                     break;
             }
             bossRwd.Active(rwdSelectCnt);
