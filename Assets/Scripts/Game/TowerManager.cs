@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 public class TowerManager : MonoBehaviour {
     public readonly static int RANDOM_TOWER_LV_MAX = 6; // ランダムタワーMAXレベル
-    public readonly static int CARD_UPG_LV_MAX = 20; // カードアップグレード MAXレベル
+    public readonly static int CARD_UPG_LV_MAX = 30; // カードアップグレード MAXレベル
     public readonly static float WARRIOR_CARD_DMG_UP_PER = 0.16f; // 戦士 カードアップグレード ダメージ単位
     public readonly static float ARCHER_CARD_DMG_UP_PER = 0.1f; // アーチャー カードアップグレード ダメージ単位
     public readonly static float MAGICIAN_CARD_DMG_UP_PER = 0.13f; // マジシャン カードアップグレード ダメージ単位
