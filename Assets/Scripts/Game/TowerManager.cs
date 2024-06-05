@@ -147,8 +147,15 @@ public class TowerManager : MonoBehaviour {
 #region CREATE
     public void InstallBoard() {
         Debug.Log("InstallBoard()::");
+        InstantiateBoard(tmc.getCurSelectedPos());
+    }
+    public void InstallBoard(Vector3Int pos) {
+        Debug.Log("InstallBoard()::");
+        InstantiateBoard(pos);
+    }
+    private void InstantiateBoard(Vector3 pos) {
         GameObject board = Instantiate(boards[Random.Range(0, boards.Length)], tm.BoardGroup);
-        board.transform.localPosition = tmc.getCurSelectedPos();
+        board.transform.localPosition = pos;
         int boardCnt = tm.WarriorGroup.childCount + tm.ArcherGroup.childCount + tm.MagicianGroup.childCount;
         board.name = $"Board{boardCnt}";
         tmc.HitObject = board;
@@ -156,7 +163,7 @@ public class TowerManager : MonoBehaviour {
     /// <summary>
     /// ランダムタワー生成
     /// </summary>
-    private void InstantiateTower(GameObject towerObj, Transform objGroup) {
+    public void InstantiateTower(GameObject towerObj, Transform objGroup) {
         //* タワー → Board子に入れる
         Tower tower = Instantiate(towerObj, tmc.HitObject.transform).GetComponent<Tower>();
         tower.transform.localPosition = new Vector2(0, 0.15f); //* 少し上で、Board上にのせるように
@@ -175,20 +182,20 @@ public class TowerManager : MonoBehaviour {
         //* そのBoard → Group子に入れる
         tmc.HitObject.transform.SetParent(objGroup);
     }
-    private void InstallIceTower(int lvIdx) {
+    public void InstallIceTower(int lvIdx, Vector3Int pos) {
         Debug.Log("InstallIceTower()::");
         GameObject ccTower = Instantiate(iceTowers[lvIdx], CCTowerGroup);
-        ccTower.transform.position = tmc.getCurSelectedPos();
+        ccTower.transform.position = pos; //tmc.getCurSelectedPos();
         tmc.HitObject = ccTower;
     }
-    private void InstallStunTower(int lvIdx) {
+    public void InstallStunTower(int lvIdx, Vector3Int pos) {
         Debug.Log("InstallStunTower()::");
         GameObject ccTower = Instantiate(stunTowers[lvIdx], CCTowerGroup);
-        ccTower.transform.position = tmc.getCurSelectedPos();
+        ccTower.transform.position = pos; //tmc.getCurSelectedPos();
         tmc.HitObject = ccTower;
     }
 
-    public void CreateTower(TowerType type, int lvIdx = 0, TowerKind kind = TowerKind.None) {
+    public void CreateTower(TowerType type, int lvIdx = 0, TowerKind kind = TowerKind.None, bool isActiveRange = true) {
         Debug.Log($"<color=white>CreateTower({type}, {lvIdx})::</color>");
         switch(type) {
             case TowerType.Random:
@@ -208,14 +215,14 @@ public class TowerManager : MonoBehaviour {
                 }
                 //* タワー設置 トリガー ON
                 tmc.HitObject.GetComponent<Board>().IsTowerOn = true;
-                tmc.HitObject.GetComponentInChildren<Tower>().trc.SprRdr.enabled = true;
+                tmc.HitObject.GetComponentInChildren<Tower>().trc.SprRdr.enabled = isActiveRange;
                 break;
             case TowerType.CC_IceTower:
-                InstallIceTower(lvIdx);
+                InstallIceTower(lvIdx, tmc.getCurSelectedPos());
                 tmc.HitObject.GetComponent<Tower>().trc.SprRdr.enabled = true;
                 break;
             case TowerType.CC_StunTower:
-                InstallStunTower(lvIdx);
+                InstallStunTower(lvIdx, tmc.getCurSelectedPos());
                 tmc.HitObject.GetComponent<Tower>().trc.SprRdr.enabled = true;
                 break;
         }

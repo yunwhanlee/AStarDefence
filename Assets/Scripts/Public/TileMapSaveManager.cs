@@ -35,6 +35,7 @@ public class TileMapSaveDt {
     [field:SerializeField] public Enum.StageNum StageNum {get; set;}
     [field:SerializeField] public int Wave {get; set;}
 
+    [field:SerializeField] public int MaxLife {get; set;}
     [field:SerializeField] public int Life {get; set;}
     [field:SerializeField] public int Money {get; set;}
     [field:SerializeField] public int[] TowerUpgrades {get; set;} = new int[3];
@@ -44,7 +45,7 @@ public class TileMapSaveDt {
     [field:SerializeField] public List<TowerDt> SaveWarriorList {get; set;} = new List<TowerDt>();
     [field:SerializeField] public List<TowerDt> SaveArcherList {get; set;} = new List<TowerDt>();
     [field:SerializeField] public List<TowerDt> SaveMagicianList {get; set;} = new List<TowerDt>();
-    [field:SerializeField] public List<TowerDt> CCTowerList {get; set;} = new List<TowerDt>();
+    [field:SerializeField] public List<TowerDt> SaveCCTowerList {get; set;} = new List<TowerDt>();
 
     public TileMapSaveDt() {
         Reset();
@@ -57,6 +58,7 @@ public class TileMapSaveDt {
         StageNum = 0;
         Wave = 1;
 
+        MaxLife = 10;
         Life = 10;
         Money = 100;
         TowerUpgrades = new int[3];
@@ -66,6 +68,6 @@ public class TileMapSaveDt {
         SaveWarriorList = new List<TowerDt>();
         SaveArcherList = new List<TowerDt>();
         SaveMagicianList = new List<TowerDt>();
-        CCTowerList = new List<TowerDt>();
+        SaveCCTowerList = new List<TowerDt>();
     }
 }

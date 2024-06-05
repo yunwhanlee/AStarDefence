@@ -154,7 +154,7 @@ public class GameUIManager : MonoBehaviour {
             // VictoryTitleTxt.text = $"돌파한 층수: {GM._.WaveCnt}층";
             // Time.timeScale = 0;
 
-            ShowAgainAskMsg("지금까지 데이터를 저장 후 종료하시겠습니까?");
+            ShowAgainAskMsg("진행중인 게임을 나가시겠습니까?\n<color=blue>(이전 단계까지 데이터가 저장됩니다.)</color>");
             OnClickAskConfirmAction = () => {
                 SM._.SfxPlay(SM.SFX.ClickSFX);
 
@@ -168,9 +168,10 @@ public class GameUIManager : MonoBehaviour {
 
                 saveTMDt.Stage = GM._.Stage;
                 saveTMDt.StageNum = DM._.SelectedStageNum;
-                saveTMDt.Wave = GM._.WaveCnt;
+                saveTMDt.Wave = GM._.WaveCnt - 1;
 
                 //* Life & Money
+                saveTMDt.MaxLife = GM._.MaxLife;
                 saveTMDt.Life = GM._.Life;
                 saveTMDt.Money = GM._.Money;
                 
@@ -243,7 +244,7 @@ public class GameUIManager : MonoBehaviour {
                 for(int i = 0; i < GM._.tm.CCTowerGroup.childCount; i++) {
                     Transform childTf = GM._.tm.CCTowerGroup.GetChild(i);
                     Tower ccTower = childTf.GetComponent<Tower>();
-                    saveTMDt.CCTowerList.Add (
+                    saveTMDt.SaveCCTowerList.Add (
                         new TowerDt (
                             ccTower.Type,
                             TowerKind.None,

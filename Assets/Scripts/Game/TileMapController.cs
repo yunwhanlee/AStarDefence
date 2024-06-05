@@ -354,10 +354,64 @@ public class TileMapController : MonoBehaviour {
         }
         //* 無限ダンジョン セーブデータ 読込み
         else if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON && DM._.DB.TileMapSaveDt.IsSaved) {
+            GM._.gui.ResetWallBtn.gameObject.SetActive(false);
+
+            var saveTMDt = DM._.DB.TileMapSaveDt;
+
+            //* Status Dt
+            GM._.IsRevived = saveTMDt.IsRevived;
+            GM._.Stage = saveTMDt.Stage;
+            DM._.SelectedStageNum = saveTMDt.StageNum;
+            GM._.WaveCnt = saveTMDt.Wave;
+
+            GM._.MaxLife = saveTMDt.MaxLife;
+            GM._.Life = saveTMDt.Life;
+            GM._.Money = saveTMDt.Money;
+
+            GM._.tm.TowerCardUgrLvs[(int)TowerKind.Warrior] = saveTMDt.TowerUpgrades[(int)TowerKind.Warrior];
+            GM._.tm.TowerCardUgrLvs[(int)TowerKind.Archer] = saveTMDt.TowerUpgrades[(int)TowerKind.Archer];
+            GM._.tm.TowerCardUgrLvs[(int)TowerKind.Magician] = saveTMDt.TowerUpgrades[(int)TowerKind.Magician];
+
             //* Wall 配置
-            DM._.DB.TileMapSaveDt.WallDtList.ForEach(wallDt => {
+            saveTMDt.WallDtList.ForEach(wallDt => {
                 WallTileMap.SetTile(new Vector3Int(wallDt.Pos.x, wallDt.Pos.y, 0), walls[0]);
             });
+
+            //* Board 配置
+            saveTMDt.SaveBoardList.ForEach(boardDt => {
+                GM._.tm.InstallBoard(boardDt.Pos);
+            });
+
+            //* Warrior 配置
+            saveTMDt.SaveWarriorList.ForEach(wrDt => {
+                GM._.tm.InstallBoard(wrDt.Pos);
+                GM._.tm.CreateTower(TowerType.Random, wrDt.TowerLv - 1, TowerKind.Warrior, isActiveRange: false);
+            });
+
+            //* Archer 配置
+            saveTMDt.SaveArcherList.ForEach(acDt => {
+                GM._.tm.InstallBoard(acDt.Pos);
+                GM._.tm.CreateTower(TowerType.Random, acDt.TowerLv - 1, TowerKind.Archer, isActiveRange: false);
+            });
+
+            //* Magician 配置
+            saveTMDt.SaveMagicianList.ForEach(mgDt => {
+                GM._.tm.InstallBoard(mgDt.Pos);
+                GM._.tm.CreateTower(TowerType.Random, mgDt.TowerLv - 1, TowerKind.Magician, isActiveRange: false);
+            });
+
+            //* CCTower 配置
+            saveTMDt.SaveCCTowerList.ForEach(ccDt => {
+                if(ccDt.TowerType == TowerType.CC_IceTower) {
+                    GM._.tm.InstallIceTower(ccDt.TowerLv - 1, ccDt.Pos);
+                    GM._.tmc.HitObject.GetComponent<Tower>().trc.SprRdr.enabled = false;
+                }
+                else {
+                    GM._.tm.InstallStunTower(ccDt.TowerLv - 1, ccDt.Pos);
+                    GM._.tmc.HitObject.GetComponent<Tower>().trc.SprRdr.enabled = false;
+                }
+            });
+
             return;
         }
 
