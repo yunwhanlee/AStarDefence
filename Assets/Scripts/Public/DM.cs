@@ -675,6 +675,8 @@ public class DM : MonoBehaviour {
 
         DB.FameRewardDB = new FameRewardDB();
 
+        DB.TileMapSaveDt = new TileMapSaveDt();
+
         DB.IsRemoveAd = false;
         DB.IsCloverActive = false;
         DB.IsGoldCloverActive = false;

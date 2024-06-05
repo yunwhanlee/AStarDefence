@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.CollectionScripts;
 using Unity.Mathematics;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
@@ -325,10 +326,11 @@ public class TileMapController : MonoBehaviour {
     /// 壁をランダムで設置
     /// </summary>
     public void SpawnWall() {
-        //* チュートリアルなら、WALL固定！
+        Debug.Log("SpawnWall()::");
+        var walls = GM._.StageDts[GM._.Stage].Walls;
+        //* チュートリアル WALL固定！
         if(DM._.DB.TutorialDB.IsActiveEnemyInfo) {
             const int OFS_Y = -2, OFS_X = -6;
-            var walls = GM._.StageDts[GM._.Stage].Walls;
             // 1 Colume
             WallTileMap.SetTile(new Vector3Int(OFS_Y + 1, OFS_X + 1, 0), walls[1]);
             WallTileMap.SetTile(new Vector3Int(OFS_Y + 3, OFS_X + 1, 0), walls[0]);
@@ -348,6 +350,14 @@ public class TileMapController : MonoBehaviour {
             WallTileMap.SetTile(new Vector3Int(OFS_Y + 0, OFS_X + 9, 0), walls[3]);
             // 10 Colume
             WallTileMap.SetTile(new Vector3Int(OFS_Y + 2, OFS_X + 10, 0), walls[1]);
+            return;
+        }
+        //* 無限ダンジョン セーブデータ 読込み
+        else if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON && DM._.DB.TileMapSaveDt.IsSaved) {
+            //* Wall 配置
+            DM._.DB.TileMapSaveDt.WallDtList.ForEach(wallDt => {
+                WallTileMap.SetTile(new Vector3Int(wallDt.Pos.x, wallDt.Pos.y, 0), walls[0]);
+            });
             return;
         }
 
@@ -377,7 +387,7 @@ public class TileMapController : MonoBehaviour {
         //* 壁を設置
         for(WallSpawnCnt = 0; WallSpawnCnt < Config.WALL_SPAWN_MAX; WallSpawnCnt++) {
             var pos = new Vector3Int(posList[WallSpawnCnt].y, posList[WallSpawnCnt].x, 0);
-            var walls = GM._.StageDts[GM._.Stage].Walls;
+            // var walls = GM._.StageDts[GM._.Stage].Walls;
             WallTileMap.SetTile(pos, walls[Random.Range(0, walls.Length)]);
         }
     }

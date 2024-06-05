@@ -206,7 +206,7 @@ public class StageUIManager : MonoBehaviour {
             };
 
             HM._.hui.OnClickAskCloseExtraAction = () => {
-                DM._.DB.TileMapSaveDt.IsSaved = false;
+                DM._.DB.TileMapSaveDt.Reset();
                 PlayGame();
             };
         }

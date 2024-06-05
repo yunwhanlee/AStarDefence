@@ -158,6 +158,8 @@ public class GameUIManager : MonoBehaviour {
             OnClickAskConfirmAction = () => {
                 SM._.SfxPlay(SM.SFX.ClickSFX);
 
+                DM._.DB.TileMapSaveDt.Reset();
+
                 //* Stage & Wave
                 var saveTMDt = DM._.DB.TileMapSaveDt;
 
@@ -178,18 +180,19 @@ public class GameUIManager : MonoBehaviour {
                 saveTMDt.TowerUpgrades[(int)TowerKind.Magician] = GM._.tm.TowerCardUgrLvs[(int)TowerKind.Magician];
 
                 //* Wall TileMap
-                for(int x = -7; x < 7; x++) {
-                    for(int y = -2; y < 2; y++) {
-                        TileDt wallDt = new TileDt( new Vector3Int(x, y, 0));
+                //! タイルマップを作るときに、XとYを逆にした。。。
+                for(int x = -7; x <= 7; x++) {
+                    for(int y = -3; y <= 2; y++) {
+                        WallDt wallDt = new WallDt( new Vector3Int(y, x, 0));
 
-                        var tileDt = GM._.tmc.WallTileMap.GetTile(new Vector3Int(x, y, 0));
-                        Debug.Log($"SaveTileMapDt:: pos({x}, {y}), wallTile= {tileDt}");
+                        var tileDt = GM._.tmc.WallTileMap.GetTile(new Vector3Int(y, x, 0));
                         if(tileDt) {
-                            wallDt.IsWall = true;
+                            //* Tile List 追加
+                            saveTMDt.WallDtList.Add(wallDt);
                         }
 
-                        //* Tile List 追加
-                        saveTMDt.WallDtList.Add(wallDt);
+                        //* Debug Fill Walls to Test
+                        // GM._.tmc.WallTileMap.SetTile(new Vector3Int(y, x, 0), GM._.StageDts[1].Walls[0]);
                     }
                 }
 

@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class TileDt {
+public class WallDt {
     [field:SerializeField] public Vector3Int Pos {get; set;}
-    [field:SerializeField] public bool IsWall {get; set;}
-    public TileDt(Vector3Int pos) {
+    public WallDt(Vector3Int pos) {
         Pos = pos;
     }
 }
@@ -40,10 +39,33 @@ public class TileMapSaveDt {
     [field:SerializeField] public int Money {get; set;}
     [field:SerializeField] public int[] TowerUpgrades {get; set;} = new int[3];
 
-    [field:SerializeField] public List<TileDt> WallDtList {get; set;} = new List<TileDt>();
+    [field:SerializeField] public List<WallDt> WallDtList {get; set;} = new List<WallDt>();
     [field:SerializeField] public List<TowerDt> SaveBoardList {get; set;} = new List<TowerDt>();
     [field:SerializeField] public List<TowerDt> SaveWarriorList {get; set;} = new List<TowerDt>();
     [field:SerializeField] public List<TowerDt> SaveArcherList {get; set;} = new List<TowerDt>();
     [field:SerializeField] public List<TowerDt> SaveMagicianList {get; set;} = new List<TowerDt>();
     [field:SerializeField] public List<TowerDt> CCTowerList {get; set;} = new List<TowerDt>();
+
+    public TileMapSaveDt() {
+        Reset();
+    }
+
+    public void Reset() {
+        IsSaved = false;
+        IsRevived = false;
+        Stage = 0;
+        StageNum = 0;
+        Wave = 1;
+
+        Life = 10;
+        Money = 100;
+        TowerUpgrades = new int[3];
+
+        WallDtList = new List<WallDt>();
+        SaveBoardList = new List<TowerDt>();
+        SaveWarriorList = new List<TowerDt>();
+        SaveArcherList = new List<TowerDt>();
+        SaveMagicianList = new List<TowerDt>();
+        CCTowerList = new List<TowerDt>();
+    }
 }
