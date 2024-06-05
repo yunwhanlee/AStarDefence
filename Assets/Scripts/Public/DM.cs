@@ -413,6 +413,7 @@ public class DB {
     [field:SerializeField] public InfiniteUpgradeDB InfiniteUpgradeDB {get; set;}
     [field:SerializeField] public MileageRewardDB MileageRewardDB {get; set;}
     [field:SerializeField] public FameRewardDB FameRewardDB {get; set;}
+    [field:SerializeField] public TileMapSaveDt TileMapSaveDt {get; set;}
     
     [field:SerializeField] public List<InventoryItem> InvItemDBs {get; set;}
     [field:SerializeField] public bool IsRemoveAd {get; set;}

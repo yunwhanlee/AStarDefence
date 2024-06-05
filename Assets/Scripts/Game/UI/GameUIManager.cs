@@ -9,8 +9,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour {
-    Action OnClickAskConfirmAction = () => {};  //* もう一度聞く Confirmボタンイベント
-    Action OnClickAskCloseAction = () => {}; //* もう一度聞く Closeボタンイベント
+    public Action OnClickAskConfirmAction = () => {};  //* もう一度聞く Confirmボタンイベント
+    public Action OnClickAskCloseAction = () => {}; //* もう一度聞く Closeボタンイベント
 
     //* Outside
     public TowerStateUIManager tsm;
@@ -147,12 +147,109 @@ public class GameUIManager : MonoBehaviour {
     public void OnClickPausePopUp_ExitGameBtn() {
         //* きれつダンジョンの時、出るボタンをリワード得ることにする
         if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON) {
-            SM._.SfxPlay(SM.SFX.ClickSFX);
-            GameoverPopUp.SetActive(false);
-            GM._.Victory();
-            Ads_ClaimX2Btn.gameObject.SetActive(false);
-            VictoryTitleTxt.text = $"돌파한 층수: {GM._.WaveCnt}층";
-            Time.timeScale = 0;
+            // SM._.SfxPlay(SM.SFX.ClickSFX);
+            // GameoverPopUp.SetActive(false);
+            // GM._.Victory();
+            // Ads_ClaimX2Btn.gameObject.SetActive(false);
+            // VictoryTitleTxt.text = $"돌파한 층수: {GM._.WaveCnt}층";
+            // Time.timeScale = 0;
+
+            ShowAgainAskMsg("지금까지 데이터를 저장 후 종료하시겠습니까?");
+            OnClickAskConfirmAction = () => {
+                SM._.SfxPlay(SM.SFX.ClickSFX);
+
+                //* Stage & Wave
+                var saveTMDt = DM._.DB.TileMapSaveDt;
+
+                saveTMDt.IsSaved = true;
+                saveTMDt.IsRevived = GM._.IsRevived;
+
+                saveTMDt.Stage = GM._.Stage;
+                saveTMDt.StageNum = DM._.SelectedStageNum;
+                saveTMDt.Wave = GM._.WaveCnt;
+
+                //* Life & Money
+                saveTMDt.Life = GM._.Life;
+                saveTMDt.Money = GM._.Money;
+                
+                //* Upgrade Value
+                saveTMDt.TowerUpgrades[(int)TowerKind.Warrior] = GM._.tm.TowerCardUgrLvs[(int)TowerKind.Warrior];
+                saveTMDt.TowerUpgrades[(int)TowerKind.Archer] = GM._.tm.TowerCardUgrLvs[(int)TowerKind.Archer];
+                saveTMDt.TowerUpgrades[(int)TowerKind.Magician] = GM._.tm.TowerCardUgrLvs[(int)TowerKind.Magician];
+
+                //* Wall TileMap
+                for(int x = -7; x < 7; x++) {
+                    for(int y = -2; y < 2; y++) {
+                        TileDt wallDt = new TileDt( new Vector3Int(x, y, 0));
+
+                        var tileDt = GM._.tmc.WallTileMap.GetTile(new Vector3Int(x, y, 0));
+                        Debug.Log($"SaveTileMapDt:: pos({x}, {y}), wallTile= {tileDt}");
+                        if(tileDt) {
+                            wallDt.IsWall = true;
+                        }
+
+                        //* Tile List 追加
+                        saveTMDt.WallDtList.Add(wallDt);
+                    }
+                }
+
+                //* Board Data
+                for(int i = 0; i < GM._.tm.BoardGroup.childCount; i++) {
+                    Transform tf = GM._.tm.BoardGroup.GetChild(i);
+                    saveTMDt.SaveBoardList.Add(new TowerDt (
+                        TowerType.Board, 
+                        TowerKind.None, 
+                        lv: 0, 
+                        new Vector3Int((int)tf.position.x, (int)tf.position.y, 0)));
+                }
+
+                //* Warrior Data
+                for(int i = 0; i < GM._.tm.WarriorGroup.childCount; i++) {
+                    Transform boardTf = GM._.tm.WarriorGroup.GetChild(i);
+                    saveTMDt.SaveWarriorList.Add (
+                        new TowerDt (
+                            TowerType.Random,
+                            TowerKind.Warrior,
+                            lv: boardTf.GetComponentInChildren<Tower>().Lv,
+                            new Vector3Int((int)boardTf.position.x, (int)boardTf.position.y, 0)));
+                }
+
+                //* Archer Data
+                for(int i = 0; i < GM._.tm.ArcherGroup.childCount; i++) {
+                    Transform boardTf = GM._.tm.ArcherGroup.GetChild(i);
+                    saveTMDt.SaveArcherList.Add (
+                        new TowerDt (
+                            TowerType.Random,
+                            TowerKind.Archer,
+                            lv: boardTf.GetComponentInChildren<Tower>().Lv,
+                            new Vector3Int((int)boardTf.position.x, (int)boardTf.position.y, 0)));
+                }
+
+                //* Magician Data
+                for(int i = 0; i < GM._.tm.MagicianGroup.childCount; i++) {
+                    Transform boardTf = GM._.tm.MagicianGroup.GetChild(i);
+                    saveTMDt.SaveMagicianList.Add (
+                        new TowerDt (
+                            TowerType.Random,
+                            TowerKind.Magician,
+                            lv: boardTf.GetComponentInChildren<Tower>().Lv,
+                            new Vector3Int((int)boardTf.position.x, (int)boardTf.position.y, 0)));
+                }
+
+                //* CC Tower Data
+                for(int i = 0; i < GM._.tm.CCTowerGroup.childCount; i++) {
+                    Transform childTf = GM._.tm.CCTowerGroup.GetChild(i);
+                    Tower ccTower = childTf.GetComponent<Tower>();
+                    saveTMDt.CCTowerList.Add (
+                        new TowerDt (
+                            ccTower.Type,
+                            TowerKind.None,
+                            lv: ccTower.Lv,
+                            new Vector3Int((int)childTf.position.x, (int)childTf.position.y, 0)));
+                }
+
+                GoHome();
+            };
         }
         else {
             ShowAgainAskMsg("정말로 게임을 나가시겠습니까?");
@@ -286,7 +383,7 @@ public class GameUIManager : MonoBehaviour {
     #endregion
 
     #region UPGRADE TOWER CARDS
-    public void OnClickUpgradeTowerCard(int kindIdx) {        
+    public void OnClickUpgradeTowerCard(int kindIdx) {
         //* 型変換
         TowerKind kind = kindIdx == 0? TowerKind.Warrior
             : kindIdx == 1? TowerKind.Archer

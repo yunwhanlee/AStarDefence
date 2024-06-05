@@ -14,6 +14,7 @@ public class HomeUIManager : MonoBehaviour {
     Coroutine CorMsgNoticeID;
     Coroutine CorMsgErrorID;
     public Action OnClickAskConfirmAction;
+    public Action OnClickAskCloseExtraAction;
 
     [field: Header("STATUS")]
     [field: SerializeField] public Canvas TopNavCanvas {get; set;}
@@ -49,6 +50,8 @@ public class HomeUIManager : MonoBehaviour {
     [Header("AGAIN ASK POPUP")]
     public GameObject AgainAskPopUp;
     public TextMeshProUGUI AgainAskMsgTxt;
+    public GameObject YesBtnObj;
+    public GameObject NoBtnObj;
 
     [Header("THANKS FOR PLAYING POPUP")]
     public GameObject ThanksForPlayingPopUp;
@@ -245,13 +248,18 @@ public class HomeUIManager : MonoBehaviour {
         BottomMsgNotice.SetActive(false);
     }
     /// <summary> もう一度確認するPOPUP：★OnClickAskConfirmActionへ確認ボタン押してから、処理するメソッドを購読すること！</summary>
-    public void ShowAgainAskMsg(string msg = "") {
+    public void ShowAgainAskMsg(string msg = "", bool isActiveNoBtn = false) {
+        NoBtnObj.SetActive(isActiveNoBtn);
         AgainAskPopUp.SetActive(true);
         AgainAskMsgTxt.text = msg;
     }
     public void OnClickAgainAskPopUpConfirmBtn() {
         AgainAskPopUp.SetActive(false);
         OnClickAskConfirmAction?.Invoke();
+    }
+    public void OnClickAgainAskPopUpCloseBtn_ExtraAction() {
+        AgainAskPopUp.SetActive(false);
+        OnClickAskCloseExtraAction?.Invoke();
     }
 #endregion
 }

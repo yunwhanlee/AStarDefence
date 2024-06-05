@@ -199,11 +199,26 @@ public class StageUIManager : MonoBehaviour {
         HM._.GoldKey -= neededGoldKey;
         DM._.SelectedStage = Config.Stage.STG_INFINITE_DUNGEON;
 
+        if(DM._.DB.TileMapSaveDt.IsSaved) {
+            HM._.hui.ShowAgainAskMsg("게임을 이어서 하시겠습니까?\n<size=90%><color=red>(아니오 선택 시 처음부터)</color></size>", isActiveNoBtn: true);
+            HM._.hui.OnClickAskConfirmAction = () => {
+                PlayGame();
+            };
+
+            HM._.hui.OnClickAskCloseExtraAction = () => {
+                DM._.DB.TileMapSaveDt.IsSaved = false;
+                PlayGame();
+            };
+        }
+        else {
+            PlayGame();
+        }
+    }
+
+    private void PlayGame() {
         //* ホーム ➡ ゲームシーン移動の時、インベントリのデータを保存
         DM._.Save();
-
         SM._.SfxPlay(SM.SFX.StageSelectSFX);
-
         DM._.SelectedStageNum = 0;
 
         //* ➡ ゲームシーンロード
