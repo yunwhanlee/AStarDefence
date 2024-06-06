@@ -9,11 +9,6 @@ using Random = UnityEngine.Random;
 using System.Linq;
 using DG.Tweening;
 using Inventory.UI;
-using UnityEngine.Rendering.Universal.Internal;
-// using UnityEngine.Rendering.Universal.Internal;
-// using UnityEditorInternal;
-// using UnityEditor.SceneManagement;
-// using UnityEngine.Events;
 
 /// <summary>
 /// ステージに関したデータ
@@ -39,6 +34,7 @@ public class GM : MonoBehaviour {
     [field: SerializeField] public bool IsActiveSpeedUp {get; set;}
     [field: SerializeField] public StageData[] StageDts;
     [field: SerializeField] public int Stage {get; set;}
+    [field: SerializeField] public Enum.StageNum StageNum {get; set;}
     [field: SerializeField] public int MaxWave {get; set;}
     [field: SerializeField] public int WaveCnt {get; set;}
     [field: SerializeField] public int ResetCnt {get; set;}
@@ -102,6 +98,7 @@ public class GM : MonoBehaviour {
         IsReady = false;
         IsActiveSpeedUp = DM._.DB.IsRemoveAd;
         Stage = DM._.SelectedStage;
+        StageNum = DM._.SelectedStageNum;
 
 #region STAGE DATA SET
         //* Camera Projection Size
@@ -137,7 +134,7 @@ public class GM : MonoBehaviour {
         //* 非表示 初期化
         Array.ForEach(StageDts, stageDt => stageDt.TileMapObj.SetActive(false));
 
-        MaxWave = StageDts[Stage].EnemyDatas[(int)DM._.SelectedStageNum].Waves.Length;
+        MaxWave = StageDts[Stage].EnemyDatas[(int)StageNum].Waves.Length;
         WaveCnt = 0;
         ResetCnt = Config.DEFAULT_RESET_CNT;
         life = Config.DEFAULT_LIFE
@@ -158,8 +155,8 @@ public class GM : MonoBehaviour {
 
         //* ステージタイトルと難易度 表示 アニメーション
         string difficulty = (DM._ == null)? ""
-            : (DM._.SelectedStageNum == Enum.StageNum.Stage1_1)? "1-1"
-            : (DM._.SelectedStageNum == Enum.StageNum.Stage1_2)? "1-2"
+            : (StageNum == Enum.StageNum.Stage1_1)? "1-1"
+            : (StageNum == Enum.StageNum.Stage1_2)? "1-2"
             : "1-3";
         string stageInfoTxt = $"{StageDts[Stage].Name}\n<size=70%>- {difficulty} -</size>";
         gef.ActiveStageTitleAnim(stageInfoTxt);
@@ -261,10 +258,10 @@ public class GM : MonoBehaviour {
 
 #region FUNC
     public EnemyData GetCurEnemyData() {
-        return StageDts[Stage].EnemyDatas[(int)DM._.SelectedStageNum].Waves[WaveCnt - 1];
+        return StageDts[Stage].EnemyDatas[(int)StageNum].Waves[WaveCnt - 1];
     } 
     public EnemyData GetNextEnemyData() {
-        return StageDts[Stage].EnemyDatas[(int)DM._.SelectedStageNum].Waves[WaveCnt];
+        return StageDts[Stage].EnemyDatas[(int)StageNum].Waves[WaveCnt];
     } 
 
     IEnumerator CoReadyWave() {
@@ -335,16 +332,15 @@ public class GM : MonoBehaviour {
     private void UnLockStageDB(bool isLastStage = false) {
         int stage = DM._.SelectedStage;
         int nextStage = stage + 1;
-        Enum.StageNum diff = DM._.SelectedStageNum;
         StageLockedDB stageLockDt = DM._.DB.StageLockedDBs[stage];
         StageLockedDB nextStageLockDt = DM._.DB.StageLockedDBs[nextStage];
 
-        if(diff == Enum.StageNum.Stage1_1) {
+        if(StageNum == Enum.StageNum.Stage1_1) {
             stageLockDt.IsLockStage1_2 = false;
             stageLockDt.StageRewards[1].IsUnlockAlert = true;
             stageLockDt.StageRewards[0].IsActiveBonusReward = true;
         }
-        else if(diff == Enum.StageNum.Stage1_2) {
+        else if(StageNum == Enum.StageNum.Stage1_2) {
             stageLockDt.IsLockStage1_3 = false;
             stageLockDt.StageRewards[2].IsUnlockAlert = true;
             stageLockDt.StageRewards[1].IsActiveBonusReward = true;
@@ -360,7 +356,7 @@ public class GM : MonoBehaviour {
                 DM._.DB.DungeonLockedDB.IsLockGoblinHard = true;
             }
         }
-        else if(diff == Enum.StageNum.Stage1_3) {
+        else if(StageNum == Enum.StageNum.Stage1_3) {
             if(!isLastStage) {
                 nextStageLockDt.IsLockStage1_1 = false;
                 nextStageLockDt.StageRewards[0].IsUnlockAlert = true;

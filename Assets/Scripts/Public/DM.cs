@@ -413,7 +413,8 @@ public class DB {
     [field:SerializeField] public InfiniteUpgradeDB InfiniteUpgradeDB {get; set;}
     [field:SerializeField] public MileageRewardDB MileageRewardDB {get; set;}
     [field:SerializeField] public FameRewardDB FameRewardDB {get; set;}
-    [field:SerializeField] public TileMapSaveDt TileMapSaveDt {get; set;}
+    [field:SerializeField] public TileMapSaveDt StageTileMapSaveDt {get; set;}
+    [field:SerializeField] public TileMapSaveDt InfiniteTileMapSaveDt {get; set;}
     
     [field:SerializeField] public List<InventoryItem> InvItemDBs {get; set;}
     [field:SerializeField] public bool IsRemoveAd {get; set;}
@@ -675,7 +676,8 @@ public class DM : MonoBehaviour {
 
         DB.FameRewardDB = new FameRewardDB();
 
-        DB.TileMapSaveDt = new TileMapSaveDt();
+        DB.StageTileMapSaveDt = new TileMapSaveDt();
+        DB.InfiniteTileMapSaveDt = new TileMapSaveDt();
 
         DB.IsRemoveAd = false;
         DB.IsCloverActive = false;

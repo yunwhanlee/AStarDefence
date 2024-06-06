@@ -199,14 +199,14 @@ public class StageUIManager : MonoBehaviour {
         HM._.GoldKey -= neededGoldKey;
         DM._.SelectedStage = Config.Stage.STG_INFINITE_DUNGEON;
 
-        if(DM._.DB.TileMapSaveDt.IsSaved) {
-            HM._.hui.ShowAgainAskMsg("게임을 이어서 하시겠습니까?\n<size=90%><color=red>(아니오 선택 시 처음부터)</color></size>", isActiveNoBtn: true);
+        if(DM._.DB.InfiniteTileMapSaveDt.IsSaved) {
+            HM._.hui.ShowAgainAskMsg($"게임을 이어서 하시겠습니까?\n<size=90%>(현재 층 : {DM._.DB.InfiniteTileMapSaveDt.Wave})</size>", isActiveNoBtn: true, "처음부터");
             HM._.hui.OnClickAskConfirmAction = () => {
                 PlayGame();
             };
 
             HM._.hui.OnClickAskCloseExtraAction = () => {
-                DM._.DB.TileMapSaveDt.Reset();
+                DM._.DB.InfiniteTileMapSaveDt.Reset();
                 PlayGame();
             };
         }
@@ -215,7 +215,7 @@ public class StageUIManager : MonoBehaviour {
         }
     }
 
-    private void PlayGame() {
+    public void PlayGame() {
         //* ホーム ➡ ゲームシーン移動の時、インベントリのデータを保存
         DM._.Save();
         SM._.SfxPlay(SM.SFX.StageSelectSFX);
@@ -346,9 +346,14 @@ public class StageUIManager : MonoBehaviour {
     /// <summary>
     /// 選んだステージをプレイ From StageClearInfoPopUp
     /// </summary>
-    public void OnClickPlayBtn() {
+    public void OnClickPlayBtn(bool isLoadSaveDt = false) {
         SM._.SfxPlay(SM.SFX.StageSelectSFX);
         HM._.ivCtrl.CheckActiveClover();
+
+        //* ステージの保存データ リセット？
+        if(!isLoadSaveDt) { // && DM._.DB.StageTileMapSaveDt.IsSaved
+            DM._.DB.StageTileMapSaveDt.Reset();
+        }
 
         //* ホーム ➡ ゲームシーン移動の時、インベントリのデータを保存
         DM._.Save();

@@ -117,8 +117,15 @@ public class Etc {
 
 
 public static class Enum {
-    public enum Scene {Home, Game}
-    public enum StageNum {Stage1_1, Stage1_2, Stage1_3}
+    public enum Scene {
+        Home, 
+        Game
+    }
+    public enum StageNum {
+        Stage1_1, 
+        Stage1_2, 
+        Stage1_3
+    }
 
     public class Layer { //* Switch文で使えるため、整数化
         public const int 

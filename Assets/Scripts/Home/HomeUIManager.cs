@@ -157,6 +157,28 @@ public class HomeUIManager : MonoBehaviour {
             HM._.SelectedStageIdx = 0;
             HM._.stgm.StagePopUps[0].SetActive(true);
         }
+
+        //* 以前にプレイしたステージデータ ロード
+        if(DM._.DB.StageTileMapSaveDt.IsSaved) {
+            var saveDt = DM._.DB.StageTileMapSaveDt;
+
+            string stageName = (saveDt.Stage == Config.Stage.STG1_FOREST)? "초원"
+                : (saveDt.Stage == Config.Stage.STG2_DESERT)? "사막"
+                : (saveDt.Stage == Config.Stage.STG3_SEA)? "바다"
+                : (saveDt.Stage == Config.Stage.STG4_UNDEAD)? "언데드"
+                : (saveDt.Stage == Config.Stage.STG5_HELL)? "지옥"
+                : "스테이지";
+
+            string msg = "게임을 이어서 하시겠습니까?"
+                + $"\n<size=85%>( {stageName}스테이지 {saveDt.Stage + 1}-{(int)saveDt.StageNum + 1}, 웨이브{Mathf.Max(1, saveDt.Wave)} )</size>"
+                + $"\n<size=70%><color=red>아니오 및 창을 닫을시, 이전 데이터는 지워집니다</color></size>";
+            HM._.hui.ShowAgainAskMsg(msg, isActiveNoBtn: true);
+
+            //* YES
+            HM._.hui.OnClickAskConfirmAction = () => {
+                HM._.stgm.OnClickPlayBtn(isLoadSaveDt: true);
+            };
+        }
     }
 
     public void OnClickTopNavGoldKeyPlusBtn() {
@@ -248,8 +270,9 @@ public class HomeUIManager : MonoBehaviour {
         BottomMsgNotice.SetActive(false);
     }
     /// <summary> もう一度確認するPOPUP：★OnClickAskConfirmActionへ確認ボタン押してから、処理するメソッドを購読すること！</summary>
-    public void ShowAgainAskMsg(string msg = "", bool isActiveNoBtn = false) {
+    public void ShowAgainAskMsg(string msg = "", bool isActiveNoBtn = false, string noBtnTxt = "아니오") {
         NoBtnObj.SetActive(isActiveNoBtn);
+        NoBtnObj.GetComponentInChildren<TMP_Text>().text = noBtnTxt;
         AgainAskPopUp.SetActive(true);
         AgainAskMsgTxt.text = msg;
     }

@@ -154,112 +154,33 @@ public class GameUIManager : MonoBehaviour {
             // VictoryTitleTxt.text = $"돌파한 층수: {GM._.WaveCnt}층";
             // Time.timeScale = 0;
 
+            if(GM._.WaveCnt < 3) {
+                GoHome();
+                return;
+            }
+
             ShowAgainAskMsg("진행중인 게임을 나가시겠습니까?\n<color=blue>(이전 단계까지 데이터가 저장됩니다.)</color>");
             OnClickAskConfirmAction = () => {
                 SM._.SfxPlay(SM.SFX.ClickSFX);
-
-                DM._.DB.TileMapSaveDt.Reset();
-
-                //* Stage & Wave
-                var saveTMDt = DM._.DB.TileMapSaveDt;
-
-                saveTMDt.IsSaved = true;
-                saveTMDt.IsRevived = GM._.IsRevived;
-
-                saveTMDt.Stage = GM._.Stage;
-                saveTMDt.StageNum = DM._.SelectedStageNum;
-                saveTMDt.Wave = GM._.WaveCnt - 1;
-
-                //* Life & Money
-                saveTMDt.MaxLife = GM._.MaxLife;
-                saveTMDt.Life = GM._.Life;
-                saveTMDt.Money = GM._.Money;
-                
-                //* Upgrade Value
-                saveTMDt.TowerUpgrades[(int)TowerKind.Warrior] = GM._.tm.TowerCardUgrLvs[(int)TowerKind.Warrior];
-                saveTMDt.TowerUpgrades[(int)TowerKind.Archer] = GM._.tm.TowerCardUgrLvs[(int)TowerKind.Archer];
-                saveTMDt.TowerUpgrades[(int)TowerKind.Magician] = GM._.tm.TowerCardUgrLvs[(int)TowerKind.Magician];
-
-                //* Wall TileMap
-                //! タイルマップを作るときに、XとYを逆にした。。。
-                for(int x = -7; x <= 7; x++) {
-                    for(int y = -3; y <= 2; y++) {
-                        WallDt wallDt = new WallDt( new Vector3Int(y, x, 0));
-
-                        var tileDt = GM._.tmc.WallTileMap.GetTile(new Vector3Int(y, x, 0));
-                        if(tileDt) {
-                            //* Tile List 追加
-                            saveTMDt.WallDtList.Add(wallDt);
-                        }
-
-                        //* Debug Fill Walls to Test
-                        // GM._.tmc.WallTileMap.SetTile(new Vector3Int(y, x, 0), GM._.StageDts[1].Walls[0]);
-                    }
-                }
-
-                //* Board Data
-                for(int i = 0; i < GM._.tm.BoardGroup.childCount; i++) {
-                    Transform tf = GM._.tm.BoardGroup.GetChild(i);
-                    saveTMDt.SaveBoardList.Add(new TowerDt (
-                        TowerType.Board, 
-                        TowerKind.None, 
-                        lv: 0, 
-                        new Vector3Int((int)tf.position.x, (int)tf.position.y, 0)));
-                }
-
-                //* Warrior Data
-                for(int i = 0; i < GM._.tm.WarriorGroup.childCount; i++) {
-                    Transform boardTf = GM._.tm.WarriorGroup.GetChild(i);
-                    saveTMDt.SaveWarriorList.Add (
-                        new TowerDt (
-                            TowerType.Random,
-                            TowerKind.Warrior,
-                            lv: boardTf.GetComponentInChildren<Tower>().Lv,
-                            new Vector3Int((int)boardTf.position.x, (int)boardTf.position.y, 0)));
-                }
-
-                //* Archer Data
-                for(int i = 0; i < GM._.tm.ArcherGroup.childCount; i++) {
-                    Transform boardTf = GM._.tm.ArcherGroup.GetChild(i);
-                    saveTMDt.SaveArcherList.Add (
-                        new TowerDt (
-                            TowerType.Random,
-                            TowerKind.Archer,
-                            lv: boardTf.GetComponentInChildren<Tower>().Lv,
-                            new Vector3Int((int)boardTf.position.x, (int)boardTf.position.y, 0)));
-                }
-
-                //* Magician Data
-                for(int i = 0; i < GM._.tm.MagicianGroup.childCount; i++) {
-                    Transform boardTf = GM._.tm.MagicianGroup.GetChild(i);
-                    saveTMDt.SaveMagicianList.Add (
-                        new TowerDt (
-                            TowerType.Random,
-                            TowerKind.Magician,
-                            lv: boardTf.GetComponentInChildren<Tower>().Lv,
-                            new Vector3Int((int)boardTf.position.x, (int)boardTf.position.y, 0)));
-                }
-
-                //* CC Tower Data
-                for(int i = 0; i < GM._.tm.CCTowerGroup.childCount; i++) {
-                    Transform childTf = GM._.tm.CCTowerGroup.GetChild(i);
-                    Tower ccTower = childTf.GetComponent<Tower>();
-                    saveTMDt.SaveCCTowerList.Add (
-                        new TowerDt (
-                            ccTower.Type,
-                            TowerKind.None,
-                            lv: ccTower.Lv,
-                            new Vector3Int((int)childTf.position.x, (int)childTf.position.y, 0)));
-                }
-
+                DM._.DB.InfiniteTileMapSaveDt.Reset();
+                DM._.DB.InfiniteTileMapSaveDt.SaveDt(isInfiniteDungeon: true);
                 GoHome();
             };
         }
+        else if(GM._.Stage == Config.Stage.STG_GOBLIN_DUNGEON) {
+            GoHome();
+        }
         else {
-            ShowAgainAskMsg("정말로 게임을 나가시겠습니까?");
+            if(GM._.WaveCnt < 3) {
+                GoHome();
+                return;
+            }
+
+            ShowAgainAskMsg("진행중인 게임을 나가시겠습니까?\n<color=blue>(이전 단계까지 데이터가 저장됩니다.)</color>");
             OnClickAskConfirmAction = () => {
                 SM._.SfxPlay(SM.SFX.ClickSFX);
-                Debug.Log("게임 나가기");
+                DM._.DB.StageTileMapSaveDt.Reset();
+                DM._.DB.StageTileMapSaveDt.SaveDt();
                 GoHome();
             };
             OnClickAskCloseAction = () => {
