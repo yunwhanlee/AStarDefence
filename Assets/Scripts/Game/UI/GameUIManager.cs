@@ -184,6 +184,7 @@ public class GameUIManager : MonoBehaviour {
                 GoHome();
             };
             OnClickAskCloseAction = () => {
+                Debug.Log("OnClickAskCloseAction()::");
                 SM._.SfxPlay(SM.SFX.ClickSFX);
                 Play();
                 AgainAskPopUp.SetActive(false);
