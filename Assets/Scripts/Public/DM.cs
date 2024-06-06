@@ -361,7 +361,7 @@ public class InfiniteUpgradeDB {
     public void UpdateBestScore(int waveCnt) {
         if(waveCnt > MyBestWaveScore) {
             MyBestWaveScore = waveCnt;
-            GM._.gui.ShowMsgNotice("축하합니다. 최고기록 달성!");
+            GM._.gui.ShowMsgNotice("축하합니다. 최고기록 달성!", 240);
             GPGSManager._.UpdateCrackDungeonBestWaveToLeaderBoard();
         }
     }

@@ -64,6 +64,7 @@ public class GameUIManager : MonoBehaviour {
     public TMP_Text VictoryTitleTxt;
     public Transform RewardsGroup;
     public Button Ads_ClaimX2Btn;
+    public Button ReplayBtn;
 
     [Header("AGAIN ASK POPUP")]
     public GameObject AgainAskPopUp;
@@ -147,12 +148,15 @@ public class GameUIManager : MonoBehaviour {
     public void OnClickPausePopUp_ExitGameBtn() {
         //* きれつダンジョンの時、出るボタンをリワード得ることにする
         if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON) {
-            // SM._.SfxPlay(SM.SFX.ClickSFX);
-            // GameoverPopUp.SetActive(false);
-            // GM._.Victory();
-            // Ads_ClaimX2Btn.gameObject.SetActive(false);
-            // VictoryTitleTxt.text = $"돌파한 층수: {GM._.WaveCnt}층";
-            // Time.timeScale = 0;
+            if(GM._.IsInfiniteDungeonGameover) {
+                SM._.SfxPlay(SM.SFX.ClickSFX);
+                GameoverPopUp.SetActive(false);
+                GM._.Victory();
+                Ads_ClaimX2Btn.gameObject.SetActive(false);
+                VictoryTitleTxt.text = $"돌파한 층수: {GM._.WaveCnt}층";
+                Time.timeScale = 0;
+                return;
+            }
 
             if(GM._.WaveCnt < 3) {
                 GoHome();

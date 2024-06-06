@@ -32,6 +32,7 @@ public class GM : MonoBehaviour {
     [field: SerializeField] public bool IsReady;
     [field: SerializeField] public bool IsRevived;
     [field: SerializeField] public bool IsActiveSpeedUp {get; set;}
+    [field: SerializeField] public bool IsInfiniteDungeonGameover {get; set;}
     [field: SerializeField] public StageData[] StageDts;
     [field: SerializeField] public int Stage {get; set;}
     [field: SerializeField] public Enum.StageNum StageNum {get; set;}
@@ -158,6 +159,11 @@ public class GM : MonoBehaviour {
             : (StageNum == Enum.StageNum.Stage1_1)? "1-1"
             : (StageNum == Enum.StageNum.Stage1_2)? "1-2"
             : "1-3";
+
+        if(Stage == Config.Stage.STG_INFINITE_DUNGEON) {
+            difficulty = $"최대 돌파한 층 : {DM._.DB.InfiniteUpgradeDB.MyBestWaveScore}";
+        }
+
         string stageInfoTxt = $"{StageDts[Stage].Name}\n<size=70%>- {difficulty} -</size>";
         gef.ActiveStageTitleAnim(stageInfoTxt);
         gui.StageInfoTxt.text = stageInfoTxt; // Pauseのステージ情報テキストにも代入
@@ -377,6 +383,10 @@ public class GM : MonoBehaviour {
         SM._.SfxPlay(SM.SFX.CompleteSFX);
         gui.VictoryPopUp.SetActive(true);
 
+        if(Stage == Config.Stage.STG_GOBLIN_DUNGEON || Stage == Config.Stage.STG_INFINITE_DUNGEON) {
+            gui.ReplayBtn.gameObject.SetActive(false);
+        }
+
         //* リワード
         DB db = DM._.DB;
         RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
@@ -478,29 +488,10 @@ public class GM : MonoBehaviour {
                 rewardList.Add(new RewardItem(item, quantity));
                 Debug.Log($"<color=yellow>Victory():: i({i}): fixItemTblist -> rewardList.Add( name= {item.Name}, per= {per}, quantity= {quantity})</color=yellow>");
             }
-
-            /*
-            // //* idxNumによる、リワードデータ
-            // int exp = (idxNum == Enum.StageNum.Stage1_1)? 150 : (idxNum == Enum.StageNum.Stage1_2)? 350 : 700;
-            // int coin = (idxNum == Enum.StageNum.Stage1_1)? 1000 : (idxNum == Enum.StageNum.Stage1_2)? 2500 : 5000;
-            // int chestGoldQuantity = (idxNum == Enum.StageNum.Stage1_1)? 1 : (idxNum == Enum.StageNum.Stage1_2)? 2 : 3;
-
-            // //* Difficultによる、ゴブリンリワードデータ
-            // Etc.NoshowInvItem[] gblEasyRwdArr = {Etc.NoshowInvItem.Goblin0, Etc.NoshowInvItem.Goblin1, Etc.NoshowInvItem.Goblin2};
-            // Etc.NoshowInvItem[] gblNormalRwdArr = {Etc.NoshowInvItem.Goblin2, Etc.NoshowInvItem.Goblin3, Etc.NoshowInvItem.Goblin4};
-            // Etc.NoshowInvItem[] gblHardRwdArr = {Etc.NoshowInvItem.Goblin4, Etc.NoshowInvItem.Goblin5, Etc.NoshowInvItem.Goblin6};
-
-            // rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], exp));
-            // rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], coin));
-            // rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGold], chestGoldQuantity));
-
-            // //* Goblin Reward
-            // int rand = Random.Range(0, 100);
-            // var goblinRwd = rand < 50? gblEasyRwdArr[0] : rand < 85? gblNormalRwdArr[1] : gblHardRwdArr[2];
-            // rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)goblinRwd], Random.Range(1, 4)));
-            */
         }
         else if(stageIdx == Config.Stage.STG_INFINITE_DUNGEON) {
+            gui.VictoryTitleTxt.text = "균열던전 결과";
+
             //* Reward
             int exp = WaveCnt;
             int fame = Mathf.FloorToInt(WaveCnt * 0.05f);
@@ -559,10 +550,17 @@ public class GM : MonoBehaviour {
             gui.RetryBtn.gameObject.SetActive(false);
         }
         //* 無限ダンジョン
-        else if(Stage == Config.Stage.STG_INFINITE_DUNGEON)
+        else if(Stage == Config.Stage.STG_INFINITE_DUNGEON) {
+            DM._.DB.InfiniteTileMapSaveDt.Reset();
+
             gui.GameoverExitBtnTxt.text = "보상받기";
+            IsInfiniteDungeonGameover = true;
+            gui.RetryBtn.gameObject.SetActive(false);
+        }
         //* 一般ステージ
         else {
+            DM._.DB.StageTileMapSaveDt.Reset();
+
             int stageIdx = DM._.SelectedStage;
             RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
             Enum.StageNum idxNum = DM._.SelectedStageNum;
