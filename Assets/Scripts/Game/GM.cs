@@ -556,6 +556,7 @@ public class GM : MonoBehaviour {
             gui.GameoverExitBtnTxt.text = "보상받기";
             IsInfiniteDungeonGameover = true;
             gui.RetryBtn.gameObject.SetActive(false);
+            gui.Ads_ReviveBtn.gameObject.SetActive(!IsRevived);
         }
         //* 一般ステージ
         else {
