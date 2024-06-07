@@ -49,6 +49,14 @@ public class TileMapSaveDt {
     [field:SerializeField] public int Money {get; set;}
     [field:SerializeField] public int[] TowerUpgrades {get; set;} = new int[3];
 
+    [field:SerializeField] public int SuccessionTicket {get; set;}
+    [field:SerializeField] public int ChangeTypeTicket {get; set;}
+    [field:SerializeField] public int IncreaseCCTowerCnt {get; set;}
+    [field:SerializeField] public int SwitchTowerPositionCnt {get; set;}
+
+    [field:SerializeField] public int FreeBoardCnt {get; set;}
+    [field:SerializeField] public int FreeBreakRockCnt {get; set;}
+
     [field:SerializeField] public List<WallDt> WallDtList {get; set;} = new List<WallDt>();
     [field:SerializeField] public List<TowerDt> SaveBoardList {get; set;} = new List<TowerDt>();
     [field:SerializeField] public List<TowerDt> SaveWarriorList {get; set;} = new List<TowerDt>();
@@ -71,6 +79,14 @@ public class TileMapSaveDt {
         Life = 10;
         Money = 100;
         TowerUpgrades = new int[3];
+
+        SuccessionTicket = 0;
+        ChangeTypeTicket = 0;
+        IncreaseCCTowerCnt = 0;
+        SwitchTowerPositionCnt = 0;
+
+        FreeBoardCnt = 0;
+        FreeBreakRockCnt = 0;
 
         WallDtList = new List<WallDt>();
         SaveBoardList = new List<TowerDt>();
@@ -96,6 +112,14 @@ public class TileMapSaveDt {
         TowerUpgrades[(int)TowerKind.Warrior] = GM._.tm.TowerCardUgrLvs[(int)TowerKind.Warrior];
         TowerUpgrades[(int)TowerKind.Archer] = GM._.tm.TowerCardUgrLvs[(int)TowerKind.Archer];
         TowerUpgrades[(int)TowerKind.Magician] = GM._.tm.TowerCardUgrLvs[(int)TowerKind.Magician];
+
+        SuccessionTicket = GM._.actBar.SuccessionTicket;
+        ChangeTypeTicket = GM._.actBar.ChangeTypeTicket;
+        IncreaseCCTowerCnt = GM._.tm.CCTowerMax;
+        SwitchTowerPositionCnt = GM._.actBar.SwitchCnt;
+
+        FreeBoardCnt = Mathf.Max(0, GM._.actBar.FreeBoardCnt);
+        FreeBreakRockCnt = Mathf.Max(0, GM._.actBar.FreeBreakRockCnt);
 
         SaveWallDt(isInfiniteDungeon);
         SaveBoardDt();
@@ -131,9 +155,9 @@ public class TileMapSaveDt {
         for(int i = 0; i < GM._.tm.BoardGroup.childCount; i++) {
             Transform tf = GM._.tm.BoardGroup.GetChild(i);
             SaveBoardList.Add( new TowerDt (
-                TowerType.Board, 
-                TowerKind.None, 
-                lv: 0, 
+                TowerType.Board,
+                TowerKind.None,
+                lv: 0,
                 new Vector3Int((int)tf.position.x, (int)tf.position.y, 0)
             ));
         }
@@ -165,61 +189,75 @@ public class TileMapSaveDt {
     }
 
     public void LoadDt() {
-            GM._.gui.ResetWallBtn.gameObject.SetActive(false);
-            var walls = GM._.StageDts[GM._.Stage].Walls;
+        Debug.Log("TileMapSaveManager:: LoadDt()");
+        GM._.gui.ResetWallBtn.gameObject.SetActive(false);
+        var walls = GM._.StageDts[GM._.Stage].Walls;
 
-            //* Status Dt
-            GM._.IsRevived = IsRevived;
-            GM._.Stage = Stage;
-            DM._.SelectedStageNum = StageNum;
-            GM._.WaveCnt = Wave;
+        //* Status Dt
+        GM._.IsRevived = IsRevived;
+        GM._.Stage = Stage;
+        DM._.SelectedStageNum = StageNum;
+        GM._.WaveCnt = Wave;
 
-            GM._.MaxLife = MaxLife;
-            GM._.Life = Life;
-            GM._.Money = Money;
+        GM._.MaxLife = MaxLife;
+        GM._.Life = Life;
+        GM._.Money = Money;
 
-            GM._.tm.TowerCardUgrLvs[(int)TowerKind.Warrior] = TowerUpgrades[(int)TowerKind.Warrior];
-            GM._.tm.TowerCardUgrLvs[(int)TowerKind.Archer] = TowerUpgrades[(int)TowerKind.Archer];
-            GM._.tm.TowerCardUgrLvs[(int)TowerKind.Magician] = TowerUpgrades[(int)TowerKind.Magician];
+        GM._.tm.TowerCardUgrLvs[(int)TowerKind.Warrior] = TowerUpgrades[(int)TowerKind.Warrior];
+        GM._.tm.TowerCardUgrLvs[(int)TowerKind.Archer] = TowerUpgrades[(int)TowerKind.Archer];
+        GM._.tm.TowerCardUgrLvs[(int)TowerKind.Magician] = TowerUpgrades[(int)TowerKind.Magician];
 
-            //* Wall 配置
-            WallDtList.ForEach(wallDt => {
-                GM._.tmc.WallTileMap.SetTile(new Vector3Int(wallDt.Pos.x, wallDt.Pos.y, 0), walls[0]);
-            });
+        GM._.actBar.SuccessionTicket = SuccessionTicket;
+        GM._.actBar.ChangeTypeTicket = ChangeTypeTicket;
+        GM._.tm.CCTowerMax = IncreaseCCTowerCnt;
+        GM._.actBar.SwitchCnt = SwitchTowerPositionCnt;
 
-            //* Board 配置
-            SaveBoardList.ForEach(boardDt => {
-                GM._.tm.InstallBoard(boardDt.Pos);
-            });
+        GM._.actBar.FreeBoardCnt = FreeBoardCnt;
+        if(FreeBoardCnt > 0)
+            GM._.actBar.BoardPriceTxt.text = $"<color=green>무료 {FreeBoardCnt}</color>";
 
-            //* Warrior 配置
-            SaveWarriorList.ForEach(wrDt => {
-                GM._.tm.InstallBoard(wrDt.Pos);
-                GM._.tm.CreateTower(TowerType.Random, wrDt.TowerLv - 1, TowerKind.Warrior, isActiveRange: false);
-            });
+        GM._.actBar.FreeBreakRockCnt = FreeBreakRockCnt;
+        if(FreeBreakRockCnt > 0)
+            GM._.actBar.BreakPriceTxt.text = $"<color=green>무료 {FreeBreakRockCnt}</color>";
 
-            //* Archer 配置
-            SaveArcherList.ForEach(acDt => {
-                GM._.tm.InstallBoard(acDt.Pos);
-                GM._.tm.CreateTower(TowerType.Random, acDt.TowerLv - 1, TowerKind.Archer, isActiveRange: false);
-            });
+        //* Wall 配置
+        WallDtList.ForEach(wallDt => {
+            GM._.tmc.WallTileMap.SetTile(new Vector3Int(wallDt.Pos.x, wallDt.Pos.y, 0), walls[0]);
+        });
 
-            //* Magician 配置
-            SaveMagicianList.ForEach(mgDt => {
-                GM._.tm.InstallBoard(mgDt.Pos);
-                GM._.tm.CreateTower(TowerType.Random, mgDt.TowerLv - 1, TowerKind.Magician, isActiveRange: false);
-            });
+        //* Board 配置
+        SaveBoardList.ForEach(boardDt => {
+            GM._.tm.InstallBoard(boardDt.Pos);
+        });
 
-            //* CCTower 配置
-            SaveCCTowerList.ForEach(ccDt => {
-                if(ccDt.TowerType == TowerType.CC_IceTower) {
-                    GM._.tm.InstallIceTower(ccDt.TowerLv - 1, ccDt.Pos);
-                    GM._.tmc.HitObject.GetComponent<Tower>().trc.SprRdr.enabled = false;
-                }
-                else {
-                    GM._.tm.InstallStunTower(ccDt.TowerLv - 1, ccDt.Pos);
-                    GM._.tmc.HitObject.GetComponent<Tower>().trc.SprRdr.enabled = false;
-                }
-            });
+        //* Warrior 配置
+        SaveWarriorList.ForEach(wrDt => {
+            GM._.tm.InstallBoard(wrDt.Pos);
+            GM._.tm.CreateTower(TowerType.Random, wrDt.TowerLv - 1, TowerKind.Warrior, isActiveRange: false);
+        });
+
+        //* Archer 配置
+        SaveArcherList.ForEach(acDt => {
+            GM._.tm.InstallBoard(acDt.Pos);
+            GM._.tm.CreateTower(TowerType.Random, acDt.TowerLv - 1, TowerKind.Archer, isActiveRange: false);
+        });
+
+        //* Magician 配置
+        SaveMagicianList.ForEach(mgDt => {
+            GM._.tm.InstallBoard(mgDt.Pos);
+            GM._.tm.CreateTower(TowerType.Random, mgDt.TowerLv - 1, TowerKind.Magician, isActiveRange: false);
+        });
+
+        //* CCTower 配置
+        SaveCCTowerList.ForEach(ccDt => {
+            if(ccDt.TowerType == TowerType.CC_IceTower) {
+                GM._.tm.InstallIceTower(ccDt.TowerLv - 1, ccDt.Pos);
+                GM._.tmc.HitObject.GetComponent<Tower>().trc.SprRdr.enabled = false;
+            }
+            else {
+                GM._.tm.InstallStunTower(ccDt.TowerLv - 1, ccDt.Pos);
+                GM._.tmc.HitObject.GetComponent<Tower>().trc.SprRdr.enabled = false;
+            }
+        });
     }
 }
