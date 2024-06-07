@@ -288,8 +288,13 @@ namespace Inventory.Model
             //* マージ
             for(int i = 0; i < invList.Count; i++) {
                 InventoryItem item = invList[i];
-                if(item.Quantity >= Config.EQUIPITEM_MERGE_CNT) {
-                    if(item.Data.Grade == Enum.Grade.Prime) {
+
+                if(!item.IsEmpty 
+                && item.Data.Type != Enum.ItemType.Etc
+                && item.Quantity >= Config.EQUIPITEM_MERGE_CNT) {
+                    Debug.Log($"AutoMergeEquipItem():: Merge item.Data= {item.Data}, item.Name= {item.Data.Name}, isEquip= {item.IsEquip}");
+
+                    if(item.Data?.Grade == Enum.Grade.Prime) {
                         Debug.Log("最後の等級なので、処理しない");
                         continue;
                     }
@@ -305,7 +310,7 @@ namespace Inventory.Model
                         invList[i] = InventoryItem.GetEmptyItem();
 
                     //* 次のレベルアイテム生成
-                    var type = item.Data.Type;
+                    var type = item.Data?.Type;
                     int nextGrade = (int)item.Data.Grade + 1;
                     Debug.Log($"AutoMergeEquipItem():: {type}: {(int)item.Data.Grade} -> {nextGrade}");
 

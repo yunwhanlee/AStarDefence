@@ -50,8 +50,10 @@ public class GameUIManager : MonoBehaviour {
     [Header("PAUSE POPUP")]
     public GameObject PausePopUp;
     public TextMeshProUGUI StageInfoTxt;
+    public TextMeshProUGUI PauseExitGameTxt;
     [SerializeField] public GameState previousState;
-    [SerializeField] private float previousTimeScale;
+    [SerializeField] public float previousTimeScale;
+
 
     [Header("GAMEOVER POPUP")]
     public GameObject GameoverPopUp;
@@ -91,6 +93,7 @@ public class GameUIManager : MonoBehaviour {
         CorMsgNoticeID = null;
         previousState = GameState.Ready;
         previousTimeScale = 1;
+        PauseExitGameTxt.text = GM._.Stage == Config.Stage.STG_GOBLIN_DUNGEON? "나가기" : "<color=blue>저장</color> 및 나가기\n<color=blue><size=60%>( 최소 3스테이지 이상 )</size></color>";
         TopMsgError.SetActive(false);
         ResetWallBtn.gameObject.SetActive(true);
         WaveTxt.text = $"WAVE {GM._.WaveCnt} / {GM._.MaxWave}";

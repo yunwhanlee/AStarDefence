@@ -28,6 +28,7 @@ namespace Inventory.UI
         [field:SerializeField] public GameObject EquipPopUp {get; private set;}
         [field:SerializeField] public GameObject ConsumePopUp {get; private set;}
         [field:SerializeField] public GameObject GradeInfoPopUp {get; private set;}
+        [field:SerializeField] public GameObject PotentialInfoPopUp {get; private set;}
 
         [field:SerializeField] public Animator EquipPopUpAnim {get; private set;}
 
@@ -98,6 +99,14 @@ namespace Inventory.UI
     public void OnClickGradeInfoPopUpCloseBtn() {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         GradeInfoPopUp.SetActive(false);
+    }
+    public void OnClickPotentialInfoBtn() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        PotentialInfoPopUp.SetActive(true);
+    }
+    public void OnClickPotentialInfoPopUpCloseBtn() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        PotentialInfoPopUp.SetActive(false);
     }
 #endregion
 
