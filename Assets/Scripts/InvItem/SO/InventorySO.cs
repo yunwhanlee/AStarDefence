@@ -264,12 +264,20 @@ namespace Inventory.Model
                 if(item.IsEmpty) continue;
                 if(item.Data.Type == Enum.ItemType.Etc) continue;
 
+                //* 装置アイテム中で、マージができるのがあったら
                 if(item.Quantity >= Config.EQUIPITEM_MERGE_CNT) {
                     isMergable = true;
-                    if(item.IsEquip) {
-                        isMustUnEquip = true;
-                        typeName = Enum.GetItemTypeName(item.Data.Type);
-                    }
+                }
+
+                //* 着用した装置アイテムがあったら、同じタイプのアイテムを全て探す
+                if(item.IsEquip) {
+                    var type = item.Data.Type;
+                    List<InventoryItem> sameTypeEquipItems = invList.FindAll(invItem => !invItem.IsEmpty && invItem.Data?.Type != Enum.ItemType.Etc && invItem.Data?.Type == type);
+
+                    //* この中でマージできる物があったら、装置解除のお知らせトリガーをONにする
+                    sameTypeEquipItems.ForEach(item => Debug.Log($"sameTypeEquipItems item= {item.Data.Name}"));
+                    isMustUnEquip = sameTypeEquipItems.Exists(item => item.Quantity >= Config.EQUIPITEM_MERGE_CNT);
+                    typeName = Enum.GetItemTypeName(item.Data.Type);
                 }
             }
 
@@ -279,7 +287,7 @@ namespace Inventory.Model
                 return;
             }
             else if(isMustUnEquip) {
-                HM._.hui.ShowMsgError($"{typeName}장착을 해제해주세요! (장착한 아이템 중 합성대상이 있어 불가)");
+                HM._.hui.ShowMsgError($"{typeName}장착을 해제해주세요! (장착한 아이템 중 합성대상이 있습니다.)");
                 return;
             }
 
