@@ -50,7 +50,7 @@ public class GameUIManager : MonoBehaviour {
     [Header("PAUSE POPUP")]
     public GameObject PausePopUp;
     public TextMeshProUGUI StageInfoTxt;
-    [SerializeField] private GameState previousState;
+    [SerializeField] public GameState previousState;
     [SerializeField] private float previousTimeScale;
 
     [Header("GAMEOVER POPUP")]

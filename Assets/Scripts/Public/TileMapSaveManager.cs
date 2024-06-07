@@ -103,7 +103,7 @@ public class TileMapSaveDt {
         IsRevived = GM._.IsRevived;
         Stage = GM._.Stage;
         StageNum = GM._.StageNum;
-        Wave = Mathf.Max(0, GM._.WaveCnt - 1);
+        Wave = Mathf.Max(0, GM._.WaveCnt + (GM._.gui.previousState == GameState.Play? -1 : 0));
         MaxLife = GM._.MaxLife;
         Life = GM._.Life;
         Money = GM._.Money;
