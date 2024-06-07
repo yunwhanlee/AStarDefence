@@ -436,6 +436,9 @@ public class TileMapController : MonoBehaviour {
 
         //* CCタワー
         if(HitObject.layer == Enum.Layer.CCTower) {
+            if(GM._.gui.ShowErrMsgCreateTowerAtPlayState())
+                return;
+
             GM._.actBar.SetCCTowerCntTxt(-1);
             var ccTower = HitObject.GetComponent<Tower>();
             int totalPrice = ccTower.Lv * Config.G_PRICE.CCTOWER;

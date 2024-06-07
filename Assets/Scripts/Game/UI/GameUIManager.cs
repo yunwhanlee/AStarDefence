@@ -435,7 +435,7 @@ public class GameUIManager : MonoBehaviour {
     }
     public bool ShowErrMsgCreateTowerAtPlayState() {
         if(GM._.State == GameState.Play) {
-            ShowMsgError("몬스터가 있을때는 타워생성 및 업그레이드만 가능합니다!");
+            ShowMsgError("웨이브 진행중에는 랜덤타워 생성 및 업그레이드만 가능합니다!");
             return true;
         }
         return false;
