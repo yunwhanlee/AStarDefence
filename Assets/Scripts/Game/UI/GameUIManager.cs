@@ -145,6 +145,9 @@ public class GameUIManager : MonoBehaviour {
         Play();
         PausePopUp.SetActive(false);
     }
+    public void OnClickGameoverExitGameBtn() {
+        GoHome();
+    }
     public void OnClickPausePopUp_ExitGameBtn() {
         //* きれつダンジョンの時、出るボタンをリワード得ることにする
         if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON) {
@@ -288,8 +291,11 @@ public class GameUIManager : MonoBehaviour {
 
             //* 復活したら、以前に残っているモンスターを削除（ボースはしない）
             Transform enemyGroup = GM._.em.enemyObjGroup;
-            Enemy firstEnemy = enemyGroup.GetChild(0).GetComponent<Enemy>();
-            if(firstEnemy.Type != EnemyType.Boss && enemyGroup.childCount > 0) {
+            // Enemy firstEnemy = enemyGroup.GetChild(0).GetComponent<Enemy>();
+            bool isBoss = GM._.WaveCnt % Config.BOSS_SPAWN_CNT == 0;
+
+            if(!isBoss && enemyGroup.childCount > 0) {
+                Debug.Log($"OnClickAdsReviveBtn():: isBoss= {isBoss}");
                 for(int i = 0; i < enemyGroup.childCount; i++) {
                     Enemy enemy = enemyGroup.GetChild(i).GetComponent<Enemy>();
                     enemy.DecreaseHp(999999);
@@ -298,7 +304,7 @@ public class GameUIManager : MonoBehaviour {
 
             //* 初期化
             GameoverPopUp.SetActive(false);
-            GM._.State = GameState.Ready;
+            GM._.State = isBoss? GameState.Play : GameState.Ready;
             Time.timeScale = 1;
             GM._.Life = Config.DEFAULT_LIFE;
             HeartFillImg.fillAmount = 1;

@@ -58,7 +58,6 @@ public class EnemyManager : MonoBehaviour {
                 GM._.gef.ShowIconTxtEF(GM._.gui.MoneyTxt.transform.position, extraMoney, "Meat", isDown: true);
             }
         }
-        
 
         //* レイド終了をチェック
         // 敵のスポーンが終わらないと以下の処理しない
