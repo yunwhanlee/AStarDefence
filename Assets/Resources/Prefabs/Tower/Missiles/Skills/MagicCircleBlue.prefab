@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 687352266157764095}
   - component: {fileID: 3685128936004012436}
   - component: {fileID: 6412700824226216153}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: CenterDark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4784,7 +4784,7 @@ GameObject:
   - component: {fileID: 6063774338933949652}
   - component: {fileID: 607996496051616915}
   - component: {fileID: 1965129197110177615}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: MagicCircleBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9640,7 +9640,7 @@ GameObject:
   - component: {fileID: 1432796100138643363}
   - component: {fileID: 8909295881662642593}
   - component: {fileID: 2358386594245424799}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4561325503050489163}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BulletMeshFatRedEF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 6121601034655385252}
   - component: {fileID: -4520328013030693761}
   - component: {fileID: 6800384550111371748}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: PassArrowRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 5219589983807361644}
   - component: {fileID: 8507749441918053348}
   - component: {fileID: 3349747073012532134}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: SparkTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5001,7 +5001,7 @@ GameObject:
   - component: {fileID: 5866125682072539010}
   - component: {fileID: 3691210839440592703}
   - component: {fileID: 1099123511279994807}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

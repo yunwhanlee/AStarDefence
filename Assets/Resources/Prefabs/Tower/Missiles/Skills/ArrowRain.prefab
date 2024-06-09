@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8825578126075859870}
   - component: {fileID: 2340018434321126597}
   - component: {fileID: 1531634972810718641}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ArrowRain
   m_TagString: Untagged
   m_Icon: {fileID: 0}

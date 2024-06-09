@@ -139,6 +139,7 @@ public static class Enum {
             Enemy = 11,
             RealtimeTutoDim = 12,
             RealtimeTutoClickArea = 13,
+            Missile = 14,
             SwitchTower = -1;
     }
 

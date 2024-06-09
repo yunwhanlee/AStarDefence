@@ -108,7 +108,8 @@ public class TileMapController : MonoBehaviour {
         // Raycast場外するオブジェクトのレイア
         int towerLayerMask = 1 << Enum.Layer.TowerRange;
         int enemyLayerMask = 1 << Enum.Layer.Enemy; //! (BUG)特にFlight敵などがタワーの上にあれば、タワークリックができなくて、Default選択として空のタイル選択になること対応
-        int exceptLayerMasks = ~(towerLayerMask | enemyLayerMask);
+        int missileLayerMask = 1 << Enum.Layer.Missile; //! (BUG) ミサイルのColliderがクリックされて、タワーの選択ができないバグ対応
+        int exceptLayerMasks = ~(towerLayerMask | enemyLayerMask | missileLayerMask);
 
         RaycastHit2D hit;
         // 방향은 일단 임시로 0 벡터를 사용하거나, 필요한 방향으로 설정할 수 있습니다.

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6030125531600189884}
   - component: {fileID: 1399835459094230831}
   - component: {fileID: 6499240658832139538}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: FireGlowTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4782,7 +4782,7 @@ GameObject:
   - component: {fileID: 219125462619273968}
   - component: {fileID: 1870413668049106222}
   - component: {fileID: 7722335058702886141}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: LaserMissileRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9641,7 +9641,7 @@ GameObject:
   - component: {fileID: 4944133507568681652}
   - component: {fileID: 5718250455733422624}
   - component: {fileID: 161052114659047322}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: LazerRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
