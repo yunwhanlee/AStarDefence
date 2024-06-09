@@ -215,10 +215,14 @@ public class TileMapSaveDt {
         GM._.actBar.FreeBoardCnt = FreeBoardCnt;
         if(FreeBoardCnt > 0)
             GM._.actBar.BoardPriceTxt.text = $"<color=green>무료 {FreeBoardCnt}</color>";
+        else
+            GM._.actBar.BoardPriceTxt.text = $"{Config.G_PRICE.BOARD}";;
 
         GM._.actBar.FreeBreakRockCnt = FreeBreakRockCnt;
         if(FreeBreakRockCnt > 0)
             GM._.actBar.BreakPriceTxt.text = $"<color=green>무료 {FreeBreakRockCnt}</color>";
+        else
+            GM._.actBar.BreakPriceTxt.text = $"{Config.G_PRICE.BREAK}";
 
         //* Wall 配置
         WallDtList.ForEach(wallDt => {
