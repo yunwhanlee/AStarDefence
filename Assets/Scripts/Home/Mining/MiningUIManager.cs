@@ -354,7 +354,7 @@ public class MiningUIManager : MonoBehaviour {
     /// できる全てカードをマージ
     /// </summary>
     private void AutoMerge(MiningCard[] cards) {
-        if(!Array.Exists(cards, card => card.Cnt >= 5)) {
+        if(!Array.Exists(cards, card => card.Cnt >= Config.MINING_MERGE_CNT)) {
             HM._.hui.ShowMsgError("합성할 것이 없습니다.");
             return;
         }
