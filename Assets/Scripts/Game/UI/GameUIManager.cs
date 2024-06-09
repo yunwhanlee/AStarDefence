@@ -221,24 +221,30 @@ public class GameUIManager : MonoBehaviour {
             }
             else {
                 //* 以前の状態とタイムスケール保存
-                previousTimeScale = Time.timeScale;
-                previousState = GM._.State;
+                // previousTimeScale = Time.timeScale;
+                // previousState = GM._.State;
 
                 //* 停止
-                Time.timeScale = 0;
-                GM._.State = GameState.Pause;
+                Pause();
+                // Time.timeScale = 0;
+                // GM._.State = GameState.Pause;
                 ShowAgainAskMsg("광고시청 후 게임배속 3배를\n추가하시겠습니까?");
 
                 OnClickAskConfirmAction = () => {
                     AgainAskPopUp.SetActive(false);
                     AdmobManager._.ProcessRewardAd(() => {
+                        Debug.Log($"OnClickPlaySpeedBtn:: Before setting timeScale to 3:: timeScale= {Time.timeScale}, State= {GM._.State}");
                         SM._.SfxPlay(SM.SFX.CompleteSFX);
+                        Play();
                         Time.timeScale = 3;
-                        GM._.State = GameState.Play;
+                        // GM._.State = GameState.Play;
                         SetPlaySpeedBtnUI(playSpeedBtnSprs[ON], Time.timeScale);
+
                         GM._.IsActiveSpeedUp = true;
+                        Debug.Log($"OnClickPlaySpeedBtn:: AdSpeed X3:: timeScale= {Time.timeScale}, State= {GM._.State}");
                     });
                 };
+
                 OnClickAskCloseAction = () => {
                     AgainAskPopUp.SetActive(false);
                     SM._.SfxPlay(SM.SFX.ClickSFX);

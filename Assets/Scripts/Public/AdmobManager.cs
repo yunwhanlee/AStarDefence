@@ -80,10 +80,11 @@ public class AdmobManager : MonoBehaviour {
 
     IEnumerator CoShowRewardAfterWaiting() {
         //! (BUG) 広告終了してから、UI Particle Imageプラグインがメインスレッド問題で瞬間NULLなるため、少し待機してエラー防止
-        yield return Util.Time0_3;
+        yield return null; //! (BUG) モバイルで、ゲーム速度X３にしたら、ゲーム画面が止まるバグ対応 : Util.Time0_3 -> nullに変更
         OnGetRewardAd?.Invoke();
         OnGetRewardAd = null;
         LoadRewardedAd();
+        Debug.Log("CoShowRewardAfterWaiting:: Reward Ad processing completed.");
     }
 
 #region FUNC
