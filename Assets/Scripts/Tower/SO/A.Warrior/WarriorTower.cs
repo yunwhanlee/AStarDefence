@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.ExampleScripts;
 using Random = UnityEngine.Random;
+using UnityEngine.Analytics;
 
 public class WarriorTower : Tower {
     public static readonly int[] SK1_RageActivePers = new int[6] {0, 0, 5, 10, 13, 15};
@@ -332,15 +333,22 @@ public class WarriorTower : Tower {
 
         //* 全てタワー
         allTowerList.ForEach(tower => {
-            //* スタイル戻す
-            Util._.SetDefMt(tower.BodySprRdr);
-            //* ダメージと速度戻す
-            tower.ExtraDmgDic.Remove(CHEERUP);
-            tower.ExtraSpdDic.Remove(CHEERUP);
+            //* 途中で合成とか削除などで消えたタワーはリストから消す
+            Debug.Log($"CoSkill3_CheerUp():: tower= {tower}, Spr= {tower.BodySprRdr}");
+            if(tower != null) {
+                //* スタイル戻す
+                Util._.SetDefMt(tower.BodySprRdr);
+                //* ダメージと速度戻す
+                tower.ExtraDmgDic.Remove(CHEERUP);
+                tower.ExtraSpdDic.Remove(CHEERUP);
+            }
         });
 
-        if(GM._.tmc.HitObject != null)
-            GM._.gui.tsm.ShowTowerStateUI(GM._.tmc.HitObject.GetComponentInChildren<Tower>().InfoState());
+        if(GM._.tmc.HitObject != null) {
+            Debug.Log($"CoSkill3_CheerUp():: GM._.tmc.HitObject= {GM._.tmc.HitObject.name}");
+            if(GM._.tmc.HitObject?.GetComponentInChildren<Tower>() != null)
+                GM._.gui.tsm.ShowTowerStateUI(GM._.tmc.HitObject.GetComponentInChildren<Tower>().InfoState());
+        }
 
         yield return Util.Time10;
         IsCheerUpActive = true;
