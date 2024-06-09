@@ -66,6 +66,7 @@ public class EnemyStateUIManager : MonoBehaviour {
 
 #region EVENT
     public void OnClickNextEnemyInfoFlagBtn() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
         //* 閉じる
         if(NextEnemyInfoPopUpUI.Obj.activeSelf)
             NextEnemyInfoPopUpUI.Obj.SetActive(false);
