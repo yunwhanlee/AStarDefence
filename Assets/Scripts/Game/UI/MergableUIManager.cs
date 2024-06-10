@@ -188,15 +188,20 @@ public class MergableUIManager : MonoBehaviour {
         if(mergableList.Count < 0)
             return;
 
+        int displayCnt = MergableItems.Length;
+
         //* 初期化
-        for(int i = 0; i < MergableItems.Length; i++) {
+        for(int i = 0; i < displayCnt; i++) {
             MergableItems[i].Obj.SetActive(false);
             MergableItems[i].StarTxt.text = "";
         }
 
         //* マージできるアイコン 表示
         for(int i = 0; i < mergableList.Count; i++) {
-            if(i > MergableItems.Length) return;
+            //* 表示カウント以上は、見せない
+            if(i >= displayCnt) 
+                return;
+            Debug.Log($"Mergable():: displayCnt= {displayCnt}, mergableListCnt= {mergableList.Count}, MergableItems[{i}]= {MergableItems[i]}");
 
             string[] splits = mergableList[i].Split("_");
             string kind = splits[0];

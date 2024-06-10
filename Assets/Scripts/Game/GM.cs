@@ -312,22 +312,30 @@ public class GM : MonoBehaviour {
         //* ボスリワード 表示
         if(WaveCnt % Config.BOSS_SPAWN_CNT == 0) {
             int rwdSelectCnt;
-            int bossNum = WaveCnt / Config.BOSS_SPAWN_CNT;
-            switch(bossNum) {
-                case 1: 
-                    rwdSelectCnt = 1;
-                    break;
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                    rwdSelectCnt = 2;
-                    break;
-                default:
-                    rwdSelectCnt = 3;
-                    break;
+
+            //* 無限ダンジョンなら、１つ増加
+            if(Stage == Config.Stage.STG_INFINITE_DUNGEON) {
+                bossRwd.Active(1);
             }
-            bossRwd.Active(rwdSelectCnt);
+            //* それ以外は以下のように増加
+            else {
+                int bossNum = WaveCnt / Config.BOSS_SPAWN_CNT;
+                switch(bossNum) {
+                    case 1: 
+                    case 2:
+                        rwdSelectCnt = 1;
+                        break;
+                    case 3:
+                    case 4:
+                    case 5:
+                        rwdSelectCnt = 2;
+                        break;
+                    default:
+                        rwdSelectCnt = 3;
+                        break;
+                }
+                bossRwd.Active(rwdSelectCnt);
+            }
         }
 
         //* 消費アイテムの待機ターンを一個 減る

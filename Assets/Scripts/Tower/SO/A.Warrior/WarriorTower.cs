@@ -302,6 +302,8 @@ public class WarriorTower : Tower {
         SM._.SfxPlay(SM.SFX.CheerUpSFX);
         CheerUpEF.SetActive(true);
 
+        bool isRandomTower = GM._.tmc.HitObject?.GetComponentInChildren<Tower>();
+
         CheerUpDmgUp = (int)(TowerData.Dmg * SK3_CheerUpDmgSpdIncPers[LvIdx]);
         CheerUpSpdUp = (float)(TowerData.AtkSpeed * SK3_CheerUpDmgSpdIncPers[LvIdx]);
 
@@ -323,8 +325,10 @@ public class WarriorTower : Tower {
             tower.ExtraSpdDic.Add(CHEERUP, extraSpd);
         });
 
+        
         if(GM._.tmc.HitObject != null) {
-            GM._.gui.tsm.ShowTowerStateUI(GM._.tmc.HitObject.GetComponentInChildren<Tower>().InfoState());
+            if(isRandomTower)
+                GM._.gui.tsm.ShowTowerStateUI(GM._.tmc.HitObject.GetComponentInChildren<Tower>().InfoState());
         }
 
         yield return Util.Time5;
@@ -333,8 +337,8 @@ public class WarriorTower : Tower {
 
         //* 全てタワー
         allTowerList.ForEach(tower => {
-            //* 途中で合成とか削除などで消えたタワーはリストから消す
             Debug.Log($"CoSkill3_CheerUp():: tower= {tower}, Spr= {tower.BodySprRdr}");
+            //* 途中で合成とか削除などで消えたタワーはリストから処理しない
             if(tower != null) {
                 //* スタイル戻す
                 Util._.SetDefMt(tower.BodySprRdr);
@@ -346,7 +350,7 @@ public class WarriorTower : Tower {
 
         if(GM._.tmc.HitObject != null) {
             Debug.Log($"CoSkill3_CheerUp():: GM._.tmc.HitObject= {GM._.tmc.HitObject.name}");
-            if(GM._.tmc.HitObject?.GetComponentInChildren<Tower>() != null)
+            if(isRandomTower)
                 GM._.gui.tsm.ShowTowerStateUI(GM._.tmc.HitObject.GetComponentInChildren<Tower>().InfoState());
         }
 
