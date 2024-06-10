@@ -18,7 +18,8 @@ namespace Inventory
             ivm = HM._.ivm;
             PrepareUI();
             PrepareInventoryData();
-            StartCoroutine(CoUpdateNewItemAlert()); 
+            StartCoroutine(CoUpdateNewItemAlert());
+            UpdateConsumableInvItems();
         }
 
         void OnDisable() {
@@ -26,6 +27,37 @@ namespace Inventory
         }
 
     #region FUNC
+        /// <summary>
+        /// 消費アイテムが０以下になったら、インベントリーから削除して最新化
+        /// </summary>
+        private void UpdateConsumableInvItems() {
+            bool isConsumeItemDelete = false;
+
+            for(int i = 0; i < InventoryData.invList.Count; i++) {
+                var itemList = InventoryData.invList[i];
+                if(itemList.IsEmpty)
+                    continue;
+
+                //* 消費アイテム 最新化 (数量が０なら、削除)
+                if((itemList.Data.name == $"{Etc.ConsumableItem.Clover}"
+                || itemList.Data.name == $"{Etc.ConsumableItem.GoldClover}"
+                || itemList.Data.name == $"{Etc.ConsumableItem.SteamPack0}"
+                || itemList.Data.name == $"{Etc.ConsumableItem.SteamPack1}"
+                || itemList.Data.name == $"{Etc.ConsumableItem.BizzardScroll}"
+                || itemList.Data.name == $"{Etc.ConsumableItem.LightningScroll}")
+                && itemList.Quantity <= 0) 
+                {
+                    InventoryData.invList[i] = InventoryItem.GetEmptyItem();
+                    isConsumeItemDelete = true;
+                }
+
+                //* 消費アイテムの中で削除された物があったら、インベントリースロット 整列
+                if(isConsumeItemDelete) {
+                    InventoryData.SortInventory();
+                }
+            }
+        }
+
         /// <summary>
         ///  EXPクロバーが活性化したら、一個減る
         /// </summary>
