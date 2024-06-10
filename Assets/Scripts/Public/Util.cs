@@ -34,6 +34,7 @@ public class Util : MonoBehaviour {
     public static WaitForSeconds Time3 = new WaitForSeconds(3);
     public static WaitForSeconds Time3_5 = new WaitForSeconds(3.5f);
     public static WaitForSeconds Time4 = new WaitForSeconds(4);
+    public static WaitForSeconds Time4_5 = new WaitForSeconds(4.5f);
     public static WaitForSeconds Time5 = new WaitForSeconds(5);
     public static WaitForSeconds Time10 = new WaitForSeconds(10);
 

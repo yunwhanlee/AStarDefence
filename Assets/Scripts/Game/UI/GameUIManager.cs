@@ -140,6 +140,11 @@ public class GameUIManager : MonoBehaviour {
     #endregion
 
     public void OnClickAutoBtn() {
+        if(GM._.tmc.IsRealTimeTutoTrigger) {
+            GM._.gui.ShowMsgError("손가락이 가리키는 곳을 클릭해주세요.");
+            return;
+        }
+
         SM._.SfxPlay(SM.SFX.ClickSFX);
         int towerCnt = GM._.tm.WarriorGroup.childCount + GM._.tm.ArcherGroup.childCount + GM._.tm.MagicianGroup.childCount;
         if(towerCnt <= 0) {
@@ -496,10 +501,10 @@ public class GameUIManager : MonoBehaviour {
         BottomMsgNotice.SetActive(true);
         BottomMsgNotice.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, y);
         MsgNoticeTxt.text = msg;
-        yield return Time.timeScale == 1.5f? Util.Time1_5
-            : Time.timeScale == 2? Util.Time2
-            : Time.timeScale == 4? Util.Time4
-            : Util.Time1;
+        yield return Time.timeScale == 1? Util.Time1_5
+            : Time.timeScale == 2? Util.Time3
+            : Time.timeScale == 3? Util.Time4_5
+            : Util.Time1; // -> NULL
         BottomMsgNotice.SetActive(false);
     }
     public bool ShowErrMsgCreateTowerAtPlayState() {

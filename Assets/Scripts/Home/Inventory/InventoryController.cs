@@ -35,12 +35,12 @@ namespace Inventory
                 if(itemList.IsEmpty)
                     continue;
 
-                if(itemList.Data.name == $"{Etc.ConsumableItem.Clover}") {
+                if(DM._.DB.IsCloverActive && itemList.Data.name == $"{Etc.ConsumableItem.Clover}") {
                     InventoryData.invList[i] = itemList.ChangeQuantity(itemList.Quantity - 1);
                     if(InventoryData.invList[i].Quantity <= 0)
                         DM._.DB.IsCloverActive = false;
                 }
-                else if(itemList.Data.name == $"{Etc.ConsumableItem.GoldClover}") {
+                else if(DM._.DB.IsGoldCloverActive && itemList.Data.name == $"{Etc.ConsumableItem.GoldClover}") {
                     InventoryData.invList[i] = itemList.ChangeQuantity(itemList.Quantity - 1);
                     if(InventoryData.invList[i].Quantity <= 0)
                         DM._.DB.IsGoldCloverActive = false;
