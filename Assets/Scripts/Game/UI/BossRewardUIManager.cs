@@ -57,8 +57,9 @@ public class BossRewardUIManager : MonoBehaviour {
 
         //* 選択券全て消費したら、終了
         if(SelectCnt <= 0) {
-            GM._.gui.Play();
             WindowObj.SetActive(false);
+            GM._.gui.Play();
+            GM._.gui.CorStartAutoWaitTime();
         }
     }
 #endregion

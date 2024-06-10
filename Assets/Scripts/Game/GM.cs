@@ -337,6 +337,9 @@ public class GM : MonoBehaviour {
                 bossRwd.Active(rwdSelectCnt);
             }
         }
+        else {
+            gui.CorStartAutoWaitTime();
+        }
 
         //* 消費アイテムの待機ターンを一個 減る
         gcsm.DecreaseConsumeItemWaitTurn();

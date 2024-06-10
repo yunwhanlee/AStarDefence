@@ -107,8 +107,6 @@ public class InfiniteUpgradeManager : MonoBehaviour {
             }
         }
     #endregion
-
     #region FUNC
-        
     #endregion
 }

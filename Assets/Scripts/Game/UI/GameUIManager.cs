@@ -17,14 +17,19 @@ public class GameUIManager : MonoBehaviour {
     public EnemyStateUIManager esm;
 
     Coroutine CorMsgNoticeID;
+    Coroutine CorAutoWaitTimeID;
+    public bool IsActiveAutoStart;
 
     [Header("STATIC UI")]
     public Image playSpeedBtnImg;
     public TextMeshProUGUI playSpeedBtnTxt;
     public Sprite[] playSpeedBtnSprs;
+    public Button StartBtn;
     public Image StartBtnImg;
     public Image StartBtnLightImg;
     public TextMeshProUGUI StartBtnTxt;
+    public TextMeshProUGUI AutoWaitTimeTxt;
+    public TextMeshProUGUI AutoBtnTxt;
     public Color[] StartBlueColors;
     public Color[] StartRedColors;
     public GameObject ReviveSpawnUIEF;
@@ -91,6 +96,8 @@ public class GameUIManager : MonoBehaviour {
 
     void Start() {
         CorMsgNoticeID = null;
+        CorAutoWaitTimeID = null;
+        IsActiveAutoStart = false;
         previousState = GameState.Ready;
         previousTimeScale = 1;
         PauseExitGameTxt.text = GM._.Stage == Config.Stage.STG_GOBLIN_DUNGEON? "나가기" : "<color=blue>저장</color> 및 나가기\n<color=blue><size=60%>( 최소 3스테이지 이상 )</size></color>";
@@ -101,6 +108,7 @@ public class GameUIManager : MonoBehaviour {
         EnemyCntTxt.text = "0 / 0";
         MoneyTxt.text = $"{GM._.Money}";
         LifeTxt.text = $"{GM._.Life}";
+        AutoWaitTimeTxt.text = "";
         Array.ForEach(TowerCardUI.PriceTxts, txt => txt.text = $"{TowerManager.CARD_UPG_PRICE_START}");
         UpdateTowerCardLvUI();
     }
@@ -130,6 +138,58 @@ public class GameUIManager : MonoBehaviour {
         MoneyTxt.text = $"{GM._.Money}";
     }
     #endregion
+
+    public void OnClickAutoBtn() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        int towerCnt = GM._.tm.WarriorGroup.childCount + GM._.tm.ArcherGroup.childCount + GM._.tm.MagicianGroup.childCount;
+        if(towerCnt <= 0) {
+            GM._.gui.ShowMsgError("타워를 1개 이상 건설해주세요!");
+            return;
+        }
+
+        if(AutoBtnTxt.color == Color.white) {
+            AutoBtnTxt.color = Color.green;
+            IsActiveAutoStart = true;
+            StartBtn.interactable = false;
+        }
+        else {
+            AutoBtnTxt.color = Color.white;
+            IsActiveAutoStart = false;
+            AutoWaitTimeTxt.text = "";
+            StartBtn.interactable = true;
+        }
+
+        CorStartAutoWaitTime();
+    }
+
+    public void CorStartAutoWaitTime() {
+        if(IsActiveAutoStart) {
+            if(CorAutoWaitTimeID != null) StopCoroutine(CorAutoWaitTimeID);
+            CorAutoWaitTimeID = StartCoroutine(CoCountAutoWaitTime());
+        }
+        else {
+            if(CorAutoWaitTimeID != null)
+                StopCoroutine(CorAutoWaitTimeID);
+        }
+    }
+
+    public IEnumerator CoCountAutoWaitTime() {
+        AutoWaitTimeTxt.text = "3";
+        SM._.SfxPlay(SM.SFX.CountdownSFX);
+        yield return Util._.Get1SecByTimeScale();
+        AutoWaitTimeTxt.text = "2";
+        SM._.SfxPlay(SM.SFX.CountdownSFX);
+        yield return Util._.Get1SecByTimeScale();
+        AutoWaitTimeTxt.text = "1";
+        SM._.SfxPlay(SM.SFX.CountdownSFX);
+        yield return Util._.Get1SecByTimeScale();
+        AutoWaitTimeTxt.text = "GO";
+        GM._.OnClickStartBtn();
+        GM._.OnClickStartBtn();
+
+        yield return Util._.Get1SecByTimeScale();
+        AutoWaitTimeTxt.text = "";
+    }
 
     /// <summary> もう一度確認するPOPUP：★OnClickAskConfirmActionへ確認ボタン押してから、処理するメソッドを購読すること！</summary>
     public void ShowAgainAskMsg(string msg = "") {
