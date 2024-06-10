@@ -132,6 +132,15 @@ public class GM : MonoBehaviour {
                 break;
         }
 
+        //* Clover EXP Particle UI Effect
+        Debug.Log($"GM Awake():: IsCloverActive= {DM._.DB.IsCloverActive}, IsGoldenCloverActive= {DM._.DB.IsGoldCloverActive}");
+        if(DM._.DB.IsCloverActive) {
+            gef.CloverAttractionUIEF.Play();
+        }
+        if(DM._.DB.IsGoldCloverActive) {
+            gef.GoldenCloverAttractionUIEF.Play();
+        }
+
         //* 非表示 初期化
         Array.ForEach(StageDts, stageDt => stageDt.TileMapObj.SetActive(false));
 

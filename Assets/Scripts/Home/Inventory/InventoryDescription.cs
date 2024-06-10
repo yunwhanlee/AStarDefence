@@ -300,6 +300,7 @@ namespace Inventory.UI {
 
             if(isActive)
                 SM._.SfxPlay(SM.SFX.ItemPickSFX);
+
             icon[OFF].SetActive(!isActive);
             icon[ON].SetActive(isActive);
             EtcConfirmBtnTxt.text = isActive? "활성화" : "비활성화";

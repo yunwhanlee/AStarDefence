@@ -75,6 +75,8 @@ public class GameEffectManager : MonoBehaviour {
     [field:Header("UI Active Type")]
     [field:SerializeField] public GameObject StageTitleAnim;
     [field:SerializeField] public ParticleImage GoldKeyAttractionUIEF;
+    [field:SerializeField] public ParticleImage CloverAttractionUIEF;
+    [field:SerializeField] public ParticleImage GoldenCloverAttractionUIEF;
 
     [field:Header("Pool Type")]
     List<ObjectPool<GameObject>> pool = new List<ObjectPool<GameObject>>();
