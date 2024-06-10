@@ -503,7 +503,7 @@ public class GM : MonoBehaviour {
             //* Reward
             int exp = WaveCnt;
             int fame = Mathf.FloorToInt(WaveCnt * 0.05f);
-            int crack = Mathf.FloorToInt(WaveCnt * 0.165f);
+            int crack = Mathf.FloorToInt(WaveCnt * 0.25f);
 
             if(exp > 0)
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], exp));
