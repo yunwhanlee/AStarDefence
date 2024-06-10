@@ -88,7 +88,7 @@ public static class Config {
     public class G_PRICE {
         public const int BREAK = 20;
         public const int BOARD = 10;
-        public const int TOWER = 15;
+        public const int TOWER = 20;
         public const int CCTOWER = 25;
         public const int CC_UPG = 30;
         public const int MERGE = 5;
