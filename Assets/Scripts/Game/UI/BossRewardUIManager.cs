@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ using UnityEngine.UI;
 public class BossRewardUIManager : MonoBehaviour {
 
     [field: SerializeField] public GameObject WindowObj {get; set;}
+    [field: SerializeField] public DOTweenAnimation DOTAnim {get; set;}
     [field: SerializeField] public TextMeshProUGUI SelectCntTxt {get; set;}
     [SerializeField] int selectCnt; public int SelectCnt {
         get => selectCnt;
@@ -35,6 +37,7 @@ public class BossRewardUIManager : MonoBehaviour {
     public void Active(int cnt) {
         GM._.gui.Pause();
         WindowObj.SetActive(true);
+        DOTAnim.DORestart();
         SelectCnt = cnt;
         
         //* 現在の数値 表示
