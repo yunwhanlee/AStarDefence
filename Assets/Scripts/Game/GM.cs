@@ -309,6 +309,10 @@ public class GM : MonoBehaviour {
             return;
         }
 
+        if((WaveCnt + 1) % Config.BOSS_SPAWN_CNT == 0) {
+            gui.ShowMsgNotice("다음 웨이브는 보스입니다!");
+        }
+
         //* ボスリワード 表示
         if(WaveCnt % Config.BOSS_SPAWN_CNT == 0) {
             int rwdSelectCnt;
@@ -448,6 +452,9 @@ public class GM : MonoBehaviour {
         || stageIdx == Config.Stage.STG4_UNDEAD
         || stageIdx == Config.Stage.STG5_HELL)
         {
+            //* ステージタイルマップ保存データ リセット
+            DM._.DB.StageTileMapSaveDt.Reset();
+
             RewardContentSO stgClearDt = rwDt.Rwd_StageClearDts[Config.Stage.GetCurStageDtIdx(stageIdx, (int)idxNum)];
             var rwdTbList = rwDt.PrepareItemPerTable(stgClearDt);
             var fixRwdList = rwdTbList.FindAll(list => list.percent == FIXED_REWARD);
@@ -501,6 +508,9 @@ public class GM : MonoBehaviour {
             }
         }
         else if(stageIdx == Config.Stage.STG_INFINITE_DUNGEON) {
+            //* ステージタイルマップ保存データ リセット
+            DM._.DB.InfiniteTileMapSaveDt.Reset();
+
             gui.VictoryTitleTxt.text = "균열던전 결과";
 
             //* Reward
