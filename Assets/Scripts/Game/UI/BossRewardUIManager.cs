@@ -8,6 +8,7 @@ using UnityEngine.UI;
 // using UnityEditor.PackageManager.UI;
 
 public class BossRewardUIManager : MonoBehaviour {
+    public Coroutine CorWaitClosePopUp;
 
     [field: SerializeField] public GameObject WindowObj {get; set;}
     [field: SerializeField] public DOTweenAnimation DOTAnim {get; set;}

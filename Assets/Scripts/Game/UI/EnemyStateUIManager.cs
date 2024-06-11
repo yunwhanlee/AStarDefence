@@ -45,6 +45,8 @@ public class EnemyInfoUI {
 }
 
 public class EnemyStateUIManager : MonoBehaviour {
+    public Coroutine CorWaitClosePopUp;
+
     [field: SerializeField] public Sprite[] FrameSprs {get; set;}
     [field: SerializeField] public EnemyInfoUI CurEnemyInfoWindowUI;
     [field: SerializeField] public EnemyInfoUI NextEnemyInfoPopUpUI;
@@ -77,9 +79,13 @@ public class EnemyStateUIManager : MonoBehaviour {
     // public void OnClickCloseNextEnemyInfoPopUp() {
     //     NextEnemyInfoPopUpUI.Obj.SetActive(false);
     // }
+
     public void OnClickCloseBossSpawnAnimWindowScreenBtn() {
         GM._.gui.Play();
         BossSpawnWindowAnimObj.SetActive(false);
+
+        if(CorWaitClosePopUp != null)
+            StopCoroutine(CorWaitClosePopUp);
     }
 #endregion
 
@@ -105,12 +111,23 @@ public class EnemyStateUIManager : MonoBehaviour {
 
     //* BOSS SPAWN ANIM
     public void ShowBossSpawnAnim(EnemyData bossDt) {
+        if(CorWaitClosePopUp != null) {
+            CorWaitClosePopUp = null;
+        }
+        CorWaitClosePopUp = StartCoroutine(CoWaitClosePopUp());
+
         GM._.gui.Pause();
         SM._.SfxPlay(SM.SFX.BossSpawnSFX);
         BossSpawnWindowAnimObj.SetActive(true);
         BossSpawnAnimImg.sprite = bossDt.Spr;
         BossSpawnAnimNameTxt.text = bossDt.Name.ToString();
         BossSpawnAnimHpTxt.text = bossDt.Hp.ToString();
+    }
+
+    private IEnumerator CoWaitClosePopUp() {
+        //* RealtimeのStopCoroutineは newで割り当てしないと、次に続くバグ。
+        yield return new WaitForSecondsRealtime(2);
+        GM._.esm.OnClickCloseBossSpawnAnimWindowScreenBtn();
     }
 #endregion
 }

@@ -401,7 +401,7 @@ public class GM : MonoBehaviour {
 
     public void Victory() {
         // gui.Pause();
-        Time.timeScale = 1;
+        Time.timeScale = Config.GAMESPEED_NORMAL;
         State = GameState.Victory;
 
         SM._.SfxPlay(SM.SFX.CompleteSFX);
@@ -567,7 +567,7 @@ public class GM : MonoBehaviour {
 
     public void Gameover() {
         const int FIXED_REWARD = -1;
-        Time.timeScale = 1;
+        Time.timeScale = Config.GAMESPEED_NORMAL;
         State = GameState.Gameover;
 
         SM._.SfxPlay(SM.SFX.GameoverSFX);

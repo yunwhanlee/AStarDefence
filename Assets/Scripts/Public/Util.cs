@@ -189,9 +189,9 @@ public class Util : MonoBehaviour {
     }
 
     public WaitForSeconds Get1SecByTimeScale() {
-        return (Time.timeScale == 1)? Time1
-            :(Time.timeScale == 2)? Time2
-            :(Time.timeScale == 3)? Time3
+        return (Time.timeScale == Config.GAMESPEED_NORMAL)? Time1
+            :(Time.timeScale == Config.GAMESPEED_FAST)? Time2
+            :(Time.timeScale == Config.GAMESPEED_ULTRA)? Time3
             : Time1;
     }
 }

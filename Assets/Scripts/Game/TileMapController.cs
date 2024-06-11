@@ -327,6 +327,7 @@ public class TileMapController : MonoBehaviour {
     /// 壁をランダムで設置
     /// </summary>
     public void SpawnWall() {
+        Debug.Log("AA:: TileMapController():: SpawnWall()");
         var walls = GM._.StageDts[GM._.Stage].Walls;
         //* チュートリアル WALL固定！
         if(DM._.DB.TutorialDB.IsActiveEnemyInfo)
@@ -357,8 +358,8 @@ public class TileMapController : MonoBehaviour {
         else if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON
         && DM._.DB.InfiniteTileMapSaveDt.IsSaved)
         {
-            Debug.Log($"SpawnWall():: LOAD INFINITE_DUNGEON SAVE DATA, IsSaved= {DM._.DB.InfiniteTileMapSaveDt.IsSaved}");
-            DM._.DB.InfiniteTileMapSaveDt.LoadDt();
+            // Debug.Log($"SpawnWall():: LOAD INFINITE_DUNGEON SAVE DATA, IsSaved= {DM._.DB.InfiniteTileMapSaveDt.IsSaved}");
+            // DM._.DB.InfiniteTileMapSaveDt.LoadDt();
             return;
         }
         else if((GM._.Stage == Config.Stage.STG1_FOREST
@@ -368,8 +369,8 @@ public class TileMapController : MonoBehaviour {
         || GM._.Stage == Config.Stage.STG5_HELL)
         && DM._.DB.StageTileMapSaveDt.IsSaved)
         {
-            Debug.Log($"SpawnWall():: LOAD NORMAL STAGE SAVE DATA, IsSaved= {DM._.DB.StageTileMapSaveDt.IsSaved}");
-            DM._.DB.StageTileMapSaveDt.LoadDt();
+            // Debug.Log($"SpawnWall():: LOAD NORMAL STAGE SAVE DATA, IsSaved= {DM._.DB.StageTileMapSaveDt.IsSaved}");
+            // DM._.DB.StageTileMapSaveDt.LoadDt();
             return;
         }
 

@@ -95,6 +95,9 @@ public class GameUIManager : MonoBehaviour {
     }
 
     void Start() {
+        Debug.Log("AA:: GameUIManager():: Start()");
+        Time.timeScale = Config.GAMESPEED_NORMAL;
+        playSpeedBtnTxt.text = $"X{Config.GAMESPEED_NORMAL}";
         CorMsgNoticeID = null;
         CorAutoWaitTimeID = null;
         IsActiveAutoStart = false;
@@ -111,6 +114,29 @@ public class GameUIManager : MonoBehaviour {
         AutoWaitTimeTxt.text = "";
         Array.ForEach(TowerCardUI.PriceTxts, txt => txt.text = $"{TowerManager.CARD_UPG_PRICE_START}");
         UpdateTowerCardLvUI();
+
+        if(DM._.DB.TutorialDB.IsActiveEnemyInfo) {
+            //なし
+        }
+        //* 無限ダンジョン セーブデータ 読込み
+        else if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON
+        && DM._.DB.InfiniteTileMapSaveDt.IsSaved)
+        {
+            Debug.Log($"SpawnWall():: LOAD INFINITE_DUNGEON SAVE DATA, IsSaved= {DM._.DB.InfiniteTileMapSaveDt.IsSaved}");
+            DM._.DB.InfiniteTileMapSaveDt.LoadDt();
+            return;
+        }
+        else if((GM._.Stage == Config.Stage.STG1_FOREST
+        || GM._.Stage == Config.Stage.STG2_DESERT
+        || GM._.Stage == Config.Stage.STG3_SEA
+        || GM._.Stage == Config.Stage.STG4_UNDEAD
+        || GM._.Stage == Config.Stage.STG5_HELL)
+        && DM._.DB.StageTileMapSaveDt.IsSaved)
+        {
+            Debug.Log($"SpawnWall():: LOAD NORMAL STAGE SAVE DATA, IsSaved= {DM._.DB.StageTileMapSaveDt.IsSaved}");
+            DM._.DB.StageTileMapSaveDt.LoadDt();
+            return;
+        }
     }
 
 #region EVENT
@@ -275,13 +301,13 @@ public class GameUIManager : MonoBehaviour {
 
         var time = Time.timeScale;
         //* タイム速度
-        if(time == 1) {
-            Time.timeScale = 2;
+        if(time == Config.GAMESPEED_NORMAL) {
+            Time.timeScale = Config.GAMESPEED_FAST;
             SetPlaySpeedBtnUI(playSpeedBtnSprs[ON], Time.timeScale);
         }
-        else if(time == 2) {
+        else if(time == Config.GAMESPEED_FAST) {
             if(GM._.IsActiveSpeedUp) {
-                Time.timeScale = 3;
+                Time.timeScale = Config.GAMESPEED_ULTRA;
                 SetPlaySpeedBtnUI(playSpeedBtnSprs[ON], Time.timeScale);
             }
             else {
@@ -293,7 +319,7 @@ public class GameUIManager : MonoBehaviour {
                 Pause();
                 // Time.timeScale = 0;
                 // GM._.State = GameState.Pause;
-                ShowAgainAskMsg("광고시청 후 게임배속 3배를\n추가하시겠습니까?");
+                ShowAgainAskMsg($"광고시청 후 게임배속 {Config.GAMESPEED_ULTRA}배를\n추가하시겠습니까?");
 
                 OnClickAskConfirmAction = () => {
                     AgainAskPopUp.SetActive(false);
@@ -301,7 +327,7 @@ public class GameUIManager : MonoBehaviour {
                         Debug.Log($"OnClickPlaySpeedBtn:: Before setting timeScale to 3:: timeScale= {Time.timeScale}, State= {GM._.State}");
                         SM._.SfxPlay(SM.SFX.CompleteSFX);
                         Play();
-                        Time.timeScale = 3;
+                        Time.timeScale = Config.GAMESPEED_ULTRA;
                         // GM._.State = GameState.Play;
                         SetPlaySpeedBtnUI(playSpeedBtnSprs[ON], Time.timeScale);
 
@@ -313,14 +339,14 @@ public class GameUIManager : MonoBehaviour {
                 OnClickAskCloseAction = () => {
                     AgainAskPopUp.SetActive(false);
                     SM._.SfxPlay(SM.SFX.ClickSFX);
-                    Time.timeScale = 1;
+                    Time.timeScale = Config.GAMESPEED_NORMAL;
                     GM._.State = previousState;
                     SetPlaySpeedBtnUI(playSpeedBtnSprs[OFF], Time.timeScale);
                 };
             }
         }
         else {
-            Time.timeScale = 1;
+            Time.timeScale = Config.GAMESPEED_NORMAL;
             SetPlaySpeedBtnUI(playSpeedBtnSprs[OFF], Time.timeScale);
         }
     }
@@ -379,11 +405,11 @@ public class GameUIManager : MonoBehaviour {
             //* 初期化
             GameoverPopUp.SetActive(false);
             GM._.State = isBoss? GameState.Play : GameState.Ready;
-            Time.timeScale = 1;
+            Time.timeScale = Config.GAMESPEED_NORMAL;
             GM._.Life = Config.DEFAULT_LIFE;
             HeartFillImg.fillAmount = 1;
             playSpeedBtnImg.sprite = playSpeedBtnSprs[OFF];
-            playSpeedBtnTxt.text = $"X1";
+            playSpeedBtnTxt.text = $"X{Config.GAMESPEED_NORMAL}";
             GM._.gef.ShowIconTxtEF(HeartFillImg.transform.position, GM._.MaxLife, "Heart");
         });
     }
@@ -435,7 +461,7 @@ public class GameUIManager : MonoBehaviour {
         GM._.State = previousState;
     }
     private void GoHome() {
-        Time.timeScale = 1;
+        Time.timeScale = Config.GAMESPEED_NORMAL;
         DM._.Save(); //* Victoryでもらったリワードを保存 (ホームに戻ったら、データをロードするから、この前にリワードと変わったデータを保存する必要がある)
         SceneManager.LoadScene(Enum.Scene.Home.ToString());
     }
@@ -443,7 +469,7 @@ public class GameUIManager : MonoBehaviour {
         if(!DM._.DB.IsRemoveAd) {
 
         }
-        Time.timeScale = 1;
+        Time.timeScale = Config.GAMESPEED_NORMAL;
         SceneManager.LoadScene(Enum.Scene.Game.ToString());
     }
 
@@ -501,9 +527,9 @@ public class GameUIManager : MonoBehaviour {
         BottomMsgNotice.SetActive(true);
         BottomMsgNotice.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, y);
         MsgNoticeTxt.text = msg;
-        yield return Time.timeScale == 1? Util.Time1_5
-            : Time.timeScale == 2? Util.Time3
-            : Time.timeScale == 3? Util.Time4_5
+        yield return Time.timeScale == Config.GAMESPEED_NORMAL? Util.Time1_5
+            : Time.timeScale == Config.GAMESPEED_FAST? Util.Time3
+            : Time.timeScale == Config.GAMESPEED_ULTRA? Util.Time4_5
             : Util.Time1; // -> NULL
         BottomMsgNotice.SetActive(false);
     }
