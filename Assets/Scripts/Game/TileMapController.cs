@@ -345,7 +345,6 @@ public class TileMapController : MonoBehaviour {
             WallTileMap.SetTile(new Vector3Int(OFS_Y + 4, OFS_X + 5, 0), walls[6]);
             // 7 Colume
             WallTileMap.SetTile(new Vector3Int(OFS_Y + 1, OFS_X + 7, 0), walls[5]);
-            WallTileMap.SetTile(new Vector3Int(OFS_Y + 3, OFS_X + 7, 0), walls[4]);
             // 8 Colume
             WallTileMap.SetTile(new Vector3Int(OFS_Y + 3, OFS_X + 8, 0), walls[1]);
             // 9 Colume

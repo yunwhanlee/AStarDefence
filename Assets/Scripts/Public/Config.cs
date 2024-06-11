@@ -52,7 +52,7 @@ public static class Config {
     public const int FREE_BOARD_CNT = 4;
     public const int FREE_BREAKROCK_CNT = 2;
 
-    public const int WALL_SPAWN_MAX = 11; // 壁のMAX数
+    public const int WALL_SPAWN_MAX = 10; // 壁のMAX数
     public const int DEFAULT_MONEY = 100;
     public const int DEFAULT_LIFE = 10;
     public const int DEFAULT_RESET_CNT = 10;
