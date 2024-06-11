@@ -209,10 +209,12 @@ public class StageUIManager : MonoBehaviour {
 
         if(DM._.DB.InfiniteTileMapSaveDt.IsSaved) {
             HM._.hui.ShowAgainAskMsg($"게임을 이어서 하시겠습니까?\n<size=90%>(현재 층 : {DM._.DB.InfiniteTileMapSaveDt.Wave})</size>", isActiveNoBtn: true, "처음부터");
+            //* YES (CONTINUE)
             HM._.hui.OnClickAskConfirmAction = () => {
+                DM._.DB.InfiniteTileMapSaveDt.LoadStageValDt();
                 PlayGame();
             };
-
+            //* NO (NEW START)
             HM._.hui.OnClickAskCloseExtraAction = () => {
                 DM._.DB.InfiniteTileMapSaveDt.Reset();
                 PlayGame();

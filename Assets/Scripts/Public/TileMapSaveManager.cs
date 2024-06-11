@@ -188,6 +188,14 @@ public class TileMapSaveDt {
         }
     }
 
+    /// <summary>
+    /// 続くステージのデータのStageとStageNumを読込み、ゲームスタート前に、グロバールDBから最新化
+    /// </summary>
+    public void LoadStageValDt() {
+        DM._.SelectedStage = Stage;
+        DM._.SelectedStageNum = StageNum;
+    }
+
     public void LoadDt() {
         Debug.Log("TileMapSaveManager:: LoadDt()");
         GM._.gui.ResetWallBtn.gameObject.SetActive(false);
@@ -195,8 +203,6 @@ public class TileMapSaveDt {
 
         //* Status Dt
         GM._.IsRevived = IsRevived;
-        GM._.Stage = Stage;
-        DM._.SelectedStageNum = StageNum;
         GM._.WaveCnt = Wave;
 
         GM._.MaxLife = MaxLife;

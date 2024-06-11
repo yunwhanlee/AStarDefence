@@ -176,6 +176,7 @@ public class HomeUIManager : MonoBehaviour {
 
             //* YES
             HM._.hui.OnClickAskConfirmAction = () => {
+                DM._.DB.StageTileMapSaveDt.LoadStageValDt();
                 HM._.stgm.OnClickPlayBtn(isLoadSaveDt: true);
             };
         }
