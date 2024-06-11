@@ -164,10 +164,11 @@ public class GM : MonoBehaviour {
         gui.SwitchGameStateUI(state);
 
         //* ステージタイトルと難易度 表示 アニメーション
+        int stageStr = Stage + 1;
         string difficulty = (DM._ == null)? ""
-            : (StageNum == Enum.StageNum.Stage1_1)? "1-1"
-            : (StageNum == Enum.StageNum.Stage1_2)? "1-2"
-            : "1-3";
+            : (StageNum == Enum.StageNum.Stage_1)? $"{stageStr}-1"
+            : (StageNum == Enum.StageNum.Stage_2)? $"{stageStr}-2"
+            : $"{stageStr}-3";
 
         if(Stage == Config.Stage.STG_INFINITE_DUNGEON) {
             difficulty = $"최대 돌파한 층 : {DM._.DB.InfiniteUpgradeDB.MyBestWaveScore}";
@@ -365,12 +366,12 @@ public class GM : MonoBehaviour {
         StageLockedDB stageLockDt = DM._.DB.StageLockedDBs[stage];
         StageLockedDB nextStageLockDt = DM._.DB.StageLockedDBs[nextStage];
 
-        if(StageNum == Enum.StageNum.Stage1_1) {
+        if(StageNum == Enum.StageNum.Stage_1) {
             stageLockDt.IsLockStage1_2 = false;
             stageLockDt.StageRewards[1].IsUnlockAlert = true;
             stageLockDt.StageRewards[0].IsActiveBonusReward = true;
         }
-        else if(StageNum == Enum.StageNum.Stage1_2) {
+        else if(StageNum == Enum.StageNum.Stage_2) {
             stageLockDt.IsLockStage1_3 = false;
             stageLockDt.StageRewards[2].IsUnlockAlert = true;
             stageLockDt.StageRewards[1].IsActiveBonusReward = true;
@@ -386,7 +387,7 @@ public class GM : MonoBehaviour {
                 DM._.DB.DungeonLockedDB.IsLockGoblinHard = true;
             }
         }
-        else if(StageNum == Enum.StageNum.Stage1_3) {
+        else if(StageNum == Enum.StageNum.Stage_3) {
             if(!isLastStage) {
                 nextStageLockDt.IsLockStage1_1 = false;
                 nextStageLockDt.StageRewards[0].IsUnlockAlert = true;

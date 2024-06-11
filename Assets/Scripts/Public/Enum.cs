@@ -122,9 +122,9 @@ public static class Enum {
         Game
     }
     public enum StageNum {
-        Stage1_1, 
-        Stage1_2, 
-        Stage1_3
+        Stage_1, 
+        Stage_2, 
+        Stage_3
     }
 
     public class Layer { //* Switch文で使えるため、整数化

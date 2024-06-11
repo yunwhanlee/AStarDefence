@@ -434,9 +434,9 @@ public class StageUIManager : MonoBehaviour {
         int stageIdx = HM._.SelectedStageIdx;
 
         //* ステージ 難易度
-        DM._.SelectedStageNum = (idxNum == 0)? Enum.StageNum.Stage1_1
-            : (idxNum == 1)? Enum.StageNum.Stage1_2
-            : Enum.StageNum.Stage1_3;
+        DM._.SelectedStageNum = (idxNum == 0)? Enum.StageNum.Stage_1
+            : (idxNum == 1)? Enum.StageNum.Stage_2
+            : Enum.StageNum.Stage_3;
 
         //* UI色
         ClearRewardInfoTopImg.color = TopColors[idxNum];
@@ -558,9 +558,9 @@ public class StageUIManager : MonoBehaviour {
         ClearRewardInfoBodyDOTAnim.DORestart();
 
         //* ステージ 難易度
-        DM._.SelectedStageNum = (idxNum == 0)? Enum.StageNum.Stage1_1
-            : (idxNum == 1)? Enum.StageNum.Stage1_2
-            : Enum.StageNum.Stage1_3;
+        DM._.SelectedStageNum = (idxNum == 0)? Enum.StageNum.Stage_1
+            : (idxNum == 1)? Enum.StageNum.Stage_2
+            : Enum.StageNum.Stage_3;
         
         //* UI色
         ClearRewardInfoTopImg.color = TopColors[idxNum];
