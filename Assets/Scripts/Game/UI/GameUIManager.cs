@@ -139,17 +139,17 @@ public class GameUIManager : MonoBehaviour {
     //! DEBUG トップのWAVEタイトルクリックすると、WAVE UP
     Coroutine CorIntervalClickID = null;
     public void Debug_WaveUp() => WaveUp();
-    public void Debug_PointerDown_IntervalWaveUp_Off() => CorIntervalClickID = StartCoroutine(CoIntervalWaveUp());
-    public void Debug_PointerUp_IntervalWaveUp_On() => StopCoroutine(CorIntervalClickID);
-    IEnumerator CoIntervalWaveUp() { //* 日程間隔でWAVEアップ
-        yield return Util.Time1;
-        while(true) {
-            yield return new WaitForSeconds(0.25f);
-            WaveUp();
-        }
-    }
+    // public void Debug_PointerDown_IntervalWaveUp_Off() => CorIntervalClickID = StartCoroutine(CoIntervalWaveUp());
+    // public void Debug_PointerUp_IntervalWaveUp_On() => StopCoroutine(CorIntervalClickID);
+    // IEnumerator CoIntervalWaveUp() { //* 日程間隔でWAVEアップ
+    //     yield return Util.Time1;
+    //     while(true) {
+    //         yield return new WaitForSeconds(0.25f);
+    //         WaveUp();
+    //     }
+    // }
     private void WaveUp() {
-        GM._.WaveCnt++;
+        GM._.WaveCnt += 5;
         if(GM._.WaveCnt > GM._.MaxWave) GM._.WaveCnt = 0;
         WaveTxt.text = $"WAVE {GM._.WaveCnt} / {GM._.MaxWave}";
     }
