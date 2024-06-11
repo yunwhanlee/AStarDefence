@@ -158,7 +158,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
             else
                 yield return null;
         }
-        yield return Util.Time0_5;
+        yield return Util.Time0_2;
         IsFinishSlotsSpawn = true;
         IsSkip = false;
     }
