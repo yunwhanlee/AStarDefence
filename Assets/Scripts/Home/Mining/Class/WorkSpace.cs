@@ -117,9 +117,9 @@ public class WorkSpace {
         //* アプリを再起動して、経過時間を減る
         if(isPassedTime) {
             int passedSec = DM._.PassedSec;
-            string timeFormat = Util.ConvertTimeFormat(passedSec);
+            // string timeFormat = Util.ConvertTimeFormat(passedSec);
 
-            HM._.hui.ShowMsgNotice($"{timeFormat}초가 경과했습니다. ", Util.Time3);
+            // HM._.hui.ShowMsgNotice($"{timeFormat}초가 경과했습니다. ", Util.Time3);
             MiningTime -= Mathf.RoundToInt(passedSec * spdPer);
         }
 
