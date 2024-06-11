@@ -454,6 +454,8 @@ public class DM : MonoBehaviour {
     [field: SerializeField] public bool IsPassedDate {get; private set;}
 
     void Awake() {
+        Application.targetFrameRate = 40;
+
         //* SINGLETON
         if(_ == null) {
             _ = this;
