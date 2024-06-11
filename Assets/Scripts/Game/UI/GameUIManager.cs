@@ -103,18 +103,11 @@ public class GameUIManager : MonoBehaviour {
         IsActiveAutoStart = false;
         previousState = GameState.Ready;
         previousTimeScale = 1;
-        PauseExitGameTxt.text = GM._.Stage == Config.Stage.STG_GOBLIN_DUNGEON? "나가기" : "<color=blue>저장</color> 및 나가기\n<color=blue><size=60%>( 최소 3스테이지 이상 )</size></color>";
         TopMsgError.SetActive(false);
         ResetWallBtn.gameObject.SetActive(true);
-        WaveTxt.text = $"WAVE {GM._.WaveCnt} / {GM._.MaxWave}";
-        ResetWallCntTxt.text = $"{GM._.ResetCnt}/{Config.DEFAULT_RESET_CNT}";
-        EnemyCntTxt.text = "0 / 0";
-        MoneyTxt.text = $"{GM._.Money}";
-        LifeTxt.text = $"{GM._.Life}";
-        AutoWaitTimeTxt.text = "";
-        Array.ForEach(TowerCardUI.PriceTxts, txt => txt.text = $"{TowerManager.CARD_UPG_PRICE_START}");
-        UpdateTowerCardLvUI();
+        InitTextUI();
 
+        //* ステージ保存データロード
         if(DM._.DB.TutorialDB.IsActiveEnemyInfo) {
             //なし
         }
@@ -124,6 +117,7 @@ public class GameUIManager : MonoBehaviour {
         {
             Debug.Log($"SpawnWall():: LOAD INFINITE_DUNGEON SAVE DATA, IsSaved= {DM._.DB.InfiniteTileMapSaveDt.IsSaved}");
             DM._.DB.InfiniteTileMapSaveDt.LoadDt();
+            InitTextUI();
             return;
         }
         else if((GM._.Stage == Config.Stage.STG1_FOREST
@@ -135,6 +129,7 @@ public class GameUIManager : MonoBehaviour {
         {
             Debug.Log($"SpawnWall():: LOAD NORMAL STAGE SAVE DATA, IsSaved= {DM._.DB.StageTileMapSaveDt.IsSaved}");
             DM._.DB.StageTileMapSaveDt.LoadDt();
+            InitTextUI();
             return;
         }
     }
@@ -440,6 +435,17 @@ public class GameUIManager : MonoBehaviour {
 #endregion
 
 #region FUNC
+    private void InitTextUI() {
+        PauseExitGameTxt.text = GM._.Stage == Config.Stage.STG_GOBLIN_DUNGEON? "나가기" : "<color=blue>저장</color> 및 나가기\n<color=blue><size=60%>( 최소 3스테이지 이상 )</size></color>";
+        WaveTxt.text = $"WAVE {GM._.WaveCnt} / {GM._.MaxWave}";
+        ResetWallCntTxt.text = $"{GM._.ResetCnt}/{Config.DEFAULT_RESET_CNT}";
+        EnemyCntTxt.text = "0 / 0";
+        MoneyTxt.text = $"{GM._.Money}";
+        LifeTxt.text = $"{GM._.Life}";
+        AutoWaitTimeTxt.text = "";
+        Array.ForEach(TowerCardUI.PriceTxts, txt => txt.text = $"{TowerManager.CARD_UPG_PRICE_START}");
+        UpdateTowerCardLvUI();
+    }
     /// <summary>
     /// ゲームを停止状態にする
     /// </summary>
