@@ -29,11 +29,14 @@ public class StageUIManager : MonoBehaviour {
 
     [field:SerializeField] public GameObject GoblinDungeonWindow;
     [field:SerializeField] public GameObject GoblinDungeonNormalLockedFrame;
+    [field:SerializeField] public Button GoblinDungeonNormalEnterBtn;
     [field:SerializeField] public GameObject GoblinDungeonHardLockedFrame;
+    [field:SerializeField] public Button GoblinDungeonHardEnterBtn;
     [field:SerializeField] public TMP_Text GoldKeyTxt;
 
     [field:SerializeField] public GameObject InfiniteDungeonWindow;
     [field:SerializeField] public GameObject InfiniteDungeonLockedFrame;
+    [field:SerializeField] public Button InfiniteDungeonEnterBtn;
     [field:SerializeField] public TMP_Text InfiniteDungeonGoldKeyTxt;
     [field: SerializeField] public TMP_Text InfiniteBestWaveScoreTxt;
     [field:SerializeField] public GameObject DungeonAlertDot;
@@ -102,8 +105,13 @@ public class StageUIManager : MonoBehaviour {
 
         //* ダンジョンのアンロック状態
         GoblinDungeonNormalLockedFrame.SetActive(!DM._.DB.DungeonLockedDB.IsLockGoblinNormal);
-        InfiniteDungeonLockedFrame.SetActive(!DM._.DB.DungeonLockedDB.IsLockInfinite);
+        GoblinDungeonNormalEnterBtn.interactable = DM._.DB.DungeonLockedDB.IsLockGoblinNormal;
+
         GoblinDungeonHardLockedFrame.SetActive(!DM._.DB.DungeonLockedDB.IsLockGoblinHard);
+        GoblinDungeonHardEnterBtn.interactable = DM._.DB.DungeonLockedDB.IsLockGoblinHard;
+
+        InfiniteDungeonLockedFrame.SetActive(!DM._.DB.DungeonLockedDB.IsLockInfinite);
+        InfiniteDungeonEnterBtn.interactable = DM._.DB.DungeonLockedDB.IsLockInfinite;
 
         //* New Stage Alert 表示
         for(int i = 0; i < DM._.DB.StageLockedDBs.Length; i++) {
