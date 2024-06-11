@@ -323,6 +323,13 @@ namespace Inventory.UI {
                         rwdItemDt.OpenRewardContent(isOpenByInv: true, rwdItemDt.Rwd_Present2);
                         break;
                 }
+
+                //* イベントリーUI アップデート
+                HM._.ivCtrl.InventoryData.InformAboutChange();
+
+                //* 情報表示ポップアップUI アップデート
+                if(ivm.CurInvItem.Data)
+                    HM._.ivm.UpdateDescription(ivm.CurItemIdx, ivm.CurInvItem.Data, ivm.CurInvItem.Quantity, ivm.CurInvItem.Lv, ivm.CurInvItem.RelicAbilities, ivm.CurInvItem.IsEquip);
             };
         }
 
