@@ -47,7 +47,7 @@ MonoBehaviour:
     <Spr>k__BackingField: {fileID: -1068227114, guid: d6feed4bbf92e3c47a9b5e51f3154f0c, type: 3}
     <SprLibAst>k__BackingField: {fileID: 0}
     <Lv>k__BackingField: 5
-    <Hp>k__BackingField: 25
+    <Hp>k__BackingField: 38
     <Speed>k__BackingField: 1.5
   - <Name>k__BackingField: "\uC0AC\uB9C9\uBD80\uC871\uC220\uC0AC"
     <Type>k__BackingField: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
     <Spr>k__BackingField: {fileID: -51704133, guid: d6feed4bbf92e3c47a9b5e51f3154f0c, type: 3}
     <SprLibAst>k__BackingField: {fileID: 0}
     <Lv>k__BackingField: 13
-    <Hp>k__BackingField: 103
+    <Hp>k__BackingField: 155
     <Speed>k__BackingField: 1.5
   - <Name>k__BackingField: "\uBAA8\uB798\uBC8C\uB808"
     <Type>k__BackingField: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
     <Spr>k__BackingField: {fileID: 1511401903, guid: d6feed4bbf92e3c47a9b5e51f3154f0c, type: 3}
     <SprLibAst>k__BackingField: {fileID: 0}
     <Lv>k__BackingField: 21
-    <Hp>k__BackingField: 246
+    <Hp>k__BackingField: 369
     <Speed>k__BackingField: 1.5
   - <Name>k__BackingField: "\uBD88\uAC1C\uBBF8"
     <Type>k__BackingField: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
     <Spr>k__BackingField: {fileID: -735526540, guid: d6feed4bbf92e3c47a9b5e51f3154f0c, type: 3}
     <SprLibAst>k__BackingField: {fileID: 0}
     <Lv>k__BackingField: 29
-    <Hp>k__BackingField: 413
+    <Hp>k__BackingField: 619
     <Speed>k__BackingField: 1.5
   - <Name>k__BackingField: "\uBBF8\uB77C"
     <Type>k__BackingField: 0

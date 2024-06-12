@@ -14,7 +14,7 @@ public class SettingEnemyDataEditor : Editor {
         15,
         23,
         31,
-        43,
+        43 / 2,
         53,
         68,
         2040, // 8 Wave (1)
@@ -22,7 +22,7 @@ public class SettingEnemyDataEditor : Editor {
         108,
         128,
         149,
-        172,
+        172 / 2,
         195,
         223,
         8920, // 16 Wave (2)
@@ -30,7 +30,7 @@ public class SettingEnemyDataEditor : Editor {
         288,
         329,
         369,
-        410,
+        410 / 2,
         439,
         477,
         23850, // 24 Wave (3)
@@ -38,7 +38,7 @@ public class SettingEnemyDataEditor : Editor {
         557,
         598,
         643,
-        689,
+        689 / 2,
         725,
         776,
         46560, // 32 Wave (4)
@@ -46,7 +46,7 @@ public class SettingEnemyDataEditor : Editor {
         871,
         919,
         970,
-        1022,
+        1022 / 2,
         1063,
         1120,
         78400, // 40 Wave (5)
@@ -54,7 +54,7 @@ public class SettingEnemyDataEditor : Editor {
         1242,
         1304,
         1359,
-        1421,
+        1421 / 2,
         1521,
         1595,
         127600, // 48 Wave (6)
@@ -62,7 +62,7 @@ public class SettingEnemyDataEditor : Editor {
         1731,
         1804,
         1878,
-        1955,
+        1955 / 2,
         2026,
         2112,
         190080, // 56 Wave (7)
@@ -70,7 +70,7 @@ public class SettingEnemyDataEditor : Editor {
         2290,
         2382,
         2478,
-        2583,
+        2583 / 2,
         2664,
         2790,
         279000, // 56 Wave (8)
