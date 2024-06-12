@@ -47,7 +47,7 @@ public static class Config {
 #region GAME
     public const float GAMESPEED_NORMAL = 1.5f;
     public const int GAMESPEED_FAST = 3;
-    public const int GAMESPEED_ULTRA = 5;
+    public const float GAMESPEED_ULTRA = 4.5f;
 
     public const int MONSTER_CNT = 30;
     public const int BOSS_SPAWN_CNT = 8;
