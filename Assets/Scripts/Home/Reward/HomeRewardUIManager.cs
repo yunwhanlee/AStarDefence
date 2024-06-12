@@ -48,15 +48,15 @@ public class HomeRewardUIManager : MonoBehaviour {
                 // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium]),         // Chest Open
                 // new (EtcConsumableDatas[(int)Etc.ConsumableItem.Clover]),               // ✓ Active
                 // new (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover]),           // ✓ Active
-                new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present0],4),          // Reward Open
-                new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present1],5),          // Reward Open
-                new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present2],6),          // Reward Open
+                // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present0],4),          // Reward Open
+                // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present1],5),          // Reward Open
+                // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present2],6),          // Reward Open
 
                 // new (HM._.rwlm.RwdItemDt.WeaponDatas[5]),
                 // new (shoesDatas[3]),
-                // new (HM._.rwlm.RwdItemDt.WeaponDatas[0], quantity: 8),
-                // new (HM._.rwlm.RwdItemDt.WeaponDatas[2], quantity: 10),
-                // new (HM._.rwlm.RwdItemDt.WeaponDatas[3], quantity: 9),
+                new (HM._.rwlm.RwdItemDt.WeaponDatas[0], quantity: 8),
+                new (HM._.rwlm.RwdItemDt.WeaponDatas[2], quantity: 10),
+                new (HM._.rwlm.RwdItemDt.WeaponDatas[3], quantity: 9),
                 // new (HM._.rwlm.RwdItemDt.RelicDatas[0], 1, HM._.ivCtrl.InventoryData.CheckRelicAbilitiesData(HM._.rwlm.RwdItemDt.RelicDatas[0])),
 
             };

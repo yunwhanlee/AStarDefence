@@ -267,18 +267,22 @@ namespace Inventory.Model
                 //* 装置アイテム中で、マージができるのがあったら
                 if(item.Quantity >= Config.EQUIPITEM_MERGE_CNT) {
                     isMergable = true;
+                    if(item.IsEquip) {
+                        isMustUnEquip = true;
+                        typeName = Enum.GetItemTypeName(item.Data.Type);
+                    }
                 }
 
                 //* 着用した装置アイテムがあったら、同じタイプのアイテムを全て探す
-                if(item.IsEquip) {
-                    var type = item.Data.Type;
-                    List<InventoryItem> sameTypeEquipItems = invList.FindAll(invItem => !invItem.IsEmpty && invItem.Data?.Type != Enum.ItemType.Etc && invItem.Data?.Type == type);
+                // if(item.IsEquip) {
+                //     var type = item.Data.Type;
+                //     List<InventoryItem> sameTypeEquipItems = invList.FindAll(invItem => !invItem.IsEmpty && invItem.Data?.Type != Enum.ItemType.Etc && invItem.Data?.Type == type);
 
-                    //* この中でマージできる物があったら、装置解除のお知らせトリガーをONにする
-                    sameTypeEquipItems.ForEach(item => Debug.Log($"sameTypeEquipItems item= {item.Data.Name}"));
-                    isMustUnEquip = sameTypeEquipItems.Exists(item => item.Quantity >= Config.EQUIPITEM_MERGE_CNT);
-                    typeName = Enum.GetItemTypeName(item.Data.Type);
-                }
+                //     //* この中でマージできる物があったら、装置解除のお知らせトリガーをONにする
+                //     sameTypeEquipItems.ForEach(item => Debug.Log($"sameTypeEquipItems item= {item.Data.Name}"));
+                //     isMustUnEquip = sameTypeEquipItems.Exists(item => item.Quantity >= Config.EQUIPITEM_MERGE_CNT);
+                //     typeName = Enum.GetItemTypeName(item.Data.Type);
+                // }
             }
 
             //* 除外
@@ -344,6 +348,10 @@ namespace Inventory.Model
 
             //* イベントリーUI アップデート
             InformAboutChange();
+
+            //* 周り等級アイテムの数量によって、現在装置したEquipアイテムが消えることもあるため、Equipスロット４つも全て最新化
+            HM._.ivEqu.UpdateAllEquipSlots();
+
             //* 現在カテゴリ表示を再ロード ➝ ずれたスロットリストを正しく合わせる
             HM._.ivm.OnClickCateMenuIconBtn(HM._.ivm.CurCateIdx);
 
