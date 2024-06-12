@@ -303,8 +303,8 @@ namespace Inventory.UI {
 
             icon[OFF].SetActive(!isActive);
             icon[ON].SetActive(isActive);
-            EtcConfirmBtnTxt.text = isActive? "활성화" : "비활성화";
-            EtcConfirmBtnTxt.color = isActive? ActiveColor: Color.gray;
+            EtcConfirmBtnTxt.text = isActive? "비활성화하기" : "활성화하기";
+            EtcConfirmBtnTxt.color = isActive? Color.gray : ActiveColor;
         }
 
         public void SetConsumePopUpUI(string btnTxt, Etc.ConsumableItem type) {
