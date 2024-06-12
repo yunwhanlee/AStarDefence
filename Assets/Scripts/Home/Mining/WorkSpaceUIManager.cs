@@ -172,76 +172,76 @@ public class WorkSpaceUIManager : MonoBehaviour {
     }
 
     public void AcceptReward() {
-            Debug.Log($"ACCEPT MINING REWARD!! -> OreSpotDt.LvIdx= {CurWorkSpace.OreSpotDt.LvIdx}");
-            SM._.SfxPlay(SM.SFX.RewardSFX);
+        Debug.Log($"ACCEPT MINING REWARD!! -> OreSpotDt.LvIdx= {CurWorkSpace.OreSpotDt.LvIdx}");
+        SM._.SfxPlay(SM.SFX.RewardSFX);
 
-            //* リワード
-            RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
-            var rewardList = new List<RewardItem>();
-            switch(CurWorkSpace.OreSpotDt.LvIdx) {
-                case 0:
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 10));
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 100));
-                    rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present0], 1));
-                    break;
-                case 1:
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 20));
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 250));
-                    rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present0], 2));
-                    break;
-                case 2:
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 35));
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 500));
-                    rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present0], 3));
-                    break;
-                case 3:
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 60));
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 800));
-                    rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present1], 1));
-                    break;
-                case 4:
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 95));
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 1250));
-                    rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present1], 2));
-                    break;
-                case 5:
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 145));
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 2000));
-                    rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present1], 3));
-                    break;
-                case 6:
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 265));
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 4000));
-                    rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present2], 1));
-                    break;
-                case 7:
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 340));
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 7500));
-                    rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present2], 2));
-                    break;
-                case 8:
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 550));
-                    rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 10000));
-                    rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present2], 3));
-                    break;
-            }
+        //* リワード
+        RewardItemSO rwDt = HM._.rwlm.RwdItemDt;
+        var rewardList = new List<RewardItem>();
+        switch(CurWorkSpace.OreSpotDt.LvIdx) {
+            case 0:
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 10));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 100));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present0], 1));
+                break;
+            case 1:
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 20));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 250));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present0], 2));
+                break;
+            case 2:
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 35));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 500));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present0], 3));
+                break;
+            case 3:
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 60));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 800));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present1], 1));
+                break;
+            case 4:
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 95));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 1250));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present1], 2));
+                break;
+            case 5:
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 145));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 2000));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present1], 3));
+                break;
+            case 6:
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 265));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 4000));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present2], 1));
+                break;
+            case 7:
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 340));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 7500));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present2], 2));
+                break;
+            case 8:
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], 550));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 10000));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present2], 3));
+                break;
+        }
 
-            //* 初期化
-            CurWorkSpace.IsFinishWork = false;
-            HM._.mtm.RewardAuraEF.SetActive(false);
-            // ゴブリンアニメー
-            GoblinChrCtrl.StopGoblinAnim();
-            // スライダー UI
-            HM._.mtm.InitSlider();
-            // 鉱石スポット Off
-            CurWorkSpace.OreSpotDt.Init();
-            HM._.wsm.OreSpot.Show(isActive: false);
-            // 鉱石カード
-            Array.ForEach(HM._.mnm.OreCards, card => card.InitCheck());
+        //* 初期化
+        CurWorkSpace.IsFinishWork = false;
+        HM._.mtm.RewardAuraEF.SetActive(false);
+        // ゴブリンアニメー
+        GoblinChrCtrl.StopGoblinAnim();
+        // 鉱石スポット Off
+        CurWorkSpace.OreSpotDt.Init();
+        HM._.wsm.OreSpot.Show(isActive: false);
+        // スライダー UI
+        HM._.mtm.InitSlider();
+        // 鉱石カード
+        Array.ForEach(HM._.mnm.OreCards, card => card.InitCheck());
 
-            //* リワード表示
-            HM._.rwlm.ShowReward(rewardList);
-            // HM._.rwm.CoUpdateInventoryAsync(rewardList);
+        //* リワード表示
+        HM._.rwlm.ShowReward(rewardList);
+        // HM._.rwm.CoUpdateInventoryAsync(rewardList);
     }
 
 #endregion

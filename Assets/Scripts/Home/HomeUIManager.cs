@@ -170,8 +170,7 @@ public class HomeUIManager : MonoBehaviour {
                 : "스테이지";
 
             string msg = "게임을 이어서 하시겠습니까?"
-                + $"\n<size=85%>( {stageName}스테이지 {saveDt.Stage + 1}-{(int)saveDt.StageNum + 1}, 웨이브{Mathf.Max(1, saveDt.Wave)} )</size>"
-                + $"\n<size=70%><color=red>아니오 및 창을 닫을시, 이전 데이터는 지워집니다</color></size>";
+                + $"\n<size=85%>( {stageName}스테이지 {saveDt.Stage + 1}-{(int)saveDt.StageNum + 1}, 웨이브{Mathf.Max(1, saveDt.Wave)} )</size>";
             HM._.hui.ShowAgainAskMsg(msg, isActiveNoBtn: true);
 
             //* YES
