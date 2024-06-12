@@ -86,7 +86,7 @@ namespace Inventory.UI
 
             //* Equipスロットは対応しない（そのそのオブジェクトが付いていない）
             if(AlertRedDot) AlertRedDot.SetActive(false);
-            if(AlertRedDot) AlertGreenDot.SetActive(false);
+            if(AlertGreenDot) AlertGreenDot.SetActive(false);
             if(EquipDim) EquipDim.SetActive(false);
             if(BonusRewardLabel) BonusRewardLabel.SetActive(false);
             if(DoubleRewardLabel) DoubleRewardLabel.SetActive(false);
@@ -147,8 +147,8 @@ namespace Inventory.UI
                 LightImg.enabled = true;
                 if(EquipDim) EquipDim.SetActive(isEquip); //* EquipスロットはEquipDimオブジェクトがないため、合うかif文でチェック
 
-                //* マージ可能な物 表示
-                if(quantity >= Config.EQUIPITEM_MERGE_CNT) {
+                //* マージ可能な物 表示 (PRIME等級はしない)
+                if(quantity >= Config.EQUIPITEM_MERGE_CNT && grade < Enum.Grade.Prime) {
                     if(AlertGreenDot) AlertGreenDot.SetActive(true);
                     QuantityTxt.text = $"<color=green>{quantity}</color>";
                     HM._.ivm.AutoMergeBtnAlertIcon.SetActive(true);

@@ -12,17 +12,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5164a52482337a44833b84d48bdc2b2, type: 3}
   m_Name: InventoryData
   m_EditorClassIdentifier: 
-  ItemList:
-  - Quantity: 8
+  invList:
+  - Quantity: 1
     Lv: 1
-    Data: {fileID: 11400000, guid: fb02e075d4a22a746b11662f62cc7e34, type: 2}
+    Data: {fileID: 11400000, guid: 7dfa2a86e8ed75d4db19e61c0353d063, type: 2}
+    RelicAbilities: 
+    IsEquip: 1
+    IsNewAlert: 0
+  - Quantity: 1
+    Lv: 1
+    Data: {fileID: 11400000, guid: e7b16abc42e82fe45baa56fd63c41791, type: 2}
+    RelicAbilities: 
+    IsEquip: 1
+    IsNewAlert: 0
+  - Quantity: 1
+    Lv: 1
+    Data: {fileID: 11400000, guid: 0ac5f4bcd3ca16048be6774bec988e0e, type: 2}
     RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 1
-  - Quantity: 1
-    Lv: 1
-    Data: {fileID: 11400000, guid: 6e5c480b9535f9e4d938339604b4bdb1, type: 2}
-    RelicAbilities: 0c000000
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
   - Quantity: 0

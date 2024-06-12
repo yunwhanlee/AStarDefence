@@ -106,7 +106,7 @@ namespace Inventory.Model
         [field:Header("インベントリリスト")]
         [field: SerializeField] public List<InventoryItem> invList;
 
-        [field: SerializeField] public static int Size {get; private set;} = 50;
+        [field: SerializeField] public static int Size {get; private set;} = 55;
         public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated;
 
         public void Init() {
@@ -127,7 +127,18 @@ namespace Inventory.Model
 
         public int AddItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip = false, bool isNewAlert = false) {
             Debug.Log($"AddItem:: AddStackableItem():: ItemList[0].Empty= {invList[0].IsEmpty}");
-            quantity = AddStackableItem(item, quantity, lv, relicAbilities, isEquip, isNewAlert);
+            if(item.MaxStackSize > 1)
+                quantity = AddStackableItem(item, quantity, lv, relicAbilities, isEquip, isNewAlert);
+            else {
+                //* アイテム生成 (最初の初期化にも使う)
+                while(quantity > 0 && IsInventoryFull() == false) {
+                    Debug.Log($"AddStackableItem():: アイテム生成= {item.name}");
+                    int newQuantity = Mathf.Clamp(quantity, 0, item.MaxStackSize);
+                    quantity -= newQuantity;
+                    AddItemToFirstFreeSlot(item, newQuantity, lv, relicAbilities, isEquip, isNewAlert);
+                }
+            }
+
             InformAboutChange();
             return quantity;
         }
@@ -263,6 +274,10 @@ namespace Inventory.Model
             foreach(var item in invList) {
                 if(item.IsEmpty) continue;
                 if(item.Data.Type == Enum.ItemType.Etc) continue;
+                if(item.Data.Type != Enum.ItemType.Etc && item.Data.Grade == Enum.Grade.Prime) {
+                    Debug.Log($"AutoMergeEquipItem():: PRIMEのEQUIP= {item.Data.Name} マージする項目から除外!");
+                    continue;
+                }
 
                 //* 装置アイテム中で、マージができるのがあったら
                 if(item.Quantity >= Config.EQUIPITEM_MERGE_CNT) {
