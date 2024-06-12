@@ -146,6 +146,8 @@ public class HM : MonoBehaviour {
         //* 初期化
         SelectedStageIdx = 0;
         CurDay = DateTime.UtcNow.Day;
+        Time.timeScale = 1;
+        Debug.Log($"HM():: Awake():: timeScale= {Time.timeScale}");
     }
 
     void Start() {

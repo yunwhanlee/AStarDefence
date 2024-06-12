@@ -95,8 +95,9 @@ public class GameUIManager : MonoBehaviour {
     }
 
     void Start() {
-        Debug.Log("AA:: GameUIManager():: Start()");
         Time.timeScale = Config.GAMESPEED_NORMAL;
+        Debug.Log($"GameUIManager():: Start():: timeScale= {Time.timeScale}");
+
         playSpeedBtnTxt.text = $"X{Config.GAMESPEED_NORMAL}";
         CorMsgNoticeID = null;
         CorAutoWaitTimeID = null;
