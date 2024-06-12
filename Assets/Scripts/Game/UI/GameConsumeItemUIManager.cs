@@ -46,6 +46,7 @@ public class GameConsumeItemUIManager : MonoBehaviour {
     [field: SerializeField] public Image BagIconImg {get; set;}
     [field: SerializeField] public TMP_Text BagActiveTxt {get; set;}
     [field: SerializeField] public GameObject ConsumeItemBtnGroup {get; set;}
+    [field: SerializeField] public GameObject G_TutoConsumeBagMsgBubble {get; set;}
     private DOTweenAnimation ConsumeItemBtnGroupDOTAnim {get; set;}
     [field: SerializeField] public ConsumableItemBtn[] ConsumableItemBtns {get; set;}
     [field: SerializeField] public ParticleImage StreamPack0AuraUIEF {get; set;}
@@ -54,6 +55,8 @@ public class GameConsumeItemUIManager : MonoBehaviour {
     [field: SerializeField] public bool IsBagActive {get; set;}
 
     void Start() {
+        G_TutoConsumeBagMsgBubble.SetActive(DM._.DB.TutorialDB.IsActiveConsumeBag);
+
         ConsumeItemBtnGroupDOTAnim = ConsumeItemBtnGroup.GetComponent<DOTweenAnimation>();
 
         //* 初期化
@@ -63,10 +66,9 @@ public class GameConsumeItemUIManager : MonoBehaviour {
             item.QuantityTxt.text = "0";
         }
 
-        // Bag
-        IsBagActive = true;
-        BagIconImg.sprite = BagIconSprs[BAG_ACTIVE];
-        BagActiveTxt.text =  "ON";
+        //* Bag
+        IsBagActive = false;
+        ActiveBagUI();
 
         //* インベントリーからの消費アイテムの数 表示
         UpdateBtnQuantityTxt();
@@ -74,13 +76,18 @@ public class GameConsumeItemUIManager : MonoBehaviour {
 
 #region EVENT
     public void OnClickToogleBagIconBtn() {
-        IsBagActive = !IsBagActive;
-        BagIconImg.sprite = BagIconSprs[IsBagActive? BAG_ACTIVE : BAG_INACTIVE];
-        BagActiveTxt.text = IsBagActive? "ON" : "OFF";
-        ConsumeItemBtnGroup.SetActive(IsBagActive);
-        if(IsBagActive) {
-            ConsumeItemBtnGroupDOTAnim.DORestart();
+        if(!IsBagActive)
+            SM._.SfxPlay(SM.SFX.StageSelectSFX);
+        else
+            SM._.SfxPlay(SM.SFX.ClickSFX);
+
+        if(DM._.DB.TutorialDB.IsActiveConsumeBag) {
+            DM._.DB.TutorialDB.IsActiveConsumeBag = false;
+            G_TutoConsumeBagMsgBubble.SetActive(false);
         }
+
+        IsBagActive = !IsBagActive;
+        ActiveBagUI();
     }
     /// <summary>
     /// 消費アイテムをクリックして使うイベント
@@ -116,6 +123,15 @@ public class GameConsumeItemUIManager : MonoBehaviour {
 #endregion
 
 #region FUNC
+    private void ActiveBagUI() {
+        BagIconImg.sprite = BagIconSprs[IsBagActive? BAG_ACTIVE : BAG_INACTIVE];
+        BagActiveTxt.text = IsBagActive? "ON" : "OFF";
+        ConsumeItemBtnGroup.SetActive(IsBagActive);
+        if(IsBagActive) {
+            ConsumeItemBtnGroupDOTAnim.DORestart();
+        }
+    }
+
     private void UpdateBtnQuantityTxt() {
         foreach(var itemDt in GM._.InventoryData.invList) {
             if(itemDt.IsEmpty)

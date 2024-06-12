@@ -218,6 +218,11 @@ public class GM : MonoBehaviour {
             return;
         }
 
+        if(tmc.IsRealTimeTutoTrigger) {
+            gui.ShowMsgError("손가락이 가리키는 곳을 클릭해주세요.");
+            return;
+        }
+
         if(!IsReady) {
             SM._.SfxPlay(SM.SFX.ClickSFX);
             //* WAVE準備

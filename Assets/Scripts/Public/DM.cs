@@ -301,11 +301,13 @@ public class TutorialDB {
     [field:SerializeField] public bool IsActiveGameStart {get; set;}
     [field:SerializeField] public bool IsActiveEnemyInfo {get; set;}
     [field:SerializeField] public bool IsActiveMiningInfo {get; set;}
+    [field:SerializeField] public bool IsActiveConsumeBag {get; set;}
 
     public TutorialDB() {
         IsActiveGameStart = true;
         IsActiveEnemyInfo = true;
         IsActiveMiningInfo = true;
+        IsActiveConsumeBag = true;
     }
     public bool ActiveMiningInfoBubble() {
         return !IsActiveGameStart && !IsActiveEnemyInfo && IsActiveMiningInfo;
