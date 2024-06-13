@@ -47,8 +47,8 @@ public class StageUIManager : MonoBehaviour {
     [field:SerializeField] public GameObject NewStageAlertBtnObj;
     [field:SerializeField] public Sprite[] MapIconSprs;
     [field:SerializeField] public Image NewStageAlertMapImg;
-    // [field:SerializeField] public Sprite[] MapIconSprs;
     [field:SerializeField] public Image[] StageBtnBossImgs;
+    [field:SerializeField] public TMP_Text[] StageBtnLastBossNames;
     [field:SerializeField] public TMP_Text NewStageAlertTxt;
 
     [field:SerializeField] public GameObject StageGroup;
@@ -357,6 +357,10 @@ public class StageUIManager : MonoBehaviour {
         StageBtnBossImgs[0].sprite = stage1stEnemyDt.Waves[stage1stEnemyDt.Waves.Length - 1].Spr;
         StageBtnBossImgs[1].sprite = stage2ndEnemyDt.Waves[stage2ndEnemyDt.Waves.Length - 1].Spr;
         StageBtnBossImgs[2].sprite = stage3rdEnemyDt.Waves[stage3rdEnemyDt.Waves.Length - 1].Spr;
+
+        StageBtnLastBossNames[0].text = stage1stEnemyDt.Waves[stage1stEnemyDt.Waves.Length - 1].Name;
+        StageBtnLastBossNames[1].text = stage2ndEnemyDt.Waves[stage2ndEnemyDt.Waves.Length - 1].Name;
+        StageBtnLastBossNames[2].text = stage3rdEnemyDt.Waves[stage3rdEnemyDt.Waves.Length - 1].Name;
 
         //* StageNum Btns Unlock 表示
         Stage1_2LockedFrame.SetActive(DM._.DB.StageLockedDBs[selectStage].IsLockStage1_2);
