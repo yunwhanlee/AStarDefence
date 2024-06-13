@@ -21,6 +21,7 @@ public class GameUIManager : MonoBehaviour {
     public bool IsActiveAutoStart;
 
     [Header("STATIC UI")]
+    public GameObject DEBUGGroup;
     public Image playSpeedBtnImg;
     public TextMeshProUGUI playSpeedBtnTxt;
     public Sprite[] playSpeedBtnSprs;
@@ -96,6 +97,8 @@ public class GameUIManager : MonoBehaviour {
     }
 
     void Start() {
+        DEBUGGroup.SetActive(DM._.IsDebugMode);
+
         var db = DM._.DB;
         Time.timeScale = Config.GAMESPEED_NORMAL;
         Debug.Log($"GameUIManager():: Start():: timeScale= {Time.timeScale}");
@@ -135,8 +138,8 @@ public class GameUIManager : MonoBehaviour {
             + $"\n추가공격속도: {extraSpdPer * 100}%"
             + $"\n추가사정거리: {extraRangePer * 100}%"
             + $"\n추가치명타: {extraCritPer * 100}%"
-            + $"\n추가치명타데미지: {extraCritDmgPer * 100}"
-            + $"\n추가보스데미지: {extraBossDmgPer * 100}"
+            + $"\n추가치명타데미지: {extraCritDmgPer * 100}%"
+            + $"\n추가보스데미지: {extraBossDmgPer * 100}%"
 
             //* 下は０なら、非表示
             + $"{(wrExtraDmgPer > 0? $"\n전사 추가공격력: {wrExtraDmgPer * 100}%" : "")}"
@@ -182,24 +185,18 @@ public class GameUIManager : MonoBehaviour {
 #region EVENT
     #region DEBUG
     //! DEBUG トップのWAVEタイトルクリックすると、WAVE UP
-    Coroutine CorIntervalClickID = null;
     public void Debug_WaveUp() => WaveUp();
-    // public void Debug_PointerDown_IntervalWaveUp_Off() => CorIntervalClickID = StartCoroutine(CoIntervalWaveUp());
-    // public void Debug_PointerUp_IntervalWaveUp_On() => StopCoroutine(CorIntervalClickID);
-    // IEnumerator CoIntervalWaveUp() { //* 日程間隔でWAVEアップ
-    //     yield return Util.Time1;
-    //     while(true) {
-    //         yield return new WaitForSeconds(0.25f);
-    //         WaveUp();
-    //     }
-    // }
     private void WaveUp() {
+        if(!DM._.IsDebugMode) return;
+
         GM._.WaveCnt += 5;
         if(GM._.WaveCnt > GM._.MaxWave) GM._.WaveCnt = 0;
         WaveTxt.text = $"WAVE {GM._.WaveCnt} / {GM._.MaxWave}";
     }
 
     public void Debug_MeatUp() {
+        if(!DM._.IsDebugMode) return;
+
         GM._.Money += 20;
         MoneyTxt.text = $"{GM._.Money}";
     }

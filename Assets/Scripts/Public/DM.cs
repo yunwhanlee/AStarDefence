@@ -473,6 +473,7 @@ public class DM : MonoBehaviour {
     const string DAY_KEY = "DAY";
     [field: SerializeField] public bool IsReset {get; set;}
     [field: SerializeField] public bool IsInit {get; set;}
+    [field: SerializeField] public bool IsDebugMode {get; set;}
 
     //* スキルツリーデータ
     [field:Header("SKILL TREE DATA")]

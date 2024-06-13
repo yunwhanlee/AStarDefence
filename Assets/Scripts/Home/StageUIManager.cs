@@ -645,13 +645,13 @@ public class StageUIManager : MonoBehaviour {
 
 #region FUNC
     public void UpdateStageUnlockSignGroup() {
+        Debug.Log($"UpdateStageUnlockSignGroup():: HM._.SelectedStageIdx= {HM._.SelectedStageIdx}");
         const int FIRST_STG = 0, SECOND_STG = 1, THIRD_STG = 2;
         const int STG_SIGN_ICON = 0, LOCK_ICON = 1;
 
-        var selectStage = HM._.SelectedStageIdx;
-        var isLockStage1_1 = DM._.DB.StageLockedDBs[selectStage].IsLockStage1_1;
-        var isLockStage1_2 = DM._.DB.StageLockedDBs[selectStage].IsLockStage1_2;
-        var isLockStage1_3 = DM._.DB.StageLockedDBs[selectStage].IsLockStage1_3;
+        var isLockStage1_1 = DM._.DB.StageLockedDBs[HM._.SelectedStageIdx].IsLockStage1_1;
+        var isLockStage1_2 = DM._.DB.StageLockedDBs[HM._.SelectedStageIdx].IsLockStage1_2;
+        var isLockStage1_3 = DM._.DB.StageLockedDBs[HM._.SelectedStageIdx].IsLockStage1_3;
         StageUnlockSigns[FIRST_STG].GetChild(STG_SIGN_ICON).gameObject.SetActive(!isLockStage1_1);
         StageUnlockSigns[FIRST_STG].GetChild(LOCK_ICON).gameObject.SetActive(isLockStage1_1);
         StageUnlockSigns[SECOND_STG].GetChild(STG_SIGN_ICON).gameObject.SetActive(!isLockStage1_2);
