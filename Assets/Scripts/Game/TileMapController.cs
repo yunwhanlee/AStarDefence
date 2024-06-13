@@ -330,7 +330,7 @@ public class TileMapController : MonoBehaviour {
         Debug.Log("AA:: TileMapController():: SpawnWall()");
         var walls = GM._.StageDts[GM._.Stage].Walls;
         //* チュートリアル WALL固定！
-        if(DM._.DB.TutorialDB.IsActiveEnemyInfo)
+        if(DM._.DB.TutorialDB.IsActiveEnemyInfo && GM._.Stage == Config.Stage.STG1_FOREST)
         {
             Debug.Log("SpawnWall():: TUTO");
             const int OFS_Y = -2, OFS_X = -6;

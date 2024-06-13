@@ -80,18 +80,32 @@ public struct StageReward {
 [Serializable]
 public class StageLockedDB {
     [field:SerializeField] public string Name {get; private set;}
+    [field:SerializeField] public bool IsHiddenDungeon {get; set;}
     [field:SerializeField] public bool IsUnlockAlert {get; set;}
     [field:SerializeField] public StageReward[] StageRewards {get; set;}
     [field:SerializeField] public bool IsLockStage1_1 {get; set;}
     [field:SerializeField] public bool IsLockStage1_2 {get; set;}
     [field:SerializeField] public bool IsLockStage1_3 {get; set;}
     
-    public StageLockedDB(string name, bool islockStage1_1, bool islockStage1_2, bool islockStage1_3, StageReward[] stageRewards) {
+    public StageLockedDB(string name, bool isHiddenDungeon, bool islockStage1_1, bool islockStage1_2, bool islockStage1_3, StageReward[] stageRewards) {
         Name = name;
+        IsHiddenDungeon = isHiddenDungeon;
         IsLockStage1_1 = islockStage1_1;
         IsLockStage1_2 = islockStage1_2;
         IsLockStage1_3 = islockStage1_3;
         StageRewards = stageRewards;
+    }
+
+    public bool CheckIsUnlockStage() {
+        Debug.Log($"{this.Name} CheckIsUnlockStage():: lockStgs => {IsLockStage1_1}, {IsLockStage1_2}, {IsLockStage1_3}");
+        if(IsLockStage1_1 == false) 
+            return true;
+        if(IsLockStage1_2 == false) 
+            return true;
+        if(IsLockStage1_3 == false) 
+            return true;
+        else 
+            return false;
     }
 }
 
@@ -427,6 +441,26 @@ public class DB {
     [field:SerializeField] public int LuckySpinFreeAdCnt {get; set;}
     [field:SerializeField] public int GoldkeyFreeAdCnt {get; set;}
     [field:SerializeField] public int MiningFreeAdCnt {get; set;}
+
+    /// <summary>
+    /// 最後にクリアーしたステージIdxを返す
+    /// </summary>
+    public int GetLatestUnlockStageIdx() {
+        int stageIdx = 0;
+        int lastIdx = StageLockedDBs.Length - 1;
+        for(int i = lastIdx; i >= 0; i--) { // 逆順ループ
+            if(StageLockedDBs[i].IsHiddenDungeon)
+                continue;
+
+            if(StageLockedDBs[i].CheckIsUnlockStage()) {
+                stageIdx = i;
+                break;
+            }
+        }
+
+        Debug.Log($"GetLatestUnlockStageIdx():: stageIdx= {stageIdx}");
+        return stageIdx;
+    }
 }
 
 /// <summary>
@@ -638,12 +672,12 @@ public class DM : MonoBehaviour {
 
         //* Stages
         DB.StageLockedDBs = new StageLockedDB[6] {
-            new ("스테이지1. 초원", false, true, true, new StageReward[] {new (false, false), new (false, false), new (false, false)}),
-            new ("스테이지2. 황량한 사막", true, true, true, new StageReward[] {new (false, false), new (false, false), new (false, false)}),
-            new ("스테이지3. 침묵의 바다", true, true, true, new StageReward[] {new (false, false), new (false, false), new (false, false)}),
-            new ("스테이지4. 죽음의 던젼", true, true, true, new StageReward[] {new (false, false), new (false, false), new (false, false)}),
-            new ("스테이지5. 불타는 지옥", true, true, true, new StageReward[] {new (false, false), new (false, false), new (false, false)}),
-            new ("히든스테이지. 고블린 던전", false, false, false, new StageReward[] {new (false, false), new (false, false), new (false, false)}),
+            new ("스테이지1. 초원", isHiddenDungeon: false, false, true, true, new StageReward[] {new (false, false), new (false, false), new (false, false)}),
+            new ("스테이지2. 황량한 사막", isHiddenDungeon: false, true, true, true, new StageReward[] {new (false, false), new (false, false), new (false, false)}),
+            new ("스테이지3. 침묵의 바다", isHiddenDungeon: false, true, true, true, new StageReward[] {new (false, false), new (false, false), new (false, false)}),
+            new ("스테이지4. 죽음의 던젼", isHiddenDungeon: false, true, true, true, new StageReward[] {new (false, false), new (false, false), new (false, false)}),
+            new ("스테이지5. 불타는 지옥", isHiddenDungeon: false, true, true, true, new StageReward[] {new (false, false), new (false, false), new (false, false)}),
+            new ("히든스테이지. 고블린 던전", isHiddenDungeon: true, false, false, false, new StageReward[] {new (false, false), new (false, false), new (false, false)}),
         };
 
         //* Dungeon

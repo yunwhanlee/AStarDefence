@@ -144,7 +144,6 @@ public class HM : MonoBehaviour {
         frm = GameObject.Find("FameRewardUIManager").GetComponent<FameRewardUIManager>();
 
         //* 初期化
-        SelectedStageIdx = 0;
         CurDay = DateTime.UtcNow.Day;
         Time.timeScale = 1;
         Debug.Log($"HM():: Awake():: timeScale= {Time.timeScale}");
@@ -152,6 +151,7 @@ public class HM : MonoBehaviour {
 
     void Start() {
         DM._.LoadDt();
+        SelectedStageIdx = DM._.DB.GetLatestUnlockStageIdx();
         SM._.BgmPlay(SM.BGM.HomeBGM);
         TutoM._.InitHomeBubbleElements();
     }
