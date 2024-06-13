@@ -343,11 +343,11 @@ public class TutorialDB {
 [Serializable]
 public class InfiniteUpgradeDB {
     [field:SerializeField] public int MyBestWaveScore {get; set;}
-    public const float DmgUpgUnit = 0.05f;
+    public const float DmgUpgUnit = 0.03f;
     [field:SerializeField] public int DmgUpgLv {get; set;}
-    public const float CritDmgUpgUnit = 0.1f;
+    public const float CritDmgUpgUnit = 0.03f;
     [field:SerializeField] public int CritDmgUpgLv {get; set;}
-    public const float BossDmgUpgUnit = 0.1f;
+    public const float BossDmgUpgUnit = 0.04f;
     [field:SerializeField] public int BossDmgUpgLv {get; set;}
 
     public InfiniteUpgradeDB() {

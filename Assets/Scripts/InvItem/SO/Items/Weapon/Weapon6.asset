@@ -21,5 +21,5 @@ MonoBehaviour:
   <ItemImg>k__BackingField: {fileID: 243670450, guid: 94ef4134ce5490b4c8230961b5a4d6b8, type: 3}
   <Abilities>k__BackingField:
   - Type: 0
-    Val: 2.25
-    UpgradeVal: 0.08
+    Val: 1
+    UpgradeVal: 0.04

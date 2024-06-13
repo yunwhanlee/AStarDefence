@@ -51,20 +51,27 @@ public class WarriorTower : Tower {
         float extraPer = 0;
 
         //* SkillTree 追加ダメージ
-        if(!sktDb.IsLockWarriorSTs[(int)SKT_WR.EXTRA_DMG_A])
+        if(!sktDb.IsLockWarriorSTs[(int)SKT_WR.EXTRA_DMG_A]) {
             extraPer += sktDb.GetWarriorVal((int)SKT_WR.EXTRA_DMG_A);
-        if(!sktDb.IsLockWarriorSTs[(int)SKT_WR.EXTRA_DMG_B])
+            Debug.Log($"{this.Name} SetExtraDmg():: SKT_WR.EXTRA_DMG_A= {sktDb.GetWarriorVal((int)SKT_WR.EXTRA_DMG_A)}");
+        }
+        if(!sktDb.IsLockWarriorSTs[(int)SKT_WR.EXTRA_DMG_B]) {
             extraPer += sktDb.GetWarriorVal((int)SKT_WR.EXTRA_DMG_B);
+            Debug.Log($"{this.Name} SetExtraDmg():: SKT_WR.EXTRA_DMG_A= {sktDb.GetWarriorVal((int)SKT_WR.EXTRA_DMG_B)}");
+        }
 
         //* Euqip 追加ダメージ
         extraPer += DM._.DB.EquipDB.AttackPer;
+        Debug.Log($"{this.Name} SetExtraDmg():: AttackPer= {DM._.DB.EquipDB.AttackPer}");
         extraPer += DM._.DB.EquipDB.WarriorAttackPer;
 
         //* ユーザLVの追加ダメージ
         extraPer += DM._.DB.StatusDB.GetUserLvExtraDmgPercent();
+        Debug.Log($"{this.Name} SetExtraDmg():: UserLVExtraDmgPer= {DM._.DB.StatusDB.GetUserLvExtraDmgPercent()}");
 
         //* Infinite強化ダメージ
         extraPer += DM._.DB.InfiniteUpgradeDB.GetExtraDmgPercent();
+        Debug.Log($"{this.Name} SetExtraDmg():: InfiniteUpgradeDB= {DM._.DB.InfiniteUpgradeDB.GetExtraDmgPercent()}");
 
         //* DICIONARYへ追加
         if(extraPer > 0) {

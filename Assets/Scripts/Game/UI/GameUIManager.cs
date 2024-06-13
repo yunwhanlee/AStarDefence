@@ -56,6 +56,7 @@ public class GameUIManager : MonoBehaviour {
     public GameObject PausePopUp;
     public TextMeshProUGUI StageInfoTxt;
     public TextMeshProUGUI PauseExitGameTxt;
+    public TextMeshProUGUI PauseStatusInfoTxt;
     [SerializeField] public GameState previousState;
     [SerializeField] public float previousTimeScale;
 
@@ -95,6 +96,7 @@ public class GameUIManager : MonoBehaviour {
     }
 
     void Start() {
+        var db = DM._.DB;
         Time.timeScale = Config.GAMESPEED_NORMAL;
         Debug.Log($"GameUIManager():: Start():: timeScale= {Time.timeScale}");
 
@@ -107,6 +109,48 @@ public class GameUIManager : MonoBehaviour {
         TopMsgError.SetActive(false);
         ResetWallBtn.gameObject.SetActive(true);
         InitTextUI();
+
+        //* Set Bagic StatusInfoTxt At PuasePopUp
+        float extraDmgPer = db.EquipDB.AttackPer + db.StatusDB.GetUserLvExtraDmgPercent() + db.InfiniteUpgradeDB.GetExtraDmgPercent();
+        float extraSpdPer = db.EquipDB.SpeedPer;
+        float extraRangePer = db.EquipDB.RangePer;
+        float extraCritPer = db.EquipDB.CritPer;
+        float extraCritDmgPer = db.EquipDB.CritDmgPer + db.InfiniteUpgradeDB.GetExtraCritDmgPercent();
+        float extraBossDmgPer = db.InfiniteUpgradeDB.GetExtraBossDmgPercent();
+
+        float wrExtraDmgPer = db.EquipDB.WarriorAttackPer + db.SkillTreeDB.GetWarriorVal((int)SKT_WR.EXTRA_DMG_A) + db.SkillTreeDB.GetWarriorVal((int)SKT_WR.EXTRA_DMG_B);
+        float wrExtraSpdPer = db.SkillTreeDB.GetWarriorVal((int)SKT_WR.EXTRA_SPD);
+
+        float acExtraDmgPer = db.EquipDB.ArcherAttackPer + db.SkillTreeDB.GetArcherVal((int)SKT_AC.EXTRA_DMG_A) + db.SkillTreeDB.GetArcherVal((int)SKT_AC.EXTRA_DMG_B);
+        float acExtraRangePer = db.SkillTreeDB.GetWarriorVal((int)SKT_WR.EXTRA_RANGE);
+        float acExtraCritPer = db.SkillTreeDB.GetArcherVal((int)SKT_AC.CRIT_PER);
+        float acExtraCritDmgPer = db.SkillTreeDB.GetArcherVal((int)SKT_AC.CIRT_DMG_PER_A) + db.SkillTreeDB.GetArcherVal((int)SKT_AC.CIRT_DMG_PER_B);
+
+        float mgExtraDmgPer = db.EquipDB.MagicianAttackPer + db.SkillTreeDB.GetMagicianVal((int)SKT_MG.EXTRA_DMG_A) + db.SkillTreeDB.GetMagicianVal((int)SKT_MG.EXTRA_DMG_B);
+        float mgExtraRangePer = db.SkillTreeDB.GetMagicianVal((int)SKT_MG.EXTRA_RANGE);
+        float mgExtraCritPer = db.SkillTreeDB.GetMagicianVal((int)SKT_MG.CRIT_PER);
+
+        PauseStatusInfoTxt.text = "[ 기본 상태정보 ]"
+            + $"\n추가공격력: {extraDmgPer * 100}%"
+            + $"\n추가공격속도: {extraSpdPer * 100}%"
+            + $"\n추가사정거리: {extraRangePer * 100}%"
+            + $"\n추가치명타: {extraCritPer * 100}%"
+            + $"\n추가치명타데미지: {extraCritDmgPer * 100}"
+            + $"\n추가보스데미지: {extraBossDmgPer * 100}"
+
+            //* 下は０なら、非表示
+            + $"{(wrExtraDmgPer > 0? $"\n전사 추가공격력: {wrExtraDmgPer * 100}%" : "")}"
+            + $"{(wrExtraSpdPer > 0? $"\n전사 추가공격속도: {wrExtraSpdPer * 100}" : "")}"
+
+            + $"{(acExtraDmgPer > 0? $"\n궁수 추가공격력: {acExtraDmgPer * 100}" : "")}"
+            + $"{(acExtraRangePer > 0? $"\n궁수 추가사정거리: {acExtraRangePer * 100}" : "")}"
+            + $"{(acExtraCritPer > 0? $"\n궁수 추가치명타: {acExtraCritPer * 100}" : "")}"
+            + $"{(acExtraCritDmgPer > 0? $"\n궁수 추가치명타데미지: {acExtraCritDmgPer * 100}" : "")}"
+
+            + $"{(mgExtraDmgPer > 0? $"\n법사 추가공격력: {mgExtraDmgPer * 100}" : "")}"
+            + $"{(mgExtraRangePer > 0? $"\n법사 추가사정거리: {mgExtraRangePer * 100}" : "")}"
+            + $"{(mgExtraCritPer > 0? $"\n법사 추가치명타: {mgExtraCritPer * 100}" : "")}"
+        ;
 
         //* ステージ保存データロード
         if(DM._.DB.TutorialDB.IsActiveEnemyInfo) {

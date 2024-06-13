@@ -40,7 +40,7 @@ public class MagicianTower : Tower {
         float extraPer = 0;
 
         //* SkillTree 追加ダメージ
-        if(!sktDb.IsLockMagicianSTs[(int)SKT_MG.EXTRA_DMG_A])
+        if(!sktDb.IsLockMagicianSTs[(int)SKT_MG.EXTRA_DMG_A]) 
             extraPer += sktDb.GetMagicianVal((int)SKT_MG.EXTRA_DMG_A);
         if(!sktDb.IsLockMagicianSTs[(int)SKT_MG.EXTRA_DMG_B])
             extraPer += sktDb.GetMagicianVal((int)SKT_MG.EXTRA_DMG_B);
@@ -54,6 +54,8 @@ public class MagicianTower : Tower {
 
         //* Infinite強化ダメージ
         extraPer += DM._.DB.InfiniteUpgradeDB.GetExtraDmgPercent();
+
+        Debug.Log($"{this.Name} SetExtraDmg():: ExtraDmgPer= {extraPer}");
 
         //* DICIONARYへ追加
         if(extraPer > 0) {

@@ -46,6 +46,8 @@ public class ArcherTower : Tower {
         //* Infinite強化ダメージ
         extraPer += DM._.DB.InfiniteUpgradeDB.GetExtraDmgPercent();
 
+        Debug.Log($"{this.Name} SetExtraDmg():: ExtraDmgPer= {extraPer}");
+
         //* DICIONARYへ追加
         if(extraPer > 0) {
             int extraDmg = Mathf.RoundToInt(TowerData.Dmg * extraPer);
