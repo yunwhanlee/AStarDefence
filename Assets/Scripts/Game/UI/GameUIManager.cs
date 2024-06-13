@@ -103,7 +103,7 @@ public class GameUIManager : MonoBehaviour {
         CorAutoWaitTimeID = null;
         IsActiveAutoStart = false;
         previousState = GameState.Ready;
-        previousTimeScale = 1;
+        previousTimeScale = Config.GAMESPEED_NORMAL;
         TopMsgError.SetActive(false);
         ResetWallBtn.gameObject.SetActive(true);
         InitTextUI();
@@ -291,17 +291,16 @@ public class GameUIManager : MonoBehaviour {
     }
 
     public void OnClickPlaySpeedBtn() {
-        Debug.Log($"OnClickPlaySpeedBtn()::");
+        Debug.Log($"OnClickPlaySpeedBtn():: timeScale= {Time.timeScale}");
         SM._.SfxPlay(SM.SFX.ClickSFX);
         const int OFF = 0, ON = 1;
-
-        var time = Time.timeScale;
+        
         //* タイム速度
-        if(time == Config.GAMESPEED_NORMAL) {
+        if(Time.timeScale == Config.GAMESPEED_NORMAL) {
             Time.timeScale = Config.GAMESPEED_FAST;
             SetPlaySpeedBtnUI(playSpeedBtnSprs[ON], Time.timeScale);
         }
-        else if(time == Config.GAMESPEED_FAST) {
+        else if(Time.timeScale == Config.GAMESPEED_FAST) {
             if(GM._.IsActiveSpeedUp) {
                 Time.timeScale = Config.GAMESPEED_ULTRA;
                 SetPlaySpeedBtnUI(playSpeedBtnSprs[ON], Time.timeScale);

@@ -175,9 +175,9 @@ MonoBehaviour:
     <Lv>k__BackingField: 23
     <Hp>k__BackingField: 477
     <Speed>k__BackingField: 1.5
-  - <Name>k__BackingField: "\uC232\uAD00\uB9AC\uC790"
+  - <Name>k__BackingField: "\uCF54\uBFD4\uAD34\uC218\uC804\uC0AC"
     <Type>k__BackingField: 2
-    <Spr>k__BackingField: {fileID: -1751026566, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
+    <Spr>k__BackingField: {fileID: 2061086723, guid: 31ba4133fa1cdb943a75734d1ed45475, type: 3}
     <SprLibAst>k__BackingField: {fileID: 0}
     <Lv>k__BackingField: 24
     <Hp>k__BackingField: 23850

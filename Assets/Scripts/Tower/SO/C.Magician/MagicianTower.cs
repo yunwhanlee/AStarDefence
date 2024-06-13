@@ -186,6 +186,7 @@ public class MagicianTower : Tower {
     }
 
     public void Skill1_Explosion(Enemy target) {
+        if(!this) return;
         const float RADIUS = 1;
 
         //* 発動％にならなかったら、終了

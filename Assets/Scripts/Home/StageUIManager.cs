@@ -47,6 +47,8 @@ public class StageUIManager : MonoBehaviour {
     [field:SerializeField] public GameObject NewStageAlertBtnObj;
     [field:SerializeField] public Sprite[] MapIconSprs;
     [field:SerializeField] public Image NewStageAlertMapImg;
+    // [field:SerializeField] public Sprite[] MapIconSprs;
+    [field:SerializeField] public Image[] StageBtnBossImgs;
     [field:SerializeField] public TMP_Text NewStageAlertTxt;
 
     [field:SerializeField] public GameObject StageGroup;
@@ -332,6 +334,7 @@ public class StageUIManager : MonoBehaviour {
     /// ステージ選択
     /// </summary>
     public void OnClickSelectStageBtn() {
+        Debug.Log("OnClickSelectStageBtn()::");
         var selectStage = HM._.SelectedStageIdx;
 
         HM._.hui.IsActivePopUp = true;
@@ -343,9 +346,17 @@ public class StageUIManager : MonoBehaviour {
         StageNumBtnTxts[2].text = $"{selectStage + 1} - 3";
 
         //* StageNum Enemy Hp Ratio Txt 表示
-        StageNumBtnHpRatioTxts[0].text = $"몬스터 체력 {StageEnemyDatas[3 * selectStage + 0].HpRatio * 100}%";
-        StageNumBtnHpRatioTxts[1].text = $"몬스터 체력 {StageEnemyDatas[3 * selectStage + 1].HpRatio * 100}%";
-        StageNumBtnHpRatioTxts[2].text = $"몬스터 체력 {StageEnemyDatas[3 * selectStage + 2].HpRatio * 100}%";
+        SettingEnemyData stage1stEnemyDt = StageEnemyDatas[3 * selectStage + 0];
+        SettingEnemyData stage2ndEnemyDt = StageEnemyDatas[3 * selectStage + 1];
+        SettingEnemyData stage3rdEnemyDt = StageEnemyDatas[3 * selectStage + 2];
+
+        StageNumBtnHpRatioTxts[0].text = $"몬스터 체력 {stage1stEnemyDt.HpRatio * 100}%";
+        StageNumBtnHpRatioTxts[1].text = $"몬스터 체력 {stage2ndEnemyDt.HpRatio * 100}%";
+        StageNumBtnHpRatioTxts[2].text = $"몬스터 체력 {stage3rdEnemyDt.HpRatio * 100}%";
+
+        StageBtnBossImgs[0].sprite = stage1stEnemyDt.Waves[stage1stEnemyDt.Waves.Length - 1].Spr;
+        StageBtnBossImgs[1].sprite = stage2ndEnemyDt.Waves[stage2ndEnemyDt.Waves.Length - 1].Spr;
+        StageBtnBossImgs[2].sprite = stage3rdEnemyDt.Waves[stage3rdEnemyDt.Waves.Length - 1].Spr;
 
         //* StageNum Btns Unlock 表示
         Stage1_2LockedFrame.SetActive(DM._.DB.StageLockedDBs[selectStage].IsLockStage1_2);
