@@ -149,7 +149,7 @@ public abstract class Tower : MonoBehaviour {
 
         if(trc.CurTarget && CorAttack == null) {
             var enemy = trc.CurTarget.GetComponent<Enemy>();
-            Debug.Log($"ATTACK START! enemy.Hp= {enemy.Hp}");
+            Debug.Log($"ATTACK START! tower= {this.Name}, enemy.Hp= {enemy.Hp}");
             CorAttack = StartCoroutine(CoAttack());
         }
         //TODO ステージ終わったら、STOP処理

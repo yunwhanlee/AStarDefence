@@ -36,6 +36,8 @@ public class WarriorTower : Tower {
 
     [field:SerializeField] public bool IsRoarActive {get; set;}
 
+    [field:SerializeField] public List<Tower> allTowerList {get; set;}
+
     bool isDrawGizmos;
     Vector2 gizmosPos;
 
@@ -308,12 +310,14 @@ public class WarriorTower : Tower {
         CheerUpSpdUp = (float)(TowerData.AtkSpeed * SK3_CheerUpDmgSpdIncPers[LvIdx]);
 
         //* 全てタワーを探す
-        List<Tower> allTowerList = GM._.tm.GetAllTower();
+        // List<Tower> allTowerList = GM._.tm.GetAllTower();
+        allTowerList = GM._.tm.GetAllTower();
 
         //* 全てタワー
         allTowerList.ForEach(tower => {
             //* スタイル変更
-            Util._.SetRedMt(tower.BodySprRdr);
+            if(tower)
+                Util._.SetRedMt(tower.BodySprRdr);
 
             //* 追加タメージ
             int extraDmg = (int)(tower.TowerData.Dmg * SK3_CheerUpDmgSpdIncPers[LvIdx]);
@@ -350,7 +354,8 @@ public class WarriorTower : Tower {
 
         if(GM._.tmc.HitObject != null) {
             Debug.Log($"CoSkill3_CheerUp():: GM._.tmc.HitObject= {GM._.tmc.HitObject.name}");
-            if(isRandomTower)
+            var board = GM._.tmc.HitObject.GetComponent<Board>();
+            if(isRandomTower && board.IsTowerOn)
                 GM._.gui.tsm.ShowTowerStateUI(GM._.tmc.HitObject.GetComponentInChildren<Tower>().InfoState());
         }
 
