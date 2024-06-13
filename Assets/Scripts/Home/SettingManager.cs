@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -84,9 +85,13 @@ public class SettingManager : MonoBehaviour {
         HM._.hui.ShowAgainAskMsg("게임을 종료하시겠습니까?");
         HM._.hui.OnClickAskConfirmAction = () => {
             #if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
+                EditorApplication.isPlaying = false;
+                DM._.DB.LastDateTicks = DateTime.UtcNow.Ticks; //* 終了した日にち時間データをTicks(longタイプ)で保存
+                DM._.Save();
             #else
                 Application.Quit();
+                DM._.DB.LastDateTicks = DateTime.UtcNow.Ticks; //* 終了した日にち時間データをTicks(longタイプ)で保存
+                DM._.Save();
             #endif
         };
     }

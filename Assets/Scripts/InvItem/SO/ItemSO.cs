@@ -6,7 +6,7 @@ using System;
 
 namespace Inventory.Model {
     [Serializable]
-    public class AbilityData {
+    public class AbilityData : IEnumerable {
         public AbilityType Type;
         public float Val;
         public float UpgradeVal;
@@ -16,7 +16,18 @@ namespace Inventory.Model {
             Val = val;
             UpgradeVal = upgVal;
         }
+
+        // IEnumerable<AbilityData> 구현
+        public IEnumerator<AbilityData> GetEnumerator() {
+            yield return this;
+        }
+
+        // IEnumerable 구현 (비제네릭)
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
+        }
     }
+
     [CreateAssetMenu]
     public class ItemSO : ScriptableObject {
         [field: SerializeField] public bool IsNoshowInventory { get; set; }

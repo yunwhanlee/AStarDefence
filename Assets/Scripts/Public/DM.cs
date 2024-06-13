@@ -544,13 +544,13 @@ public class DM : MonoBehaviour {
 #region QUIT APP EVENT
 /// -----------------------------------------------------------------------------------------------------------------
 #if UNITY_EDITOR
-    private void OnApplicationQuit() {
+    public void OnApplicationQuit() {
         Debug.Log("<color=yellow>QUIT APP(PC)::OnApplicationQuit():: SAVE</color>");
         DB.LastDateTicks = DateTime.UtcNow.Ticks; //* 終了した日にち時間データをTicks(longタイプ)で保存
         Save();
     }
 #elif UNITY_ANDROID
-    private void OnApplicationPause(bool paused){
+    public void OnApplicationPause(bool paused){
         //* ゲームが開くとき（paused == true）にも起動されるので注意が必要。
         if(paused == true) {
             // Debug.Log("<color=yellow>QUIT APP(Mobile)::OnApplicationPause( "+paused+" ):: Scene= " + SceneManager.GetActiveScene().name);
