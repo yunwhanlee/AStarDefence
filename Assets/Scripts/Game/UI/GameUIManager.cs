@@ -236,21 +236,19 @@ public class GameUIManager : MonoBehaviour {
         PausePopUp.SetActive(false);
     }
     public void OnClickGameoverExitGameBtn() {
-        GoHome();
+        if(GM._.IsInfiniteDungeonGameover) {
+            SM._.SfxPlay(SM.SFX.ClickSFX);
+            GameoverPopUp.SetActive(false);
+            GM._.Victory();
+            Ads_ClaimX2Btn.gameObject.SetActive(false);
+            VictoryTitleTxt.text = $"돌파한 층수: {GM._.WaveCnt}층";
+            Time.timeScale = 0;
+            return;
+        }
     }
     public void OnClickPausePopUp_ExitGameBtn() {
         //* きれつダンジョンの時、出るボタンをリワード得ることにする
         if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON) {
-            if(GM._.IsInfiniteDungeonGameover) {
-                SM._.SfxPlay(SM.SFX.ClickSFX);
-                GameoverPopUp.SetActive(false);
-                GM._.Victory();
-                Ads_ClaimX2Btn.gameObject.SetActive(false);
-                VictoryTitleTxt.text = $"돌파한 층수: {GM._.WaveCnt}층";
-                Time.timeScale = 0;
-                return;
-            }
-
             if(GM._.WaveCnt < 3) {
                 GoHome();
                 return;
@@ -393,7 +391,7 @@ public class GameUIManager : MonoBehaviour {
                 Debug.Log($"OnClickAdsReviveBtn():: isBoss= {isBoss}");
                 for(int i = 0; i < enemyGroup.childCount; i++) {
                     Enemy enemy = enemyGroup.GetChild(i).GetComponent<Enemy>();
-                    enemy.DecreaseHp(999999);
+                    enemy.DecreaseHp(999999999);
                 }
             }
 
