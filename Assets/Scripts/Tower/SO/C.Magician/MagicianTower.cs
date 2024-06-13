@@ -11,13 +11,13 @@ using Random = UnityEngine.Random;
 public class MagicianTower : Tower {
     public static readonly int[] SK1_ExplosionLvActivePers = new int[6] {0, 0, 20, 25, 30, 35};
     public static readonly int[] SK2_MagicCircleActivePers = new int[6] {0, 0, 0, 10, 15, 20};
-    public static readonly float[] SK2_MagicCircleDmgPers = new float[6] {0, 0, 0, 0.1f, 0.2f, 0.3f};
+    public static readonly float[] SK2_MagicCircleDmgPers = new float[6] {0, 0, 0, 0.1f, 0.15f, 0.2f};
 
     public static readonly float[] SK3_LaserSpans = new float[6] {0, 0, 0, 0, 10, 8};
-    public static readonly float[] SK3_LaserDmgPers = new float[6] {0, 0, 0, 0, 0.5f, 0.8f};
+    public static readonly float[] SK3_LaserDmgPers = new float[6] {0, 0, 0, 0, 0.3f, 0.4f};
 
     public static readonly float[] SK4_BigbangSpans = new float[6] {0, 0, 0, 0, 0, 15};
-    public static readonly float[] SK4_BigbangDmgs = new float[6] {0, 0, 0, 0, 0, 1.0f};
+    public static readonly float[] SK4_BigbangDmgs = new float[6] {0, 0, 0, 0, 0, 0.5f};
 
     public GameObject BigbangEF;
     [field:SerializeField] public bool IsMagicCircleOneTime {get; set;}

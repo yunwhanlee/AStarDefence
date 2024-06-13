@@ -13,13 +13,13 @@ public class WarriorTower : Tower {
     public static readonly float[] SK1_RageTime = new float[6] {0, 0, 2.25f, 2.5f, 2.75f, 3f};
 
     public static readonly float[] SK2_WheelwindActivePers = new float[6] {0, 0, 0, 10, 12, 15};
-    public static readonly float[] SK2_WheelwindDmgPers = new float[6] {0, 0, 0, 0.5f, 0.7f, 0.9f};
+    public static readonly float[] SK2_WheelwindDmgPers = new float[6] {0, 0, 0, 0.3f, 0.45f, 0.6f};
 
     public static readonly float[] SK3_CheerUpSpans = new float[6] {0, 0, 0, 0, 15, 12};
     public static readonly float[] SK3_CheerUpDmgSpdIncPers = new float[6] {0, 0, 0, 0, 0.1f, 0.15f};
 
     public static readonly float[] SK4_RoarSpans = new float[6] {0, 0, 0, 0, 0, 15};
-    public static readonly float[] SK4_RoarDmgPers = new float[6] {0, 0, 0, 0, 0, 1.5f};
+    public static readonly float[] SK4_RoarDmgPers = new float[6] {0, 0, 0, 0, 0, 0.8f};
 
     public GameObject RageAuraEF;
     public GameObject WheelwindEF;
@@ -386,7 +386,7 @@ public class WarriorTower : Tower {
             int dmg = Mathf.RoundToInt(Dmg * SK4_RoarDmgPers[LvIdx]);
             enemy.DecreaseHp(dmg);
             if(enemy != null && enemy.gameObject.activeSelf)
-                enemy.Stun(1.5f);
+                enemy.Stun(1);
         }
 
         //* スキルEF 非表示
