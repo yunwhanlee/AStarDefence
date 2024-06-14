@@ -242,6 +242,9 @@ public class GameUIManager : MonoBehaviour {
     }
 
     public IEnumerator CoCountAutoWaitTime() {
+        //* Play途中で切り替えても、Waveが終わるまで待つ
+        yield return new WaitUntil(() => GM._.State == GameState.Ready);
+
         AutoWaitTimeTxt.text = "3";
         SM._.SfxPlay(SM.SFX.CountdownSFX);
         yield return Util._.Get1SecByTimeScale();
@@ -284,7 +287,9 @@ public class GameUIManager : MonoBehaviour {
             Ads_ClaimX2Btn.gameObject.SetActive(false);
             VictoryTitleTxt.text = $"돌파한 층수: {GM._.WaveCnt}층";
             Time.timeScale = 0;
-            return;
+        }
+        else {
+            GoHome();
         }
     }
     public void OnClickPausePopUp_ExitGameBtn() {

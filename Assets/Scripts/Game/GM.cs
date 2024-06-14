@@ -573,11 +573,17 @@ public class GM : MonoBehaviour {
 
     public void Gameover() {
         const int FIXED_REWARD = -1;
-        Time.timeScale = Config.GAMESPEED_NORMAL;
+        SM._.SfxPlay(SM.SFX.GameoverSFX);
         State = GameState.Gameover;
 
-        SM._.SfxPlay(SM.SFX.GameoverSFX);
         gui.GameoverPopUp.SetActive(true);
+        Time.timeScale = Config.GAMESPEED_NORMAL;
+        gui.IsActiveAutoStart = false;
+        gui.AutoBtnTxt.color = Color.white;
+        gui.StartBtn.interactable = true;
+
+        StopCoroutine(gui.CoCountAutoWaitTime());
+
 
         //* ゴブリンダンジョン
         if(Stage == Config.Stage.STG_GOBLIN_DUNGEON) {
