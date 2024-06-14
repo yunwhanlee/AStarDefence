@@ -51,12 +51,12 @@ public class LevelUpManager : MonoBehaviour {
         ExraDmgValTxt.text = $"{DM._.DB.StatusDB.GetUserLvExtraDmgPercent() * 100}%";
     }
 
-    void Update() {
-        if(Input.GetKeyDown(KeyCode.S)) {
-            Exp += 10;
-            CheckLevelUp();
-        }
-    }
+    // void Update() {
+    //     if(Input.GetKeyDown(KeyCode.S)) {
+    //         Exp += 10;
+    //         CheckLevelUp();
+    //     }
+    // }
 
 #region EVENT
     public void OnClickLevelUpIconAtHome() {
