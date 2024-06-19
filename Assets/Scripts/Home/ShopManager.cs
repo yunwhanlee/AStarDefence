@@ -100,7 +100,7 @@ public class ShopManager : MonoBehaviour {
                 HM._.Mileage += 99;
                 break;
             case LevelUpSupport:
-                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], 15));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.GoldKey], 20));
                 rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Clover], 20));
                 rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover], 20));
                 rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack0], 10));

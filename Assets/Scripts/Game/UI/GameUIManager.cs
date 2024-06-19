@@ -143,16 +143,16 @@ public class GameUIManager : MonoBehaviour {
 
             //* 下は０なら、非表示
             + $"{(wrExtraDmgPer > 0? $"\n전사 추가공격력: {wrExtraDmgPer * 100}%" : "")}"
-            + $"{(wrExtraSpdPer > 0? $"\n전사 추가공격속도: {wrExtraSpdPer * 100}" : "")}"
+            + $"{(wrExtraSpdPer > 0? $"\n전사 추가공격속도: {wrExtraSpdPer * 100}%" : "")}"
 
-            + $"{(acExtraDmgPer > 0? $"\n궁수 추가공격력: {acExtraDmgPer * 100}" : "")}"
-            + $"{(acExtraRangePer > 0? $"\n궁수 추가사정거리: {acExtraRangePer * 100}" : "")}"
-            + $"{(acExtraCritPer > 0? $"\n궁수 추가치명타: {acExtraCritPer * 100}" : "")}"
-            + $"{(acExtraCritDmgPer > 0? $"\n궁수 추가치명타데미지: {acExtraCritDmgPer * 100}" : "")}"
+            + $"{(acExtraDmgPer > 0? $"\n궁수 추가공격력: {acExtraDmgPer * 100}%" : "")}"
+            + $"{(acExtraRangePer > 0? $"\n궁수 추가사정거리: {acExtraRangePer * 100}%" : "")}"
+            + $"{(acExtraCritPer > 0? $"\n궁수 추가치명타: {acExtraCritPer * 100}%" : "")}"
+            + $"{(acExtraCritDmgPer > 0? $"\n궁수 추가치명타데미지: {acExtraCritDmgPer * 100}%" : "")}"
 
-            + $"{(mgExtraDmgPer > 0? $"\n법사 추가공격력: {mgExtraDmgPer * 100}" : "")}"
-            + $"{(mgExtraRangePer > 0? $"\n법사 추가사정거리: {mgExtraRangePer * 100}" : "")}"
-            + $"{(mgExtraCritPer > 0? $"\n법사 추가치명타: {mgExtraCritPer * 100}" : "")}"
+            + $"{(mgExtraDmgPer > 0? $"\n법사 추가공격력: {mgExtraDmgPer * 100}%" : "")}"
+            + $"{(mgExtraRangePer > 0? $"\n법사 추가사정거리: {mgExtraRangePer * 100}%" : "")}"
+            + $"{(mgExtraCritPer > 0? $"\n법사 추가치명타: {mgExtraCritPer * 100}%" : "")}"
         ;
 
         //* ステージ保存データロード
