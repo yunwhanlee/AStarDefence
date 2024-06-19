@@ -90,7 +90,7 @@ public class HomeUIManager : MonoBehaviour {
         TitlePopUp.gameObject.SetActive(false);
     }
     public void OnClickThanksForPlayingConfirmBtn() {
-        const string NOTION_URL = "https://www.notion.so/A-Defence-2a40adca8a77420c80a6db623a89083f?pvs=4";
+        const string NOTION_URL = "https://play.google.com/store/apps/details?id=com.frontooth.AStarDefence";
         Application.OpenURL(NOTION_URL);
         ThanksForPlayingPopUp.SetActive(false);
     }
