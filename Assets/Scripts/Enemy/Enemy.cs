@@ -62,8 +62,15 @@ public abstract class Enemy : MonoBehaviour {
 
         //* 飛ぶタイプ
         if(Type == EnemyType.Flight) {
-            Vector2 goalDir = GM._.pfm.goalPos;
-            transform.Translate(Speed * Time.deltaTime * goalDir.normalized);
+            const float INFINITE_FLIGHT_Y_OFFSET = 0.5f;
+            var infTgPos = GM._.pfm.infiniteTargetPosObj.transform.position;
+
+            Vector2 goalPos = (GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON)? 
+                new Vector2(infTgPos.x, infTgPos.y + INFINITE_FLIGHT_Y_OFFSET)
+                : GM._.pfm.goalPos;
+
+            // Debug.Log("Enemy Flight GoalPos= " + goalPos);
+            transform.Translate(Speed * Time.deltaTime * goalPos.normalized);
 
             //* 敵がゴールへ届いた
             if(transform.position.x > GM._.pfm.goalPos.x

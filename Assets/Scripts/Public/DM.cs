@@ -553,6 +553,10 @@ public class DM : MonoBehaviour {
         //* ゲームが開くとき（paused == true）にも起動されるので注意が必要。
         if(paused == true) {
             // Debug.Log("<color=yellow>QUIT APP(Mobile)::OnApplicationPause( "+paused+" ):: Scene= " + SceneManager.GetActiveScene().name);
+
+            DB.LastDateTicks = DateTime.UtcNow.Ticks; //* 終了した日にち時間データをTicks(longタイプ)で保存
+            Save();
+
             //* 途中でアプリを閉じても、ステージプレイ中だったら、セーブを試す
             if(GM._ != null && GM._.WaveCnt >= 3) {
                 if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON) {
@@ -567,10 +571,6 @@ public class DM : MonoBehaviour {
                     DB.StageTileMapSaveDt.SaveDt();
                 }
             }
-
-            DB.LastDateTicks = DateTime.UtcNow.Ticks; //* 終了した日にち時間データをTicks(longタイプ)で保存
-            Save();
-
         }
     }
 #endif

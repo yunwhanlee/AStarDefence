@@ -273,6 +273,22 @@ public class GM : MonoBehaviour {
                 InventoryUIItem rwdItemUI = rwlm.VictoryContent.GetChild(i).GetComponent<InventoryUIItem>();
                 rwdItemUI.DoubleRewardLabel.SetActive(true);
             }
+
+            //! (BUG) 広告見たら、Saveデータが残り、最後ボースが続ける
+            int stageIdx = DM._.SelectedStage;
+            Debug.Log($"OnClickClaimX2AdBtn():: stageIdx= {DM._.SelectedStage}");
+            if(stageIdx == Config.Stage.STG1_FOREST
+            || stageIdx == Config.Stage.STG2_DESERT
+            || stageIdx == Config.Stage.STG3_SEA
+            || stageIdx == Config.Stage.STG4_UNDEAD
+            || stageIdx == Config.Stage.STG5_HELL) {
+                //* ステージタイルマップ保存データ リセット
+                DM._.DB.StageTileMapSaveDt.Reset();
+            }
+            else if(stageIdx == Config.Stage.STG_INFINITE_DUNGEON) {
+                //* ステージタイルマップ保存データ リセット
+                DM._.DB.InfiniteTileMapSaveDt.Reset();
+            }
         });
     }
 #endregion
