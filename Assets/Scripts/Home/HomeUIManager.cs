@@ -93,6 +93,13 @@ public class HomeUIManager : MonoBehaviour {
         const string NOTION_URL = "https://play.google.com/store/apps/details?id=com.frontooth.AStarDefence";
         Application.OpenURL(NOTION_URL);
         ThanksForPlayingPopUp.SetActive(false);
+
+        //* Reward Diamond
+        var rewardList = new List<RewardItem> {
+            new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], 150)
+        };
+
+        HM._.rwlm.ShowReward(rewardList);
     }
 
     public void OnClickCloverToggleIconBtn() {
