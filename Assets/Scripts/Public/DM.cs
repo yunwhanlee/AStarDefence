@@ -469,8 +469,8 @@ public class DM : MonoBehaviour {
     const string DB_KEY = "DB";
     const string PASSEDTIME_KEY = "PASSED_TIME";
     const string DAY_KEY = "DAY";
-    [field: SerializeField] public bool IsReset {get; set;}
-    [field: SerializeField] public bool IsInit {get; set;}
+    // [field: SerializeField] public bool IsReset {get; set;}
+    // [field: SerializeField] public bool IsInit {get; set;}
     [field: SerializeField] public bool IsDebugMode {get; set;}
 
     //* スキルツリーデータ
@@ -525,9 +525,9 @@ public class DM : MonoBehaviour {
             HM._.hui.TitlePopUp.SetActive(true);
     }
 
-    void LateUpdate() {
-        IsInit = true;
-    }
+    // void LateUpdate() {
+    //     IsInit = true;
+    // }
 /// -----------------------------------------------------------------------------------------------------------------
 #region PASSED DATE TIME (DAILY RESET)
 /// -----------------------------------------------------------------------------------------------------------------
@@ -614,7 +614,7 @@ public class DM : MonoBehaviour {
 #region RESET
 /// -----------------------------------------------------------------------------------------------------------------
     public void Reset() {
-        IsReset = true; //* リセットしたら、InventoryControllerのStart()からLoadDt()が呼び出して、InvItemDBsがNullになるエラー防止
+        // IsReset = true; //* リセットしたら、InventoryControllerのStart()からLoadDt()が呼び出して、InvItemDBsがNullになるエラー防止
         PlayerPrefs.DeleteAll();
         Debug.Log($"★RESET:: PlayerPrefs.DeleteAll():: PlayerPrefs.HasKey({DB_KEY}) -> {PlayerPrefs.HasKey(DB_KEY)}");
         Init();
