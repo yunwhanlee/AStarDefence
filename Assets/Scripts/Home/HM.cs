@@ -150,7 +150,7 @@ public class HM : MonoBehaviour {
     }
 
     void Start() {
-        DM._.LoadDt();
+        // DM._.LoadDt();
         SelectedStageIdx = DM._.DB.GetLatestUnlockStageIdx();
         SM._.BgmPlay(SM.BGM.HomeBGM);
         TutoM._.InitHomeBubbleElements();

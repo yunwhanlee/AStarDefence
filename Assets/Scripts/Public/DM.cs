@@ -502,7 +502,7 @@ public class DM : MonoBehaviour {
         }
 
         //* アプリを初めてスタートした場合のみ、一回
-        if(Load() == null) {
+        if(!PlayerPrefs.HasKey(DB_KEY)) {
             DB = new DB();
             HM._.hui.ShowMsgNotice("AStar디펜스에 오신걸 환영합니다!!!");
             Reset();
@@ -604,7 +604,7 @@ public class DM : MonoBehaviour {
         }
         //* Json 読み込み
         string json = PlayerPrefs.GetString(DB_KEY);
-        Debug.Log($"★LOAD:: (json == null)? {json == null}, \ndata= {json}");
+        Debug.Log($"★LOAD:: PlayerPrefs.GetString({DB_KEY}) -> {json}");
         //* Json クラス化
         DB db = JsonUtility.FromJson<DB>(json);
         return db;
@@ -614,9 +614,9 @@ public class DM : MonoBehaviour {
 #region RESET
 /// -----------------------------------------------------------------------------------------------------------------
     public void Reset() {
-        Debug.Log($"★RESET:: The Key: {DB_KEY} Exists? {PlayerPrefs.HasKey(DB_KEY)}");
         IsReset = true; //* リセットしたら、InventoryControllerのStart()からLoadDt()が呼び出して、InvItemDBsがNullになるエラー防止
         PlayerPrefs.DeleteAll();
+        Debug.Log($"★RESET:: PlayerPrefs.DeleteAll():: PlayerPrefs.HasKey({DB_KEY}) -> {PlayerPrefs.HasKey(DB_KEY)}");
         Init();
     }
 #endregion
@@ -629,12 +629,12 @@ public class DM : MonoBehaviour {
     /// ホーム ➡ ゲーム：データセーブ
     /// ホームシーン：データロード (※リセットかけたら、これスキップ：InvItemDBsがNULLになるエラーあるため)
     /// </summary>
-    public void LoadDt() {
-        if(IsReset)
-            IsReset = false;
-        else 
-            DB = Load();
-    }
+    // public void LoadDt() {
+    //     if(IsReset)
+    //         IsReset = false;
+    //     else 
+    //         DB = Load();
+    // }
 
     public void Init() {
         DB = new DB();
