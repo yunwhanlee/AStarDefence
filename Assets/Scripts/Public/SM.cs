@@ -241,7 +241,6 @@ public class SM : MonoBehaviour {
             case SFX.HitSFX: case SFX.HitSFX2: case SFX.HitSFX3:
             case SFX.MetalHitSFX: case SFX.MetalHitSFX2:
             case SFX.EnemyDeadSFX: case SFX.EnemyDeadSFX2:
-            case SFX.BossKilledSFX:
                 AudioClip clip = (sfx == SFX.HitSFX || sfx == SFX.HitSFX2 || sfx == SFX.HitSFX)? SfxClips[Random.Range((int)SFX.HitSFX, (int)SFX.HitSFX3 + 1)]
                     : (sfx == SFX.MetalHitSFX || sfx == SFX.MetalHitSFX2)? SfxClips[Random.Range((int)SFX.MetalHitSFX, (int)SFX.MetalHitSFX2 + 1)]
                     : (sfx == SFX.EnemyDeadSFX || sfx == SFX.EnemyDeadSFX2)? SfxClips[Random.Range((int)SFX.EnemyDeadSFX, (int)SFX.EnemyDeadSFX2 + 1)]
