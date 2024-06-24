@@ -504,7 +504,7 @@ public class DM : MonoBehaviour {
         //* アプリを初めてスタートした場合のみ、一回
         if(Load() == null) {
             DB = new DB();
-            HM._.hui.ShowMsgNotice("AStar디펜스에 오신걸 환영합니다!");
+            HM._.hui.ShowMsgNotice("AStar디펜스에 오신걸 환영합니다!!!");
             Reset();
         }
         else
