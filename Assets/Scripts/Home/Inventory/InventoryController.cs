@@ -97,9 +97,9 @@ namespace Inventory
         private void PrepareUI() {
             ivm.InitInventoryUI(InventorySO.Size);
             ivm.OnDescriptionRequested += HandleDescriptionRequest;
-            ivm.OnSwapItems += HandleSwapItems;
+            // ivm.OnSwapItems += HandleSwapItems;
             // ivm.OnStartDragging += HandleDragging;
-            ivm.OnItemActionRequested += HandleItemActionRequest;
+            // ivm.OnItemActionRequested += HandleItemActionRequest;
         }
 
         private void PrepareInventoryData() {

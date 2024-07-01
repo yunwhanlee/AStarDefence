@@ -35,30 +35,30 @@ public class HomeRewardUIManager : MonoBehaviour {
     //             // new (EtcNoShowInvDatas[(int)Etc.NoshowInvItem.SkillPoint]),
 
     //             //* インベントリーへ表示するアイテム
-    //             // new (EtcConsumableDatas[(int)Etc.ConsumableItem.BizzardScroll]),        // ✓ Info(Ingame)
-    //             // new (EtcConsumableDatas[(int)Etc.ConsumableItem.LightningScroll]),   // ✓ Info(Ingame)
-    //             // new (EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack0]),        // ✓ Info(Ingame)
-    //             // new (EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack1]),        // ✓ Info(Ingame)
-    //             // new (EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone]),        // ✓ Info (Reset Relic Abilities)
-    //             // new (EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone]),         // ✓ Info (Equipment Secret Ability Active)
-    //             // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon]),          // Chest Open
-    //             // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestDiamond]),         // Chest Open
-    //             // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment]),       // Chest Open
-    //             // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGold]),         // Chest Open
-    //             // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium]),         // Chest Open
-    //             // new (EtcConsumableDatas[(int)Etc.ConsumableItem.Clover]),               // ✓ Active
-    //             // new (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover]),           // ✓ Active
-    //             // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present0],4),          // Reward Open
-    //             // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present1],5),          // Reward Open
-    //             // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present2],6),          // Reward Open
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.BizzardScroll]),        // ✓ Info(Ingame)
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.LightningScroll]),   // ✓ Info(Ingame)
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack0]),        // ✓ Info(Ingame)
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.SteamPack1]),        // ✓ Info(Ingame)
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone]),        // ✓ Info (Reset Relic Abilities)
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone]),         // ✓ Info (Equipment Secret Ability Active)
+                // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestCommon]),          // Chest Open
+                // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestDiamond]),         // Chest Open
+                // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestEquipment]),       // Chest Open
+                // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestGold]),         // Chest Open
+                // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.ChestPremium]),         // Chest Open
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.Clover]),               // ✓ Active
+                // new (EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover]),           // ✓ Active
+                // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present0],4),          // Reward Open
+                // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present1],5),          // Reward Open
+                // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present2],6),          // Reward Open
 
     //             new (HM._.rwlm.RwdItemDt.WeaponDatas[6]),
     //             new (HM._.rwlm.RwdItemDt.ShoesDatas[6]),
-    //             // new (HM._.rwlm.RwdItemDt.RelicDatas[4]),
-    //             // new (HM._.rwlm.RwdItemDt.WeaponDatas[0], quantity: 8),
-    //             // new (HM._.rwlm.RwdItemDt.WeaponDatas[2], quantity: 10),
-    //             // new (HM._.rwlm.RwdItemDt.WeaponDatas[3], quantity: 9),
-    //             // new (HM._.rwlm.RwdItemDt.RelicDatas[0], 1, HM._.ivCtrl.InventoryData.CheckRelicAbilitiesData(HM._.rwlm.RwdItemDt.RelicDatas[0])),
+                // new (HM._.rwlm.RwdItemDt.RelicDatas[4]),
+                // new (HM._.rwlm.RwdItemDt.WeaponDatas[0], quantity: 8),
+                // new (HM._.rwlm.RwdItemDt.WeaponDatas[2], quantity: 10),
+                // new (HM._.rwlm.RwdItemDt.WeaponDatas[3], quantity: 9),
+                // new (HM._.rwlm.RwdItemDt.RelicDatas[0], 1, HM._.ivCtrl.InventoryData.CheckRelicAbilitiesData(HM._.rwlm.RwdItemDt.RelicDatas[0])),
 
     //         };
     //         HM._.rwlm.ShowReward(rewardList);

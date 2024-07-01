@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Inventory.Model;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -14,6 +15,9 @@ public class SettingManager : MonoBehaviour {
     [field: SerializeField] public GameObject ShowTutorialWindowObj {get; private set;}
     [field: SerializeField] public Slider BgmVolumeSlider {get; private set;}
     [field: SerializeField] public Slider SfxVolumeSlider {get; private set;}
+
+    [field: SerializeField] public GameObject CouponWindowObj {get; private set;}
+    [field: SerializeField] public TMP_InputField CouponInputField {get; private set;}
 
     void Start() {
         //* バージョン
@@ -95,5 +99,50 @@ public class SettingManager : MonoBehaviour {
             #endif
         };
     }
+#region COUPON
+    public void OnClickCouponBtn() {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        CouponWindowObj.SetActive(true);
+    }
+
+    public void OnClickCouponWindowConfirmBtn() {
+        string inputTxt = CouponInputField.text;
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        if(inputTxt == DM._.DB.COUPON_A) {
+            if(!DM._.DB.IsAccept_CouponA) {
+                DM._.DB.IsAccept_CouponA = true;
+
+                WindowObj.SetActive(false);
+                CouponWindowObj.SetActive(false);
+
+                //* リワード
+                var rewardList = new List<RewardItem> {
+                    new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Clover], 50),
+                    new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.GoldClover], 50),
+                    new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone], 30),
+                    new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone], 30),
+                    new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 100000),
+                    new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], 3000),
+                    new (HM._.rwlm.RwdItemDt.WeaponDatas[4]),
+                    new (HM._.rwlm.RwdItemDt.ShoesDatas[5]),
+                    new (HM._.rwlm.RwdItemDt.RingDatas[4]),
+                };
+
+                //* Relic リワード
+                ItemSO relicDt = HM._.rwlm.RwdItemDt.RelicDatas[2];
+                AbilityType[] relicAbilities = HM._.ivCtrl.InventoryData.CheckRelicAbilitiesData(relicDt);
+                rewardList.Add(new (relicDt, quantity: 1, relicAbilities));
+
+                HM._.rwlm.ShowReward(rewardList);
+            }
+            else {
+                HM._.hui.ShowMsgError("이미 사용한 쿠폰입니다.");
+            }
+        }
+        else {
+            HM._.hui.ShowMsgError("존재하지 않는 쿠폰입니다.");
+        }
+    }
+#endregion
 #endregion
 }
