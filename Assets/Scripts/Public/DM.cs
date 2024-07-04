@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Inventory.Model;
+using System.Text;
 // using System.Data;
 
 /// <summary>
@@ -608,6 +609,13 @@ public class DM : MonoBehaviour {
         }
         //* Json 読み込み
         string json = PlayerPrefs.GetString(DB_KEY);
+
+        //* 저장데이터 JSON 문자열의 메모리 크기 계산
+        const int PLAYER_PREFS_MAX_MEMORY = 1024 * 1024;
+        byte[] byteArray = Encoding.UTF8.GetBytes(json);
+        int jsonSizeInBytes = byteArray.Length;
+        Debug.Log($"★LOAD:: JSON MEMORY DATA= , {jsonSizeInBytes} / {PLAYER_PREFS_MAX_MEMORY} 바이트");
+
         Debug.Log($"★LOAD:: PlayerPrefs.GetString({DB_KEY}) -> {json}");
         //* Json クラス化
         DB db = JsonUtility.FromJson<DB>(json);
