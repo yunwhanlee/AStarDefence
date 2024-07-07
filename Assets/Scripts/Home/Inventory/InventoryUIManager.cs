@@ -9,6 +9,8 @@ using TMPro;
 namespace Inventory.UI 
 {
     public class InventoryUIManager : MonoBehaviour {
+        const int INVENTORY_MAX = 42;
+
         [field:SerializeField] public int CurCateIdx;
         [field:SerializeField] public int CurItemIdx;
         [field:SerializeField] public InventoryItem CurInvItem;
@@ -42,7 +44,7 @@ namespace Inventory.UI
         [field:SerializeField] public RectTransform Content {get; set;}
         [field:SerializeField] public InventoryDescription InvDesc {get; set;}
         [field:SerializeField] public MouseFollower MouseFollower {get; set;}
-        [field:SerializeField] public List<InventoryUIItem> InvUIItemList = new List<InventoryUIItem>();
+        [field:SerializeField] public InventoryUIItem[] InvUIItemArr {get; set;}
 
         private int curDraggedItemIdx = -1;
 
@@ -54,6 +56,7 @@ namespace Inventory.UI
 
         void Awake() {
             Hide();
+            InvUIItemArr = new InventoryUIItem[42];
             MouseFollower.Toggle(false);
             InvDesc.ResetDescription();
         }
@@ -73,7 +76,7 @@ namespace Inventory.UI
 
         //* ItemList 表示
         switch(cateIdx) {
-            case 0: InvUIItemList.ForEach(item => item.gameObject.SetActive(true)); break;
+            case 0: Array.ForEach(InvUIItemArr, item => item.gameObject.SetActive(true)); break;
             case 1: ActiveCategoryItemList(Enum.ItemType.Weapon); break;
             case 2: ActiveCategoryItemList(Enum.ItemType.Shoes);  break;
             case 3: ActiveCategoryItemList(Enum.ItemType.Ring); break;
@@ -83,10 +86,10 @@ namespace Inventory.UI
     }
     private void ActiveCategoryItemList(Enum.ItemType category) {
         //* 全て非表示
-        InvUIItemList.ForEach(item => item.gameObject.SetActive(false));
+        Array.ForEach(InvUIItemArr, item => item.gameObject.SetActive(false));
         //* カテゴリに合うリストのみ表示
-        var filterList = InvUIItemList.FindAll(item => item.Type == category);
-        filterList.ForEach(item => item.gameObject.SetActive(true));
+        var filterList = Array.FindAll(InvUIItemArr, item => item.Type == category);
+        Array.ForEach(InvUIItemArr, item => item.gameObject.SetActive(true));
     }
 
     public void OnClickInventoryIconBtn() => HM._.ivCtrl.ShowInventory();
@@ -120,16 +123,14 @@ namespace Inventory.UI
         /// <summary>
         ///* インベントリとEquipアイテムのスロットUI イベント登録
         /// </summary>
-        public void InitInventoryUI(int invSize) {
+        public void InitInventoryUI() {
             //* Inventory ItemUI Btn
-            for(int i = 0; i < invSize; i++) {
+            Debug.Log($"InvUIItemArr= {InvUIItemArr.Length}");
+            for(int i = 0; i < InvUIItemArr.Length; i++) {
                 InventoryUIItem item = Instantiate(ItemPf, Content);
-                InvUIItemList.Add(item);
+                InvUIItemArr[i] = item;
                 item.OnItemClicked += HandleItemSelection;
                 item.OnItemClickShortly += HandleShowItemInfoPopUp;
-                // item.OnItemBeginDrag += HandleBeginDrag;
-                // item.OnItemDroppedOn += HandleSwap;
-                // item.OnItemEndDrag += HandleEndDrag;
             }
 
             //* Equip Slot Btn
@@ -153,15 +154,16 @@ namespace Inventory.UI
             DeselectAllItems();
         }
         private void DeselectAllItems() {
-            foreach(InventoryUIItem item in InvUIItemList)
+            foreach(InventoryUIItem item in InvUIItemArr)
                 item.Deselect();
         }
 
         public void UpdateUI(int itemIdx, InventoryItem item) {
-            // Debug.Log($"UpdateData(itemIdx= {itemIdx}, type= {item.Data.Type}, item= {item.Data.Name}):: -> SetUIData()");
+            Debug.Log($"UpdateData():: itemIdx= {itemIdx}");
+            Debug.Log($"UpdateData():: type= {item.Data.Type}, item= {item.Data.Name})");
             ItemSO dt = item.Data;
-            if(InvUIItemList.Count > itemIdx) {
-                InvUIItemList[itemIdx].SetUI (
+            // if(!item.IsEmpty) {
+                InvUIItemArr[itemIdx].SetUI (
                     dt.Type, 
                     dt.Grade, 
                     dt.ItemImg, 
@@ -171,7 +173,7 @@ namespace Inventory.UI
                     item.IsEquip,
                     item.IsNewAlert
                 );
-            }
+            // }
         }
 
         private void ResetDraggedItem() {
@@ -184,7 +186,7 @@ namespace Inventory.UI
         /// </summary>
         /// <param name="invItemUI">インベントリーUIのアイテム</param>
         public InventoryItem GetItemFromUI(InventoryUIItem invItemUI) {
-            int idx = InvUIItemList.IndexOf(invItemUI);
+            int idx = Array.IndexOf(InvUIItemArr, invItemUI);
             if(idx == -1)
                 return InventoryItem.GetEmptyItem();
             return HM._.ivCtrl.InventoryData.GetItemAt(idx);
@@ -208,7 +210,7 @@ namespace Inventory.UI
             //* 選択したら、NewAlertアイコン 非表示
             if(invItemUI.AlertRedDot) {
                 invItemUI.AlertRedDot.SetActive(false);
-                HM._.ivCtrl.InventoryData.invList[CurItemIdx] = CurInvItem.ChangeIsNewAlert(false);
+                HM._.ivCtrl.InventoryData.InvArr[CurItemIdx] = CurInvItem.ChangeIsNewAlert(false);
             }
 
             if(CurInvItem.Data.Type == Enum.ItemType.Etc) {
@@ -249,7 +251,7 @@ namespace Inventory.UI
                     break;
                 //* インベントリーアイテムなら
                 default:
-                    idx = InvUIItemList.IndexOf(invItemUI);
+                    idx = Array.IndexOf(InvUIItemArr, invItemUI);
                     break;
             }
             //* 適用
@@ -263,12 +265,12 @@ namespace Inventory.UI
         public void UpdateDescription(int itemIdx, ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip) {
             InvDesc.SetDescription(item, quantity, lv, relicAbilities, isEquip);
             DeselectAllItems();
-            InvUIItemList[itemIdx].Select();
+            InvUIItemArr[itemIdx].Select();
         }
 
         public void ResetAllItems() {
-            Debug.Log($"ResetAllItems():: InvUIItemList.Count= {InvUIItemList.Count}");
-            foreach (InventoryUIItem item in InvUIItemList) {
+            Debug.Log($"ResetAllItems():: InvUIItemList.Length= {InvUIItemArr.Length}");
+            foreach (InventoryUIItem item in InvUIItemArr) {
                 item.ResetUI();
                 item.Deselect();
             }
@@ -276,8 +278,8 @@ namespace Inventory.UI
 
         public void InitEquipDimUI(Enum.ItemType type) {
             //* UI Elements
-            List<InventoryUIItem> filterItemUIs = InvUIItemList.FindAll(elem => elem.Type == type);
-            filterItemUIs.ForEach(elem => elem.EquipDim.SetActive(false));
+            var filterItemUIs = Array.FindAll(InvUIItemArr, elem => elem.Type == type);
+            Array.ForEach(filterItemUIs, elem => elem.EquipDim.SetActive(false));
         }
 #endregion
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using Inventory.Model;
 using System.Text;
+using System.Linq;
 // using System.Data;
 
 /// <summary>
@@ -430,8 +431,8 @@ public class DB {
     [field:SerializeField] public FameRewardDB FameRewardDB {get; set;}
     [field:SerializeField] public TileMapSaveDt StageTileMapSaveDt {get; set;}
     [field:SerializeField] public TileMapSaveDt InfiniteTileMapSaveDt {get; set;}
-    
-    [field:SerializeField] public List<InventoryItem> InvItemDBs {get; set;}
+
+    [field:SerializeField] public List<InventoryItem> InvItemDBList {get; set;}
     [field:SerializeField] public bool IsRemoveAd {get; set;}
     [field:SerializeField] public bool IsCloverActive {get; set;}
     [field:SerializeField] public bool IsGoldCloverActive {get; set;}
@@ -488,6 +489,7 @@ public class DM : MonoBehaviour {
     //* ★データベース
     [field: SerializeField] public DB DB {get; private set;}
     [field: SerializeField] public int PassedSec {get; set;}
+    [field:SerializeField] public InventorySO InvSOTemplate {get; set;}
 
     [field: SerializeField] public int SelectedStage {get; set;}
     [field: SerializeField] public Enum.StageNum SelectedStageNum {get; set;}
@@ -574,16 +576,17 @@ public class DM : MonoBehaviour {
         PlayerPrefs.SetInt(PASSEDTIME_KEY, (int)timestamp.TotalSeconds);
 
         //* 空に初期化してから、InventorySOデータを上書き
-        DB.InvItemDBs = new List<InventoryItem>();
-        for(int i = 0; i < HM._.ivCtrl.InventoryData.invList.Count; i++) {
-            var invItem = HM._.ivCtrl.InventoryData.invList[i];
-            DB.InvItemDBs.Add(InventoryItem.GetEmptyItem());
-            DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeQuantity(invItem.Quantity);
-            DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeLevel(invItem.Lv);
-            DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeItemData(invItem.Data);
-            DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeItemRelicAbilities(invItem.RelicAbilities);
-            DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeIsEquip(invItem.IsEquip);
-        }
+        DB.InvItemDBList = HM._.ivCtrl.InventoryData.InvArr.ToList();
+        // DB.InvItemDBs = new List<InventoryItem>();
+        // for(int i = 0; i < HM._.ivCtrl.InventoryData.InvArr.Length; i++) {
+        //     var invItem = HM._.ivCtrl.InventoryData.InvArr[i];
+        //     DB.InvItemDBs.Add(InventoryItem.GetEmptyItem());
+        //     DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeQuantity(invItem.Quantity);
+        //     DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeLevel(invItem.Lv);
+        //     DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeItemData(invItem.Data);
+        //     DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeItemRelicAbilities(invItem.RelicAbilities);
+        //     DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeIsEquip(invItem.IsEquip);
+        // }
 
         //* Serialize To Json
         PlayerPrefs.SetString(DB_KEY, JsonUtility.ToJson(DB, true)); 
@@ -616,8 +619,8 @@ public class DM : MonoBehaviour {
         int jsonSizeInBytes = byteArray.Length;
         Debug.Log($"★LOAD:: JSON MEMORY DATA= , {jsonSizeInBytes} / {PLAYER_PREFS_MAX_MEMORY} 바이트");
 
-        Debug.Log($"★LOAD:: PlayerPrefs.GetString({DB_KEY}) -> {json}");
         //* Json クラス化
+        Debug.Log($"★LOAD:: PlayerPrefs.GetString({DB_KEY}) -> {json}");
         DB db = JsonUtility.FromJson<DB>(json);
         return db;
     }
@@ -629,7 +632,7 @@ public class DM : MonoBehaviour {
         // IsReset = true; //* リセットしたら、InventoryControllerのStart()からLoadDt()が呼び出して、InvItemDBsがNullになるエラー防止
         PlayerPrefs.DeleteAll();
         Debug.Log($"★RESET:: PlayerPrefs.DeleteAll():: PlayerPrefs.HasKey({DB_KEY}) -> {PlayerPrefs.HasKey(DB_KEY)}");
-        Init();
+        ResetData();
     }
 #endregion
 /// -----------------------------------------------------------------------------------------------------------------
@@ -648,14 +651,14 @@ public class DM : MonoBehaviour {
     //         DB = Load();
     // }
 
-    public void Init() {
+    public void ResetData() {
         DB = new DB();
-        
-        DB.InvItemDBs = new List<InventoryItem>();
-        for(int i = 0; i < InventorySO.Size; i++) {
-            DB.InvItemDBs.Add(InventoryItem.GetEmptyItem());
-        }
-        Debug.Log("DB.InvItemDBs.Count= " + DB.InvItemDBs.Count);
+        DB.InvItemDBList = new List<InventoryItem>();
+        DB.InvItemDBList = InvSOTemplate.InvArr.ToList();
+        // for(int i = 0; i < InventorySO.Size; i++) {
+        //     DB.InvItemDBs.Add(InventoryItem.GetEmptyItem());
+        // }
+        Debug.Log("DB.InvItemDBs.Count= " + DB.InvItemDBList.Count);
 
         DB.StatusDB = new StatusDB();
 

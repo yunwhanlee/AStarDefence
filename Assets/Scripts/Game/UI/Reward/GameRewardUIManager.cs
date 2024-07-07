@@ -42,26 +42,26 @@ public class GameRewardUIManager : MonoBehaviour {
     // }
 
 #region FUNC
-    public void UpdateInventory(List<RewardItem> rewardList) {
-        if(rewardList.Count > 0) {
-            foreach (RewardItem rwdItem in rewardList) {
-                //* リワード処理：インベントリーへ表示しないアイテム
-                if(rwdItem.Data.IsNoshowInventory) {
-                    Etc.NoshowInvItem enumVal = Util.FindEnumVal(rwdItem.Data.name);
-                    rwdItem.UpdateNoShowItemData(enumVal, rwdItem.Quantity);
-                }
-                //* リワード処理：インベントリーへ表示する物
-                else {
-                    int reminder = HM._.ivCtrl.InventoryData.AddItem (
-                        rwdItem.Data, 
-                        rwdItem.Quantity, 
-                        lv: 1, 
-                        rwdItem.RelicAbilities
-                    );
-                    rwdItem.Quantity = reminder;
-                }
-            }
-        }
-    }
+    // public void UpdateInventory(List<RewardItem> rewardList) {
+    //     if(rewardList.Count > 0) {
+    //         foreach (RewardItem rwdItem in rewardList) {
+    //             //* リワード処理：インベントリーへ表示しないアイテム
+    //             if(rwdItem.Data.IsNoshowInventory) {
+    //                 Etc.NoshowInvItem enumVal = Util.FindEnumVal(rwdItem.Data.name);
+    //                 rwdItem.UpdateNoShowItemData(enumVal, rwdItem.Quantity);
+    //             }
+    //             //* リワード処理：インベントリーへ表示する物
+    //             else {
+    //                 int reminder = HM._.ivCtrl.InventoryData.AddItem (
+    //                     rwdItem.Data, 
+    //                     rwdItem.Quantity, 
+    //                     lv: 1, 
+    //                     rwdItem.RelicAbilities
+    //                 );
+    //                 rwdItem.Quantity = reminder;
+    //             }
+    //         }
+    //     }
+    // }
 #endregion
 }

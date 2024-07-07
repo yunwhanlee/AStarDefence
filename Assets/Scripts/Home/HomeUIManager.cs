@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using JetBrains.Annotations;
 using Inventory.Model;
+using System.Linq;
 
 /// <summary>
 /// Lobby
@@ -104,7 +105,7 @@ public class HomeUIManager : MonoBehaviour {
 
     public void OnClickCloverToggleIconBtn() {
         InventorySO invDt = HM._.ivCtrl.InventoryData;
-        int findIndex = invDt.invList.FindIndex(item => item.Data?.name == Etc.ConsumableItem.Clover.ToString());
+        int findIndex = Array.FindIndex(invDt.InvArr, item => item.Data?.name == Etc.ConsumableItem.Clover.ToString());
         Debug.Log($"OnClickCloverToggleIconBtn():: find Index= {findIndex}");
 
         //* クロバー活性化
@@ -126,7 +127,7 @@ public class HomeUIManager : MonoBehaviour {
     }
     public void OnClickGoldCloverToggleIconBtn() {
         InventorySO invDt = HM._.ivCtrl.InventoryData;
-        int findIndex = invDt.invList.FindIndex(item => item.Data?.name == Etc.ConsumableItem.GoldClover.ToString());
+        int findIndex = Array.FindIndex(invDt.InvArr, item => item.Data?.name == Etc.ConsumableItem.GoldClover.ToString());
         Debug.Log($"OnClickGoldCloverToggleIconBtn():: find Index= {findIndex}");
 
         //* クロバー活性化

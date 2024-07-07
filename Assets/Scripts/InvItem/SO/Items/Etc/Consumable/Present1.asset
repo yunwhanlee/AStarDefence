@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Present1
   m_EditorClassIdentifier: 
   <IsNoshowInventory>k__BackingField: 0
+  <ID>k__BackingField: 32
   <MaxStackSize>k__BackingField: 9999
   <Type>k__BackingField: 4
   <Grade>k__BackingField: 1

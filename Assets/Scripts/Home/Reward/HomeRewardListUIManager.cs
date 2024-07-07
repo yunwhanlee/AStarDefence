@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using AssetKits.ParticleImage;
+using System.Linq;
 
 public class HomeRewardListUIManager : MonoBehaviour {
     [Header("REWARD LIST POPUP")]
@@ -226,14 +227,14 @@ public class HomeRewardListUIManager : MonoBehaviour {
             : RwdItemDt.Rwd_ChestPremium;
         SetChestPopUpUI(type, quantity);
 
-        var invItemList = HM._.ivCtrl.InventoryData.invList;
+        var invItemList = HM._.ivCtrl.InventoryData.InvArr;
         //* EquipChestで有れば、最大40個まで一緒に開く
         if(type == Etc.ConsumableItem.ChestEquipment) {
             //* 次の開くイベント登録
             OnClickOpenChest = () => RwdItemDt.OpenRewardContent(
                 isOpenByInv: true,
                 chestDt, 
-                Mathf.Min(invItemList.Find(item => !item.IsEmpty &&
+                Mathf.Min(Array.Find(invItemList, item => !item.IsEmpty &&
                     item.Data.name == $"{Etc.ConsumableItem.ChestEquipment}").Quantity
                     , Config.MAX_REWARD_SLOT) //equipChestCnt
             );
@@ -243,7 +244,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
             OnClickOpenChest = () => RwdItemDt.OpenRewardContent(
                 isOpenByInv: true,
                 chestDt, 
-                Mathf.Min(invItemList.Find(item => !item.IsEmpty && 
+                Mathf.Min(Array.Find(invItemList, item => !item.IsEmpty && 
                     item.Data.name == $"{Etc.ConsumableItem.ChestCommon}").Quantity
                     , Config.MAX_REWARD_SLOT) //equipChestCnt
             );

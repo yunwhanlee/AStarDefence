@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ChestCommon
   m_EditorClassIdentifier: 
   <IsNoshowInventory>k__BackingField: 0
+  <ID>k__BackingField: 26
   <MaxStackSize>k__BackingField: 9999
   <Type>k__BackingField: 4
   <Grade>k__BackingField: -1

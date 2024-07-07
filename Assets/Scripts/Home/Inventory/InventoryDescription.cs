@@ -77,6 +77,7 @@ namespace Inventory.UI {
         public void OnClickEquipBtn() {
             Debug.Log($"OnClickEquipBtn():: CurInvItem= {ivm.CurInvItem}, IsEquip= {ivm.CurInvItem.IsEquip}");
             ivm.EquipPopUp.SetActive(false);
+
             //* 装置・解除
             if(ivm.CurInvItem.IsEquip)
                 HM._.ivCtrl.UnEquipSlotUI();
@@ -174,12 +175,14 @@ namespace Inventory.UI {
         }
 
         private bool CheckStoneItemQuantity(Etc.ConsumableItem itemEnumIdx, string againAskMsg) {
-            InventoryItem stoneItem = HM._.ivCtrl.InventoryData.invList.Find( item
+            InventoryItem stoneItem = Array.Find(HM._.ivCtrl.InventoryData.InvArr, item
                 => !item.IsEmpty && item.Data.name == itemEnumIdx.ToString());
             if(stoneItem.IsEmpty) {
                 HM._.hui.ShowMsgError("사용할 아이템이 없습니다.");
                 return false;
             }
+
+            
 
             //* 本当にしますか？メッセージ
             HM._.hui.ShowAgainAskMsg(againAskMsg);
@@ -221,7 +224,7 @@ namespace Inventory.UI {
                 switch(idx) {
                     case SOULSTONE: {
                         //* インベントリデータから、残る量を減る
-                        int invItemIdx = HM._.ivCtrl.InventoryData.invList.FindIndex (itemDt
+                        int invItemIdx = Array.FindIndex (HM._.ivCtrl.InventoryData.InvArr, itemDt
                             => !itemDt.IsEmpty && itemDt.Data.name == stoneItemEnumList[idx].ToString());
                         HM._.ivCtrl.InventoryData.DecreaseItem(invItemIdx, -1);
 
@@ -231,7 +234,7 @@ namespace Inventory.UI {
                     }
                     case MAGICSTONE: {
                         //* インベントリデータから、残る量を減る
-                        int invItemIdx = HM._.ivCtrl.InventoryData.invList.FindIndex (itemDt
+                        int invItemIdx = Array.FindIndex (HM._.ivCtrl.InventoryData.InvArr, itemDt
                             => !itemDt.IsEmpty && itemDt.Data.name == stoneItemEnumList[idx].ToString());
                         HM._.ivCtrl.InventoryData.DecreaseItem(invItemIdx, -1);
 
@@ -513,9 +516,9 @@ namespace Inventory.UI {
                 Debug.Log($"ePrices.Length= {ePrices.Length}, lvIdx= {lvIdx}");
                 MagicStoneBtnObj.SetActive(isRelic);
                 SoulStoneBtnObj.SetActive(!isRelic);
-                var invItemList = HM._.ivCtrl.InventoryData.invList;
-                MagicStoneBtnTxt.text = $"{invItemList.Find(item => !item.IsEmpty && item.Data.name == $"{Etc.ConsumableItem.MagicStone}").Quantity}";
-                SoulStoneBtnTxt.text = $"{invItemList.Find(item => !item.IsEmpty && item.Data.name == $"{Etc.ConsumableItem.SoulStone}").Quantity}";
+                var invItemList = HM._.ivCtrl.InventoryData.InvArr;
+                MagicStoneBtnTxt.text = $"{Array.Find(invItemList, item => !item.IsEmpty && item.Data.name == $"{Etc.ConsumableItem.MagicStone}").Quantity}";
+                SoulStoneBtnTxt.text = $"{Array.Find(invItemList, item => !item.IsEmpty && item.Data.name == $"{Etc.ConsumableItem.SoulStone}").Quantity}";
                 EquipBtnTxt.text = isEquip? "해제" : "장비";
                 EquipBtnBg.sprite = BtnBgSprs[isEquip? RED_BTN : BLUE_BTN];
                 UpgradePriceTxt.text = $"강화\n{(isLvMax? "MAX" : $"<sprite name=Coin>{(isRelic? rPrices[lvIdx] : ePrices[lvIdx])}")}";

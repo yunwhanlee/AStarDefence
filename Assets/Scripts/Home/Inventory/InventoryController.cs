@@ -11,7 +11,7 @@ namespace Inventory
         [SerializeField] private InventoryUIManager ivm;
         [SerializeField] public InventorySO InventoryData;
         [SerializeField] public List<InventoryItem> InvItemDBs {
-            get => DM._.DB.InvItemDBs;
+            get => DM._.DB.InvItemDBList;
         }
 
         void Start() {
@@ -19,11 +19,11 @@ namespace Inventory
             PrepareUI();
             PrepareInventoryData();
             StartCoroutine(CoUpdateNewItemAlert());
-            UpdateConsumableInvItems();
+            // UpdateConsumableInvItems();
         }
 
         void OnDisable() {
-            InventoryData.OnInventoryUpdated -= UpdateInventoryUI;
+            InventoryData.OnInventoryUIUpdated -= UpdateInventoryUI;
         }
 
     #region FUNC
@@ -31,10 +31,10 @@ namespace Inventory
         /// 消費アイテムが０以下になったら、インベントリーから削除して最新化
         /// </summary>
         private void UpdateConsumableInvItems() {
-            bool isConsumeItemDelete = false;
+            // bool isConsumeItemDelete = false;
 
-            for(int i = 0; i < InventoryData.invList.Count; i++) {
-                var itemList = InventoryData.invList[i];
+            for(int i = 0; i < InventoryData.InvArr.Length; i++) {
+                var itemList = InventoryData.InvArr[i];
                 if(itemList.IsEmpty)
                     continue;
 
@@ -47,14 +47,14 @@ namespace Inventory
                 || itemList.Data.name == $"{Etc.ConsumableItem.LightningScroll}")
                 && itemList.Quantity <= 0) 
                 {
-                    InventoryData.invList[i] = InventoryItem.GetEmptyItem();
-                    isConsumeItemDelete = true;
+                    InventoryData.InvArr[i] = InventoryItem.GetEmptyItem();
+                    // isConsumeItemDelete = true;
                 }
 
                 //* 消費アイテムの中で削除された物があったら、インベントリースロット 整列
-                if(isConsumeItemDelete) {
-                    InventoryData.SortInventory();
-                }
+                // if(isConsumeItemDelete) {
+                //     InventoryData.SortInventory();
+                // }
             }
         }
 
@@ -62,19 +62,19 @@ namespace Inventory
         ///  EXPクロバーが活性化したら、一個減る
         /// </summary>
         public void CheckActiveClover() {
-            for(int i = 0; i < InventoryData.invList.Count; i++) {
-                var itemList = InventoryData.invList[i];
+            for(int i = 0; i < InventoryData.InvArr.Length; i++) {
+                var itemList = InventoryData.InvArr[i];
                 if(itemList.IsEmpty)
                     continue;
 
                 if(DM._.DB.IsCloverActive && itemList.Data.name == $"{Etc.ConsumableItem.Clover}") {
-                    InventoryData.invList[i] = itemList.ChangeQuantity(itemList.Quantity - 1);
-                    if(InventoryData.invList[i].Quantity <= 0)
+                    InventoryData.InvArr[i] = itemList.ChangeQuantity(itemList.Quantity - 1);
+                    if(InventoryData.InvArr[i].Quantity <= 0)
                         DM._.DB.IsCloverActive = false;
                 }
                 else if(DM._.DB.IsGoldCloverActive && itemList.Data.name == $"{Etc.ConsumableItem.GoldClover}") {
-                    InventoryData.invList[i] = itemList.ChangeQuantity(itemList.Quantity - 1);
-                    if(InventoryData.invList[i].Quantity <= 0)
+                    InventoryData.InvArr[i] = itemList.ChangeQuantity(itemList.Quantity - 1);
+                    if(InventoryData.InvArr[i].Quantity <= 0)
                         DM._.DB.IsGoldCloverActive = false;
                 }
             }
@@ -87,7 +87,7 @@ namespace Inventory
             int newItemCnt;
             while(true) {
                 newItemCnt = 0;
-                foreach (InventoryItem itemDt in InventoryData.invList)
+                foreach (InventoryItem itemDt in InventoryData.InvArr)
                     if (itemDt.IsNewAlert) newItemCnt++;
                 HM._.ivm.SetInvAlertIcon(newItemCnt);
                 yield return Util.Time0_5;
@@ -95,45 +95,34 @@ namespace Inventory
         }
 
         private void PrepareUI() {
-            ivm.InitInventoryUI(InventorySO.Size);
+            ivm.InitInventoryUI();
             ivm.OnDescriptionRequested += HandleDescriptionRequest;
-            // ivm.OnSwapItems += HandleSwapItems;
-            // ivm.OnStartDragging += HandleDragging;
-            // ivm.OnItemActionRequested += HandleItemActionRequest;
         }
 
         private void PrepareInventoryData() {
-            //* InventorySOリストデータを初期化（ロードしたデータを実際に管理する場所）
-            InventoryData.Init();
-            //* インベントリUI初期化するメソッド機能を購読（まだ使わない）=> InventorySO::InformAboutChange()で処理
-            InventoryData.OnInventoryUpdated += UpdateInventoryUI;
+            //* DBに保存したインベントリーデータ 設定
+            InventoryData.SetLoadData();
+            //* インベントリUI最新化イベント登録 (InventorySO::InformAboutChange()で使う)
+            InventoryData.OnInventoryUIUpdated += UpdateInventoryUI;
             //* DBの保存したインベントリデータを一個ずつ読みこみながら、インベントリSOリストへ追加
-            Debug.Log($"PrepareInventoryData():: InitItems.Length= {InvItemDBs}");
-            foreach (InventoryItem item in InvItemDBs) {
-                if(item.IsEmpty) continue;
-                // item.Data.SetRelicAbility();
-                InventoryData.AddItem(item);
-            }
+            // Debug.Log($"PrepareInventoryData():: InitItems.Length= {InvItemDBs}");
+            // foreach (InventoryItem item in InvItemDBs) {
+            //     if(item.IsEmpty) continue;
+            //     // item.Data.SetRelicAbility();
+            //     InventoryData.AddItem(item);
+            // }
         }
 
+        /// <summary>
+        /// INVENTORYのSlotUIを最新化
+        /// </summary>
+        /// <param name="inventoryState">DICIONARY化した最新のINVENTORYデータ</param>
         private void UpdateInventoryUI(Dictionary<int, InventoryItem> inventoryState) {
             Debug.Log("UpdateInventoryUI()::");
             ivm.ResetAllItems();
-            foreach (var item in inventoryState)
-                ivm.UpdateUI(item.Key, item.Value);
-        }
-
-        private void HandleItemActionRequest(int itemIdx) {}
-
-        // private void HandleDragging(int itemIdx) {
-        //     InventoryItem item = InventoryData.GetItemAt(itemIdx);
-        //     if(item.IsEmpty) return;
-        //     ivm.CreateDraggedItem(item.Data.Type, item.Data.Grade, item.Data.ItemImg, item.Quantity, item.Lv);
-        // }
-
-        private void HandleSwapItems(int itemIdx1, int itemIdx2) {   
-            Debug.Log($"HandleSwapItems():: itemIdx1= {itemIdx1}, itemIdx2= {itemIdx2}");
-            InventoryData.SwapItems(itemIdx1, itemIdx2);
+            // foreach (var item in inventoryState)
+            for(int i = 0; i < HM._.ivCtrl.InventoryData.InvArr.Length; i++)
+                ivm.UpdateUI(i, HM._.ivCtrl.InventoryData.InvArr[i]);
         }
 
         private void HandleDescriptionRequest(int itemIdx) {
@@ -150,9 +139,12 @@ namespace Inventory
             HM._.hui.IsActivePopUp = true;
             SM._.SfxPlay(SM.SFX.ClickSFX);
             ivm.Show();
-            foreach (var item in InventoryData.GetCurrentInventoryState()) {
-                ivm.UpdateUI( item.Key, item.Value );
-            }
+            Debug.Log($"InventoryData.GetCurrentInventoryState().Count= {InventoryData.GetCurrentInventoryState().Count}");
+            // foreach (var item in InventoryData.GetCurrentInventoryState()) {
+            //     ivm.UpdateUI( item.Key, item.Value );
+            // }
+            for(int i = 0; i < HM._.ivCtrl.InventoryData.InvArr.Length; i++)
+                ivm.UpdateUI(i, HM._.ivCtrl.InventoryData.InvArr[i]);
         }
 
         public void HideInventory() {
@@ -164,7 +156,7 @@ namespace Inventory
 
     #region EQUIP
         public int FindCurEquipItemIdx(Enum.ItemType type) {
-            return InventoryData.invList.FindIndex(item
+            return Array.FindIndex(InventoryData.InvArr, item
                 => !item.IsEmpty
                 && item.IsEquip
                 && item.Data.Type == type
@@ -174,7 +166,7 @@ namespace Inventory
         public void UnEquipSlotUI() {
             SM._.SfxPlay(SM.SFX.InvUnEquipSFX);
             InventoryEquipUIManager ivEqu = HM._.ivEqu;
-            InventoryItem curInvItem = InventoryData.invList[HM._.ivm.CurItemIdx];
+            InventoryItem curInvItem = InventoryData.InvArr[HM._.ivm.CurItemIdx];
             Enum.ItemType type = curInvItem.Data.Type;
 
             //* インベントリ 初期化
@@ -190,16 +182,16 @@ namespace Inventory
         public void EquipItemSlotUI() {
             SM._.SfxPlay(SM.SFX.InvEquipSFX);
             var ivEqu = HM._.ivEqu;
-            InventoryItem  curInvItem = InventoryData.invList[HM._.ivm.CurItemIdx];
+            InventoryItem  curInvItem = InventoryData.InvArr[HM._.ivm.CurItemIdx];
             Enum.ItemType type = curInvItem.Data.Type;
 
             //* 初期化
-            InventoryData.InitIsEquipData(curInvItem.Data.Type); // 「装置中」DimUI 
-            HM._.ivm.InitEquipDimUI(curInvItem.Data.Type); // ItemDt
+            InventoryData.InitIsEquipData(curInvItem.Data.Type); // ItemDt.isEquip
+            HM._.ivm.InitEquipDimUI(curInvItem.Data.Type); // 「装置中」DimUI
 
             //* アップデート (現在着用したアイテム)
-            InventoryData.invList[HM._.ivm.CurItemIdx] = curInvItem.ChangeIsEquip(true); // IsEquip：True
-            HM._.ivm.InvUIItemList[HM._.ivm.CurItemIdx].EquipDim.SetActive(true); // DimUI 表示
+            InventoryData.InvArr[HM._.ivm.CurItemIdx] = curInvItem.ChangeIsEquip(true); // IsEquip：True
+            HM._.ivm.InvUIItemArr[HM._.ivm.CurItemIdx].EquipDim.SetActive(true); // DimUI 表示
 
             //* 装置スロットUI
             ivEqu.EquipItem(type, curInvItem);
@@ -211,19 +203,19 @@ namespace Inventory
             if(ivm.CurInvItem.RelicAbilities != null && ivm.CurInvItem.RelicAbilities.Length > 0) {
                 Debug.Log($"OpenCurrentEquipPotentialAbility():: 既にある");
                 //* 能力がもう有ったら、同じものが出ない処理のため、引数を渡す
-                InventoryData.invList[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(
+                InventoryData.InvArr[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(
                     new AbilityType[1] {Util.PickRandomAbilityType(ivm.CurInvItem.RelicAbilities[0])}
                 );
             }
             else {
                 Debug.Log($"OpenCurrentEquipPotentialAbility():: 新しく生成");
                 //* 新しいRelic能力を一つランダム選択 -> InventoryDtへ反映
-                InventoryData.invList[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(
+                InventoryData.InvArr[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(
                     new AbilityType[1] {Util.PickRandomAbilityType()}
                 );
             }
             //* ★ CurInvItemDtへも反映(EquipPopUpが開いたままであれば、CurInvItemで表示するため、最新化必要)
-            ivm.CurInvItem = InventoryData.invList[ivm.CurItemIdx];
+            ivm.CurInvItem = InventoryData.InvArr[ivm.CurItemIdx];
             Debug.Log($"OpenCurrentEquipPotentialAbility():: Ability Type= {ivm.CurInvItem.RelicAbilities[0]}");
             return ivm.CurInvItem;
         }
@@ -235,7 +227,7 @@ namespace Inventory
             //* 新しい能力
             AbilityType[] newRelicAbilities = InventoryData.CheckRelicAbilitiesData(itemDt);
             //* Relicの能力 変更
-            return InventoryData.invList[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(newRelicAbilities);
+            return InventoryData.InvArr[ivm.CurItemIdx] = ivm.CurInvItem.ChangeItemRelicAbilities(newRelicAbilities);
         }
     #endregion
     }

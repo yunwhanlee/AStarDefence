@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using AssetKits.ParticleImage;
 using DG.Tweening;
 using Inventory.Model;
@@ -99,10 +100,10 @@ public class GameConsumeItemUIManager : MonoBehaviour {
         if(CheckAvailable(itemEnumIdx) == false) return;
 
         //* インベントリデータから、残る量を減る
-        int invItemIdx = GM._.InventoryData.invList.FindIndex (itemDt
+        int invItemIdx = Array.FindIndex(GM._.InventoryData.InvArr, itemDt
             => !itemDt.IsEmpty && itemDt.Data.name == itemEnumIdx.ToString());
-        var invItemDt = GM._.InventoryData.invList[invItemIdx];        
-        GM._.InventoryData.invList[invItemIdx] = invItemDt.ChangeQuantity(invItemDt.Quantity - 1);
+        var invItemDt = GM._.InventoryData.InvArr[invItemIdx];        
+        GM._.InventoryData.InvArr[invItemIdx] = invItemDt.ChangeQuantity(invItemDt.Quantity - 1);
 
         //* 能力 反映
         switch(itemEnumIdx) {
@@ -133,7 +134,7 @@ public class GameConsumeItemUIManager : MonoBehaviour {
     }
 
     private void UpdateBtnQuantityTxt() {
-        foreach(var itemDt in GM._.InventoryData.invList) {
+        foreach(var itemDt in GM._.InventoryData.InvArr) {
             if(itemDt.IsEmpty)
                 continue;
             if(itemDt.Data.name == $"{Etc.ConsumableItem.SteamPack0}")
@@ -149,7 +150,7 @@ public class GameConsumeItemUIManager : MonoBehaviour {
 
     private bool CheckAvailable(Etc.ConsumableItem itemEnumIdx) {
         ConsumableItemBtn iconBtn = ConsumableItemBtns[(int)itemEnumIdx];
-        InventoryItem findInvItem = GM._.InventoryData.invList.Find ( itemDt
+        InventoryItem findInvItem = Array.Find(GM._.InventoryData.InvArr, itemDt
             => !itemDt.IsEmpty && itemDt.Data.name == itemEnumIdx.ToString());
 
         if(findInvItem.Quantity <= 0) {
