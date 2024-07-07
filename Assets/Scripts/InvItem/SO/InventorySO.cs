@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -27,7 +28,7 @@ namespace Inventory.Model
         public int Lv;
         public ItemSO Data;
         public AbilityType[] RelicAbilities;
-        public bool IsEmpty => Quantity == 0; //* ItemSOがNull(登録されていない)なら、true
+        public readonly bool IsEmpty => Quantity == 0; //* ItemSOがNull(登録されていない)なら、true
         public bool IsEquip;
         public bool IsNewAlert;
 
@@ -52,15 +53,15 @@ namespace Inventory.Model
                 IsEquip = this.IsEquip,
                 IsNewAlert = this.IsNewAlert,
             };
-        public InventoryItem ChangeItemData(ItemSO newItemDt)
-            => new InventoryItem {
-                Quantity = this.Quantity,
-                Lv = this.Lv,
-                Data = newItemDt,
-                RelicAbilities = this.RelicAbilities,
-                IsEquip = this.IsEquip,
-                IsNewAlert = this.IsNewAlert,
-            };
+        // public InventoryItem ChangeItemData(ItemSO newItemDt)
+        //     => new InventoryItem {
+        //         Quantity = this.Quantity,
+        //         Lv = this.Lv,
+        //         Data = newItemDt,
+        //         RelicAbilities = this.RelicAbilities,
+        //         IsEquip = this.IsEquip,
+        //         IsNewAlert = this.IsNewAlert,
+        //     };
         public InventoryItem ChangeItemRelicAbilities(AbilityType[] newRelicAbilities)
             => new InventoryItem {
                 Quantity = this.Quantity,
@@ -88,11 +89,11 @@ namespace Inventory.Model
                 IsEquip = this.IsEquip,
                 IsNewAlert = isNewAlert,
             };
-        public static InventoryItem GetEmptyItem()
+        public InventoryItem GetEmptyItem()
             => new InventoryItem {
                 Quantity = 0,
                 Lv = 0,
-                Data = null,
+                Data = this.Data, //* Dataは固定だから、さわらない！
                 RelicAbilities = null,
                 IsEquip = false,
                 IsNewAlert = false,
@@ -106,7 +107,7 @@ namespace Inventory.Model
         [field:Header("インベントリリスト")]
         [field: SerializeField] public InventoryItem[] InvArr;
 
-        [field: SerializeField] public static int Size {get; private set;} = 55;
+        // [field: SerializeField] public static int Size {get; private set;} = 55;
         public event Action<Dictionary<int, InventoryItem>> OnInventoryUIUpdated;
 
         public void SetLoadData() {
@@ -137,7 +138,7 @@ namespace Inventory.Model
             //     }
             // }
 
-            InformAboutChange();
+            // InformAboutChange();
             return quantity;
         }
 
@@ -180,7 +181,7 @@ namespace Inventory.Model
             if(item.Type == Enum.ItemType.Relic)
                 InvArr[item.ID] = InvArr[item.ID].ChangeItemRelicAbilities(relicAbilities);
             
-            InformAboutChange();
+            // InformAboutChange();
 
             // //* 全てのインベントリースロットを回す
             // for(int i = 0; i < InvArr.Length; i++) {
@@ -278,16 +279,13 @@ namespace Inventory.Model
             bool isMustUnEquip = false;
             string typeName = "";
 
-            //* マージできるか状況 確認
+            //* マージ状況 確認
             foreach(var item in InvArr) {
                 if(item.IsEmpty) continue;
                 if(item.Data.Type == Enum.ItemType.Etc) continue;
-                if(item.Data.Type != Enum.ItemType.Etc && item.Data.Grade == Enum.Grade.Prime) {
-                    Debug.Log($"AutoMergeEquipItem():: PRIMEのEQUIP= {item.Data.Name} マージする項目から除外!");
-                    continue;
-                }
+                if(item.Data.Type != Enum.ItemType.Etc && item.Data.Grade == Enum.Grade.Prime) continue;
 
-                //* 装置アイテム中で、マージができるのがあったら
+                // 装置アイテム中で、マージができるのがあったら
                 if(item.Quantity >= Config.EQUIPITEM_MERGE_CNT) {
                     isMergable = true;
                     if(item.IsEquip) {
@@ -296,7 +294,7 @@ namespace Inventory.Model
                     }
                 }
 
-                //* 着用した装置アイテムがあったら、同じタイプのアイテムを全て探す
+                // 着用した装置アイテムがあったら、同じタイプのアイテムを全て探す
                 // if(item.IsEquip) {
                 //     var type = item.Data.Type;
                 //     List<InventoryItem> sameTypeEquipItems = invList.FindAll(invItem => !invItem.IsEmpty && invItem.Data?.Type != Enum.ItemType.Etc && invItem.Data?.Type == type);
@@ -308,7 +306,7 @@ namespace Inventory.Model
                 // }
             }
 
-            //* 除外
+            //* 除外処理
             if(!isMergable) {
                 HM._.hui.ShowMsgError("합성할 아이템이 없습니다.");
                 return;
@@ -320,17 +318,18 @@ namespace Inventory.Model
 
             SM._.SfxPlay(SM.SFX.Merge3SFX);
 
+            //* マージ
             for(int i = 0; i < InvArr.Length; i++) {
                 InventoryItem item = InvArr[i];
 
-                //* マージ
-                if(!item.IsEmpty 
+                if(!item.IsEmpty
                 && item.Data.Type != Enum.ItemType.Etc
+                && item.Data.Type != Enum.ItemType.Empty
                 && item.Quantity >= Config.EQUIPITEM_MERGE_CNT)
                 {
                     Debug.Log($"AutoMergeEquipItem():: Merge item.Data= {item.Data}, item.Name= {item.Data.Name}, isEquip= {item.IsEquip}");
 
-                    if(item.Data?.Grade == Enum.Grade.Prime) {
+                    if(item.Data.Grade == Enum.Grade.Prime) {
                         Debug.Log("最後の等級なので、処理しない");
                         continue;
                     }
@@ -343,10 +342,10 @@ namespace Inventory.Model
 
                     //* マージしてアイテム数量が０なら、削除（Empty）
                     if(InvArr[i].Quantity <= 0) 
-                        InvArr[i] = InventoryItem.GetEmptyItem();
+                        InvArr[i] = InvArr[i].GetEmptyItem();
 
                     //* 次のレベルアイテム生成
-                    var type = item.Data?.Type;
+                    var type = item.Data.Type;
                     int nextGrade = (int)item.Data.Grade + 1;
                     Debug.Log($"AutoMergeEquipItem():: {type}: {(int)item.Data.Grade} -> {nextGrade}");
 
@@ -366,10 +365,10 @@ namespace Inventory.Model
                     //* 次のLVアイテム生成
                     // AddStackableItem(nextLvItemDt, mergeCnt, lv: 1, relicAbilities, item.IsEquip, isNewAlert: true);
                     InvArr[nextLvItemDt.ID] = InvArr[nextLvItemDt.ID].ChangeQuantity(mergeCnt);
+
                     //* RELICなら、Ability追加
                     if(type == Enum.ItemType.Relic)
                         InvArr[nextLvItemDt.ID] = InvArr[nextLvItemDt.ID].ChangeItemRelicAbilities(relicAbilities);
-
                 }
             }
             //* 整列
@@ -414,7 +413,7 @@ namespace Inventory.Model
             //* アイテム数量が０なら、削除（Empty）
             if(InvArr[tgIdx].Quantity <= 0) {
                 //* インベントリースロットのデータとUIリセット
-                InvArr[tgIdx] = InventoryItem.GetEmptyItem();
+                InvArr[tgIdx] = InvArr[tgIdx].GetEmptyItem();
                 HM._.ivm.InvUIItemArr[tgIdx].ResetUI();
                 //* アイテムがないので、開いたPopUpに可能性があることを全て非表示
                 HM._.rwlm.RewardChestPopUp.SetActive(false);
@@ -423,10 +422,10 @@ namespace Inventory.Model
                 // SortInventory();
             }
 
-            foreach (var invItemUI in HM._.ivm.InvUIItemArr) {
-                if(invItemUI.IsEmpty)
-                    invItemUI.ResetUI();
-            }
+            // foreach (var invItemUI in HM._.ivm.InvUIItemArr) {
+            //     if(invItemUI.IsEmpty)
+            //         invItemUI.ResetUI();
+            // }
 
             //* イベントリーUI アップデート
             InformAboutChange();
@@ -462,15 +461,15 @@ namespace Inventory.Model
         /// 
         /// </summary>
         /// <returns></returns>
-        public Dictionary<int, InventoryItem> GetCurrentInventoryState() {
-            Dictionary<int, InventoryItem> invItemDic = new Dictionary<int, InventoryItem>();
-            for(int i = 0; i < InvArr.Length; i++) {
-                if(InvArr[i].IsEmpty)
-                    continue;
-                invItemDic[i] = InvArr[i];
-            }
-            return invItemDic;
-        }
+        // public Dictionary<int, InventoryItem> GetCurrentInventoryState() {
+        //     Dictionary<int, InventoryItem> invItemDic = new Dictionary<int, InventoryItem>();
+        //     for(int i = 0; i < InvArr.Length; i++) {
+        //         if(InvArr[i].IsEmpty)
+        //             continue;
+        //         invItemDic[i] = InvArr[i];
+        //     }
+        //     return invItemDic;
+        // }
 
         /// <summary>
         /// 実際のインベントリーへあるアイテム情報を返す
@@ -488,7 +487,9 @@ namespace Inventory.Model
 
         public void InformAboutChange() {
             Debug.Log("InformAboutChange()::");
-            OnInventoryUIUpdated?.Invoke(GetCurrentInventoryState());
+            for(int i = 0; i < HM._.ivCtrl.InventoryData.InvArr.Length; i++)
+                HM._.ivm.UpdateUI(i, HM._.ivCtrl.InventoryData.InvArr[i]);
+            // OnInventoryUIUpdated?.Invoke(GetCurrentInventoryState());
         }
     }
     #endregion

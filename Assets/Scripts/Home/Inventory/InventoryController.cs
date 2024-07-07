@@ -47,7 +47,7 @@ namespace Inventory
                 || itemList.Data.name == $"{Etc.ConsumableItem.LightningScroll}")
                 && itemList.Quantity <= 0) 
                 {
-                    InventoryData.InvArr[i] = InventoryItem.GetEmptyItem();
+                    InventoryData.InvArr[i] = InventoryData.InvArr[i].GetEmptyItem();
                     // isConsumeItemDelete = true;
                 }
 
@@ -102,8 +102,10 @@ namespace Inventory
         private void PrepareInventoryData() {
             //* DBに保存したインベントリーデータ 設定
             InventoryData.SetLoadData();
+
             //* インベントリUI最新化イベント登録 (InventorySO::InformAboutChange()で使う)
             InventoryData.OnInventoryUIUpdated += UpdateInventoryUI;
+
             //* DBの保存したインベントリデータを一個ずつ読みこみながら、インベントリSOリストへ追加
             // Debug.Log($"PrepareInventoryData():: InitItems.Length= {InvItemDBs}");
             // foreach (InventoryItem item in InvItemDBs) {
@@ -139,7 +141,7 @@ namespace Inventory
             HM._.hui.IsActivePopUp = true;
             SM._.SfxPlay(SM.SFX.ClickSFX);
             ivm.Show();
-            Debug.Log($"InventoryData.GetCurrentInventoryState().Count= {InventoryData.GetCurrentInventoryState().Count}");
+            // Debug.Log($"InventoryData.GetCurrentInventoryState().Count= {InventoryData.GetCurrentInventoryState().Count}");
             // foreach (var item in InventoryData.GetCurrentInventoryState()) {
             //     ivm.UpdateUI( item.Key, item.Value );
             // }
@@ -155,7 +157,7 @@ namespace Inventory
         }
 
     #region EQUIP
-        public int FindCurEquipItemIdx(Enum.ItemType type) {
+        public int FindCurEquipSlotItemIdx(Enum.ItemType type) {
             return Array.FindIndex(InventoryData.InvArr, item
                 => !item.IsEmpty
                 && item.IsEquip

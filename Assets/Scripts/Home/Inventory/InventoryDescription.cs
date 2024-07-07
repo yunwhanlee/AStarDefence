@@ -87,7 +87,7 @@ namespace Inventory.UI {
             HM._.ivEqu.UpdateAllEquipAbilityData();
 
             //* イベントリーUI アップデート
-            HM._.ivCtrl.InventoryData.InformAboutChange();
+            // HM._.ivCtrl.InventoryData.InformAboutChange();
         }
 
         private bool TryUpgrade() {
@@ -149,11 +149,11 @@ namespace Inventory.UI {
             ItemImgScaleUIEF.Play();
             UpgradeSucessUIEF.Play();
             SM._.SfxPlay(SM.SFX.UpgradeSFX);
-            HM._.ivEqu.EquipItem(type, HM._.ivEqu.FindEquipItem(type), isEffect: false);
+            HM._.ivEqu.EquipItem(type, HM._.ivEqu.FindEquipSlotItem(type), isEffect: false);
             HM._.ivEqu.UpdateAllEquipAbilityData();
 
             //* イベントリーUI アップデート
-            HM._.ivCtrl.InventoryData.InformAboutChange();
+            // HM._.ivCtrl.InventoryData.InformAboutChange();
 
             //* 情報表示ポップアップUI アップデート
             HM._.ivm.UpdateDescription(ivm.CurItemIdx, ivm.CurInvItem.Data, ivm.CurInvItem.Quantity, ivm.CurInvItem.Lv, ivm.CurInvItem.RelicAbilities, ivm.CurInvItem.IsEquip);
@@ -256,7 +256,7 @@ namespace Inventory.UI {
             InventoryItem curInvItem = HM._.ivCtrl.OpenCurrentEquipPotentialAbility();
 
             //* イベントリーUI アップデート
-            HM._.ivCtrl.InventoryData.InformAboutChange();
+            // HM._.ivCtrl.InventoryData.InformAboutChange();
 
             //* 情報表示ポップアップUI アップデート
             HM._.ivm.UpdateDescription(curIdx, curInvItem.Data, curInvItem.Quantity, curInvItem.Lv, curInvItem.RelicAbilities, curInvItem.IsEquip);
@@ -272,7 +272,7 @@ namespace Inventory.UI {
             InventoryItem curInvItem = HM._.ivCtrl.ResetCurrentRelicAbilities();
 
             //* イベントリーUI アップデート
-            HM._.ivCtrl.InventoryData.InformAboutChange();
+            // HM._.ivCtrl.InventoryData.InformAboutChange();
 
             //* 情報表示ポップアップUI アップデート
             HM._.ivm.UpdateDescription(curIdx, curInvItem.Data, curInvItem.Quantity, curInvItem.Lv, curInvItem.RelicAbilities, curInvItem.IsEquip);
@@ -328,7 +328,7 @@ namespace Inventory.UI {
                 }
 
                 //* イベントリーUI アップデート
-                HM._.ivCtrl.InventoryData.InformAboutChange();
+                // HM._.ivCtrl.InventoryData.InformAboutChange();
 
                 //* 情報表示ポップアップUI アップデート
                 if(ivm.CurInvItem.Data)

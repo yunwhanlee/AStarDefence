@@ -24716,7 +24716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 039fd2b0f5590a644ab835d05d7b668b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 0
+  <Type>k__BackingField: 5
   <TypeBgImg>k__BackingField: {fileID: 996392001961664365}
   <TypeIconImg>k__BackingField: {fileID: 3493857606018426509}
   <BgImg>k__BackingField: {fileID: 1972232930978752229}

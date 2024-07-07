@@ -116,8 +116,8 @@ public class InventoryEquipUIManager : MonoBehaviour {
     public TMP_Text CritDmgPerTxt;
 
 #region FUNC
-    public InventoryItem FindEquipItem(Enum.ItemType type) {
-        int idx = HM._.ivCtrl.FindCurEquipItemIdx(type);
+    public InventoryItem FindEquipSlotItem(Enum.ItemType type) {
+        int idx = HM._.ivCtrl.FindCurEquipSlotItemIdx(type);
         InventoryItem equipItem = HM._.ivm.GetCurItemUIFromIdx(idx);
         return equipItem;
     }
@@ -126,10 +126,10 @@ public class InventoryEquipUIManager : MonoBehaviour {
     /// 現在装置しているEquipスロットを最新化
     /// </summary>
     public void UpdateAllEquipSlots() {
-        EquipItem(Enum.ItemType.Weapon, FindEquipItem(Enum.ItemType.Weapon), isEffect: false);
-        EquipItem(Enum.ItemType.Shoes, FindEquipItem(Enum.ItemType.Shoes), isEffect: false);
-        EquipItem(Enum.ItemType.Ring, FindEquipItem(Enum.ItemType.Ring), isEffect: false);
-        EquipItem(Enum.ItemType.Relic, FindEquipItem(Enum.ItemType.Relic), isEffect: false);
+        EquipItem(Enum.ItemType.Weapon, FindEquipSlotItem(Enum.ItemType.Weapon), isEffect: false);
+        EquipItem(Enum.ItemType.Shoes, FindEquipSlotItem(Enum.ItemType.Shoes), isEffect: false);
+        EquipItem(Enum.ItemType.Ring, FindEquipSlotItem(Enum.ItemType.Ring), isEffect: false);
+        EquipItem(Enum.ItemType.Relic, FindEquipSlotItem(Enum.ItemType.Relic), isEffect: false);
     }
 
     private void SetEquipEmptyIcon(Enum.ItemType type, bool isActive)
@@ -292,10 +292,10 @@ public class InventoryEquipUIManager : MonoBehaviour {
 
     public void UpdateAllEquipAbilityData() {
         ResetEquipAbilityData();
-        SetEquipAbilityData(FindEquipItem(Enum.ItemType.Weapon));
-        SetEquipAbilityData(FindEquipItem(Enum.ItemType.Shoes));
-        SetEquipAbilityData(FindEquipItem(Enum.ItemType.Ring));
-        SetEquipAbilityData(FindEquipItem(Enum.ItemType.Relic));
+        SetEquipAbilityData(FindEquipSlotItem(Enum.ItemType.Weapon));
+        SetEquipAbilityData(FindEquipSlotItem(Enum.ItemType.Shoes));
+        SetEquipAbilityData(FindEquipSlotItem(Enum.ItemType.Ring));
+        SetEquipAbilityData(FindEquipSlotItem(Enum.ItemType.Relic));
     }
 #endregion
 }

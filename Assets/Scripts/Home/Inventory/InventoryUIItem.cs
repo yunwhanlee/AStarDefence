@@ -19,7 +19,7 @@ namespace Inventory.UI
         private bool IsShortPush = false;
 
         [field: Header("ELEMENT")]
-        [field:SerializeField] public Enum.ItemType Type {get; set;}
+        [field:SerializeField] public Enum.ItemType Type {get; set;} = Enum.ItemType.Empty;
         [field:SerializeField] public Image TypeBgImg {get; set;}
         [field:SerializeField] public Image TypeIconImg {get; set;}
         [field:SerializeField] public Image BgImg {get; set;}
@@ -49,12 +49,13 @@ namespace Inventory.UI
         [field:SerializeField] public ParticleSystem PrimeSpawnUIEF {get; set;}
         public bool IsEmpty = false;
         public event Action<InventoryUIItem> OnItemClicked, 
-            OnItemDroppedOn, 
-            OnItemBeginDrag, 
-            OnItemEndDrag,
             OnItemClickShortly;
+            // OnItemDroppedOn, 
+            // OnItemBeginDrag, 
+            // OnItemEndDrag;
 
         void Awake() {
+            Debug.Log("AA InventoryUIItem:: Awake():: ResetUI");
             ResetUI();
             Deselect();
 
@@ -74,8 +75,8 @@ namespace Inventory.UI
     #region EVENT
     #endregion
         public void ResetUI() {
-            Debug.Log($"ResetUI():: TypeBgImg= {TypeBgImg}");
-            Type = Enum.ItemType.Etc;
+            Debug.Log($"<color=white>ResetUI():: ObjName= {name} Type= {Type}</color>");
+            // Type = Enum.ItemType.Empty; //* 固定したから要らない
             TypeBgImg.enabled = false;
             TypeIconImg.enabled = false;
             LightImg.enabled = false;
@@ -121,7 +122,6 @@ namespace Inventory.UI
         /// </summary>
         public void SetUI (Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv, AbilityType[] relicAbilities = null, bool isEquip = false, bool isNewAlert = false) {
             Debug.Log($"SetUI(ItemImg.name={ItemImg.sprite.name}, type={type}, grade={grade}, quantity= {quantity})::");
-            Type = type;
             QuantityTxt.text = $"{quantity}";
 
             //* その他アイテム

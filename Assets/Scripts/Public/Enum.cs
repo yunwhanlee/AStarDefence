@@ -177,14 +177,15 @@ public static class Enum {
             : "기타";
     }
     public enum ItemType {
-        Weapon, Shoes, Ring, Relic, Etc
+        Weapon, Shoes, Ring, Relic, Etc, Empty
     }
     public static string GetItemTypeName(ItemType itemType) {
         return (itemType == ItemType.Weapon)? "무기"
             : (itemType == ItemType.Shoes)? "신발"
             : (itemType == ItemType.Ring)? "반지"
             : (itemType == ItemType.Relic)? "유물"
-            : "기타";
+            : (itemType == ItemType.Etc)? "기타"
+            : "EMPTY";
     }
 
     public enum BossRwd {
