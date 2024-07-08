@@ -49,6 +49,7 @@ public class GameRewardListUIManager : MonoBehaviour {
             RewardItem rwdItem = rewardList[i];
             InventoryUIItem rwdItemUI = Instantiate(rwdItemPf.gameObject, contentTf).GetComponent<InventoryUIItem>();
             rwdItemUI.SetUI(rwdItem.Data.Type, rwdItem.Data.Grade, rwdItem.Data.ItemImg, rwdItem.Quantity, lv: 1);
+
             if(rwdItem.Data.name.Contains("Chest"))
                 rwdItemUI.BonusRewardLabel.SetActive(true);
             //* Particle UI Effect 1

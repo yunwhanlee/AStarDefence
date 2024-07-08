@@ -19,6 +19,9 @@ namespace Inventory.UI
         private bool IsShortPush = false;
 
         [field: Header("ELEMENT")]
+        public bool IsEmpty = false;
+        public bool IsEquipSlot;
+
         [field:SerializeField] public Enum.ItemType Type {get; set;} = Enum.ItemType.Empty;
         [field:SerializeField] public Image TypeBgImg {get; set;}
         [field:SerializeField] public Image TypeIconImg {get; set;}
@@ -47,26 +50,41 @@ namespace Inventory.UI
         [field:SerializeField] public ParticleSystem LegendSpawnUIEF {get; set;}
         [field:SerializeField] public ParticleSystem MythSpawnUIEF {get; set;}
         [field:SerializeField] public ParticleSystem PrimeSpawnUIEF {get; set;}
-        public bool IsEmpty = false;
-        public event Action<InventoryUIItem> OnItemClicked, 
-            OnItemClickShortly;
-            // OnItemDroppedOn, 
-            // OnItemBeginDrag, 
-            // OnItemEndDrag;
+
+        public event Action<InventoryUIItem> OnItemClicked;
+        public event Action<InventoryUIItem> OnItemClickShortly;
+        // OnItemDroppedOn,
+        // OnItemBeginDrag,
+        // OnItemEndDrag,
 
         void Awake() {
             Debug.Log("AA InventoryUIItem:: Awake():: ResetUI");
-            ResetUI();
+            // ResetUI();
+
+            if(HighGradeSpawnUIEF) HighGradeSpawnUIEF.enabled = false; //.Stop();
+            if(Twincle1UIEF) Twincle1UIEF.enabled = false;
+            if(Twincle2UIEF) Twincle2UIEF.enabled = false;
+
+            //* Equipスロットは対応しない
+            if(AlertRedDot) AlertRedDot.SetActive(false);
+            if(AlertGreenDot) AlertGreenDot.SetActive(false);
+            if(EquipDim) EquipDim.SetActive(false);
+            if(BonusRewardLabel) BonusRewardLabel.SetActive(false);
+            if(DoubleRewardLabel) DoubleRewardLabel.SetActive(false);
+
+
             Deselect();
 
             //* HOMEシーンのみ
             if(HM._) {
+                // スロットへクリックイベント登録
                 GetComponent<Button>().onClick.AddListener(() => {
                     Debug.Log("OnClick Item!");
                     OnItemClicked?.Invoke(this);
                     OnItemClickShortly?.Invoke(this);
                 });
 
+                // EQUIPスロット 最新化
                 HM._.ivEqu.UpdateAllEquipSlots();
                 HM._.ivEqu.UpdateAllEquipAbilityData();
             }
@@ -77,32 +95,33 @@ namespace Inventory.UI
         public void ResetUI() {
             Debug.Log($"<color=white>ResetUI():: ObjName= {name} Type= {Type}</color>");
             // Type = Enum.ItemType.Empty; //* 固定したから要らない
-            TypeBgImg.enabled = false;
-            TypeIconImg.enabled = false;
-            LightImg.enabled = false;
-            if(HM._) BgImg.sprite = HM._.ivm.NoneBgSpr;
-            BgImg.color = Color.white;
-            ItemImg.gameObject.SetActive(false);
-            if(HM._) HM._.ivm.AutoMergeBtnAlertIcon.SetActive(false);
+            // TypeBgImg.enabled = false;
+            // TypeIconImg.enabled = false;
+            // LightImg.enabled = false;
+            // ItemImg.gameObject.SetActive(false);
+            // if(HM._) BgImg.sprite = HM._.ivm.NoneBgSpr;
+            // BgImg.color = Color.white;
+            // if(HM._) HM._.ivm.AutoMergeBtnAlertIcon.SetActive(false);
+            // QuantityTxt.text = "";
+            // LvTxt.text = "";
 
             //* Equipスロットは対応しない（そのそのオブジェクトが付いていない）
-            if(AlertRedDot) AlertRedDot.SetActive(false);
-            if(AlertGreenDot) AlertGreenDot.SetActive(false);
-            if(EquipDim) EquipDim.SetActive(false);
-            if(BonusRewardLabel) BonusRewardLabel.SetActive(false);
-            if(DoubleRewardLabel) DoubleRewardLabel.SetActive(false);
+            // if(AlertRedDot) AlertRedDot.SetActive(false);
+            // if(AlertGreenDot) AlertGreenDot.SetActive(false);
+            // if(EquipDim) EquipDim.SetActive(false);
+            // if(BonusRewardLabel) BonusRewardLabel.SetActive(false);
+            // if(DoubleRewardLabel) DoubleRewardLabel.SetActive(false);
 
             IsEmpty = true;
             // IsNewAlert = false;
             
-            QuantityTxt.text = "";
-            LvTxt.text = "";
             ItemImgScaleUIEF.Stop();
             WhiteDimScaleUIEF.Stop();
             ShinyUIEF.Stop();
-            if(HighGradeSpawnUIEF) HighGradeSpawnUIEF.enabled = false; //.Stop();
-            if(Twincle1UIEF) Twincle1UIEF.enabled = false;
-            if(Twincle2UIEF) Twincle2UIEF.enabled = false;
+
+            // if(HighGradeSpawnUIEF) HighGradeSpawnUIEF.enabled = false; //.Stop();
+            // if(Twincle1UIEF) Twincle1UIEF.enabled = false;
+            // if(Twincle2UIEF) Twincle2UIEF.enabled = false;
             if(HighGradeRayUIEF) HighGradeRayUIEF.Stop();
             if(HighGradeHandUIEF) HighGradeHandUIEF.Stop();
             if(HighGradeBurstBlueUIEF) HighGradeBurstBlueUIEF.Stop();
@@ -120,13 +139,12 @@ namespace Inventory.UI
         /// <summary>
         /// インベントリアイテムUIとデータ設定
         /// </summary>
-        public void SetUI (Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv, AbilityType[] relicAbilities = null, bool isEquip = false, bool isNewAlert = false) {
-            Debug.Log($"SetUI(ItemImg.name={ItemImg.sprite.name}, type={type}, grade={grade}, quantity= {quantity})::");
+        public void SetUI(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv, AbilityType[] relicAbilities = null, bool isEquip = false, bool isNewAlert = false) {
+            Debug.Log($"<color=white>SetUI(ItemImg.name={ItemImg.sprite.name}, type={type}, grade={grade}, quantity= {quantity})::</color>");
             QuantityTxt.text = $"{quantity}";
 
-            //* その他アイテム
+            //* ETCアイテム
             if(type == Enum.ItemType.Etc) {
-                Debug.Log($"SetUI(<color=white>type={type}</color>, ItemImg.name={ItemImg.sprite.name}, grade={grade})::");
                 TypeBgImg.enabled = false;
                 TypeIconImg.enabled = false;
                 BgImg.sprite = HM._.ivm.NoneBgSpr;
@@ -134,18 +152,18 @@ namespace Inventory.UI
                 BgImg.color = (grade == Enum.Grade.None)? Color.white : HM._.ivm.GradeClrs[ (int)grade];
                 LvTxt.text = "";
                 EquipDim.SetActive(false);
-                
             }
-            //* 装置アイテム
+            //* EQUIPアイテム
             else {
-                Debug.Log($"SetUI(<color=yellow>type={type}</color>, ItemImg.name={ItemImg.sprite.name}, grade={grade})::");
                 TypeBgImg.enabled = true;
                 TypeIconImg.enabled = true;
                 TypeBgImg.color = HM._.ivm.GradeClrs[(int)grade];
                 TypeIconImg.sprite = HM._.ivm.TypeSprs[(int)type];
                 BgImg.sprite = HM._.ivm.GradeBgSprs[(int)grade];
                 LightImg.enabled = true;
-                if(EquipDim) EquipDim.SetActive(isEquip); //* EquipスロットはEquipDimオブジェクトがないため、合うかif文でチェック
+
+                if(EquipDim)
+                    EquipDim.SetActive(isEquip); //* EquipスロットはEquipDimオブジェクトがないため、合うかif文でチェック
 
                 //* マージ可能な物 表示 (PRIME等級はしない)
                 if(quantity >= Config.EQUIPITEM_MERGE_CNT && grade < Enum.Grade.Prime) {
@@ -155,18 +173,17 @@ namespace Inventory.UI
                 }
 
                 string lvStr = (type == Enum.ItemType.Relic && lv >= Config.RELIC_UPGRADE_MAX)
-                    || (type != Enum.ItemType.Relic && lv >= Config.EQUIP_UPGRADE_MAX) ? "MAX" : lv.ToString();
+                            || (type != Enum.ItemType.Relic && lv >= Config.EQUIP_UPGRADE_MAX) ? "MAX" : lv.ToString();
                 LvTxt.text = $"Lv.{lvStr}";
 
                 if(grade >= Enum.Grade.Unique)
                     ShinyUIEF.Play();
-                
             }
 
             IsEmpty = false;
             // IsNewAlert = true;
             if(AlertRedDot) AlertRedDot.SetActive(isNewAlert);
-            ItemImg.gameObject.SetActive(true);
+            // ItemImg.gameObject.SetActive(true);
             ItemImg.sprite = spr;
         }
 

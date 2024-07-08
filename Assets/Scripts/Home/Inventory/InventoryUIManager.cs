@@ -53,6 +53,7 @@ namespace Inventory.UI
         // public event Action<int, int> OnSwapItems;
 
         void Awake() {
+            CurCateIdx = -1;
             Hide();
             InvUIItemArr = new InventoryUIItem[HM._.ivCtrl.InventoryData.InvArr.Length];
             // MouseFollower.Toggle(false);
@@ -94,7 +95,13 @@ namespace Inventory.UI
         }
     }
 
-    public void OnClickInventoryIconBtn() => HM._.ivCtrl.ShowInventory();
+    public void OnClickInventoryIconBtn() {
+        // 最初にWEAPONカテゴリに初期化
+        if(CurCateIdx == -1)
+            ActiveCategoryItemList(Enum.ItemType.Weapon);
+        // インベントリー開く
+        HM._.ivCtrl.ShowInventory();
+    } 
     public void OnClickInventoryPopUpBackBtn() => HM._.ivCtrl.HideInventory();
     public void OnClickInvItemAutoMergeBtn() => HM._.ivCtrl.InventoryData.AutoMergeEquipItem();
     public void OnClickGradeInfoBtn() {
@@ -146,8 +153,6 @@ namespace Inventory.UI
                 itemUIIns.OnItemClickShortly += HandleShowItemInfoPopUp;
             }
 
-            ActiveCategoryItemList(Enum.ItemType.Weapon);
-
             //* EQUIP スロット
             foreach (var equipSlot in HM._.ivEqu.EquipItemSlotUIs) {
                 // イベント 登録
@@ -167,9 +172,9 @@ namespace Inventory.UI
         }
         public void ResetSelection() {
             InvDesc.ResetDescription();
-            DeselectAllItems();
+            DeselectAllSlot();
         }
-        private void DeselectAllItems() {
+        private void DeselectAllSlot() {
             foreach(InventoryUIItem item in InvUIItemArr)
                 item.Deselect();
         }
@@ -181,6 +186,7 @@ namespace Inventory.UI
         /// <param name="item"></param>ItemSOデータ<summary>
         public void UpdateUI(int itemIdx, InventoryItem item) {
             Debug.Log($"<color=white>UpdateData():: itemIdx= {itemIdx}, type= {item.Data.Type}, item= {item.Data.Name})</color>");
+
             InvUIItemArr[itemIdx].SetUI (
                 item.Data.Type, 
                 item.Data.Grade, 
@@ -220,11 +226,11 @@ namespace Inventory.UI
         }
 
         /// <summary>
-        /// インベントリの情報PopUp表示
+        /// アイテムスロット情報POPUP 表示
         /// </summary>
         private void HandleShowItemInfoPopUp(InventoryUIItem invItemUI) {
             Debug.Log($"HandleShowItemInfoPopUp(invItemUI.name= {invItemUI.name})::");
-            DeselectAllItems();
+            DeselectAllSlot();
 
             if(invItemUI.IsEmpty)
                 return;
@@ -253,29 +259,26 @@ namespace Inventory.UI
         /// <summary>
         /// インベントリーUIスロット選択
         /// </summary>
-        /// <param name="invItemUI"></param> <summary>
-        /// 
-        /// </summary>
-        /// <param name="invItemUI"></param>
+        /// <param name="invItemUI"></param>クリックしたスロット<summary>
         public void HandleItemSelection(InventoryUIItem invItemUI) {
             //* アイテムのINDEX 習得
             int idx;
             switch(invItemUI.name) {
                 //* Equip スロットなら
                 case InventoryEquipUIManager.WEAPON_SLOT_OBJ_NAME : 
-                    idx = HM._.ivCtrl.FindCurEquipSlotItemIdx(Enum.ItemType.Weapon);
+                    idx = HM._.ivCtrl.FindCurrentEquipItemIdx(Enum.ItemType.Weapon);
                     if(idx == -1) OnClickCateMenuIconBtn((int)Enum.ItemType.Weapon); // スロットが空なら、該当なカテゴリ表示
                     break;
                 case InventoryEquipUIManager.SHOES_SLOT_OBJ_NAME : 
-                    idx = HM._.ivCtrl.FindCurEquipSlotItemIdx(Enum.ItemType.Shoes);
+                    idx = HM._.ivCtrl.FindCurrentEquipItemIdx(Enum.ItemType.Shoes);
                     if(idx == -1) OnClickCateMenuIconBtn((int)Enum.ItemType.Shoes); // スロットが空なら、該当なカテゴリ表示
                     break;
                 case InventoryEquipUIManager.RING_SLOT_OBJ_NAME : 
-                    idx = HM._.ivCtrl.FindCurEquipSlotItemIdx(Enum.ItemType.Ring);
+                    idx = HM._.ivCtrl.FindCurrentEquipItemIdx(Enum.ItemType.Ring);
                     if(idx == -1) OnClickCateMenuIconBtn((int)Enum.ItemType.Ring); // スロットが空なら、該当なカテゴリ表示
                     break;
                 case InventoryEquipUIManager.RELIC_SLOT_OBJ_NAME : 
-                    idx = HM._.ivCtrl.FindCurEquipSlotItemIdx(Enum.ItemType.Relic);
+                    idx = HM._.ivCtrl.FindCurrentEquipItemIdx(Enum.ItemType.Relic);
                     if(idx == -1) OnClickCateMenuIconBtn((int)Enum.ItemType.Relic); // スロットが空なら、該当なカテゴリ表示
                     break;
                 //* インベントリーアイテムなら
@@ -286,7 +289,9 @@ namespace Inventory.UI
 
             //* 適用
             Debug.Log($"HandleItemSelection(invItemUI= {invItemUI.name}):: idx= {idx}");
-            if(idx == -1) return;
+            if(idx == -1)
+                return;
+
             CurItemIdx = idx;
             CurInvItem = HM._.ivCtrl.InventoryData.InvArr[idx]; //GetCurItemUIFromIdx(idx);
             OnDescriptionRequested?.Invoke(idx);
@@ -295,7 +300,7 @@ namespace Inventory.UI
         public void UpdateDescription(int itemIdx, ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip) {
             Debug.Log($"UpdateDescription():: itemIdx= {itemIdx}, item.Name= {item.Name}, quantity= {quantity}");
             InvDesc.SetDescription(item, quantity, lv, relicAbilities, isEquip);
-            DeselectAllItems();
+            DeselectAllSlot();
             InvUIItemArr[itemIdx].Select();
         }
 

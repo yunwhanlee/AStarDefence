@@ -117,7 +117,7 @@ public class InventoryEquipUIManager : MonoBehaviour {
 
 #region FUNC
     public InventoryItem FindEquipSlotItem(Enum.ItemType type) {
-        int idx = HM._.ivCtrl.FindCurEquipSlotItemIdx(type);
+        int idx = HM._.ivCtrl.FindCurrentEquipItemIdx(type);
         InventoryItem equipItem = HM._.ivm.GetCurItemUIFromIdx(idx);
         return equipItem;
     }
@@ -126,10 +126,30 @@ public class InventoryEquipUIManager : MonoBehaviour {
     /// 現在装置しているEquipスロットを最新化
     /// </summary>
     public void UpdateAllEquipSlots() {
-        EquipItem(Enum.ItemType.Weapon, FindEquipSlotItem(Enum.ItemType.Weapon), isEffect: false);
-        EquipItem(Enum.ItemType.Shoes, FindEquipSlotItem(Enum.ItemType.Shoes), isEffect: false);
-        EquipItem(Enum.ItemType.Ring, FindEquipSlotItem(Enum.ItemType.Ring), isEffect: false);
-        EquipItem(Enum.ItemType.Relic, FindEquipSlotItem(Enum.ItemType.Relic), isEffect: false);
+        var invDtArr = HM._.ivCtrl.InventoryData.InvArr;
+
+        // 現在着用した装置INDEX ( 空なら -1 )
+        int weaponIdx = Array.FindIndex(invDtArr, item => item.Data.Type == Enum.ItemType.Weapon && item.IsEquip);
+        int shoesIdx = Array.FindIndex(invDtArr, item => item.Data.Type == Enum.ItemType.Shoes && item.IsEquip);
+        int ringIdx = Array.FindIndex(invDtArr, item => item.Data.Type == Enum.ItemType.Ring && item.IsEquip);
+        int relicIdx = Array.FindIndex(invDtArr, item => item.Data.Type == Enum.ItemType.Relic && item.IsEquip);
+
+        if(weaponIdx == -1) EquipItemSlotUIs[(int)Enum.ItemType.Weapon].IsEmpty = true;
+        else                EquipItem(Enum.ItemType.Weapon, invDtArr[weaponIdx], isEffect: false);
+
+        if(shoesIdx == -1) EquipItemSlotUIs[(int)Enum.ItemType.Shoes].IsEmpty = true;
+        else                EquipItem(Enum.ItemType.Shoes, invDtArr[shoesIdx], isEffect: false);
+
+        if(ringIdx == -1) EquipItemSlotUIs[(int)Enum.ItemType.Ring].IsEmpty = true;
+        else                EquipItem(Enum.ItemType.Ring, invDtArr[ringIdx], isEffect: false);
+
+        if(relicIdx == -1) EquipItemSlotUIs[(int)Enum.ItemType.Relic].IsEmpty = true;
+        else                EquipItem(Enum.ItemType.Relic, invDtArr[relicIdx], isEffect: false);
+
+        // EquipItem(Enum.ItemType.Weapon, FindEquipSlotItem(Enum.ItemType.Weapon), isEffect: false);
+        // EquipItem(Enum.ItemType.Shoes, FindEquipSlotItem(Enum.ItemType.Shoes), isEffect: false);
+        // EquipItem(Enum.ItemType.Ring, FindEquipSlotItem(Enum.ItemType.Ring), isEffect: false);
+        // EquipItem(Enum.ItemType.Relic, FindEquipSlotItem(Enum.ItemType.Relic), isEffect: false);
     }
 
     private void SetEquipEmptyIcon(Enum.ItemType type, bool isActive)
@@ -141,15 +161,17 @@ public class InventoryEquipUIManager : MonoBehaviour {
         SetEquipEmptyIcon(type, true);
     }
 
+    /// <summary>
+    /// EQUIPアイテム装置
+    /// </summary>
     public void EquipItem(Enum.ItemType type, InventoryItem invItem, bool isEffect = true) {
         if(invItem.IsEmpty)
             return;
 
-        ItemSO dt = invItem.Data;
         EquipItemSlotUIs[(int)type].SetUI (
-            dt.Type, 
-            dt.Grade, 
-            dt.ItemImg, 
+            invItem.Data.Type, 
+            invItem.Data.Grade, 
+            invItem.Data.ItemImg, 
             invItem.Quantity, 
             invItem.Lv, 
             invItem.RelicAbilities, 
@@ -163,7 +185,10 @@ public class InventoryEquipUIManager : MonoBehaviour {
         SetEquipEmptyIcon(type, false);
 
         if(isEffect)
-            EquipItemSlotUIs[(int)type].PlayScaleUIEF(EquipItemSlotUIs[(int)type], dt.ItemImg);
+            EquipItemSlotUIs[(int)type].PlayScaleUIEF(
+                EquipItemSlotUIs[(int)type], 
+                invItem.Data.ItemImg
+            );
     }
 
     /// <summary>

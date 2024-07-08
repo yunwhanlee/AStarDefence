@@ -53,15 +53,6 @@ namespace Inventory.Model
                 IsEquip = this.IsEquip,
                 IsNewAlert = this.IsNewAlert,
             };
-        // public InventoryItem ChangeItemData(ItemSO newItemDt)
-        //     => new InventoryItem {
-        //         Quantity = this.Quantity,
-        //         Lv = this.Lv,
-        //         Data = newItemDt,
-        //         RelicAbilities = this.RelicAbilities,
-        //         IsEquip = this.IsEquip,
-        //         IsNewAlert = this.IsNewAlert,
-        //     };
         public InventoryItem ChangeItemRelicAbilities(AbilityType[] newRelicAbilities)
             => new InventoryItem {
                 Quantity = this.Quantity,

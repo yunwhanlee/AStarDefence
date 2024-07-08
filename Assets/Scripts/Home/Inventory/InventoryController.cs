@@ -157,11 +157,11 @@ namespace Inventory
         }
 
     #region EQUIP
-        public int FindCurEquipSlotItemIdx(Enum.ItemType type) {
+        public int FindCurrentEquipItemIdx(Enum.ItemType type) {
             return Array.FindIndex(InventoryData.InvArr, item
-                => !item.IsEmpty
-                && item.IsEquip
+                => item.IsEquip
                 && item.Data.Type == type
+                // && !item.IsEmpty
             );
         }
 
