@@ -168,10 +168,11 @@ namespace Inventory.Model
         private int AddStackableItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip, bool isNewAlert) {
             Debug.Log($"AddStackableItem():: item.ID= {item.ID}, item.Name= {item.Name}, quantity= {quantity}");
             InvArr[item.ID] = InvArr[item.ID].ChangeQuantity(InvArr[item.ID].Quantity + quantity);
+            InvArr[item.ID] = InvArr[item.ID].ChangeLevel(lv);
 
             if(item.Type == Enum.ItemType.Relic)
                 InvArr[item.ID] = InvArr[item.ID].ChangeItemRelicAbilities(relicAbilities);
-            
+
             // InformAboutChange();
 
             // //* 全てのインベントリースロットを回す
@@ -271,7 +272,7 @@ namespace Inventory.Model
             string typeName = "";
 
             //* マージ状況 確認
-            foreach(var item in InvArr) {
+            foreach(InventoryItem item in InvArr) {
                 if(item.IsEmpty) continue;
                 if(item.Data.Type == Enum.ItemType.Etc) continue;
                 if(item.Data.Type != Enum.ItemType.Etc && item.Data.Grade == Enum.Grade.Prime) continue;
@@ -332,13 +333,12 @@ namespace Inventory.Model
                     InvArr[i] = item.ChangeQuantity(item.Quantity - removeQuantity);
 
                     //* マージしてアイテム数量が０なら、削除（Empty）
-                    if(InvArr[i].Quantity <= 0) 
-                        InvArr[i] = InvArr[i].GetEmptyItem();
+                    if(item.Quantity <= 0) 
+                        InvArr[i] = item.GetEmptyItem();
 
                     //* 次のレベルアイテム生成
                     var type = item.Data.Type;
                     int nextGrade = (int)item.Data.Grade + 1;
-                    Debug.Log($"AutoMergeEquipItem():: {type}: {(int)item.Data.Grade} -> {nextGrade}");
 
                     // タイプ
                     ItemSO nextLvItemDt = (type == Enum.ItemType.Weapon)? HM._.rwlm.RwdItemDt.WeaponDatas[nextGrade]
@@ -347,15 +347,16 @@ namespace Inventory.Model
                         : (type == Enum.ItemType.Relic)? HM._.rwlm.RwdItemDt.RelicDatas[nextGrade - (int)Enum.Grade.Epic]
                         : null;
 
-                    if(nextLvItemDt != null)
+                    Debug.Log($"AutoMergeEquipItem():: {type}: {(int)item.Data.Grade} -> {nextGrade}, nextLvItemDt.ID= {nextLvItemDt.ID} ,mergeCnt= {mergeCnt}");
+
+                    if(nextLvItemDt == null)
                         continue;
 
                     //* Relicなら、ランダムで能力
                     var relicAbilities = CheckRelicAbilitiesData(nextLvItemDt);
 
                     //* 次のLVアイテム生成
-                    // AddStackableItem(nextLvItemDt, mergeCnt, lv: 1, relicAbilities, item.IsEquip, isNewAlert: true);
-                    InvArr[nextLvItemDt.ID] = InvArr[nextLvItemDt.ID].ChangeQuantity(mergeCnt);
+                    AddStackableItem(nextLvItemDt, mergeCnt, lv: 1, relicAbilities, item.IsEquip, isNewAlert: true);
 
                     //* RELICなら、Ability追加
                     if(type == Enum.ItemType.Relic)
@@ -365,14 +366,14 @@ namespace Inventory.Model
             //* 整列
             // SortInventory();
 
-            //* イベントリーUI アップデート
+            //* 現在のカテゴリを再クリックして０になったアイテムスロット 非表示
+            HM._.ivm.OnClickCateMenuIconBtn(HM._.ivm.CurCateIdx);
+
+            //* イベントリーUI アップデート (数値 など)
             InformAboutChange();
 
             //* 周り等級アイテムの数量によって、現在装置したEquipアイテムが消えることもあるため、Equipスロット４つも全て最新化
             HM._.ivEqu.UpdateAllEquipSlots();
-
-            //* 現在カテゴリ表示を再ロード ➝ ずれたスロットリストを正しく合わせる
-            HM._.ivm.OnClickCateMenuIconBtn(HM._.ivm.CurCateIdx);
 
             HM._.hui.ShowMsgNotice("자동합성 완료!");
         }

@@ -86,7 +86,7 @@ namespace Inventory.UI
     }
 
     /// <summary>
-    /// カテゴリに合うリストのみ表示
+    ///* カテゴリに合うリストのみ表示
     /// </summary>
     private void ActiveCategoryItemList(Enum.ItemType category) {
         for(int i = 0; i < InvUIItemArr.Length; i++) {
@@ -106,7 +106,9 @@ namespace Inventory.UI
         HM._.ivCtrl.ShowInventory();
     } 
     public void OnClickInventoryPopUpBackBtn() => HM._.ivCtrl.HideInventory();
+
     public void OnClickInvItemAutoMergeBtn() => HM._.ivCtrl.InventoryData.AutoMergeEquipItem();
+
     public void OnClickGradeInfoBtn() {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         GradeInfoPopUp.SetActive(true);
