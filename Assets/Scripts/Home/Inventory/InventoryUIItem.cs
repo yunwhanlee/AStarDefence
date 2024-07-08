@@ -61,11 +61,11 @@ namespace Inventory.UI
             Debug.Log("AA InventoryUIItem:: Awake():: ResetUI");
             // ResetUI();
 
-            if(HighGradeSpawnUIEF) HighGradeSpawnUIEF.enabled = false; //.Stop();
+            if(HighGradeSpawnUIEF) HighGradeSpawnUIEF.enabled = false;
             if(Twincle1UIEF) Twincle1UIEF.enabled = false;
             if(Twincle2UIEF) Twincle2UIEF.enabled = false;
 
-            //* Equipスロットは対応しない
+            // //* Equipスロットは対応しない
             if(AlertRedDot) AlertRedDot.SetActive(false);
             if(AlertGreenDot) AlertGreenDot.SetActive(false);
             if(EquipDim) EquipDim.SetActive(false);
@@ -80,8 +80,8 @@ namespace Inventory.UI
                 // スロットへクリックイベント登録
                 GetComponent<Button>().onClick.AddListener(() => {
                     Debug.Log("OnClick Item!");
-                    OnItemClicked?.Invoke(this);
-                    OnItemClickShortly?.Invoke(this);
+                    OnItemClicked?.Invoke(this); // -> HandleItemSelection()
+                    OnItemClickShortly?.Invoke(this); // -> HandleShowItemInfoPopUp()
                 });
 
                 // EQUIPスロット 最新化
@@ -94,23 +94,23 @@ namespace Inventory.UI
     #endregion
         public void ResetUI() {
             Debug.Log($"<color=white>ResetUI():: ObjName= {name} Type= {Type}</color>");
-            // Type = Enum.ItemType.Empty; //* 固定したから要らない
-            // TypeBgImg.enabled = false;
-            // TypeIconImg.enabled = false;
-            // LightImg.enabled = false;
-            // ItemImg.gameObject.SetActive(false);
-            // if(HM._) BgImg.sprite = HM._.ivm.NoneBgSpr;
-            // BgImg.color = Color.white;
-            // if(HM._) HM._.ivm.AutoMergeBtnAlertIcon.SetActive(false);
-            // QuantityTxt.text = "";
-            // LvTxt.text = "";
+            Type = Enum.ItemType.Empty; //* 固定したから要らない
+            TypeBgImg.enabled = false;
+            TypeIconImg.enabled = false;
+            LightImg.enabled = false;
+            ItemImg.gameObject.SetActive(false);
+            if(HM._) BgImg.sprite = HM._.ivm.NoneBgSpr;
+            BgImg.color = Color.white;
+            if(HM._) HM._.ivm.AutoMergeBtnAlertIcon.SetActive(false);
+            QuantityTxt.text = "";
+            LvTxt.text = "";
 
             //* Equipスロットは対応しない（そのそのオブジェクトが付いていない）
-            // if(AlertRedDot) AlertRedDot.SetActive(false);
-            // if(AlertGreenDot) AlertGreenDot.SetActive(false);
-            // if(EquipDim) EquipDim.SetActive(false);
-            // if(BonusRewardLabel) BonusRewardLabel.SetActive(false);
-            // if(DoubleRewardLabel) DoubleRewardLabel.SetActive(false);
+            if(AlertRedDot) AlertRedDot.SetActive(false);
+            if(AlertGreenDot) AlertGreenDot.SetActive(false);
+            if(EquipDim) EquipDim.SetActive(false);
+            if(BonusRewardLabel) BonusRewardLabel.SetActive(false);
+            if(DoubleRewardLabel) DoubleRewardLabel.SetActive(false);
 
             IsEmpty = true;
             // IsNewAlert = false;
@@ -119,9 +119,10 @@ namespace Inventory.UI
             WhiteDimScaleUIEF.Stop();
             ShinyUIEF.Stop();
 
-            // if(HighGradeSpawnUIEF) HighGradeSpawnUIEF.enabled = false; //.Stop();
-            // if(Twincle1UIEF) Twincle1UIEF.enabled = false;
-            // if(Twincle2UIEF) Twincle2UIEF.enabled = false;
+            if(HighGradeSpawnUIEF) HighGradeSpawnUIEF.enabled = false;
+            if(Twincle1UIEF) Twincle1UIEF.enabled = false;
+            if(Twincle2UIEF) Twincle2UIEF.enabled = false;
+
             if(HighGradeRayUIEF) HighGradeRayUIEF.Stop();
             if(HighGradeHandUIEF) HighGradeHandUIEF.Stop();
             if(HighGradeBurstBlueUIEF) HighGradeBurstBlueUIEF.Stop();
@@ -161,6 +162,7 @@ namespace Inventory.UI
                 TypeIconImg.sprite = HM._.ivm.TypeSprs[(int)type];
                 BgImg.sprite = HM._.ivm.GradeBgSprs[(int)grade];
                 LightImg.enabled = true;
+                ItemImg.gameObject.SetActive(true);
 
                 if(EquipDim)
                     EquipDim.SetActive(isEquip); //* EquipスロットはEquipDimオブジェクトがないため、合うかif文でチェック

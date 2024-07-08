@@ -134,19 +134,13 @@ namespace Inventory.UI
         /// </summary>
         public void InitInventoryUI() {
             Debug.Log($"AA InventoryUIManager():: InitInventoryUI():: InvUIItemArr= {InvUIItemArr.Length}");
-            //* ETC スロット
+
+            //* 一般 スロット
             for(int i = 0; i < InvUIItemArr.Length; i++) {
                 // UIスロット 生成
                 InventoryUIItem itemUIIns = Instantiate(ItemPf, Content);
                 itemUIIns.Type = HM._.ivCtrl.InventoryData.InvArr[i].Data.Type;
                 InvUIItemArr[i] = itemUIIns;
-
-                // タイプ 設定 ( UIスロット ← INVENTORY FIXED INDEXデータ )
-                Debug.Log($"InitInventoryUI():: InvUIItemArr {i} Type: {InvUIItemArr[i].Type} = {InvUIItemArr[i].Type}");
-
-                // 最初はWEAPONカテゴリ 指定
-                Debug.Log($"InitInventoryUI():: InvUIItemArr{i} Type is Weapon? -> {InvUIItemArr[i].Type == Enum.ItemType.Weapon}");
-                // InvUIItemArr[i].gameObject.SetActive(InvUIItemArr[i].Type == Enum.ItemType.Weapon);
 
                 // イベント 登録
                 itemUIIns.OnItemClicked += HandleItemSelection;
@@ -154,7 +148,7 @@ namespace Inventory.UI
             }
 
             //* EQUIP スロット
-            foreach (var equipSlot in HM._.ivEqu.EquipItemSlotUIs) {
+            foreach (InventoryUIItem equipSlot in HM._.ivEqu.EquipItemSlotUIs) {
                 // イベント 登録
                 equipSlot.OnItemClicked += HandleItemSelection;
                 equipSlot.OnItemClickShortly += HandleShowItemInfoPopUp;
@@ -265,19 +259,19 @@ namespace Inventory.UI
             int idx;
             switch(invItemUI.name) {
                 //* Equip スロットなら
-                case InventoryEquipUIManager.WEAPON_SLOT_OBJ_NAME : 
+                case InventoryEquipUIManager.WEAPON_SLOT_OBJ_NAME:
                     idx = HM._.ivCtrl.FindCurrentEquipItemIdx(Enum.ItemType.Weapon);
                     if(idx == -1) OnClickCateMenuIconBtn((int)Enum.ItemType.Weapon); // スロットが空なら、該当なカテゴリ表示
                     break;
-                case InventoryEquipUIManager.SHOES_SLOT_OBJ_NAME : 
+                case InventoryEquipUIManager.SHOES_SLOT_OBJ_NAME:
                     idx = HM._.ivCtrl.FindCurrentEquipItemIdx(Enum.ItemType.Shoes);
                     if(idx == -1) OnClickCateMenuIconBtn((int)Enum.ItemType.Shoes); // スロットが空なら、該当なカテゴリ表示
                     break;
-                case InventoryEquipUIManager.RING_SLOT_OBJ_NAME : 
+                case InventoryEquipUIManager.RING_SLOT_OBJ_NAME:
                     idx = HM._.ivCtrl.FindCurrentEquipItemIdx(Enum.ItemType.Ring);
                     if(idx == -1) OnClickCateMenuIconBtn((int)Enum.ItemType.Ring); // スロットが空なら、該当なカテゴリ表示
                     break;
-                case InventoryEquipUIManager.RELIC_SLOT_OBJ_NAME : 
+                case InventoryEquipUIManager.RELIC_SLOT_OBJ_NAME:
                     idx = HM._.ivCtrl.FindCurrentEquipItemIdx(Enum.ItemType.Relic);
                     if(idx == -1) OnClickCateMenuIconBtn((int)Enum.ItemType.Relic); // スロットが空なら、該当なカテゴリ表示
                     break;
