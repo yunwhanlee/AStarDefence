@@ -72,7 +72,6 @@ namespace Inventory.UI
             if(BonusRewardLabel) BonusRewardLabel.SetActive(false);
             if(DoubleRewardLabel) DoubleRewardLabel.SetActive(false);
 
-
             Deselect();
 
             //* HOMEシーンのみ
@@ -80,7 +79,7 @@ namespace Inventory.UI
                 // スロットへクリックイベント登録
                 GetComponent<Button>().onClick.AddListener(() => {
                     Debug.Log("OnClick Item!");
-                    OnItemClicked?.Invoke(this); // -> HandleItemSelection()
+                    OnItemClicked?.Invoke(this);      // -> HandleItemSelection()
                     OnItemClickShortly?.Invoke(this); // -> HandleShowItemInfoPopUp()
                 });
 
@@ -142,6 +141,7 @@ namespace Inventory.UI
         /// </summary>
         public void SetUI(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv, AbilityType[] relicAbilities = null, bool isEquip = false, bool isNewAlert = false) {
             Debug.Log($"<color=white>SetUI(ItemImg.name={ItemImg.sprite.name}, type={type}, grade={grade}, quantity= {quantity})::</color>");
+
             QuantityTxt.text = $"{quantity}";
 
             //* ETCアイテム

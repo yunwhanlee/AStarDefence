@@ -91,7 +91,10 @@ namespace Inventory.UI
     private void ActiveCategoryItemList(Enum.ItemType category) {
         for(int i = 0; i < InvUIItemArr.Length; i++) {
             Debug.Log($"ActiveCategoryItemList():: Item {i} Type: {InvUIItemArr[i].Type}, Expected Type: {category}");
-            InvUIItemArr[i].gameObject.SetActive(InvUIItemArr[i].Type == category);
+            bool isSameCategory = InvUIItemArr[i].Type == category;
+            bool isExistQuantity = HM._.ivCtrl.InventoryData.InvArr[i].Quantity > 0;
+
+            InvUIItemArr[i].gameObject.SetActive(isSameCategory && isExistQuantity);
         }
     }
 
