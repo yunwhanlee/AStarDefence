@@ -514,8 +514,14 @@ public class DM : MonoBehaviour {
             HM._.hui.ShowMsgNotice("AStar디펜스에 오신걸 환영합니다!!!");
             Reset();
         }
-        else
+        else {
             DB = Load();
+
+            if(DB.InvItemDBList.Exists(item => item.Data == null)) {
+                HM._.hui.ShowMsgError("(에러) 로드 인벤토리 아이템 데이터 NULL 확인 => 초기화 진행");
+                DB.InvItemDBList = HM._.ivCtrl.InventoryData.InvArr.ToList();
+            }
+        }
         
         //* 日にちが過ぎたら、DAILYデータをリセット
         if(CheckPassedDate()) {

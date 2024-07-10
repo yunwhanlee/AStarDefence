@@ -13,25 +13,25 @@ MonoBehaviour:
   m_Name: InventoryData
   m_EditorClassIdentifier: 
   InvArr:
-  - Quantity: 5
+  - Quantity: 0
     Lv: 1
     Data: {fileID: 11400000, guid: 8a8359171e95e0146a2537f75433dfee, type: 2}
     RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
-  - Quantity: 9
+  - Quantity: 0
     Lv: 1
     Data: {fileID: 11400000, guid: b080839ff7fe27e41a6bf21a77ce5163, type: 2}
     RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
-  - Quantity: 8
+  - Quantity: 0
     Lv: 1
     Data: {fileID: 11400000, guid: 1142b1647b0ab69418311cc19d2600e5, type: 2}
     RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
-  - Quantity: 1
+  - Quantity: 0
     Lv: 1
     Data: {fileID: 11400000, guid: f29a78694d52c9840acb19c51a9e8b19, type: 2}
     RelicAbilities: 
@@ -56,24 +56,24 @@ MonoBehaviour:
     IsEquip: 0
     IsNewAlert: 0
   - Quantity: 0
-    Lv: 0
+    Lv: 1
     Data: {fileID: 11400000, guid: 6e5c480b9535f9e4d938339604b4bdb1, type: 2}
     RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
-  - Quantity: 9
+  - Quantity: 0
     Lv: 1
     Data: {fileID: 11400000, guid: 0c0412309a40a004ebe618e5818149c8, type: 2}
     RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
-  - Quantity: 7
+  - Quantity: 0
     Lv: 1
     Data: {fileID: 11400000, guid: e551d2b1622b85548af8e8bb9f061142, type: 2}
     RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
-  - Quantity: 4
+  - Quantity: 0
     Lv: 1
     Data: {fileID: 11400000, guid: 59fb2aee1376eed4e8d611587e7cac1a, type: 2}
     RelicAbilities: 
@@ -97,25 +97,25 @@ MonoBehaviour:
     RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
-  - Quantity: 9
+  - Quantity: 0
     Lv: 1
     Data: {fileID: 11400000, guid: c9e1c362fd99582428308f8bb5e958ac, type: 2}
     RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
-  - Quantity: 2
+  - Quantity: 0
     Lv: 1
     Data: {fileID: 11400000, guid: f2b3f2b3c3a9005448aac7a21a310dde, type: 2}
     RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
-  - Quantity: 9
+  - Quantity: 0
     Lv: 1
     Data: {fileID: 11400000, guid: ebce106603eb2a247bc80dad8eb59a8f, type: 2}
     RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
-  - Quantity: 7
+  - Quantity: 0
     Lv: 1
     Data: {fileID: 11400000, guid: 95b4bbda070243d418267e688d332fcb, type: 2}
     RelicAbilities: 
@@ -133,34 +133,34 @@ MonoBehaviour:
     RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
-  - Quantity: 1
+  - Quantity: 0
     Lv: 1
     Data: {fileID: 11400000, guid: 9df07a90b6f09a242ac4bfb5c9fc8e08, type: 2}
     RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
-  - Quantity: 7
+  - Quantity: 0
     Lv: 1
     Data: {fileID: 11400000, guid: 9b97b966b0df890429e36e025e342321, type: 2}
-    RelicAbilities: 06000000
+    RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
   - Quantity: 0
-    Lv: 0
+    Lv: 1
     Data: {fileID: 11400000, guid: 3de65b40cbdf0a147861ad667a44d428, type: 2}
     RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
-  - Quantity: 2
+  - Quantity: 0
     Lv: 1
     Data: {fileID: 11400000, guid: 48832db3812f05145b434b8c47f85156, type: 2}
-    RelicAbilities: 0d0000000300000009000000
+    RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
-  - Quantity: 1
+  - Quantity: 0
     Lv: 1
     Data: {fileID: 11400000, guid: 2552d2c04cf50fc44972de5e8da0dca0, type: 2}
-    RelicAbilities: 05000000050000000b0000000d000000
+    RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
   - Quantity: 0

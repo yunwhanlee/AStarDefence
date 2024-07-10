@@ -73,8 +73,6 @@ public class HomeRewardListUIManager : MonoBehaviour {
             rwdSlot.gameObject.SetActive(false);
         });
         yield return null;
-        // foreach (Transform child in Content)
-        //     child.gameObject.SetActive(false); // Destroy(child.gameObject);
     }
 
     /// <summary>

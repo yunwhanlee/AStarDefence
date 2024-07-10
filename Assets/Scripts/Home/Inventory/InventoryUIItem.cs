@@ -53,9 +53,6 @@ namespace Inventory.UI
 
         public event Action<InventoryUIItem> OnItemClicked;
         public event Action<InventoryUIItem> OnItemClickShortly;
-        // OnItemDroppedOn,
-        // OnItemBeginDrag,
-        // OnItemEndDrag,
 
         void Awake() {
             Debug.Log("AA InventoryUIItem:: Awake():: ResetUI");
@@ -185,7 +182,7 @@ namespace Inventory.UI
             IsEmpty = false;
             // IsNewAlert = true;
             if(AlertRedDot) AlertRedDot.SetActive(isNewAlert);
-            // ItemImg.gameObject.SetActive(true);
+            ItemImg.gameObject.SetActive(true);
             ItemImg.sprite = spr;
         }
 

@@ -38,11 +38,11 @@ namespace Inventory.UI
 
         [field:SerializeField] public RectTransform CateUnderline {get; private set;}
 
-        [field:SerializeField] public InventoryUIItem ItemPf {get; private set;}
         [field:SerializeField] public RectTransform Content {get; set;}
         [field:SerializeField] public InventoryDescription InvDesc {get; set;}
         // [field:SerializeField] public MouseFollower MouseFollower {get; set;}
         [field:SerializeField] public InventoryUIItem[] InvUIItemArr {get; set;}
+        [field:SerializeField] public InventoryUIItem ItemPf {get; private set;}
 
         // private int curDraggedItemIdx = -1;
 
@@ -54,9 +54,8 @@ namespace Inventory.UI
 
         void Awake() {
             CurCateIdx = -1;
+
             Hide();
-            InvUIItemArr = new InventoryUIItem[HM._.ivCtrl.InventoryData.InvArr.Length];
-            // MouseFollower.Toggle(false);
             InvDesc.ResetDescription();
         }
 
@@ -128,28 +127,24 @@ namespace Inventory.UI
 #endregion
 
 #region FUNC
-        public void SetInvAlertIcon(int newItemCnt) {
-            InvAlertIcon.SetActive(newItemCnt > 0);
-            if(InvAlertIcon.activeSelf)
-                InvAlertCntTxt.text = $"{newItemCnt}";
-        }
-
         /// <summary>
-        ///* インベントリUIスロット 生成
+        ///* インベントリUIスロット 初期化
         /// </summary>
         public void InitInventoryUI() {
             Debug.Log($"AA InventoryUIManager():: InitInventoryUI():: InvUIItemArr= {InvUIItemArr.Length}");
 
+            InvUIItemArr = new InventoryUIItem[HM._.ivCtrl.InventoryData.InvArr.Length];
+
             //* 一般 スロット
             for(int i = 0; i < InvUIItemArr.Length; i++) {
                 // UIスロット 生成
-                InventoryUIItem itemUIIns = Instantiate(ItemPf, Content);
-                itemUIIns.Type = HM._.ivCtrl.InventoryData.InvArr[i].Data.Type;
-                InvUIItemArr[i] = itemUIIns;
+                InventoryUIItem itemUIObj = Instantiate(ItemPf, Content);
+                itemUIObj.Type = HM._.ivCtrl.InventoryData.InvArr[i].Data.Type;
+                InvUIItemArr[i] = itemUIObj;
 
                 // イベント 登録
-                itemUIIns.OnItemClicked += HandleItemSelection;
-                itemUIIns.OnItemClickShortly += HandleShowItemInfoPopUp;
+                InvUIItemArr[i].OnItemClicked += HandleItemSelection;
+                InvUIItemArr[i].OnItemClickShortly += HandleShowItemInfoPopUp;
             }
 
             //* EQUIP スロット
@@ -159,6 +154,13 @@ namespace Inventory.UI
                 equipSlot.OnItemClickShortly += HandleShowItemInfoPopUp;
             }
         }
+
+        public void SetInvAlertIcon(int newItemCnt) {
+            InvAlertIcon.SetActive(newItemCnt > 0);
+            if(InvAlertIcon.activeSelf)
+                InvAlertCntTxt.text = $"{newItemCnt}";
+        }
+
         public void Show() {
             HM._.hui.SetTopNavOrderInLayer(isLocateFront: true);
             WindowObj.SetActive(true);

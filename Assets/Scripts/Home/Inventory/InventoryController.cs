@@ -9,7 +9,7 @@ namespace Inventory
 {
     public class InventoryController : MonoBehaviour {
         [SerializeField] private InventoryUIManager ivm;
-        [SerializeField] public InventorySO InventoryData;
+        [field:SerializeField] public InventorySO InventoryData {get; private set;}
         [SerializeField] public List<InventoryItem> InvItemDBs {
             get => DM._.DB.InvItemDBList;
         }
