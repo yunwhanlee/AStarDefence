@@ -10,9 +10,9 @@ namespace Inventory
     public class InventoryController : MonoBehaviour {
         [SerializeField] private InventoryUIManager ivm;
         [field:SerializeField] public InventorySO InventoryData {get; private set;}
-        [SerializeField] public List<InventoryItem> InvItemDBs {
-            get => DM._.DB.InvItemDBList;
-        }
+        [SerializeField] public List<InventoryItem> InvItemDBs {get => DM._.DB.InvItemDBList;}
+        
+        public Action OnInventoryUIUpdated = () => {}; // インベントリーUIスロット 最新化
 
         void Start() {
             ivm = HM._.ivm;
@@ -23,7 +23,7 @@ namespace Inventory
         }
 
         void OnDisable() {
-            InventoryData.OnInventoryUIUpdated -= UpdateInventoryUI;
+            OnInventoryUIUpdated -= UpdateInventoryUI;
         }
 
     #region FUNC
@@ -50,11 +50,6 @@ namespace Inventory
                     InventoryData.InvArr[i] = InventoryData.InvArr[i].GetEmptyItem();
                     // isConsumeItemDelete = true;
                 }
-
-                //* 消費アイテムの中で削除された物があったら、インベントリースロット 整列
-                // if(isConsumeItemDelete) {
-                //     InventoryData.SortInventory();
-                // }
             }
         }
 
@@ -100,28 +95,18 @@ namespace Inventory
         }
 
         private void PrepareInventoryData() {
-            //* DBに保存したインベントリーデータ 設定
+            // DBに保存したインベントリーデータ 設定
             InventoryData.SetLoadData();
-
-            //* インベントリUI最新化イベント登録 (InventorySO::InformAboutChange()で使う)
-            InventoryData.OnInventoryUIUpdated += UpdateInventoryUI;
-
-            //* DBの保存したインベントリデータを一個ずつ読みこみながら、インベントリSOリストへ追加
-            // Debug.Log($"PrepareInventoryData():: InitItems.Length= {InvItemDBs}");
-            // foreach (InventoryItem item in InvItemDBs) {
-            //     if(item.IsEmpty) continue;
-            //     // item.Data.SetRelicAbility();
-            //     InventoryData.AddItem(item);
-            // }
+            // インベントリーUIスロット 最新化
+            OnInventoryUIUpdated += UpdateInventoryUI;
         }
 
         /// <summary>
         /// INVENTORYのSlotUIを最新化
         /// </summary>
-        /// <param name="inventoryState">DICIONARY化した最新のINVENTORYデータ</param>
-        private void UpdateInventoryUI(Dictionary<int, InventoryItem> inventoryState) {
-            Debug.Log("UpdateInventoryUI()::");
-            ivm.ResetAllItems();
+        private void UpdateInventoryUI() {
+            Debug.Log("ACTION:: UpdateInventoryUI():: ");
+            // ivm.ResetAllItems();
             
             // インベントリーUIスロット 最新化
             for(int i = 0; i < HM._.ivCtrl.InventoryData.InvArr.Length; i++)
@@ -145,8 +130,7 @@ namespace Inventory
             ivm.Show();
 
             // インベントリーUIスロット 最新化
-            for(int i = 0; i < HM._.ivCtrl.InventoryData.InvArr.Length; i++)
-                ivm.UpdateUI(i, HM._.ivCtrl.InventoryData.InvArr[i]);
+            OnInventoryUIUpdated?.Invoke();
         }
 
         public void HideInventory() {

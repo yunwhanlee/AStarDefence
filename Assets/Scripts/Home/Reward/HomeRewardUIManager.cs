@@ -94,9 +94,7 @@ public class HomeRewardUIManager : MonoBehaviour {
                 }
 
                 // インベントリーUIスロット 最新化
-                for(int i = 0; i < invDt.InvArr.Length; i++) {
-                    HM._.ivm.UpdateUI(i, invDt.InvArr[i]);
-                }
+                HM._.ivCtrl.OnInventoryUIUpdated?.Invoke();
             }
         }
 

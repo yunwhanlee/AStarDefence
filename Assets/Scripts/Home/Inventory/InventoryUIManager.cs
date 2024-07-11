@@ -197,6 +197,7 @@ namespace Inventory.UI {
         /// <param name="item"></param>ItemSOデータ<summary>
         public void UpdateUI(int itemIdx, InventoryItem item) {
             Debug.Log($"<color=white>UpdateData():: itemIdx= {itemIdx}, type= {item.Data.Type}, item= {item.Data.Name})</color>");
+
             // スロットUIデータ 最新化
             InvUIItemArr[itemIdx].SetUI (
                 item.Data.Type, 

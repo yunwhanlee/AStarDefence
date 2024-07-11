@@ -97,7 +97,7 @@ namespace Inventory.Model
     public class InventorySO : ScriptableObject {
         [field:Header("インベントリリスト")]
         [field: SerializeField] public InventoryItem[] InvArr;
-        public event Action<Dictionary<int, InventoryItem>> OnInventoryUIUpdated;
+        // public event Action OnInventoryUIUpdated = () => {};
 
         public void SetLoadData() {
             Debug.Log("InventorySO:: LoadData()::");
@@ -189,8 +189,7 @@ namespace Inventory.Model
             // HM._.ivm.OnClickCateMenuIconBtn(HM._.ivm.CurCateIdx);
 
             // インベントリーUIスロット 最新化
-            for(int i = 0; i < HM._.ivCtrl.InventoryData.InvArr.Length; i++)
-                HM._.ivm.UpdateUI(i, HM._.ivCtrl.InventoryData.InvArr[i]);
+            HM._.ivCtrl.OnInventoryUIUpdated?.Invoke();
 
             // 自動マージ お知らせ緑アイコン 非表示
             HM._.ivm.AutoMergeGreenAlertDot.SetActive(false);
@@ -299,8 +298,7 @@ namespace Inventory.Model
             }
 
             // インベントリーUIスロット 最新化
-            for(int i = 0; i < HM._.ivCtrl.InventoryData.InvArr.Length; i++)
-                HM._.ivm.UpdateUI(i, HM._.ivCtrl.InventoryData.InvArr[i]);
+            HM._.ivCtrl.OnInventoryUIUpdated?.Invoke();
         }
 
         public void AddItem(InventoryItem item) {
