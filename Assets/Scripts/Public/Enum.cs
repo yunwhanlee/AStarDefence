@@ -179,6 +179,19 @@ public static class Enum {
     public enum ItemType {
         Weapon, Shoes, Ring, Relic, Etc, Empty
     }
+
+    /// <summary>
+    /// INDEX番号でカテゴリタイプ 習得
+    /// </summary>
+    public static ItemType GetCateType(int idx) {
+        return (idx == 0)? ItemType.Weapon
+            : (idx == 1)? ItemType.Shoes
+            : (idx == 2)? ItemType.Ring
+            : (idx == 3)? ItemType.Relic
+            : (idx == 4)? ItemType.Etc
+            : ItemType.Empty;
+    }
+
     public static string GetItemTypeName(ItemType itemType) {
         return (itemType == ItemType.Weapon)? "무기"
             : (itemType == ItemType.Shoes)? "신발"

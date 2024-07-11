@@ -6,8 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace Inventory.UI 
-{
+namespace Inventory.UI {
     public class InventoryUIManager : MonoBehaviour {
         [field:SerializeField] public int CurCateIdx;
         [field:SerializeField] public int CurItemIdx;
@@ -55,89 +54,85 @@ namespace Inventory.UI
         }
 
 #region EVENT
-    /// <summary>
-    ///* カテゴリーアイコンクリック
-    /// </summary>
-    /// <param name="cateIdx"> 0：WEAPON、1：SHOES、2：ACCESARY、3：CROWN, 4：ETC</param>
-    public void OnClickCateMenuIconBtn(int cateIdx) {
-        SM._.SfxPlay(SM.SFX.ClickSFX);
-        CurCateIdx = cateIdx;
+        /// <summary>
+        ///* カテゴリーアイコンクリック
+        /// </summary>
+        /// <param name="cateIdx"> 0：WEAPON、1：SHOES、2：ACCESARY、3：CROWN, 4：ETC</param>
+        public void OnClickCateMenuIconBtn(int cateIdx) {
+            SM._.SfxPlay(SM.SFX.ClickSFX);
+            CurCateIdx = cateIdx;
 
-        //* Move Tap UnderLine
-        const int ORIGIN_X = -440;
-        const int MOVE_X_UNIT = 220;
-        CateUnderline.anchoredPosition = new Vector2(ORIGIN_X + (cateIdx * MOVE_X_UNIT), CateUnderline.anchoredPosition.y);
+            //* Move Tap UnderLine
+            const int ORIGIN_X = -440;
+            const int MOVE_X_UNIT = 220;
+            CateUnderline.anchoredPosition = new Vector2(ORIGIN_X + (cateIdx * MOVE_X_UNIT), CateUnderline.anchoredPosition.y);
 
-        //* ItemList 表示
-        switch(cateIdx) {
-            case 0: ActiveCategoryItems(Enum.ItemType.Weapon); break;
-            case 1: ActiveCategoryItems(Enum.ItemType.Shoes);  break;
-            case 2: ActiveCategoryItems(Enum.ItemType.Ring); break;
-            case 3: ActiveCategoryItems(Enum.ItemType.Relic); break;
-            case 4: ActiveCategoryItems(Enum.ItemType.Etc); break;
-        } 
-    }
+            //* ItemList 表示
+            switch(cateIdx) {
+                case 0: ActiveCategoryItems(Enum.ItemType.Weapon); break;
+                case 1: ActiveCategoryItems(Enum.ItemType.Shoes);  break;
+                case 2: ActiveCategoryItems(Enum.ItemType.Ring); break;
+                case 3: ActiveCategoryItems(Enum.ItemType.Relic); break;
+                case 4: ActiveCategoryItems(Enum.ItemType.Etc); break;
+            } 
+        }
 
+        /// <summary>
+        ///* インベントリー開く
+        /// </summary>
+        public void OnClickInventoryIconBtn() {
+            // 最初開くなら、WEAPONカテゴリ 表示
+            if(CurCateIdx == -1)
+                CurCateIdx = (int)Enum.ItemType.Weapon;
 
+            HM._.ivCtrl.ShowInventory();
+        }
 
-    /// <summary>
-    /// インベントリー開く
-    /// </summary>
-    public void OnClickInventoryIconBtn() {
-        // 最初開くなら、WEAPONカテゴリ 表示
-        if(CurCateIdx == -1)
-            CurCateIdx = (int)Enum.ItemType.Weapon;
+        public void OnClickInventoryPopUpBackBtn() => HM._.ivCtrl.HideInventory();
 
-        // 現在カテゴリ 再表示 (最新化)
-        OnClickCateMenuIconBtn(CurCateIdx);
+        public void OnClickInvItemAutoMergeBtn() => HM._.ivCtrl.InventoryData.AutoMergeEquipItem();
 
-        HM._.ivCtrl.ShowInventory();
-    } 
-    public void OnClickInventoryPopUpBackBtn() => HM._.ivCtrl.HideInventory();
+        public void OnClickGradeInfoBtn() {
+            SM._.SfxPlay(SM.SFX.ClickSFX);
+            GradeInfoPopUp.SetActive(true);
+        }
 
-    public void OnClickInvItemAutoMergeBtn() => HM._.ivCtrl.InventoryData.AutoMergeEquipItem();
+        public void OnClickGradeInfoPopUpCloseBtn() {
+            SM._.SfxPlay(SM.SFX.ClickSFX);
+            GradeInfoPopUp.SetActive(false);
+        }
 
-    public void OnClickGradeInfoBtn() {
-        SM._.SfxPlay(SM.SFX.ClickSFX);
-        GradeInfoPopUp.SetActive(true);
-    }
+        public void OnClickPotentialInfoBtn() {
+            SM._.SfxPlay(SM.SFX.ClickSFX);
+            PotentialInfoPopUp.SetActive(true);
+        }
 
-    public void OnClickGradeInfoPopUpCloseBtn() {
-        SM._.SfxPlay(SM.SFX.ClickSFX);
-        GradeInfoPopUp.SetActive(false);
-    }
-
-    public void OnClickPotentialInfoBtn() {
-        SM._.SfxPlay(SM.SFX.ClickSFX);
-        PotentialInfoPopUp.SetActive(true);
-    }
-
-    public void OnClickPotentialInfoPopUpCloseBtn() {
-        SM._.SfxPlay(SM.SFX.ClickSFX);
-        PotentialInfoPopUp.SetActive(false);
-    }
+        public void OnClickPotentialInfoPopUpCloseBtn() {
+            SM._.SfxPlay(SM.SFX.ClickSFX);
+            PotentialInfoPopUp.SetActive(false);
+        }
 #endregion
 
 #region FUNC
         /// <summary>
+        /// スロット 表示・非表示
+        /// </summary>
+        public void ActiveSlotUI(int idx, bool isActive) {
+            InvUIItemArr[idx].gameObject.SetActive(isActive);
+        }
+
+        /// <summary>
         ///* カテゴリアイテム 表示
         /// </summary>
-        private void ActiveCategoryItems(Enum.ItemType category) {
+        public void ActiveCategoryItems(Enum.ItemType category) {
             for(int i = 0; i < InvUIItemArr.Length; i++) {
                 Debug.Log($"ActiveCategoryItemList():: Item {i} Type: {InvUIItemArr[i].Type}, Expected Type: {category}");
                 bool isSameCategory = InvUIItemArr[i].Type == category;
                 bool isExistQuantity = HM._.ivCtrl.InventoryData.InvArr[i].Quantity > 0;
 
-                // 表示・非表示
+                // スロット 表示・非表示
                 ActiveSlotUI(i, isSameCategory && isExistQuantity);
             }
-        }
-
-        /// <summary>
-        /// インベントリースロット 表示・非表示
-        /// </summary>
-        public void ActiveSlotUI(int idx, bool isActive) {
-            InvUIItemArr[idx].gameObject.SetActive(isActive);
         }
 
         /// <summary>
@@ -202,7 +197,7 @@ namespace Inventory.UI
         /// <param name="item"></param>ItemSOデータ<summary>
         public void UpdateUI(int itemIdx, InventoryItem item) {
             Debug.Log($"<color=white>UpdateData():: itemIdx= {itemIdx}, type= {item.Data.Type}, item= {item.Data.Name})</color>");
-
+            // スロットUIデータ 最新化
             InvUIItemArr[itemIdx].SetUI (
                 item.Data.Type, 
                 item.Data.Grade, 
@@ -213,6 +208,10 @@ namespace Inventory.UI
                 item.IsEquip,
                 item.IsNewAlert
             );
+
+            // 現在カテゴリのスロット表示 最新化
+            bool isSameCategory = item.Data.Type == Enum.GetCateType(HM._.ivm.CurCateIdx);
+            ActiveSlotUI(itemIdx, isSameCategory && !item.IsEmpty);
         }
 
         public InventoryItem GetCurItemUIFromIdx(int idx) {

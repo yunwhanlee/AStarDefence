@@ -185,8 +185,8 @@ namespace Inventory.Model
                 return;
             }
 
-            //* 現在のカテゴリを再クリックして０になったアイテムスロット 非表示
-            HM._.ivm.OnClickCateMenuIconBtn(HM._.ivm.CurCateIdx);
+            // //* 現在のカテゴリを再クリックして０になったアイテムスロット 非表示
+            // HM._.ivm.OnClickCateMenuIconBtn(HM._.ivm.CurCateIdx);
 
             // インベントリーUIスロット 最新化
             for(int i = 0; i < HM._.ivCtrl.InventoryData.InvArr.Length; i++)
@@ -292,10 +292,6 @@ namespace Inventory.Model
                 // インベントリースロットのデータとUIリセット
                 InvArr[tgIdx] = InvArr[tgIdx].GetEmptyItem();
                 HM._.ivm.InvUIItemArr[tgIdx].ResetUI();
-
-                if(InvArr[tgIdx].Quantity <= 0) {
-                    HM._.ivm.ActiveSlotUI(tgIdx, false);
-                }
 
                 // アイテムがないので、開いたPopUpに可能性があることを全て非表示
                 HM._.rwlm.RewardChestPopUp.SetActive(false);
