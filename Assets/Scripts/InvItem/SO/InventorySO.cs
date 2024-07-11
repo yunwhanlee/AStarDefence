@@ -274,9 +274,10 @@ namespace Inventory.Model
                     // 装置中なら
                     if(InvArr[id].IsEquip) {
                         Debug.Log($"MERGE WEAPON ITEM: i({i}), {InvArr[id].Data.Name}, isEquip= {InvArr[id].IsEquip}");
-                        // インベントリ 初期化
-                        HM._.ivCtrl.InventoryData.InitIsEquipData(InvArr[id].Data.Type); // ItemDt.isEquip
-                        HM._.ivm.InitEquipDimUI(InvArr[id].Data.Type); // 「装置中」DimUI 
+                        // IsEquip 初期化
+                        InvArr[i] = InvArr[i].ChangeIsEquip(false);
+                        // 「装置中」DimUI
+                        HM._.ivm.InitEquipDimUI(InvArr[id].Data.Type);
                         // Equipスロット 初期化
                         HM._.ivEqu.ResetEquipSlot(InvArr[id].Data.Type);
                     }
