@@ -93,14 +93,16 @@ namespace Inventory.UI
             bool isSameCategory = InvUIItemArr[i].Type == category;
             bool isExistQuantity = HM._.ivCtrl.InventoryData.InvArr[i].Quantity > 0;
 
-            InvUIItemArr[i].gameObject.SetActive(isSameCategory && isExistQuantity);
+            ActiveSlotUI(i, isSameCategory && isExistQuantity);
         }
     }
 
     public void OnClickInventoryIconBtn() {
         // 最初にWEAPONカテゴリに初期化
-        if(CurCateIdx == -1)
+        if(CurCateIdx == -1) {
+            CurCateIdx = 0;
             ActiveCategoryItemList(Enum.ItemType.Weapon);
+        }
         // インベントリー開く
         HM._.ivCtrl.ShowInventory();
     } 
@@ -112,14 +114,17 @@ namespace Inventory.UI
         SM._.SfxPlay(SM.SFX.ClickSFX);
         GradeInfoPopUp.SetActive(true);
     }
+
     public void OnClickGradeInfoPopUpCloseBtn() {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         GradeInfoPopUp.SetActive(false);
     }
+
     public void OnClickPotentialInfoBtn() {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         PotentialInfoPopUp.SetActive(true);
     }
+
     public void OnClickPotentialInfoPopUpCloseBtn() {
         SM._.SfxPlay(SM.SFX.ClickSFX);
         PotentialInfoPopUp.SetActive(false);
@@ -127,6 +132,13 @@ namespace Inventory.UI
 #endregion
 
 #region FUNC
+        /// <summary>
+        /// インベントリースロット 表示・非表示
+        /// </summary>
+        public void ActiveSlotUI(int idx, bool isActive) {
+            InvUIItemArr[idx].gameObject.SetActive(isActive);
+        }
+
         /// <summary>
         ///* インベントリUIスロット 初期化
         /// </summary>
@@ -166,15 +178,17 @@ namespace Inventory.UI
             WindowObj.SetActive(true);
             ResetSelection();
         }
+
         public void Hide() {
             WindowObj.SetActive(false);
             HM._.hui.SetTopNavOrderInLayer(isLocateFront: false);
-            // ResetDraggedItem();
         }
+
         public void ResetSelection() {
             InvDesc.ResetDescription();
             DeselectAllSlot();
         }
+
         private void DeselectAllSlot() {
             foreach(InventoryUIItem item in InvUIItemArr)
                 item.Deselect();

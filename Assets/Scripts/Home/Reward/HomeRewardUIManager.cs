@@ -52,10 +52,11 @@ public class HomeRewardUIManager : MonoBehaviour {
                 // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present1],5),          // Reward Open
                 // new (HM._.rwlm.RwdItemDt.EtcConsumableDatas[(int)Etc.ConsumableItem.Present2],6),          // Reward Open
 
-                // new (HM._.rwlm.RwdItemDt.WeaponDatas[6]),
+                new (HM._.rwlm.RwdItemDt.WeaponDatas[0], 10),
+                new (HM._.rwlm.RwdItemDt.WeaponDatas[1], 9),
                 // new (HM._.rwlm.RwdItemDt.ShoesDatas[6]),
-                new (HM._.rwlm.RwdItemDt.RingDatas[3], quantity: 10),
-                new (HM._.rwlm.RwdItemDt.RingDatas[4], quantity: 9),
+                // new (HM._.rwlm.RwdItemDt.RingDatas[3], quantity: 10),
+                // new (HM._.rwlm.RwdItemDt.RingDatas[4], quantity: 9),
                 // new (HM._.rwlm.RwdItemDt.WeaponDatas[3], quantity: 9),
                 // new (HM._.rwlm.RwdItemDt.RelicDatas[0], 1, HM._.ivCtrl.InventoryData.CheckRelicAbilitiesData(HM._.rwlm.RwdItemDt.RelicDatas[0])),
 

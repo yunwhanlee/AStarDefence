@@ -49,7 +49,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
             IsSkip = true;
             return;
         }
-        
+
         if(HM._.shopMg.OnClickEquipPackage != null) {
             HM._.shopMg.OnClickEquipPackage?.Invoke();
             return;

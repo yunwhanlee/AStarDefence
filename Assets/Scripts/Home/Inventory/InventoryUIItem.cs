@@ -155,17 +155,17 @@ namespace Inventory.UI
             else {
                 TypeBgImg.enabled = true;
                 TypeIconImg.enabled = true;
-                TypeBgImg.color = HM._.ivm.GradeClrs[(int)grade];
-                TypeIconImg.sprite = HM._.ivm.TypeSprs[(int)type];
                 BgImg.sprite = HM._.ivm.GradeBgSprs[(int)grade];
                 LightImg.enabled = true;
+                TypeBgImg.color = HM._.ivm.GradeClrs[(int)grade];
+                TypeIconImg.sprite = HM._.ivm.TypeSprs[(int)type];
                 ItemImg.gameObject.SetActive(true);
 
                 if(EquipDim)
                     EquipDim.SetActive(isEquip); //* EquipスロットはEquipDimオブジェクトがないため、合うかif文でチェック
 
                 //* マージ可能な物 表示 (PRIME等級はしない)
-                if(quantity >= Config.EQUIPITEM_MERGE_CNT && grade < Enum.Grade.Prime) {
+                if(quantity >= Config.EQUIP_MERGE_CNT && grade < Enum.Grade.Prime) {
                     if(AlertGreenDot) AlertGreenDot.SetActive(true);
                     QuantityTxt.text = $"<color=green>{quantity}</color>";
                     HM._.ivm.AutoMergeBtnAlertIcon.SetActive(true);
@@ -181,6 +181,7 @@ namespace Inventory.UI
 
             IsEmpty = false;
             // IsNewAlert = true;
+
             if(AlertRedDot) AlertRedDot.SetActive(isNewAlert);
             ItemImg.gameObject.SetActive(true);
             ItemImg.sprite = spr;

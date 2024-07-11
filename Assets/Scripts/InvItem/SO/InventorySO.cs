@@ -174,64 +174,6 @@ namespace Inventory.Model
                 InvArr[item.ID] = InvArr[item.ID].ChangeItemRelicAbilities(relicAbilities);
 
             // InformAboutChange();
-
-            // //* 全てのインベントリースロットを回す
-            // for(int i = 0; i < InvArr.Length; i++) {
-            //     Debug.Log($"AddStackableItem():: ItemList[{i}].Empty= {InvArr[i].IsEmpty}");
-            //     //* スロットにアイテムが有り、
-            //     // if(!invArr[i].IsEmpty) {
-            //     //* 同じアイテムなら、
-            //     Debug.Log($"invArr[{i}].Data.Name({InvArr[i].Data.Name}) == item.Name({item.Name})");
-            //     Debug.Log($"invArr[{i}].Data.ID({InvArr[i].Data.ID}) == item.ID({item.ID})");
-            //     if(InvArr[i].Data.ID == item.ID) {
-            //         //* アイテム数量 増加
-            //         Debug.Log($"AddStackableItem():: EACH SAME {InvArr[i].Data.Name}(ID={InvArr[i].Data.ID}) == {item.Name}(ID={item.ID}), ItemList.Length= {InvArr.Length}");
-            //         int amountPossibleToTake = InvArr[i].Data.MaxStackSize - InvArr[i].Quantity;
-
-            //         if(quantity > amountPossibleToTake) {
-            //             InvArr[i] = InvArr[i].ChangeQuantity(InvArr[i].Data.MaxStackSize);
-            //             quantity -= amountPossibleToTake;
-            //         }
-            //         else {
-            //             InvArr[i] = InvArr[i].ChangeQuantity(InvArr[i].Quantity + quantity);
-            //             InformAboutChange();
-            //             return 0;
-            //         }
-            //         break;
-            //     }
-                // }
-                //* スロットが空いていて
-                // else {
-                //     //* インベントリーがいっぱい
-                //     if(quantity > 0 && IsInventoryFull()) {
-                //         HM._.hui.ShowMsgError("インベントリーに空いているスロットがないです。");
-                //         continue; //* 次に進む
-                //     }
-
-                //     //! (BUG) アイテムの数量が０になる(Emptyスロット)と、Emptyスロットを埋めるのが優先になって同じ物が重複するバグがある
-                //     //* そのため、ループで全てを回しながら、新しく生成する前に同じ物があるのかを検査する
-                //     if(invArr.FindIndex(invSlot => !invSlot.IsEmpty && invSlot.Data.ID == item.ID) != -1) {
-                //         Debug.Log($"<color=red>AddStackableItem():: EACH NEW ALREADY EXIST {item.Name}(ID={item.ID})</color>");
-                //         //* もしあったら、数量を上げて終了
-                //         invArr[i] = invArr[i].ChangeQuantity(invArr[i].Quantity + quantity);
-                //         continue; //* 次に進む
-                //     }
-
-                //     //* 新しくアイテム生成 (最初の初期化にも使う)
-                //     Debug.Log($"AddStackableItem():: EACH NEW {item.Name}(ID={item.ID}), ItemList.Count= {invArr.Count}");
-                //     AddItemToFirstFreeSlot(item, quantity, lv, relicAbilities, isEquip, isNewAlert);
-                //     break;
-                // }
-            // }
-
-            //* アイテム生成 (最初の初期化にも使う)
-            // while(quantity > 0 && IsInventoryFull() == false) {
-            //     Debug.Log($"AddStackableItem():: アイテム生成= {item.name}");
-            //     int newQuantity = Mathf.Clamp(quantity, 0, item.MaxStackSize);
-            //     quantity -= newQuantity;
-            //     AddItemToFirstFreeSlot(item, newQuantity, lv, relicAbilities, isEquip, isNewAlert);
-            // }
-
             return quantity;
         }
 
@@ -264,107 +206,26 @@ namespace Inventory.Model
         }
 
         /// <summary>
-        /// インベントリーの装置アイテムを次のレベルに自動マージ
+        /// 自動マージ
         /// </summary>
         public void AutoMergeEquipItem() {
-            bool isMergable = false;
-            bool isMustUnEquip = false;
-            string typeName = "";
+            // フィルター(EQUIPアイテム別)
+            InventoryItem[] weaponItems = Array.FindAll(InvArr, item => item.Data.Type == Enum.ItemType.Weapon);
+            InventoryItem[] shoesItems = Array.FindAll(InvArr, item => item.Data.Type == Enum.ItemType.Shoes);
+            InventoryItem[] ringItems = Array.FindAll(InvArr, item => item.Data.Type == Enum.ItemType.Ring);
+            InventoryItem[] relicItems = Array.FindAll(InvArr, item => item.Data.Type == Enum.ItemType.Relic);
 
-            //* マージ状況 確認
-            foreach(InventoryItem item in InvArr) {
-                if(item.IsEmpty) continue;
-                if(item.Data.Type == Enum.ItemType.Etc) continue;
-                if(item.Data.Type != Enum.ItemType.Etc && item.Data.Grade == Enum.Grade.Prime) continue;
+            //* マージ
+            bool isWpMerge = Merge(weaponItems);
+            bool isShMerge = Merge(shoesItems);
+            bool isRgMerge = Merge(ringItems);
+            bool isRlMerge = Merge(relicItems);
 
-                // 装置アイテム中で、マージができるのがあったら
-                if(item.Quantity >= Config.EQUIPITEM_MERGE_CNT) {
-                    isMergable = true;
-                    if(item.IsEquip) {
-                        isMustUnEquip = true;
-                        typeName = Enum.GetItemTypeName(item.Data.Type);
-                    }
-                }
-
-                // 着用した装置アイテムがあったら、同じタイプのアイテムを全て探す
-                // if(item.IsEquip) {
-                //     var type = item.Data.Type;
-                //     List<InventoryItem> sameTypeEquipItems = invList.FindAll(invItem => !invItem.IsEmpty && invItem.Data?.Type != Enum.ItemType.Etc && invItem.Data?.Type == type);
-
-                //     //* この中でマージできる物があったら、装置解除のお知らせトリガーをONにする
-                //     sameTypeEquipItems.ForEach(item => Debug.Log($"sameTypeEquipItems item= {item.Data.Name}"));
-                //     isMustUnEquip = sameTypeEquipItems.Exists(item => item.Quantity >= Config.EQUIPITEM_MERGE_CNT);
-                //     typeName = Enum.GetItemTypeName(item.Data.Type);
-                // }
-            }
-
-            //* 除外処理
-            if(!isMergable) {
+            //* 合成できるか 確認
+            if(!isWpMerge && !isShMerge && !isRgMerge && !isRlMerge) {
                 HM._.hui.ShowMsgError("합성할 아이템이 없습니다.");
                 return;
             }
-            else if(isMustUnEquip) {
-                HM._.hui.ShowMsgError($"{typeName}장착을 해제해주세요! (장착한 아이템 중 합성대상이 있습니다.)");
-                return;
-            }
-
-            SM._.SfxPlay(SM.SFX.Merge3SFX);
-
-            //* マージ
-            for(int i = 0; i < InvArr.Length; i++) {
-                InventoryItem item = InvArr[i];
-
-                if(!item.IsEmpty
-                && item.Data.Type != Enum.ItemType.Etc
-                && item.Data.Type != Enum.ItemType.Empty
-                && item.Quantity >= Config.EQUIPITEM_MERGE_CNT)
-                {
-                    Debug.Log($"AutoMergeEquipItem():: Merge item.Data= {item.Data}, item.Name= {item.Data.Name}, isEquip= {item.IsEquip}");
-
-                    if(item.Data.Grade == Enum.Grade.Prime) {
-                        Debug.Log("最後の等級なので、処理しない");
-                        continue;
-                    }
-
-                    int mergeCnt = item.Quantity / Config.EQUIPITEM_MERGE_CNT;
-                    int removeQuantity = mergeCnt * Config.EQUIPITEM_MERGE_CNT;
-
-                    //* 数量 減る
-                    InvArr[i] = item.ChangeQuantity(item.Quantity - removeQuantity);
-
-                    //* マージしてアイテム数量が０なら、削除（Empty）
-                    if(item.Quantity <= 0) 
-                        InvArr[i] = item.GetEmptyItem();
-
-                    //* 次のレベルアイテム生成
-                    var type = item.Data.Type;
-                    int nextGrade = (int)item.Data.Grade + 1;
-
-                    // タイプ
-                    ItemSO nextLvItemDt = (type == Enum.ItemType.Weapon)? HM._.rwlm.RwdItemDt.WeaponDatas[nextGrade]
-                        : (type == Enum.ItemType.Shoes)? HM._.rwlm.RwdItemDt.ShoesDatas[nextGrade]
-                        : (type == Enum.ItemType.Ring)? HM._.rwlm.RwdItemDt.RingDatas[nextGrade]
-                        : (type == Enum.ItemType.Relic)? HM._.rwlm.RwdItemDt.RelicDatas[nextGrade - (int)Enum.Grade.Epic]
-                        : null;
-
-                    Debug.Log($"AutoMergeEquipItem():: {type}: {(int)item.Data.Grade} -> {nextGrade}, nextLvItemDt.ID= {nextLvItemDt.ID} ,mergeCnt= {mergeCnt}");
-
-                    if(nextLvItemDt == null)
-                        continue;
-
-                    //* Relicなら、ランダムで能力
-                    var relicAbilities = CheckRelicAbilitiesData(nextLvItemDt);
-
-                    //* 次のLVアイテム生成
-                    AddStackableItem(nextLvItemDt, mergeCnt, lv: 1, relicAbilities, item.IsEquip, isNewAlert: true);
-
-                    //* RELICなら、Ability追加
-                    if(type == Enum.ItemType.Relic)
-                        InvArr[nextLvItemDt.ID] = InvArr[nextLvItemDt.ID].ChangeItemRelicAbilities(relicAbilities);
-                }
-            }
-            //* 整列
-            // SortInventory();
 
             //* 現在のカテゴリを再クリックして０になったアイテムスロット 非表示
             HM._.ivm.OnClickCateMenuIconBtn(HM._.ivm.CurCateIdx);
@@ -373,9 +234,71 @@ namespace Inventory.Model
             InformAboutChange();
 
             //* 周り等級アイテムの数量によって、現在装置したEquipアイテムが消えることもあるため、Equipスロット４つも全て最新化
-            HM._.ivEqu.UpdateAllEquipSlots();
+            // HM._.ivEqu.UpdateAllEquipSlots();
 
+            SM._.SfxPlay(SM.SFX.Merge3SFX);
             HM._.hui.ShowMsgNotice("자동합성 완료!");
+        }
+
+        /// <summary>
+        /// EQUIPアイテム マージ
+        /// </summary>
+        /// <param name="equipItems">EQUIPアイテム配列</param>
+        /// <returns>マージできるか結果</returns>
+        private bool Merge(InventoryItem[] equipItems) {
+            const int PRIME_IDX_CNT = 1;
+
+            //* マージできるか アイテム数を確認
+            bool isMergable = Array.Exists(equipItems, item => item.Quantity >= Config.EQUIP_MERGE_CNT);
+
+            //* マージできる数がなかったら、そのまま終了
+            if(!isMergable) {
+                return false;
+            }
+
+            //* マージ 実行
+            for(int i = 0; i < equipItems.Length - PRIME_IDX_CNT; i++) {
+                // 現在と次LVのEQUIPアイテム INDEX
+                int id = equipItems[i].Data.ID;
+                int nextId = equipItems[i + 1].Data.ID;
+
+                // マージカウント
+                int mergeCnt = InvArr[id].Quantity / Config.EQUIP_MERGE_CNT;
+                int removeQuantity = mergeCnt * Config.EQUIP_MERGE_CNT;
+
+                // アイテム数 減る
+                InvArr[id] = InvArr[id].ChangeQuantity(InvArr[id].Quantity - removeQuantity);
+
+                // マージ後、数が０なら
+                if(InvArr[id].Quantity <= 0) {
+                    // 装置中なら
+                    if(InvArr[id].IsEquip) {
+                        Debug.Log($"MERGE WEAPON ITEM: i({i}), {InvArr[id].Data.Name}, isEquip= {InvArr[id].IsEquip}");
+                        // インベントリ 初期化
+                        HM._.ivCtrl.InventoryData.InitIsEquipData(InvArr[id].Data.Type); // ItemDt.isEquip
+                        HM._.ivm.InitEquipDimUI(InvArr[id].Data.Type); // 「装置中」DimUI 
+                        // Equipスロット 初期化
+                        HM._.ivEqu.ResetEquipSlot(InvArr[id].Data.Type);
+                    }
+
+                    // Empty初期化 + 非表示
+                    InvArr[id] = InvArr[id].GetEmptyItem();
+                    HM._.ivm.ActiveSlotUI(id, false);
+                }
+
+                // 結果
+                // Relicなら、ランダムで能力
+                var relicAbilities = CheckRelicAbilitiesData(InvArr[nextId].Data);
+
+                // 次のLVアイテム生成
+                AddStackableItem(InvArr[nextId].Data, mergeCnt, lv: 1, relicAbilities, InvArr[nextId].IsEquip, isNewAlert: true);
+
+                // RELICなら、Ability追加
+                if(InvArr[nextId].Data.Type == Enum.ItemType.Relic)
+                    InvArr[nextId] = InvArr[nextId].ChangeItemRelicAbilities(relicAbilities);
+            }
+
+            return true;
         }
 
         public AbilityType[] CheckRelicAbilitiesData(ItemSO itemDt) {
@@ -404,14 +327,17 @@ namespace Inventory.Model
 
             //* アイテム数量が０なら、削除（Empty）
             if(InvArr[tgIdx].Quantity <= 0) {
-                //* インベントリースロットのデータとUIリセット
+                // インベントリースロットのデータとUIリセット
                 InvArr[tgIdx] = InvArr[tgIdx].GetEmptyItem();
                 HM._.ivm.InvUIItemArr[tgIdx].ResetUI();
-                //* アイテムがないので、開いたPopUpに可能性があることを全て非表示
+
+                if(InvArr[tgIdx].Quantity <= 0) {
+                    HM._.ivm.ActiveSlotUI(tgIdx, false);
+                }
+
+                // アイテムがないので、開いたPopUpに可能性があることを全て非表示
                 HM._.rwlm.RewardChestPopUp.SetActive(false);
                 HM._.ivm.ConsumePopUp.SetActive(false);
-                //* 整列
-                // SortInventory();
             }
 
             // foreach (var invItemUI in HM._.ivm.InvUIItemArr) {
@@ -481,7 +407,6 @@ namespace Inventory.Model
             Debug.Log("InformAboutChange()::");
             for(int i = 0; i < HM._.ivCtrl.InventoryData.InvArr.Length; i++)
                 HM._.ivm.UpdateUI(i, HM._.ivCtrl.InventoryData.InvArr[i]);
-            // OnInventoryUIUpdated?.Invoke(GetCurrentInventoryState());
         }
     }
     #endregion

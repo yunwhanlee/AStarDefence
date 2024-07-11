@@ -145,11 +145,6 @@ public class InventoryEquipUIManager : MonoBehaviour {
 
         if(relicIdx == -1) EquipItemSlotUIs[(int)Enum.ItemType.Relic].IsEmpty = true;
         else                EquipItem(Enum.ItemType.Relic, invDtArr[relicIdx], isEffect: false);
-
-        // EquipItem(Enum.ItemType.Weapon, FindEquipSlotItem(Enum.ItemType.Weapon), isEffect: false);
-        // EquipItem(Enum.ItemType.Shoes, FindEquipSlotItem(Enum.ItemType.Shoes), isEffect: false);
-        // EquipItem(Enum.ItemType.Ring, FindEquipSlotItem(Enum.ItemType.Ring), isEffect: false);
-        // EquipItem(Enum.ItemType.Relic, FindEquipSlotItem(Enum.ItemType.Relic), isEffect: false);
     }
 
     private void SetEquipEmptyIcon(Enum.ItemType type, bool isActive)
