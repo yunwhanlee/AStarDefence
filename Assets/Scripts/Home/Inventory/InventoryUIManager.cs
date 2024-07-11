@@ -32,7 +32,7 @@ namespace Inventory.UI
 
         [field:SerializeField] public Animator EquipPopUpAnim {get; private set;}
 
-        [field:SerializeField] public GameObject AutoMergeBtnAlertIcon {get; private set;}
+        [field:SerializeField] public GameObject AutoMergeGreenAlertDot {get; private set;}
         [field:SerializeField] public GameObject InvAlertIcon {get; private set;}
         [field:SerializeField] public TMP_Text InvAlertCntTxt {get; private set;}
 
@@ -40,20 +40,15 @@ namespace Inventory.UI
 
         [field:SerializeField] public RectTransform Content {get; set;}
         [field:SerializeField] public InventoryDescription InvDesc {get; set;}
-        // [field:SerializeField] public MouseFollower MouseFollower {get; set;}
         [field:SerializeField] public InventoryUIItem[] InvUIItemArr {get; set;}
         [field:SerializeField] public InventoryUIItem ItemPf {get; private set;}
 
-        // private int curDraggedItemIdx = -1;
-
         //* Actionで使えるint ➝ Index
         public event Action<int> OnDescriptionRequested;
-        // public event Action<int> OnItemActionRequested;
-        // public event Action<int> OnStartDragging;
-        // public event Action<int, int> OnSwapItems;
 
         void Awake() {
             CurCateIdx = -1;
+            AutoMergeGreenAlertDot.gameObject.SetActive(false);
 
             Hide();
             InvDesc.ResetDescription();
@@ -61,7 +56,7 @@ namespace Inventory.UI
 
 #region EVENT
     /// <summary>
-    /// カテゴリーアイコンクリック
+    ///* カテゴリーアイコンクリック
     /// </summary>
     /// <param name="cateIdx"> 0：WEAPON、1：SHOES、2：ACCESARY、3：CROWN, 4：ETC</param>
     public void OnClickCateMenuIconBtn(int cateIdx) {
@@ -75,35 +70,27 @@ namespace Inventory.UI
 
         //* ItemList 表示
         switch(cateIdx) {
-            // case 0: Array.ForEach(InvUIItemArr, item => item.gameObject.SetActive(true)); break; // 全て表示
-            case 0: ActiveCategoryItemList(Enum.ItemType.Weapon); break;
-            case 1: ActiveCategoryItemList(Enum.ItemType.Shoes);  break;
-            case 2: ActiveCategoryItemList(Enum.ItemType.Ring); break;
-            case 3: ActiveCategoryItemList(Enum.ItemType.Relic); break;
-            case 4: ActiveCategoryItemList(Enum.ItemType.Etc); break;
+            case 0: ActiveCategoryItems(Enum.ItemType.Weapon); break;
+            case 1: ActiveCategoryItems(Enum.ItemType.Shoes);  break;
+            case 2: ActiveCategoryItems(Enum.ItemType.Ring); break;
+            case 3: ActiveCategoryItems(Enum.ItemType.Relic); break;
+            case 4: ActiveCategoryItems(Enum.ItemType.Etc); break;
         } 
     }
 
+
+
     /// <summary>
-    ///* カテゴリに合うリストのみ表示
+    /// インベントリー開く
     /// </summary>
-    private void ActiveCategoryItemList(Enum.ItemType category) {
-        for(int i = 0; i < InvUIItemArr.Length; i++) {
-            Debug.Log($"ActiveCategoryItemList():: Item {i} Type: {InvUIItemArr[i].Type}, Expected Type: {category}");
-            bool isSameCategory = InvUIItemArr[i].Type == category;
-            bool isExistQuantity = HM._.ivCtrl.InventoryData.InvArr[i].Quantity > 0;
-
-            ActiveSlotUI(i, isSameCategory && isExistQuantity);
-        }
-    }
-
     public void OnClickInventoryIconBtn() {
-        // 最初にWEAPONカテゴリに初期化
-        if(CurCateIdx == -1) {
-            CurCateIdx = 0;
-            ActiveCategoryItemList(Enum.ItemType.Weapon);
-        }
-        // インベントリー開く
+        // 最初開くなら、WEAPONカテゴリ 表示
+        if(CurCateIdx == -1)
+            CurCateIdx = (int)Enum.ItemType.Weapon;
+
+        // 現在カテゴリ 再表示 (最新化)
+        OnClickCateMenuIconBtn(CurCateIdx);
+
         HM._.ivCtrl.ShowInventory();
     } 
     public void OnClickInventoryPopUpBackBtn() => HM._.ivCtrl.HideInventory();
@@ -132,6 +119,20 @@ namespace Inventory.UI
 #endregion
 
 #region FUNC
+        /// <summary>
+        ///* カテゴリアイテム 表示
+        /// </summary>
+        private void ActiveCategoryItems(Enum.ItemType category) {
+            for(int i = 0; i < InvUIItemArr.Length; i++) {
+                Debug.Log($"ActiveCategoryItemList():: Item {i} Type: {InvUIItemArr[i].Type}, Expected Type: {category}");
+                bool isSameCategory = InvUIItemArr[i].Type == category;
+                bool isExistQuantity = HM._.ivCtrl.InventoryData.InvArr[i].Quantity > 0;
+
+                // 表示・非表示
+                ActiveSlotUI(i, isSameCategory && isExistQuantity);
+            }
+        }
+
         /// <summary>
         /// インベントリースロット 表示・非表示
         /// </summary>
@@ -195,7 +196,7 @@ namespace Inventory.UI
         }
 
         /// <summary>
-        /// インベントリーUIスロット 表示
+        /// インベントリーUIスロット 最新化
         /// </summary>
         /// <param name="itemIdx">InventoryItem.InvArrのINDEX値</param>
         /// <param name="item"></param>ItemSOデータ<summary>
@@ -213,22 +214,6 @@ namespace Inventory.UI
                 item.IsNewAlert
             );
         }
-
-        // private void ResetDraggedItem() {
-        //     MouseFollower.Toggle(false);
-        //     // curDraggedItemIdx = -1;
-        // }
-
-        /// <summary>
-        /// UIインベントリーから、実際のアイテム情報を受け取る
-        /// </summary>
-        /// <param name="invItemUI">インベントリーUIのアイテム</param>
-        // public InventoryItem GetItemFromUI(InventoryUIItem invItemUI) {
-        //     int idx = Array.IndexOf(InvUIItemArr, invItemUI);
-        //     if(idx == -1)
-        //         return InventoryItem.GetEmptyItem();
-        //     return HM._.ivCtrl.InventoryData.GetItemAt(idx);
-        // }
 
         public InventoryItem GetCurItemUIFromIdx(int idx) {
             Debug.Log($"GetCurItemUIFromIdx():: idx= {idx}");

@@ -147,17 +147,17 @@ public class InventoryEquipUIManager : MonoBehaviour {
         else                EquipItem(Enum.ItemType.Relic, invDtArr[relicIdx], isEffect: false);
     }
 
-    private void SetEquipEmptyIcon(Enum.ItemType type, bool isActive)
+    private void ActiveEquipSlotEmptyIcon(Enum.ItemType type, bool isActive)
         => EmptyIconObjs[(int)type].SetActive(isActive);
 
     public void ResetEquipSlot(Enum.ItemType type) {
         EquipItemSlotUIs[(int)type].ResetUI();
         EmptyIconObjs[(int)type].SetActive(true);
-        SetEquipEmptyIcon(type, true);
+        ActiveEquipSlotEmptyIcon(type, true);
     }
 
     /// <summary>
-    /// EQUIPアイテム装置
+    /// EQUIPアイテム 装置
     /// </summary>
     public void EquipItem(Enum.ItemType type, InventoryItem invItem, bool isEffect = true) {
         if(invItem.IsEmpty)
@@ -177,7 +177,7 @@ public class InventoryEquipUIManager : MonoBehaviour {
         foreach (var equipSlot in EquipItemSlotUIs)
             equipSlot.QuantityTxt.text = "";
 
-        SetEquipEmptyIcon(type, false);
+        ActiveEquipSlotEmptyIcon(type, false);
 
         if(isEffect)
             EquipItemSlotUIs[(int)type].PlayScaleUIEF(

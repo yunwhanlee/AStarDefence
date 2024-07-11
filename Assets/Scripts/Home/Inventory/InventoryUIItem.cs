@@ -97,13 +97,13 @@ namespace Inventory.UI
             ItemImg.gameObject.SetActive(false);
             if(HM._) BgImg.sprite = HM._.ivm.NoneBgSpr;
             BgImg.color = Color.white;
-            if(HM._) HM._.ivm.AutoMergeBtnAlertIcon.SetActive(false);
+            if(HM._) HM._.ivm.AutoMergeGreenAlertDot.SetActive(false);
             QuantityTxt.text = "";
             LvTxt.text = "";
 
             //* Equipスロットは対応しない（そのそのオブジェクトが付いていない）
             if(AlertRedDot) AlertRedDot.SetActive(false);
-            if(AlertGreenDot) AlertGreenDot.SetActive(false);
+            // if(AlertGreenDot) AlertGreenDot.SetActive(false);
             if(EquipDim) EquipDim.SetActive(false);
             if(BonusRewardLabel) BonusRewardLabel.SetActive(false);
             if(DoubleRewardLabel) DoubleRewardLabel.SetActive(false);
@@ -137,7 +137,7 @@ namespace Inventory.UI
         /// インベントリアイテムUIとデータ設定
         /// </summary>
         public void SetUI(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv, AbilityType[] relicAbilities = null, bool isEquip = false, bool isNewAlert = false) {
-            Debug.Log($"<color=white>SetUI(ItemImg.name={ItemImg.sprite.name}, type={type}, grade={grade}, quantity= {quantity})::</color>");
+            Debug.Log($"<color=white>SetUI(type={type}, grade={grade}, quantity= {quantity})::</color>");
 
             QuantityTxt.text = $"{quantity}";
 
@@ -161,14 +161,15 @@ namespace Inventory.UI
                 TypeIconImg.sprite = HM._.ivm.TypeSprs[(int)type];
                 ItemImg.gameObject.SetActive(true);
 
+                // EquipスロットはEquipDimオブジェクトがないため、合うかif文でチェック
                 if(EquipDim)
-                    EquipDim.SetActive(isEquip); //* EquipスロットはEquipDimオブジェクトがないため、合うかif文でチェック
+                    EquipDim.SetActive(isEquip); 
 
-                //* マージ可能な物 表示 (PRIME等級はしない)
+                // 自動マージ お知らせ緑アイコン 表示・非表示
                 if(quantity >= Config.EQUIP_MERGE_CNT && grade < Enum.Grade.Prime) {
-                    if(AlertGreenDot) AlertGreenDot.SetActive(true);
+                    // if(AlertGreenDot) AlertGreenDot.SetActive(true);
                     QuantityTxt.text = $"<color=green>{quantity}</color>";
-                    HM._.ivm.AutoMergeBtnAlertIcon.SetActive(true);
+                    HM._.ivm.AutoMergeGreenAlertDot.SetActive(true);
                 }
 
                 string lvStr = (type == Enum.ItemType.Relic && lv >= Config.RELIC_UPGRADE_MAX)

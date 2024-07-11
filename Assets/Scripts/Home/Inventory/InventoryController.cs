@@ -122,7 +122,8 @@ namespace Inventory
         private void UpdateInventoryUI(Dictionary<int, InventoryItem> inventoryState) {
             Debug.Log("UpdateInventoryUI()::");
             ivm.ResetAllItems();
-            // foreach (var item in inventoryState)
+            
+            // インベントリーUIスロット 最新化
             for(int i = 0; i < HM._.ivCtrl.InventoryData.InvArr.Length; i++)
                 ivm.UpdateUI(i, HM._.ivCtrl.InventoryData.InvArr[i]);
         }
@@ -140,11 +141,10 @@ namespace Inventory
         public void ShowInventory() {
             HM._.hui.IsActivePopUp = true;
             SM._.SfxPlay(SM.SFX.ClickSFX);
+
             ivm.Show();
-            // Debug.Log($"InventoryData.GetCurrentInventoryState().Count= {InventoryData.GetCurrentInventoryState().Count}");
-            // foreach (var item in InventoryData.GetCurrentInventoryState()) {
-            //     ivm.UpdateUI( item.Key, item.Value );
-            // }
+
+            // インベントリーUIスロット 最新化
             for(int i = 0; i < HM._.ivCtrl.InventoryData.InvArr.Length; i++)
                 ivm.UpdateUI(i, HM._.ivCtrl.InventoryData.InvArr[i]);
         }
@@ -152,7 +152,9 @@ namespace Inventory
         public void HideInventory() {
             HM._.hui.IsActivePopUp = false;
             SM._.SfxPlay(SM.SFX.ClickSFX);
+
             ivm.Hide();
+
             HM._.dailyMs.OnUpdateUI.Invoke();
         }
 

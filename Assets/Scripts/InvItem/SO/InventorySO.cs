@@ -97,8 +97,6 @@ namespace Inventory.Model
     public class InventorySO : ScriptableObject {
         [field:Header("インベントリリスト")]
         [field: SerializeField] public InventoryItem[] InvArr;
-
-        // [field: SerializeField] public static int Size {get; private set;} = 55;
         public event Action<Dictionary<int, InventoryItem>> OnInventoryUIUpdated;
 
         public void SetLoadData() {
@@ -117,50 +115,10 @@ namespace Inventory.Model
 
         public int AddItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip = false, bool isNewAlert = false) {
             Debug.Log($"AddItem:: item.Name= {item.Name}, quantity= {quantity}, relicAbilities is {(relicAbilities == null? "NULL" : relicAbilities)}");
-            // if(item.MaxStackSize > 1)
             quantity = AddStackableItem(item, quantity, lv, relicAbilities, isEquip, isNewAlert);
-            // else {
-            //     //* アイテム生成 (最初の初期化にも使う)
-            //     while(quantity > 0 && IsInventoryFull() == false) {
-            //         Debug.Log($"AddStackableItem():: アイテム生成= {item.name}");
-            //         int newQuantity = Mathf.Clamp(quantity, 0, item.MaxStackSize);
-            //         quantity -= newQuantity;
-            //         AddItemToFirstFreeSlot(item, newQuantity, lv, relicAbilities, isEquip, isNewAlert);
-            //     }
-            // }
 
-            // InformAboutChange();
             return quantity;
         }
-
-        /// <summary>
-        ///* 数えないアイテムとして追加 （今は使うことがない）
-        /// </summary>
-        // private int AddItemToFirstFreeSlot(ItemSO itemDt, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip, bool isNewAlert = false) {
-        //     InventoryItem newItem = new InventoryItem {
-        //         Data = itemDt,
-        //         Quantity = quantity,
-        //         Lv = lv,
-        //         RelicAbilities = relicAbilities,
-        //         IsEquip = isEquip,
-        //         IsNewAlert = isNewAlert
-        //     };
-
-        //     Debug.Log($"newItem.RelicAbilities.Length= {newItem}");
-        //     for(int i = 0; i < invArr.Count; i++) {
-        //         if(invArr[i].IsEmpty) {
-        //             invArr[i] = newItem;
-        //             return quantity;
-        //         }
-        //     }
-        //     return 0;
-        // }
-
-        /// <summary>
-        /// 一つでも空スロットがあったら、インベントリーがFullではない => False
-        /// </summary>
-        // private bool IsInventoryFull()
-        //     => invArr.Where(item => item.IsEmpty).Any() == false;
 
         /// <summary>
         /// 数えるアイテムとして追加 (自動マージしたときも使う)
@@ -230,14 +188,17 @@ namespace Inventory.Model
             //* 現在のカテゴリを再クリックして０になったアイテムスロット 非表示
             HM._.ivm.OnClickCateMenuIconBtn(HM._.ivm.CurCateIdx);
 
-            //* イベントリーUI アップデート (数値 など)
-            InformAboutChange();
+            // インベントリーUIスロット 最新化
+            for(int i = 0; i < HM._.ivCtrl.InventoryData.InvArr.Length; i++)
+                HM._.ivm.UpdateUI(i, HM._.ivCtrl.InventoryData.InvArr[i]);
 
-            //* 周り等級アイテムの数量によって、現在装置したEquipアイテムが消えることもあるため、Equipスロット４つも全て最新化
-            // HM._.ivEqu.UpdateAllEquipSlots();
+            // 自動マージ お知らせ緑アイコン 非表示
+            HM._.ivm.AutoMergeGreenAlertDot.SetActive(false);
 
             SM._.SfxPlay(SM.SFX.Merge3SFX);
             HM._.hui.ShowMsgNotice("자동합성 완료!");
+            //* 周り等級アイテムの数量によって、現在装置したEquipアイテムが消えることもあるため、Equipスロット４つも全て最新化
+            // HM._.ivEqu.UpdateAllEquipSlots();
         }
 
         /// <summary>
@@ -341,35 +302,10 @@ namespace Inventory.Model
                 HM._.ivm.ConsumePopUp.SetActive(false);
             }
 
-            // foreach (var invItemUI in HM._.ivm.InvUIItemArr) {
-            //     if(invItemUI.IsEmpty)
-            //         invItemUI.ResetUI();
-            // }
-
-            //* イベントリーUI アップデート
-            InformAboutChange();
+            // インベントリーUIスロット 最新化
+            for(int i = 0; i < HM._.ivCtrl.InventoryData.InvArr.Length; i++)
+                HM._.ivm.UpdateUI(i, HM._.ivCtrl.InventoryData.InvArr[i]);
         }
-
-        // public void SortInventory() {
-        //     Debug.Log("SortInventory()::");
-        //     //* 整列
-        //     invArr.Sort((a, b) => {
-        //         if (a.IsEmpty && b.IsEmpty)
-        //             return 0; 
-        //         if (a.IsEmpty)
-        //             return 1; // aをb後ろへ
-        //         if (b.IsEmpty)
-        //             return -1; // bをa後ろへ
-
-        //         // １．タイプによって整列する
-        //         int itemTypeComparison = a.Data.Type.CompareTo(b.Data.Type);
-        //         if (itemTypeComparison != 0) {
-        //             return itemTypeComparison;
-        //         }
-        //         // ２．同じタイプの場合、名前で整列
-        //         return a.Data.name.CompareTo(b.Data.name);
-        //     });
-        // }
 
         public void AddItem(InventoryItem item) {
             Debug.Log($"AddItem():: {item.Data.Name}, Lv= {item.Lv}, {(item.RelicAbilities != null? item.RelicAbilities.Length : "NULL")}, isEquip= {item.IsEquip}");
@@ -377,38 +313,10 @@ namespace Inventory.Model
         }
 
         /// <summary>
-        /// 
+        /// アイテムデータ 習得
         /// </summary>
-        /// <returns></returns>
-        // public Dictionary<int, InventoryItem> GetCurrentInventoryState() {
-        //     Dictionary<int, InventoryItem> invItemDic = new Dictionary<int, InventoryItem>();
-        //     for(int i = 0; i < InvArr.Length; i++) {
-        //         if(InvArr[i].IsEmpty)
-        //             continue;
-        //         invItemDic[i] = InvArr[i];
-        //     }
-        //     return invItemDic;
-        // }
-
-        /// <summary>
-        /// 実際のインベントリーへあるアイテム情報を返す
-        /// </summary>
-        /// <param name="itemIdx"></param>
         public InventoryItem GetItemAt(int itemIdx)
             => InvArr[itemIdx];
-
-        // public void SwapItems(int itemIdx1, int itemIdx2) {
-        //     InventoryItem item1 = InvArr[itemIdx1];
-        //     InvArr[itemIdx1] = InvArr[itemIdx2];
-        //     InvArr[itemIdx2] = item1;
-        //     InformAboutChange();
-        // }
-
-        public void InformAboutChange() {
-            Debug.Log("InformAboutChange()::");
-            for(int i = 0; i < HM._.ivCtrl.InventoryData.InvArr.Length; i++)
-                HM._.ivm.UpdateUI(i, HM._.ivCtrl.InventoryData.InvArr[i]);
-        }
     }
     #endregion
 }
