@@ -113,18 +113,11 @@ namespace Inventory.Model
             }
         }
 
+        /// <summary>
+        /// アイテム追加
+        /// </summary>
         public int AddItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip = false, bool isNewAlert = false) {
             Debug.Log($"AddItem:: item.Name= {item.Name}, quantity= {quantity}, relicAbilities is {(relicAbilities == null? "NULL" : relicAbilities)}");
-            quantity = AddStackableItem(item, quantity, lv, relicAbilities, isEquip, isNewAlert);
-
-            return quantity;
-        }
-
-        /// <summary>
-        /// 数えるアイテムとして追加 (自動マージしたときも使う)
-        /// </summary>
-        private int AddStackableItem(ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip, bool isNewAlert) {
-            Debug.Log($"AddStackableItem():: item.ID= {item.ID}, item.Name= {item.Name}, quantity= {quantity}");
             InvArr[item.ID] = InvArr[item.ID].ChangeQuantity(InvArr[item.ID].Quantity + quantity);
             InvArr[item.ID] = InvArr[item.ID].ChangeLevel(lv);
 
@@ -184,9 +177,6 @@ namespace Inventory.Model
                 HM._.hui.ShowMsgError("합성할 아이템이 없습니다.");
                 return;
             }
-
-            // //* 現在のカテゴリを再クリックして０になったアイテムスロット 非表示
-            // HM._.ivm.OnClickCateMenuIconBtn(HM._.ivm.CurCateIdx);
 
             // インベントリーUIスロット 最新化
             HM._.ivCtrl.OnInventoryUIUpdated?.Invoke();
@@ -252,7 +242,8 @@ namespace Inventory.Model
                 var relicAbilities = CheckRelicAbilitiesData(InvArr[nextId].Data);
 
                 // 次のLVアイテム生成
-                AddStackableItem(InvArr[nextId].Data, mergeCnt, lv: 1, relicAbilities, InvArr[nextId].IsEquip, isNewAlert: true);
+                AddItem(InvArr[nextId].Data, mergeCnt, lv: 1, relicAbilities, InvArr[nextId].IsEquip, isNewAlert: true);
+                // AddStackableItem(InvArr[nextId].Data, mergeCnt, lv: 1, relicAbilities, InvArr[nextId].IsEquip, isNewAlert: true);
 
                 // RELICなら、Ability追加
                 if(InvArr[nextId].Data.Type == Enum.ItemType.Relic)
@@ -299,11 +290,6 @@ namespace Inventory.Model
 
             // インベントリーUIスロット 最新化
             HM._.ivCtrl.OnInventoryUIUpdated?.Invoke();
-        }
-
-        public void AddItem(InventoryItem item) {
-            Debug.Log($"AddItem():: {item.Data.Name}, Lv= {item.Lv}, {(item.RelicAbilities != null? item.RelicAbilities.Length : "NULL")}, isEquip= {item.IsEquip}");
-            AddItem(item.Data, item.Quantity, item.Lv, item.RelicAbilities, item.IsEquip, item.IsNewAlert);
         }
 
         /// <summary>

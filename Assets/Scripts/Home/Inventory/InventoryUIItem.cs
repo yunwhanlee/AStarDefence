@@ -55,9 +55,6 @@ namespace Inventory.UI
         public event Action<InventoryUIItem> OnItemClickShortly;
 
         void Awake() {
-            Debug.Log("AA InventoryUIItem:: Awake():: ResetUI");
-            // ResetUI();
-
             if(HighGradeSpawnUIEF) HighGradeSpawnUIEF.enabled = false;
             if(Twincle1UIEF) Twincle1UIEF.enabled = false;
             if(Twincle2UIEF) Twincle2UIEF.enabled = false;
@@ -90,7 +87,7 @@ namespace Inventory.UI
     #endregion
         public void ResetUI() {
             Debug.Log($"<color=white>ResetUI():: ObjName= {name} Type= {Type}</color>");
-            Type = Enum.ItemType.Empty; //* 固定したから要らない
+            // Type = Enum.ItemType.Empty; //* 固定したから要らない
             TypeBgImg.enabled = false;
             TypeIconImg.enabled = false;
             LightImg.enabled = false;

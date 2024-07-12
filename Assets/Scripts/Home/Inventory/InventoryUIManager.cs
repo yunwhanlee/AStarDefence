@@ -136,7 +136,7 @@ namespace Inventory.UI {
         }
 
         /// <summary>
-        ///* インベントリUIスロット 初期化
+        ///* アイテムスロット生成・イベント関数登録(EQUIP含め)。
         /// </summary>
         public void InitInventoryUI() {
             Debug.Log($"AA InventoryUIManager():: InitInventoryUI():: InvUIItemArr= {InvUIItemArr.Length}");

@@ -6,10 +6,7 @@ using AssetKits.ParticleImage;
 using Inventory.Model;
 using Inventory.UI;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Analytics;
-using UnityEngine.UI;
 
 public class InventoryEquipUIManager : MonoBehaviour {
     public const string WEAPON_SLOT_OBJ_NAME = "WeaponInvItemUISlot";

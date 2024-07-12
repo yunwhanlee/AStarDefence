@@ -30,28 +30,28 @@ namespace Inventory
         /// <summary>
         /// 消費アイテムが０以下になったら、インベントリーから削除して最新化
         /// </summary>
-        private void UpdateConsumableInvItems() {
-            // bool isConsumeItemDelete = false;
+        // private void UpdateConsumableInvItems() {
+        //     // bool isConsumeItemDelete = false;
 
-            for(int i = 0; i < InventoryData.InvArr.Length; i++) {
-                var itemList = InventoryData.InvArr[i];
-                if(itemList.IsEmpty)
-                    continue;
+        //     for(int i = 0; i < InventoryData.InvArr.Length; i++) {
+        //         var itemList = InventoryData.InvArr[i];
+        //         if(itemList.IsEmpty)
+        //             continue;
 
-                //* 消費アイテム 最新化 (数量が０なら、削除)
-                if((itemList.Data.name == $"{Etc.ConsumableItem.Clover}"
-                || itemList.Data.name == $"{Etc.ConsumableItem.GoldClover}"
-                || itemList.Data.name == $"{Etc.ConsumableItem.SteamPack0}"
-                || itemList.Data.name == $"{Etc.ConsumableItem.SteamPack1}"
-                || itemList.Data.name == $"{Etc.ConsumableItem.BizzardScroll}"
-                || itemList.Data.name == $"{Etc.ConsumableItem.LightningScroll}")
-                && itemList.Quantity <= 0) 
-                {
-                    InventoryData.InvArr[i] = InventoryData.InvArr[i].GetEmptyItem();
-                    // isConsumeItemDelete = true;
-                }
-            }
-        }
+        //         //* 消費アイテム 最新化 (数量が０なら、削除)
+        //         if((itemList.Data.name == $"{Etc.ConsumableItem.Clover}"
+        //         || itemList.Data.name == $"{Etc.ConsumableItem.GoldClover}"
+        //         || itemList.Data.name == $"{Etc.ConsumableItem.SteamPack0}"
+        //         || itemList.Data.name == $"{Etc.ConsumableItem.SteamPack1}"
+        //         || itemList.Data.name == $"{Etc.ConsumableItem.BizzardScroll}"
+        //         || itemList.Data.name == $"{Etc.ConsumableItem.LightningScroll}")
+        //         && itemList.Quantity <= 0) 
+        //         {
+        //             InventoryData.InvArr[i] = InventoryData.InvArr[i].GetEmptyItem();
+        //             // isConsumeItemDelete = true;
+        //         }
+        //     }
+        // }
 
         /// <summary>
         ///  EXPクロバーが活性化したら、一個減る
