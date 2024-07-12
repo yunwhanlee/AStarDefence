@@ -97,7 +97,6 @@ namespace Inventory.Model
     public class InventorySO : ScriptableObject {
         [field:Header("インベントリリスト")]
         [field: SerializeField] public InventoryItem[] InvArr;
-        // public event Action OnInventoryUIUpdated = () => {};
 
         public void SetLoadData() {
             Debug.Log("InventorySO:: LoadData()::");
@@ -235,6 +234,10 @@ namespace Inventory.Model
                     // Empty初期化 + 非表示
                     InvArr[id] = InvArr[id].GetEmptyItem();
                     HM._.ivm.ActiveSlotUI(id, false);
+
+                    // EQUIPスロット 最新化
+                    HM._.ivEqu.UpdateAllEquipSlots();
+                    HM._.ivEqu.UpdateAllEquipAbilityData();
                 }
 
                 // 結果
@@ -243,7 +246,6 @@ namespace Inventory.Model
 
                 // 次のLVアイテム生成
                 AddItem(InvArr[nextId].Data, mergeCnt, lv: 1, relicAbilities, InvArr[nextId].IsEquip, isNewAlert: true);
-                // AddStackableItem(InvArr[nextId].Data, mergeCnt, lv: 1, relicAbilities, InvArr[nextId].IsEquip, isNewAlert: true);
 
                 // RELICなら、Ability追加
                 if(InvArr[nextId].Data.Type == Enum.ItemType.Relic)
