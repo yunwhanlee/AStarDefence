@@ -124,6 +124,7 @@ namespace Inventory.UI
             if(MythSpawnUIEF) MythSpawnUIEF.Stop();
             if(PrimeSpawnUIEF) PrimeSpawnUIEF.Stop();
         }
+
         public void Deselect() => BorderImg.enabled = false;
 
         public void PlayScaleUIEF(InventoryUIItem  invItemUI, Sprite itemSpr) {
@@ -131,7 +132,7 @@ namespace Inventory.UI
             invItemUI.ItemImgScaleUIEF.Play();
         }
         /// <summary>
-        /// インベントリアイテムUIとデータ設定
+        /// アイテムスロットUI 設定
         /// </summary>
         public void SetUI(Enum.ItemType type, Enum.Grade grade, Sprite spr, int quantity, int lv, AbilityType[] relicAbilities = null, bool isEquip = false, bool isNewAlert = false) {
             Debug.Log($"<color=white>SetUI(type={type}, grade={grade}, quantity= {quantity})::</color>");
@@ -156,9 +157,9 @@ namespace Inventory.UI
                 LightImg.enabled = true;
                 TypeBgImg.color = HM._.ivm.GradeClrs[(int)grade];
                 TypeIconImg.sprite = HM._.ivm.TypeSprs[(int)type];
-                ItemImg.gameObject.SetActive(true);
+                // ItemImg.gameObject.SetActive(true);
 
-                // EquipスロットはEquipDimオブジェクトがないため、合うかif文でチェック
+                // 装置中UI 表示
                 if(EquipDim)
                     EquipDim.SetActive(isEquip); 
 
@@ -177,10 +178,12 @@ namespace Inventory.UI
                     ShinyUIEF.Play();
             }
 
+            //* 共通 処理
             IsEmpty = false;
             // IsNewAlert = true;
 
             if(AlertRedDot) AlertRedDot.SetActive(isNewAlert);
+
             ItemImg.gameObject.SetActive(true);
             ItemImg.sprite = spr;
         }

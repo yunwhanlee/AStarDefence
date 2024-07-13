@@ -91,35 +91,35 @@ public class GameConsumeItemUIManager : MonoBehaviour {
         ActiveBagUI();
     }
     /// <summary>
-    /// 消費アイテムをクリックして使うイベント
+    /// 消費アイテム 使用
     /// </summary>
-    /// <param name="idx">0: Steampack0, 1: Steampack1, 2: BlizzardScroll, 3: LighteningScroll</param>
+    /// <par/// am name="idx">0: Steampack0, 1: Steampack1, 2: BlizzardScroll, 3: LighteningScroll</param>
     public void OnClickConsumeItemBtn(int idx) {
         Etc.ConsumableItem itemEnumIdx = Etc.GetConsumableItem(idx);
-        //* アイテム利用が出来るのかチェック
-        if(CheckAvailable(itemEnumIdx) == false) return;
 
-        //* インベントリデータから、残る量を減る
-        int invItemIdx = Array.FindIndex(GM._.InventoryData.InvArr, itemDt
-            => !itemDt.IsEmpty && itemDt.Data.name == itemEnumIdx.ToString());
-        var invItemDt = GM._.InventoryData.InvArr[invItemIdx];        
-        GM._.InventoryData.InvArr[invItemIdx] = invItemDt.ChangeQuantity(invItemDt.Quantity - 1);
+        //* 使用可能か確認
+        if(CheckAvailable(itemEnumIdx) == false)
+            return;
+
+        int itemIdx = Array.FindIndex(GM._.InventoryData.InvArr, itemDt => !itemDt.IsEmpty && itemDt.Data.name == itemEnumIdx.ToString());
+        InventoryItem invItemDt = GM._.InventoryData.InvArr[itemIdx];
+
+        //* 消費アイテムを減る
+        GM._.InventoryData.InvArr[itemIdx] = invItemDt.ChangeQuantity(invItemDt.Quantity - 1);
 
         //* 能力 反映
         switch(itemEnumIdx) {
-            case Etc.ConsumableItem.SteamPack0:
-                SteamPackActive(itemEnumIdx);
+            case Etc.ConsumableItem.SteamPack0: SteamPackActive(itemEnumIdx);
                 break;
-            case Etc.ConsumableItem.SteamPack1:
-                SteamPackActive(itemEnumIdx);
+            case Etc.ConsumableItem.SteamPack1: SteamPackActive(itemEnumIdx);
                 break;
-            case Etc.ConsumableItem.BizzardScroll:
-                ScrollActive(itemEnumIdx);
+            case Etc.ConsumableItem.BizzardScroll: ScrollActive(itemEnumIdx);
                 break;
-            case Etc.ConsumableItem.LightningScroll:
-                ScrollActive(itemEnumIdx);
+            case Etc.ConsumableItem.LightningScroll: ScrollActive(itemEnumIdx);
                 break;
         }
+
+        UpdateBtnQuantityTxt();
     }
 #endregion
 
@@ -133,6 +133,9 @@ public class GameConsumeItemUIManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 数量テキストUI 最新化
+    /// </summary>
     private void UpdateBtnQuantityTxt() {
         foreach(var itemDt in GM._.InventoryData.InvArr) {
             if(itemDt.IsEmpty)
@@ -148,12 +151,15 @@ public class GameConsumeItemUIManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 消費アイテムの使用可能 確認
+    /// </summary>
     private bool CheckAvailable(Etc.ConsumableItem itemEnumIdx) {
         ConsumableItemBtn iconBtn = ConsumableItemBtns[(int)itemEnumIdx];
         InventoryItem findInvItem = Array.Find(GM._.InventoryData.InvArr, itemDt
             => !itemDt.IsEmpty && itemDt.Data.name == itemEnumIdx.ToString());
 
-        if(findInvItem.Quantity <= 0) {
+        if(findInvItem.IsEmpty) {
             GM._.gui.ShowMsgError("사용할 아이템이 없습니다.");
             return false;
         }

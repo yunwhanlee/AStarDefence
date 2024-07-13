@@ -304,14 +304,6 @@ namespace Inventory.UI {
             InvUIItemArr[itemIdx].Select();
         }
 
-        public void ResetAllItems() {
-            Debug.Log($"ResetAllItems():: InvUIItemList.Length= {InvUIItemArr.Length}");
-            foreach (InventoryUIItem item in InvUIItemArr) {
-                item.ResetUI();
-                item.Deselect();
-            }
-        }
-
         public void InitEquipDimUI(Enum.ItemType type) {
             //* UI Elements
             var filterItemUIs = Array.FindAll(InvUIItemArr, elem => elem.Type == type);

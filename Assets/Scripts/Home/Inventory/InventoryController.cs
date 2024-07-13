@@ -19,7 +19,6 @@ namespace Inventory
             PrepareUI();
             PrepareInventoryData();
             StartCoroutine(CoUpdateNewItemAlert());
-            // UpdateConsumableInvItems();
         }
 
         void OnDisable() {
@@ -27,32 +26,6 @@ namespace Inventory
         }
 
     #region FUNC
-        /// <summary>
-        /// 消費アイテムが０以下になったら、インベントリーから削除して最新化
-        /// </summary>
-        // private void UpdateConsumableInvItems() {
-        //     // bool isConsumeItemDelete = false;
-
-        //     for(int i = 0; i < InventoryData.InvArr.Length; i++) {
-        //         var itemList = InventoryData.InvArr[i];
-        //         if(itemList.IsEmpty)
-        //             continue;
-
-        //         //* 消費アイテム 最新化 (数量が０なら、削除)
-        //         if((itemList.Data.name == $"{Etc.ConsumableItem.Clover}"
-        //         || itemList.Data.name == $"{Etc.ConsumableItem.GoldClover}"
-        //         || itemList.Data.name == $"{Etc.ConsumableItem.SteamPack0}"
-        //         || itemList.Data.name == $"{Etc.ConsumableItem.SteamPack1}"
-        //         || itemList.Data.name == $"{Etc.ConsumableItem.BizzardScroll}"
-        //         || itemList.Data.name == $"{Etc.ConsumableItem.LightningScroll}")
-        //         && itemList.Quantity <= 0) 
-        //         {
-        //             InventoryData.InvArr[i] = InventoryData.InvArr[i].GetEmptyItem();
-        //             // isConsumeItemDelete = true;
-        //         }
-        //     }
-        // }
-
         /// <summary>
         ///  EXPクロバーが活性化したら、一個減る
         /// </summary>
@@ -82,8 +55,10 @@ namespace Inventory
             int newItemCnt;
             while(true) {
                 newItemCnt = 0;
+
                 foreach (InventoryItem itemDt in InventoryData.InvArr)
                     if (itemDt.IsNewAlert) newItemCnt++;
+
                 HM._.ivm.SetInvAlertIcon(newItemCnt);
                 yield return Util.Time0_5;
             }
@@ -105,9 +80,7 @@ namespace Inventory
         /// INVENTORYのSlotUIを最新化
         /// </summary>
         private void UpdateInventoryUI() {
-            Debug.Log("ACTION:: UpdateInventoryUI():: ");
-            // ivm.ResetAllItems();
-            
+            Debug.Log("ACTION:: UpdateInventoryUI():: ");            
             // インベントリーUIスロット 最新化
             for(int i = 0; i < HM._.ivCtrl.InventoryData.InvArr.Length; i++)
                 ivm.UpdateUI(i, HM._.ivCtrl.InventoryData.InvArr[i]);
@@ -145,15 +118,15 @@ namespace Inventory
     #region EQUIP
         public int FindCurrentEquipItemIdx(Enum.ItemType type) {
             return Array.FindIndex(InventoryData.InvArr, item
-                => item.IsEquip
-                && item.Data.Type == type
-                // && !item.IsEmpty
+                => item.IsEquip && item.Data.Type == type
             );
         }
 
+        /// <summary>
+        /// EQUIPアイテム 装置
+        /// </summary>
         public void UnEquipSlotUI() {
             SM._.SfxPlay(SM.SFX.InvUnEquipSFX);
-            InventoryEquipUIManager ivEqu = HM._.ivEqu;
             InventoryItem curInvItem = InventoryData.InvArr[HM._.ivm.CurItemIdx];
             Enum.ItemType type = curInvItem.Data.Type;
 
@@ -162,14 +135,16 @@ namespace Inventory
             HM._.ivm.InitEquipDimUI(type); // 「装置中」DimUI 
 
             //* Equipスロット 初期化
-            ivEqu.ResetEquipSlot(type);
+            HM._.ivEqu.ResetEquipSlot(type);
 
             // HM._.ivEqu.SetEquipAbilityData(curInvItem, isUnEquip: true);
         }
 
+        /// <summary>
+        /// EQUIPアイテム 解除
+        /// </summary>
         public void EquipItemSlotUI() {
             SM._.SfxPlay(SM.SFX.InvEquipSFX);
-            var ivEqu = HM._.ivEqu;
             InventoryItem  curInvItem = InventoryData.InvArr[HM._.ivm.CurItemIdx];
             Enum.ItemType type = curInvItem.Data.Type;
 
@@ -182,8 +157,8 @@ namespace Inventory
             HM._.ivm.InvUIItemArr[HM._.ivm.CurItemIdx].EquipDim.SetActive(true); // DimUI 表示
 
             //* 装置スロットUI
-            ivEqu.EquipItem(type, curInvItem);
-            ivEqu.EquipUIEFs[(int)type].Play();
+            HM._.ivEqu.EquipItem(type, curInvItem);
+            HM._.ivEqu.EquipUIEFs[(int)type].Play();
             // HM._.ivEqu.SetEquipAbilityData(curInvItem);
         }
 

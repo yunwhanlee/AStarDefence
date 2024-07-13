@@ -144,13 +144,9 @@ public class InventoryEquipUIManager : MonoBehaviour {
         else                EquipItem(Enum.ItemType.Relic, invDtArr[relicIdx], isEffect: false);
     }
 
-    private void ActiveEquipSlotEmptyIcon(Enum.ItemType type, bool isActive)
-        => EmptyIconObjs[(int)type].SetActive(isActive);
-
     public void ResetEquipSlot(Enum.ItemType type) {
         EquipItemSlotUIs[(int)type].ResetUI();
         EmptyIconObjs[(int)type].SetActive(true);
-        ActiveEquipSlotEmptyIcon(type, true);
     }
 
     /// <summary>
@@ -174,7 +170,7 @@ public class InventoryEquipUIManager : MonoBehaviour {
         foreach (var equipSlot in EquipItemSlotUIs)
             equipSlot.QuantityTxt.text = "";
 
-        ActiveEquipSlotEmptyIcon(type, false);
+        EmptyIconObjs[(int)type].SetActive(false);
 
         if(isEffect)
             EquipItemSlotUIs[(int)type].PlayScaleUIEF(
@@ -212,12 +208,13 @@ public class InventoryEquipUIManager : MonoBehaviour {
     /// </summary>
     private void SetEquipAbilityData(InventoryItem invEquipItem) {
         if(invEquipItem.IsEmpty) return;
+
         List<AbilityData> myAbilityDataList = new List<AbilityData>();
 
         //*「Relic」と「その他(Weapon, Shoes, Ring)」タイプに分け、Abilityデータリスト作成 : 形が違う
         if(invEquipItem.Data.Type == Enum.ItemType.Relic) {
-            // Relic ➝ invItem.RelicAbilitiesへ宣言
             AbilityData[] abilityDb = invEquipItem.Data.Abilities;
+
             Array.ForEach(invEquipItem.RelicAbilities, relicAbtType => {
                 foreach(var db in abilityDb) {
                     if(db.Type == relicAbtType) {

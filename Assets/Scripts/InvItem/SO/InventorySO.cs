@@ -28,7 +28,7 @@ namespace Inventory.Model
         public int Lv;
         public ItemSO Data;
         public AbilityType[] RelicAbilities;
-        public readonly bool IsEmpty => Quantity == 0; //* ItemSOがNull(登録されていない)なら、true
+        public readonly bool IsEmpty => Quantity <= 0; //* ItemSOがNull(登録されていない)なら、true
         public bool IsEquip;
         public bool IsNewAlert;
 
@@ -107,6 +107,7 @@ namespace Inventory.Model
             for(int i = 0; i < InvArr.Length; i++) {
                 if(InvArr[i].IsEmpty)
                     continue;
+
                 if(InvArr[i].Data.Type == type)
                     InvArr[i] = InvArr[i].ChangeIsEquip(false);
             }

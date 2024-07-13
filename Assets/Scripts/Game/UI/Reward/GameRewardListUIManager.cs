@@ -37,19 +37,21 @@ public class GameRewardListUIManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// リワードリスト表示
+    /// ゲームプレイ後、リワード 表示
     /// </summary>
     private void DisplayRewardList(List<RewardItem> rewardList) {
-        Transform contentTf = (GM._.State == GameState.Victory)? VictoryContent
-            : GameoverContent;
+        Transform contentTf = (GM._.State == GameState.Victory)? VictoryContent : GameoverContent;
 
         StartCoroutine(CoPlayRewardSlotSpawnSFX(rewardList.Count));
+
         //* リワードリストへオブジェクト生成・追加
         for(int i = 0; i < rewardList.Count; i++) {
             RewardItem rwdItem = rewardList[i];
             InventoryUIItem rwdItemUI = Instantiate(rwdItemPf.gameObject, contentTf).GetComponent<InventoryUIItem>();
+
             rwdItemUI.SetUI(rwdItem.Data.Type, rwdItem.Data.Grade, rwdItem.Data.ItemImg, rwdItem.Quantity, lv: 1);
 
+            //* リワードに箱があったら、ただ、ボナースUI表示
             if(rwdItem.Data.name.Contains("Chest"))
                 rwdItemUI.BonusRewardLabel.SetActive(true);
             //* Particle UI Effect 1
@@ -60,6 +62,7 @@ public class GameRewardListUIManager : MonoBehaviour {
             rwdItemUI.WhiteDimScaleUIEF.Play();
         }
     }
+
     public void ShowReward(List<RewardItem> itemList) {
         DeleteAll();
         DisplayRewardList(itemList);

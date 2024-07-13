@@ -78,9 +78,10 @@ namespace Inventory.UI {
             Debug.Log($"OnClickEquipBtn():: CurInvItem= {ivm.CurInvItem}, IsEquip= {ivm.CurInvItem.IsEquip}");
             ivm.EquipPopUp.SetActive(false);
 
-            //* 装置・解除
+            // 装置
             if(ivm.CurInvItem.IsEquip)
                 HM._.ivCtrl.UnEquipSlotUI();
+            // 解除
             else
                 HM._.ivCtrl.EquipItemSlotUI();
 
@@ -181,8 +182,6 @@ namespace Inventory.UI {
                 HM._.hui.ShowMsgError("사용할 아이템이 없습니다.");
                 return false;
             }
-
-            
 
             //* 本当にしますか？メッセージ
             HM._.hui.ShowAgainAskMsg(againAskMsg);
