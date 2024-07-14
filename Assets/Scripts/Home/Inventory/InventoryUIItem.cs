@@ -92,15 +92,16 @@ namespace Inventory.UI
             TypeIconImg.enabled = false;
             LightImg.enabled = false;
             ItemImg.gameObject.SetActive(false);
-            if(HM._) BgImg.sprite = HM._.ivm.NoneBgSpr;
+            BgImg.sprite = HM._.ivm.NoneBgSpr;
             BgImg.color = Color.white;
-            if(HM._) HM._.ivm.AutoMergeGreenAlertDot.SetActive(false);
             QuantityTxt.text = "";
             LvTxt.text = "";
 
+            if(HM._) HM._.ivm.AutoMergeGreenAlertDot.SetActive(false);
+
             //* Equipスロットは対応しない（そのそのオブジェクトが付いていない）
-            if(AlertRedDot) AlertRedDot.SetActive(false);
             // if(AlertGreenDot) AlertGreenDot.SetActive(false);
+            if(AlertRedDot) AlertRedDot.SetActive(false);
             if(EquipDim) EquipDim.SetActive(false);
             if(BonusRewardLabel) BonusRewardLabel.SetActive(false);
             if(DoubleRewardLabel) DoubleRewardLabel.SetActive(false);
@@ -143,8 +144,8 @@ namespace Inventory.UI
             if(type == Enum.ItemType.Etc) {
                 TypeBgImg.enabled = false;
                 TypeIconImg.enabled = false;
-                BgImg.sprite = HM._.ivm.NoneBgSpr;
                 LightImg.enabled = false;
+                BgImg.sprite = HM._.ivm.NoneBgSpr;
                 BgImg.color = (grade == Enum.Grade.None)? Color.white : HM._.ivm.GradeClrs[ (int)grade];
                 LvTxt.text = "";
                 EquipDim.SetActive(false);
@@ -153,15 +154,13 @@ namespace Inventory.UI
             else {
                 TypeBgImg.enabled = true;
                 TypeIconImg.enabled = true;
-                BgImg.sprite = HM._.ivm.GradeBgSprs[(int)grade];
                 LightImg.enabled = true;
+                BgImg.sprite = HM._.ivm.GradeBgSprs[(int)grade];
                 TypeBgImg.color = HM._.ivm.GradeClrs[(int)grade];
                 TypeIconImg.sprite = HM._.ivm.TypeSprs[(int)type];
-                // ItemImg.gameObject.SetActive(true);
 
                 // 装置中UI 表示
-                if(EquipDim)
-                    EquipDim.SetActive(isEquip); 
+                if(EquipDim) EquipDim.SetActive(isEquip); 
 
                 // 自動マージ お知らせ緑アイコン 表示・非表示
                 if(quantity >= Config.EQUIP_MERGE_CNT && grade < Enum.Grade.Prime) {
