@@ -11,7 +11,7 @@ namespace Inventory
         [SerializeField] private InventoryUIManager ivm;
         [field:SerializeField] public InventorySO InventoryData {get; private set;}
         [SerializeField] public List<InventoryItem> InvItemDBs {get => DM._.DB.InvItemDBList;}
-        
+
         public Action OnInventoryUIUpdated = () => {}; // インベントリーUIスロット 最新化
 
         void Start() {
@@ -130,14 +130,12 @@ namespace Inventory
             InventoryItem curInvItem = InventoryData.InvArr[HM._.ivm.CurItemIdx];
             Enum.ItemType type = curInvItem.Data.Type;
 
-            //* インベントリ 初期化
-            InventoryData.InitIsEquipData(type); // ItemDt.isEquip
-            HM._.ivm.InitEquipDimUI(type); // 「装置中」DimUI 
-
-            //* Equipスロット 初期化
-            HM._.ivEqu.ResetEquipSlot(type);
-
-            // HM._.ivEqu.SetEquipAbilityData(curInvItem, isUnEquip: true);
+            //* IsEquip データ 初期化
+            InventoryData.InitIsEquipData(type);
+            //* 「装置中」Dim UI リセット
+            HM._.ivm.ResetEquipDimUI(type); // 「装置中」DimUI 
+            //* EQUIPスロット リセット
+            HM._.ivEqu.ResetEquipSlotUI(type);
         }
 
         /// <summary>
@@ -149,8 +147,8 @@ namespace Inventory
             Enum.ItemType type = curInvItem.Data.Type;
 
             //* 初期化
-            InventoryData.InitIsEquipData(curInvItem.Data.Type); // ItemDt.isEquip
-            HM._.ivm.InitEquipDimUI(curInvItem.Data.Type); // 「装置中」DimUI
+            InventoryData.InitIsEquipData(curInvItem.Data.Type); // ItemDt.isEquip = false
+            HM._.ivm.ResetEquipDimUI(curInvItem.Data.Type); // 「装置中」DimUI
 
             //* アップデート (現在着用したアイテム)
             InventoryData.InvArr[HM._.ivm.CurItemIdx] = curInvItem.ChangeIsEquip(true); // IsEquip：True

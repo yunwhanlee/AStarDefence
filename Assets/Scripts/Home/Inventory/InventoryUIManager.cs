@@ -304,7 +304,7 @@ namespace Inventory.UI {
             InvUIItemArr[itemIdx].Select();
         }
 
-        public void InitEquipDimUI(Enum.ItemType type) {
+        public void ResetEquipDimUI(Enum.ItemType type) {
             //* UI Elements
             var filterItemUIs = Array.FindAll(InvUIItemArr, elem => elem.Type == type);
             Array.ForEach(filterItemUIs, elem => elem.EquipDim.SetActive(false));

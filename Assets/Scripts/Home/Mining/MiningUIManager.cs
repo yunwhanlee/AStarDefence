@@ -198,7 +198,6 @@ public class MiningUIManager : MonoBehaviour {
         //* 配置ボタン 表示
         if(idx == (int)MineCate.Goblin) {
             CurCategory = MineCate.Goblin;
-            // SetArrangeBtn(HM._.wsm.CurWorkSpace.GoblinSpotDt.IsActive);
 
             //* データ アップデート
             Array.ForEach(GoblinCards, card => card.Update());
@@ -208,7 +207,6 @@ public class MiningUIManager : MonoBehaviour {
         }
         else {
             CurCategory = MineCate.Ore;
-            // SetArrangeBtn(HM._.wsm.CurWorkSpace.OreSpotDt.IsActive);
 
             //* データ アップデート
             Array.ForEach(OreCards, card => card.Update());

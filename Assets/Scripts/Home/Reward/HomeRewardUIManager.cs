@@ -72,17 +72,18 @@ public class HomeRewardUIManager : MonoBehaviour {
     }
 
     #region FUNC
+        /// <summary>
+        /// リワードアイテムデータ アップデート
+        /// </summary>
         public IEnumerator CoUpdateInventoryAsync(List<RewardItem> rewardList) {
-            InventorySO invDt = HM._.ivCtrl.InventoryData;
-            
             if(rewardList.Count > 0) {
                 foreach (RewardItem rwdItem in rewardList) {
-                    //* リワード処理 : インベントリーへ表示しないアイテム
+                    //* 表示しないアイテムデータ 項目
                     if(rwdItem.Data.IsNoshowInventory) {
                         Etc.NoshowInvItem enumVal = Util.FindEnumVal(rwdItem.Data.name);
                         rwdItem.UpdateNoShowItemData(enumVal, rwdItem.Quantity);
                     }
-                    //* リワード処理 : インベントリーへ表示するアイテム
+                    //* 表示するアイテムデータ 項目
                     else {
                         Debug.Log($"<color=green>CoUpdateInventoryAsync():: AddItem() -> {rwdItem.Data.name}</color>");
                         int reminder = HM._.ivCtrl.InventoryData.AddItem (
@@ -95,7 +96,8 @@ public class HomeRewardUIManager : MonoBehaviour {
                         );
                         rwdItem.Quantity = reminder;
                     }
-                    yield return null;
+
+                    yield return null; // 1FRAME 待機
                 }
 
                 // インベントリーUIスロット 最新化

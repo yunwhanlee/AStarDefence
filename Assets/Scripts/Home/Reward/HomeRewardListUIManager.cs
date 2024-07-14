@@ -164,7 +164,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
     /// <summary>
     /// リワードスロットUIリスト 表示
     /// </summary>
-    /// <param name="itemList">リワードでもらえるアイテムリスト</param> <summary>
+    /// <param name="itemList">リワードリスト</param> <summary>
     public void ShowReward(List<RewardItem> itemList)
         => StartCoroutine(CoShowRewardProccess(itemList));
 

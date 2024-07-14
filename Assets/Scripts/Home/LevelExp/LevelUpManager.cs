@@ -143,12 +143,12 @@ public class LevelUpManager : MonoBehaviour {
         }
     }
 
-    private void DeleteAll() {
+    private void DeleteAllSlots() {
         foreach (Transform child in Content)
             Destroy(child.gameObject);
     }
 
-    IEnumerator CoPlayRewardSlotSpawnSFX(int cnt) {
+    private IEnumerator CoPlayRewardSlotSpawnSFX(int cnt) {
         IsFinishSlotsSpawn = true;
         yield return Util.Time0_5;
         for(int i = 0; i < cnt; i++) {
@@ -168,7 +168,6 @@ public class LevelUpManager : MonoBehaviour {
             RewardItem rewardItem = rewardList[i];
             InventoryUIItem rwdItemUI = Instantiate(rwdItemPf.gameObject, Content).GetComponent<InventoryUIItem>();
             rwdItemUI.SetUI(rewardItem.Data.Type, rewardItem.Data.Grade, rewardItem.Data.ItemImg, rewardItem.Quantity, lv: 1);
-            // rwdItemUI.IsNewAlert = true;
 
             //* Particle UI Effect 1
             rwdItemUI.PlayScaleUIEF(rwdItemUI, rewardItem.Data.ItemImg);
@@ -182,7 +181,7 @@ public class LevelUpManager : MonoBehaviour {
     public void ShowReward(List<RewardItem> itemList) {
         HM._.hui.IsActivePopUp = true;
         WindowObj.SetActive(true);
-        DeleteAll();
+        DeleteAllSlots();
         DisplayRewardList(itemList);
     }
 

@@ -144,7 +144,7 @@ public class InventoryEquipUIManager : MonoBehaviour {
         else                EquipItem(Enum.ItemType.Relic, invDtArr[relicIdx], isEffect: false);
     }
 
-    public void ResetEquipSlot(Enum.ItemType type) {
+    public void ResetEquipSlotUI(Enum.ItemType type) {
         EquipItemSlotUIs[(int)type].ResetUI();
         EmptyIconObjs[(int)type].SetActive(true);
     }

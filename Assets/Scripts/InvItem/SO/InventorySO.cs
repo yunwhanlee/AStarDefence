@@ -120,6 +120,7 @@ namespace Inventory.Model
             Debug.Log($"AddItem:: item.Name= {item.Name}, quantity= {quantity}, relicAbilities is {(relicAbilities == null? "NULL" : relicAbilities)}");
             InvArr[item.ID] = InvArr[item.ID].ChangeQuantity(InvArr[item.ID].Quantity + quantity);
             InvArr[item.ID] = InvArr[item.ID].ChangeLevel(lv);
+            InvArr[item.ID] = InvArr[item.ID].ChangeIsNewAlert(isNewAlert);
 
             if(item.Type == Enum.ItemType.Relic)
                 InvArr[item.ID] = InvArr[item.ID].ChangeItemRelicAbilities(relicAbilities);
@@ -227,9 +228,9 @@ namespace Inventory.Model
                         // IsEquip 初期化
                         InvArr[i] = InvArr[i].ChangeIsEquip(false);
                         // 「装置中」DimUI
-                        HM._.ivm.InitEquipDimUI(InvArr[id].Data.Type);
+                        HM._.ivm.ResetEquipDimUI(InvArr[id].Data.Type);
                         // Equipスロット 初期化
-                        HM._.ivEqu.ResetEquipSlot(InvArr[id].Data.Type);
+                        HM._.ivEqu.ResetEquipSlotUI(InvArr[id].Data.Type);
                     }
 
                     // Empty初期化 + 非表示
