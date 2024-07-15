@@ -118,6 +118,7 @@ namespace Inventory
 
     #region EQUIP
         public int FindCurrentEquipItemIdx(Enum.ItemType type) {
+            Debug.Log($"FindCurrentEquipItemIdx():: type= {type}, InventoryData.InvArr.Length= {InventoryData.InvArr.Length}");
             return Array.FindIndex(InventoryData.InvArr, item
                 => item.IsEquip && item.Data.Type == type
             );

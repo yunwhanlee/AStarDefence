@@ -113,10 +113,21 @@ public class InventoryEquipUIManager : MonoBehaviour {
     public TMP_Text CritDmgPerTxt;
 
 #region FUNC
-    public InventoryItem FindEquipSlotItem(Enum.ItemType type) {
+    public InventoryItem FindEquipInvItem(Enum.ItemType type) {
+        // 装置中のアイテムを探す (無かったら-1を返す)
         int idx = HM._.ivCtrl.FindCurrentEquipItemIdx(type);
-        InventoryItem equipItem = HM._.ivm.GetCurItemUIFromIdx(idx);
-        return equipItem;
+        Debug.Log($"FindEquipInvItem():: type= {type}, idx= {idx}");
+
+        // InventoryItem equipItem = HM._.ivm.GetCurItemUIFromIdx(idx);
+        Debug.Log($"GetCurItemUIFromIdx():: idx= {idx}");
+        if(idx == -1) {
+            var nullData = new InventoryItem{Quantity = 0, Lv = 0, Data = null};
+            return nullData;//HM._.ivCtrl.InventoryData.InvArr[0].GetEmptyItem();
+        }
+        else {
+            return HM._.ivCtrl.InventoryData.GetItemAt(idx);
+        }
+        // return equipItem;
     }
 
     /// <summary>
@@ -306,10 +317,10 @@ public class InventoryEquipUIManager : MonoBehaviour {
 
     public void UpdateAllEquipAbilityData() {
         ResetEquipAbilityData();
-        SetEquipAbilityData(FindEquipSlotItem(Enum.ItemType.Weapon));
-        SetEquipAbilityData(FindEquipSlotItem(Enum.ItemType.Shoes));
-        SetEquipAbilityData(FindEquipSlotItem(Enum.ItemType.Ring));
-        SetEquipAbilityData(FindEquipSlotItem(Enum.ItemType.Relic));
+        SetEquipAbilityData(FindEquipInvItem(Enum.ItemType.Weapon));
+        SetEquipAbilityData(FindEquipInvItem(Enum.ItemType.Shoes));
+        SetEquipAbilityData(FindEquipInvItem(Enum.ItemType.Ring));
+        SetEquipAbilityData(FindEquipInvItem(Enum.ItemType.Relic));
     }
 #endregion
 }

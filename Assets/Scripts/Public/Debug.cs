@@ -12,17 +12,29 @@ public static class Debug {
     public static void ClearDeveloperConsole() =>
         UnityEngine.Debug.ClearDeveloperConsole();
 
-    [Conditional("UNITY_EDITOR")] 
-    public static void Log(object msg) =>
+    #if UNITY_EDITOR //[Conditional("UNITY_EDITOR")] 
+    public static void Log(object msg) {
         UnityEngine.Debug.Log(msg);
-
-    [Conditional("UNITY_EDITOR")] 
-    public static void LogError(object msg) =>
-        UnityEngine.Debug.LogError(msg);
+    }
+    #elif UNITY_ANDROID
+    public static void Log(object msg) {
+        UnityEngine.Debug.Log(msg);
+    }
+    #endif
 
     [Conditional("UNITY_EDITOR")] 
     public static void LogWarning(object msg) =>
         UnityEngine.Debug.LogWarning(msg);
+
+    #if UNITY_EDITOR //[Conditional("UNITY_EDITOR")] 
+    public static void LogError(object msg) {
+        UnityEngine.Debug.LogError(msg);
+    }
+    #elif UNITY_ANDROID
+    public static void LogError(object msg) {
+        UnityEngine.Debug.LogError(msg);
+    }
+    #endif
 
     [Conditional("UNITY_EDITOR")] 
     public static void LogException(RequestFailedException msg) =>

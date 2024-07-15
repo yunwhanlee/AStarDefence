@@ -119,6 +119,11 @@ namespace Inventory.Model
                 // 普通
                 Debug.Log($"InventorySO:: LoadInvData():: INV データロード");
                 InvArr = DM._.DB.InvItemDBList.ToArray();
+                // HM._.hui.RecoverInvDataMsgTxt.text += $"INVARR 데이터로드 Len= {InvArr.Length}\n";
+                // for(int i = 0; i < InvArr.Length; i++) {
+                //     var item = InvArr[i];
+                //     HM._.hui.RecoverInvDataMsgTxt.text = $"i({i}), ID: {item.Data.ID}, LV: {item.Lv}, {item.Data.Name}, QTT: {item.Quantity}, RL.LEN: {item.RelicAbilities.Length}, ItemSo.name= {item.Data.name}\n";
+                // }
             }
         }
 

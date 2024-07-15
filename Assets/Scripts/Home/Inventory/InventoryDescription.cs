@@ -150,7 +150,7 @@ namespace Inventory.UI {
             ItemImgScaleUIEF.Play();
             UpgradeSucessUIEF.Play();
             SM._.SfxPlay(SM.SFX.UpgradeSFX);
-            HM._.ivEqu.EquipItem(type, HM._.ivEqu.FindEquipSlotItem(type), isEffect: false);
+            HM._.ivEqu.EquipItem(type, HM._.ivEqu.FindEquipInvItem(type), isEffect: false);
             HM._.ivEqu.UpdateAllEquipAbilityData();
 
             //* イベントリーUI アップデート

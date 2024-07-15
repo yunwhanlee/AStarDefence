@@ -524,14 +524,26 @@ public class DM : MonoBehaviour {
         else {
             DB = Load();
 
+            DB.InvItemDBList = null;
+
             //! (テスト) 55個ある 以前バージョンのインベントリー代入
             // DB.InvItemDBList = TEST_InvSO.InvArr.ToList();
 
-            if(DB.InvItemDBList == null) {
+            // データ破壊されたか 確認
+            if(DB.InvItemDBList == null || DB.InvItemDBList?.Count == 0) {
+                Debug.Log("<color=red>ロードしたInvListデータが０でないです。-> データが壊れました</color>");
                 HM._.hui.ShowMsgError("(에러) 인벤토리 리스트 데이터가 없습니다.");
-            }
 
-            if(DB.InvItemDBList.Exists(item => item.Data == null)) {
+                HM._.hui.RecoverInvDataNoticePopUp.SetActive(true);
+                HM._.hui.RecoverInvDataMsgTxt.text = "인벤토리 데이터가 파손되어 복구가 불가능하여 리셋을 진행합니다.";
+                HM._.hui.RecoverInvDataMsgTxt.text += "\n기존에 가지고 계셨던 아이템과 목록을 아래 이메일로 남겨주시면 복구 및 사과보상을 지급하겠습니다. 죄송합니다.";
+                
+                // インベントリーリセット
+                DB.InvItemDBList = new List<InventoryItem>();
+                DB.InvItemDBList = InvSOTemplate.InvArr.ToList();
+                HM._.hui.ShowMsgNotice("인벤토리 리셋 완료");
+            }
+            else if(DB.InvItemDBList.Exists(item => item.Data == null)) {
                 int RIGHT_INVARR_LEN = InvSOTemplate.InvArr.Length;
                 bool isRightInvItemCnt = DB.InvItemDBList.Count == RIGHT_INVARR_LEN; // インベントリー数が４２なら
 
@@ -662,8 +674,6 @@ public class DM : MonoBehaviour {
         //* Print
         string json = PlayerPrefs.GetString(DB_KEY);
         Debug.Log($"★SAVE:: The Key: {DB_KEY} Exists? {PlayerPrefs.HasKey(DB_KEY)}, Data ={json}");
-
-        
     }
 #endregion
 /// -----------------------------------------------------------------------------------------------------------------
