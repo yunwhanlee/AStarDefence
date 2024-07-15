@@ -57,6 +57,10 @@ public class HomeUIManager : MonoBehaviour {
     [Header("THANKS FOR PLAYING POPUP")]
     public GameObject ThanksForPlayingPopUp;
 
+    [Header("RECOVER INV DATA POPUP")]
+    public GameObject RecoverInvDataNoticePopUp;
+    public TextMeshProUGUI RecoverInvDataMsgTxt;
+
     void Start() {
         CorMsgNoticeID = null;
         CorMsgErrorID = null;

@@ -522,7 +522,7 @@ public class DM : MonoBehaviour {
             DB = Load();
 
             //! (テスト) 55個ある 以前バージョンのインベントリー代入
-            DB.InvItemDBList = TEST_InvSO.InvArr.ToList();
+            // DB.InvItemDBList = TEST_InvSO.InvArr.ToList();
 
             if(DB.InvItemDBList == null) {
                 HM._.hui.ShowMsgError("(에러) 인벤토리 리스트 데이터가 없습니다.");
@@ -586,9 +586,12 @@ public class DM : MonoBehaviour {
                         newInvArr[id].RelicAbilities = befInvItem.RelicAbilities;
                         newInvArr[id].IsEquip = false;
                         newInvArr[id].IsNewAlert = false;
-                    }
 
+                        HM._.hui.RecoverInvDataMsgTxt.text +=  $"{befInvItem.Data.Name} 인벤토리 데이터 복구\n";
+                    }
                     FixedInvArr = newInvArr;
+
+                    HM._.hui.RecoverInvDataNoticePopUp.SetActive(true);
                 }
             }
         }
