@@ -341,6 +341,9 @@ public class TutorialDB {
                 var rewardList = new List<RewardItem> {
                     new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Goblin0]),
                     new (HM._.rwlm.RwdItemDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Ore0]),
+                    new (HM._.rwlm.RwdItemDt.WeaponDatas[0], 1),
+                    new (HM._.rwlm.RwdItemDt.ShoesDatas[0], 1),
+                    new (HM._.rwlm.RwdItemDt.RingDatas[1], 1),
                 };
                 HM._.rwlm.ShowRewardMiningTuto(rewardList);
 
