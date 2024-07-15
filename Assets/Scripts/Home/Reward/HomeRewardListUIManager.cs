@@ -67,7 +67,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
 #endregion
 
 #region FUNC
-    IEnumerator CoResetAllSlots() {
+    IEnumerator CoResetAllRewardSlots() {
         rwdSlotList.ForEach(rwdSlot => {
             rwdSlot.ResetUI();
             rwdSlot.gameObject.SetActive(false);
@@ -176,7 +176,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
             HM._.hui.IsActivePopUp = true;
             IsFinishSlotsSpawn = false;
             WindowObj.SetActive(true);
-            yield return CoResetAllSlots();
+            yield return CoResetAllRewardSlots();
             yield return CoDisplayRewardList(itemList);
             yield return HM._.rwm.CoUpdateInventoryAsync(itemList);
         }
@@ -189,7 +189,7 @@ public class HomeRewardListUIManager : MonoBehaviour {
         HM._.hui.IsActivePopUp = true;
         IsFinishSlotsSpawn = false;
         WindowObj.SetActive(true);
-        yield return CoResetAllSlots();
+        yield return CoResetAllRewardSlots();
         yield return CoDisplayRewardList(itemList);
         yield return HM._.rwm.CoUpdateInventoryAsync(itemList);
 

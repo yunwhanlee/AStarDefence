@@ -473,6 +473,7 @@ public class DB {
 public class DM : MonoBehaviour {
     public static DM _ {get; private set;}
     const string DB_KEY = "DB";
+    const string INV_DATA_KEY = "INVENTORY";
     const string PASSEDTIME_KEY = "PASSED_TIME";
     const string DAY_KEY = "DAY";
     // [field: SerializeField] public bool IsReset {get; set;}
@@ -489,7 +490,10 @@ public class DM : MonoBehaviour {
     //* ★データベース
     [field: SerializeField] public DB DB {get; private set;}
     [field: SerializeField] public int PassedSec {get; set;}
-    [field:SerializeField] public InventorySO InvSOTemplate {get; set;}
+    [field:SerializeField] public InventorySO TEST_InvSO {get; private set;} //! 55個ある 以前バージョンのインベントリー
+    [field:SerializeField] public InventorySO InvSOTemplate {get; private set;}
+    [field:SerializeField] public ItemSO[] ItemSOArr {get; private set;}
+    [field:SerializeField] public InventoryItem[] FixedInvArr {get; private set;}
 
     [field: SerializeField] public int SelectedStage {get; set;}
     [field: SerializeField] public Enum.StageNum SelectedStageNum {get; set;}
@@ -517,9 +521,75 @@ public class DM : MonoBehaviour {
         else {
             DB = Load();
 
+            //! (テスト) 55個ある 以前バージョンのインベントリー代入
+            DB.InvItemDBList = TEST_InvSO.InvArr.ToList();
+
+            if(DB.InvItemDBList == null) {
+                HM._.hui.ShowMsgError("(에러) 인벤토리 리스트 데이터가 없습니다.");
+            }
+
             if(DB.InvItemDBList.Exists(item => item.Data == null)) {
-                HM._.hui.ShowMsgError("(에러) 로드 인벤토리 아이템 데이터 NULL 확인 => 초기화 진행");
-                DB.InvItemDBList = HM._.ivCtrl.InventoryData.InvArr.ToList();
+                int RIGHT_INVARR_LEN = InvSOTemplate.InvArr.Length;
+                bool isRightInvItemCnt = DB.InvItemDBList.Count == RIGHT_INVARR_LEN; // インベントリー数が４２なら
+
+                //* インベントリー数は合うのに、データのみ消えたとき、データを再入れる
+                if(isRightInvItemCnt) {
+                    HM._.hui.ShowMsgError($"(에러) 아이템 NULL발견 -> 인벤토리 수: {DB.InvItemDBList.Count} -> 데이터 재입력");
+                    for(int i = 0; i < DB.InvItemDBList.Count; i++) {
+                        InventoryItem tempInvItem = DB.InvItemDBList[i];
+                        tempInvItem.Data = ItemSOArr[i];
+                        DB.InvItemDBList[i] = tempInvItem;
+                    }
+                }
+                //* 以前インベントリーリストデータを 新しいInvArrとして、アップロード
+                else {
+                    HM._.hui.ShowMsgError($"(에러) 아이템 NULL발견 -> 인벤토리 수: {DB.InvItemDBList.Count} -> 이전데이터 복구 실행");
+                    // テンプレートInvArrコピーして、新しいインベントリー配列生成
+                    InventoryItem[] newInvArr = Array.ConvertAll(InvSOTemplate.InvArr, item => item.DeepCopy());
+
+                    // ログ
+                    for(int i = 0; i < newInvArr.Length; i++) {
+                        Debug.Log($"Fix Load Data:: i({i}): Name= {newInvArr[i].Data.Name}, Data= {newInvArr[i].Data}");
+                    }
+
+                    // ShowInvItemのみ検査して、新しいInvArrへ反映
+                    for(int i = 0; i < DB.InvItemDBList.Count; i++) {
+                        InventoryItem befInvItem = DB.InvItemDBList[i];
+
+                        // Quantityが０なら除外
+                        if(befInvItem.IsEmpty)
+                            continue;
+                        
+                        // データがなかったら除外
+                        if(befInvItem.Data == null)
+                            continue;
+
+                        // NoShowアイテムデータ 除外
+                        if(befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.Goblin}")
+                        || befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.Ore}")
+                        || befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.GoldKey}")
+                        || befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.Coin}")
+                        || befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.Diamond}")
+                        || befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.Crack}")
+                        || befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.SkillPoint}")
+                        || befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.RemoveAd}")
+                        || befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.Fame}")
+                        || befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.NULL}"))
+                            continue;
+
+                        // アイテム データ 追加
+                        Debug.Log($"Fix Load Data:: {befInvItem.Data.Name} 인벤토리 데이터 복구");
+                        int id = befInvItem.Data.ID;
+                        newInvArr[id].Data = befInvItem.Data;
+                        newInvArr[id].Quantity = befInvItem.Quantity;
+                        newInvArr[id].Lv = befInvItem.Lv;
+                        newInvArr[id].RelicAbilities = befInvItem.RelicAbilities;
+                        newInvArr[id].IsEquip = false;
+                        newInvArr[id].IsNewAlert = false;
+                    }
+
+                    FixedInvArr = newInvArr;
+                }
             }
         }
         
@@ -538,9 +608,6 @@ public class DM : MonoBehaviour {
             HM._.hui.TitlePopUp.SetActive(true);
     }
 
-    // void LateUpdate() {
-    //     IsInit = true;
-    // }
 /// -----------------------------------------------------------------------------------------------------------------
 #region PASSED DATE TIME (DAILY RESET)
 /// -----------------------------------------------------------------------------------------------------------------
@@ -581,24 +648,16 @@ public class DM : MonoBehaviour {
         // 시간 차이를 정수형으로 변환하여 PlayerPrefs에 저장합니다.
         PlayerPrefs.SetInt(PASSEDTIME_KEY, (int)timestamp.TotalSeconds);
 
-        //* 空に初期化してから、InventorySOデータを上書き
+        //* InventorySOデータ配列 → 保存するリストに変換して保存
         DB.InvItemDBList = HM._.ivCtrl.InventoryData.InvArr.ToList();
-        // DB.InvItemDBs = new List<InventoryItem>();
-        // for(int i = 0; i < HM._.ivCtrl.InventoryData.InvArr.Length; i++) {
-        //     var invItem = HM._.ivCtrl.InventoryData.InvArr[i];
-        //     DB.InvItemDBs.Add(InventoryItem.GetEmptyItem());
-        //     DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeQuantity(invItem.Quantity);
-        //     DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeLevel(invItem.Lv);
-        //     DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeItemData(invItem.Data);
-        //     DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeItemRelicAbilities(invItem.RelicAbilities);
-        //     DB.InvItemDBs[i] = DB.InvItemDBs[i].ChangeIsEquip(invItem.IsEquip);
-        // }
 
         //* Serialize To Json
         PlayerPrefs.SetString(DB_KEY, JsonUtility.ToJson(DB, true)); 
         //* Print
         string json = PlayerPrefs.GetString(DB_KEY);
         Debug.Log($"★SAVE:: The Key: {DB_KEY} Exists? {PlayerPrefs.HasKey(DB_KEY)}, Data ={json}");
+
+        
     }
 #endregion
 /// -----------------------------------------------------------------------------------------------------------------
@@ -616,6 +675,7 @@ public class DM : MonoBehaviour {
         if(!PlayerPrefs.HasKey(DB_KEY)){
             return null;
         }
+
         //* Json 読み込み
         string json = PlayerPrefs.GetString(DB_KEY);
 

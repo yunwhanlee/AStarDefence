@@ -36,6 +36,7 @@ public class GPGSManager : MonoBehaviour {
 
 #region FUNC
     IEnumerator CheckForUpdate() {
+        Debug.Log("★Starting CheckForUpdate");
         appUpdateManager = new AppUpdateManager();
 
         PlayAsyncOperation<AppUpdateInfo, AppUpdateErrorCode> appUpdateInfoOperation =
@@ -55,10 +56,10 @@ public class GPGSManager : MonoBehaviour {
 
                 while(!startUpdateRequest.IsDone) {
                     if(startUpdateRequest.Status == AppUpdateStatus.Downloading) {
-                        Debug.Log("업데이트 다운로드 진행 중");
+                        Debug.Log("CheckForUpdate():: 업데이트 다운로드 진행 중");
                     }
                     else if(startUpdateRequest.Status == AppUpdateStatus.Downloaded) {
-                        Debug.Log("다운로드 완료");
+                        Debug.Log("CheckForUpdate():: 다운로드 완료");
                     }
                     yield return null;
                 }
@@ -73,16 +74,16 @@ public class GPGSManager : MonoBehaviour {
                 yield return (int)startUpdateRequest.Status;
             }
             else if(appUpdateInfoResult.UpdateAvailability == UpdateAvailability.UpdateNotAvailable){
-                Debug.Log("업데이트가 없음");
+                Debug.Log("CheckForUpdate():: 업데이트가 없음");
                 yield return (int)UpdateAvailability.UpdateNotAvailable;
             }
             else {
-                Debug.Log("업데이트 가능여부 알수 없음");
+                Debug.Log("CheckForUpdate():: 업데이트 가능여부 알수 없음");
                 yield return (int)UpdateAvailability.Unknown;
             }
         }
         else {
-            Debug.Log("업데이트 오류");
+            Debug.Log("CheckForUpdate():: 업데이트 오류");
         }
     }
 

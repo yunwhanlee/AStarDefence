@@ -1,0 +1,345 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5164a52482337a44833b84d48bdc2b2, type: 3}
+  m_Name: Test_BeforeInvListDt 1
+  m_EditorClassIdentifier: 
+  InvArr:
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 7
+    Lv: 1
+    Data: {fileID: 11400000, guid: 59fb2aee1376eed4e8d611587e7cac1a, type: 2}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 5
+    Lv: 4
+    Data: {fileID: 11400000, guid: f29a78694d52c9840acb19c51a9e8b19, type: 2}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 9
+    Lv: 0
+    Data: {fileID: 11400000, guid: d2febf22bacf6944895cd61c61cd1d56, type: 2}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 6
+    Lv: 0
+    Data: {fileID: 11400000, guid: d6c62f866694db64d81f95d5c38df163, type: 2}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 11
+    Lv: 0
+    Data: {fileID: 11400000, guid: b88ad0b456f4a9042bfc82a0a27b759a, type: 2}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 5
+    Lv: 1
+    Data: {fileID: 11400000, guid: 9df07a90b6f09a242ac4bfb5c9fc8e08, type: 2}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0
+  - Quantity: 0
+    Lv: 0
+    Data: {fileID: 0}
+    RelicAbilities: 
+    IsEquip: 0
+    IsNewAlert: 0

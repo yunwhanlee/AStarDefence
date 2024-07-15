@@ -139,15 +139,14 @@ namespace Inventory.UI {
         ///* アイテムスロット生成・イベント関数登録(EQUIP含め)。
         /// </summary>
         public void InitInventoryUI() {
-            Debug.Log($"AA InventoryUIManager():: InitInventoryUI():: InvUIItemArr= {InvUIItemArr.Length}");
-
-            InvUIItemArr = new InventoryUIItem[HM._.ivCtrl.InventoryData.InvArr.Length];
+            InvUIItemArr = new InventoryUIItem[DM._.InvSOTemplate.InvArr.Length];
+            Debug.Log($"InventoryUIManager():: InitInventoryUI():: InvUIItemArr= {InvUIItemArr.Length}");
 
             //* 一般 スロット
             for(int i = 0; i < InvUIItemArr.Length; i++) {
                 // UIスロット 生成
                 InventoryUIItem itemUIObj = Instantiate(ItemPf, Content);
-                itemUIObj.Type = HM._.ivCtrl.InventoryData.InvArr[i].Data.Type;
+                itemUIObj.Type = DM._.InvSOTemplate.InvArr[i].Data.Type;
                 InvUIItemArr[i] = itemUIObj;
 
                 // イベント 登録

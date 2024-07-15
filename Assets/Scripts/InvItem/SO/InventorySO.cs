@@ -89,6 +89,16 @@ namespace Inventory.Model
                 IsEquip = false,
                 IsNewAlert = false,
             };
+        public InventoryItem DeepCopy()
+            => new InventoryItem
+            {
+                Quantity = this.Quantity,
+                Lv = this.Lv,
+                Data = this.Data,
+                RelicAbilities = this.RelicAbilities != null ? (AbilityType[])this.RelicAbilities.Clone() : null,
+                IsEquip = this.IsEquip,
+                IsNewAlert = this.IsNewAlert
+            };
     }
     #endregion
 
@@ -98,9 +108,18 @@ namespace Inventory.Model
         [field:Header("インベントリリスト")]
         [field: SerializeField] public InventoryItem[] InvArr;
 
-        public void SetLoadData() {
-            Debug.Log("InventorySO:: LoadData()::");
-            InvArr = DM._.DB.InvItemDBList.ToArray();
+        public void LoadInvData() {
+            //* インベントリ―データロード
+            if(DM._.FixedInvArr != null && DM._.FixedInvArr.Length > 0) {
+                Debug.Log($"InventorySO:: LoadInvData():: FIXED INV ARRに修正");
+                // 正しく修正したInvArrデータを反映
+                InvArr = DM._.FixedInvArr;
+            }
+            else {
+                // 普通
+                Debug.Log($"InventorySO:: LoadInvData():: INV データロード");
+                InvArr = DM._.DB.InvItemDBList.ToArray();
+            }
         }
 
         public void InitIsEquipData(Enum.ItemType type) {

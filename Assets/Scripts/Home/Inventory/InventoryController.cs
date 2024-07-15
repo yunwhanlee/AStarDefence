@@ -71,7 +71,8 @@ namespace Inventory
 
         private void PrepareInventoryData() {
             // DBに保存したインベントリーデータ 設定
-            InventoryData.SetLoadData();
+            InventoryData.LoadInvData();
+
             // インベントリーUIスロット 最新化
             OnInventoryUIUpdated += UpdateInventoryUI;
         }

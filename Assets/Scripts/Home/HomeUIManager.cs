@@ -239,6 +239,7 @@ public class HomeUIManager : MonoBehaviour {
     }
     /// <summary> 上にへエラーメッセージバー表示（自動OFF）</summary>
     public void ShowMsgError(string msg) {
+        Debug.Log($"<color=red>ShowMsgError():: msg= {msg}</color>");
         if(CorMsgErrorID != null) 
             StopCoroutine(CorMsgErrorID);
         SM._.SfxPlay(SM.SFX.ErrorSFX);
