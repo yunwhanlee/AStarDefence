@@ -28,9 +28,11 @@ public class SettingManager : MonoBehaviour {
 
         //* バージョン
         VersionTxt.text = modeActiveMsg + $"Ver{Version._.Major}.{Version._.Minor}.{Version._.Revision}";
+
         //* ボリュームUI
         BgmVolumeSlider.value = DM._.DB.SettingDB.BgmVolume;
         SfxVolumeSlider.value = DM._.DB.SettingDB.SfxVolume;
+
         //* ボリュームデータ
         SM._.SetVolumeBGM(DM._.DB.SettingDB.BgmVolume);
         SM._.SetVolumeSFX(DM._.DB.SettingDB.SfxVolume);

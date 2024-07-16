@@ -217,25 +217,25 @@ MonoBehaviour:
     RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
-  - Quantity: 0
+  - Quantity: 2
     Lv: 0
     Data: {fileID: 11400000, guid: 2008658a7f9938b4a90b913f530adc2d, type: 2}
     RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
-  - Quantity: 0
+  - Quantity: 2
     Lv: 0
     Data: {fileID: 11400000, guid: 646213eda1797d04484ad5b9cc49cb8d, type: 2}
     RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
-  - Quantity: 0
+  - Quantity: 2
     Lv: 0
     Data: {fileID: 11400000, guid: 5b3155c04e4929b459298d5cc42e695c, type: 2}
     RelicAbilities: 
     IsEquip: 0
     IsNewAlert: 0
-  - Quantity: 0
+  - Quantity: 2
     Lv: 0
     Data: {fileID: 11400000, guid: cc85e923b150d85409ef392668e26a1e, type: 2}
     RelicAbilities: 

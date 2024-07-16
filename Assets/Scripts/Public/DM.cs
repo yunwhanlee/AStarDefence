@@ -747,9 +747,6 @@ public class DM : MonoBehaviour {
         DB = new DB();
         DB.InvItemDBList = new List<InventoryItem>();
         DB.InvItemDBList = InvSOTemplate.InvArr.ToList();
-        // for(int i = 0; i < InventorySO.Size; i++) {
-        //     DB.InvItemDBs.Add(InventoryItem.GetEmptyItem());
-        // }
         Debug.Log("DB.InvItemDBs.Count= " + DB.InvItemDBList.Count);
 
         DB.StatusDB = new StatusDB();
