@@ -17,7 +17,6 @@ public class MergableItem {
     //* UI Element
     [field:SerializeField] public GameObject Obj {get; private set;}
     [field:SerializeField] public Image BgBtnImg {get; private set;}
-    [field:SerializeField] public Image PlusImg {get; private set;}
     [field:SerializeField] public Image TowerImg {get; private set;}
     [field:SerializeField] public TextMeshProUGUI StarTxt {get; private set;}
 
@@ -31,7 +30,6 @@ public class MergableItem {
             : (kind == TowerKind.Archer)? mgb.ArcherSprs[lv]
             : mgb.MagicianSprs[lv];
         BgBtnImg.sprite = mgb.BtnSprs[(int)kind];
-        PlusImg.sprite = mgb.PlusIconSprs[(int)kind];
         // ★つける
         string starType = (kind == TowerKind.Warrior)? "Red" : (kind == TowerKind.Archer)? "Blue" : "Yellow";
         for(int j = 0; j <= lv; j++)
@@ -44,7 +42,6 @@ public class MergableUIManager : MonoBehaviour {
 
     //* Resource
     [field:SerializeField] public Sprite[] BtnSprs {get; private set;}
-    [field:SerializeField] public Sprite[] PlusIconSprs {get; private set;}
     [field:SerializeField] public Sprite[] WarriorSprs {get; private set;}
     [field:SerializeField] public Sprite[] ArcherSprs {get; private set;}
     [field:SerializeField] public Sprite[] MagicianSprs {get; private set;}
