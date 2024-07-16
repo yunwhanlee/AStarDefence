@@ -524,7 +524,9 @@ public class DM : MonoBehaviour {
         else {
             DB = Load();
 
-            DB.InvItemDBList = null;
+            if(DB == null) {
+                return;
+            }
 
             //! (テスト) 55個ある 以前バージョンのインベントリー代入
             // DB.InvItemDBList = TEST_InvSO.InvArr.ToList();
@@ -532,16 +534,16 @@ public class DM : MonoBehaviour {
             // データ破壊されたか 確認
             if(DB.InvItemDBList == null || DB.InvItemDBList?.Count == 0) {
                 Debug.Log("<color=red>ロードしたInvListデータが０でないです。-> データが壊れました</color>");
-                HM._.hui.ShowMsgError("(에러) 인벤토리 리스트 데이터가 없습니다.");
+                if(HM._) HM._.hui.ShowMsgError("(에러) 인벤토리 리스트 데이터가 없습니다.");
 
-                HM._.hui.RecoverInvDataNoticePopUp.SetActive(true);
-                HM._.hui.RecoverInvDataMsgTxt.text = "인벤토리 데이터가 파손되어 복구가 불가능하여 리셋을 진행합니다.";
-                HM._.hui.RecoverInvDataMsgTxt.text += "\n기존에 가지고 계셨던 아이템과 목록을 아래 이메일로 남겨주시면 복구 및 사과보상을 지급하겠습니다. 죄송합니다.";
+                if(HM._) HM._.hui.RecoverInvDataNoticePopUp.SetActive(true);
+                if(HM._) HM._.hui.RecoverInvDataMsgTxt.text = "인벤토리 데이터가 파손되어 복구가 불가능하여 리셋을 진행합니다.";
+                if(HM._) HM._.hui.RecoverInvDataMsgTxt.text += "\n기존에 가지고 계셨던 아이템과 목록을 아래 이메일로 남겨주시면 복구 및 사과보상을 지급하겠습니다. 죄송합니다.";
                 
                 // インベントリーリセット
                 DB.InvItemDBList = new List<InventoryItem>();
                 DB.InvItemDBList = InvSOTemplate.InvArr.ToList();
-                HM._.hui.ShowMsgNotice("인벤토리 리셋 완료");
+                if(HM._) HM._.hui.ShowMsgNotice("인벤토리 리셋 완료");
             }
             else if(DB.InvItemDBList.Exists(item => item.Data == null)) {
                 int RIGHT_INVARR_LEN = InvSOTemplate.InvArr.Length;
@@ -549,7 +551,7 @@ public class DM : MonoBehaviour {
 
                 //* インベントリー数は合うのに、データのみ消えたとき、データを再入れる
                 if(isRightInvItemCnt) {
-                    HM._.hui.ShowMsgError($"(에러) 아이템 NULL발견 -> 인벤토리 수: {DB.InvItemDBList.Count} -> 데이터 재입력");
+                    if(HM._) HM._.hui.ShowMsgError($"(에러) 아이템 NULL발견 -> 인벤토리 수: {DB.InvItemDBList.Count} -> 데이터 재입력");
                     for(int i = 0; i < DB.InvItemDBList.Count; i++) {
                         InventoryItem tempInvItem = DB.InvItemDBList[i];
                         tempInvItem.Data = ItemSOArr[i];
@@ -558,7 +560,7 @@ public class DM : MonoBehaviour {
                 }
                 //* 以前インベントリーリストデータを 新しいInvArrとして、アップロード
                 else {
-                    HM._.hui.ShowMsgError($"(에러) 아이템 NULL발견 -> 인벤토리 수: {DB.InvItemDBList.Count} -> 이전데이터 복구 실행");
+                    if(HM._) HM._.hui.ShowMsgError($"(에러) 아이템 NULL발견 -> 인벤토리 수: {DB.InvItemDBList.Count} -> 이전데이터 복구 실행");
                     // テンプレートInvArrコピーして、新しいインベントリー配列生成
                     InventoryItem[] newInvArr = Array.ConvertAll(InvSOTemplate.InvArr, item => item.DeepCopy());
 
@@ -602,11 +604,11 @@ public class DM : MonoBehaviour {
                         newInvArr[id].IsEquip = false;
                         newInvArr[id].IsNewAlert = false;
 
-                        HM._.hui.RecoverInvDataMsgTxt.text +=  $"{befInvItem.Data.Name} 인벤토리 데이터 복구\n";
+                        if(HM._) HM._.hui.RecoverInvDataMsgTxt.text +=  $"{befInvItem.Data.Name} 인벤토리 데이터 복구\n";
                     }
                     FixedInvArr = newInvArr;
 
-                    HM._.hui.RecoverInvDataNoticePopUp.SetActive(true);
+                    if(HM._) HM._.hui.RecoverInvDataNoticePopUp.SetActive(true);
                 }
             }
         }
@@ -642,12 +644,15 @@ public class DM : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
 #if UNITY_EDITOR
     public void OnApplicationQuit() {
+        if(DB == null) return;
         Debug.Log("<color=yellow>QUIT APP(PC)::OnApplicationQuit():: SAVE</color>");
         DB.LastDateTicks = DateTime.UtcNow.Ticks; //* 終了した日にち時間データをTicks(longタイプ)で保存
         Save();
     }
 #elif UNITY_ANDROID
     public void OnApplicationPause(bool paused){
+        if(DB == null) return;
+
         //* ゲームが開くとき（paused == true）にも起動されるので注意が必要。
         if(paused == true) {
             DB.LastDateTicks = DateTime.UtcNow.Ticks; //* 終了した日にち時間データをTicks(longタイプ)で保存
@@ -660,6 +665,8 @@ public class DM : MonoBehaviour {
 #region SAVE
 /// -----------------------------------------------------------------------------------------------------------------
     public void Save() {
+        if(DB == null) return;
+
         //* 経過時間 保存
         // 현재 시간을 UTC 기준으로 가져와서 1970년 1월 1일 0시 0분 0초와의 시간 차이를 구합니다.
         TimeSpan timestamp = DateTime.UtcNow - new DateTime(1970,1,1,0,0,0);
@@ -670,7 +677,7 @@ public class DM : MonoBehaviour {
         DB.InvItemDBList = HM._.ivCtrl.InventoryData.InvArr.ToList();
 
         //* Serialize To Json
-        PlayerPrefs.SetString(DB_KEY, JsonUtility.ToJson(DB, true)); 
+        PlayerPrefs.SetString(DB_KEY, JsonUtility.ToJson(DB, true));
         //* Print
         string json = PlayerPrefs.GetString(DB_KEY);
         Debug.Log($"★SAVE:: The Key: {DB_KEY} Exists? {PlayerPrefs.HasKey(DB_KEY)}, Data ={json}");
@@ -689,11 +696,17 @@ public class DM : MonoBehaviour {
 
         //* (BUG)最初の実行だったら、ロードデータがないから、リセットして初期化。
         if(!PlayerPrefs.HasKey(DB_KEY)){
+            if(HM._) HM._.hui.ShowMsgError("Load:: 로드할 데이터 KEY가 없습니다.");
             return null;
         }
 
         //* Json 読み込み
         string json = PlayerPrefs.GetString(DB_KEY);
+
+        if (string.IsNullOrEmpty(json)) {
+            Debug.LogError("Load:: JSON 데이터가 없습니다.");
+            return null;
+        }
 
         //* 저장데이터 JSON 문자열의 메모리 크기 계산
         const int PLAYER_PREFS_MAX_MEMORY = 1024 * 1024;
