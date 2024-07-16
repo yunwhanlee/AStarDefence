@@ -5,7 +5,6 @@ using System;
 using Inventory.Model;
 using System.Text;
 using System.Linq;
-// using System.Data;
 
 /// <summary>
 /// ステータス
@@ -479,8 +478,6 @@ public class DM : MonoBehaviour {
     const string INV_DATA_KEY = "INVENTORY";
     const string PASSEDTIME_KEY = "PASSED_TIME";
     const string DAY_KEY = "DAY";
-    // [field: SerializeField] public bool IsReset {get; set;}
-    // [field: SerializeField] public bool IsInit {get; set;}
     [field: SerializeField] public bool IsDebugMode {get; set;}
 
     //* スキルツリーデータ
@@ -531,25 +528,25 @@ public class DM : MonoBehaviour {
             //! (テスト) 55個ある 以前バージョンのインベントリー代入
             // DB.InvItemDBList = TEST_InvSO.InvArr.ToList();
 
-            // データ破壊されたか 確認
+            //* データ破壊されたか 確認
             if(DB.InvItemDBList == null || DB.InvItemDBList?.Count == 0) {
                 Debug.Log("<color=red>ロードしたInvListデータが０でないです。-> データが壊れました</color>");
                 if(HM._) HM._.hui.ShowMsgError("(에러) 인벤토리 리스트 데이터가 없습니다.");
 
                 if(HM._) HM._.hui.RecoverInvDataNoticePopUp.SetActive(true);
-                if(HM._) HM._.hui.RecoverInvDataMsgTxt.text = "인벤토리 데이터가 파손되어 복구가 불가능하여 리셋을 진행합니다.";
-                if(HM._) HM._.hui.RecoverInvDataMsgTxt.text += "\n기존에 가지고 계셨던 아이템과 목록을 아래 이메일로 남겨주시면 복구 및 사과보상을 지급하겠습니다. 죄송합니다.";
+                if(HM._) HM._.hui.RecoverInvDataMsgTxt.text = "인벤토리 데이터가 파손되어 복구가 불가능하여 리셋을 진행합니다.\n기존에 가지고 계셨던 아이템과 목록을 아래 이메일로 남겨주시면 복구 및 사과보상을 지급하겠습니다. 감사합니다.";
                 
                 // インベントリーリセット
                 DB.InvItemDBList = new List<InventoryItem>();
                 DB.InvItemDBList = InvSOTemplate.InvArr.ToList();
                 if(HM._) HM._.hui.ShowMsgNotice("인벤토리 리셋 완료");
             }
+            //* インベントリーアイテム NULLデータ
             else if(DB.InvItemDBList.Exists(item => item.Data == null)) {
                 int RIGHT_INVARR_LEN = InvSOTemplate.InvArr.Length;
                 bool isRightInvItemCnt = DB.InvItemDBList.Count == RIGHT_INVARR_LEN; // インベントリー数が４２なら
 
-                //* インベントリー数は合うのに、データのみ消えたとき、データを再入れる
+                // 1. インベントリー数は合うのに、データのみ消えたとき、データを再入れる
                 if(isRightInvItemCnt) {
                     if(HM._) HM._.hui.ShowMsgError($"(에러) 아이템 NULL발견 -> 인벤토리 수: {DB.InvItemDBList.Count} -> 데이터 재입력");
                     for(int i = 0; i < DB.InvItemDBList.Count; i++) {
@@ -558,7 +555,7 @@ public class DM : MonoBehaviour {
                         DB.InvItemDBList[i] = tempInvItem;
                     }
                 }
-                //* 以前インベントリーリストデータを 新しいInvArrとして、アップロード
+                // 2. 以前インベントリーリストデータを新しいInvArrとして、アップロード
                 else {
                     if(HM._) HM._.hui.ShowMsgError($"(에러) 아이템 NULL발견 -> 인벤토리 수: {DB.InvItemDBList.Count} -> 이전데이터 복구 실행");
                     // テンプレートInvArrコピーして、新しいインベントリー配列生成

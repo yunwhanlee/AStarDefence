@@ -14,7 +14,7 @@ public class AdmobManager : MonoBehaviour {
     public const int FREE_LUCKYSPIN = 0;
     const string RewardAdTestID = "ca-app-pub-3940256099942544/5224354917";
     const string RewardAdID = "ca-app-pub-3908204064369314/8676974201";
-    [SerializeField] bool isTestMode;
+    [SerializeField] public bool isTestMode;
     RewardedAd RewardAd;
 
     void Awake() {

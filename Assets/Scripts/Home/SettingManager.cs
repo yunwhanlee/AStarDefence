@@ -20,8 +20,14 @@ public class SettingManager : MonoBehaviour {
     [field: SerializeField] public TMP_InputField CouponInputField {get; private set;}
 
     void Start() {
+        
+        // モード チェック
+        string modeActiveMsg = "";
+        if(DM._.IsDebugMode) modeActiveMsg += "<color=green>DebugMode ON</color>\n";
+        if(AdmobManager._.isTestMode) modeActiveMsg += "<color=green>Test Ads ON</color>\n";
+
         //* バージョン
-        VersionTxt.text = $"Ver{Version._.Major}.{Version._.Minor}.{Version._.Revision}";
+        VersionTxt.text = modeActiveMsg + $"Ver{Version._.Major}.{Version._.Minor}.{Version._.Revision}";
         //* ボリュームUI
         BgmVolumeSlider.value = DM._.DB.SettingDB.BgmVolume;
         SfxVolumeSlider.value = DM._.DB.SettingDB.SfxVolume;
