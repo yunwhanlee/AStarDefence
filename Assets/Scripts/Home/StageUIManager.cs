@@ -61,6 +61,8 @@ public class StageUIManager : MonoBehaviour {
     [field:SerializeField] public GameObject[] StageNewLabels;
     [field:SerializeField] public TMP_Text[] StageNumBtnTxts;
     [field:SerializeField] public TMP_Text[] StageNumBtnHpRatioTxts;
+
+    [field:SerializeField] public GameObject[] TipMsgArr;
     
     [field:SerializeField] public GameObject WholeLockedFrame;
     [field:SerializeField] public GameObject Stage1_2LockedFrame;

@@ -7,6 +7,7 @@ using TMPro;
 using JetBrains.Annotations;
 using Inventory.Model;
 using System.Linq;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// Lobby
@@ -161,6 +162,13 @@ public class HomeUIManager : MonoBehaviour {
 
         //* StageSignGroup表示
         HM._.stgm.UpdateStageUnlockSignGroup();
+
+        //* Tip Message
+        int randTipIdx = Random.Range(0, HM._.stgm.TipMsgArr.Length);
+        for(int i = 0; i < HM._.stgm.TipMsgArr.Length; i++) {
+            HM._.stgm.TipMsgArr[i].SetActive(i == randTipIdx);
+        }
+        
 
         //! ステージPopUpが表示しないバグあり対応
         //* 全てのステージが非表示なら
