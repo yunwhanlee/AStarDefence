@@ -7,7 +7,12 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Inventory.Model 
-{   
+{
+    public class InvItemBackUpDB {
+        public int InvArrCnt;
+        public InventoryItem[] InvArr;
+    }
+
     #region ABILITY
     /// <summary>
     ///* 実際に保存するアイテムの能力データ (ランダムで設定するRelicタイプをため)

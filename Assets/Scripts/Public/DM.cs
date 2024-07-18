@@ -6,6 +6,7 @@ using System;
 using Inventory.Model;
 using System.Text;
 using System.Linq;
+using System.IO;
 
 /// <summary>
 /// ステータス
@@ -479,6 +480,7 @@ public class DM : MonoBehaviour {
     const string INV_DATA_KEY = "INVENTORY";
     const string PASSEDTIME_KEY = "PASSED_TIME";
     const string DAY_KEY = "DAY";
+    const int ALL_INV_CNT = 42;
     [field: SerializeField] public bool IsDebugMode {get; set;}
 
     //* スキルツリーデータ
@@ -500,8 +502,11 @@ public class DM : MonoBehaviour {
     [field: SerializeField] public Enum.StageNum SelectedStageNum {get; set;}
     [field: SerializeField] public bool IsPassedDate {get; private set;}
 
+    string invDtBackUpFilePath;
+
     void Awake() {
         Application.targetFrameRate = 40;
+        invDtBackUpFilePath = Application.persistentDataPath + "/InvItemDtBackUp";
 
         //* SINGLETON
         if(_ == null) {
@@ -527,21 +532,34 @@ public class DM : MonoBehaviour {
                 return;
             }
 
-            //! (テスト) 55個ある 以前バージョンのインベントリー代入
-            // DB.InvItemDBList = TEST_InvSO.InvArr.ToList();
+            // DB.InvItemDBList = TEST_InvSO.InvArr.ToList(); //! 이전 55개 인벤토리 리스트 경우의 테스트
+            // DB.InvItemDBList = null; //! 인벤토리 데이터가 NULL로 사라졌을 경우의 백업 복구테스트
 
             //* データ破壊されたか 確認
             if(DB.InvItemDBList == null || DB.InvItemDBList?.Count == 0) {
-                Debug.Log("<color=red>ロードしたInvListデータが０でないです。-> データが壊れました</color>");
-                if(HM._) HM._.hui.ShowMsgError("(에러) 인벤토리 리스트 데이터가 없습니다.");
+                Debug.Log("<color=red>ロードしたInvListデータがNULLとかカウントが０です</color>");
 
-                if(HM._) HM._.hui.RecoverInvDataNoticePopUp.SetActive(true);
-                if(HM._) HM._.hui.RecoverInvDataMsgTxt.text = "인벤토리 데이터가 파손되어 복구가 불가능하여 리셋을 진행합니다.\n기존에 가지고 계셨던 아이템과 목록을 아래 이메일로 남겨주시면 복구 및 사과보상을 지급하겠습니다. 감사합니다.";
+                //* BACK-UP インベントリーデータ ファイルで復旧
+                if(File.Exists(invDtBackUpFilePath)) {
+                    string json = File.ReadAllText(invDtBackUpFilePath);
+                    InvItemBackUpDB invItemBackUpDB = JsonUtility.FromJson<InvItemBackUpDB>(json);
+                    if(HM._ && invItemBackUpDB.InvArr.Length == ALL_INV_CNT) {
+                        HM._.hui.ShowMsgError("(에러) 인벤토리 데이터 없음 -> 백업파일 복구 실행");
+                        HM._.hui.RecoverInvDataNoticePopUp.SetActive(true);
+                        DB.InvItemDBList = invItemBackUpDB.InvArr.ToList();
+                        if(HM._) HM._.hui.RecoverInvDataMsgTxt.text = "인벤토리 데이터 백업 성공!";
+                    }
+                }
+                // BACK-UPファイルないから、リセット
+                else {
+                    if(HM._) HM._.hui.ShowMsgError("(에러) 인벤토리 데이터 없음 -> 백업파일 없음으로 복구 불가");
+                    if(HM._) HM._.hui.RecoverInvDataMsgTxt.text = "인벤토리 데이터가 없음으로 복구가 불가능하여 리셋을 진행합니다.\n기존에 가지고 계셨던 아이템과 목록을 아래 이메일로 남겨주시면 복구 및 사과보상을 지급하겠습니다. 감사합니다.";
+                    // インベントリーリセット
+                    DB.InvItemDBList = InvSOTemplate.InvArr.ToList();
+                    if(HM._) HM._.hui.ShowMsgNotice("인벤토리 리셋 완료");
+                }
                 
-                // インベントリーリセット
-                DB.InvItemDBList = new List<InventoryItem>();
-                DB.InvItemDBList = InvSOTemplate.InvArr.ToList();
-                if(HM._) HM._.hui.ShowMsgNotice("인벤토리 리셋 완료");
+
             }
             //* インベントリーアイテム NULLデータ
             else if(DB.InvItemDBList.Exists(item => item.Data == null)) {
@@ -676,10 +694,28 @@ public class DM : MonoBehaviour {
         //* InventorySOデータ配列 → 保存するリストに変換して保存
         DB.InvItemDBList = HM._.ivCtrl.InventoryData.InvArr.ToList();
 
+        //* BackUp Txt File
+        Debug.Log($"path= {invDtBackUpFilePath}");
+
+        //* BackUp用 インベントリーデータ 準備
+        
+        InvItemBackUpDB invItemBackUp = new InvItemBackUpDB();
+
+        // インベントリー数が正しいであれば、JSONファイルを別に生成
+        if(InvSOTemplate.InvArr.Length == ALL_INV_CNT) {
+            invItemBackUp.InvArr = HM._.ivCtrl.InventoryData.InvArr;
+            invItemBackUp.InvArrCnt = invItemBackUp.InvArr.Length;
+            string invBackUpDtJson = JsonUtility.ToJson(invItemBackUp, true);
+            File.WriteAllText(invDtBackUpFilePath, invBackUpDtJson);
+        }
+
         //* Serialize To Json
-        PlayerPrefs.SetString(DB_KEY, JsonUtility.ToJson(DB, true));
+        string json = JsonUtility.ToJson(DB, true);
+
+        //* Save Data
+        PlayerPrefs.SetString(DB_KEY, json);
+
         //* Print
-        string json = PlayerPrefs.GetString(DB_KEY);
         Debug.Log($"★SAVE:: The Key: {DB_KEY} Exists? {PlayerPrefs.HasKey(DB_KEY)}, Data ={json}");
     }
 #endregion
