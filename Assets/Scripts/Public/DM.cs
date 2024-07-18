@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -522,6 +523,7 @@ public class DM : MonoBehaviour {
             DB = Load();
 
             if(DB == null) {
+                if(HM._) HM._.hui.ShowMsgError("로드된 DB데이터 KEY가 없습니다. -> 인벤토리 리셋 진행");
                 return;
             }
 
@@ -642,6 +644,7 @@ public class DM : MonoBehaviour {
 #if UNITY_EDITOR
     public void OnApplicationQuit() {
         if(DB == null) return;
+
         Debug.Log("<color=yellow>QUIT APP(PC)::OnApplicationQuit():: SAVE</color>");
         DB.LastDateTicks = DateTime.UtcNow.Ticks; //* 終了した日にち時間データをTicks(longタイプ)で保存
         Save();
@@ -683,7 +686,8 @@ public class DM : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
 #region LOAD
 /// -----------------------------------------------------------------------------------------------------------------
-    public DB Load() {
+    public DB 
+    Load() {
         //* 経過時間 ロード
         // 현재 시간을 UTC 기준으로 가져와서 1970년 1월 1일 0시 0분 0초와의 시간 차이를 구합니다.
         TimeSpan timestamp = DateTime.UtcNow - new DateTime(1970,1,1,0,0,0);
@@ -691,17 +695,16 @@ public class DM : MonoBehaviour {
         int past = PlayerPrefs.GetInt(PASSEDTIME_KEY, defaultValue: (int)timestamp.TotalSeconds);
         PassedSec = (int)timestamp.TotalSeconds - past;
 
-        //* (BUG)最初の実行だったら、ロードデータがないから、リセットして初期化。
+        //* Prefabキーがない
         if(!PlayerPrefs.HasKey(DB_KEY)){
-            if(HM._) HM._.hui.ShowMsgError("Load:: 로드할 데이터 KEY가 없습니다.");
             return null;
         }
 
         //* Json 読み込み
         string json = PlayerPrefs.GetString(DB_KEY);
 
+        //* Jsonデータがあない
         if (string.IsNullOrEmpty(json)) {
-            Debug.LogError("Load:: JSON 데이터가 없습니다.");
             return null;
         }
 
