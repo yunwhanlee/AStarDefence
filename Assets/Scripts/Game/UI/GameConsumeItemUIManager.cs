@@ -138,8 +138,6 @@ public class GameConsumeItemUIManager : MonoBehaviour {
     /// </summary>
     private void UpdateBtnQuantityTxt() {
         foreach(var itemDt in GM._.InventoryData.InvArr) {
-            if(itemDt.IsEmpty)
-                continue;
             if(itemDt.Data.name == $"{Etc.ConsumableItem.SteamPack0}")
                 ConsumableItemBtns[0].QuantityTxt.text = $"{itemDt.Quantity}";
             if(itemDt.Data.name == $"{Etc.ConsumableItem.SteamPack1}")

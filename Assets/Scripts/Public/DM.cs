@@ -535,11 +535,11 @@ public class DM : MonoBehaviour {
             // DB.InvItemDBList = TEST_InvSO.InvArr.ToList(); //! 이전 55개 인벤토리 리스트 경우의 테스트
             // DB.InvItemDBList = null; //! 인벤토리 데이터가 NULL로 사라졌을 경우의 백업 복구테스트
 
-            //* データ破壊されたか 確認
+            //* データがなかったら
             if(DB.InvItemDBList == null || DB.InvItemDBList?.Count == 0) {
                 Debug.Log("<color=red>ロードしたInvListデータがNULLとかカウントが０です</color>");
 
-                //* BACK-UP インベントリーデータ ファイルで復旧
+                //* BACK-UPインベントリーファイルで復旧
                 if(File.Exists(invDtBackUpFilePath)) {
                     string json = File.ReadAllText(invDtBackUpFilePath);
                     InvItemBackUpDB invItemBackUpDB = JsonUtility.FromJson<InvItemBackUpDB>(json);
@@ -550,7 +550,7 @@ public class DM : MonoBehaviour {
                         if(HM._) HM._.hui.RecoverInvDataMsgTxt.text = "인벤토리 데이터 백업 성공!";
                     }
                 }
-                // BACK-UPファイルないから、リセット
+                //* BACK-UPファイルないから、リセット
                 else {
                     if(HM._) HM._.hui.ShowMsgError("(에러) 인벤토리 데이터 없음 -> 백업파일 없음으로 복구 불가");
                     if(HM._) HM._.hui.RecoverInvDataMsgTxt.text = "인벤토리 데이터가 없음으로 복구가 불가능하여 리셋을 진행합니다.\n기존에 가지고 계셨던 아이템과 목록을 아래 이메일로 남겨주시면 복구 및 사과보상을 지급하겠습니다. 감사합니다.";
