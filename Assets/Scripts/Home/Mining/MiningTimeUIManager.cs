@@ -41,8 +41,8 @@ public class MiningTimeUIManager : MonoBehaviour {
                 SM._.SfxPlay(SM.SFX.ClickSFX);
                 MiningFinishAskPopUp.SetActive(true);
 
-                int divideToMiniteCnt = curWS.MiningTime / 60;
-                FinishPrice = divideToMiniteCnt * PRICE_UNIT;
+                int divideToMinuteCnt = curWS.MiningTime / 60;
+                FinishPrice = divideToMinuteCnt == 0? PRICE_UNIT : divideToMinuteCnt * PRICE_UNIT;
                 FinishPriceTxt.text = $"<sprite name=Diamond>{FinishPrice}";
                 AdLimitCntTxt.text = $"하루 남은 횟수 : {DM._.DB.MiningFreeAdCnt}";
             }
