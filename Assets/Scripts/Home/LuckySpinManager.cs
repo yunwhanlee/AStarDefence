@@ -18,9 +18,12 @@ public class LuckySpinManager : MonoBehaviour {
 
     //* Elements
     [field: SerializeField] public GameObject WindowObj {get; private set;}
+    [field: SerializeField] public GameObject FreeIconObj {get; private set;}
+    [field: SerializeField] public GameObject AdIconObj {get; private set;}
     [field: SerializeField] public Transform SpinBodyTf {get; private set;}
     [field: SerializeField] public TMP_Text StopBtnTxt {get; private set;}
     [field: SerializeField] public TMP_Text GoldkeyTxt {get; private set;}
+    [field: SerializeField] public TMP_Text AdFreeSpinTxt {get; private set;}
     [field: SerializeField] public TMP_Text FreeAdBtnCntTxt {get; private set;}
     [field: SerializeField] public ParticleImage GoldKeyAttractionUIEF {get; private set;}
     
@@ -84,6 +87,9 @@ public class LuckySpinManager : MonoBehaviour {
         try {
             //* 無料AD数を減る
             DM._.DB.LuckySpinFreeAdCnt--;
+            AdFreeSpinTxt.text = "광고 무료스핀!";
+            AdIconObj.SetActive(true);
+            FreeIconObj.SetActive(false);
             FreeAdBtnCntTxt.text = $"{DM._.DB.LuckySpinFreeAdCnt} / {Config.LUCKYSPIN_FREE_AD_CNT}";
             StopSpin();
         }
@@ -93,6 +99,11 @@ public class LuckySpinManager : MonoBehaviour {
     }
 
     public void OnClickFreeAdStopSpinBtn() {
+        if(DM._.DB.LuckySpinFreeAdCnt == Config.LUCKYSPIN_FREE_AD_CNT) {
+            SetFreeLuckySpin(); 
+            return;
+        }
+
         if(DM._.DB.LuckySpinFreeAdCnt <= 0) {
             HM._.hui.ShowMsgError("일일룰렛광고 무료횟수를 전부 사용하였습니다.");
             return;
@@ -113,6 +124,17 @@ public class LuckySpinManager : MonoBehaviour {
         IsStopSpin = false;
         StopBtnTxt.color = Color.white;
         GoldkeyTxt.text = $"{HM._.GoldKey}";
+
+        if(DM._.DB.LuckySpinFreeAdCnt == Config.LUCKYSPIN_FREE_AD_CNT) {
+            AdIconObj.SetActive(false);
+            FreeIconObj.SetActive(true);
+            AdFreeSpinTxt.text = "무료 스핀!";
+        }
+        else {
+            AdIconObj.SetActive(true);
+            FreeIconObj.SetActive(false);
+            AdFreeSpinTxt.text = "광고 무료스핀!";
+        }
         FreeAdBtnCntTxt.text = $"{DM._.DB.LuckySpinFreeAdCnt} / {Config.LUCKYSPIN_FREE_AD_CNT}";
     }
     private void StopSpin() {
