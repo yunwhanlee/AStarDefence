@@ -30,7 +30,7 @@ public abstract class Enemy : MonoBehaviour {
     [field: SerializeField] public string Name {get; set;}
     [field: SerializeField] public int Lv {get; set;}
 
-    [SerializeField] int hp;    public int Hp {
+    [SerializeField] long hp;    public long Hp {
         get => hp;
         set {
             hp = value;
@@ -38,7 +38,7 @@ public abstract class Enemy : MonoBehaviour {
                 GM._.esm.UpdateBossHpBar(hp, maxHp);
         }
     }
-    private int maxHp;
+    private long maxHp;
     [field: SerializeField] public float Speed {get; set;}
     private float originSpd;
     [field: SerializeField] public int NodeIdx {get; private set;}
@@ -137,7 +137,14 @@ public abstract class Enemy : MonoBehaviour {
             SprRdr.sprite = curEnemyDt.Spr;
             if(isGoblin)
                 GetComponentInChildren<SpriteLibrary>().spriteLibraryAsset = curEnemyDt.SprLibAst;
-            maxHp = curEnemyDt.Hp;
+            
+            // HP
+            if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON) {
+                maxHp = (long)(curEnemyDt.Hp * DM._.DB.InfiniteUpgradeDB.GetExtraHpPer());
+            }
+            else {
+                maxHp = curEnemyDt.Hp;
+            }
             Hp = maxHp;
             originSpd = curEnemyDt.Speed;
             Speed = originSpd;

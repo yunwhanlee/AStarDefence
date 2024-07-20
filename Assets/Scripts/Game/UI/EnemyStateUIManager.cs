@@ -33,7 +33,15 @@ public class EnemyInfoUI {
         //* 情報表示
         LvTxt.text = $"LV {enemy.Lv}";
         NameTxt.text = $"{enemy.Name}";
-        HpTxt.text = $"{enemy.Hp}";
+
+        //* HP表示
+        if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON) {
+            HpTxt.text = $"{(long)(enemy.Hp * DM._.DB.InfiniteUpgradeDB.GetExtraHpPer())}";
+        }
+        else {
+            HpTxt.text = $"{enemy.Hp}";
+        }
+
         SpeedTxt.text = $"{enemy.Speed}";
 
         Obj.SetActive(true);
@@ -104,7 +112,7 @@ public class EnemyStateUIManager : MonoBehaviour {
         BossHpBarSlider.gameObject.SetActive(true);
         BossHpBarPortraitImg.sprite = bossDt.Spr;
     }
-    public void UpdateBossHpBar(int hp, int maxHp) {
+    public void UpdateBossHpBar(long hp, long maxHp) {
         BossHpBarTxt.text = $"{hp} / {maxHp}";
         BossHpBarSlider.value = (float)hp / maxHp;
     }

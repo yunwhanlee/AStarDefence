@@ -10,7 +10,7 @@ public class EnemyData {
     [field:SerializeField] public Sprite Spr {get; set;}
     [field:SerializeField] public SpriteLibraryAsset SprLibAst {get; set;}
     [field:SerializeField] public int Lv {get; set;}
-    [field:SerializeField] public int Hp {get; set;}
+    [field:SerializeField] public long Hp {get; set;}
     [field:SerializeField] public float Speed {get; set;}
 }
 

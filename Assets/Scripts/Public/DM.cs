@@ -386,6 +386,9 @@ public class InfiniteUpgradeDB {
             GPGSManager._.UpdateCrackDungeonBestWaveToLeaderBoard();
         }
     }
+    public float GetExtraHpPer() {
+        return 1 + ((1 + DM._.DB.CurInfiniteFloor) * 0.1f);
+    }
 }
 
 /// <summary>
