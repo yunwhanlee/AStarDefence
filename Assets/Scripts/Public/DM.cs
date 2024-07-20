@@ -360,7 +360,8 @@ public class TutorialDB {
 /// </summary>
 [Serializable]
 public class InfiniteUpgradeDB {
-    [field:SerializeField] public int MyBestWaveScore {get; set;}
+    [field:SerializeField] public int MyBestInfiniteFloor {get; set;}
+    [field:SerializeField] public int CurInfiniteFloor {get; set;}
 
     public const float DmgUpgUnit = 0.02f;
     [field:SerializeField] public int DmgUpgLv {get; set;}
@@ -370,7 +371,7 @@ public class InfiniteUpgradeDB {
     [field:SerializeField] public int BossDmgUpgLv {get; set;}
 
     public InfiniteUpgradeDB() {
-        MyBestWaveScore = 0;
+        MyBestInfiniteFloor = 0;
         DmgUpgLv = 0;
         CritDmgUpgLv = 0;
         BossDmgUpgLv = 0;
@@ -379,15 +380,16 @@ public class InfiniteUpgradeDB {
     public float GetExtraDmgPercent() => DmgUpgLv * DmgUpgUnit; // -> Warrior, Archer, Magician Tower
     public float GetExtraCritDmgPercent() => CritDmgUpgLv * CritDmgUpgUnit; // -> Warrior, Archer, Magician Tower
     public float GetExtraBossDmgPercent() => BossDmgUpgLv * BossDmgUpgUnit; // -> Enemy
-    public void UpdateBestScore(int waveCnt) {
-        if(waveCnt > MyBestWaveScore) {
-            MyBestWaveScore = waveCnt;
+
+    public void UpdateBestScore(int curInfiniteFloor) {
+        if(curInfiniteFloor == MyBestInfiniteFloor) {
+            MyBestInfiniteFloor = curInfiniteFloor + 1;
             GM._.gui.ShowMsgNotice("축하합니다. 최고기록 달성!", 240);
             GPGSManager._.UpdateCrackDungeonBestWaveToLeaderBoard();
         }
     }
     public float GetExtraHpPer() {
-        return 1 + ((1 + DM._.DB.CurInfiniteFloor) * 0.1f);
+        return 1 + ((1 + CurInfiniteFloor) * 0.1f);
     }
 }
 
@@ -448,8 +450,7 @@ public class DB {
     [field:SerializeField] public long LastDateTicks {get; set;}
     [field:SerializeField] public int LuckySpinFreeAdCnt {get; set;}
     [field:SerializeField] public int GoldkeyFreeAdCnt {get; set;}
-    [field:SerializeField] public int MiningFreeAdCnt {get; set;}
-    [field:SerializeField] public int CurInfiniteFloor {get; set;}
+    [field:SerializeField] public int MiningFreeAdCnt {get; set;}    
 
     //! REWARD COUPON DELETE AT 7/4
     [field:HideInInspector] public string COUPON_A = "dew13GewfDW";

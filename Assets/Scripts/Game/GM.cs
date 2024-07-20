@@ -32,7 +32,7 @@ public class GM : MonoBehaviour {
     [field: SerializeField] public bool IsReady;
     [field: SerializeField] public bool IsRevived;
     [field: SerializeField] public bool IsActiveSpeedUp {get; set;}
-    [field: SerializeField] public bool IsInfiniteDungeonGameover {get; set;}
+    // [field: SerializeField] public bool IsInfiniteDungeonGameover {get; set;}
     [field: SerializeField] public StageData[] StageDts;
     [field: SerializeField] public int Stage {get; set;}
     [field: SerializeField] public Enum.StageNum StageNum {get; set;}
@@ -105,6 +105,8 @@ public class GM : MonoBehaviour {
         //* Camera Projection Size
         Camera.main.orthographicSize = (Stage == Config.Stage.STG_INFINITE_DUNGEON)? 4.5f : 4.1f;
 
+        var infiniteDB = DM._.DB.InfiniteUpgradeDB;
+
         //* BGM
         switch(Stage) {
             case Config.Stage.STG1_FOREST:
@@ -146,7 +148,7 @@ public class GM : MonoBehaviour {
 
         //* 情報設定
         if(Stage == Config.Stage.STG_INFINITE_DUNGEON) {
-            int extraWaveCnt = DM._.DB.CurInfiniteFloor / Config.Stage.INFINITE_WAVEUP_DIVIDE * Config.Stage.WAVE_CYCLE;
+            int extraWaveCnt = infiniteDB.CurInfiniteFloor / Config.Stage.INFINITE_WAVEUP_DIVIDE * Config.Stage.WAVE_CYCLE;
             int InfiniteWaveCnt = Config.Stage.INFINITE_DEF_WAVE + extraWaveCnt;
             MaxWave = InfiniteWaveCnt;
         }
@@ -185,7 +187,7 @@ public class GM : MonoBehaviour {
 
         if(Stage == Config.Stage.STG_INFINITE_DUNGEON) {
             // difficulty = $"최대 돌파한 층 : {DM._.DB.InfiniteUpgradeDB.MyBestWaveScore}";
-            difficulty = $"무한균열 {DM._.DB.CurInfiniteFloor + 1}층 도전";
+            difficulty = $"무한균열 {infiniteDB.CurInfiniteFloor + 1}층 도전";
         }
 
         string stageInfoTxt = $"{StageDts[Stage].Name}\n<size=70%>- {difficulty} -</size>";
@@ -553,15 +555,17 @@ public class GM : MonoBehaviour {
             }
         }
         else if(stageIdx == Config.Stage.STG_INFINITE_DUNGEON) {
+            var infiniteDB = DM._.DB.InfiniteUpgradeDB;
+
             //* ステージタイルマップ保存データ リセット
             DM._.DB.InfiniteTileMapSaveDt.Reset();
 
-            gui.VictoryTitleTxt.text = "균열던전 결과";
+            gui.VictoryTitleTxt.text = $"균열던전 {infiniteDB.CurInfiniteFloor + 1}층 클리어!";
 
             //* Reward
-            int exp = WaveCnt;
-            int fame = Mathf.FloorToInt(WaveCnt * 0.05f);
-            int crack = Mathf.FloorToInt(WaveCnt * 0.25f);
+            int exp = 15 + (infiniteDB.CurInfiniteFloor * 5);
+            int fame = 1 + Mathf.FloorToInt(infiniteDB.CurInfiniteFloor * 0.5f);
+            int crack = 1 + Mathf.FloorToInt(infiniteDB.CurInfiniteFloor * 1.5f);
 
             if(exp > 0)
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], exp));
@@ -571,7 +575,7 @@ public class GM : MonoBehaviour {
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Crack], crack));
 
             //* ベストスコア
-            DM._.DB.InfiniteUpgradeDB.UpdateBestScore(WaveCnt);
+            DM._.DB.InfiniteUpgradeDB.UpdateBestScore(infiniteDB.CurInfiniteFloor);
         }
     #endregion
 
@@ -617,16 +621,13 @@ public class GM : MonoBehaviour {
 
         //* ゴブリンダンジョン
         if(Stage == Config.Stage.STG_GOBLIN_DUNGEON) {
-            // ステージは復活できない
+            // このステージは復活できない
             gui.Ads_ReviveBtn.gameObject.SetActive(false);
             gui.RetryBtn.gameObject.SetActive(false);
         }
         //* 無限ダンジョン
         else if(Stage == Config.Stage.STG_INFINITE_DUNGEON) {
             DM._.DB.InfiniteTileMapSaveDt.Reset();
-
-            gui.GameoverExitBtnTxt.text = "보상받기";
-            IsInfiniteDungeonGameover = true;
             gui.RetryBtn.gameObject.SetActive(false);
             gui.Ads_ReviveBtn.gameObject.SetActive(!IsRevived);
         }

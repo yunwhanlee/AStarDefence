@@ -125,7 +125,7 @@ public class GPGSManager : MonoBehaviour {
     /// </summary>
     public void UpdateCrackDungeonBestWaveToLeaderBoard() {
         PlayGamesPlatform.Instance.ReportScore(
-            DM._.DB.InfiniteUpgradeDB.MyBestWaveScore, GPGSIds.leaderboard_2, (bool success) => {}
+            DM._.DB.InfiniteUpgradeDB.MyBestInfiniteFloor, GPGSIds.leaderboard_2, (bool success) => {}
         );
     }
 #endregion

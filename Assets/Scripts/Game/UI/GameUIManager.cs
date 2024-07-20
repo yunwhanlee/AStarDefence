@@ -280,17 +280,17 @@ public class GameUIManager : MonoBehaviour {
         PausePopUp.SetActive(false);
     }
     public void OnClickGameoverExitGameBtn() {
-        if(GM._.IsInfiniteDungeonGameover) {
-            SM._.SfxPlay(SM.SFX.ClickSFX);
-            GameoverPopUp.SetActive(false);
-            GM._.Victory();
-            Ads_ClaimX2Btn.gameObject.SetActive(false);
-            VictoryTitleTxt.text = $"돌파한 층수: {GM._.WaveCnt}층";
-            Time.timeScale = 0;
-        }
-        else {
+        // if(GM._.IsInfiniteDungeonGameover) {
+        //     SM._.SfxPlay(SM.SFX.ClickSFX);
+        //     GameoverPopUp.SetActive(false);
+        //     GM._.Victory();
+        //     Ads_ClaimX2Btn.gameObject.SetActive(false);
+        //     VictoryTitleTxt.text = $"돌파한 층수: {GM._.WaveCnt}층";
+        //     Time.timeScale = 0;
+        // }
+        // else {
             GoHome();
-        }
+        // }
     }
     public void OnClickPausePopUp_ExitGameBtn() {
         //* きれつダンジョンの時、出るボタンをリワード得ることにする

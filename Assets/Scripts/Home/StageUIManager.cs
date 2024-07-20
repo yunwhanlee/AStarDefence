@@ -45,8 +45,8 @@ public class StageUIManager : MonoBehaviour {
     [field: SerializeField] public TMP_Text EnterFloorTxt;
 
     [field: SerializeField] public int InfiniteFloorVal {
-        get => DM._.DB.CurInfiniteFloor;
-        set => DM._.DB.CurInfiniteFloor = value;
+        get => DM._.DB.InfiniteUpgradeDB.CurInfiniteFloor;
+        set => DM._.DB.InfiniteUpgradeDB.CurInfiniteFloor = value;
     }
     [field: SerializeField] public int InfiniteWaveCnt;
 
@@ -116,8 +116,8 @@ public class StageUIManager : MonoBehaviour {
         NewStageAlertBtnObj.SetActive(false);
 
         // Infinite Floor Val
-        InfiniteBestWaveScoreTxt.text =  $"최대 돌파웨이브 : {DM._.DB.InfiniteUpgradeDB.MyBestWaveScore}층";
-        InfiniteFloorVal = DM._.DB.InfiniteUpgradeDB.MyBestWaveScore;
+        InfiniteBestWaveScoreTxt.text =  $"현재 돌파한 층  : {DM._.DB.InfiniteUpgradeDB.MyBestInfiniteFloor}층";
+        InfiniteFloorVal = DM._.DB.InfiniteUpgradeDB.MyBestInfiniteFloor;
 
         // Infinite Wave Cnt
         int extraWaveCnt = InfiniteFloorVal / Config.Stage.INFINITE_WAVEUP_DIVIDE * Config.Stage.WAVE_CYCLE;
@@ -224,9 +224,9 @@ public class StageUIManager : MonoBehaviour {
 
         // MIN
         if(InfiniteFloorVal < 0)
-            InfiniteFloorVal = DM._.DB.InfiniteUpgradeDB.MyBestWaveScore;
+            InfiniteFloorVal = DM._.DB.InfiniteUpgradeDB.MyBestInfiniteFloor;
         // MAX
-        else if(HM._.stgm.InfiniteFloorVal > DM._.DB.InfiniteUpgradeDB.MyBestWaveScore) {
+        else if(HM._.stgm.InfiniteFloorVal > DM._.DB.InfiniteUpgradeDB.MyBestInfiniteFloor) {
             InfiniteFloorVal = 0;
         }
 
