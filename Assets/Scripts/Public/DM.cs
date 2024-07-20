@@ -502,7 +502,7 @@ public class DM : MonoBehaviour {
     [field: SerializeField] public Enum.StageNum SelectedStageNum {get; set;}
     [field: SerializeField] public bool IsPassedDate {get; private set;}
 
-    string invDtBackUpFilePath;
+    public string invDtBackUpFilePath;
 
     void Awake() {
         Application.targetFrameRate = 40;

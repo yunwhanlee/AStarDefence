@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Inventory.Model;
 using TMPro;
 using UnityEditor;
@@ -13,6 +15,10 @@ public class SettingManager : MonoBehaviour {
     [field: SerializeField] public TMP_Text VersionTxt {get; private set;}
     [field: SerializeField] public GameObject LanguageWindowObj {get; private set;}
     [field: SerializeField] public GameObject ShowTutorialWindowObj {get; private set;}
+
+    [field: SerializeField] public GameObject InvBackUpDtWindowObj {get; private set;}
+    [field: SerializeField] public TMP_Text InvBackUpDtInfoTxt {get; private set;}
+
     [field: SerializeField] public Slider BgmVolumeSlider {get; private set;}
     [field: SerializeField] public Slider SfxVolumeSlider {get; private set;}
 
@@ -56,6 +62,27 @@ public class SettingManager : MonoBehaviour {
     public void OnChangeSfxSliderHandle() {
         DM._.DB.SettingDB.SfxVolume = SfxVolumeSlider.value;
         SM._.SetVolumeSFX(DM._.DB.SettingDB.SfxVolume);
+    }
+    public void OnClickInvBackUpDtIconBtn() {
+        InvBackUpDtWindowObj.SetActive(true);
+
+        //* バックアップデータ 表示
+        if(File.Exists(DM._.invDtBackUpFilePath)) {
+            // ファイル 読込
+            string json = File.ReadAllText(DM._.invDtBackUpFilePath);
+            InvItemBackUpDB invItemBackUpDB = JsonUtility.FromJson<InvItemBackUpDB>(json);
+            // テキストでデータ 表示
+            InvBackUpDtInfoTxt.text = "CNT=" + invItemBackUpDB.InvArrCnt;
+            int i = 0;
+            Array.ForEach(invItemBackUpDB.InvArr, item => {
+                string itemInfo = $"\n {i}. {item.Data.Name} Lv= {item.Lv}, Qtt= {item.Quantity}, RelicCnt= {item.RelicAbilities.Count()}";
+                InvBackUpDtInfoTxt.text += itemInfo;
+                i++;
+            });
+        }
+        else {
+            InvBackUpDtInfoTxt.text = "백업데이터가 없습니다.";
+        }
     }
     public void OnClickGoogleLoginBtn() {
 
