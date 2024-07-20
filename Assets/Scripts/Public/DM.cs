@@ -452,9 +452,9 @@ public class DB {
     [field:SerializeField] public int GoldkeyFreeAdCnt {get; set;}
     [field:SerializeField] public int MiningFreeAdCnt {get; set;}    
 
-    //! REWARD COUPON DELETE AT 7/4
-    [field:HideInInspector] public string COUPON_A = "dew13GewfDW";
-    [field:SerializeField] public bool IsAccept_CouponA {get; set;}
+    //! REWARD COUPON DELETE AT 7/??
+    [field:HideInInspector] public string COUPON_1 = "dew13GewEUJ";
+    [field:SerializeField] public bool IsAccept_Coupon1 {get; set;}
 
     /// <summary>
     /// 最後にクリアーしたステージIdxを返す

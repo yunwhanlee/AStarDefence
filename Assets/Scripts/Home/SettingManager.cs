@@ -143,9 +143,9 @@ public class SettingManager : MonoBehaviour {
     public void OnClickCouponWindowConfirmBtn() {
         string inputTxt = CouponInputField.text;
         SM._.SfxPlay(SM.SFX.ClickSFX);
-        if(inputTxt == DM._.DB.COUPON_A) {
-            if(!DM._.DB.IsAccept_CouponA) {
-                DM._.DB.IsAccept_CouponA = true;
+        if(inputTxt == DM._.DB.COUPON_1) {
+            if(!DM._.DB.IsAccept_Coupon1) {
+                DM._.DB.IsAccept_Coupon1 = true;
 
                 WindowObj.SetActive(false);
                 CouponWindowObj.SetActive(false);
