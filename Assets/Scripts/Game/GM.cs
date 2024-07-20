@@ -144,13 +144,17 @@ public class GM : MonoBehaviour {
         //* 非表示 初期化
         Array.ForEach(StageDts, stageDt => stageDt.TileMapObj.SetActive(false));
 
+        //* 情報設定
         MaxWave = StageDts[Stage].EnemyDatas[(int)StageNum].Waves.Length;
         WaveCnt = 0;
         ResetCnt = Config.DEFAULT_RESET_CNT;
+
         life = Config.DEFAULT_LIFE
             + (int)DM._.DB.SkillTreeDB.GetUtilityVal((int)SKT_UT.EXTRA_LIFE)
             + DM._.DB.EquipDB.StartLife;
+
         MaxLife = life;
+
         Money = Config.DEFAULT_MONEY
             + (int)DM._.DB.SkillTreeDB.GetUtilityVal((int)SKT_UT.EXTRA_MONEY)
             + DM._.DB.EquipDB.StartMoney;

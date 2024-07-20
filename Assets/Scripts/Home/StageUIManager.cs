@@ -41,6 +41,12 @@ public class StageUIManager : MonoBehaviour {
     [field: SerializeField] public TMP_Text InfiniteBestWaveScoreTxt;
     [field:SerializeField] public GameObject DungeonAlertDot;
 
+    [field: SerializeField] public TMP_Text CurFloorWaveCntTxt;
+    [field: SerializeField] public TMP_Text EnterFloorTxt;
+
+    [field: SerializeField] public int InfiniteFloorVal;
+    [field: SerializeField] public int InfiniteWaveCnt;
+
     [field: Header("STAGE")]
     [field: SerializeField] public SettingEnemyData[] StageEnemyDatas {get; set;}
     [field:SerializeField] public int StageAlertIdx;
@@ -105,7 +111,17 @@ public class StageUIManager : MonoBehaviour {
     void Start() {
         DungeonAlertDot.SetActive(HM._.GoldKey > 0);
         NewStageAlertBtnObj.SetActive(false);
+
+        // Infinite Floor Val
         InfiniteBestWaveScoreTxt.text =  $"최대 돌파웨이브 : {DM._.DB.InfiniteUpgradeDB.MyBestWaveScore}층";
+        InfiniteFloorVal = DM._.DB.InfiniteUpgradeDB.MyBestWaveScore;
+
+        // Infinite Wave Cnt
+        int extraWaveCnt = InfiniteFloorVal / Config.Stage.INFINITE_WAVEUP_DIVIDE * Config.Stage.WAVE_CYCLE;
+        InfiniteWaveCnt = Config.Stage.INFINITE_DEF_WAVE + extraWaveCnt;
+
+        CurFloorWaveCntTxt.text = $"{InfiniteWaveCnt} 웨이브";
+        EnterFloorTxt.text = $"{InfiniteFloorVal + 1}층\n입 장";
 
         //* ダンジョンのアンロック状態
         GoblinDungeonNormalLockedFrame.SetActive(!DM._.DB.DungeonLockedDB.IsLockGoblinNormal);
@@ -155,7 +171,6 @@ public class StageUIManager : MonoBehaviour {
 
         DungeonSelectPopUp.SetActive(true);
         DungeonSelectPopUp.GetComponent<DOTweenAnimation>().DORestart();
-        
     }
     public void OnClickOpenSelectDungeonWindow(int idx) {
         SM._.SfxPlay(SM.SFX.ClickSFX);
@@ -175,6 +190,7 @@ public class StageUIManager : MonoBehaviour {
         InfiniteDungeonWindow.SetActive(false);
         HM._.ifum.WindowObj.SetActive(true);
     }
+
     /// <summary>
     /// ゴブリンダンジョン
     /// </summary>
@@ -197,6 +213,27 @@ public class StageUIManager : MonoBehaviour {
 
         //* ➡ ゲームシーンロード
         SceneManager.LoadScene(Enum.Scene.Game.ToString());
+    }
+
+    public void OnClickInfiniteSelectFloorArrowBtn(int dir) {
+        SM._.SfxPlay(SM.SFX.ClickSFX);
+        HM._.stgm.InfiniteFloorVal += dir;
+
+        // MIN
+        if(HM._.stgm.InfiniteFloorVal < 0)
+            HM._.stgm.InfiniteFloorVal = 0;
+        // MAX
+        else if(HM._.stgm.InfiniteFloorVal > DM._.DB.InfiniteUpgradeDB.MyBestWaveScore) {
+            HM._.stgm.InfiniteFloorVal = DM._.DB.InfiniteUpgradeDB.MyBestWaveScore;
+        }
+
+        // Infinite Wave Cnt
+        int extraWaveCnt = InfiniteFloorVal / Config.Stage.INFINITE_WAVEUP_DIVIDE * Config.Stage.WAVE_CYCLE;
+        InfiniteWaveCnt = Config.Stage.INFINITE_DEF_WAVE + extraWaveCnt;
+
+        //* テキストUI
+        CurFloorWaveCntTxt.text = $"{InfiniteWaveCnt} 웨이브";
+        EnterFloorTxt.text = $"{InfiniteFloorVal + 1}층\n입 장";
     }
 
     /// <summary>

@@ -74,6 +74,9 @@ public static class Config {
     public const float USER_LV_EXTRA_DMG_PER = 0.04f;
 
     public class Stage {
+        public const int INFINITE_DEF_WAVE = 32;
+        public const int INFINITE_WAVEUP_DIVIDE = 3;
+        public const int WAVE_CYCLE = 8;
         public const int CLEAR_REWARD_FIX_CNT = 4;
         const int STAGE_IDX_MAX = 3;
         public const int STG1_FOREST = 0,

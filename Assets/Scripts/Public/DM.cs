@@ -356,7 +356,7 @@ public class TutorialDB {
 }
 
 /// <summary>
-/// きれつダンジョンのアップグレードDB
+/// きれつダンジョンのアップグレード DB
 /// </summary>
 [Serializable]
 public class InfiniteUpgradeDB {
