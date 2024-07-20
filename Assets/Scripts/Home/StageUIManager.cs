@@ -44,7 +44,10 @@ public class StageUIManager : MonoBehaviour {
     [field: SerializeField] public TMP_Text CurFloorWaveCntTxt;
     [field: SerializeField] public TMP_Text EnterFloorTxt;
 
-    [field: SerializeField] public int InfiniteFloorVal;
+    [field: SerializeField] public int InfiniteFloorVal {
+        get => DM._.DB.CurInfiniteFloor;
+        set => DM._.DB.CurInfiniteFloor = value;
+    }
     [field: SerializeField] public int InfiniteWaveCnt;
 
     [field: Header("STAGE")]
@@ -217,14 +220,14 @@ public class StageUIManager : MonoBehaviour {
 
     public void OnClickInfiniteSelectFloorArrowBtn(int dir) {
         SM._.SfxPlay(SM.SFX.ClickSFX);
-        HM._.stgm.InfiniteFloorVal += dir;
+        InfiniteFloorVal += dir;
 
         // MIN
-        if(HM._.stgm.InfiniteFloorVal < 0)
-            HM._.stgm.InfiniteFloorVal = 0;
+        if(InfiniteFloorVal < 0)
+            InfiniteFloorVal = DM._.DB.InfiniteUpgradeDB.MyBestWaveScore;
         // MAX
         else if(HM._.stgm.InfiniteFloorVal > DM._.DB.InfiniteUpgradeDB.MyBestWaveScore) {
-            HM._.stgm.InfiniteFloorVal = DM._.DB.InfiniteUpgradeDB.MyBestWaveScore;
+            InfiniteFloorVal = 0;
         }
 
         // Infinite Wave Cnt

@@ -145,8 +145,17 @@ public class GM : MonoBehaviour {
         Array.ForEach(StageDts, stageDt => stageDt.TileMapObj.SetActive(false));
 
         //* 情報設定
-        MaxWave = StageDts[Stage].EnemyDatas[(int)StageNum].Waves.Length;
+        if(Stage == Config.Stage.STG_INFINITE_DUNGEON) {
+            int extraWaveCnt = DM._.DB.CurInfiniteFloor / Config.Stage.INFINITE_WAVEUP_DIVIDE * Config.Stage.WAVE_CYCLE;
+            int InfiniteWaveCnt = Config.Stage.INFINITE_DEF_WAVE + extraWaveCnt;
+            MaxWave = InfiniteWaveCnt;
+        }
+        else {
+            MaxWave = StageDts[Stage].EnemyDatas[(int)StageNum].Waves.Length;
+        }
+
         WaveCnt = 0;
+
         ResetCnt = Config.DEFAULT_RESET_CNT;
 
         life = Config.DEFAULT_LIFE
@@ -175,7 +184,8 @@ public class GM : MonoBehaviour {
             : $"{stageStr}-3";
 
         if(Stage == Config.Stage.STG_INFINITE_DUNGEON) {
-            difficulty = $"최대 돌파한 층 : {DM._.DB.InfiniteUpgradeDB.MyBestWaveScore}";
+            // difficulty = $"최대 돌파한 층 : {DM._.DB.InfiniteUpgradeDB.MyBestWaveScore}";
+            difficulty = $"무한균열 {DM._.DB.CurInfiniteFloor + 1}층 도전";
         }
 
         string stageInfoTxt = $"{StageDts[Stage].Name}\n<size=70%>- {difficulty} -</size>";

@@ -361,6 +361,7 @@ public class TutorialDB {
 [Serializable]
 public class InfiniteUpgradeDB {
     [field:SerializeField] public int MyBestWaveScore {get; set;}
+
     public const float DmgUpgUnit = 0.02f;
     [field:SerializeField] public int DmgUpgLv {get; set;}
     public const float CritDmgUpgUnit = 0.03f;
@@ -445,6 +446,7 @@ public class DB {
     [field:SerializeField] public int LuckySpinFreeAdCnt {get; set;}
     [field:SerializeField] public int GoldkeyFreeAdCnt {get; set;}
     [field:SerializeField] public int MiningFreeAdCnt {get; set;}
+    [field:SerializeField] public int CurInfiniteFloor {get; set;}
 
     //! REWARD COUPON DELETE AT 7/4
     [field:HideInInspector] public string COUPON_A = "dew13GewfDW";
