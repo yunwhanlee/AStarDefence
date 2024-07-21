@@ -564,8 +564,8 @@ public class GM : MonoBehaviour {
 
             //* Reward
             int exp = 15 + (infiniteDB.CurInfiniteFloor * 5);
-            int fame = 1 + Mathf.FloorToInt(infiniteDB.CurInfiniteFloor * 0.5f);
-            int crack = 1 + Mathf.FloorToInt(infiniteDB.CurInfiniteFloor * 1.5f);
+            int fame = 1 + Mathf.FloorToInt(infiniteDB.CurInfiniteFloor * 1);
+            int crack = 2 + Mathf.FloorToInt(infiniteDB.CurInfiniteFloor * 2);
 
             if(exp > 0)
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], exp));

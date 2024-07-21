@@ -554,6 +554,13 @@ public class DM : MonoBehaviour {
                 // 백업파일 있을 경우
                 if(File.Exists(invDtBackUpFilePath)) {
                     string json = File.ReadAllText(invDtBackUpFilePath);
+
+                    if(json == "") {
+                        Debug.Log("(ERR)인벤토리 데이터 없음 -> 백업파일 데이터 없음('') -> 리셋");
+                        // 인벤토리 리셋
+                        DB.InvItemDBList = InvSOTemplate.InvArr.ToList();
+                    }
+
                     InvItemBackUpDB invBackUpDB = JsonUtility.FromJson<InvItemBackUpDB>(json);
 
                     // 백업파일 옳바른 리스트인지 확인
@@ -567,8 +574,8 @@ public class DM : MonoBehaviour {
                         if(HM._) HM._.hui.RecoverInvDataMsgTxt.text = "인벤토리 데이터 백업 성공!";
                     }
                     else {
-                        Debug.Log("(ERR)인벤토리 데이터 없음 -> 백업파일 파손 -> 리셋");
-                        if(HM._) HM._.hui.ShowMsgError("(ERR)인벤토리 데이터 없음 -> 백업파일 파손 -> 리셋");
+                        Debug.Log($"(ERR)인벤토리 데이터 없음 -> 백업파일 리스트 카운트 이상함({invBackUpDB.InvArr.Length}) -> 리셋");
+                        if(HM._) HM._.hui.ShowMsgError($"(ERR)인벤토리 데이터 없음 -> 백업파일 리스트 카운트 이상함({invBackUpDB.InvArr.Length}) -> 리셋");
                         // 인벤토리 리셋
                         DB.InvItemDBList = InvSOTemplate.InvArr.ToList();
                     }
@@ -830,6 +837,9 @@ public class DM : MonoBehaviour {
     // }
 
     public void ResetData() {
+        // 백업파일 초기화
+        File.WriteAllText(invDtBackUpFilePath, "");
+
         DB = new DB();
         DB.InvItemDBList = new List<InventoryItem>();
         DB.InvItemDBList = InvSOTemplate.InvArr.ToList();

@@ -64,32 +64,54 @@ public class SettingManager : MonoBehaviour {
         SM._.SetVolumeSFX(DM._.DB.SettingDB.SfxVolume);
     }
     public void OnClickInvBackUpDtIconBtn() {
+        Debug.Log($"OnClickInvBackUpDtIconBtn():: 백업파일 여부= {File.Exists(DM._.invDtBackUpFilePath)}, 경로= {DM._.invDtBackUpFilePath}");
+
         InvBackUpDtWindowObj.SetActive(true);
         try {
             //* バックアップデータ 表示
             if(File.Exists(DM._.invDtBackUpFilePath)) {
-                // ファイル 読込
-                string json = File.ReadAllText(DM._.invDtBackUpFilePath);
-                InvItemBackUpDB invItemBackUpDB = JsonUtility.FromJson<InvItemBackUpDB>(json);
+                Debug.Log("백업파일 존재함");
+                try {
+                    // ファイル 読込
+                    string json = File.ReadAllText(DM._.invDtBackUpFilePath);
 
-                if (invItemBackUpDB == null || invItemBackUpDB.InvArr == null) {
-                    InvBackUpDtInfoTxt.text = "백업 데이터가 손상되었습니다.";
-                    return;
-                }
-
-                // テキストでデータ 表示
-                InvBackUpDtInfoTxt.text = "CNT=" + invItemBackUpDB.InvArrCnt;
-
-                int i = 0;
-                Array.ForEach(invItemBackUpDB.InvArr, item => {
-                    if(item.Data != null) {
-                        string itemInfo = $"\n {i}. {item.Data.Name} Lv= {item.Lv}, Qtt= {item.Quantity}, RelicCnt= {item.RelicAbilities?.Count()?? 0}";
-                        InvBackUpDtInfoTxt.text += itemInfo;
-                        i++;
+                    if(json == "") {
+                        Debug.Log("백업 데이터 없음('')");
+                        InvBackUpDtInfoTxt.text = "백업 데이터 없음('')";
                     }
-                });
+
+                    InvItemBackUpDB invItemBackUpDB = JsonUtility.FromJson<InvItemBackUpDB>(json);
+
+                    if (invItemBackUpDB == null || invItemBackUpDB.InvArr == null) {
+                        Debug.Log("백업 데이터 NULL");
+                        InvBackUpDtInfoTxt.text = "백업 데이터 NULL";
+                        return;
+                    }
+
+                    // テキストでデータ 表示
+                    InvBackUpDtInfoTxt.text = "CNT=" + invItemBackUpDB.InvArrCnt;
+
+                    int i = 0;
+                    Array.ForEach(invItemBackUpDB.InvArr, item => {
+                        if(item.Data != null) {
+                            string itemInfo = "";
+                            if(item.Data.GetType() != typeof(ItemSO)) {
+                                itemInfo = $"\n {i}. (에러) 다른 데이터 타입: {item.Data.GetType()}";
+                            }
+                            else {
+                                itemInfo = $"\n {i}. {item.Data.Name} Lv= {item.Lv}, Qtt= {item.Quantity}, RelicCnt= {item.RelicAbilities?.Count()?? 0}";
+                            }
+                            InvBackUpDtInfoTxt.text += itemInfo;
+                            i++;
+                        }
+                    });
+                }
+                catch(Exception e) {
+                    Debug.LogError("error Msg= " + e);
+                }
             }
             else {
+                Debug.Log("백업파일 존재하지 않음");
                 InvBackUpDtInfoTxt.text = "백업데이터가 없습니다.";
             }
         }
