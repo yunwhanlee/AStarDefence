@@ -512,7 +512,7 @@ public class DM : MonoBehaviour {
 
     void Awake() {
         Application.targetFrameRate = 40;
-        invDtBackUpFilePath = Application.persistentDataPath + "/InvItemDtBackUp";
+        invDtBackUpFilePath = Application.persistentDataPath + "/InvItemDtBackUp.txt";
 
         //* SINGLETON
         if(_ == null) {
@@ -531,106 +531,148 @@ public class DM : MonoBehaviour {
             Reset();
         }
         else {
-            DB = Load();
+            Debug.Log($"Load To DB:: invDtBackUpFilePath= {invDtBackUpFilePath}");
 
-            if(DB == null) {
-                if(HM._) HM._.hui.ShowMsgError("로드된 DB데이터 KEY가 없습니다. -> 인벤토리 리셋 진행");
-                return;
-            }
+            DB = Load();
 
             // DB.InvItemDBList = TEST_InvSO.InvArr.ToList(); //! 이전 55개 인벤토리 리스트 경우의 테스트
             // DB.InvItemDBList = null; //! 인벤토리 데이터가 NULL로 사라졌을 경우의 백업 복구테스트
+            
+            //* DB가 없는 경우
+            if(DB == null) {
+                Debug.Log("(ERR)로드된 DB데이터 KEY가 없음 -> 리셋 진행");
+                if(HM._) HM._.hui.ShowMsgError("(ERR)로드된 DB데이터가 없음 -> 리셋 진행");
+                Reset();
+                return;
+            }
+            //* 인벤토리 데이터가 없거나 리스트가 0인 경우
+            else if(DB.InvItemDBList == null || DB.InvItemDBList?.Count == 0) {
+                Debug.Log("(ERR)인벤토리 데이터가 없거나 리스트가 0입니다.");
+                if(HM._) HM._.hui.ShowMsgError("(ERR)인벤토리 데이터가 없거나 리스트가 0입니다.");
 
-            //* データがなかったら
-            if(DB.InvItemDBList == null || DB.InvItemDBList?.Count == 0) {
-                Debug.Log("<color=red>ロードしたInvListデータがNULLとかカウントが０です</color>");
-
-                //* BACK-UPインベントリーファイルで復旧
+                //* 인벤토리 복구
+                // 백업파일 있을 경우
                 if(File.Exists(invDtBackUpFilePath)) {
                     string json = File.ReadAllText(invDtBackUpFilePath);
-                    InvItemBackUpDB invItemBackUpDB = JsonUtility.FromJson<InvItemBackUpDB>(json);
-                    if(HM._ && invItemBackUpDB.InvArr.Length == ALL_INV_CNT) {
-                        HM._.hui.ShowMsgError("(에러) 인벤토리 데이터 없음 -> 백업파일 복구 실행");
-                        HM._.hui.RecoverInvDataNoticePopUp.SetActive(true);
-                        DB.InvItemDBList = invItemBackUpDB.InvArr.ToList();
+                    InvItemBackUpDB invBackUpDB = JsonUtility.FromJson<InvItemBackUpDB>(json);
+
+                    // 백업파일 옳바른 리스트인지 확인
+                    if(invBackUpDB.InvArr.Length == ALL_INV_CNT) {
+                        Debug.Log("(ERR)인벤토리 데이터 없음 -> 백업파일 복구 실행");
+                        if(HM._) HM._.hui.ShowMsgError("(ERR)인벤토리 데이터 없음 -> 백업파일 복구 실행");
+                        // 백업파일로 복구
+                        DB.InvItemDBList = invBackUpDB.InvArr.ToList();
+                        // 결과 팝업창 표시
+                        if(HM._) HM._.hui.RecoverInvDataNoticePopUp.SetActive(true);
                         if(HM._) HM._.hui.RecoverInvDataMsgTxt.text = "인벤토리 데이터 백업 성공!";
                     }
+                    else {
+                        Debug.Log("(ERR)인벤토리 데이터 없음 -> 백업파일 파손 -> 리셋");
+                        if(HM._) HM._.hui.ShowMsgError("(ERR)인벤토리 데이터 없음 -> 백업파일 파손 -> 리셋");
+                        // 인벤토리 리셋
+                        DB.InvItemDBList = InvSOTemplate.InvArr.ToList();
+                    }
                 }
-                //* BACK-UPファイルないから、リセット
+                // 백업파일 없을 경우
                 else {
-                    if(HM._) HM._.hui.ShowMsgError("(에러) 인벤토리 데이터 없음 -> 백업파일 없음으로 복구 불가");
-                    if(HM._) HM._.hui.RecoverInvDataMsgTxt.text = "인벤토리 데이터가 없음으로 복구가 불가능하여 리셋을 진행합니다.\n기존에 가지고 계셨던 아이템과 목록을 아래 이메일로 남겨주시면 복구 및 사과보상을 지급하겠습니다. 감사합니다.";
-                    // インベントリーリセット
+                    Debug.Log("(ERR)인벤토리 데이터 없음 -> 백업파일 없음 -> 리셋");
+                    if(HM._) HM._.hui.ShowMsgError("(ERR)인벤토리 데이터 없음 -> 백업파일 없음 -> 리셋");
+                    // 인벤토리 리셋
                     DB.InvItemDBList = InvSOTemplate.InvArr.ToList();
-                    if(HM._) HM._.hui.ShowMsgNotice("인벤토리 리셋 완료");
                 }
-                
-
             }
-            //* インベントリーアイテム NULLデータ
-            else if(DB.InvItemDBList.Exists(item => item.Data == null)) {
-                int RIGHT_INVARR_LEN = InvSOTemplate.InvArr.Length;
-                bool isRightInvItemCnt = DB.InvItemDBList.Count == RIGHT_INVARR_LEN; // インベントリー数が４２なら
+            //* 위의 두가지 경우에 해당하지 않으면, 인벤토리 데이터 리스트 검사
+            else {
+                // 아이템 데이터 오류여부 검사
+                bool isItemDataNull = DB.InvItemDBList.Exists(item => item.Data == null);
+                bool isNotItemSOType = DB.InvItemDBList.Exists(item => item.Data.GetType() != typeof(ItemSO));
 
-                // 1. インベントリー数は合うのに、データのみ消えたとき、データを再入れる
-                if(isRightInvItemCnt) {
-                    if(HM._) HM._.hui.ShowMsgError($"(에러) 아이템 NULL발견 -> 인벤토리 수: {DB.InvItemDBList.Count} -> 데이터 재입력");
+                Debug.Log($"인벤토리 리스트 검사 -> 1.데이터 NULL= {isItemDataNull}, 2.데이터타입 다름= {isNotItemSOType}");
+
+                // 아이템 데이터중에서 오류가 있는 경우
+                if(isItemDataNull || isNotItemSOType) {
+                    Debug.Log("인벤토리 리스트 중 오류가 있음 -> 옳바른 데이터만 추출 실행");
+                    // 옳바른 아이템 데이터만 추출하여 받을 인벤토리 변수 선언
+                    InventoryItem[] filterInvArr = Array.ConvertAll(InvSOTemplate.InvArr, item => item.DeepCopy());
+                    
+                    // 옯바른 인벤토리 아이템 데이터 추출
                     for(int i = 0; i < DB.InvItemDBList.Count; i++) {
-                        InventoryItem tempInvItem = DB.InvItemDBList[i];
-                        tempInvItem.Data = ItemSOArr[i];
-                        DB.InvItemDBList[i] = tempInvItem;
+                        var invItem = DB.InvItemDBList[i];
+                        try{
+                            var data = invItem.Data;
+
+                            //* #1.옳바른 데이터인지 검사
+                            // A.인벤토리 데이터가 없는 경우
+                            if(invItem.Data == null) {
+                                Debug.Log($"(제외A) invItem[{i}/{DB.InvItemDBList.Count}]: Item.Data가 NULL임");
+                                continue;
+                            }
+                            // B.자료형 타입이 옮바르지 않은 경우
+                            else if(invItem.Data.GetType() != typeof(ItemSO)) {
+                                Debug.Log($"(제외B) invItem[{i}/{DB.InvItemDBList.Count}]: 자료형이 옮바른 ItemSO가 아님 : 데이터타입= {invItem.Data.GetType()}");
+                                continue;
+                            }
+                            // C.아이템 수량이 없는 경우
+                            else if(invItem.IsEmpty) {
+                                Debug.Log($"(제외C) invItem[{i}/{DB.InvItemDBList.Count}]: IsEmpty 수량이 0임 : name= {invItem.Data.Name}");
+                                continue;
+                            }
+
+                            //* #2.인벤토리 아이템인지 확인
+                            if(invItem.Data.name.Contains($"{Enum.ItemType.Weapon}")
+                            || invItem.Data.name.Contains($"{Enum.ItemType.Shoes}")
+                            || invItem.Data.name.Contains($"{Enum.ItemType.Ring}")
+                            || invItem.Data.name.Contains($"{Enum.ItemType.Relic}")
+                            || invItem.Data.name.Contains($"{Etc.ConsumableItem.SteamPack0}")
+                            || invItem.Data.name.Contains($"{Etc.ConsumableItem.SteamPack1}")
+                            || invItem.Data.name.Contains($"{Etc.ConsumableItem.BizzardScroll}")
+                            || invItem.Data.name.Contains($"{Etc.ConsumableItem.LightningScroll}")
+                            || invItem.Data.name.Contains($"{Etc.ConsumableItem.ChestCommon}")
+                            || invItem.Data.name.Contains($"{Etc.ConsumableItem.ChestDiamond}")
+                            || invItem.Data.name.Contains($"{Etc.ConsumableItem.ChestEquipment}")
+                            || invItem.Data.name.Contains($"{Etc.ConsumableItem.ChestGold}")
+                            || invItem.Data.name.Contains($"{Etc.ConsumableItem.ChestPremium}")
+                            || invItem.Data.name.Contains($"{Etc.ConsumableItem.Clover}")
+                            || invItem.Data.name.Contains($"{Etc.ConsumableItem.GoldClover}")
+                            || invItem.Data.name.Contains($"{Etc.ConsumableItem.Present0}")
+                            || invItem.Data.name.Contains($"{Etc.ConsumableItem.Present1}")
+                            || invItem.Data.name.Contains($"{Etc.ConsumableItem.Present2}")
+                            || invItem.Data.name.Contains($"{Etc.ConsumableItem.SoulStone}")
+                            || invItem.Data.name.Contains($"{Etc.ConsumableItem.MagicStone}")
+                            ) {
+                                // 유물이라면 잠재능력까지 설정되있는지 확인
+                                if(invItem.Data.name.Contains($"{Enum.ItemType.Relic}")) {
+                                    if(invItem.RelicAbilities.Count() == 0) {
+                                        Debug.Log($"(제외D) invItem[{i}/{DB.InvItemDBList.Count}]: name= {invItem.Data.Name} -> 유물인데 잠재능력 리스트가 0임 : 잠재능력 리스트 카운트= {invItem.RelicAbilities.Count()}");
+                                        continue;
+                                    }
+                                }
+
+                                Debug.Log($"(추출) invItem[{i}/{DB.InvItemDBList.Count}]: type= {invItem.Data.Type}, name= {invItem.Data.Name}, qtt= {invItem.Quantity}");
+                                InventoryItem prevInvItem = DB.InvItemDBList[i];
+                                int id = prevInvItem.Data.ID;
+
+                                // 현재 데이터에서 필요한 것만 추출하여 아이템 데이터 복구
+                                filterInvArr[id].Data = prevInvItem.Data;
+                                filterInvArr[id].Quantity = prevInvItem.Quantity;
+                                filterInvArr[id].Lv = prevInvItem.Lv;
+                                filterInvArr[id].RelicAbilities = prevInvItem.RelicAbilities;
+                                filterInvArr[id].IsEquip = false;
+                                filterInvArr[id].IsNewAlert = false;
+
+                                // 추출된 아이템 목록 텍스트 추가
+                                if(HM._) HM._.hui.RecoverInvDataMsgTxt.text +=  $"{prevInvItem.Data.Name} 인벤토리 데이터 복구\n";
+                            }
+                        }
+                        catch(Exception e) {
+                            Debug.LogError($"Exception occurred: {e.Message} -> invItem.Data= {(invItem.Data? invItem.Data : "NULL")}");
+                        }
                     }
-                }
-                // 2. 以前インベントリーリストデータを新しいInvArrとして、アップロード
-                else {
-                    if(HM._) HM._.hui.ShowMsgError($"(에러) 아이템 NULL발견 -> 인벤토리 수: {DB.InvItemDBList.Count} -> 이전데이터 복구 실행");
-                    // テンプレートInvArrコピーして、新しいインベントリー配列生成
-                    InventoryItem[] newInvArr = Array.ConvertAll(InvSOTemplate.InvArr, item => item.DeepCopy());
 
-                    // ログ
-                    for(int i = 0; i < newInvArr.Length; i++) {
-                        Debug.Log($"Fix Load Data:: i({i}): Name= {newInvArr[i].Data.Name}, Data= {newInvArr[i].Data}");
-                    }
+                    // 추출완료된 인벤토리 데이터를 지역변수 FixedInvArr에 대입 (InventorySO에서 데이터 로드시에 활용)
+                    FixedInvArr = filterInvArr;
 
-                    // ShowInvItemのみ検査して、新しいInvArrへ反映
-                    for(int i = 0; i < DB.InvItemDBList.Count; i++) {
-                        InventoryItem befInvItem = DB.InvItemDBList[i];
-
-                        // Quantityが０なら除外
-                        if(befInvItem.IsEmpty)
-                            continue;
-                        
-                        // データがなかったら除外
-                        if(befInvItem.Data == null)
-                            continue;
-
-                        // NoShowアイテムデータ 除外
-                        if(befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.Goblin}")
-                        || befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.Ore}")
-                        || befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.GoldKey}")
-                        || befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.Coin}")
-                        || befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.Diamond}")
-                        || befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.Crack}")
-                        || befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.SkillPoint}")
-                        || befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.RemoveAd}")
-                        || befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.Fame}")
-                        || befInvItem.Data.name.Contains($"{Etc.NoshowInvItem.NULL}"))
-                            continue;
-
-                        // アイテム データ 追加
-                        Debug.Log($"Fix Load Data:: {befInvItem.Data.Name} 인벤토리 데이터 복구");
-                        int id = befInvItem.Data.ID;
-                        newInvArr[id].Data = befInvItem.Data;
-                        newInvArr[id].Quantity = befInvItem.Quantity;
-                        newInvArr[id].Lv = befInvItem.Lv;
-                        newInvArr[id].RelicAbilities = befInvItem.RelicAbilities;
-                        newInvArr[id].IsEquip = false;
-                        newInvArr[id].IsNewAlert = false;
-
-                        if(HM._) HM._.hui.RecoverInvDataMsgTxt.text +=  $"{befInvItem.Data.Name} 인벤토리 데이터 복구\n";
-                    }
-                    FixedInvArr = newInvArr;
-
+                    // 추출(복구)된 아이템 목록 팝업창 표시
                     if(HM._) HM._.hui.RecoverInvDataNoticePopUp.SetActive(true);
                 }
             }
@@ -728,8 +770,7 @@ public class DM : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
 #region LOAD
 /// -----------------------------------------------------------------------------------------------------------------
-    public DB 
-    Load() {
+    public DB Load() {
         //* 経過時間 ロード
         // 현재 시간을 UTC 기준으로 가져와서 1970년 1월 1일 0시 0분 0초와의 시간 차이를 구합니다.
         TimeSpan timestamp = DateTime.UtcNow - new DateTime(1970,1,1,0,0,0);

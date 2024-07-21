@@ -65,23 +65,37 @@ public class SettingManager : MonoBehaviour {
     }
     public void OnClickInvBackUpDtIconBtn() {
         InvBackUpDtWindowObj.SetActive(true);
+        try {
+            //* バックアップデータ 表示
+            if(File.Exists(DM._.invDtBackUpFilePath)) {
+                // ファイル 読込
+                string json = File.ReadAllText(DM._.invDtBackUpFilePath);
+                InvItemBackUpDB invItemBackUpDB = JsonUtility.FromJson<InvItemBackUpDB>(json);
 
-        //* バックアップデータ 表示
-        if(File.Exists(DM._.invDtBackUpFilePath)) {
-            // ファイル 読込
-            string json = File.ReadAllText(DM._.invDtBackUpFilePath);
-            InvItemBackUpDB invItemBackUpDB = JsonUtility.FromJson<InvItemBackUpDB>(json);
-            // テキストでデータ 表示
-            InvBackUpDtInfoTxt.text = "CNT=" + invItemBackUpDB.InvArrCnt;
-            int i = 0;
-            Array.ForEach(invItemBackUpDB.InvArr, item => {
-                string itemInfo = $"\n {i}. {item.Data.Name} Lv= {item.Lv}, Qtt= {item.Quantity}, RelicCnt= {item.RelicAbilities.Count()}";
-                InvBackUpDtInfoTxt.text += itemInfo;
-                i++;
-            });
+                if (invItemBackUpDB == null || invItemBackUpDB.InvArr == null) {
+                    InvBackUpDtInfoTxt.text = "백업 데이터가 손상되었습니다.";
+                    return;
+                }
+
+                // テキストでデータ 表示
+                InvBackUpDtInfoTxt.text = "CNT=" + invItemBackUpDB.InvArrCnt;
+
+                int i = 0;
+                Array.ForEach(invItemBackUpDB.InvArr, item => {
+                    if(item.Data != null) {
+                        string itemInfo = $"\n {i}. {item.Data.Name} Lv= {item.Lv}, Qtt= {item.Quantity}, RelicCnt= {item.RelicAbilities?.Count()?? 0}";
+                        InvBackUpDtInfoTxt.text += itemInfo;
+                        i++;
+                    }
+                });
+            }
+            else {
+                InvBackUpDtInfoTxt.text = "백업데이터가 없습니다.";
+            }
         }
-        else {
-            InvBackUpDtInfoTxt.text = "백업데이터가 없습니다.";
+        catch(Exception ex) {
+            Debug.LogError("백업 데이터를 읽는 중 오류가 발생했습니다: " + ex.Message);
+            InvBackUpDtInfoTxt.text = "백업 데이터를 읽는 중 오류가 발생했습니다: " + ex.Message;
         }
     }
     public void OnClickGoogleLoginBtn() {

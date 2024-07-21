@@ -81,7 +81,7 @@ namespace Inventory
         /// INVENTORYのSlotUIを最新化
         /// </summary>
         private void UpdateInventoryUI() {
-            Debug.Log("ACTION:: UpdateInventoryUI():: ");            
+            Debug.Log($"ACTION:: UpdateInventoryUI():: InvArr.Length= {HM._.ivCtrl.InventoryData.InvArr.Length}");
             // インベントリーUIスロット 最新化
             for(int i = 0; i < HM._.ivCtrl.InventoryData.InvArr.Length; i++)
                 ivm.UpdateUI(i, HM._.ivCtrl.InventoryData.InvArr[i]);

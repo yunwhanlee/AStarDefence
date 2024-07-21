@@ -6,7 +6,6 @@ using UnityEngine;
 using GooglePlayGames;
 using TMPro;
 using GooglePlayGames.BasicApi;
-using UnityEngine.SocialPlatforms;
 
 public class GPGSManager : MonoBehaviour {
     public static GPGSManager _;
