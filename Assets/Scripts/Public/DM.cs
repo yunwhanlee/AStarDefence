@@ -592,7 +592,7 @@ public class DM : MonoBehaviour {
             else {
                 // 아이템 데이터 오류여부 검사
                 bool isItemDataNull = DB.InvItemDBList.Exists(item => item.Data == null);
-                bool isNotItemSOType = DB.InvItemDBList.Exists(item => item.Data.GetType() != typeof(ItemSO));
+                bool isNotItemSOType = DB.InvItemDBList.Exists(item => item.Data && item.Data.GetType() != typeof(ItemSO));
 
                 Debug.Log($"인벤토리 리스트 검사 -> 1.데이터 NULL= {isItemDataNull}, 2.데이터타입 다름= {isNotItemSOType}");
 
