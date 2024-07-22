@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Inventory.Model;
 using UnityEngine;
 
@@ -86,11 +87,16 @@ public class HomeRewardUIManager : MonoBehaviour {
                     //* 表示するアイテムデータ 項目
                     else {
                         Debug.Log($"<color=green>CoUpdateInventoryAsync():: AddItem() -> {rwdItem.Data.name}</color>");
+
+                        //* 인벤토리 아이템 레벨 유지
+                        var invItem = HM._.ivCtrl.InventoryData.InvArr[rwdItem.Data.ID];
+
                         int reminder = HM._.ivCtrl.InventoryData.AddItem (
                             rwdItem.Data, 
-                            rwdItem.Quantity, 
-                            lv: 1, 
-                            rwdItem.RelicAbilities,
+                            rwdItem.Quantity,
+                            lv: invItem.Lv,
+                            // 새롭게 추가되는거면 유물능력이 0임으로, rwdItem으로 새롭게 능력을 적용히고 그게 아니라면 이전 유물능력 유지.
+                            invItem.RelicAbilities.Count() == 0? rwdItem.RelicAbilities : invItem.RelicAbilities, 
                             isEquip: false,
                             isNewAlert: true
                         );

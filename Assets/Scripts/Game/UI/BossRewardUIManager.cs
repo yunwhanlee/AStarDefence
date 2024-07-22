@@ -35,6 +35,7 @@ public class BossRewardUIManager : MonoBehaviour {
         }
         CurrentCntTxts[(int)enumIdx].text = infoStr;
     }
+
     public void Active(int cnt) {
         GM._.gui.Pause();
         WindowObj.SetActive(true);
