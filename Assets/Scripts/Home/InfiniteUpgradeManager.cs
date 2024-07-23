@@ -40,7 +40,7 @@ public class InfiniteUpgBtn {
             :(Id == 1)? InfiniteUpgradeDB.CritDmgUpgUnit
             :InfiniteUpgradeDB.BossDmgUpgUnit;
 
-        float upgVal = Lv * upgradeUnit * 100;
+        float upgVal = Mathf.RoundToInt(Lv * upgradeUnit * 100);
         ValTxt.text = (Id == 0)? $"공격력 <color=green>{upgVal}</color>% 증가"
                 :(Id == 1)? $"치명타피해 <color=green>{upgVal}</color>% 증가"
                 :$"보스추가피해 <color=green>{upgVal}</color>% 증가";
