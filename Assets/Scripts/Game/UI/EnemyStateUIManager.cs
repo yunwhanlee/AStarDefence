@@ -36,7 +36,7 @@ public class EnemyInfoUI {
 
         //* HP表示
         if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON) {
-            HpTxt.text = $"{(long)(enemy.Hp * DM._.DB.InfiniteUpgradeDB.GetExtraHpPer())}";
+            HpTxt.text = $"{(long)(enemy.Hp * Config.Stage.GetInfiniteEnemyHpRatio())}";
         }
         else {
             HpTxt.text = $"{enemy.Hp}";

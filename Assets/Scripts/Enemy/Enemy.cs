@@ -48,12 +48,6 @@ public abstract class Enemy : MonoBehaviour {
         HpBar = GetComponentInChildren<Slider>();
     }
 
-    // void Start() {
-    //     originSpd = Speed;
-    //     maxHp = Hp;
-    //     Init();
-    // }
-
     void Update() {
         if(GM._.State == GameState.Ready
         || GM._.State == GameState.Victory
@@ -140,7 +134,7 @@ public abstract class Enemy : MonoBehaviour {
             
             // HP
             if(GM._.Stage == Config.Stage.STG_INFINITE_DUNGEON) {
-                maxHp = (long)(curEnemyDt.Hp * DM._.DB.InfiniteUpgradeDB.GetExtraHpPer());
+                maxHp = (long)(curEnemyDt.Hp * Config.Stage.GetInfiniteEnemyHpRatio());
             }
             else {
                 maxHp = curEnemyDt.Hp;

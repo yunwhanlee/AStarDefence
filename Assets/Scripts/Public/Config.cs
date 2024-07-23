@@ -76,6 +76,23 @@ public static class Config {
     public class Stage {
         public const int INFINITE_DEF_WAVE = 24;
         public const int INFINITE_WAVEUP_DIVIDE = 3;
+        public const int INFINITE_RWD_EXP_INC_VAL = 5;
+        public const float INFINITE_RWD_FAME_INC_VAL = 0.5f;
+        public const float INFINITE_RWD_FAME_CRACK_VAL = 1.5f;
+
+        public static float GetInfiniteEnemyHpRatio() {
+            const float UP_PER = 0.15f;
+            return 1 + ((1 + DM._.DB.InfiniteUpgradeDB.CurInfiniteFloor) * UP_PER);
+        }
+        public static int GetInfiniteRwdExpVal(int floorVal) {
+            return 15 + (floorVal * INFINITE_RWD_EXP_INC_VAL);
+        }
+        public static int GetInfiniteRwdFameVal(int floorVal) {
+            return 1 + Mathf.FloorToInt(floorVal * INFINITE_RWD_FAME_INC_VAL);
+        }
+        public static int GetInfiniteRwdCrackVal(int floorVal) {
+            return 2 + Mathf.FloorToInt(floorVal * INFINITE_RWD_FAME_CRACK_VAL);
+        }
 
         public const int WAVE_CYCLE = 8;
         public const int CLEAR_REWARD_FIX_CNT = 4;

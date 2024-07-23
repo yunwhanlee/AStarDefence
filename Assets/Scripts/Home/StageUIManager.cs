@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -49,6 +50,12 @@ public class StageUIManager : MonoBehaviour {
         set => DM._.DB.InfiniteUpgradeDB.CurInfiniteFloor = value;
     }
     [field: SerializeField] public int InfiniteWaveCnt;
+
+    [field: SerializeField] public TMP_Text InfiniteReward1ExpTxt;
+    [field: SerializeField] public TMP_Text InfiniteReward2FameTxt;
+    [field: SerializeField] public TMP_Text InfiniteReward3CrackTxt;
+
+    [field: SerializeField] public TMP_Text InfiniteEnemyHPPerTxt;
 
     [field: Header("STAGE")]
     [field: SerializeField] public SettingEnemyData[] StageEnemyDatas {get; set;}
@@ -124,7 +131,14 @@ public class StageUIManager : MonoBehaviour {
         InfiniteWaveCnt = Config.Stage.INFINITE_DEF_WAVE + extraWaveCnt;
 
         CurFloorWaveCntTxt.text = $"{InfiniteWaveCnt} 웨이브";
-        EnterFloorTxt.text = $"{InfiniteFloorVal + 1}층\n입 장";
+        EnterFloorTxt.text = $"{InfiniteFloorVal + 1}층\n도 전";
+
+        // INFINITE DUNGEON FLOOR リワード
+        InfiniteReward1ExpTxt.text = Config.Stage.GetInfiniteRwdExpVal(InfiniteFloorVal).ToString();
+        InfiniteReward2FameTxt.text = Config.Stage.GetInfiniteRwdFameVal(InfiniteFloorVal).ToString();
+        InfiniteReward3CrackTxt.text = Config.Stage.GetInfiniteRwdCrackVal(InfiniteFloorVal).ToString();
+
+        InfiniteEnemyHPPerTxt.text = $"몬스터 체력 : {Config.Stage.GetInfiniteEnemyHpRatio() * 100}%";
 
         //* ダンジョンのアンロック状態
         GoblinDungeonNormalLockedFrame.SetActive(!DM._.DB.DungeonLockedDB.IsLockGoblinNormal);
@@ -236,7 +250,14 @@ public class StageUIManager : MonoBehaviour {
 
         //* テキストUI
         CurFloorWaveCntTxt.text = $"{InfiniteWaveCnt} 웨이브";
-        EnterFloorTxt.text = $"{InfiniteFloorVal + 1}층\n입 장";
+        EnterFloorTxt.text = $"{InfiniteFloorVal + 1}층\n도 전";
+
+        // INFINITE DUNGEON FLOOR リワード
+        InfiniteReward1ExpTxt.text = Config.Stage.GetInfiniteRwdExpVal(InfiniteFloorVal).ToString();
+        InfiniteReward2FameTxt.text = Config.Stage.GetInfiniteRwdFameVal(InfiniteFloorVal).ToString();
+        InfiniteReward3CrackTxt.text = Config.Stage.GetInfiniteRwdCrackVal(InfiniteFloorVal).ToString();
+
+        InfiniteEnemyHPPerTxt.text = $"몬스터 체력 : {Config.Stage.GetInfiniteEnemyHpRatio() * 100}%";
     }
 
     /// <summary>

@@ -562,9 +562,9 @@ public class GM : MonoBehaviour {
             gui.VictoryTitleTxt.text = $"균열던전 {infiniteDB.CurInfiniteFloor + 1}층 클리어!";
 
             //* Reward
-            int exp = 15 + (infiniteDB.CurInfiniteFloor * 5);
-            int fame = 1 + Mathf.FloorToInt(infiniteDB.CurInfiniteFloor * 1);
-            int crack = 2 + Mathf.FloorToInt(infiniteDB.CurInfiniteFloor * 2);
+            int exp = Config.Stage.GetInfiniteRwdExpVal(infiniteDB.CurInfiniteFloor);
+            int fame = Config.Stage.GetInfiniteRwdFameVal(infiniteDB.CurInfiniteFloor);
+            int crack = Config.Stage.GetInfiniteRwdCrackVal(infiniteDB.CurInfiniteFloor);
 
             if(exp > 0)
                 rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Exp], exp));
