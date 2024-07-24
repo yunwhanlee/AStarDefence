@@ -276,7 +276,14 @@ namespace Inventory.Model
                 var relicAbilities = CheckRelicAbilitiesData(InvArr[nextId].Data);
 
                 // 次のLVアイテム生成
-                AddItem(InvArr[nextId].Data, mergeCnt, lv: 1, relicAbilities, InvArr[nextId].IsEquip, isNewAlert: true);
+                AddItem(
+                    InvArr[nextId].Data, 
+                    mergeCnt, 
+                    lv: InvArr[nextId].Lv, // 강화 레벨 유지
+                    relicAbilities, 
+                    InvArr[nextId].IsEquip, 
+                    isNewAlert: true
+                );
 
                 // RELICなら、Ability追加
                 if(InvArr[nextId].Data.Type == Enum.ItemType.Relic)
