@@ -88,9 +88,9 @@ namespace Inventory.Model
         public InventoryItem GetEmptyItem()
             => new InventoryItem {
                 Quantity = 0,
-                Lv = 0,
+                Lv = this.Lv, // 예를들어 합성하고 수량 0으로 없어져도 그대로 이전 레벨 유지.
                 Data = this.Data, //* Dataは固定だから、さわらない！
-                RelicAbilities = null,
+                RelicAbilities = this.RelicAbilities, // 예를들어 합성하고 수량 0으로 없어져도 이전 잠재능력 유지.
                 IsEquip = false,
                 IsNewAlert = false,
             };
