@@ -94,18 +94,16 @@ public class HomeRewardUIManager : MonoBehaviour {
                             Debug.Log($"CoUpdateInventoryAsync():: invItem.Data.Name= {invItem.Data.Name}, Lv= {invItem.Lv}, relicAbilities= {invItem.RelicAbilities}");
 
                             //! 인벤토리 장비 레벨0인 경우 버그 방지
-                            if((invItem.Data.Type == Enum.ItemType.Weapon
-                            || invItem.Data.Type == Enum.ItemType.Shoes
-                            || invItem.Data.Type == Enum.ItemType.Ring
-                            || invItem.Data.Type == Enum.ItemType.Relic)
-                            && invItem.Quantity == 0 && invItem.Lv == 0) {
-                                invItem.Lv = 1;
-                            }
+                            int itemLv = ((invItem.Data.Type == Enum.ItemType.Weapon
+                                        || invItem.Data.Type == Enum.ItemType.Shoes
+                                        || invItem.Data.Type == Enum.ItemType.Ring
+                                        || invItem.Data.Type == Enum.ItemType.Relic
+                                        ) && invItem.Lv == 0)? 1 : invItem.Lv;
 
                             int reminder = HM._.ivCtrl.InventoryData.AddItem (
                                 rwdItem.Data, 
                                 rwdItem.Quantity,
-                                lv: invItem.Lv,
+                                lv: itemLv,
                                 // 새롭게 추가되는거면 유물능력이 0임으로, rwdItem으로 새롭게 능력을 적용히고 그게 아니라면 이전 유물능력 유지.
                                 invItem.RelicAbilities.Count() == 0? rwdItem.RelicAbilities : invItem.RelicAbilities, 
                                 isEquip: false,

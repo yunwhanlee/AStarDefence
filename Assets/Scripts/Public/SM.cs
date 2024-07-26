@@ -131,6 +131,7 @@ public class SM : MonoBehaviour {
         LevelUpSFX,
         BossSpawnSFX,
         CountdownSFX,
+        CountingSFX,
     }
 
     //* BGM

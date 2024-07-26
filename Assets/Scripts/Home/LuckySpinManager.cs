@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using AssetKits.ParticleImage;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,8 +12,10 @@ public class LuckySpinManager : MonoBehaviour {
     private const int DivideAngle = 45; // 360° ÷ 8個
     private const int SpinPower = 700;
     private const int DecreaseSpinVal = 500;
+    private const int BONUS_MULTI_CHANGE_CNT = 30; //★
 
     public Action OnClickCloseRewardScreen = () => {};
+    [field: SerializeField] public int BonusMultiNum {get; private set;} //★
     [field: SerializeField] public float CurSpeed {get; private set;}
     [field: SerializeField] public bool IsStopSpin {get; private set;}
 
@@ -20,15 +23,20 @@ public class LuckySpinManager : MonoBehaviour {
     [field: SerializeField] public GameObject WindowObj {get; private set;}
     [field: SerializeField] public GameObject FreeIconObj {get; private set;}
     [field: SerializeField] public GameObject AdIconObj {get; private set;}
+    [field: SerializeField] public DOTweenAnimation FocusGlowDOTAnim {get; private set;}
+    [field: SerializeField] public DOTweenAnimation BonusMultiNumTxtDOTAnim {get; private set;}
     [field: SerializeField] public Transform SpinBodyTf {get; private set;}
     [field: SerializeField] public TMP_Text StopBtnTxt {get; private set;}
     [field: SerializeField] public TMP_Text GoldkeyTxt {get; private set;}
     [field: SerializeField] public TMP_Text AdFreeSpinTxt {get; private set;}
     [field: SerializeField] public TMP_Text FreeAdBtnCntTxt {get; private set;}
+    [field: SerializeField] public TMP_Text BonusMultiNumTxt {get; private set;} //★
     [field: SerializeField] public ParticleImage GoldKeyAttractionUIEF {get; private set;}
     
 
     void Start() {
+		    BonusMultiNum = 1; //★
+		    BonusMultiNumTxt.text = $"x{BonusMultiNum}"; //★
         ResetUI();
     }
 
@@ -40,7 +48,6 @@ public class LuckySpinManager : MonoBehaviour {
             //* 回転が完全にストップしたら
             if(CurSpeed <= 0) {
                 //* 角度を検討して、角度に関したリワードIndexを取る
-                IsStopSpin = false;
                 CurSpeed = 0;
                 float angleZ = SpinBodyTf.transform.rotation.eulerAngles.z;
 
@@ -52,7 +59,7 @@ public class LuckySpinManager : MonoBehaviour {
                 Debug.Log($"Stop Result: rotation.z= {angleZ}, 何番目 : {angleRewardIndex}");
 
                 //* リワード受ける
-                AcceptReward(angleRewardIndex);
+                StartCoroutine(CoAcceptReward(angleRewardIndex)); //★変更
             }
         }
         //* 回転
@@ -66,6 +73,8 @@ public class LuckySpinManager : MonoBehaviour {
         WindowObj.SetActive(true);
     }
     public void OnClickBackBtn() {
+        if(IsStopSpin) return;
+
         HM._.hui.IsActivePopUp = false;
         SM._.SfxPlay(SM.SFX.ClickSFX);
         WindowObj.SetActive(false);
@@ -144,22 +153,39 @@ public class LuckySpinManager : MonoBehaviour {
         IsStopSpin = true;
         StopBtnTxt.color = Color.red;
     }
-    private void AcceptReward(int angleRewardIndex) {
-var rwDt = HM._.rwlm.RwdItemDt;
+    private IEnumerator CoAcceptReward(int angleRewardIndex) { //★変更
+		var rwDt = HM._.rwlm.RwdItemDt;
         var rewardList = new List<RewardItem>();
+        
+        //★ BONUS 掛け算 確率 設定
+				int rd = Random.Range(0, 1000);
+				const float SGL_PER = 650, // SINGLE
+                    DBL_PER = 250, // DOUBLE
+                    TRP_PER = 70, // TRIPLE
+                    QTR_PER = 25, // QUATER
+                    PNT_PER = 5; // PENTA
+
+        //★ BONUS 掛け算 ランダム 選択	
+				int multiVal = rd < SGL_PER ? 1
+                    : rd < SGL_PER + DBL_PER ? 2
+                    : rd < SGL_PER + DBL_PER + TRP_PER ? 3
+                    : rd < SGL_PER + DBL_PER + TRP_PER + QTR_PER ? 4
+                    : 5;
+        
+        // スピン結果 + 掛け算適用
         switch (angleRewardIndex) {
             case 8: //* 真ん中からスタートするから、345° ~ 360° と
             case 0: //* 0° ~ 22.5° が０番目リワード
-                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Fame], Random.Range(1, 5 + 1)));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Fame], Random.Range(1, 5 + 1) * multiVal)); //★
                 break;
             case 1:
-                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], 5));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], 5 * multiVal)); //★
                 break;
             case 2:
-                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone], 1));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.SoulStone], 1 * multiVal)); //★
                 break;
             case 3:
-                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 1500));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Coin], 1500 * multiVal)); //★
                 break;
             case 4: {
                 int rand = Random.Range(0, 100);
@@ -167,14 +193,14 @@ var rwDt = HM._.rwlm.RwdItemDt;
                 int presentIdx = (rand < 60)? (int)Etc.ConsumableItem.Present0
                     : (rand < 95)? (int)Etc.ConsumableItem.Present1
                     : (int)Etc.ConsumableItem.Present2;
-                rewardList.Add(new (rwDt.EtcConsumableDatas[presentIdx], 1));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[presentIdx], 1 * multiVal)); //★
                 break;
             }
             case 5:
-                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone], 1));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[(int)Etc.ConsumableItem.MagicStone], 1 * multiVal)); //★
                 break;
             case 6:
-                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], 50));
+                rewardList.Add(new (rwDt.EtcNoShowInvDatas[(int)Etc.NoshowInvItem.Diamond], 50 * multiVal)); //★
                 break;
             case 7: {
                 int rand = Random.Range(0, 100);
@@ -184,10 +210,37 @@ var rwDt = HM._.rwlm.RwdItemDt;
                     : (rand < 95)? (int)Etc.ConsumableItem.GoldClover
                     : (rand < 98)? (int)Etc.ConsumableItem.ChestDiamond
                     : (int)Etc.ConsumableItem.ChestPremium;
-                rewardList.Add(new (rwDt.EtcConsumableDatas[chestIdx], 1));
+                rewardList.Add(new (rwDt.EtcConsumableDatas[chestIdx], 1 * multiVal)); //★
                 break;
             }
         }
+        
+        //★ BONUS 掛け算 X1 ~ X5
+        int previousRandNum = -1; // 이전에 생성된 숫자를 저장할 변수 초기화
+
+        FocusGlowDOTAnim.DORestart();
+
+        for(int i = 0; i < BONUS_MULTI_CHANGE_CNT ; i++) {
+            yield return Util.Time0_1;
+            SM._.SfxPlay(SM.SFX.CountingSFX);
+            int randNum = Random.Range(1, 5 + 1);
+            do
+            {
+                randNum = Random.Range(1, 6); // 1부터 5까지 랜덤 숫자 생성
+            } while (randNum == previousRandNum); // 이전 숫자와 중복되면 다시 생성
+
+            previousRandNum = randNum; // 현재 숫자를 이전 숫자로 저장
+            BonusMultiNumTxt.text = $"x{randNum}";
+        }
+
+        FocusGlowDOTAnim.DOPause();
+        BonusMultiNumTxtDOTAnim.DORestart();
+
+        //★ 結果
+        BonusMultiNum = multiVal;
+        BonusMultiNumTxt.text = $"x{BonusMultiNum}";
+        
+        //★ リワード表示
         HM._.rwlm.ShowReward(rewardList);
         // HM._.rwm.CoUpdateInventoryAsync(rewardList);
 
