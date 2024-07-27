@@ -12,7 +12,7 @@ public class LuckySpinManager : MonoBehaviour {
     private const int DivideAngle = 45; // 360° ÷ 8個
     private const int SpinPower = 700;
     private const int DecreaseSpinVal = 500;
-    private const int BONUS_MULTI_CHANGE_CNT = 30; //★
+    private const int BONUS_MULTI_CHANGE_CNT = 20; //★
 
     public Action OnClickCloseRewardScreen = () => {};
     [field: SerializeField] public int BonusMultiNum {get; private set;} //★
@@ -221,7 +221,7 @@ public class LuckySpinManager : MonoBehaviour {
         FocusGlowDOTAnim.DORestart();
 
         for(int i = 0; i < BONUS_MULTI_CHANGE_CNT ; i++) {
-            yield return Util.Time0_1;
+            yield return Util.Time0_075;
             SM._.SfxPlay(SM.SFX.CountingSFX);
             int randNum = Random.Range(1, 5 + 1);
             do
