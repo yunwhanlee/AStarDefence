@@ -26,7 +26,6 @@ public class SettingManager : MonoBehaviour {
     [field: SerializeField] public TMP_InputField CouponInputField {get; private set;}
 
     void Start() {
-        
         // モード チェック
         string modeActiveMsg = "";
         if(DM._.IsDebugMode) modeActiveMsg += "<color=green>DebugMode ON</color>\n";
@@ -120,8 +119,17 @@ public class SettingManager : MonoBehaviour {
             InvBackUpDtInfoTxt.text = "백업 데이터를 읽는 중 오류가 발생했습니다: " + ex.Message;
         }
     }
-    public void OnClickGoogleLoginBtn() {
+    public void OnClickInvResetIconBtn() {
+        HM._.hui.ShowAgainAskMsg("인벤토리 모든 데이터 초기화\n 정말로 리셋하시겠습니까?");
 
+        //* 確認ボタン イベント登録
+        HM._.hui.OnClickAskConfirmAction = () => {
+            // 인벤토리 리셋
+            SM._.SfxPlay(SM.SFX.InvEquipSFX);
+            HM._.hui.ShowMsgNotice("인벤토리가 리셋 되었습니다.");
+            DM._.DB.InvItemDBList = DM._.InvSOTemplate.InvArr.ToList();
+            SceneManager.LoadScene($"{Enum.Scene.Home}");
+        };
     }
 #region SETTING LANGUAGE
     public void OnClickLanguageBtn() {
