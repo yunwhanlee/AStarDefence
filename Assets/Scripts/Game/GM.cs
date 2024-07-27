@@ -160,9 +160,11 @@ public class GM : MonoBehaviour {
 
         ResetCnt = Config.DEFAULT_RESET_CNT;
 
-        life = Config.DEFAULT_LIFE
-            + (int)DM._.DB.SkillTreeDB.GetUtilityVal((int)SKT_UT.EXTRA_LIFE)
-            + DM._.DB.EquipDB.StartLife;
+        Debug.Log($"Set Life= Def({Config.DEFAULT_LIFE}) + SKTree({(int)DM._.DB.SkillTreeDB.GetUtilityVal((int)SKT_UT.EXTRA_LIFE)}) + RelicAbility({DM._.DB.EquipDB.StartLife})");
+        int extraLife = (int)DM._.DB.SkillTreeDB.GetUtilityVal((int)SKT_UT.EXTRA_LIFE) + DM._.DB.EquipDB.StartLife;
+        extraLife = extraLife > 8? 8 : extraLife;
+
+        life = Config.DEFAULT_LIFE+ extraLife;
 
         MaxLife = life;
 

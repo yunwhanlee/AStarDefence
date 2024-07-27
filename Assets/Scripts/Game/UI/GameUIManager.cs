@@ -132,6 +132,7 @@ public class GameUIManager : MonoBehaviour {
         float mgExtraDmgPer = db.EquipDB.MagicianAttackPer + db.SkillTreeDB.GetMagicianVal((int)SKT_MG.EXTRA_DMG_A) + db.SkillTreeDB.GetMagicianVal((int)SKT_MG.EXTRA_DMG_B);
         float mgExtraRangePer = db.SkillTreeDB.GetMagicianVal((int)SKT_MG.EXTRA_RANGE);
         float mgExtraCritPer = db.SkillTreeDB.GetMagicianVal((int)SKT_MG.CRIT_PER);
+        int extraLife = (int)DM._.DB.SkillTreeDB.GetUtilityVal((int)SKT_UT.EXTRA_LIFE) + + DM._.DB.EquipDB.StartLife;
 
         PauseStatusInfoTxt.text = "[ 기본 상태정보 ]"
             + $"\n추가공격력: {extraDmgPer * 100}%"
@@ -140,6 +141,7 @@ public class GameUIManager : MonoBehaviour {
             + $"\n추가치명타: {extraCritPer * 100}%"
             + $"\n추가치명타데미지: {extraCritDmgPer * 100}%"
             + $"\n추가보스데미지: {extraBossDmgPer * 100}%"
+            + $"\n추가시작체력: +{(extraLife > 0? extraLife : "")} (최대 +8)"
 
             //* 下は０なら、非表示
             + $"{(wrExtraDmgPer > 0? $"\n전사 추가공격력: {wrExtraDmgPer * 100}%" : "")}"
@@ -153,6 +155,8 @@ public class GameUIManager : MonoBehaviour {
             + $"{(mgExtraDmgPer > 0? $"\n법사 추가공격력: {mgExtraDmgPer * 100}%" : "")}"
             + $"{(mgExtraRangePer > 0? $"\n법사 추가사정거리: {mgExtraRangePer * 100}%" : "")}"
             + $"{(mgExtraCritPer > 0? $"\n법사 추가치명타: {mgExtraCritPer * 100}%" : "")}"
+
+
         ;
 
         //* ステージ保存データロード

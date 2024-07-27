@@ -61,7 +61,7 @@ public static class Config {
     public const int DEFAULT_LIFE = 10;
     public const int DEFAULT_RESET_CNT = 10;
 
-    public const int INC_MAX_LIFE = 15;
+    public const int INC_MAX_LIFE = 18;
 
     public const int CONSUMEITEM_WAIT_TURN = 1;
     public const float STREAMPACK_DURATION = 10;
