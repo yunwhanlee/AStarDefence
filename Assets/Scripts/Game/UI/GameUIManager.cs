@@ -474,7 +474,8 @@ public class GameUIManager : MonoBehaviour {
         resultPrice -= discount;
 
         //* 費用チェック
-        if(!GM._.CheckMoney(resultPrice)) return;
+        if(!GM._.CheckMoney(resultPrice))
+            return;
 
         //* アップグレード
         GM._.tm.UpgradeTowerCard(kind);
