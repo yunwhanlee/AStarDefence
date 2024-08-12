@@ -41,6 +41,7 @@ public class HM : MonoBehaviour {
     // Bonus Reward Systems
     [HideInInspector] public MileageRewardUIManager mlgm;
     [HideInInspector] public FameRewardUIManager frm;
+    [HideInInspector] public GoogleSheetManager gsm;
 
 
     //* Value
@@ -142,6 +143,7 @@ public class HM : MonoBehaviour {
         ifum = GameObject.Find("InfiniteUpgradeManager").GetComponent<InfiniteUpgradeManager>();
         mlgm = GameObject.Find("MileageRewardUIManager").GetComponent<MileageRewardUIManager>();
         frm = GameObject.Find("FameRewardUIManager").GetComponent<FameRewardUIManager>();
+        gsm = GameObject.Find("GoogleSheetManager").GetComponent<GoogleSheetManager>();
 
         //* 初期化
         CurDay = DateTime.UtcNow.Day;

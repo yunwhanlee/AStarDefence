@@ -449,10 +449,6 @@ public class DB {
     [field:SerializeField] public int GoldkeyFreeAdCnt {get; set;}
     [field:SerializeField] public int MiningFreeAdCnt {get; set;}    
 
-    //! REWARD COUPON DELETE AT 7/??
-    [field:HideInInspector] public string COUPON_1 = "dew13GewEUJ";
-    [field:SerializeField] public bool IsAccept_Coupon1 {get; set;}
-
     /// <summary>
     /// 最後にクリアーしたステージIdxを返す
     /// </summary>
@@ -681,7 +677,7 @@ public class DM : MonoBehaviour {
                 }
             }
         }
-        
+
         //* 日にちが過ぎたら、DAILYデータをリセット
         if(CheckPassedDate()) {
             Debug.Log("IsPassedDate -> Reset Daily Data");
