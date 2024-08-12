@@ -272,22 +272,26 @@ namespace Inventory.Model
                 }
 
                 // 結果
-                // Relicなら、ランダムで能力
-                var relicAbilities = CheckRelicAbilitiesData(InvArr[nextId].Data);
+                AbilityType[] relicAbilities = CheckRelicAbilitiesData(InvArr[nextId].Data);
 
-                // 次のLVアイテム生成
-                AddItem(
-                    InvArr[nextId].Data, 
-                    mergeCnt, 
+                // RELIC能力反映
+                // Debug.Log($"Merge:: InvArr[nextId].Quantity= {InvArr[nextId].Data.Type} {InvArr[nextId].Data.Name}: RelicAbilities.Lenght= {InvArr[nextId].RelicAbilities.Length}, Quantity={InvArr[nextId].Quantity}");
+
+                // 유물 기존옵션이 있다면 그대로 유지
+                if(relicAbilities.Length > 0 && InvArr[nextId].Quantity > 0) {
+                    Debug.Log($"Merge:: Relic  {InvArr[nextId].Data.Name}: 기존옵션이 있음으로 유물옵션 그대로 유지");
+                    relicAbilities = InvArr[nextId].RelicAbilities;
+                }
+
+                // 次のLVアイテム生成 ( 数 追加 )
+                AddItem (
+                    InvArr[nextId].Data,
+                    mergeCnt,
                     lv: InvArr[nextId].Lv, // 강화 레벨 유지
-                    relicAbilities, 
+                    relicAbilities,
                     InvArr[nextId].IsEquip, 
                     isNewAlert: true
                 );
-
-                // RELICなら、Ability追加
-                if(InvArr[nextId].Data.Type == Enum.ItemType.Relic)
-                    InvArr[nextId] = InvArr[nextId].ChangeItemRelicAbilities(relicAbilities);
             }
 
             return true;
@@ -295,16 +299,19 @@ namespace Inventory.Model
 
         public AbilityType[] CheckRelicAbilitiesData(ItemSO itemDt) {
             var abilities = new AbilityType[0];
+
             if(itemDt.Type == Enum.ItemType.Relic) {
                 //* 配列のIndex数
                 int len = (int)itemDt.Grade - 1;
                 Debug.Log($"CheckRelicAbilitiesData():: Relic Grade= {itemDt.Grade}, len= {len}");
                 abilities = new AbilityType[len];
 
+                //* ランダム能力
                 for(int j = 0; j < abilities.Length; j++) {
                     int start = (int)AbilityType.Critical; //* RelicでAttack、Speed、Rangeは対応しない！
                     int end = Util.GetSize_AbilityType();
                     int randIdx = Random.Range(start, end);
+
                     AbilityType[] abilityTypeArr = Util.GetEnumArray_AbilityType();
                     abilities[j] = abilityTypeArr[randIdx];
                     Debug.Log($"CheckRelicAbilitiesData():: RELIC:: abilities[{j}]= {abilities[j]}");
