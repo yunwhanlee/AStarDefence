@@ -516,7 +516,7 @@ public class GameUIManager : MonoBehaviour {
     }
     private void GoHome() {
         Time.timeScale = Config.GAMESPEED_NORMAL;
-        DM._.Save(); //* Victoryでもらったリワードを保存 (ホームに戻ったら、データをロードするから、この前にリワードと変わったデータを保存する必要がある)
+        DM._.Save("GoHome"); //* Victoryでもらったリワードを保存 (ホームに戻ったら、データをロードするから、この前にリワードと変わったデータを保存する必要がある)
         SceneManager.LoadScene(Enum.Scene.Home.ToString());
     }
     private void Retry() {

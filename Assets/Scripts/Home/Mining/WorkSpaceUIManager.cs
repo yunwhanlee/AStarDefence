@@ -45,6 +45,9 @@ public class WorkSpaceUIManager : MonoBehaviour {
     [field: SerializeField] public OreSpot OreSpot;
 
     void Start() {
+        //* 過ぎた時間を計算し、DB.PassSecを最新化
+        Util.SetPassedSecData();
+
         //* 読みこんだデータで、退屈のWorkSpaceたちを最新化
         UpdateSpotAndUI();
 

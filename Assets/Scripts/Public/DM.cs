@@ -481,7 +481,7 @@ public class DM : MonoBehaviour {
     public static DM _ {get; private set;}
     const string DB_KEY = "DB";
     const string INV_DATA_KEY = "INVENTORY";
-    const string PASSEDTIME_KEY = "PASSED_TIME";
+    public string PASSEDTIME_KEY = "PASSED_TIME";
     const string DAY_KEY = "DAY";
     const int ALL_INV_CNT = 42;
     [field: SerializeField] public bool IsDebugMode {get; set;}
@@ -717,7 +717,7 @@ public class DM : MonoBehaviour {
 
         Debug.Log("<color=yellow>QUIT APP(PC)::OnApplicationQuit():: SAVE</color>");
         DB.LastDateTicks = DateTime.UtcNow.Ticks; //* 終了した日にち時間データをTicks(longタイプ)で保存
-        Save();
+        Save("DM");
     }
 #elif UNITY_ANDROID
     public void OnApplicationPause(bool paused){
@@ -734,14 +734,17 @@ public class DM : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
 #region SAVE
 /// -----------------------------------------------------------------------------------------------------------------
-    public void Save() {
+    public void Save(string status) {
         if(DB == null) return;
-
-        //* 経過時間 保存
-        // 현재 시간을 UTC 기준으로 가져와서 1970년 1월 1일 0시 0분 0초와의 시간 차이를 구합니다.
-        TimeSpan timestamp = DateTime.UtcNow - new DateTime(1970,1,1,0,0,0);
-        // 시간 차이를 정수형으로 변환하여 PlayerPrefs에 저장합니다.
-        PlayerPrefs.SetInt(PASSEDTIME_KEY, (int)timestamp.TotalSeconds);
+    
+        //* 현재시간을 저장 → DM.PassedSec
+        //! 게임시작시에 이미 Save를 통해 현재시간을 최신화함으로, 홈으로 돌아왔을때 최신화하는 것은 제외
+        if(status != "GoHome") {
+            // 현재 시간을 UTC 기준으로 가져와서 1970년 1월 1일 0시 0분 0초와의 시간 차이를 구합니다.
+            TimeSpan curTimeStamp = DateTime.UtcNow - new DateTime(1970,1,1,0,0,0);
+            // 시간 차이를 정수형으로 변환하여 PlayerPrefs에 저장합니다.
+            PlayerPrefs.SetInt(PASSEDTIME_KEY, (int)curTimeStamp.TotalSeconds);
+        }
 
         //* InventorySOデータ配列 → 保存するリストに変換して保存
         DB.InvItemDBList = HM._.ivCtrl.InventoryData.InvArr.ToList();
@@ -768,19 +771,15 @@ public class DM : MonoBehaviour {
         PlayerPrefs.SetString(DB_KEY, json);
 
         //* Print
-        Debug.Log($"★SAVE:: The Key: {DB_KEY} Exists? {PlayerPrefs.HasKey(DB_KEY)}, Data ={json}");
+        Debug.Log($"★SAVE({status}):: The Key: {DB_KEY} Exists? {PlayerPrefs.HasKey(DB_KEY)}, Data ={json}");
     }
 #endregion
 /// -----------------------------------------------------------------------------------------------------------------
 #region LOAD
 /// -----------------------------------------------------------------------------------------------------------------
     public DB Load() {
-        //* 経過時間 ロード
-        // 현재 시간을 UTC 기준으로 가져와서 1970년 1월 1일 0시 0분 0초와의 시간 차이를 구합니다.
-        TimeSpan timestamp = DateTime.UtcNow - new DateTime(1970,1,1,0,0,0);
-        // 앱을 최초로 시작했을 때와의 시간 차이를 계산하여 PassedSec에 저장합니다.
-        int past = PlayerPrefs.GetInt(PASSEDTIME_KEY, defaultValue: (int)timestamp.TotalSeconds);
-        PassedSec = (int)timestamp.TotalSeconds - past;
+        //* 経過時間 ロード => HMから行うので、ここはコメント
+        // Util.CalcPassedTimeSec();
 
         //* Prefabキーがない
         if(!PlayerPrefs.HasKey(DB_KEY)){

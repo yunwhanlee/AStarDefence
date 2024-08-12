@@ -170,7 +170,7 @@ public class SettingManager : MonoBehaviour {
             #if UNITY_EDITOR
                 EditorApplication.isPlaying = false;
                 DM._.DB.LastDateTicks = DateTime.UtcNow.Ticks; //* 終了した日にち時間データをTicks(longタイプ)で保存
-                DM._.Save();
+                DM._.Save("OnClickAppClose");
             #else
                 Application.Quit();
                 DM._.DB.LastDateTicks = DateTime.UtcNow.Ticks; //* 終了した日にち時間データをTicks(longタイプ)で保存

@@ -224,7 +224,7 @@ public class StageUIManager : MonoBehaviour {
         HM._.ivCtrl.CheckActiveClover();
 
         //* ホーム ➡ ゲームシーン移動の時、インベントリのデータを保存
-        DM._.Save();
+        DM._.Save("OnClickGoblinDungeonEnterBtn");
 
         SM._.SfxPlay(SM.SFX.StageSelectSFX);
 
@@ -292,7 +292,7 @@ public class StageUIManager : MonoBehaviour {
 
     public void PlayGame() {
         //* ホーム ➡ ゲームシーン移動の時、インベントリのデータを保存
-        DM._.Save();
+        DM._.Save("PlayGame");
         SM._.SfxPlay(SM.SFX.StageSelectSFX);
         DM._.SelectedStageNum = 0;
 
@@ -444,7 +444,7 @@ public class StageUIManager : MonoBehaviour {
         }
 
         //* ホーム ➡ ゲームシーン移動の時、インベントリのデータを保存
-        DM._.Save();
+        DM._.Save("OnClickPlayBtn");
 
         //* ➡ ゲームシーンロード
         SceneManager.LoadScene(Enum.Scene.Game.ToString());

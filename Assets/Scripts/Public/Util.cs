@@ -61,6 +61,21 @@ public class Util : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 過ぎた時間を習得
+    /// </summary>
+    /// <returns>過ぎた時間SEC</returns>
+    public static void SetPassedSecData() {
+        // 현재 시간을 UTC 기준으로 가져와서 1970년 1월 1일 0시 0분 0초와의 시간 차이를 구합니다.
+        TimeSpan curTimeStamp = DateTime.UtcNow - new DateTime(1970,1,1,0,0,0);
+
+        // 이전 Save에서 저장된 시간
+        int savedPastTime = PlayerPrefs.GetInt(DM._.PASSEDTIME_KEY, defaultValue: (int)curTimeStamp.TotalSeconds);
+
+        // 현재시간과 이전 저장된 시간차를 통해, 경과한 시간 획득
+        DM._.PassedSec = (int)curTimeStamp.TotalSeconds - savedPastTime;
+    }
+
     public static string ConvertTimeFormat(int timeSec) {
         int sec = timeSec % 60;
         int min = timeSec / 60;
