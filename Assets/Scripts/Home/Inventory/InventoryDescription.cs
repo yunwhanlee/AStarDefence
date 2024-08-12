@@ -153,8 +153,8 @@ namespace Inventory.UI {
             HM._.ivEqu.EquipItem(type, HM._.ivEqu.FindEquipInvItem(type), isEffect: false);
             HM._.ivEqu.UpdateAllEquipAbilityData();
 
-            //* イベントリーUI アップデート
-            // HM._.ivCtrl.InventoryData.InformAboutChange();
+            // インベントリーUIスロット 最新化
+            HM._.ivCtrl.OnInventoryUIUpdated?.Invoke();
 
             //* 情報表示ポップアップUI アップデート
             HM._.ivm.UpdateDescription(ivm.CurItemIdx, ivm.CurInvItem.Data, ivm.CurInvItem.Quantity, ivm.CurInvItem.Lv, ivm.CurInvItem.RelicAbilities, ivm.CurInvItem.IsEquip);
