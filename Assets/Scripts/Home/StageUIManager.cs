@@ -273,10 +273,10 @@ public class StageUIManager : MonoBehaviour {
         DM._.SelectedStage = Config.Stage.STG_INFINITE_DUNGEON;
 
         if(DM._.DB.InfiniteTileMapSaveDt.IsSaved) {
-            HM._.hui.ShowAgainAskMsg($"게임을 이어서 하시겠습니까?\n<size=90%>(현재 층 : {DM._.DB.InfiniteTileMapSaveDt.Wave})</size>", isActiveNoBtn: true, "처음부터");
+            HM._.hui.ShowAgainAskMsg($"게임을 이어서 하시겠습니까?\n<size=90%>(현재 층 : {DM._.DB.InfiniteTileMapSaveDt.InfiniteDungeonFloor + 1}, 웨이브 : {DM._.DB.InfiniteTileMapSaveDt.Wave})</size>", isActiveNoBtn: true, "처음부터");
             //* YES (CONTINUE)
             HM._.hui.OnClickAskConfirmAction = () => {
-                DM._.DB.InfiniteTileMapSaveDt.LoadStageValDt();
+                DM._.DB.InfiniteTileMapSaveDt.LoadStageValDt(isInfiniteDungeon: true);
                 PlayGame();
             };
             //* NO (NEW START)

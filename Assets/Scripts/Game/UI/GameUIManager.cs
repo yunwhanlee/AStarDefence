@@ -311,6 +311,13 @@ public class GameUIManager : MonoBehaviour {
                 DM._.DB.InfiniteTileMapSaveDt.SaveDt(isInfiniteDungeon: true);
                 GoHome();
             };
+            OnClickAskCloseAction = () => {
+                Debug.Log("OnClickAskCloseAction()::");
+                SM._.SfxPlay(SM.SFX.ClickSFX);
+                Play();
+                AgainAskPopUp.SetActive(false);
+                PausePopUp.SetActive(false);
+            };
         }
         else if(GM._.Stage == Config.Stage.STG_GOBLIN_DUNGEON) {
             GoHome();

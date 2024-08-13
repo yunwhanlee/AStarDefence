@@ -42,6 +42,7 @@ public class TileMapSaveDt {
 
     [field:SerializeField] public int Stage {get; set;}
     [field:SerializeField] public Enum.StageNum StageNum {get; set;}
+    [field:SerializeField] public int InfiniteDungeonFloor {get; set;}
     [field:SerializeField] public int Wave {get; set;}
 
     [field:SerializeField] public int MaxLife {get; set;}
@@ -73,6 +74,7 @@ public class TileMapSaveDt {
         IsRevived = false;
         Stage = 0;
         StageNum = 0;
+        InfiniteDungeonFloor = 0;
         Wave = 1;
 
         MaxLife = 10;
@@ -104,6 +106,7 @@ public class TileMapSaveDt {
         IsRevived = GM._.IsRevived;
         Stage = GM._.Stage;
         StageNum = GM._.StageNum;
+        if(isInfiniteDungeon) InfiniteDungeonFloor = DM._.DB.InfiniteUpgradeDB.CurInfiniteFloor;
         Wave = Mathf.Max(0, GM._.WaveCnt + (GM._.gui.previousState == GameState.Play? -1 : 0));
         MaxLife = GM._.MaxLife;
         Life = GM._.Life;
@@ -192,9 +195,11 @@ public class TileMapSaveDt {
     /// <summary>
     /// 続くステージのデータのStageとStageNumを読込み、ゲームスタート前に、グロバールDBから最新化
     /// </summary>
-    public void LoadStageValDt() {
+    public void LoadStageValDt(bool isInfiniteDungeon = false) {
         DM._.SelectedStage = Stage;
         DM._.SelectedStageNum = StageNum;
+        if(isInfiniteDungeon)
+            DM._.DB.InfiniteUpgradeDB.CurInfiniteFloor = InfiniteDungeonFloor;
     }
 
     public void LoadDt() {
