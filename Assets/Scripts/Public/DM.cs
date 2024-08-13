@@ -381,9 +381,11 @@ public class InfiniteUpgradeDB {
     public float GetExtraCritDmgPercent() => CritDmgUpgLv * CritDmgUpgUnit; // -> Warrior, Archer, Magician Tower
     public float GetExtraBossDmgPercent() => BossDmgUpgLv * BossDmgUpgUnit; // -> Enemy
 
-    public void UpdateBestScore(int curInfiniteFloor) {
+    public void UpdateBestScore(int curInfiniteIdx) {
+        int curInfiniteFloor = curInfiniteIdx + 1;
+        Debug.Log($"UpdateBestScore():: curInfiniteFloor({curInfiniteFloor}) > MyBestInfiniteFloor({MyBestInfiniteFloor})");
         if(curInfiniteFloor > MyBestInfiniteFloor) {
-            MyBestInfiniteFloor = curInfiniteFloor + 1;
+            MyBestInfiniteFloor = curInfiniteFloor;
             GM._.gui.ShowMsgNotice("축하합니다. 최고기록 달성!", 240);
             GPGSManager._.UpdateCrackDungeonBestWaveToLeaderBoard();
         }
@@ -722,7 +724,7 @@ public class DM : MonoBehaviour {
         //* ゲームが開くとき（paused == true）にも起動されるので注意が必要。
         if(paused == true) {
             DB.LastDateTicks = DateTime.UtcNow.Ticks; //* 終了した日にち時間データをTicks(longタイプ)で保存
-            Save();
+            Save("DM");
         }
     }
 #endif

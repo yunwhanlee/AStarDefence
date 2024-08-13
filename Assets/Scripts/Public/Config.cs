@@ -74,7 +74,7 @@ public static class Config {
     public const float USER_LV_EXTRA_DMG_PER = 0.04f;
 
     public class Stage {
-        public const int INFINITE_DEF_WAVE = 24;
+        public const int INFINITE_DEF_WAVE = 16;
         public const int INFINITE_WAVEUP_DIVIDE = 3;
         public const int INFINITE_RWD_EXP_INC_VAL = 5;
         public const float INFINITE_RWD_FAME_INC_VAL = 0.5f;
@@ -91,7 +91,11 @@ public static class Config {
             return 1 + Mathf.FloorToInt(floorVal * INFINITE_RWD_FAME_INC_VAL);
         }
         public static int GetInfiniteRwdCrackVal(int floorVal) {
-            return 2 + Mathf.FloorToInt(floorVal * INFINITE_RWD_FAME_CRACK_VAL);
+            floorVal += 2;
+            int step = (floorVal - 1) / INFINITE_WAVEUP_DIVIDE + 1;
+            int groupStart = 1 + (step - 1) * INFINITE_WAVEUP_DIVIDE * step / 2;
+            float minusBalancePer = 1 - 0.04f * floorVal / INFINITE_WAVEUP_DIVIDE;
+            return Mathf.RoundToInt((groupStart + (floorVal - 1) % INFINITE_WAVEUP_DIVIDE * step) * minusBalancePer);
         }
 
         public const int WAVE_CYCLE = 8;
