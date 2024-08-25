@@ -69,6 +69,17 @@ namespace Inventory
             ivm.OnDescriptionRequested += HandleDescriptionRequest;
         }
 
+        private void HandleDescriptionRequest(int itemIdx) {
+            InventoryItem invItem = InventoryData.GetItemAt(itemIdx);
+            if(invItem.IsEmpty) {
+                ivm.ResetSelection();
+                return;
+            }
+
+            ItemSO item = invItem.Data;
+            ivm.UpdateDescription(itemIdx, item, invItem.Quantity, invItem.Lv, invItem.RelicAbilities, invItem.IsEquip);
+        }
+
         private void PrepareInventoryData() {
             // DBに保存したインベントリーデータ 設定
             InventoryData.LoadInvData();
@@ -87,15 +98,7 @@ namespace Inventory
                 ivm.UpdateUI(i, HM._.ivCtrl.InventoryData.InvArr[i]);
         }
 
-        private void HandleDescriptionRequest(int itemIdx) {
-            InventoryItem invItem = InventoryData.GetItemAt(itemIdx);
-            if(invItem.IsEmpty) {
-                ivm.ResetSelection();
-                return;
-            }
-            ItemSO item = invItem.Data;
-            ivm.UpdateDescription(itemIdx, item, invItem.Quantity, invItem.Lv, invItem.RelicAbilities, invItem.IsEquip);
-        }
+
 
         public void ShowInventory() {
             HM._.hui.IsActivePopUp = true;

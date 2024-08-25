@@ -116,9 +116,9 @@ public class HomeUIManager : MonoBehaviour {
         //* クロバー活性化
         if(findIndex != -1) {
             HM._.ivm.ConsumePopUp.SetActive(true);
-            InventoryItem invItem = invDt.GetItemAt(findIndex);
-            ItemSO item = invItem.Data;
-            HM._.ivm.UpdateDescription(findIndex, item, invItem.Quantity, invItem.Lv, invItem.RelicAbilities, invItem.IsEquip);
+            // InventoryItem invItem = invDt.GetItemAt(findIndex);
+            // ItemSO item = invItem.Data;
+            HM._.ivm.OnDescriptionRequested?.Invoke(findIndex); // HM._.ivm.UpdateDescription(findIndex, item, invItem.Quantity, invItem.Lv, invItem.RelicAbilities, invItem.IsEquip);
         }
         else {
             ShowAgainAskMsg("클로버가 없습니다.\n일반 및 황금상자에서 획득합니다.\n<color=blue>상점으로 이동하시겠습니까?");
@@ -138,9 +138,9 @@ public class HomeUIManager : MonoBehaviour {
         //* クロバー活性化
         if(findIndex != -1) {
             HM._.ivm.ConsumePopUp.SetActive(true);
-            InventoryItem invItem = invDt.GetItemAt(findIndex);
-            ItemSO item = invItem.Data;
-            HM._.ivm.UpdateDescription(findIndex, item, invItem.Quantity, invItem.Lv, invItem.RelicAbilities, invItem.IsEquip);
+            // InventoryItem invItem = invDt.GetItemAt(findIndex);
+            // ItemSO item = invItem.Data;
+            HM._.ivm.OnDescriptionRequested?.Invoke(findIndex); // HM._.ivm.UpdateDescription(findIndex, item, invItem.Quantity, invItem.Lv, invItem.RelicAbilities, invItem.IsEquip);
         }
         else {
             ShowAgainAskMsg("골드클로버가 없습니다.\n일반 및 황금상자에서 획득합니다.\n<color=blue>상점으로 이동하시겠습니까?");

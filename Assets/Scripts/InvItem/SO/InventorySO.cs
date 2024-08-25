@@ -172,10 +172,12 @@ namespace Inventory.Model
                         Debug.Log($"UpgradeEquipItem({InvArr[i].Data.ID} == {curItem.ID}):: lv= {lv}");
                         //* 増えたVal値を最新化
                         InvArr[i] = InvArr[i].ChangeLevel(lv);
-                        // //* イベントリーUI アップデート
-                        // InformAboutChange();
-                        // //* 情報表示ポップアップUI アップデート
-                        // HM._.ivm.UpdateDescription(HM._.ivm.CurItemIdx, item, quantity, lv, abilities, isEquip);
+
+                        //* インベントリーUIスロット 最新化
+                        //// HM._.ivCtrl.OnInventoryUIUpdated?.Invoke();
+
+                        //* 情報表示ポップアップUI アップデート
+                        //// HM._.ivm.UpdateDescription( HM._.ivm.CurItemIdx, curItem, quantity, lv, abilities, isEquip );
                         return;
                     }
                 }

@@ -110,6 +110,7 @@ namespace Inventory.UI {
                 HM._.hui.ShowMsgError("코인이 부족합니다.");
                 return false;
             }
+
             //* アップグレード試す
             int randPer = Random.Range(0, 100);
             HM._.Coin -= priceDts[lvIdx];
@@ -136,7 +137,7 @@ namespace Inventory.UI {
             if(!TryUpgrade())
                 return;
 
-            //* アップグレードデータ 最新化
+            //* アップグレード
             HM._.ivCtrl.InventoryData.UpgradeEquipItem (
                 ivm.CurInvItem.Data,
                 ivm.CurInvItem.Quantity,
@@ -153,12 +154,13 @@ namespace Inventory.UI {
             HM._.ivEqu.EquipItem(type, HM._.ivEqu.FindEquipInvItem(type), isEffect: false);
             HM._.ivEqu.UpdateAllEquipAbilityData();
 
-            // インベントリーUIスロット 最新化
+            //* インベントリーUIスロット 最新化
             HM._.ivCtrl.OnInventoryUIUpdated?.Invoke();
 
             //* 情報表示ポップアップUI アップデート
-            HM._.ivm.UpdateDescription(ivm.CurItemIdx, ivm.CurInvItem.Data, ivm.CurInvItem.Quantity, ivm.CurInvItem.Lv, ivm.CurInvItem.RelicAbilities, ivm.CurInvItem.IsEquip);
+            HM._.ivm.OnDescriptionRequested?.Invoke(ivm.CurItemIdx); // HM._.ivm.UpdateDescription(ivm.CurItemIdx, ivm.CurInvItem.Data, ivm.CurInvItem.Quantity, ivm.CurInvItem.Lv, ivm.CurInvItem.RelicAbilities, ivm.CurInvItem.IsEquip);
         }
+
         public void OnClickUpgradeValueNoticeToggle() {
             Debug.Log($"OnClickUpgradeValueNoticeToggle():: IsUpgradeValToogleActive= {IsUpgradeValToogle}");
             SM._.SfxPlay(SM.SFX.ClickSFX);
@@ -211,7 +213,7 @@ namespace Inventory.UI {
 
             string[] againAskMsgs = {
                 $"소울스톤을 사용하여 잠재능력을\n{potentialStatusWord}하시겠습니까?",
-                "매직스톤을 사용하여 유물능력을\n변경하시겠습니까?"
+                $"매직스톤을 사용하여 유물능력을\n변경하시겠습니까?"
             };
 
             //* ストーンアイテムが有るか 確認
@@ -225,6 +227,7 @@ namespace Inventory.UI {
                         //* インベントリデータから、残る量を減る
                         int invItemIdx = Array.FindIndex (HM._.ivCtrl.InventoryData.InvArr, itemDt
                             => !itemDt.IsEmpty && itemDt.Data.name == stoneItemEnumList[idx].ToString());
+
                         HM._.ivCtrl.InventoryData.DecreaseItem(invItemIdx, -1);
 
                         //* Potential Ability 解放
@@ -235,6 +238,7 @@ namespace Inventory.UI {
                         //* インベントリデータから、残る量を減る
                         int invItemIdx = Array.FindIndex (HM._.ivCtrl.InventoryData.InvArr, itemDt
                             => !itemDt.IsEmpty && itemDt.Data.name == stoneItemEnumList[idx].ToString());
+
                         HM._.ivCtrl.InventoryData.DecreaseItem(invItemIdx, -1);
 
                         //* リセット RELIC 能力
@@ -254,11 +258,11 @@ namespace Inventory.UI {
             //* 新しいRelic能力を一つランダム選択
             InventoryItem curInvItem = HM._.ivCtrl.OpenCurrentEquipPotentialAbility();
 
-            //* イベントリーUI アップデート
-            // HM._.ivCtrl.InventoryData.InformAboutChange();
+            // インベントリーUIスロット 最新化
+            // HM._.ivCtrl.OnInventoryUIUpdated?.Invoke();
 
             //* 情報表示ポップアップUI アップデート
-            HM._.ivm.UpdateDescription(curIdx, curInvItem.Data, curInvItem.Quantity, curInvItem.Lv, curInvItem.RelicAbilities, curInvItem.IsEquip);
+            HM._.ivm.OnDescriptionRequested?.Invoke(ivm.CurItemIdx); //HM._.ivm.UpdateDescription(curIdx, curInvItem.Data, curInvItem.Quantity, curInvItem.Lv, curInvItem.RelicAbilities, curInvItem.IsEquip);
         }
 
         private void ResetCurrentRelicAbilities() {
@@ -267,14 +271,14 @@ namespace Inventory.UI {
             HM._.hui.ShowMsgNotice("능력 재설정 완료!", y: 170);
             MagicStoneSpawnUIEF.Play();
 
-            //* リセット
+            //* リセット RANDOM Abilities
             InventoryItem curInvItem = HM._.ivCtrl.ResetCurrentRelicAbilities();
 
-            //* イベントリーUI アップデート
-            // HM._.ivCtrl.InventoryData.InformAboutChange();
+            // インベントリーUIスロット 最新化
+            HM._.ivCtrl.OnInventoryUIUpdated?.Invoke();
 
             //* 情報表示ポップアップUI アップデート
-            HM._.ivm.UpdateDescription(curIdx, curInvItem.Data, curInvItem.Quantity, curInvItem.Lv, curInvItem.RelicAbilities, curInvItem.IsEquip);
+            HM._.ivm.OnDescriptionRequested?.Invoke(curIdx); //HM._.ivm.UpdateDescription(curIdx, curInvItem.Data, curInvItem.Quantity, curInvItem.Lv, curInvItem.RelicAbilities, curInvItem.IsEquip);
         }
 #endregion
 
@@ -331,7 +335,7 @@ namespace Inventory.UI {
 
                 //* 情報表示ポップアップUI アップデート
                 if(ivm.CurInvItem.Data)
-                    HM._.ivm.UpdateDescription(ivm.CurItemIdx, ivm.CurInvItem.Data, ivm.CurInvItem.Quantity, ivm.CurInvItem.Lv, ivm.CurInvItem.RelicAbilities, ivm.CurInvItem.IsEquip);
+                    HM._.ivm.OnDescriptionRequested?.Invoke(ivm.CurItemIdx); // HM._.ivm.UpdateDescription(ivm.CurItemIdx, ivm.CurInvItem.Data, ivm.CurInvItem.Quantity, ivm.CurInvItem.Lv, ivm.CurInvItem.RelicAbilities, ivm.CurInvItem.IsEquip);
             };
         }
 
@@ -340,9 +344,7 @@ namespace Inventory.UI {
             var hui = HM._.hui;
             var db = DM._.DB;
             var rwlm = HM._.rwlm;
-            
             int lvIdx = lv - 1;
-
 
             //* その他 アイテム
             if(item.Type == Enum.ItemType.Etc) {
@@ -428,7 +430,6 @@ namespace Inventory.UI {
                 StarTxt.text = Util.DrawEquipItemStarTxt(lv);
                 GradeTxt.text = Enum.GetGradeName(item.Grade);
                 GradeTxt.color = HM._.ivm.GradeClrs[(int)item.Grade];
-
 
                 //* 能力メッセージ 初期化
                 string resMsg = "";

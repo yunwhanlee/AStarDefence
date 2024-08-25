@@ -43,7 +43,7 @@ namespace Inventory.UI {
         [field:SerializeField] public InventoryUIItem ItemPf {get; private set;}
 
         //* Actionで使えるint ➝ Index
-        public event Action<int> OnDescriptionRequested;
+        public Action<int> OnDescriptionRequested;
 
         void Awake() {
             CurCateIdx = -1;
@@ -298,8 +298,14 @@ namespace Inventory.UI {
 
         public void UpdateDescription(int itemIdx, ItemSO item, int quantity, int lv, AbilityType[] relicAbilities, bool isEquip) {
             Debug.Log($"UpdateDescription():: itemIdx= {itemIdx}, item.Name= {item.Name}, quantity= {quantity}");
+
+            for(int i = 0; i < relicAbilities.Length; i++)
+                Debug.Log($"UpdateDescription():: relicAbilities[{i}]= {relicAbilities[i]}");
+
             InvDesc.SetDescription(item, quantity, lv, relicAbilities, isEquip);
+
             DeselectAllSlot();
+
             InvUIItemArr[itemIdx].Select();
         }
 
